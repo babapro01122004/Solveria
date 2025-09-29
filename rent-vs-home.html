@@ -6,7 +6,7 @@
     <title>Rent vs Buy Calculator</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
 
     <style>
@@ -25,7 +25,6 @@
         }
 
         .hero-section {
-            width: 100vw;
             height: 100vh;
             background-image: url('Home_RBC.jpg');
             background-size: cover;
@@ -429,7 +428,6 @@
             margin-top: 20px;
         }
 
-        /* --- TOOLTIP STYLES --- */
         .chart-tooltip {
             opacity: 0;
             position: absolute;
@@ -474,9 +472,7 @@
             text-align: right;
             flex-grow: 1;
         }
-        /* --- END TOOLTIP STYLES --- */
 
-        /* --- RESPONSIVE STYLES --- */
         @media (max-width: 1100px) {
              .calculator-content-wrapper {
                 flex-direction: column;
@@ -526,43 +522,6 @@
             }
         }
 
-        /* --- FOOTER STYLES --- */
-        footer {
-            /* Full viewport width and centering */
-            width: 100vw; 
-            position: relative; 
-            left: 50%;
-            transform: translateX(-50%);
-            
-            /* ADJUSTMENT: Set padding-top to create separation from content above, 
-               and padding-bottom to extend the beige area to the bottom. */
-            padding: 40px 20px 40px; 
-            background: linear-gradient(to top, #eae5df, transparent);
-            text-align: center;
-        }
-        
-        footer nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        footer nav a {
-            color: #727272;
-            text-decoration: none;
-            font-weight: 300;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        footer nav a:hover {
-            color: #000000;
-        }
-
         .intro-snippet-wrapper {
             margin: 80px 0 60px 0;
             padding-left: 4px;
@@ -578,12 +537,15 @@
         }
 
         .seo-content-section {
-            /* ADJUSTMENT: Remove margin-bottom to make the footer stick right below the content */
-            margin-top: 100px;
-            padding-top: 60px;
-            /* Remove the incorrect margin-bottom from the previous attempt */
+            background-color: #f4f4f4;
+            margin-top: 0;
+            /* ADJUSTMENT: Set padding-top to 40px */
+            padding-top: 40px;
             margin-bottom: 0;
+            position: relative;
+            z-index: 2;
         }
+        
         .seo-content-section h2 {
             font-size: clamp(2rem, 4vw, 2.8rem);
             font-weight: 100;
@@ -641,6 +603,138 @@
             line-height: 1.8;
             font-size: 1.05rem;
         }
+
+        .page-wrapper {
+            background-color: #f4f4f4;
+            padding-bottom: 150px;
+        }
+
+        footer {
+            height: 150px;
+            margin-top: -150px;
+            position: relative;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to top, #eae5df 30%, transparent 100%);
+        }
+        
+        footer nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        footer nav a {
+            color: #727272;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        footer nav a:hover {
+            color: #000000;
+        }
+
+        .related-tools {
+            margin-top: 50px;
+        }
+        .related-tools-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #444;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 30px;
+        }
+        .tool-link-block {
+            margin-bottom: 25px;
+        }
+        .tool-link-block a {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .tool-link-block a:hover {
+            color: #000;
+        }
+        .tool-subtitle {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 6px;
+            position: relative;
+            height: 1.2em; /* Prevent layout shift */
+        }
+        .tool-subtitle span {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .tool-subtitle span.visible {
+            opacity: 1;
+        }
+
+        .more-tools-section {
+            /* ADJUSTMENT: Aligned and tightened spacing */
+            padding: 80px 0 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid #e0e0e0;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        .tools-column h4 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .tools-column ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .tools-column li {
+            margin-bottom: 15px;
+        }
+        .tools-column a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .tools-column a:hover {
+            color: #000;
+        }
+        @media (max-width: 1000px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px 40px;
+            }
+        }
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
     </style>
 
     <script type="application/ld+json">
@@ -662,7 +756,7 @@
           "@id": "https://www.example.com/#organization",
           "name": "Your Company Name",
           "url": "https://www.example.com/",
-          "logo": "https://www.example.com/Logo.png"
+          "logo": "https://www.example.com/logo.png"
         },
         {
           "@type": "BreadcrumbList",
@@ -702,205 +796,267 @@
 </head>
 <body>
 
-    <div class="hero-section">
-        <img src="logo.png" alt="Company Logo" class="logo">
-        <nav class="top-nav">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Other Finance Calculators</a></li>
-            </ul>
-        </nav>
-        <h1>Rent vs Buy a Home</h1>
-        <div class="hero-subtitle">
-            <span class="visible">See beyond the lease.</span>
-            <span>Every number tells a story.</span>
-            <span>Calculate the cost of staying vs moving.</span>
-            <span>Compare lifestyles, not just price tags.</span>
-        </div>
-        <div id="scroll-prompt">
-            <img src="Arrow.png" alt="Scroll down" id="scroll-prompt-arrow">
-            <span id="scroll-prompt-text"></span>
-        </div>
-    </div>
+    <div class="page-wrapper">
 
-    <div class="calculator-section" id="main-content">
-        <nav class="breadcrumb">
-            <a href="#">Home</a>
-            <span>/</span>
-            <a href="#">Finance</a>
-            <span>/</span>
-            <a href="#">Rent vs Buy a Home</a>
-        </nav>
-
-        <div class="intro-snippet-wrapper">
-            <h2 class="main-title">What is a Rent vs. Buy Calculator?</h2>
-            <p class="intro-snippet-text">A Rent vs. Buy Calculator is a financial tool designed to help you compare the long-term costs and benefits of purchasing a home versus renting one. It analyzes dozens of factors—like your down payment, interest rates, property taxes, rent increases, and potential investment returns—to determine the "break-even point" where buying becomes more financially advantageous than renting.</p>
+        <div class="hero-section">
+            <img src="logo.png" alt="Company Logo" class="logo">
+            <nav class="top-nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Other Finance Calculators</a></li>
+                </ul>
+            </nav>
+            <h1>Rent vs Buy a Home</h1>
+            <div class="hero-subtitle">
+                <span class="visible">See beyond the lease.</span>
+                <span>Every number tells a story.</span>
+                <span>Calculate the cost of staying vs moving.</span>
+                <span>Compare lifestyles, not just price tags.</span>
+            </div>
+            <div id="scroll-prompt">
+                <img src="Arrow.png" alt="Scroll down" id="scroll-prompt-arrow">
+                <span id="scroll-prompt-text"></span>
+            </div>
         </div>
-        
-        <div class="calculator-content-wrapper">
-            <div class="form-part">
-                <h2 class="main-title">Enter Your Details</h2>
-                <div class="form-container">
-                    <div class="form-column">
-                        <h3>Home Purchase</h3>
-                        <div class="input-group"><label for="home-price">Home price ($)</label><input type="number" id="home-price" value="400000" min="0"></div>
-                        <div class="input-group"><label for="down-payment">Down payment ($)</label><input type="number" id="down-payment" value="80000" min="0"></div>
-                        <div class="input-group"><label for="interest-rate">Interest rate (%)</label><input type="number" id="interest-rate" class="percentage" step="any" value="6.5" min="0" max="100"></div>
-                        <div class="input-group"><label for="loan-term">Loan term (Years)</label><input type="number" id="loan-term" value="30" min="0"></div>
-                        <div class="input-group"><label for="pmi-rate">Annual PMI rate (%)</label><input type="number" id="pmi-rate" class="percentage" step="any" value="0.5" min="0" max="100"></div>
-                        <div class="input-group"><label for="buying-costs">Buying closing costs ($)</label><input type="number" id="buying-costs" value="12000" min="0"></div>
-                        <div class="input-group"><label for="property-tax">Property tax (Annual, $)</label><input type="number" id="property-tax" value="4500" min="0"></div>
-                        <div class="input-group"><label for="tax-increase">Property tax increase (%)</label><input type="number" id="tax-increase" class="percentage" step="any" value="2" min="0" max="100"></div>
-                        <div class="input-group"><label for="home-insurance">Home insurance (Annual, $)</label><input type="number" id="home-insurance" value="1500" min="0"></div>
-                        <div class="input-group"><label for="hoa-fee">HOA fee (Annual, $)</label><input type="number" id="hoa-fee" value="0" min="0"></div>
-                        <div class="input-group"><label for="maintenance">Maintenance cost (Annual, $)</label><input type="number" id="maintenance" value="4000" min="0"></div>
-                        <div class="input-group"><label for="appreciation">Home value appreciation (%)</label><input type="number" id="appreciation" class="percentage" step="any" value="3.5" min="0" max="100"></div>
-                        <div class="input-group"><label for="cost-increase">Cost/insurance increase (%)</label><input type="number" id="cost-increase" class="percentage" step="any" value="2.5" min="0" max="100"></div>
-                        <div class="input-group"><label for="selling-costs">Selling closing costs (%)</label><input type="number" id="selling-costs" class="percentage" value="8" min="0" max="100"></div>
-                    </div>
-                    <div class="form-column">
-                        <h3>Home Rent</h3>
-                        <div class="input-group"><label for="rental-fee">Monthly rental fee ($)</label><input type="number" id="rental-fee" value="2000" min="0"></div>
-                        <div class="input-group"><label for="rental-increase">Rental fee increase (%)</label><input type="number" id="rental-increase" class="percentage" step="any" value="3" min="0" max="100"></div>
-                        <div class="input-group"><label for="renter-insurance">Renter's insurance (Annual, $)</label><input type="number" id="renter-insurance" value="180" min="0"></div>
-                        <div class="input-group"><label for="security-deposit">Security deposit ($)</label><input type="number" id="security-deposit" value="2000" min="0"></div>
-                        <div class="input-group"><label for="upfront-cost">Upfront cost ($)</label><input type="number" id="upfront-cost" value="0" min="0"></div>
 
-                        <h3>Your Information</h3>
-                        <div class="input-group"><label for="investment-return">Average investment return (%)</label><input type="number" id="investment-return" class="percentage" step="any" value="8" min="0" max="100"></div>
-                        <div class="input-group"><label for="fed-tax">Marginal federal tax rate (%)</label><input type="number" id="fed-tax" class="percentage" step="any" value="24" min="0" max="100"></div>
-                        <div class="input-group"><label for="state-tax">Marginal state tax rate (%)</label><input type="number" id="state-tax" class="percentage" step="any" value="5" min="0" max="100"></div>
-                        
-                        <div class="input-group">
-                            <label for="filing-status">Tax filing status</label>
-                            <div class="custom-select-container">
-                                <select id="filing-status" class="visually-hidden">
-                                    <option value="single">Single</option>
-                                    <option value="married">Married Filing Jointly</option>
-                                    <option value="married_separately">Married filing separately</option>
-                                    <option value="hoh">Head of household</option>
-                                    <option value="widow">Qualified widow</option>
-                                </select>
-                                <div class="select-trigger" tabindex="0">
-                                    <span>Single</span>
-                                    <div class="arrow"></div>
-                                </div>
-                                <div class="custom-options">
-                                    <div class="custom-option" data-value="single">Single</div>
-                                    <div class="custom-option" data-value="married">Married Filing Jointly</div>
-                                    <div class="custom-option" data-value="married_separately">Married filing separately</div>
-                                    <div class="custom-option" data-value="hoh">Head of household</div>
-                                    <div class="custom-option" data-value="widow">Qualified widow</div>
+        <div class="calculator-section" id="main-content">
+            <nav class="breadcrumb">
+                <a href="#">Home</a>
+                <span>/</span>
+                <a href="#">Finance</a>
+                <span>/</span>
+                <a href="#">Rent vs Buy a Home</a>
+            </nav>
+
+            <div class="intro-snippet-wrapper">
+                <h2 class="main-title">What is a Rent vs. Buy Calculator?</h2>
+                <p class="intro-snippet-text">A Rent vs. Buy Calculator is a financial tool designed to help you compare the long-term costs and benefits of purchasing a home versus renting one. It analyzes dozens of factors—like your down payment, interest rates, property taxes, rent increases, and potential investment returns—to determine the "break-even point" where buying becomes more financially advantageous than renting.</p>
+            </div>
+            
+            <div class="calculator-content-wrapper">
+                <div class="form-part">
+                    <h2 class="main-title">Enter Your Details</h2>
+                    <div class="form-container">
+                        <div class="form-column">
+                            <h3>Home Purchase</h3>
+                            <div class="input-group"><label for="home-price">Home price ($)</label><input type="number" id="home-price" value="400000" min="0"></div>
+                            <div class="input-group"><label for="down-payment">Down payment ($)</label><input type="number" id="down-payment" value="80000" min="0"></div>
+                            <div class="input-group"><label for="interest-rate">Interest rate (%)</label><input type="number" id="interest-rate" class="percentage" step="any" value="6.5" min="0" max="100"></div>
+                            <div class="input-group"><label for="loan-term">Loan term (Years)</label><input type="number" id="loan-term" value="30" min="0"></div>
+                            <div class="input-group"><label for="pmi-rate">Annual PMI rate (%)</label><input type="number" id="pmi-rate" class="percentage" step="any" value="0.5" min="0" max="100"></div>
+                            <div class="input-group"><label for="buying-costs">Buying closing costs ($)</label><input type="number" id="buying-costs" value="12000" min="0"></div>
+                            <div class="input-group"><label for="property-tax">Property tax (Annual, $)</label><input type="number" id="property-tax" value="4500" min="0"></div>
+                            <div class="input-group"><label for="tax-increase">Property tax increase (%)</label><input type="number" id="tax-increase" class="percentage" step="any" value="2" min="0" max="100"></div>
+                            <div class="input-group"><label for="home-insurance">Home insurance (Annual, $)</label><input type="number" id="home-insurance" value="1500" min="0"></div>
+                            <div class="input-group"><label for="hoa-fee">HOA fee (Annual, $)</label><input type="number" id="hoa-fee" value="0" min="0"></div>
+                            <div class="input-group"><label for="maintenance">Maintenance cost (Annual, $)</label><input type="number" id="maintenance" value="4000" min="0"></div>
+                            <div class="input-group"><label for="appreciation">Home value appreciation (%)</label><input type="number" id="appreciation" class="percentage" step="any" value="3.5" min="0" max="100"></div>
+                            <div class="input-group"><label for="cost-increase">Cost/insurance increase (%)</label><input type="number" id="cost-increase" class="percentage" step="any" value="2.5" min="0" max="100"></div>
+                            <div class="input-group"><label for="selling-costs">Selling closing costs (%)</label><input type="number" id="selling-costs" class="percentage" value="8" min="0" max="100"></div>
+                        </div>
+                        <div class="form-column">
+                            <h3>Home Rent</h3>
+                            <div class="input-group"><label for="rental-fee">Monthly rental fee ($)</label><input type="number" id="rental-fee" value="2000" min="0"></div>
+                            <div class="input-group"><label for="rental-increase">Rental fee increase (%)</label><input type="number" id="rental-increase" class="percentage" step="any" value="3" min="0" max="100"></div>
+                            <div class="input-group"><label for="renter-insurance">Renter's insurance (Annual, $)</label><input type="number" id="renter-insurance" value="180" min="0"></div>
+                            <div class="input-group"><label for="security-deposit">Security deposit ($)</label><input type="number" id="security-deposit" value="2000" min="0"></div>
+                            <div class="input-group"><label for="upfront-cost">Upfront cost ($)</label><input type="number" id="upfront-cost" value="0" min="0"></div>
+
+                            <h3>Your Information</h3>
+                            <div class="input-group"><label for="investment-return">Average investment return (%)</label><input type="number" id="investment-return" class="percentage" step="any" value="8" min="0" max="100"></div>
+                            <div class="input-group"><label for="fed-tax">Marginal federal tax rate (%)</label><input type="number" id="fed-tax" class="percentage" step="any" value="24" min="0" max="100"></div>
+                            <div class="input-group"><label for="state-tax">Marginal state tax rate (%)</label><input type="number" id="state-tax" class="percentage" step="any" value="5" min="0" max="100"></div>
+                            
+                            <div class="input-group">
+                                <label for="filing-status">Tax filing status</label>
+                                <div class="custom-select-container">
+                                    <select id="filing-status" class="visually-hidden">
+                                        <option value="single">Single</option>
+                                        <option value="married">Married Filing Jointly</option>
+                                        <option value="married_separately">Married filing separately</option>
+                                        <option value="hoh">Head of household</option>
+                                        <option value="widow">Qualified widow</option>
+                                    </select>
+                                    <div class="select-trigger" tabindex="0">
+                                        <span>Single</span>
+                                        <div class="arrow"></div>
+                                    </div>
+                                    <div class="custom-options">
+                                        <div class="custom-option" data-value="single">Single</div>
+                                        <div class="custom-option" data-value="married">Married Filing Jointly</div>
+                                        <div class="custom-option" data-value="married_separately">Married filing separately</div>
+                                        <div class="custom-option" data-value="hoh">Head of household</div>
+                                        <div class="custom-option" data-value="widow">Qualified widow</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="results-container" id="results-container">
+                    <h2 class="main-title">Your Results</h2>
+                    <div class="result-statement">
+                        <div class="result-bar" id="result-bar"></div>
+                        <div class="result-verdict" id="result-verdict"></div>
+                    </div>
+                    <h3 class="result-summary-title">Summary</h3>
+                    <p class="result-summary-text" id="result-summary-text"></p>
+                    
+                    <div class="related-tools">
+                        <h3 class="related-tools-title">Related Tools</h3>
+                        <div class="tool-link-block">
+                            <a href="#">Home Affordability Calculator</a>
+                            <div class="tool-subtitle">
+                                <span class="visible">Find out what you can truly afford.</span>
+                                <span>Plan your budget with confidence.</span>
+                            </div>
+                        </div>
+                        <div class="tool-link-block">
+                            <a href="#">Mortgage Calculator</a>
+                            <div class="tool-subtitle">
+                                <span>Estimate your monthly payments.</span>
+                                <span class="visible">See how interest rates affect your loan.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="breakdown-tables">
+                        <div class="scenario-breakdown">
+                            <h3>Buying Scenario</h3>
+                            <div class="breakdown-row"><span>Total Property Value</span><span id="buy-total-value"></span></div>
+                            <div class="breakdown-row"><span>Total Property Cost</span><span id="buy-total-cost"></span></div>
+                            <div class="breakdown-row total-benefit-row"><span>Total Property Benefit</span><span id="buy-total-benefit"></span></div>
+                            <h4 class="components-title">Components of Property Cost</h4>
+                            <div class="breakdown-row component-row"><span>Down Payment</span><span id="buy-down-payment"></span></div>
+                            <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="buy-initial-expenses"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Principal Paid</span><span id="buy-principal-paid"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Interest Paid</span><span id="buy-interest-paid"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Maintenance</span><span id="buy-maintenance-paid"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Property Tax</span><span id="buy-tax-paid"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Tax Savings</span><span id="buy-tax-savings"></span></div>
+                        </div>
+
+                        <div class="scenario-breakdown">
+                            <h3>Renting Scenario</h3>
+                            <div class="breakdown-row"><span>Total Investment Value</span><span id="rent-total-value"></span></div>
+                            <div class="breakdown-row"><span>Total Rental Cost</span><span id="rent-total-cost"></span></div>
+                            <div class="breakdown-row total-benefit-row"><span>Total Rental Benefit</span><span id="rent-total-benefit"></span></div>
+                            <h4 class="components-title">Components of Rental Cost</h4>
+                            <div class="breakdown-row component-row"><span>Security Deposit</span><span id="rent-security-deposit"></span></div>
+                            <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="rent-initial-expenses"></span></div>
+                            <div class="breakdown-row component-row"><span>Total Rent Paid</span><span id="rent-paid"></span></div>
+                            <div class="breakdown-row component-row"><span>Amount Invested</span><span id="rent-amount-invested"></span></div>
+                            <div class="breakdown-row component-row"><span>Investment Growth</span><span id="rent-investment-growth"></span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-breakdown">
+                        <h3>Monthly Payment Comparison</h3>
+                        <div class="chart-container">
+                            <canvas id="paymentsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="more-tools-section">
+                <h2 class="main-title">More Tools</h2>
+                <div class="tools-grid">
+                    <div class="tools-column">
+                        <h4>Financial Calculators</h4>
+                        <ul>
+                            <li><a href="#">Mortgage Calculator</a></li>
+                            <li><a href="#">Home Affordability Calculators</a></li>
+                            <li><a href="#">Refinance Calculator</a></li>
+                            <li><a href="#">Loan Calculator</a></li>
+                            <li><a href="#">Rent v/s Buy Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div class="tools-column">
+                        <h4>Life Insurance</h4>
+                        <ul>
+                            <li><a href="#">Life Insurance Calculator</a></li>
+                            <li><a href="#">Term v/s Whole Life Insurance Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div class="tools-column">
+                        <h4>Finance and Taxes</h4>
+                        <ul>
+                            <li><a href="#">Credit Card Payoff Calculators</a></li>
+                            <li><a href="#">Debt Snowball Calculator</a></li>
+                            <li><a href="#">APR v/s Interest Rate Calculator</a></li>
+                            <li><a href="#">Credit Card Utilization Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div class="tools-column">
+                        <h4>Real Estate Investment</h4>
+                        <ul>
+                            <li><a href="#">Cap Rate Calculator</a></li>
+                            <li><a href="#">ROI Calculator for Rental Property</a></li>
+                            <li><a href="#">Cash-on-Cash Return Calculator</a></li>
+                            <li><a href="#">Property Tax Calculator</a></li>
+                            <li><a href="#">Closing Costs Calculator</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="results-container" id="results-container">
-                <h2 class="main-title">Your Results</h2>
-                <div class="result-statement">
-                    <div class="result-bar" id="result-bar"></div>
-                    <div class="result-verdict" id="result-verdict"></div>
-                </div>
-                <h3 class="result-summary-title">Summary</h3>
-                <p class="result-summary-text" id="result-summary-text"></p>
-
-                <div id="breakdown-tables">
-                    <div class="scenario-breakdown">
-                        <h3>Buying Scenario</h3>
-                        <div class="breakdown-row"><span>Total Property Value</span><span id="buy-total-value"></span></div>
-                        <div class="breakdown-row"><span>Total Property Cost</span><span id="buy-total-cost"></span></div>
-                        <div class="breakdown-row total-benefit-row"><span>Total Property Benefit</span><span id="buy-total-benefit"></span></div>
-                        <h4 class="components-title">Components of Property Cost</h4>
-                        <div class="breakdown-row component-row"><span>Down Payment</span><span id="buy-down-payment"></span></div>
-                        <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="buy-initial-expenses"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Principal Paid</span><span id="buy-principal-paid"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Interest Paid</span><span id="buy-interest-paid"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Maintenance</span><span id="buy-maintenance-paid"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Property Tax</span><span id="buy-tax-paid"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Tax Savings</span><span id="buy-tax-savings"></span></div>
-                    </div>
-
-                    <div class="scenario-breakdown">
-                        <h3>Renting Scenario</h3>
-                        <div class="breakdown-row"><span>Total Investment Value</span><span id="rent-total-value"></span></div>
-                        <div class="breakdown-row"><span>Total Rental Cost</span><span id="rent-total-cost"></span></div>
-                        <div class="breakdown-row total-benefit-row"><span>Total Rental Benefit</span><span id="rent-total-benefit"></span></div>
-                        <h4 class="components-title">Components of Rental Cost</h4>
-                        <div class="breakdown-row component-row"><span>Security Deposit</span><span id="rent-security-deposit"></span></div>
-                        <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="rent-initial-expenses"></span></div>
-                        <div class="breakdown-row component-row"><span>Total Rent Paid</span><span id="rent-paid"></span></div>
-                        <div class="breakdown-row component-row"><span>Amount Invested</span><span id="rent-amount-invested"></span></div>
-                        <div class="breakdown-row component-row"><span>Investment Growth</span><span id="rent-investment-growth"></span></div>
-                    </div>
+            <div class="seo-content-section">
+                <h2>The Definitive Guide to Renting vs. Buying</h2>
+                <p>The decision to rent or buy a home is one of the most significant financial choices you'll make. It's more than just a comparison of a monthly rent check versus a mortgage payment; it's a lifestyle decision that impacts your flexibility, long-term wealth, and responsibilities. This guide explores the core factors to help you make an informed choice.</p>
+                <p><strong>The Case for Renting:</strong> Renting offers unparalleled flexibility. If your career requires you to move, or you're exploring a new city, renting keeps you untethered. Upfront costs are significantly lower—typically a security deposit and the first month's rent. Furthermore, renters are not responsible for maintenance, repairs, or property taxes, providing predictable monthly expenses and freedom from unexpected costs.</p>
+                <p><strong>The Case for Buying:</strong> Homeownership is a cornerstone of long-term wealth building. Each mortgage payment builds equity—ownership in your asset. You have the stability of a fixed monthly payment (with a fixed-rate mortgage) and the freedom to customize your living space. Homeowners can also benefit from property value appreciation and significant tax deductions on mortgage interest and property taxes.</p>
+                
+                <h2>How to Use the Calculator: A Step-by-Step Guide</h2>
+                <p>Our calculator is designed to give you a clear, numerical comparison based on a wide range of financial variables. Here’s how to use it effectively:</p>
+                <ol>
+                    <li><strong>Enter Home Purchase Details:</strong> Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance.</li>
+                    <li><strong>Provide Home Rent Details:</strong> Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit.</li>
+                    <li><strong>Fill in Your Financial Information:</strong> This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the 'opportunity cost' of the money you'd spend on a down payment versus investing it.</li>
+                    <li><strong>Analyze Your Results:</strong> The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time.</li>
+                </ol>
+                
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary>What is the "break-even point" in the rent vs. buy decision?</summary>
+                        <div class="faq-answer">
+                            <p>The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this point, renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is renting just "throwing money away"?</summary>
+                        <div class="faq-answer">
+                            <p>This is a common myth. You are not "throwing money away" any more than you are when paying for groceries or electricity; you are paying for a necessary service—in this case, shelter. Furthermore, renting frees up the large sum of capital that would have been used for a down payment and closing costs, allowing you to invest it elsewhere. If those investments perform well, renting can sometimes be the smarter financial move.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What are the most important hidden costs of buying a home?</summary>
+                        <div class="faq-answer">
+                            <p>Beyond the mortgage payment (P&I), new homeowners are often surprised by several costs: 1) Property Taxes, which can be thousands of dollars a year. 2) Homeowner's Insurance. 3) Maintenance and Repairs, for which a common rule of thumb is to budget 1% of the home's value annually. 4) Closing Costs, which can be 2-5% of the home's purchase price. 5) Potential HOA (Homeowner Association) fees.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How does inflation affect the rent vs. buy decision?</summary>
+                        <div class="faq-answer">
+                            <p>Inflation can significantly favor homeowners. With a fixed-rate mortgage, your principal and interest payment remains the same for the life of the loan, while your wages and other prices rise with inflation. This makes your housing payment effectively cheaper over time. In contrast, rent prices typically rise with or even exceed the rate of inflation, increasing your housing costs year after year.</p>
+                        </div>
+                    </details>
+                     <details class="faq-item">
+                        <summary>Can this calculator guarantee my financial outcome?</summary>
+                        <div class="faq-answer">
+                            <p>No. This calculator is a powerful financial modeling tool that provides a projection based on the numbers and assumptions you provide. It cannot predict future real estate market fluctuations, changes in interest rates, or unexpected personal events. It should be used as a guide to inform your decision, not as a guarantee of a specific outcome.</p>
+                        </div>
+                    </details>
                 </div>
                 
-                <div class="scenario-breakdown">
-                    <h3>Monthly Payment Comparison</h3>
-                    <div class="chart-container">
-                        <canvas id="paymentsChart"></canvas>
-                    </div>
-                </div>
+                <h2>Key Takeaway</h2>
+                <p>The decision to rent or buy is deeply personal and extends beyond a simple financial calculation. While this tool provides a robust quantitative analysis of the costs and benefits, the right choice must also align with your career flexibility, lifestyle preferences, and long-term personal goals. Use these results as a critical piece of the puzzle, not the entire picture.</p>
             </div>
         </div>
-
-        <div class="seo-content-section">
-            <h2>The Definitive Guide to Renting vs. Buying</h2>
-            <p>The decision to rent or buy a home is one of the most significant financial choices you'll make. It's more than just a comparison of a monthly rent check versus a mortgage payment; it's a lifestyle decision that impacts your flexibility, long-term wealth, and responsibilities. This guide explores the core factors to help you make an informed choice.</p>
-            <p><strong>The Case for Renting:</strong> Renting offers unparalleled flexibility. If your career requires you to move, or you're exploring a new city, renting keeps you untethered. Upfront costs are significantly lower—typically a security deposit and the first month's rent. Furthermore, renters are not responsible for maintenance, repairs, or property taxes, providing predictable monthly expenses and freedom from unexpected costs.</p>
-            <p><strong>The Case for Buying:</strong> Homeownership is a cornerstone of long-term wealth building. Each mortgage payment builds equity—ownership in your asset. You have the stability of a fixed monthly payment (with a fixed-rate mortgage) and the freedom to customize your living space. Homeowners can also benefit from property value appreciation and significant tax deductions on mortgage interest and property taxes.</p>
-            
-            <h2>How to Use the Calculator: A Step-by-Step Guide</h2>
-            <p>Our calculator is designed to give you a clear, numerical comparison based on a wide range of financial variables. Here’s how to use it effectively:</p>
-            <ol>
-                <li><strong>Enter Home Purchase Details:</strong> Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance.</li>
-                <li><strong>Provide Home Rent Details:</strong> Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit.</li>
-                <li><strong>Fill in Your Financial Information:</strong> This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the "opportunity cost" of the money you'd spend on a down payment versus investing it.</li>
-                <li><strong>Analyze Your Results:</strong> The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time.</li>
-            </ol>
-            
-            <h2>Frequently Asked Questions (FAQ)</h2>
-            <div class="faq-container">
-                <details class="faq-item">
-                    <summary>What is the "break-even point" in the rent vs. buy decision?</summary>
-                    <div class="faq-answer">
-                        <p>The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this point, renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>Is renting just "throwing money away"?</summary>
-                    <div class="faq-answer">
-                        <p>This is a common myth. You are not "throwing money away" any more than you are when paying for groceries or electricity; you are paying for a necessary service—in this case, shelter. Furthermore, renting frees up the large sum of capital that would have been used for a down payment and closing costs, allowing you to invest it elsewhere. If those investments perform well, renting can sometimes be the smarter financial move.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>What are the most important hidden costs of buying a home?</summary>
-                    <div class="faq-answer">
-                        <p>Beyond the mortgage payment (P&I), new homeowners are often surprised by several costs: 1) Property Taxes, which can be thousands of dollars a year. 2) Homeowner's Insurance. 3) Maintenance and Repairs, for which a common rule of thumb is to budget 1% of the home's value annually. 4) Closing Costs, which can be 2-5% of the home's purchase price. 5) Potential HOA (Homeowner Association) fees.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>How does inflation affect the rent vs. buy decision?</summary>
-                    <div class="faq-answer">
-                        <p>Inflation can significantly favor homeowners. With a fixed-rate mortgage, your principal and interest payment remains the same for the life of the loan, while your wages and other prices rise with inflation. This makes your housing payment effectively cheaper over time. In contrast, rent prices typically rise with or even exceed the rate of inflation, increasing your housing costs year after year.</p>
-                    </div>
-                </details>
-                 <details class="faq-item">
-                    <summary>Can this calculator guarantee my financial outcome?</summary>
-                    <div class="faq-answer">
-                        <p>No. This calculator is a powerful financial modeling tool that provides a projection based on the numbers and assumptions you provide. It cannot predict future real estate market fluctuations, changes in interest rates, or unexpected personal events. It should be used as a guide to inform your decision, not as a guarantee of a specific outcome.</p>
-                    </div>
-                </details>
-            </div>
-            
-            <h2>Key Takeaway</h2>
-            <p>The decision to rent or buy is deeply personal and extends beyond a simple financial calculation. While this tool provides a robust quantitative analysis of the costs and benefits, the right choice must also align with your career flexibility, lifestyle preferences, and long-term personal goals. Use these results as a critical piece of the puzzle, not the entire picture.</p>
-        </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </div> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -968,6 +1124,32 @@
                 } else {
                     scrollPromptEl.classList.remove('hidden');
                 }
+            });
+            
+            const toolSubtitles = document.querySelectorAll('.tool-subtitle');
+            toolSubtitles.forEach((subtitleContainer, index) => {
+                const spans = subtitleContainer.querySelectorAll('span');
+                let currentIndex = 0;
+
+                for (let i = 0; i < spans.length; i++) {
+                    if (spans[i].classList.contains('visible')) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                
+                const animationInterval = 4000;
+                const delay = (animationInterval / 2) * index;
+
+                setTimeout(() => {
+                    setInterval(() => {
+                        spans[currentIndex].classList.remove('visible');
+                        currentIndex = (currentIndex + 1) % spans.length;
+                        setTimeout(() => {
+                            spans[currentIndex].classList.add('visible');
+                        }, 1000);
+                    }, animationInterval);
+                }, delay);
             });
 
 
@@ -1297,7 +1479,7 @@
         });
     </script>
     
-    <footer>
+    <footer >
         <nav>
             <ul>
                 <li><a href="#">About</a></li>
@@ -1310,4 +1492,3 @@
 
 </body>
 </html>
-
