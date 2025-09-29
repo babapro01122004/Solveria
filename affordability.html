@@ -223,7 +223,7 @@
         .desktop-nav {
             display: none; 
             position: absolute;
-            top: 70px;      /* <<< UPDATED */
+            top: 70px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -501,7 +501,7 @@
         .main-result p { font-weight: 300; font-size: 3.5em; color: #2ca86a; margin: 0; }
         
         .results-summary {
-            margin-bottom: 70px;
+            margin-bottom: 40px;
         }
         .results-summary p {
             margin: 0;
@@ -536,10 +536,53 @@
             font-size: 1.2em; 
             text-align: left; 
         }
+        
+        /* --- NEW STYLES FOR RELATED TOOLS --- */
+        .related-tools {
+            margin-top: 50px;
+            margin-bottom: 70px;
+        }
+        .related-tools-title {
+            font-weight: 300;
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .tool-link-block {
+            margin-bottom: 25px;
+        }
+        .tool-link-block a {
+            font-size: 1.2em;
+            font-weight: 300;
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .tool-link-block a:hover {
+            color: #000;
+        }
+        .tool-subtitle {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 6px;
+            position: relative;
+            height: 1.2em; /* Prevent layout shift */
+        }
+        .tool-subtitle span {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .tool-subtitle span.visible {
+            opacity: 1;
+        }
 
-        /* =============================================== */
-        /* ============== MOBILE STYLES ================== */
-        /* =============================================== */
+
         @media (max-width: 833px) {
             .hero-section {
                 padding-bottom: 0; 
@@ -586,9 +629,6 @@
             }
         }
         
-        /* =============================================== */
-        /* ============== DESKTOP STYLES ================= */
-        /* =============================================== */
         @media (min-width: 834px) {
             .desktop-nav {
                 display: block; 
@@ -597,13 +637,10 @@
             .results-grid { grid-template-columns: 1fr 1fr; }
         }
         
-        /* =============================================== */
-        /* ============== SEO & FAQ STYLES =============== */
-        /* =============================================== */
         .seo-content-section {
             padding: 70px 0;
             border-top: 1px solid #eee;
-            margin-top: 40px;
+            margin-top: 20px;
         }
         .seo-content-section h2 {
             font-weight: 100;
@@ -682,7 +719,6 @@
             margin-bottom: 10px;
         }
 
-        /* --- FOOTER STYLES --- */
         .page-footer {
             background: linear-gradient(to top, #eae5df, transparent);
             padding: 80px 20px 40px 20px;
@@ -701,10 +737,65 @@
             color: #333;
         }
 
+        .more-tools-section {
+            padding: 70px 0 0 0;
+            border-top: 1px solid #eee;
+        }
+        .more-tools-section h2 {
+            font-weight: 100;
+            font-size: 2.8em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        .tools-column h4 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .tools-column ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .tools-column li {
+            margin-bottom: 15px;
+        }
+        .tools-column a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .tools-column a:hover {
+            color: #000;
+        }
+        @media (max-width: 1000px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px 40px;
+            }
+        }
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 833px) {
             .seo-content-section {
                 padding: 40px 0;
                 margin-top: 20px;
+            }
+            .more-tools-section {
+                padding: 40px 0 0 0;
             }
         }
 
@@ -819,6 +910,24 @@
                     </p>
                 </div>
 
+                <div class="related-tools">
+                    <h4 class="related-tools-title">Related Tools</h4>
+                    <div class="tool-link-block">
+                        <a href="#">Mortgage Calculator</a>
+                        <div class="tool-subtitle">
+                            <span class="visible">Estimate your monthly payments.</span>
+                            <span>See a full amortization schedule.</span>
+                        </div>
+                    </div>
+                    <div class="tool-link-block">
+                        <a href="#">Rent vs. Buy Calculator</a>
+                        <div class="tool-subtitle">
+                            <span>Is buying the right financial move?</span>
+                            <span class="visible">Compare the long-term costs.</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="results-breakdown">
                     <div class="results-grid">
                         <div class="result-group">
@@ -901,6 +1010,48 @@
                 </div>
             </section>
         </div>
+        
+        <section class="more-tools-section">
+            <h2>More Tools</h2>
+            <div class="tools-grid">
+                <div class="tools-column">
+                    <h4>Financial Calculators</h4>
+                    <ul>
+                        <li><a href="#">Mortgage Calculator</a></li>
+                        <li><a href="#">Home Affordability Calculators</a></li>
+                        <li><a href="#">Refinance Calculator</a></li>
+                        <li><a href="#">Loan Calculator</a></li>
+                        <li><a href="#">Rent v/s Buy Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Life Insurance</h4>
+                    <ul>
+                        <li><a href="#">Life Insurance Calculator</a></li>
+                        <li><a href="#">Term v/s Whole Life Insurance Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Finance and Taxes</h4>
+                    <ul>
+                        <li><a href="#">Credit Card Payoff Calculators</a></li>
+                        <li><a href="#">Debt Snowball Calculator</a></li>
+                        <li><a href="#">APR v/s Interest Rate Calculator</a></li>
+                        <li><a href="#">Credit Card Utilization Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Real Estate Investment</h4>
+                    <ul>
+                        <li><a href="#">Cap Rate Calculator</a></li>
+                        <li><a href="#">ROI Calculator for Rental Property</a></li>
+                        <li><a href="#">Cash-on-Cash Return Calculator</a></li>
+                        <li><a href="#">Property Tax Calculator</a></li>
+                        <li><a href="#">Closing Costs Calculator</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <section class="seo-content-section">
             <h2>The Definitive Guide to Home Affordability</h2>
@@ -1130,6 +1281,34 @@
                 } else {
                     scrollPromptEl.classList.remove('hidden');
                 }
+            });
+
+            // --- NEW: RELATED TOOLS SUBTITLE ANIMATION ---
+            const toolSubtitles = document.querySelectorAll('.tool-subtitle');
+            toolSubtitles.forEach((subtitleContainer, index) => {
+                const spans = subtitleContainer.querySelectorAll('span');
+                let currentIndex = 0;
+
+                // Find the initially visible span and set its index
+                for (let i = 0; i < spans.length; i++) {
+                    if (spans[i].classList.contains('visible')) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                
+                const animationInterval = 4000; // Total time for one cycle
+                const delay = (animationInterval / 2) * index; // Stagger the animations
+
+                setTimeout(() => {
+                    setInterval(() => {
+                        spans[currentIndex].classList.remove('visible');
+                        currentIndex = (currentIndex + 1) % spans.length;
+                        setTimeout(() => {
+                            spans[currentIndex].classList.add('visible');
+                        }, 1000);
+                    }, animationInterval);
+                }, delay);
             });
 
 
