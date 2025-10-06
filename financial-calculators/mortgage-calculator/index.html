@@ -1541,8 +1541,11 @@
                 const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: false }, true);
 
                 if (elements.length === 0) {
-                    tooltipEl.style.opacity = 0;
-                    return;
+                    // Only hide if the event is a mouseout/touch end
+                    if (event.type === 'mouseout') {
+                        tooltipEl.style.opacity = 0;
+                    }
+                    return false;
                 }
 
                 const element = elements[0];
@@ -1591,6 +1594,7 @@
                 const margin = 12;
                 let finalX, finalY;
 
+                // Vertical smart placement
                 if ((pageY + margin + tooltipHeight) > window.innerHeight) {
                     finalY = pageY - tooltipHeight - margin; 
                 } else {
@@ -1600,18 +1604,21 @@
                     finalY = margin;
                 }
 
-                if ((pageX - tooltipWidth - margin) < 0) {
-                    finalX = pageX + margin;
+                // Horizontal smart placement
+                if ((pageX - tooltipWidth - margin) < 0) { // Off screen left
+                    finalX = pageX + margin; // Place right of cursor
                 }
-                else if ((pageX + tooltipWidth + margin) > window.innerWidth) {
-                    finalX = pageX - tooltipWidth - margin;
+                else if ((pageX + tooltipWidth + margin) > window.innerWidth) { // Off screen right
+                    finalX = pageX - tooltipWidth - margin; // Place left of cursor
                 }
                 else {
-                    finalX = pageX + margin;
+                    finalX = pageX + margin; // Default to right of cursor
                 }
 
                 tooltipEl.style.left = finalX + 'px';
                 tooltipEl.style.top = finalY + 'px';
+                
+                return true;
             };
 
 
@@ -1657,20 +1664,23 @@
                     options: lineChartOptions
                 });
 
-                const isMobile = window.matchMedia("(max-width: 992px)").matches;
+                // Apply mousemove (hover) and mouseout events to all charts for ALL viewports
+                const charts = [costBreakdownChart, loanAmortizationChart, homeEquityChart];
 
-                [costBreakdownChart, loanAmortizationChart, homeEquityChart].forEach(chart => {
-                    if (isMobile) {
-                        chart.canvas.addEventListener('click', (e) => {
-                            e.stopPropagation(); 
-                            customTooltipHandler(e, chart);
-                        });
-                    } else {
-                        chart.canvas.addEventListener('mousemove', (e) => customTooltipHandler(e, chart));
-                        chart.canvas.addEventListener('mouseout', () => {
-                            document.getElementById('chartTooltip').style.opacity = 0;
-                        });
-                    }
+                charts.forEach(chart => {
+                    // Mouse move for hover (desktop/tablet resize)
+                    chart.canvas.addEventListener('mousemove', (e) => customTooltipHandler(e, chart));
+                    
+                    // Mouse out for hiding
+                    chart.canvas.addEventListener('mouseout', () => {
+                        document.getElementById('chartTooltip').style.opacity = 0;
+                    });
+                    
+                    // Click/Tap for mobile/touch devices (simulates touch persistence)
+                    chart.canvas.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Stop propagation so the document listener doesn't immediately hide it
+                        customTooltipHandler(e, chart);
+                    });
                 });
             };
 
@@ -2000,7 +2010,17 @@
                     }
                 }
             }
-            document.addEventListener("click", closeAllSelect);
+            // MODIFIED: Global click listener to hide both the custom select box and the chart tooltip on a click outside.
+            document.addEventListener("click", (e) => {
+                closeAllSelect(e.target);
+                const isChartClick = e.target.closest('.chart-wrapper');
+                const tooltipEl = document.getElementById('chartTooltip');
+                
+                // If the click is not inside a chart, or on the tooltip itself, hide the tooltip
+                if (!isChartClick && !e.target.closest('.chart-tooltip') && tooltipEl.style.opacity === '1') {
+                     tooltipEl.style.opacity = 0;
+                }
+            });
 
             Object.values(allInputs).forEach(input => {
                 if(input.id !== 'creditScore') input.addEventListener('input', calculateAndDisplay)
@@ -2025,13 +2045,6 @@
             });
 
             window.addEventListener('resize', debounce(handleResize, 250));
-
-            document.addEventListener('click', () => {
-                const isMobile = window.matchMedia("(max-width: 992px)").matches;
-                if (isMobile) {
-                    document.getElementById('chartTooltip').style.opacity = 0;
-                }
-            });
             
             initializeCharts();
             validateDate();
