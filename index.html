@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solveria | Smart Financial Calculators</title>
+
+    <meta name="description" content="Free, data-driven financial and lifestyle calculators to help you make smarter decisions. Explore comprehensive tools for mortgages, affordability, investing, and wellness.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://solveria.org/#organization",
+          "name": "Solveria",
+          "url": "https://solveria.org/",
+          "logo": "https://solveria.org/img/Logo_Golden.png",
+          "sameAs": []
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://solveria.org/#website",
+          "url": "https://solveria.org/",
+          "name": "Solveria",
+          "description": "Free, data-driven financial and lifestyle calculators to help you make smarter decisions.",
+          "publisher": {
+            "@id": "https://solveria.org/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://solveria.org/#app",
+          "name": "Solveria Calculators",
+          "applicationCategory": ["FinanceApplication", "HealthApplication", "BusinessApplication"],
+          "operatingSystem": "Web",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "provider": {
+            "@id": "https://solveria.org/#organization"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "reviewBody": "Solveria's mortgage calculator was a lifesaver. The amortization chart made it so clear where my money was going. I finally felt confident in my home buying decision.",
+              "author": {
+                "@type": "Person",
+                "name": "Sarah J."
+              }
+            },
+            {
+              "@type": "Review",
+              "reviewBody": "The Rent vs. Buy calculator gave us the clarity we needed. Seeing the 30-year financial breakdown side-by-side made our decision to buy so much easier. An incredible tool!",
+              "author": {
+                "@type": "Person",
+                "name": "David M."
+              }
+            },
+            {
+              "@type": "Review",
+              "reviewBody": "We were lost about how much house we could actually afford. The Home Affordability tool broke it all down based on our real income and debts. It's the first step every buyer should take.",
+              "author": {
+                "@type": "Person",
+                "name": "Priya K."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Are Solveria's calculators really free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, absolutely. All of our calculators and tools are 100% free to use. We believe everyone should have access to high-quality financial tools. The site is supported by advertising, which allows us to keep our resources free for everyone."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you ensure the accuracy of your calculations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our calculators are built on standard, industry-accepted financial and mathematical formulas. We rigorously test each tool to ensure accuracy. For financial tools like tax or mortgage calculators, we use the latest available data for our default values (e.g., federal tax brackets)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need to create an account to use the calculators?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, you do not need to create an account. All of our tools are accessible to everyone without any sign-up required. You can start calculating immediately."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is my financial data safe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We prioritize your privacy. All calculations happen directly in your web browser. We do not see, track, or store any of the personal financial numbers you enter into our calculators."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-dark': '#1e1e1e',
+                        'primary-light': '#f5f5f7',
+                        'accent-green': '#047857',
+                        'dark-gray': '#6e6e73',
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'soft-lg': '0 15px 50px -12px rgba(0, 0, 0, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #f5f5f7; 
+            color: #1d1d1f; 
+            font-family: 'Roboto', sans-serif; 
+            font-weight: 300;
+        }
+        
+        .apple-headline {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.05em;
+        }
+        @media (min-width: 1024px) {
+            .apple-headline { font-size: 5rem; }
+        }
+        
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 300; 
+            color: #047857;
+            transition: color 0.2s;
+        }
+        .cta-link:hover {
+            color: #065f46;
+        }
+        .cta-link svg {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .cta-link:hover svg {
+            transform: translateX(3px);
+        }
+        
+        .hero-bg {
+            background-image: url('img/Home.webp');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: white;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .image-card {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        .image-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);
+            border-radius: 1rem;
+        }
+        .image-card > * {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .card-bg-1 { background-image: url('img/Mortgage Payment.webp'); }
+        .card-bg-2 { background-image: url('img/Affordability Check.webp'); }
+        .card-bg-3 { background-image: url('img/Rent vs. Buy.webp'); }
+        .card-bg-4 { background-image: url('img/BMI & BMR.webp'); }
+        .card-bg-5 { background-image: url('img/Calorie Intake.webp'); }
+        .card-bg-6 { background-image: url('img/Running Pace.webp'); }
+
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary .faq-arrow { transition: transform 0.2s ease-in-out; }
+        details[open] > summary .faq-arrow { transform: rotate(45deg); }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <main>
+        
+        <section class="hero-bg text-center px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">
+            
+            <header class="absolute top-6 z-40 w-full">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-center relative">
+                    
+                    <div class="flex-shrink-0 md:hidden">
+                        <picture>
+                            <source srcset="img/Logo_White.webp" type="image/webp">
+                            <source srcset="img/Logo_White.png" type="image/png">
+                            <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
+                        </picture>
+                    </div>
+
+                    <nav class="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+                        <div class="flex items-center">
+                            <picture>
+                                <source srcset="img/Logo_White.webp" type="image/webp">
+                                <source srcset="img/Logo_White.png" type="image/png">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
+                            </picture>
+                        </div>
+                        <a href="#calculators" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">Calculators</a>
+                        <a href="#ecosystem" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">Ecosystem</a>
+                        <a href="#faq" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">FAQ</a>
+                        <a href="/support/" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">Support</a>
+                    </nav>
+
+                    <div class="md:hidden absolute right-4 top-1/2 -translate-y-1/2">
+                        <button id="hamburger-btn" class="text-[#dedee0] hover:text-[#FFFFFF] p-2 rounded-md transition duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="mobile-nav-panel" class="hidden fixed inset-0 z-50 bg-black/20 backdrop-blur-lg p-6">
+                    <div class="flex justify-between items-center">
+                         <a href="/">
+                            <picture>
+                                <source srcset="img/Logo_White.webp" type="image/webp">
+                                <source srcset="img/Logo_White.png" type="image/png">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
+                            </picture>
+                        </a>
+                        <button id="close-btn" class="text-white p-2">
+                           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                    <nav class="flex flex-col items-center justify-center h-full -mt-12 space-y-8">
+                        <a href="#calculators" class="text-white text-3xl font-light">Calculators</a>
+                        <a href="#ecosystem" class="text-white text-3xl font-light">Ecosystem</a>
+                        <a href="#faq" class="text-white text-3xl font-light">FAQ</a>
+                        <a href="/support/" class="text-white text-3xl font-light">Support</a>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="hero-content">
+                <h1 class="apple-headline max-w-5xl mx-auto text-white">The Equation for Every Decision.</h1>
+                <p class="text-lg md:text-2xl mt-6 max-w-4xl mx-auto text-white font-light">Clarity for your most important financial decisions. From mortgages and taxes to investments and business growth, find your answer with our free, comprehensive calculators.</p>
+                <div class="mt-8 flex justify-center space-x-6">
+                    <a href="#calculators" class="group inline-flex items-center text-xl text-white bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white/20 rounded-full px-8 py-3 font-light transition duration-300">
+                        Explore Calculators
+                        <svg class="w-6 h-6 ml-2 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculators" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-12 text-center"><p class="text-2xl font-light text-primary-dark tracking-wider uppercase">Top Tools</p><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter mt-2">The Essentials for Smart Home Decisions.</h2></div>
+                <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    <div class="image-card card-bg-1 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Mortgage Payment.</h3><p class="text-lg font-light mb-8 opacity-90">Calculate your true monthly cost. Principal, interest, taxes, and insurance—all in one place.</p><a href="financial-calculators/mortgage-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Get Started</a></div>
+                    <div class="image-card card-bg-2 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Affordability Check.</h3><p class="text-lg font-light mb-8 opacity-90">Determine your realistic max home price based on your current income and debts (DTI).</p><a href="financial-calculators/home-affordability-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Check Your Limit</a></div>
+                    <div class="image-card card-bg-3 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Rent vs. Buy.</h3><p class="text-lg font-light mb-8 opacity-90">Analyze the long-term financial payoff between renting and owning a home in your area.</p><a href="financial-calculators/rent-vs-buy-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Find Your Path</a></div>
+                </div>
+            </div>
+        </section>
+        <section id="lifestyle" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-12 text-center"><p class="text-2xl font-light text-primary-dark tracking-wider uppercase">Beyond Finance</p><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter mt-2">Calculate Your Wellness and Growth.</h2></div>
+                <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    <div class="image-card card-bg-4 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">BMI & BMR.</h3><p class="text-lg font-light mb-8 opacity-90">Quickly calculate your Body Mass Index and Base Metabolic Rate for personalized health goals.</p><a href="/calculators/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Analyze Health</a></div>
+                    <div class="image-card card-bg-5 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Calorie Intake.</h3><p class="text-lg font-light mb-8 opacity-90">Determine your ideal daily calorie needs based on your activity level and fitness objectives.</p><a href="/calculators/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Start Diet Plan</a></div>
+                    <div class="image-card card-bg-6 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Running Pace.</h3><p class="text-lg font-light mb-8 opacity-90">Find the pace, time, or distance needed to crush your next marathon or casual run.</p><a href="/calculators/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Track Fitness</a></div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 md:py-32 bg-primary-light px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto text-center"><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter">Your Questions, Answered with Unmatched Clarity.</h2><p class="mt-4 text-xl text-dark-gray max-w-3xl mx-auto">We transform complex calculations into simple, actionable insights. Here’s how.</p><div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10"><div class="text-center p-6"><h3 class="text-xl font-light mt-4">Comprehensive Breakdowns</h3><p class="mt-2 text-dark-gray">Go beyond the final number. Our tools provide detailed amortization schedules and lifetime cost analyses so you see the full picture.</p></div><div class="text-center p-6"><h3 class="text-xl font-light mt-4">Interactive Visualizations</h3><p class="mt-2 text-dark-gray">Understand your financial trajectory with beautiful, easy-to-read charts and graphs illustrating your equity, interest payments, and more over time.</p></div><div class="text-center p-6"><h3 class="text-xl font-light mt-4">Unbiased & Ad-Supported</h3><p class="mt-2 text-dark-gray">Our calculators are always free. We provide impartial data to empower your decisions, supported by non-intrusive advertising.</p></div><div class="text-center p-6"><h3 class="text-xl font-light mt-4">Private & Secure</h3><p class="mt-2 text-dark-gray">Your privacy is paramount. We perform all calculations in your browser and never store your personal financial data.</p></div></div></div>
+        </section>
+        <section class="py-24 md:py-32 bg-white px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto"><div class="text-center"><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter">Trusted by Decision-Makers</h2></div><div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl flex flex-col items-center text-center shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02] transform">
+                    <picture>
+                        <source srcset="img/sarah-j.webp" type="image/webp">
+                        <source srcset="img/sarah-j.png" type="image/png">
+                        <img src="img/sarah-j.png" alt="Sarah J." class="w-24 h-24 rounded-full object-cover mb-4">
+                    </picture>
+                    <p class="text-lg text-primary-dark">"Solveria's mortgage calculator was a lifesaver. The amortization chart made it so clear where my money was going. I finally felt confident in my home buying decision."</p><p class="mt-6 font-light text-primary-dark">Sarah J.</p><p class="text-dark-gray">First-Time Home Buyer</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl flex flex-col items-center text-center shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02] transform">
+                    <picture>
+                        <source srcset="img/david-m.webp" type="image/webp">
+                        <source srcset="img/david-m.png" type="image/png">
+                        <img src="img/david-m.png" alt="David M." class="w-24 h-24 rounded-full object-cover mb-4">
+                    </picture>
+                    <p class="text-lg text-primary-dark">"The Rent vs. Buy calculator gave us the clarity we needed. Seeing the 30-year financial breakdown side-by-side made our decision to buy so much easier. An incredible tool!"</p><p class="mt-6 font-light text-primary-dark">David M.</p><p class="text-dark-gray">Growing Family</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl flex flex-col items-center text-center shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02] transform">
+                    <picture>
+                        <source srcset="img/priya-k.webp" type="image/webp">
+                        <source srcset="img/priya-k.png" type="image/png">
+                        <img src="img/priya-k.png" alt="Priya K." class="w-24 h-24 rounded-full object-cover mb-4">
+                    </picture>
+                    <p class="text-lg text-primary-dark">"We were lost about how much house we could actually afford. The Home Affordability tool broke it all down based on our real income and debts. It's the first step every buyer should take."</p><p class="mt-6 font-light text-primary-dark">Priya K.</p><p class="text-dark-gray">Young Professionals</p>
+                </div>
+            </div></div>
+        </section>
+        <section id="ecosystem" class="py-16 md:py-24 bg-primary-light px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto"><h2 class="text-3xl md:text-4xl font-light tracking-tight">The Complete Decision-Making Ecosystem.</h2><p class="text-xl mt-4 max-w-3xl text-dark-gray">Whether you're navigating your financial journey or optimizing your health and lifestyle, our powerful tools are here to provide clarity. Dive into our top-tier categories.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <a href="/calculators/" class="block bg-white p-8 rounded-xl shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h4 class="text-2xl font-light text-primary-dark">Home Loans & Mortgages</h4><p class="text-dark-gray mt-1">Payments, affordability, payoff, and refinance analysis.</p></a>
+                    <a href="/calculators/" class="block bg-white p-8 rounded-xl shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h4 class="text-2xl font-light text-primary-dark">Insurance & Protection</h4><p class="text-dark-gray mt-1">Life insurance needs, term vs. whole, and home coverage.</p></a>
+                    <a href="/calculators/" class="block bg-white p-8 rounded-xl shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h4 class="text-2xl font-light text-primary-dark">Finance, Tax & Debt</h4><p class="text-dark-gray mt-1">Income tax, debt payoff, retirement, and credit utilization tools.</p></a>
+                    <a href="/calculators/" class="block bg-white p-8 rounded-xl shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h4 class="text-2xl font-light text-primary-dark">Business & Marketing ROI</h4><p class="text-dark-gray mt-1">SaaS pricing, customer value (CLV), and ad spend return (ROAS).</p></a>
+                    <a href="/calculators/" class="block bg-white p-8 rounded-xl shadow-soft transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h4 class="text-2xl font-light text-primary-dark">Health & Lifestyle</h4><p class="text-dark-gray mt-1">BMI, calorie intake, BMR, and fitness performance tracking.</p></a>
+                </div>
+            </div>
+        </section>
+        <section id="faq" class="py-24 bg-white px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto"><h2 class="text-center text-4xl md:text-5xl font-light tracking-tighter mb-12">Frequently Asked Questions</h2><div class="space-y-4"><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Are Solveria's calculators really free to use?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes, absolutely. All of our calculators and tools are 100% free to use. We believe everyone should have access to high-quality financial tools. The site is supported by advertising, which allows us to keep our resources free for everyone.</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">How do you ensure the accuracy of your calculations?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Our calculators are built on standard, industry-accepted financial and mathematical formulas. We rigorously test each tool to ensure accuracy. For financial tools like tax or mortgage calculators, we use the latest available data for our default values (e.g., federal tax brackets).</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Do I need to create an account to use the calculators?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">No, you do not need to create an account. All of our tools are accessible to everyone without any sign-up required. You can start calculating immediately.</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Is my financial data safe?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes. We prioritize your privacy. All calculations happen directly in your web browser. We do not see, track, or store any of the personal financial numbers you enter into our calculators.</p></details></div></div>
+        </section>
+
+    </main>
+
+    <footer class="bg-primary-light py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm font-light text-dark-gray">
+            <p>&copy; 2025 Solveria. All rights reserved.</p>
+            <div class="mt-4 md:mt-0 space-x-6">
+                <a href="/privacy-policy/" class="hover:text-primary-dark transition duration-150">Privacy Policy</a>
+                <a href="/about/" class="hover:text-primary-dark transition duration-150">About Us</a>
+                <a href="/support/" class="hover:text-primary-dark transition duration-150">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileNavPanel = document.getElementById('mobile-nav-panel');
+        const body = document.body;
+
+        const openMenu = () => {
+            hamburgerBtn.classList.add('hidden');
+            mobileNavPanel.classList.remove('hidden');
+            body.classList.add('overflow-hidden');
+        };
+
+        const closeMenu = () => {
+            hamburgerBtn.classList.remove('hidden');
+            mobileNavPanel.classList.add('hidden');
+            body.classList.remove('overflow-hidden');
+        };
+
+        hamburgerBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+
+        // Also close menu when a link is clicked
+        mobileNavPanel.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Affordability Calculator | Solveria</title>
+
+    <meta name="description" content="How much house can you afford? Use our accurate Home Affordability Calculator to estimate a realistic home price based on your income, debt, and down payment in seconds.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Home Affordability Calculator",
+      "url": "https://solveria.org/financial-calculators/home-affordability-calculator/",
+      "description": "A home affordability calculator is a tool that estimates the maximum house price you can afford based on your income, debts, down payment, loan term, and interest rate. It helps you set a realistic budget before house hunting.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Solveria",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://solveria.org/img/Logo_Golden.png" 
+        }
+      },
+      "datePublished": "2025-09-25",
+      "dateModified": "2025-09-30"
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://solveria.org/",
+          "@id": "https://solveria.org/#home"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calculators",
+          "item": "https://solveria.org/calculators/",
+          "@id": "https://solveria.org/calculators/#calculators"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Home Affordability Calculator",
+          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#calculator"
+        }
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Estimate Your Home Affordability",
+      "description": "Follow these steps to get an accurate home affordability estimate using our calculator.",
+      "estimatedTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Your Income",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#income",
+          "text": "Enter the total annual household income before taxes for all individuals who will be on the mortgage."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "List Your Monthly Debts",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#debts",
+          "text": "Add up all recurring monthly payments including credit cards, car loans, student loans, etc. Do not include current rent."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Provide Your Down Payment",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#downpayment",
+          "text": "Enter the total cash you have saved and plan to use for the initial home purchase."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Estimate Loan Details",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#loan",
+          "text": "Set the mortgage loan term (e.g., 30 years) and interest rate. If unsure, use the current market average."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Add Future Housing Costs",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#costs",
+          "text": "Provide estimates for property taxes, insurance, and HOA fees based on your target area."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select a DTI Ratio",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#dti",
+          "text": "Choose your Debt-to-Income ratio. 36% is a common starting point for conventional loans."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "See Your Results",
+          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/#results",
+          "text": "The calculator updates instantly to show your home affordability estimate."
+        }
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 28/36 rule and why is it important?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 28/36 rule is a quick affordability test used by lenders. Housing costs should not exceed 28% of gross monthly income, and total debt should not exceed 36%. Staying within these limits improves mortgage approval chances."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much of a down payment do I need?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While 20% is ideal, it's not always required. Conventional loans accept 3–5%, FHA loans 3.5%, and VA/USDA loans may allow 0% for eligible buyers. A larger down payment reduces monthly payments and total interest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do interest rates affect affordability?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Even a 1% increase in mortgage rates can reduce your buying power by tens of thousands of dollars. Lower rates allow you to afford more house with the same income."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I afford a house with no down payment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, but options are limited. VA and USDA loans allow 0% down for eligible buyers. Monthly payments will be higher and eligibility rules apply."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are closing costs and how much are they?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Closing costs are one-time fees paid at loan finalization, covering appraisal, title search, and loan origination. Typically 2–5% of the home's purchase price. Our calculator estimates 3% to help with budgeting."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my affordable home price lower than expected?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "High monthly debts, higher property taxes, HOA fees, or rising interest rates can reduce affordability even with strong income."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this calculator guarantee loan approval?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This tool provides an estimate based on standard formulas. Final approval depends on a lender’s underwriting process, including credit score, verified income, assets, and property appraisal."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            margin: 0; padding: 0; width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        strong, b { font-weight: 400; }
+
+        .hero-section {
+            height: 100vh; width: 100%;
+            background-image: url('../../img/Home_HFC.webp');
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-bottom: 15vh; 
+        }
+
+        .desktop-nav {
+            display: none; 
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .desktop-nav a {
+            color: #ccc; 
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1em;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        .desktop-nav a:hover { color: #fff; }
+
+        .hero-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-section h1 {
+            font-weight: 100;
+            font-size: 5vw;
+            line-height: 1.1;
+            margin: 20px 0 0 0;
+        }
+
+        #fading-subtitle {
+            font-size: 1.1em;
+            font-weight: 300;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        #fading-subtitle.visible { opacity: 1; }
+        
+        #scroll-prompt {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        #scroll-prompt.hidden { opacity: 0; pointer-events: none; }
+        #scroll-prompt-arrow { width: 24px; height: 24px; margin-right: 10px; }
+        #scroll-prompt-text { color: #fff; font-size: 1em; font-weight: 300; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        #scroll-prompt-text.visible { opacity: 1; }
+
+        .content-area {
+            max-width: 1400px; 
+            margin: 0 auto;
+            padding: 20px 40px; 
+        }
+        
+        .breadcrumb-nav { padding: 40px 0 0 0; }
+        .breadcrumb-nav a, .breadcrumb-nav span {
+            font-size: 0.9em; font-weight: 300; 
+            color: #777; text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        .breadcrumb-nav a:hover { color: #000; }
+        .breadcrumb-nav span { margin: 0 0.5em; }
+        .breadcrumb-nav .current-page { color: #333; font-weight: 400; }
+
+        .intro-section { padding: 60px 0 0 0; }
+        .intro-section h2 { font-weight: 100; font-size: 3.8em; color: #333; margin-bottom: 20px; }
+        .intro-section p { font-size: 1.1em; line-height: 1.7; color: #555; font-weight: 300; max-width: 800px; margin-top: 0; }
+
+        .calculator-section { padding: 20px 0 60px 0; }
+        .calculator-section h2 { font-weight: 100; font-size: 3.8em; color: #333; margin-bottom: 50px; }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px 80px; max-width: 700px; }
+        .input-group { position: relative; }
+        .input-group label { display: block; font-size: 0.9em; font-weight: 300; color: #555; margin-bottom: 5px; }
+        .input-group input[type="number"] {
+            width: 100%; padding: 5px 0; border: none;
+            border-bottom: 1px solid #ccc; outline: none;
+            font-weight: 300; font-size: 1.2em; color: #333;
+            background-color: transparent; transition: border-color 0.3s ease-in-out;
+        }
+        .input-group input:focus { border-bottom-color: #000; }
+        input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .custom-select-wrapper { position: relative; margin-top: 15px; }
+        .custom-select {
+            background-color: #fff; border-radius: 8px; padding: 10px 15px;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; font-size: 1.1em; font-weight: 300;
+            user-select: none; transition: box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+        .custom-select-arrow { font-size: 0.8em; color: #888; }
+        .custom-options {
+            display: none; position: absolute; top: calc(100% + 5px);
+            left: 0; right: 0; background-color: #fff;
+            border-radius: 8px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 1000; list-style: none; padding: 0; margin: 0; overflow-y: auto;
+        }
+        .custom-options.open { display: block; }
+        .custom-options li { padding: 12px 15px; cursor: pointer; transition: background-color 0.2s; font-weight: 300; }
+        .custom-options li:hover { background-color: #f5f5f5; }
+        .custom-options li.selected { background-color: #e9e9e9; }
+        #dti-ratio-custom { margin-top: 15px; }
+
+        .results-section { padding: 20px 0 60px 0; display: none; }
+        .results-section h2 { font-weight: 100; font-size: 3.8em; margin-bottom: 30px; } 
+        .main-result { text-align: left; margin-bottom: 40px; border-left: 4px solid #2ca86a; padding-left: 25px; }
+        .main-result h3 { font-weight: 300; font-size: 1.2em; color: #555; margin: 0 0 5px 0; }
+        .main-result p { font-weight: 300; font-size: 3.5em; color: #2ca86a; margin: 0; }
+        .main-result .error-message { color: red; font-size: 1.2em; }
+        
+        .results-summary { margin-bottom: 40px; }
+        .results-summary p { margin: 0; font-size: 1.1em; line-height: 1.6; color: #555; font-weight: 300; }
+        .results-grid { display: grid; gap: 60px; }
+        
+        .result-group h4, .results-summary h4 {
+            font-weight: 300; font-size: 1.5em; color: #333;
+            margin: 0 0 20px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;
+        }
+        .result-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .result-item-label { font-weight: 300; font-size: 1em; color: #555; }
+        .result-item-value { font-weight: 400; font-size: 1.1em; color: #333; }
+        
+        .related-tools { margin: 50px 0 40px; }
+        .related-tools-title { font-weight: 300; font-size: 1.5em; color: #333; margin: 0 0 30px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        .related-tools-grid { display: block; }
+        .tool-link-block { margin-bottom: 25px; }
+        .tool-link-block a { font-size: 1.2em; font-weight: 300; color: #555; text-decoration: none; transition: color 0.3s ease; }
+        .tool-link-block a:hover { color: #000; }
+        .tool-subtitle { font-size: 0.9em; color: #777; margin-top: 6px; position: relative; height: 1.2em; }
+        .tool-subtitle span { position: absolute; width: 100%; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
+        .tool-subtitle span.visible { opacity: 1; }
+
+        .mobile-support-btn { display: none; }
+
+        .seo-content-section { padding: 70px 0; border-top: 1px solid #eee; margin-top: 20px; }
+        .seo-content-section h2 { font-weight: 100; font-size: 2.8em; color: #333; margin: 40px 0 30px; }
+        .seo-content-section h2:first-child { margin-top: 0; }
+        .seo-content-section p, .seo-content-section li { font-size: 1.1em; line-height: 1.7; color: #555; font-weight: 300; max-width: 800px; }
+        .seo-content-section ol, .seo-content-section ul { padding-left: 25px; }
+        .seo-content-section li { margin-bottom: 15px; }
+        .seo-content-section ul { list-style-type: disc; margin-top: 15px; }
+        .seo-content-section ul li { margin-bottom: 10px; }
+        .faq-section { margin-top: 60px; }
+        .faq-item { border-bottom: 1px solid #ddd; padding: 15px 0; }
+        .faq-item summary { font-size: 1.2em; font-weight: 300; color: #333; cursor: pointer; list-style: none; position: relative; padding-right: 30px; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 1.4em; font-weight: 300; color: #777; transition: transform 0.2s ease-in-out; }
+        .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+        .faq-item[open] summary { margin-bottom: 15px; }
+        .faq-item p, .faq-item .faq-answer { margin: 0; }
+        .faq-item ul { padding-left: 20px; margin: 10px 0; }
+
+        .page-footer { background: linear-gradient(to top, #eae5df, transparent); padding: 80px 20px 40px; text-align: center; margin-top: 60px; }
+        .page-footer nav a { color: #777; text-decoration: none; margin: 0 20px; font-size: 0.9em; font-weight: 300; transition: color 0.3s ease; }
+        .page-footer nav a:hover { color: #333; }
+
+        .more-tools-section { padding: 70px 0 0 0; border-top: 1px solid #eee; }
+        .more-tools-section h2 { font-weight: 100; font-size: 2.8em; color: #333; margin-bottom: 30px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .tools-column h4 { font-size: 1.1rem; font-weight: 400; color: #333; margin: 0 0 20px; }
+        .tools-column ul { list-style: none; margin: 0; padding: 0; }
+        .tools-column li { margin-bottom: 15px; }
+        .tools-column a { color: #666; text-decoration: none; font-weight: 300; font-size: 1rem; transition: color 0.3s ease; }
+        .tools-column a:hover { color: #000; }
+        
+        @media (max-width: 1000px) { .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 50px 40px; } }
+        @media (max-width: 833px) {
+            .hero-section { padding-bottom: 0; }
+            .hero-content-wrapper { margin-top: -10vh; } 
+            .hero-content-wrapper img { width: 144px; height: 144px; }
+            .mobile-support-btn { display: block; position: absolute; top: 31px; left: 50%; transform: translateX(-50%); color: #ccc; text-decoration: none; font-size: 1em; font-weight: 300; }
+            .hero-section h1 { font-size: 10vw; }
+            #fading-subtitle { font-size: 1.1em; } 
+            .content-area { padding: 20px 25px; }
+            .breadcrumb-nav { padding-top: 25px; }
+            .intro-section { padding-top: 40px; }
+            .calculator-section, .results-section { padding: 20px 0 40px; }
+            .breadcrumb-nav a, .breadcrumb-nav span { font-size: 0.8rem; }
+            .intro-section h2, .calculator-section h2, .results-section h2, .seo-content-section h2 { font-size: 2.4em; }
+            .input-grid, .results-grid { grid-template-columns: 1fr; gap: 40px; }
+            .input-grid { max-width: none; }
+            .main-result p { font-size: 2.8em; }
+            .result-group h4, .results-summary h4 { font-size: 1.3em; }
+            .page-footer nav a { display: block; margin: 0 0 22px; }
+            .seo-content-section, .more-tools-section { padding: 40px 0 0 0; }
+        }
+        @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
+        @media (min-width: 834px) {
+            .desktop-nav { display: block; }
+            .calculator-layout-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+            .results-grid { grid-template-columns: 1fr 1fr; }
+            .related-tools-grid { display: flex; gap: 40px; }
+            .tool-link-block { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <a href="../../support/" class="mobile-support-btn">Support</a>
+        <nav class="desktop-nav">
+            <a href="../../">Home</a>
+            <a href="../../support/">Support</a>
+            <a href="../../calculators/">Other Finance Calculators</a>
+        </nav>
+        <div class="hero-content-wrapper">
+            <picture>
+                <source srcset="../../img/Logo_Golden.webp" type="image/webp">
+                <source srcset="../../img/Logo_Golden.png" type="image/png">
+                <img src="../../img/Logo_Golden.png" alt="Solveria Logo" class="w-48 h-48 mb-4">
+            </picture>
+            <h1>Home Affordability Calculator</h1>
+            <p id="fading-subtitle" class="mt-4"></p>
+        </div>
+        
+        <div id="scroll-prompt">
+            <picture>
+                <source srcset="../../img/Arrow.webp" type="image/webp">
+                <source srcset="../../img/Arrow.png" type="image/png">
+                <img src="../../img/Arrow.png" alt="Arrow icon prompting user to scroll down" id="scroll-prompt-arrow">
+            </picture>
+            <span id="scroll-prompt-text"></span>
+        </div>
+    </header>
+
+    <main class="content-area" id="main-content">
+        
+        <nav class="breadcrumb-nav" aria-label="breadcrumb">
+            <a href="../../">Home</a> <span>/</span> <a href="../../calculators/">Calculators</a> <span>/</span> <span class="current-page">Home Affordability Calculator</span>
+        </nav>
+
+        <section class="intro-section">
+            <h2>What is a Home Affordability Calculator?</h2>
+            <p>A home affordability calculator is a tool that estimates the maximum house price you can afford based on your income, debts, down payment, loan term, and interest rate. It helps you set a realistic budget before house hunting.</p>
+        </section>
+
+        <div class="calculator-layout-container">
+            <section class="calculator-section">
+                <h2>Enter Your Details</h2>
+                <form id="affordability-form">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="annual-income">Annual household income ($)</label>
+                            <input type="number" id="annual-income" value="85000" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="loan-term">Mortgage loan term (Years)</label>
+                            <input type="number" id="loan-term" value="30" min="1" max="50" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="interest-rate">Interest rate (%)</label>
+                            <input type="number" id="interest-rate" step="0.01" value="6.75" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="monthly-debts">Monthly debt payback ($)</label>
+                            <input type="number" id="monthly-debts" value="550" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="down-payment">Down payment ($)</label>
+                            <input type="number" id="down-payment" value="40000" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="property-tax">Property tax (Annual %)</label>
+                            <input type="number" id="property-tax" step="0.01" value="1.2" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="hoa-fee">HOA or co-op fee (Monthly $)</label>
+                            <input type="number" id="hoa-fee" value="75" min="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="insurance">Insurance (Annual %)</label>
+                            <input type="number" id="insurance" step="0.01" value="0.5" min="0" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="dti-select-trigger">Debt-to-income (DTI) ratio</label>
+                            <div class="custom-select-wrapper">
+                                <div class="custom-select" id="dti-select-trigger" tabindex="0">
+                                    <span class="custom-select-value" id="dti-select-value">Conventional loan (36%)</span>
+                                    <span class="custom-select-arrow">&#9662;</span>
+                                </div>
+                                <ul class="custom-options" id="dti-options">
+                                    <li data-value="36" data-label="Conventional loan (36%)">Conventional loan (28/36 rule)</li>
+                                    <li data-value="43" data-label="FHA loan (43%)">FHA loan (31% front-end, 43% back-end)</li>
+                                    <li data-value="41" data-label="VA loan (41%)">VA loan (41%)</li>
+                                    <li data-value="custom" data-label="Custom DTI">Custom</li>
+                                </ul>
+                            </div>
+                            <input type="number" id="dti-ratio-custom" value="36" min="0" max="100" style="display: none;">
+                            <input type="hidden" id="dti-ratio" value="36">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="other-costs">Other monthly costs ($)</label>
+                            <input type="number" id="other-costs" value="0" min="0" required>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="results-section" id="results-section">
+                 <h2>Your Affordability Results</h2>
+                <div class="main-result">
+                    <h3>You can afford a home up to</h3>
+                    <p id="result-total-price">$0</p>
+                </div>
+                
+                <div class="results-summary" id="results-summary">
+                    <h4>Summary</h4>
+                    <p>
+                        Using the <span id="summary-rule-text">Conventional loan (36%)</span> as a guideline, your estimated maximum home price is <span id="summary-total-price">$0</span>. This calculation includes your <span id="summary-down-payment">$0</span> down payment plus a potential loan of <span id="summary-loan-amount">$0</span>. <span id="summary-rule-info">Most conventional loan lenders use the 28/36 rule.</span>
+                    </p>
+                </div>
+
+                <div class="related-tools">
+                    <h4 class="related-tools-title">Related Tools</h4>
+                    <div class="related-tools-grid">
+                        <div class="tool-link-block">
+                            <a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a>
+                            <div class="tool-subtitle">
+                                <span class="visible">Estimate your monthly payments.</span>
+                                <span>See a full amortization schedule.</span>
+                            </div>
+                        </div>
+                        <div class="tool-link-block">
+                            <a href="../../financial-calculators/rent-vs-buy-calculator/">Rent vs. Buy Calculator</a>
+                            <div class="tool-subtitle">
+                                <span>Is buying the right financial move?</span>
+                                <span class="visible">Compare the long-term costs.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="results-breakdown">
+                    <div class="results-grid">
+                        <div class="result-group">
+                            <h4>One-Time Costs</h4>
+                            <div class="result-item">
+                                <span class="result-item-label">Down Payment</span>
+                                <span class="result-item-value" id="result-down-payment">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Closing Costs (Est. 3%)</span>
+                                <span class="result-item-value" id="result-closing-costs">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Total at Closing</span>
+                                <span class="result-item-value" id="result-total-closing">$0</span>
+                            </div>
+                        </div>
+                        <div class="result-group">
+                            <h4>Loan & Ratios</h4>
+                            <div class="result-item">
+                                <span class="result-item-label">You Can Borrow</span>
+                                <span class="result-item-value" id="result-loan-amount">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Front-End DTI Ratio</span>
+                                <span class="result-item-value" id="result-frontend-dti">0%</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Back-End DTI Ratio</span>
+                                <span class="result-item-value" id="result-backend-dti">0%</span>
+                            </div>
+                        </div>
+                         <div class="result-group">
+                            <h4>Annual Costs</h4>
+                            <div class="result-item">
+                                <span class="result-item-label">Property Tax</span>
+                                <span class="result-item-value" id="result-annual-tax">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Insurance</span>
+                                <span class="result-item-value" id="result-annual-insurance">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">HOA Fee</span>
+                                <span class="result-item-value" id="result-annual-hoa">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Maintenance (Est. 1.5%)</span>
+                                <span class="result-item-value" id="result-annual-maintenance">$0</span>
+                            </div>
+                        </div>
+                        <div class="result-group">
+                            <h4>Monthly House Costs</h4>
+                            <div class="result-item">
+                                <span class="result-item-label">Mortgage (P&I)</span>
+                                <span class="result-item-value" id="result-monthly-mortgage">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Property Tax</span>
+                                <span class="result-item-value" id="result-monthly-tax">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Insurance</span>
+                                <span class="result-item-value" id="result-monthly-insurance">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">HOA Fee</span>
+                                <span class="result-item-value" id="result-monthly-hoa">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Maintenance (Est. 1.5%)</span>
+                                <span class="result-item-value" id="result-monthly-maintenance">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">Total Monthly Cost</span>
+                                <span class="result-item-value" id="result-total-monthly">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <section class="more-tools-section">
+            <h2>More Tools</h2>
+            <div class="tools-grid">
+                <div class="tools-column">
+                    <h4>Financial Calculators</h4>
+                    <ul>
+                        <li><a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a></li>
+                        <li><strong>Home Affordability Calculator</strong></li>
+                        <li><a href="#">Refinance Calculator</a></li>
+                        <li><a href="#">Loan Calculator</a></li>
+                        <li><a href="../../financial-calculators/rent-vs-buy-calculator/">Rent v/s Buy Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Life Insurance</h4>
+                    <ul>
+                        <li><a href="#">Life Insurance Calculator</a></li>
+                        <li><a href="#">Term v/s Whole Life Insurance Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Finance and Taxes</h4>
+                    <ul>
+                        <li><a href="#">Credit Card Payoff Calculators</a></li>
+                        <li><a href="#">Debt Snowball Calculator</a></li>
+                        <li><a href="#">APR v/s Interest Rate Calculator</a></li>
+                        <li><a href="#">Credit Card Utilization Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="tools-column">
+                    <h4>Real Estate Investment</h4>
+                    <ul>
+                        <li><a href="#">Cap Rate Calculator</a></li>
+                        <li><a href="#">ROI Calculator for Rental Property</a></li>
+                        <li><a href="#">Cash-on-Cash Return Calculator</a></li>
+                        <li><a href="#">Property Tax Calculator</a></li>
+                        <li><a href="#">Closing Costs Calculator</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="seo-content-section">
+            <h2>The Definitive Guide to Home Affordability</h2>
+
+            <p>
+                Before you start browsing listings and dreaming about your next home, the first step is to define your budget. A home affordability calculator takes the guesswork out, turning your income, debts, and savings into a clear, realistic price range. Knowing this number helps you:
+            </p>
+            <ul>
+                <li>Shop confidently within your means</li>
+                <li>Avoid becoming “house poor”</li>
+                <li>Negotiate from a stronger position</li>
+                <li>Plan for long-term financial stability</li>
+            </ul>
+
+            <h2>How to Use the Calculator: A Step-by-Step Guide</h2>
+            <p>To get the most accurate estimate, follow these steps to fill out the form above:</p>
+            <ol>
+                <li id="income">Enter Your Income: In the "Annual household income" field, enter the total yearly income before taxes for all individuals who will be on the mortgage.</li>
+                <li id="debts">List Your Monthly Debts: In the "Monthly debt payback" field, add up all your recurring monthly payments. This includes minimum credit card payments, car loans, student loans, and any other personal loans. Do not include your current rent.</li>
+                <li id="downpayment">Provide Your Down Payment: In the "Down payment" field, enter the total amount of cash you have saved and plan to use for the initial home purchase.</li>
+                <li id="loan">Estimate Loan Details: Set the "Mortgage loan term" (30 years is most common) and the "Interest rate". If you don't have a rate from a lender, you can use the current market average.</li>
+                <li id="costs">Add Future Housing Costs: Provide estimates for "Property tax" and "Insurance" as an annual percentage of the home's value. You can find realistic numbers by looking at real estate listings in your target area. Don't forget to add any monthly "HOA fees" if applicable.</li>
+                <li id="dti">Select a DTI Ratio: The Debt-to-Income ratio determines how much of your income can go towards debt. If you're unsure, "Conventional loan (36%)" is a great starting point.</li>
+                <li id="results">See Your Results: The results on the right will automatically update as you enter your information, giving you a real-time affordability estimate!</li>
+            </ol>
+            
+            <h2>Key Factors That Drive Your Home Affordability</h2>
+            <p>Our calculator uses the same data lenders do when reviewing a mortgage application:</p>
+            <ol>
+                 <li>
+                    Gross Income: The Foundation
+                    <p>Your income sets the ceiling for what lenders believe you can repay.</p>
+                </li>
+                <li>
+                    Debt-to-Income (DTI) Ratio: The Gatekeeper
+                     <ul>
+                        <li>Front-End DTI: Housing costs divided by gross monthly income (target ≤28%).</li>
+                        <li>Back-End DTI: All housing and debt costs divided by gross monthly income (target ≤36%).</li>
+                    </ul>
+                    <p>The lower your DTI, the more house you can afford.</p>
+                </li>
+                <li>
+                    Down Payment: Your Stake in the Game
+                    <p>A larger down payment lowers your loan amount and monthly cost.</p>
+                    <ul>
+                        <li>20%+: Avoid PMI (Private Mortgage Insurance) and reduce interest costs.</li>
+                        <li>3–5%: Accepted by many conventional loans.</li>
+                        <li>0-3.5%: Available through programs like FHA, VA, or USDA loans for eligible buyers.</li>
+                    </ul>
+                </li>
+                <li>
+                    Interest Rate & Loan Term: The Cost of Borrowing
+                    <ul>
+                        <li>Interest Rate: Even a 1% increase can reduce affordability by tens of thousands.</li>
+                        <li>Loan Term: A 15-year term means higher monthly payments but less total interest, while a 30-year term means lower payments but more total interest.</li>
+                    </ul>
+                </li>
+                <li>
+                    Other Housing Costs: Beyond the Mortgage
+                    <p>Don’t overlook property taxes, homeowners insurance, HOA fees, and maintenance costs. These all count toward your DTI and affect affordability.</p>
+                </li>
+            </ol>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions (FAQ)</h2>
+
+                <details class="faq-item">
+                    <summary>What is the 28/36 rule and why is it important?</summary>
+                    <p class="faq-answer">The 28/36 rule is a quick affordability test used by lenders. It says your housing costs should not exceed 28% of your gross monthly income, and your total debt (housing plus all loans) should not exceed 36%. Staying within these limits improves mortgage approval chances.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>How much of a down payment do I need?</summary>
+                    <div class="faq-answer">
+                        <p>While 20% is ideal, it's not always required. Common options include:</p>
+                        <ul>
+                            <li>20% or more: The best option to avoid PMI (Private Mortgage Insurance) and lower your monthly cost.</li>
+                            <li>3–5%: The typical minimum for many conventional loans.</li>
+                            <li>0-3.5%: Available through government-backed programs like VA, USDA, or FHA loans for qualified buyers.</li>
+                        </ul>
+                        <p>The bigger your down payment, the a lot you save in the long term.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>How do interest rates affect affordability?</summary>
+                    <p class="faq-answer">Even a 1% increase in mortgage rates can reduce your buying power by tens of thousands of dollars. Lower rates mean you can afford more house on the same income.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Can I afford a house with no down payment?</summary>
+                    <p class="faq-answer">No, but options are limited. VA and USDA loans allow 0% down for eligible buyers. However, monthly payments will be higher, and eligibility requirements apply.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>What are closing costs and how much are they?</summary>
+                    <p class="faq-answer">Closing costs are the one-time fees paid at loan finalization, covering services like the appraisal, title search, and loan origination. They typically equal 2–5% of the home's purchase price. Our calculator estimates this at 3% to help you budget.</p>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>Why is my affordable home price lower than expected?</summary>
+                     <div class="faq-answer">
+                        <p>Common reasons include:</p>
+                         <ul>
+                            <li>High monthly debts (car payments, student loans, credit cards)</li>
+                            <li>Higher property taxes in your desired area</li>
+                            <li>HOA fees</li>
+                            <li>Rising interest rates</li>
+                        </ul>
+                        <p>Even with a strong income, these factors reduce the loan amount you can qualify for.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Does this calculator guarantee loan approval?</summary>
+                    <p class="faq-answer">No. This tool provides a powerful estimate based on standard financial formulas. Final approval always depends on a lender’s full underwriting process, which includes a detailed review of your credit score, verified income, assets, and the property appraisal.</p>
+                </details>
+            </div>
+            
+            <h2>Key Takeaway</h2>
+            <p>A home affordability calculator is your first reality check in the home-buying journey. By factoring in income, debt, down payment, rates, and other housing costs, it gives you a clear price range to target—so you can house hunt with confidence and protect your long-term financial future.</p>
+        </section>
+
+    </main>
+
+    <footer class="page-footer">
+        <nav>
+            <a href="../../about/">About</a>
+            <a href="../../support/">Support</a>
+            <a href="../../privacy-policy/">Privacy Policy</a>
+            <a href="../../contact/">Contact Us</a>
+        </nav>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const subtitles = [
+                "Calculations today, keys in hand tomorrow.",
+                "Plan with numbers, live with confidence.",
+                "Where clarity today builds comfort tomorrow."
+            ];
+            const subtitleEl = document.getElementById('fading-subtitle');
+            let subtitleIndex = 0;
+            const subtitleDisplayTime = 3000; 
+            const subtitleFadeTime = 1000; 
+
+            function cycleSubtitles() {
+                subtitleEl.textContent = subtitles[subtitleIndex];
+                subtitleEl.classList.add('visible');
+                setTimeout(() => {
+                    subtitleEl.classList.remove('visible');
+                    setTimeout(() => {
+                        subtitleIndex = (subtitleIndex + 1) % subtitles.length;
+                        cycleSubtitles();
+                    }, subtitleFadeTime);
+                }, subtitleDisplayTime);
+            }
+
+            subtitleEl.textContent = subtitles[0];
+            subtitleEl.classList.add('visible');
+            setTimeout(() => {
+                subtitleEl.classList.remove('visible');
+                setTimeout(() => {
+                    subtitleIndex = (subtitleIndex + 1) % subtitles.length;
+                    cycleSubtitles();
+                }, subtitleFadeTime);
+            }, subtitleDisplayTime);
+
+            
+            const scrollPhrases = [
+                "Your calculator awaits below",
+                "Scroll down to calculate",
+                "Begin your journey below",
+                "Scroll down to calculate" 
+            ];
+            const scrollPromptEl = document.getElementById('scroll-prompt');
+            const scrollTextEl = document.getElementById('scroll-prompt-text');
+            let scrollIndex = 0;
+
+            const scrollTextDisplayTime = 3000;
+            const scrollTextFadeTime = 500;
+            const scrollPromptMoveTime = 500;
+
+            function cycleScrollText() {
+                scrollTextEl.classList.remove('visible');
+                setTimeout(() => {
+                    scrollIndex = (scrollIndex + 1) % scrollPhrases.length;
+                    scrollTextEl.textContent = scrollPhrases[scrollIndex];
+                    const newWidth = scrollPromptEl.offsetWidth;
+                    scrollPromptEl.style.transform = `translateX(-${newWidth / 2}px)`;
+                    setTimeout(() => {
+                        scrollTextEl.classList.add('visible');
+                    }, scrollPromptMoveTime);
+                }, scrollTextFadeTime);
+                
+                const totalAnimationTime = scrollTextFadeTime + scrollPromptMoveTime + scrollTextFadeTime;
+                setTimeout(cycleScrollText, scrollTextDisplayTime + totalAnimationTime);
+            }
+            
+            function initScrollPrompt() {
+                scrollTextEl.textContent = scrollPhrases[0];
+                const initialWidth = scrollPromptEl.offsetWidth;
+                scrollPromptEl.style.transform = `translateX(-${initialWidth / 2}px)`;
+                scrollTextEl.classList.add('visible');
+                setTimeout(cycleScrollText, scrollTextDisplayTime);
+            }
+            
+            initScrollPrompt();
+
+            scrollPromptEl.addEventListener('click', () => {
+                document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            const toolSubtitles = document.querySelectorAll('.tool-subtitle');
+            toolSubtitles.forEach((subtitleContainer, index) => {
+                const spans = subtitleContainer.querySelectorAll('span');
+                let currentIndex = 0;
+
+                for (let i = 0; i < spans.length; i++) {
+                    if (spans[i].classList.contains('visible')) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                
+                const animationInterval = 4000;
+                const delay = (animationInterval / 2) * index;
+
+                setTimeout(() => {
+                    setInterval(() => {
+                        spans[currentIndex].classList.remove('visible');
+                        currentIndex = (currentIndex + 1) % spans.length;
+                        setTimeout(() => {
+                            spans[currentIndex].classList.add('visible');
+                        }, 1000);
+                    }, animationInterval);
+                }, delay);
+            });
+
+            const dtiSelectTrigger = document.getElementById('dti-select-trigger');
+            const dtiSelectValue = document.getElementById('dti-select-value');
+            const dtiOptions = document.getElementById('dti-options');
+            const dtiCustomInput = document.getElementById('dti-ratio-custom');
+            const dtiHiddenInput = document.getElementById('dti-ratio');
+            const form = document.getElementById('affordability-form');
+
+            const defaultOption = dtiOptions.querySelector('li[data-value="' + dtiHiddenInput.value + '"]');
+            if (defaultOption) { defaultOption.classList.add('selected'); }
+
+            dtiSelectTrigger.addEventListener('click', () => { dtiOptions.classList.toggle('open'); });
+            dtiOptions.addEventListener('click', (e) => {
+                if (e.target.tagName === 'LI') {
+                    const currentSelected = dtiOptions.querySelector('li.selected');
+                    if (currentSelected) { currentSelected.classList.remove('selected'); }
+                    e.target.classList.add('selected');
+                    
+                    const value = e.target.getAttribute('data-value');
+                    const label = e.target.getAttribute('data-label');
+                    dtiSelectValue.textContent = label;
+                    dtiOptions.classList.remove('open');
+                    if (value === 'custom') {
+                        dtiCustomInput.style.display = 'block';
+                        dtiHiddenInput.value = dtiCustomInput.value;
+                    } else {
+                        dtiCustomInput.style.display = 'none';
+                        dtiHiddenInput.value = value;
+                    }
+                    form.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+            dtiCustomInput.addEventListener('input', () => {
+                dtiHiddenInput.value = dtiHiddenInput.value;
+                form.dispatchEvent(new Event('input', { bubbles: true }));
+            });
+            window.addEventListener('click', (e) => { if (!dtiSelectTrigger.contains(e.target)) { dtiOptions.classList.remove('open'); } });
+
+            const idsToCap = ['interest-rate', 'property-tax', 'insurance', 'dti-ratio-custom', 'loan-term'];
+            idsToCap.forEach(id => {
+                const inputElement = document.getElementById(id);
+                if (inputElement) {
+                    inputElement.addEventListener('input', (event) => {
+                        const max = parseFloat(event.target.getAttribute('max')) || 100;
+                        if (parseFloat(event.target.value) > max) { event.target.value = max; }
+                    });
+                }
+            });
+            const allNumberInputs = document.querySelectorAll('input[type="number"]');
+            allNumberInputs.forEach(input => {
+                input.addEventListener('keydown', (event) => {
+                    if (event.key === 'e' || event.key === '-') { event.preventDefault(); }
+                });
+                input.addEventListener('input', (event) => {
+                    const min = parseFloat(event.target.getAttribute('min')) || 0;
+                    if (event.target.value !== '' && parseFloat(event.target.value) < min) {
+                         event.target.value = min;
+                    }
+                });
+            });
+            const resultsSection = document.getElementById('results-section');
+            const resultsBreakdown = document.getElementById('results-breakdown');
+            const mainResultEl = document.getElementById('result-total-price');
+            const outputs = {
+                totalPrice: document.getElementById('result-total-price'),
+                downPayment: document.getElementById('result-down-payment'),
+                closingCosts: document.getElementById('result-closing-costs'),
+                totalClosing: document.getElementById('result-total-closing'),
+                loanAmount: document.getElementById('result-loan-amount'),
+                frontendDTI: document.getElementById('result-frontend-dti'),
+                backendDTI: document.getElementById('result-backend-dti'),
+                monthlyMortgage: document.getElementById('result-monthly-mortgage'),
+                monthlyTax: document.getElementById('result-monthly-tax'),
+                monthlyInsurance: document.getElementById('result-monthly-insurance'),
+                monthlyHoa: document.getElementById('result-monthly-hoa'),
+                monthlyMaintenance: document.getElementById('result-monthly-maintenance'),
+                totalMonthly: document.getElementById('result-total-monthly'),
+                annualTax: document.getElementById('result-annual-tax'),
+                annualInsurance: document.getElementById('result-annual-insurance'),
+                annualHoa: document.getElementById('result-annual-hoa'),
+                annualMaintenance: document.getElementById('result-annual-maintenance'),
+                summaryTotalPrice: document.getElementById('summary-total-price'),
+                summaryRuleText: document.getElementById('summary-rule-text'),
+                summaryLoanAmount: document.getElementById('summary-loan-amount'),
+                summaryDownPayment: document.getElementById('summary-down-payment'),
+                summaryRuleInfo: document.getElementById('summary-rule-info')
+            };
+            const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+            function calculateAffordability() {
+                const annualIncome = parseFloat(document.getElementById('annual-income').value) || 0;
+                const loanTermYears = parseFloat(document.getElementById('loan-term').value) || 0;
+                const interestRatePercent = parseFloat(document.getElementById('interest-rate').value) || 0;
+                const monthlyDebts = parseFloat(document.getElementById('monthly-debts').value) || 0;
+                const downPayment = parseFloat(document.getElementById('down-payment').value) || 0;
+                const propertyTaxPercent = parseFloat(document.getElementById('property-tax').value) || 0;
+                const hoaFee = parseFloat(document.getElementById('hoa-fee').value) || 0;
+                const insurancePercent = parseFloat(document.getElementById('insurance').value) || 0;
+                const dtiRatioPercent = parseFloat(dtiHiddenInput.value) || 0;
+                const otherCosts = parseFloat(document.getElementById('other-costs').value) || 0;
+                const grossMonthlyIncome = annualIncome / 12;
+                if (grossMonthlyIncome === 0) { showError("Please fill out the form"); return; }
+                const maxTotalMonthlyDebt = grossMonthlyIncome * (dtiRatioPercent / 100);
+                const maxMonthlyHousingPayment = maxTotalMonthlyDebt - monthlyDebts - otherCosts;
+                if (maxMonthlyHousingPayment <= hoaFee) { showError("With your current debts and income, you cannot afford a mortgage payment."); return; }
+                const maxPITI = maxMonthlyHousingPayment - hoaFee;
+                const monthlyInterestRate = (interestRatePercent / 100) / 12;
+                const numberOfMonths = loanTermYears * 12;
+                let M_factor = 0;
+                if (monthlyInterestRate > 0 && numberOfMonths > 0) { M_factor = (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfMonths)) / (Math.pow(1 + monthlyInterestRate, numberOfMonths) - 1); }
+                const T_factor = (propertyTaxPercent / 100) / 12;
+                const I_factor = (insurancePercent / 100) / 12;
+                let totalHousePrice = 0;
+                if (M_factor + T_factor + I_factor > 0) { totalHousePrice = (maxPITI + downPayment * M_factor) / (M_factor + T_factor + I_factor); }
+                if (totalHousePrice <= downPayment) { showError("Your income doesn't support a loan. You can afford a home up to the value of your down payment."); totalHousePrice = downPayment; } else { showResults(); }
+                const loanAmount = totalHousePrice > downPayment ? totalHousePrice - downPayment : 0;
+                const closingCosts = totalHousePrice * 0.03;
+                const totalClosing = downPayment + closingCosts;
+                const monthlyMortgage = loanAmount * M_factor;
+                const monthlyTax = totalHousePrice * T_factor;
+                const monthlyInsurance = totalHousePrice * I_factor;
+                const annualMaintenance = totalHousePrice * 0.015;
+                const monthlyMaintenance = annualMaintenance / 12;
+                const totalHouseMonthlyPayment = monthlyMortgage + monthlyTax + monthlyInsurance + hoaFee;
+                const totalMonthlyCost = totalHouseMonthlyPayment + monthlyMaintenance + otherCosts;
+                const frontendDTI = grossMonthlyIncome > 0 ? (totalHouseMonthlyPayment / grossMonthlyIncome) * 100 : 0;
+                const backendDTI = grossMonthlyIncome > 0 ? ((totalHouseMonthlyPayment + monthlyDebts + otherCosts) / grossMonthlyIncome) * 100 : 0;
+                const annualTax = totalHousePrice * (propertyTaxPercent / 100);
+                const annualInsurance = totalHousePrice * (insurancePercent / 100);
+                const annualHoa = hoaFee * 12;
+                outputs.totalPrice.textContent = currencyFormatter.format(totalHousePrice);
+                outputs.downPayment.textContent = currencyFormatter.format(downPayment);
+                outputs.closingCosts.textContent = currencyFormatter.format(closingCosts);
+                outputs.totalClosing.textContent = currencyFormatter.format(totalClosing);
+                outputs.loanAmount.textContent = currencyFormatter.format(loanAmount);
+                outputs.frontendDTI.textContent = `${frontendDTI.toFixed(1)}%`;
+                outputs.backendDTI.textContent = `${backendDTI.toFixed(1)}%`;
+                outputs.monthlyMortgage.textContent = currencyFormatter.format(monthlyMortgage);
+                outputs.monthlyTax.textContent = currencyFormatter.format(monthlyTax);
+                outputs.monthlyInsurance.textContent = currencyFormatter.format(monthlyInsurance);
+                outputs.monthlyHoa.textContent = currencyFormatter.format(hoaFee);
+                outputs.monthlyMaintenance.textContent = currencyFormatter.format(monthlyMaintenance);
+                outputs.totalMonthly.textContent = currencyFormatter.format(totalMonthlyCost);
+                outputs.annualTax.textContent = currencyFormatter.format(annualTax);
+                outputs.annualInsurance.textContent = currencyFormatter.format(annualInsurance);
+                outputs.annualHoa.textContent = currencyFormatter.format(annualHoa);
+                outputs.annualMaintenance.textContent = currencyFormatter.format(annualMaintenance);
+                
+                outputs.summaryTotalPrice.textContent = currencyFormatter.format(totalHousePrice);
+                outputs.summaryLoanAmount.textContent = currencyFormatter.format(loanAmount);
+                outputs.summaryDownPayment.textContent = currencyFormatter.format(downPayment);
+                
+                const selectedDtiLabel = dtiSelectValue.textContent;
+                outputs.summaryRuleText.textContent = selectedDtiLabel;
+
+                let ruleInfoText = "";
+                if (dtiHiddenInput.value === "36") { ruleInfoText = "Most conventional loan lenders use the 28/36 rule."; }
+                else if (dtiHiddenInput.value === "43") { ruleInfoText = "FHA loans have specific DTI limits set by the Federal Housing Administration."; }
+                else if (dtiHiddenInput.value === "41") { ruleInfoText = "VA loan guidelines are set by the Department of Veterans Affairs."; }
+                else { ruleInfoText = "Custom DTI ratios are subject to lender approval."; }
+                outputs.summaryRuleInfo.textContent = ruleInfoText;
+            }
+            function showError(message) {
+                resultsSection.style.display = 'block';
+                resultsBreakdown.style.display = 'none';
+                mainResultEl.textContent = message;
+                mainResultEl.classList.add('error-message');
+                mainResultEl.parentElement.style.borderLeftColor = 'red';
+                document.getElementById('results-summary').style.display = 'none';
+            }
+            function showResults() {
+                resultsSection.style.display = 'block';
+                resultsBreakdown.style.display = 'grid';
+                mainResultEl.classList.remove('error-message');
+                mainResultEl.parentElement.style.borderLeftColor = '#2ca86a';
+                document.getElementById('results-summary').style.display = 'block';
+            }
+            form.addEventListener('input', calculateAffordability);
+            calculateAffordability();
+        });
+    </script>
+
+</body>
+</html>

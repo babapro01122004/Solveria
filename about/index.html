@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Solveria</title>
+
+    <meta name="description" content="Learn about the mission and philosophy behind Solveria. Discover our commitment to providing clear, accurate, and free financial tools to empower your decisions.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://solveria.org/about/",
+          "url": "https://solveria.org/about/",
+          "name": "About Us | Solveria",
+          "isPartOf": { "@id": "https://solveria.org/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
+            { "@type": "ListItem", "position": 2, "name": "About Us" }
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://solveria.org/#organization",
+          "name": "Solveria",
+          "url": "https://solveria.org/",
+          "logo": "https://solveria.org/img/Logo_Golden.png"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            background-color: #f5f5f7;
+            color: #333;
+        }
+
+        /* UPDATED: Standardized header styling */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo img {
+            height: 35px;
+            width: auto;
+        }
+        .header nav a {
+            color: #e0e0e0; text-decoration: none; font-size: 0.9rem;
+            font-weight: 300; transition: color 0.3s ease;
+            margin-left: 30px;
+        }
+        .header nav a:hover { color: #ffffff; }
+
+        .hero-section {
+            height: 50vh;
+            min-height: 300px;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../img/about.webp'); 
+            background-color: #333; /* Fallback color */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+        .hero-section h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 100;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+        }
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
+        .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { margin: 0 8px; color: #ccc; }
+        .breadcrumb .current-page { color: #333; font-weight: 400; }
+        
+        .article-body h2 {
+            font-size: 2.2rem; font-weight: 300;
+            color: #333; margin-top: 40px; margin-bottom: 20px;
+            border-bottom: 1px solid #eee; padding-bottom: 10px;
+        }
+        .article-body h2:first-of-type { margin-top: 0; }
+        .article-body h3 { font-size: 1.5rem; font-weight: 400; color: #444; margin-top: 30px; margin-bottom: 15px; }
+        .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #555; }
+        .article-body ul { padding-left: 20px; }
+        .article-body a { color: #047857; text-decoration: none; font-weight: 400; } /* Consistent link color */
+        .article-body a:hover { text-decoration: underline; }
+
+        /* UPDATED: Standardized footer to match homepage */
+        footer {
+            background-color: #f5f5f7;
+            padding: 2.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: #6e6e73;
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .footer-nav a:hover {
+            color: #1d1d1f;
+            transition-duration: 150ms;
+        }
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .footer-nav {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo">
+                <picture>
+                    <source srcset="../img/Logo_White.webp" type="image/webp">
+                    <source srcset="../img/Logo_White.png" type="image/png">
+                    <img src="../img/Logo_White.png" alt="Solveria Logo">
+                </picture>
+            </a>
+            <nav>
+                <a href="../#calculators">Calculators</a>
+                <a href="../about/">About</a>
+                <a href="../support/">Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>About Solveria</h1>
+        </section>
+
+        <section class="content-section">
+            <div class="content-container">
+                <nav class="breadcrumb">
+                    <a href="../">Home</a>
+                    <span>/</span>
+                    <span class="current-page">About Us</span>
+                </nav>
+
+                <article class="article-body">
+                    <h2>Our Mission</h2>
+                    <p>
+                        In a world filled with complex financial decisions, our mission is to provide clarity. We believe that everyone deserves access to powerful, intuitive, and free tools that can demystify finance and empower better decision-making. Solveria was born from a desire to create a single, reliable place for people to find answers to their most important financial questions—from buying a home to planning for retirement.
+                    </p>
+
+                    <h3>Our Philosophy</h3>
+                    <p>
+                        Our work is guided by three core principles:
+                    </p>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Our calculators are built on standard, industry-accepted formulas and are rigorously tested. We strive to provide reliable estimates you can trust.</li>
+                        <li><strong>Privacy:</strong> Your financial data is your own. All calculations are performed directly in your browser. We do not see, track, or store any of the personal numbers you enter.</li>
+                        <li><strong>Simplicity:</strong> Complex doesn't have to be complicated. We are obsessed with creating a clean, simple, and intuitive user experience that delivers powerful insights without the clutter.</li>
+                    </ul>
+
+                    <h2>Get in Touch</h2>
+                    <p>
+                        Have a question, a suggestion for a new calculator, or just want to say hello? We'd love to hear from you. Your feedback is invaluable as we continue to build and improve Solveria.
+                    </p>
+                    <p>
+                        You can reach us by email at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Solveria. All rights reserved.</p>
+            <div class="footer-nav">
+                <a href="../privacy-policy/">Privacy Policy</a>
+                <a href="../about/">About Us</a>
+                <a href="../support/">Support</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

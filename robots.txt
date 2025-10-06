@@ -1,0 +1,9 @@
+# Global rules for all crawlers
+User-agent: *
+Allow: /
+
+# Block unfinished content
+Disallow: /coming-soon/
+
+# XML sitemap for discovery
+Sitemap: https://solveri.org/sitemap.xml
