@@ -190,7 +190,7 @@
     }
     </script>
     <style>
-        /* All CSS remains the same... */
+        /* All CSS from your file... */
         html {
             scroll-behavior: smooth;
         }
@@ -305,20 +305,23 @@
             -moz-osx-font-smoothing: grayscale;
             transform: translateZ(0);
         }
-        .mobile-support-btn {
+        .mobile-nav {
             display: none;
             position: absolute;
-            top: 30px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+            gap: 40px;
+        }
+        .mobile-nav-link {
             color: #cacaca;
             text-decoration: none;
             font-size: 1rem;
             font-weight: 300;
             transition: color 0.3s ease;
         }
-        .mobile-support-btn:hover {
+        .mobile-nav-link:hover {
             color: #ffffff;
         }
         .content-section {
@@ -680,6 +683,123 @@
             margin-right: 10px;
             border-radius: 2px;
         }
+        .details-button {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: #333;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .details-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(240, 240, 240, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .modal-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+            z-index: 1;
+        }
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            z-index: 2;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .modal-content h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 300;
+            text-align: center;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #888;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+        .modal-breakdown-container .result-item {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            align-items: center;
+            gap: 15px;
+        }
+        .modal-breakdown-container .result-item .label {
+            text-align: left;
+        }
+        .modal-breakdown-container .result-item .percentage {
+            text-align: right;
+            font-weight: 400;
+            color: #333;
+        }
+        .modal-breakdown-container .result-item .value {
+            text-align: right;
+        }
+        .modal-breakdown-header {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #777;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-breakdown-header span:nth-child(2),
+        .modal-breakdown-header span:nth-child(3) {
+            text-align: right;
+        }
         .amortization-schedule-container {
             max-width: 1400px;
             margin: 100px auto 50px;
@@ -693,25 +813,29 @@
             margin-bottom: 30px;
         }
         .toggle-buttons {
+            display: inline-flex;
+            background-color: #ffffff;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            padding: 5px;
+            gap: 5px;
             margin-bottom: 30px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            overflow: hidden;
         }
         .toggle-buttons button {
             padding: 8px 25px;
             font-size: 0.9rem;
+            font-weight: 300;
             border: none;
             background-color: transparent;
+            color: #333;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            color: #555;
-            font-weight: 300; 
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
         }
         .toggle-buttons button.active {
             background-color: #8c5a3c;
             color: #fff;
+            box-shadow: 0 2px 8px rgba(140, 90, 60, 0.4);
         }
         .schedule-table-wrapper {
             max-height: 600px;
@@ -926,13 +1050,21 @@
             .tools-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            .scroll-indicator p {
+                display: none;
+            }
+            .scroll-indicator {
+                left: 50% !important;
+                transform: translateX(-50%);
+                transition: none !important;
+            }
         }
         @media (max-width: 768px) {
             .hero-nav {
                 display: none;
             }
-            .mobile-support-btn {
-                display: block;
+            .mobile-nav {
+                display: flex;
             }
             .hero-section { padding-bottom: 0; }
             .hero-content-wrapper img {
@@ -969,6 +1101,30 @@
             .breakdown-container { grid-template-columns: 1fr; gap: 40px; }
             .charts-container { margin-top: 60px; }
             
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-header {
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+            .modal-content h3 {
+                font-size: 1.4rem;
+                text-align: left;
+            }
+            .modal-close-btn {
+                position: static;
+                transform: none;
+                padding-left: 15px;
+                right: -5px;
+                top: 8px;
+            }
+            .modal-breakdown-container .result-item,
+            .modal-breakdown-header {
+                grid-template-columns: 1fr 60px 1fr;
+                font-size: 0.9rem;
+            }
+
             .seo-content-section, .more-tools-section {
                 margin-top: 60px;
                 padding: 0;
@@ -991,7 +1147,10 @@
 
     <header class="hero-section">
         
-        <a href="../../support/" class="mobile-support-btn">Support</a>
+        <div class="mobile-nav">
+            <a href="../../" class="mobile-nav-link">Home</a>
+            <a href="../../support/" class="mobile-nav-link">Support</a>
+        </div>
 
         <nav class="hero-nav">
             <a href="../../">Home</a>
@@ -1022,7 +1181,7 @@
         <div class="calculator-wrapper">
 
             <div class="breadcrumb">
-                <a href="../../">Home</a> / <a href="../../calculators/">Calculators</a> / <span>Mortgage Calculator</span>
+                <a href="../../">Home</a> / <a href="../../calculators/">Financial Calculators</a> / <span>Mortgage Calculator</span>
             </div>
 
             <div class="intro-section">
@@ -1054,11 +1213,11 @@
                         <div class="date-inputs">
                             <div class="input-group">
                                 <label for="startDateDay" class="date-sub-label">Date</label>
-                                <input type="number" id="startDateDay" value="27">
+                                <input type="number" id="startDateDay" value="11">
                             </div>
                             <div class="input-group">
                                 <label for="startDateMonth" class="date-sub-label">Month</label>
-                                <input type="number" id="startDateMonth" value="9">
+                                <input type="number" id="startDateMonth" value="10">
                             </div>
                         </div>
                     </div>
@@ -1236,6 +1395,7 @@
                     <canvas id="costBreakdownChart"></canvas>
                 </div>
                 <div id="cost-breakdown-legend" class="custom-legend"></div>
+                <button id="show-details-btn" class="details-button">More Details</button>
             </div>
             <div class="line-charts-grid">
                 <div class="chart-wrapper">
@@ -1281,35 +1441,35 @@
                     <h3>Financial Calculators</h3>
                     <div class="links-container">
                         <a href="../../financial-calculators/home-affordability-calculator/">Home Affordability Calculators</a>
-                        <a href="#">Refinance Calculator</a>
-                        <a href="#">Loan Calculator</a>
+                        <a href="../../coming-soon/">Refinance Calculator</a>
+                        <a href="../../coming-soon/">Loan Calculator</a>
                         <a href="../../financial-calculators/rent-vs-buy-calculator/">Rent v/s Buy Calculator</a>
                     </div>
                 </div>
                 <div>
                     <h3>Life Insurance</h3>
                     <div class="links-container">
-                        <a href="#">Life Insurance Calculator</a>
-                        <a href="#">Term v/s Whole Life Insurance Calculator</a>
+                        <a href="../../coming-soon/">Life Insurance Calculator</a>
+                        <a href="../../coming-soon/">Term v/s Whole Life Insurance Calculator</a>
                     </div>
                 </div>
                 <div>
                     <h3>Finance and Taxes</h3>
                     <div class="links-container">
-                        <a href="#">Credit Card Payoff Calculators</a>
-                        <a href="#">Debt Snowball Calculator</a>
-                        <a href="#">APR v/s Interest Rate Calculator</a>
-                        <a href="#">Credit Card Utilization Calculator</a>
+                        <a href="../../coming-soon/">Credit Card Payoff Calculators</a>
+                        <a href="../../coming-soon/">Debt Snowball Calculator</a>
+                        <a href="../../coming-soon/">APR v/s Interest Rate Calculator</a>
+                        <a href="../../coming-soon/">Credit Card Utilization Calculator</a>
                     </div>
                 </div>
                 <div>
                     <h3>Real Estate Investment</h3>
                     <div class="links-container">
-                        <a href="#">Cap Rate Calculator</a>
-                        <a href="#">ROI Calculator for Rental Property</a>
-                        <a href="#">Cash-on-Cash Return Calculator</a>
-                        <a href="#">Property Tax Calculator</a>
-                        <a href="#">Closing Costs Calculator</a>
+                        <a href="../../coming-soon/">Cap Rate Calculator</a>
+                        <a href="../../coming-soon/">ROI Calculator for Rental Property</a>
+                        <a href="../../coming-soon/">Cash-on-Cash Return Calculator</a>
+                        <a href="../../coming-soon/">Property Tax Calculator</a>
+                        <a href="../../coming-soon/">Closing Costs Calculator</a>
                     </div>
                 </div>
             </div>
@@ -1412,6 +1572,17 @@
     
     <div id="chartTooltip" class="chart-tooltip"></div>
     
+    <div id="details-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Lifetime Cost Breakdown</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-breakdown-container" id="modal-breakdown-content">
+            </div>
+        </div>
+    </div>
+
     <footer>
         <a href="../../about/">About</a>
         <a href="../../contact/">Contact Us</a>
@@ -1420,27 +1591,45 @@
     </footer>
 
     <script>
-        // All JavaScript remains exactly the same
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- INPUT CAPPING ---
-            const inputsToCap = ['interestRate', 'appreciationRate'];
-            inputsToCap.forEach(id => {
+            const inputCaps = {
+                homePrice: 10000000000,
+                downPayment: 10000000000,
+                loanTerm: 100,
+                interestRate: 100,
+                startDateYear: 9999,
+                homeInsurance: 1000000000,
+                hoaFee: 1000000,
+                propertyTaxes: 1000000000,
+                otherCosts: 1000000,
+                pmiInsurance: 1000000000,
+                monthlyDebts: 1000000000,
+                closingCosts: 1000000000,
+                appreciationRate: 100,
+                monthlyIncome: 1000000000,
+            };
+
+            for (const id in inputCaps) {
                 const input = document.getElementById(id);
                 if (input) {
                     input.addEventListener('input', () => {
-                        if (parseFloat(input.value) > 100) {
-                            input.value = '100';
+                        const parsedValue = parseFloat(input.value);
+                        if (!isNaN(parsedValue) && parsedValue > inputCaps[id]) {
+                            input.value = inputCaps[id].toString();
                         }
                     });
                 }
-            });
+            }
 
-            // --- CHART & SCHEDULE VARIABLES ---
             let costBreakdownChart, loanAmortizationChart, homeEquityChart;
             let fullAmortizationData = [];
+            let pieChartRawData = {};
 
-            // --- INPUT ELEMENTS ---
+            const showDetailsBtn = document.getElementById('show-details-btn');
+            const detailsModal = document.getElementById('details-modal');
+            const modalCloseBtn = detailsModal.querySelector('.modal-close-btn');
+
             const allInputs = {
                 homePrice: document.getElementById('homePrice'),
                 downPayment: document.getElementById('downPayment'),
@@ -1461,7 +1650,6 @@
                 year: document.getElementById('startDateYear')
             };
 
-            // --- OUTPUT & SCHEDULE ELEMENTS ---
             const resultElements = {
                 loanAmount: document.getElementById('resultLoanAmount'),
                 totalInterest: document.getElementById('resultTotalInterest'),
@@ -1491,7 +1679,6 @@
                 tbody: document.getElementById('amortization-tbody')
             };
 
-            // --- HELPER FUNCTIONS ---
             const sanitizeDecimal = (event) => {
                 let value = event.target.value;
                 let sanitized = value.replace(/[^0-9.]/g, '');
@@ -1534,14 +1721,47 @@
                 };
             };
 
-            // --- CUSTOM TOOLTIP HANDLER ---
+            const populateDetailsModal = () => {
+                const contentEl = document.getElementById('modal-breakdown-content');
+                contentEl.innerHTML = '';
+
+                const total = Object.values(pieChartRawData).reduce((acc, val) => acc + (val || 0), 0);
+
+                let html = `
+                    <div class="modal-breakdown-header">
+                        <span>Component</span>
+                        <span>Percent</span>
+                        <span>Amount</span>
+                    </div>
+                `;
+
+                if (total === 0) {
+                    contentEl.innerHTML = '<p style="text-align: center; color: #666;">No data to display. Please enter your details in the calculator.</p>';
+                    return;
+                }
+
+                for (const label in pieChartRawData) {
+                    const value = pieChartRawData[label] || 0;
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    
+                    html += `
+                        <div class="result-item">
+                            <span class="label">${label}</span>
+                            <span class="percentage">${percentage}%</span>
+                            <span class="value">${formatCurrency(value)}</span>
+                        </div>
+                    `;
+                }
+
+                contentEl.innerHTML = html;
+            };
+            
             const customTooltipHandler = (event, chart) => {
                 const tooltipEl = document.getElementById('chartTooltip');
                 const { pageX, pageY } = event;
                 const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: false }, true);
 
                 if (elements.length === 0) {
-                    // Only hide if the event is a mouseout/touch end
                     if (event.type === 'mouseout') {
                         tooltipEl.style.opacity = 0;
                     }
@@ -1563,7 +1783,7 @@
                         <div class="tooltip-title">${label}</div>
                         <div style="text-align: center;">${formatCurrency(value)} (${percentage}%)</div>
                     `;
-                } else { // For line charts
+                } else {
                     const title = data.labels[index] || '';
                     if (title) {
                         innerHtml += `<div class="tooltip-title">Year: ${title}</div>`;
@@ -1591,28 +1811,30 @@
 
                 const tooltipWidth = tooltipEl.offsetWidth;
                 const tooltipHeight = tooltipEl.offsetHeight;
-                const margin = 12;
+                const margin = 15;
                 let finalX, finalY;
 
-                // Vertical smart placement
-                if ((pageY + margin + tooltipHeight) > window.innerHeight) {
-                    finalY = pageY - tooltipHeight - margin; 
-                } else {
-                    finalY = pageY + margin; 
+                finalY = pageY + margin;
+                if (finalY + tooltipHeight + margin > window.innerHeight) {
+                    finalY = pageY - tooltipHeight - margin;
                 }
                 if (finalY < 0) {
                     finalY = margin;
                 }
 
-                // Horizontal smart placement
-                if ((pageX - tooltipWidth - margin) < 0) { // Off screen left
-                    finalX = pageX + margin; // Place right of cursor
+                finalX = pageX + margin;
+                if (finalX + tooltipWidth + margin > window.innerWidth) {
+                    finalX = pageX - tooltipWidth - margin;
+                    if (finalX < 0) {
+                        finalX = pageX - (tooltipWidth / 2);
+                    }
                 }
-                else if ((pageX + tooltipWidth + margin) > window.innerWidth) { // Off screen right
-                    finalX = pageX - tooltipWidth - margin; // Place left of cursor
+                
+                if (finalX < 0) {
+                    finalX = margin;
                 }
-                else {
-                    finalX = pageX + margin; // Default to right of cursor
+                if (finalX + tooltipWidth + margin > window.innerWidth) {
+                    finalX = window.innerWidth - tooltipWidth - margin;
                 }
 
                 tooltipEl.style.left = finalX + 'px';
@@ -1622,7 +1844,6 @@
             };
 
 
-            // --- CHART INITIALIZATION ---
             const initializeCharts = () => {
                 const pieCtx = document.getElementById('costBreakdownChart').getContext('2d');
                 const amortizationCtx = document.getElementById('loanAmortizationChart').getContext('2d');
@@ -1664,30 +1885,28 @@
                     options: lineChartOptions
                 });
 
-                // Apply mousemove (hover) and mouseout events to all charts for ALL viewports
                 const charts = [costBreakdownChart, loanAmortizationChart, homeEquityChart];
-
                 charts.forEach(chart => {
-                    // Mouse move for hover (desktop/tablet resize)
                     chart.canvas.addEventListener('mousemove', (e) => customTooltipHandler(e, chart));
-                    
-                    // Mouse out for hiding
                     chart.canvas.addEventListener('mouseout', () => {
                         document.getElementById('chartTooltip').style.opacity = 0;
                     });
-                    
-                    // Click/Tap for mobile/touch devices (simulates touch persistence)
                     chart.canvas.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Stop propagation so the document listener doesn't immediately hide it
+                        e.stopPropagation();
                         customTooltipHandler(e, chart);
                     });
                 });
             };
 
-            // --- THE MAIN CALCULATION FUNCTION ---
             const calculateAndDisplay = () => {
                 const homePrice = parseFloat(allInputs.homePrice.value) || 0;
-                const downPayment = parseFloat(allInputs.downPayment.value) || 0;
+                let downPayment = parseFloat(allInputs.downPayment.value) || 0;
+
+                if (downPayment > homePrice) {
+                    downPayment = homePrice;
+                    allInputs.downPayment.value = homePrice.toString();
+                }
+                
                 const loanTerm = parseFloat(allInputs.loanTerm.value) || 0;
                 const interestRate = parseFloat(allInputs.interestRate.value) || 0;
                 const propertyTaxes = parseFloat(allInputs.propertyTaxes.value) || 0;
@@ -1706,7 +1925,7 @@
                 const startDate = new Date(startYear, startMonth - 1, startDay);
                 
                 const principal = homePrice - downPayment;
-                if (principal <= 0) {  return; }
+                if (principal <= 0) { return; }
                 const monthlyInterestRate = interestRate / 100 / 12;
                 const numberOfPayments = loanTerm * 12;
                 let monthlyPI = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1) || 0;
@@ -1737,7 +1956,7 @@
                 resultElements.summaryText.innerHTML = `Over the course of your <span class="summary-highlight">${loanTerm}</span> year loan, your total out-of-pocket cost is estimated to be <span class="summary-highlight">${formatCurrency(totalOutOfPocket)}</span>, with <span class="summary-highlight">${formatCurrency(totalInterest > 0 ? totalInterest : 0)}</span> going towards interest.`;
                 resultElements.monthlyTotal.textContent = formatCurrency(monthlyTotal);
                 resultElements.totalTotal.textContent = formatCurrency(totalOutOfPocket);
-                 resultElements.monthlyMortgage.textContent = formatCurrency(monthlyPI);
+                resultElements.monthlyMortgage.textContent = formatCurrency(monthlyPI);
                 resultElements.monthlyTax.textContent = formatCurrency(monthlyTax);
                 resultElements.monthlyInsurance.textContent = formatCurrency(monthlyInsurance);
                 resultElements.monthlyPMI.textContent = formatCurrency(monthlyPMI);
@@ -1777,6 +1996,9 @@
                     'Total Interest': totalInterest, 'Principal': principal, 'Property Taxes & Other': totalTax + totalOther + totalPMI + totalHOA, 
                     'Home Insurance': totalInsurance, 'Closing Costs': closingCosts, 'Down Payment': downPayment
                 };
+
+                pieChartRawData = pieChartData;
+
                 const amortizationData = calculateAmortizationForChart(fullAmortizationData, loanTerm);
                 const equityData = calculateEquityForChart(homePrice, appreciationRate, fullAmortizationData, loanTerm);
                 updateCharts(pieChartData, amortizationData, equityData, loanTerm);
@@ -1848,13 +2070,7 @@
                     fullAmortizationData.forEach(item => {
                         const row = tbody.insertRow();
                         const dateFormatted = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(item.date);
-                        row.innerHTML = `
-                            <td>${Math.ceil(item.paymentNumber / 12)}</td>
-                            <td>${dateFormatted}</td>
-                            <td>${formatCurrency(item.interest)}</td>
-                            <td>${formatCurrency(item.principal)}</td>
-                            <td>${formatCurrency(item.balance)}</td>
-                        `;
+                        row.innerHTML = `<td>${Math.ceil(item.paymentNumber / 12)}</td><td>${dateFormatted}</td><td>${formatCurrency(item.interest)}</td><td>${formatCurrency(item.principal)}</td><td>${formatCurrency(item.balance)}</td>`;
                     });
                 } else { 
                     const yearlyData = [];
@@ -1877,13 +2093,7 @@
                     }
                     yearlyData.forEach(item => {
                         const row = tbody.insertRow();
-                        row.innerHTML = `
-                            <td>${item.year}</td>
-                            <td>${item.date}</td>
-                            <td>${formatCurrency(item.interest)}</td>
-                            <td>${formatCurrency(item.principal)}</td>
-                            <td>${formatCurrency(item.balance)}</td>
-                        `;
+                        row.innerHTML = `<td>${item.year}</td><td>${item.date}</td><td>${formatCurrency(item.interest)}</td><td>${formatCurrency(item.principal)}</td><td>${formatCurrency(item.balance)}</td>`;
                     });
                 }
             };
@@ -2010,13 +2220,12 @@
                     }
                 }
             }
-            // MODIFIED: Global click listener to hide both the custom select box and the chart tooltip on a click outside.
+
             document.addEventListener("click", (e) => {
                 closeAllSelect(e.target);
                 const isChartClick = e.target.closest('.chart-wrapper');
                 const tooltipEl = document.getElementById('chartTooltip');
                 
-                // If the click is not inside a chart, or on the tooltip itself, hide the tooltip
                 if (!isChartClick && !e.target.closest('.chart-tooltip') && tooltipEl.style.opacity === '1') {
                      tooltipEl.style.opacity = 0;
                 }
@@ -2042,6 +2251,21 @@
                 scheduleElements.monthlyBtn.classList.add('active');
                 scheduleElements.yearlyBtn.classList.remove('active');
                 renderAmortizationTable();
+            });
+
+            showDetailsBtn.addEventListener('click', () => {
+                populateDetailsModal();
+                detailsModal.style.display = 'flex';
+            });
+
+            modalCloseBtn.addEventListener('click', () => {
+                detailsModal.style.display = 'none';
+            });
+
+            detailsModal.addEventListener('click', (e) => {
+                if (e.target === detailsModal) {
+                    detailsModal.style.display = 'none';
+                }
             });
 
             window.addEventListener('resize', debounce(handleResize, 250));
