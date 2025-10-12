@@ -6,4 +6,4 @@ Allow: /
 Disallow: /coming-soon/
 
 # XML sitemap for discovery
-Sitemap: https://solveri.org/sitemap.xml
+Sitemap: https://solveria.org/sitemap.xml
