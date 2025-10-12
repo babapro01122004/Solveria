@@ -989,34 +989,34 @@
                         <ul>
                             <li><a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a></li>
                             <li><a href="../../financial-calculators/home-affordability-calculator/">Home Affordability Calculators</a></li>
-                            <li><a href="../../coming-soon/">Refinance Calculator</a></li>
-                            <li><a href="../../coming-soon/">Loan Calculator</a></li>
+                            <li><a href="#">Refinance Calculator</a></li>
+                            <li><a href="#">Loan Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Life Insurance</h4>
                         <ul>
-                            <li><a href="../../coming-soon/">Life Insurance Calculator</a></li>
-                            <li><a href="../../coming-soon/">Term v/s Whole Life Insurance Calculator</a></li>
+                            <li><a href="#">Life Insurance Calculator</a></li>
+                            <li><a href="#">Term v/s Whole Life Insurance Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Finance and Taxes</h4>
                         <ul>
-                            <li><a href="../../coming-soon/">Credit Card Payoff Calculators</a></li>
-                            <li><a href="../../coming-soon/">Debt Snowball Calculator</a></li>
-                            <li><a href="../../coming-soon/">APR v/s Interest Rate Calculator</a></li>
-                            <li><a href="../../coming-soon/">Credit Card Utilization Calculator</a></li>
+                            <li><a href="#">Credit Card Payoff Calculators</a></li>
+                            <li><a href="#">Debt Snowball Calculator</a></li>
+                            <li><a href="#">APR v/s Interest Rate Calculator</a></li>
+                            <li><a href="#">Credit Card Utilization Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Real Estate Investment</h4>
                         <ul>
-                            <li><a href="../../coming-soon/">Cap Rate Calculator</a></li>
-                            <li><a href="../../coming-soon/">ROI Calculator for Rental Property</a></li>
-                            <li><a href="../../coming-soon/">Cash-on-Cash Return Calculator</a></li>
-                            <li><a href="../../coming-soon/">Property Tax Calculator</a></li>
-                            <li><a href="../../coming-soon/">Closing Costs Calculator</a></li>
+                            <li><a href="#">Cap Rate Calculator</a></li>
+                            <li><a href="#">ROI Calculator for Rental Property</a></li>
+                            <li><a href="#">Cash-on-Cash Return Calculator</a></li>
+                            <li><a href="#">Property Tax Calculator</a></li>
+                            <li><a href="#">Closing Costs Calculator</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1076,6 +1076,8 @@
             </div>
         </div>
     </div> 
+    
+    <div id="chartTooltip" class="chart-tooltip"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -1172,14 +1174,7 @@
             let paymentsLineChart;
             
             const getOrCreateTooltip = (chart) => {
-                const chartContainer = chart.canvas.parentNode;
-                let tooltipEl = chartContainer.querySelector('.chart-tooltip');
-
-                if (!tooltipEl) {
-                    tooltipEl = document.createElement('div');
-                    tooltipEl.classList.add('chart-tooltip');
-                    chartContainer.appendChild(tooltipEl);
-                }
+                let tooltipEl = document.getElementById('chartTooltip');
                 return tooltipEl;
             };
 
@@ -1239,23 +1234,56 @@
                 tooltipEl.innerHTML = '';
                 table.appendChild(tableHead);
                 table.appendChild(tableBody);
-                
+                tooltipEl.appendChild(table);
+
                 const { offsetWidth: tooltipWidth, offsetHeight: tooltipHeight } = tooltipEl;
-                const offset = 15;
+                const chartRect = chart.canvas.getBoundingClientRect();
+                const yOffset = 15; // Vertical space from the cursor
 
-                let finalLeft = tooltip.caretX + offset;
-                if (finalLeft + tooltipWidth > chart.width) {
-                    finalLeft = tooltip.caretX - tooltipWidth - offset;
+                // --- 1. Calculate Absolute Caret Position ---
+                // This is the precise location of the user's tap/hover on the document.
+                const caretAbsX = chartRect.left + window.scrollX + tooltip.caretX;
+                const caretAbsY = chartRect.top + window.scrollY + tooltip.caretY;
+
+                // --- 2. Determine Vertical Position ---
+                // Default to placing the tooltip below the cursor, as requested.
+                let finalTop = caretAbsY + yOffset;
+                // Robustness: If placing it below makes it go off-screen, flip it above.
+                if (finalTop + tooltipHeight > window.innerHeight + window.scrollY) {
+                    finalTop = caretAbsY - tooltipHeight - yOffset;
                 }
 
-                let finalTop = tooltip.caretY + offset;
-                if (finalTop + tooltipHeight > chart.height) {
-                    finalTop = tooltip.caretY - tooltipHeight - offset;
+                // --- 3. Determine Horizontal Position ---
+                let finalLeft;
+                const leftEdge = window.scrollX;
+                const rightEdge = window.scrollX + window.innerWidth;
+
+                // Define the potential positions based on requirements
+                const posRight = caretAbsX; // Aligns cursor to top-left of tooltip
+                const posLeft = caretAbsX - tooltipWidth; // Aligns cursor to top-right of tooltip
+                const posCenter = caretAbsX - (tooltipWidth / 2); // Aligns cursor to top-center
+
+                // Check if there is enough space to place it to the RIGHT of the cursor
+                if (posRight + tooltipWidth <= rightEdge) {
+                    finalLeft = posRight;
                 }
-
-                if (finalLeft < 0) finalLeft = offset;
-                if (finalTop < 0) finalTop = offset;
-
+                // If not, check if there is enough space to place it to the LEFT
+                else if (posLeft >= leftEdge) {
+                    finalLeft = posLeft;
+                }
+                // If BOTH fail, place it at the CENTER (fallback)
+                else {
+                    finalLeft = posCenter;
+                    // Clamp the centered position to prevent it from overflowing on narrow screens
+                    if (finalLeft < leftEdge) {
+                        finalLeft = leftEdge;
+                    }
+                    if (finalLeft + tooltipWidth > rightEdge) {
+                        finalLeft = rightEdge - tooltipWidth;
+                    }
+                }
+                
+                // --- 4. Apply Final Position ---
                 tooltipEl.style.opacity = 1;
                 tooltipEl.style.left = finalLeft + 'px';
                 tooltipEl.style.top = finalTop + 'px';
