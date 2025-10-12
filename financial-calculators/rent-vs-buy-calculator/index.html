@@ -16,7 +16,7 @@
     <meta name="description" content="Deciding between renting and buying? Our comprehensive calculator analyzes all costs—mortgage, taxes, rent increases, and investment returns—to show you the financial breakeven point.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
 
     <style>
@@ -29,14 +29,18 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
             font-family: 'Roboto', sans-serif;
             font-weight: 300;
             overflow-x: hidden;
             background-color: #f4f4f4; 
         }
 
-        /* MODIFIED: Updated Hero Section Styles for new layout */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         .hero-section {
             height: 100vh;
             background-image: url('../../img/Home_RBC.jpg');
@@ -48,6 +52,7 @@
             align-items: center;
             text-align: center;
             position: relative; 
+            padding-bottom: 10vh;
         }
         .hero-content-wrapper {
             display: flex;
@@ -55,7 +60,7 @@
             align-items: center;
             text-align: center;
             color: white;
-            margin-bottom: 8vh; /* Pushes the content block up from the center */
+            margin-bottom: 0;
         }
         .hero-content-wrapper img {
             width: 200px;
@@ -72,7 +77,7 @@
             z-index: 1;
         }
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 100;
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
@@ -120,20 +125,23 @@
         .top-nav a:hover {
             color: #ffffff;
         }
-        .mobile-support-btn {
-            display: none;
+        .mobile-nav-container {
+            display: none; /* Hidden by default */
             position: absolute;
-            top: 30px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+            gap: 50px;
+        }
+        .mobile-nav-container a {
             color: #cbcbca;
             text-decoration: none;
             font-size: 1rem;
             font-weight: 300;
             transition: color 0.3s ease;
         }
-        .mobile-support-btn:hover {
+        .mobile-nav-container a:hover {
             color: #ffffff;
         }
         #scroll-prompt {
@@ -169,10 +177,9 @@
             opacity: 1;
         }
         
-        /* All other styles below this point remain the same... */
         .calculator-section {
             padding: 80px 20px;
-            max-width: 1400px; 
+            max-width: 1600px; 
             margin: 0 auto;
         }
         .breadcrumb {
@@ -274,16 +281,16 @@
         .breakdown-row span:last-child {
             color: #333;
             font-weight: 400;
+            text-align: right;
         }
         .total-benefit-row {
-            font-weight: 400;
             color: #333 !important;
         }
         .total-benefit-row span {
              color: #333 !important;
         }
         .total-benefit-row span:last-child {
-            font-weight: 400;
+            font-weight: 300; 
         }
         .components-title {
             font-size: 1.1rem;
@@ -298,6 +305,7 @@
         }
         .form-column {
             flex: 1;
+            min-width: 250px;
         }
         .form-column h3 {
             font-size: 1.8rem;
@@ -330,6 +338,8 @@
             font-weight: 400;
             outline: none;
             transition: border-bottom-color 0.3s ease;
+            text-align: left;
+            overflow: hidden;
         }
         .input-group input:focus {
             border-bottom-color: #333;
@@ -460,6 +470,7 @@
             text-align: right;
             flex-grow: 1;
         }
+
         @media (max-width: 1100px) {
              .calculator-content-wrapper {
                 flex-direction: column;
@@ -467,14 +478,15 @@
             }
             .form-part, .results-container {
                 width: 100%;
+                flex: 1 1 auto;
             }
         }
         @media (max-width: 800px) {
             .top-nav {
                 display: none;
             }
-            .mobile-support-btn {
-                display: block;
+            .mobile-nav-container {
+                display: flex;
             }
             .hero-content-wrapper img {
                 width: 160px;
@@ -497,12 +509,34 @@
             .calculator-section {
                 padding: 60px 20px;
             }
-        }
-        @media (min-width: 801px) {
-            .desktop-nav {
-                display: block;
+            #scroll-prompt-text {
+                display: none;
+            }
+            #scroll-prompt-arrow {
+                margin-right: 0;
+            }
+            #scroll-prompt {
+                transform: translateX(-50%) !important;
             }
         }
+        @media (min-width: 801px) {
+            .mobile-nav-container {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            #breakdown-tables {
+                display: flex;
+                gap: 40px;
+                align-items: flex-start;
+            }
+            #breakdown-tables > .scenario-breakdown {
+                flex: 1;
+                margin-top: 0;
+            }
+        }
+
         .intro-snippet-wrapper {
             margin: 80px 0 60px 0;
             padding-left: 4px;
@@ -583,18 +617,17 @@
         }
         .page-wrapper {
             background-color: #f4f4f4;
-            padding-bottom: 100px; /* Adjusted padding */
+            flex: 1 0 auto;
         }
         footer {
-            height: auto; /* Adjusted for flex-wrap */
-            margin-top: -100px;
+            height: auto;
             position: relative;
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 40px 20px 20px;
-            background-image: linear-gradient(to top, #eae5df, rgba(234, 229, 223, 0)); /* ADDED GRADIENT */
+            background-image: linear-gradient(to top, #eae5df, rgba(234, 229, 223, 0));
         }
         footer nav ul {
             list-style: none;
@@ -657,9 +690,7 @@
             opacity: 1;
         }
         .more-tools-section {
-            padding: 80px 0 0;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 80px 0 0; 
         }
         .tools-grid {
             display: grid;
@@ -780,7 +811,10 @@
 <body>
     <div class="page-wrapper">
         <div class="hero-section">
-            <a href="../../support/" class="mobile-support-btn">Support</a>
+            <div class="mobile-nav-container">
+                <a href="../../">Home</a>
+                <a href="../../support/">Support</a>
+            </div>
             <nav class="top-nav">
                 <ul>
                     <li><a href="../../">Home</a></li>
@@ -826,28 +860,28 @@
                     <div class="form-container">
                         <div class="form-column">
                             <h3>Home Purchase</h3>
-                            <div class="input-group"><label for="home-price">Home price ($)</label><input type="number" id="home-price" value="400000" min="0"></div>
-                            <div class="input-group"><label for="down-payment">Down payment ($)</label><input type="number" id="down-payment" value="80000" min="0"></div>
+                            <div class="input-group"><label for="home-price">Home price ($)</label><input type="number" id="home-price" value="400000" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="down-payment">Down payment ($)</label><input type="number" id="down-payment" value="80000" min="0" max="9999999999"></div>
                             <div class="input-group"><label for="interest-rate">Interest rate (%)</label><input type="number" id="interest-rate" class="percentage" step="any" value="6.5" min="0" max="100"></div>
-                            <div class="input-group"><label for="loan-term">Loan term (Years)</label><input type="number" id="loan-term" value="30" min="0"></div>
+                            <div class="input-group"><label for="loan-term">Loan term (Years)</label><input type="number" id="loan-term" value="30" min="0" max="50"></div>
                             <div class="input-group"><label for="pmi-rate">Annual PMI rate (%)</label><input type="number" id="pmi-rate" class="percentage" step="any" value="0.5" min="0" max="100"></div>
-                            <div class="input-group"><label for="buying-costs">Buying closing costs ($)</label><input type="number" id="buying-costs" value="12000" min="0"></div>
-                            <div class="input-group"><label for="property-tax">Property tax (Annual, $)</label><input type="number" id="property-tax" value="4500" min="0"></div>
+                            <div class="input-group"><label for="buying-costs">Buying closing costs ($)</label><input type="number" id="buying-costs" value="12000" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="property-tax">Property tax (Annual, $)</label><input type="number" id="property-tax" value="4500" min="0" max="9999999999"></div>
                             <div class="input-group"><label for="tax-increase">Property tax increase (%)</label><input type="number" id="tax-increase" class="percentage" step="any" value="2" min="0" max="100"></div>
-                            <div class="input-group"><label for="home-insurance">Home insurance (Annual, $)</label><input type="number" id="home-insurance" value="1500" min="0"></div>
-                            <div class="input-group"><label for="hoa-fee">HOA fee (Annual, $)</label><input type="number" id="hoa-fee" value="0" min="0"></div>
-                            <div class="input-group"><label for="maintenance">Maintenance cost (Annual, $)</label><input type="number" id="maintenance" value="4000" min="0"></div>
+                            <div class="input-group"><label for="home-insurance">Home insurance (Annual, $)</label><input type="number" id="home-insurance" value="1500" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="hoa-fee">HOA fee (Annual, $)</label><input type="number" id="hoa-fee" value="0" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="maintenance">Maintenance cost (Annual, $)</label><input type="number" id="maintenance" value="4000" min="0" max="9999999999"></div>
                             <div class="input-group"><label for="appreciation">Home value appreciation (%)</label><input type="number" id="appreciation" class="percentage" step="any" value="3.5" min="0" max="100"></div>
                             <div class="input-group"><label for="cost-increase">Cost/insurance increase (%)</label><input type="number" id="cost-increase" class="percentage" step="any" value="2.5" min="0" max="100"></div>
                             <div class="input-group"><label for="selling-costs">Selling closing costs (%)</label><input type="number" id="selling-costs" class="percentage" value="8" min="0" max="100"></div>
                         </div>
                         <div class="form-column">
                             <h3>Home Rent</h3>
-                            <div class="input-group"><label for="rental-fee">Monthly rental fee ($)</label><input type="number" id="rental-fee" value="2000" min="0"></div>
+                            <div class="input-group"><label for="rental-fee">Monthly rental fee ($)</label><input type="number" id="rental-fee" value="2000" min="0" max="9999999999"></div>
                             <div class="input-group"><label for="rental-increase">Rental fee increase (%)</label><input type="number" id="rental-increase" class="percentage" step="any" value="3" min="0" max="100"></div>
-                            <div class="input-group"><label for="renter-insurance">Renter's insurance (Annual, $)</label><input type="number" id="renter-insurance" value="180" min="0"></div>
-                            <div class="input-group"><label for="security-deposit">Security deposit ($)</label><input type="number" id="security-deposit" value="2000" min="0"></div>
-                            <div class="input-group"><label for="upfront-cost">Upfront cost ($)</label><input type="number" id="upfront-cost" value="0" min="0"></div>
+                            <div class="input-group"><label for="renter-insurance">Renter's insurance (Annual, $)</label><input type="number" id="renter-insurance" value="180" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="security-deposit">Security deposit ($)</label><input type="number" id="security-deposit" value="2000" min="0" max="9999999999"></div>
+                            <div class="input-group"><label for="upfront-cost">Upfront cost ($)</label><input type="number" id="upfront-cost" value="0" min="0" max="9999999999"></div>
 
                             <h3>Your Information</h3>
                             <div class="input-group"><label for="investment-return">Average investment return (%)</label><input type="number" id="investment-return" class="percentage" step="any" value="8" min="0" max="100"></div>
@@ -955,34 +989,34 @@
                         <ul>
                             <li><a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a></li>
                             <li><a href="../../financial-calculators/home-affordability-calculator/">Home Affordability Calculators</a></li>
-                            <li><a href="#">Refinance Calculator</a></li>
-                            <li><a href="#">Loan Calculator</a></li>
+                            <li><a href="../../coming-soon/">Refinance Calculator</a></li>
+                            <li><a href="../../coming-soon/">Loan Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Life Insurance</h4>
                         <ul>
-                            <li><a href="#">Life Insurance Calculator</a></li>
-                            <li><a href="#">Term v/s Whole Life Insurance Calculator</a></li>
+                            <li><a href="../../coming-soon/">Life Insurance Calculator</a></li>
+                            <li><a href="../../coming-soon/">Term v/s Whole Life Insurance Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Finance and Taxes</h4>
                         <ul>
-                            <li><a href="#">Credit Card Payoff Calculators</a></li>
-                            <li><a href="#">Debt Snowball Calculator</a></li>
-                            <li><a href="#">APR v/s Interest Rate Calculator</a></li>
-                            <li><a href="#">Credit Card Utilization Calculator</a></li>
+                            <li><a href="../../coming-soon/">Credit Card Payoff Calculators</a></li>
+                            <li><a href="../../coming-soon/">Debt Snowball Calculator</a></li>
+                            <li><a href="../../coming-soon/">APR v/s Interest Rate Calculator</a></li>
+                            <li><a href="../../coming-soon/">Credit Card Utilization Calculator</a></li>
                         </ul>
                     </div>
                     <div class="tools-column">
                         <h4>Real Estate Investment</h4>
                         <ul>
-                            <li><a href="#">Cap Rate Calculator</a></li>
-                            <li><a href="#">ROI Calculator for Rental Property</a></li>
-                            <li><a href="#">Cash-on-Cash Return Calculator</a></li>
-                            <li><a href="#">Property Tax Calculator</a></li>
-                            <li><a href="#">Closing Costs Calculator</a></li>
+                            <li><a href="../../coming-soon/">Cap Rate Calculator</a></li>
+                            <li><a href="../../coming-soon/">ROI Calculator for Rental Property</a></li>
+                            <li><a href="../../coming-soon/">Cash-on-Cash Return Calculator</a></li>
+                            <li><a href="../../coming-soon/">Property Tax Calculator</a></li>
+                            <li><a href="../../coming-soon/">Closing Costs Calculator</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1045,7 +1079,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // All JavaScript remains the same, with modifications to the tooltip handler
         document.addEventListener('DOMContentLoaded', function () {
 
             const subtitleSpans = document.querySelectorAll('.hero-subtitle span');
@@ -1070,7 +1103,6 @@
             ];
             const scrollPromptEl = document.getElementById('scroll-prompt');
             const scrollTextEl = document.getElementById('scroll-prompt-text');
-            const scrollArrowEl = document.getElementById('scroll-prompt-arrow');
             let scrollIndex = 0;
             const moveTime = 500;
             const subtitleDisplayTime = 3000;
@@ -1140,11 +1172,13 @@
             let paymentsLineChart;
             
             const getOrCreateTooltip = (chart) => {
-                let tooltipEl = document.querySelector('.chart-tooltip');
+                const chartContainer = chart.canvas.parentNode;
+                let tooltipEl = chartContainer.querySelector('.chart-tooltip');
+
                 if (!tooltipEl) {
                     tooltipEl = document.createElement('div');
                     tooltipEl.classList.add('chart-tooltip');
-                    document.body.appendChild(tooltipEl);
+                    chartContainer.appendChild(tooltipEl);
                 }
                 return tooltipEl;
             };
@@ -1205,37 +1239,26 @@
                 tooltipEl.innerHTML = '';
                 table.appendChild(tableHead);
                 table.appendChild(tableBody);
-                tooltipEl.appendChild(table);
                 
-                // MODIFIED: Smart tooltip positioning logic
                 const { offsetWidth: tooltipWidth, offsetHeight: tooltipHeight } = tooltipEl;
-                const canvasBounds = chart.canvas.getBoundingClientRect();
+                const offset = 15;
 
-                const triggerX = canvasBounds.left + tooltip.caretX;
-                const triggerY = canvasBounds.top + tooltip.caretY;
+                let finalLeft = tooltip.caretX + offset;
+                if (finalLeft + tooltipWidth > chart.width) {
+                    finalLeft = tooltip.caretX - tooltipWidth - offset;
+                }
 
-                const xOffset = 15;
-                const yOffset = 15;
+                let finalTop = tooltip.caretY + offset;
+                if (finalTop + tooltipHeight > chart.height) {
+                    finalTop = tooltip.caretY - tooltipHeight - offset;
+                }
 
-                let finalLeft = triggerX + xOffset;
-                let finalTop = triggerY + yOffset;
-
-                if (finalLeft + tooltipWidth > window.innerWidth) {
-                    finalLeft = triggerX - tooltipWidth - xOffset;
-                }
-                if (finalTop + tooltipHeight > window.innerHeight) {
-                    finalTop = triggerY - tooltipHeight - yOffset;
-                }
-                if (finalLeft < 0) {
-                    finalLeft = triggerX + xOffset;
-                }
-                if (finalTop < 0) {
-                    finalTop = triggerY + yOffset;
-                }
+                if (finalLeft < 0) finalLeft = offset;
+                if (finalTop < 0) finalTop = offset;
 
                 tooltipEl.style.opacity = 1;
-                tooltipEl.style.left = finalLeft + window.scrollX + 'px';
-                tooltipEl.style.top = finalTop + window.scrollY + 'px';
+                tooltipEl.style.left = finalLeft + 'px';
+                tooltipEl.style.top = finalTop + 'px';
             };
             
             const container = document.querySelector('.custom-select-container');
@@ -1264,11 +1287,50 @@
             allInputs.forEach(input => {
                 input.addEventListener('input', function(e) {
                     let value = parseFloat(e.target.value);
+                    const max = parseFloat(e.target.max);
                     if (value < 0) e.target.value = 0;
-                    if (e.target.classList.contains('percentage') && value > 100) e.target.value = 100;
+                    if (max && value > max) e.target.value = max;
                     runCalculations();
                 });
             });
+
+            function alignLabelWrapping() {
+                const labels = document.querySelectorAll('.breakdown-row span:first-child');
+                
+                labels.forEach(label => {
+                    if (!label.dataset.originalText) {
+                        label.dataset.originalText = label.innerText;
+                    }
+                    label.innerHTML = label.dataset.originalText;
+                });
+
+                let needsWrapping = false;
+                let singleLineHeight = 0;
+
+                if (labels.length > 0) {
+                    const baselineLabel = Array.from(labels).find(l => l.dataset.originalText.split(' ').length <= 2) || labels[0];
+                    singleLineHeight = baselineLabel.offsetHeight;
+                    if(singleLineHeight === 0) return; 
+
+                    for (const label of labels) {
+                        if (label.offsetHeight > singleLineHeight * 1.5) {
+                            needsWrapping = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (needsWrapping) {
+                    labels.forEach(label => {
+                        const originalText = label.dataset.originalText;
+                        const words = originalText.split(' ');
+                        if (words.length > 1) {
+                            const lastWord = words.pop();
+                            label.innerHTML = `${words.join(' ')}<br>${lastWord}`;
+                        }
+                    });
+                }
+            }
 
             function runCalculations() {
                 const v = {
@@ -1310,12 +1372,12 @@
                     verdictEl.style.color = redColor;
                     barEl.style.backgroundColor = redColor;
                     summaryEl.innerHTML = 'Enter key values like Home Price and Monthly Rent to see your results.';
-                    breakdownTables.style.display = 'none';
+                    if(breakdownTables) breakdownTables.style.display = 'none';
                     resultsContainer.style.display = 'block';
                     return;
                 }
-                breakdownTables.style.display = 'block';
-                
+                if(breakdownTables) breakdownTables.style.display = '';
+
                 const yearsToCompare = 15;
                 const monthsToCompare = yearsToCompare * 12;
                 const loanAmount = v.homePrice - v.downPayment;
@@ -1472,8 +1534,13 @@
                     const tooltipEl = getOrCreateTooltip(paymentsLineChart);
                     tooltipEl.style.opacity = 0;
                 });
+                
+                alignLabelWrapping();
             }
+
             runCalculations();
+            alignLabelWrapping();
+            window.addEventListener('resize', alignLabelWrapping);
         });
     </script>
     
