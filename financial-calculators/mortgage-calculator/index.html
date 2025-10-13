@@ -1692,6 +1692,15 @@
                 event.target.value = sanitized;
             };
 
+            const numberInputs = document.querySelectorAll('input[type="number"]');
+            numberInputs.forEach(input => {
+                input.addEventListener('keydown', (event) => {
+                    if (['e', '+', '-', '.'].includes(event.key)) {
+                        event.preventDefault();
+                    }
+                });
+            });
+
             const validateDate = () => {
                 let day = parseInt(allInputs.day.value);
                 let month = parseInt(allInputs.month.value);
