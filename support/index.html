@@ -17,7 +17,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
@@ -169,7 +169,7 @@
         @media (max-width: 768px) {
             .header { padding: 20px; }
             .header nav { display: none; }
-            .mobile-support-link { display: block; } /* Show on mobile */
+            /* .mobile-support-link is removed, so no rule needed */
         }
     </style>
 </head>
@@ -186,9 +186,7 @@
         <nav>
             <a href="../calculators/">Calculators</a>
             <a href="../about/">About</a>
-            <a href="../support/">Support</a>
         </nav>
-        <a href="../support/" class="mobile-support-link">Support</a>
     </header>
 
     <main>
@@ -228,10 +226,6 @@
                     <p>
                         The easiest way to show your support is by buying us a coffee or making a small donation. Thank you for being a part of the Solveria community!
                     </p>
-                    <div class="donation-buttons">
-                        <a href="#" class="donation-button">Buy Me a Coffee</a>
-                        <a href="#" class="donation-button">Donate with PayPal</a>
-                    </div>
                 </article>
             </div>
         </section>
@@ -240,7 +234,6 @@
     <footer>
         <nav>
             <a href="../about/">About</a>
-            <a href="../support/">Support</a>
             <a href="../privacy-policy/">Privacy Policy</a>
         </nav>
         <p class="copyright">&copy; 2025 Solveria. All rights reserved.</p>
