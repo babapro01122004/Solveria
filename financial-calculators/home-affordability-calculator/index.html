@@ -838,8 +838,8 @@
     <footer class="page-footer">
         <nav>
             <a href="../../about/">About</a>
-            <a href="../../support/">Support</a>
             <a href="../../privacy-policy/">Privacy Policy</a>
+            <a href="../../terms-of-use/">Terms of Use</a>
             <a href="../../contact/">Contact Us</a>
         </nav>
     </footer>
@@ -1000,7 +1000,10 @@
             const allNumberInputs = document.querySelectorAll('input[type="number"]');
             allNumberInputs.forEach(input => {
                 input.addEventListener('keydown', (event) => {
-                    if (event.key === 'e' || event.key === '-') { event.preventDefault(); }
+                    // Block characters 'e', '+', and '-'
+                    if (['e', '+', '-'].includes(event.key)) {
+                        event.preventDefault();
+                    }
                 });
                 input.addEventListener('input', (event) => {
                     const min = parseFloat(event.target.getAttribute('min')) || 0;
