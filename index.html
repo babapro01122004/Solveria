@@ -15,16 +15,17 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut" icon" href="favicon.ico">
+    <link rel="shortcut" href="favicon.ico">
     
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.4.4/tailwind.min.css" media="print" onload="this.media='all'">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" media="print" onload="this.media='all'">
     
     <noscript>
+      <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.4.4/tailwind.min.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap">
     </noscript>
     
@@ -154,31 +155,10 @@
     }
     </script>
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary-dark': '#1e1e1e',
-                        'primary-light': '#f5f5f7',
-                        'accent-green': '#047857',
-                        'dark-gray': '#6e6e73',
-                    },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
-                        'soft-lg': '0 15px 50px -12px rgba(0, 0, 0, 0.12)',
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
         html { scroll-behavior: smooth; }
         body { 
+            /* This is the 'bg-primary-light' color */
             background-color: #f5f5f7; 
             color: #1d1d1f; 
             font-family: 'Roboto', 'sans-serif'; 
@@ -217,6 +197,18 @@
             position: relative;
             z-index: 20;
         }
+        
+        /* [PERFORMANCE FIX]
+         Re-created the custom classes from tailwind.config
+         to preserve the UI after removing the JIT script.
+        */
+        .bg-primary-light { background-color: #f5f5f7; }
+        .text-primary-dark { color: #1e1e1e; }
+        .text-dark-gray { color: #6e6e73; }
+        .shadow-soft { box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08); }
+        .shadow-soft-lg { box-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.12); }
+        .hover\:shadow-soft-lg:hover { box-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.12); }
+        .hover\:scale-\[1\.02\]:hover { transform: scale(1.02); }
 
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
@@ -232,6 +224,7 @@
         <section class="relative overflow-hidden text-center px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">
             
             <picture class="absolute inset-0 z-0">
+                <source media="(max-width: 640px)" srcset="img/Home_mobile.webp">
                 <img src="img/Home.webp" alt="Financial planning background" class="w-full h-full object-cover">
             </picture>
             <div class="absolute inset-0 bg-black/40 z-10"></div>
@@ -244,7 +237,7 @@
                             <picture>
                                 <source srcset="img/Logo_White.webp" type="image/webp">
                                 <source srcset="img/Logo_White.png" type="image/png">
-                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" width="24" height="24">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24" width="96">
                             </picture>
                         </a>
                     </div>
@@ -255,7 +248,7 @@
                                 <picture>
                                     <source srcset="img/Logo_White.webp" type="image/webp">
                                     <source srcset="img/Logo_White.png" type="image/png">
-                                    <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" width="24" height="24">
+                                    <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24" width="96">
                                 </picture>
                             </a>
                         </div>
@@ -278,7 +271,7 @@
                             <picture>
                                 <source srcset="img/Logo_White.webp" type="image/webp">
                                 <source srcset="img/Logo_White.png" type="image/png">
-                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" width="24" height="24">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24" width="96">
                             </picture>
                         </a>
                         <button id="close-btn" aria-label="Close navigation menu" class="text-white p-2">
