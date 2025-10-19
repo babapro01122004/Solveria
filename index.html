@@ -483,14 +483,6 @@
         // Also close menu when a link is clicked
         mobileNavPanel.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMenu);
-Section: 'ecosystem' Links
-Your analysis correctly notes that all links in the `#ecosystem` section currently point to `/calculators/`. When you are ready to build out those specific category pages, you will need to update the `href` attribute for each `<a>` tag.
-
-For example:
-`<a href="/health-calculators/" ...><h3>Health & Lifestyle</h3>...</a>`
-`<a href="/business-calculators/" ...><h3>Business & Marketing ROI</h3>...</a>`
-
-This is a straightforward content update you can make as your site grows.
         });
     </script>
 
