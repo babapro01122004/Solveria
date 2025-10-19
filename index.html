@@ -20,7 +20,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.4.4/tailwind.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.4.4/tailwind.min.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" media="print" onload="this.media='all'">
     
@@ -158,7 +158,6 @@
     <style>
         html { scroll-behavior: smooth; }
         body { 
-            /* This is the 'bg-primary-light' color */
             background-color: #f5f5f7; 
             color: #1d1d1f; 
             font-family: 'Roboto', 'sans-serif'; 
@@ -198,10 +197,6 @@
             z-index: 20;
         }
         
-        /* [PERFORMANCE FIX]
-         Re-created the custom classes from tailwind.config
-         to preserve the UI after removing the JIT script.
-        */
         .bg-primary-light { background-color: #f5f5f7; }
         .text-primary-dark { color: #1e1e1e; }
         .text-dark-gray { color: #6e6e73; }
@@ -434,7 +429,7 @@
             </div>
         </section>
         <section id="faq" class="py-24 bg-white px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto"><h2 class="text-center text-4xl md:text-5xl font-light tracking-tighter mb-12">Frequently Asked Questions</h2><div class="space-y-4"><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Are Solveria's calculators really free to use?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes, absolutely. All of our calculators and tools are 100% free to use. We believe everyone should have access to high-quality financial tools. The site is supported by advertising, which allows us to keep our resources free for everyone.</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">How do you ensure the accuracy of your calculations?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Our calculators are built on standard, industry-accepted financial and mathematical formulas. We rigorously test each tool to ensure accuracy. For financial tools like tax or mortgage calculators, we use the latest available data for our default values (e.g., federal tax brackets).</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Do I need to create an account to use the calculators?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">No, you do not need to create an account. All of our tools are accessible to everyone without any sign-up required. You can start calculating immediately.</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Is my financial data safe?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes. We prioritize your privacy. All calculations happen directly in your web browser. We do not see, track, or store any of the personal financial numbers you enter into our calculators.</p></details></div></div>
+            <div class="max-w-4xl mx-auto"><h2 class="text-center text-4xl md:text-5xl font-light tracking-tighter mb-12">Frequently Asked Questions</h2><div class="space-y-4"><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Are Solveria's calculators really free to use?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes, absolutely. All of our calculators and tools are 100% free to use. We believe everyone should have access to high-quality financial tools. The site is supported by advertising, which allows us to keep our resources free for everyone.</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">How do you ensure the accuracy of your calculations?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Our calculators are built on standard, industry-accepted financial and mathematical formulas. We rigorously test each tool to ensure accuracy. For financial tools like tax or mortgage calculators, we use the latest available data for our default values (e.g., federal tax brackets).</p></details><details class="py-6 border-b-2 border-gray-200"><summary class="font-light text-lg cursor-pointer flex justify-between items-center">Do I need to create an account to use the calculators?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">No, you do not need to create an account. All of our tools are accessible to everyone without any sign-up required. You can start calculating immediately.</p></details><details class="py-6 border-b-2 border-gray-200"><summary classD="font-light text-lg cursor-pointer flex justify-between items-center">Is my financial data safe?<span class="text-gray-400 faq-arrow transform rotate-0">+</span></summary><p class="mt-4 text-dark-gray">Yes. We prioritize your privacy. All calculations happen directly in your web browser. We do not see, track, or store any of the personal financial numbers you enter into our calculators.</p></details></div></div>
         </section>
 
     </main>
