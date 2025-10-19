@@ -7,8 +7,12 @@
 
     <meta name="description" content="Free, data-driven financial and lifestyle calculators to help you make smarter decisions. Explore comprehensive tools for mortgages, affordability, investing, and wellness.">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net">
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
      crossorigin="anonymous"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -19,7 +23,8 @@
     
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="style.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" media="print" onload="this.media='all'">
     
@@ -153,28 +158,6 @@
     }
     </script>
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary-dark': '#1e1e1e',
-                        'primary-light': '#f5f5f7',
-                        'accent-green': '#047857',
-                        'dark-gray': '#6e6e73',
-                    },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
-                        'soft-lg': '0 15px 50px -12px rgba(0, 0, 0, 0.12)',
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
         html { scroll-behavior: smooth; }
         body { 
@@ -231,8 +214,8 @@
         <section class="relative overflow-hidden text-center px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">
             
             <picture class="absolute inset-0 z-0">
-                <source media="(max-width: 640px)" srcset="img/Home_mobile.webp">
-                <img src="img/Home.webp" alt="Financial planning background" class="w-full h-full object-cover">
+                <source media="(max-width: 640px)" srcset="img/Home_mobile.webp" fetchpriority="high">
+                <img src="img/Home.webp" alt="Financial planning background" class="w-full h-full object-cover" fetchpriority="high">
             </picture>
             <div class="absolute inset-0 bg-black/40 z-10"></div>
 
@@ -415,14 +398,14 @@
                         <source srcset="img/david-m.png" type="image/png">
                         <img src="img/david-m.png" alt="David M." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="96">
                     </picture>
-                    <p class="text-lg text-primary-dark">"The Rent vs. Buy calculator gave us the clarity we needed. Seeing the 30-year financial breakdown side-by-side made our decision to buy so much easier. An incredible tool!"</p><p class="mt-6 font-light text-primary-dark">David M.</p><p class="text-dark-gray">Growing Family</p>
+                    <p class.text-lg text-primary-dark">"The Rent vs. Buy calculator gave us the clarity we needed. Seeing the 30-year financial breakdown side-by-side made our decision to buy so much easier. An incredible tool!"</p><p class="mt-6 font-light text-primary-dark">David M.</p><p class="text-dark-gray">Growing Family</p>
                 </div>
                 
                 <div class="bg-white p-8 rounded-xl flex flex-col items-center text-center shadow-soft">
                     <picture>
                         <source srcset="img/priya-k.webp" type="image/webp">
                         <source srcset="img/priya-k.png" type="image/png">
-                        <img src="img/priya-k.png" alt="Priya K." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="96">
+                        <img src="img/priya-k.png" alt="Priya K." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="9CSS">
                     </picture>
                     <p class="text-lg text-primary-dark">"We were lost about how much house we could actually afford. The Home Affordability tool broke it all down based on our real income and debts. It's the first step every buyer should take."</p><p class="mt-6 font-light text-primary-dark">Priya K.</p><p class="text-dark-gray">Young Professionals</p>
                 </div>
