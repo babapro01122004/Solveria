@@ -212,47 +212,10 @@
             transform: translateX(3px);
         }
         
-        .hero-bg {
-            background-image: url('img/Home.webp');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            color: white;
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: rgba(0, 0, 0, 0.4);
-        }
         .hero-content {
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
-
-        .image-card {
-            position: relative;
-            background-size: cover;
-            background-position: center;
-        }
-        .image-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);
-            border-radius: 1rem;
-        }
-        .image-card > * {
-            position: relative;
-            z-index: 10;
-        }
-        
-        .card-bg-1 { background-image: url('img/Mortgage Payment.webp'); }
-        .card-bg-2 { background-image: url('img/Affordability Check.webp'); }
-        .card-bg-3 { background-image: url('img/Rent vs. Buy.webp'); }
-        .card-bg-4 { background-image: url('img/BMI & BMR.webp'); }
-        .card-bg-5 { background-image: url('img/Calorie Intake.webp'); }
-        .card-bg-6 { background-image: url('img/Running Pace.webp'); }
 
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
@@ -265,26 +228,36 @@
 
     <main>
         
-        <section class="hero-bg text-center px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">
+        <section class="relative overflow-hidden text-center px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">
             
+            <picture class="absolute inset-0 z-0">
+                <source media="(max-width: 640px)" srcset="img/Home_mobile.webp">
+                <img src="img/Home.webp" alt="Financial planning background" class="w-full h-full object-cover">
+            </picture>
+            <div class="absolute inset-0 bg-black/40 z-10"></div>
+
             <header class="absolute top-6 z-40 w-full">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-center relative">
                     
                     <div class="flex-shrink-0 md:hidden">
-                        <picture>
-                            <source srcset="img/Logo_White.webp" type="image/webp">
-                            <source srcset="img/Logo_White.png" type="image/png">
-                            <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
-                        </picture>
+                        <a href="/" aria-label="Solveria Homepage">
+                            <picture>
+                                <source srcset="img/Logo_White.webp" type="image/webp">
+                                <source srcset="img/Logo_White.png" type="image/png">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24">
+                            </picture>
+                        </a>
                     </div>
 
                     <nav class="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
                         <div class="flex items-center">
-                            <picture>
-                                <source srcset="img/Logo_White.webp" type="image/webp">
-                                <source srcset="img/Logo_White.png" type="image/png">
-                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
-                            </picture>
+                            <a href="/" aria-label="Solveria Homepage">
+                                <picture>
+                                    <source srcset="img/Logo_White.webp" type="image/webp">
+                                    <source srcset="img/Logo_White.png" type="image/png">
+                                    <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24">
+                                </picture>
+                            </a>
                         </div>
                         <a href="#calculators" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">Calculators</a>
                         <a href="#ecosystem" class="text-sm font-light text-[#dedee0] hover:text-[#FFFFFF] transition duration-200">Ecosystem</a>
@@ -293,7 +266,7 @@
                     </nav>
 
                     <div class="md:hidden absolute right-4 top-1/2 -translate-y-1/2">
-                        <button id="hamburger-btn" class="text-[#dedee0] hover:text-[#FFFFFF] p-2 rounded-md transition duration-200">
+                        <button id="hamburger-btn" aria-label="Open navigation menu" class="text-[#dedee0] hover:text-[#FFFFFF] p-2 rounded-md transition duration-200">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
                         </button>
                     </div>
@@ -301,14 +274,14 @@
 
                 <div id="mobile-nav-panel" class="hidden fixed inset-0 z-50 bg-black/20 backdrop-blur-lg p-6">
                     <div class="flex justify-between items-center">
-                         <a href="/">
+                         <a href="/" aria-label="Solveria Homepage">
                             <picture>
                                 <source srcset="img/Logo_White.webp" type="image/webp">
                                 <source srcset="img/Logo_White.png" type="image/png">
-                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto">
+                                <img src="img/Logo_White.png" alt="Solveria Logo" class="h-6 w-auto" height="24">
                             </picture>
                         </a>
-                        <button id="close-btn" class="text-white p-2">
+                        <button id="close-btn" aria-label="Close navigation menu" class="text-white p-2">
                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
@@ -337,9 +310,43 @@
             <div class="max-w-7xl mx-auto">
                 <div class="mb-12 text-center"><p class="text-2xl font-light text-primary-dark tracking-wider uppercase">Top Tools</p><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter mt-2">The Essentials for Smart Home Decisions.</h2></div>
                 <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                    <div class="image-card card-bg-1 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Mortgage Payment.</h3><p class="text-lg font-light mb-8 opacity-90">Calculate your true monthly cost. Principal, interest, taxes, and insurance—all in one place.</p><a href="financial-calculators/mortgage-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Get Started</a></div>
-                    <div class="image-card card-bg-2 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Affordability Check.</h3><p class="text-lg font-light mb-8 opacity-90">Determine your realistic max home price based on your current income and debts (DTI).</p><a href="financial-calculators/home-affordability-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Check Your Limit</a></div>
-                    <div class="image-card card-bg-3 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8 transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]"><h3 class="text-4xl font-light mb-4 tracking-tighter">Rent vs. Buy.</h3><p class="text-lg font-light mb-8 opacity-90">Analyze the long-term financial payoff between renting and owning a home in your area.</p><a href="financial-calculators/rent-vs-buy-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Find Your Path</a></div>
+                    
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px] transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/Mortgage Payment.webp" alt="Mortgage Payment Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">Mortgage Payment.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Calculate your true monthly cost. Principal, interest, taxes, and insurance—all in one place.</p>
+                            <a href="financial-calculators/mortgage-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Get Started</a>
+                        </div>
+                    </div>
+
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px] transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/Affordability Check.webp" alt="Home Affordability Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">Affordability Check.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Determine your realistic max home price based on your current income and debts (DTI).</p>
+                            <a href="financial-calculators/home-affordability-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Check Your Limit</a>
+                        </div>
+                    </div>
+
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px] transition-all duration-300 ease-in-out hover:shadow-soft-lg hover:scale-[1.02]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/Rent vs. Buy.webp" alt="Rent vs. Buy Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">Rent vs. Buy.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Analyze the long-term financial payoff between renting and owning a home in your area.</p>
+                            <a href="financial-calculators/rent-vs-buy-calculator/" class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-full w-max font-light transition">Find Your Path</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -348,12 +355,42 @@
                 <div class="mb-12 text-center"><p class="text-2xl font-light text-primary-dark tracking-wider uppercase">Beyond Finance</p><h2 class="text-4xl md:text-5xl font-light max-w-4xl mx-auto tracking-tighter mt-2">Calculate Your Wellness and Growth.</h2></div>
                 <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     
-                    <div class="image-card card-bg-4 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8"><h3 class="text-4xl font-light mb-4 tracking-tighter">BMI & BMR.</h3><p class="text-lg font-light mb-8 opacity-90">Quickly calculate your Body Mass Index and Base Metabolic Rate for personalized health goals.</p><a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Analyze Health</a></div>
-                    
-                    <div class="image-card card-bg-5 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8"><h3 class="text-4xl font-light mb-4 tracking-tighter">Calorie Intake.</h3><p class="text-lg font-light mb-8 opacity-90">Determine your ideal daily calorie needs based on your activity level and fitness objectives.</p><a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Start Diet Plan</a></div>
-                    
-                    <div class="image-card card-bg-6 text-white rounded-2xl overflow-hidden shadow-soft h-[600px] flex flex-col justify-end p-8"><h3 class="text-4xl font-light mb-4 tracking-tighter">Running Pace.</h3><p class="text-lg font-light mb-8 opacity-90">Find the pace, time, or distance needed to crush your next marathon or casual run.</p><a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Track Fitness</a></div>
-                
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/BMI & BMR.webp" alt="BMI & BMR Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">BMI & BMR.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Quickly calculate your Body Mass Index and Base Metabolic Rate for personalized health goals.</p>
+                            <a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Analyze Health</a>
+                        </div>
+                    </div>
+
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/Calorie Intake.webp" alt="Calorie Intake Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">Calorie Intake.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Determine your ideal daily calorie needs based on your activity level and fitness objectives.</p>
+                            <a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Start Diet Plan</a>
+                        </div>
+                    </div>
+
+                    <div class="relative text-white rounded-2xl overflow-hidden shadow-soft h-[600px]">
+                        <picture class="absolute inset-0 z-0">
+                            <img src="img/Running Pace.webp" alt="Running Pace Calculator" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
+                        <div class="absolute inset-0 z-10" style="background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);"></div>
+                        <div class="relative z-20 h-full flex flex-col justify-end p-8">
+                            <h3 class="text-4xl font-light mb-4 tracking-tighter">Running Pace.</h3>
+                            <p class="text-lg font-light mb-8 opacity-90">Find the pace, time, or distance needed to crush your next marathon or casual run.</p>
+                            <a class="inline-flex items-center text-xl text-white bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-2 rounded-full w-max font-light cursor-default">Track Fitness</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -367,7 +404,7 @@
                     <picture>
                         <source srcset="img/sarah-j.webp" type="image/webp">
                         <source srcset="img/sarah-j.png" type="image/png">
-                        <img src="img/sarah-j.png" alt="Sarah J." class="w-24 h-24 rounded-full object-cover mb-4">
+                        <img src="img/sarah-j.png" alt="Sarah J." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="96">
                     </picture>
                     <p class="text-lg text-primary-dark">"Solveria's mortgage calculator was a lifesaver. The amortization chart made it so clear where my money was going. I finally felt confident in my home buying decision."</p><p class="mt-6 font-light text-primary-dark">Sarah J.</p><p class="text-dark-gray">First-Time Home Buyer</p>
                 </div>
@@ -376,7 +413,7 @@
                     <picture>
                         <source srcset="img/david-m.webp" type="image/webp">
                         <source srcset="img/david-m.png" type="image/png">
-                        <img src="img/david-m.png" alt="David M." class="w-24 h-24 rounded-full object-cover mb-4">
+                        <img src="img/david-m.png" alt="David M." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="96">
                     </picture>
                     <p class="text-lg text-primary-dark">"The Rent vs. Buy calculator gave us the clarity we needed. Seeing the 30-year financial breakdown side-by-side made our decision to buy so much easier. An incredible tool!"</p><p class="mt-6 font-light text-primary-dark">David M.</p><p class="text-dark-gray">Growing Family</p>
                 </div>
@@ -384,8 +421,8 @@
                 <div class="bg-white p-8 rounded-xl flex flex-col items-center text-center shadow-soft">
                     <picture>
                         <source srcset="img/priya-k.webp" type="image/webp">
-                        <source srcset="img_priya-k.png" type="image/png">
-                        <img src="img/priya-k.png" alt="Priya K." class="w-24 h-24 rounded-full object-cover mb-4">
+                        <source srcset="img/priya-k.png" type="image/png">
+                        <img src="img/priya-k.png" alt="Priya K." class="w-24 h-24 rounded-full object-cover mb-4" loading="lazy" width="96" height="96">
                     </picture>
                     <p class="text-lg text-primary-dark">"We were lost about how much house we could actually afford. The Home Affordability tool broke it all down based on our real income and debts. It's the first step every buyer should take."</p><p class="mt-6 font-light text-primary-dark">Priya K.</p><p class="text-dark-gray">Young Professionals</p>
                 </div>
@@ -446,6 +483,14 @@
         // Also close menu when a link is clicked
         mobileNavPanel.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMenu);
+Section: 'ecosystem' Links
+Your analysis correctly notes that all links in the `#ecosystem` section currently point to `/calculators/`. When you are ready to build out those specific category pages, you will need to update the `href` attribute for each `<a>` tag.
+
+For example:
+`<a href="/health-calculators/" ...><h3>Health & Lifestyle</h3>...</a>`
+`<a href="/business-calculators/" ...><h3>Business & Marketing ROI</h3>...</a>`
+
+This is a straightforward content update you can make as your site grows.
         });
     </script>
 
