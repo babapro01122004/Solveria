@@ -18,15 +18,15 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://unpkg.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" as="style" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/dist/tailwind.min.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/dist/tailwind.min.css"></noscript>
+    <link rel="preload" href="https://unpkg.com/tailwindcss@3.4.17/dist/tailwind.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.4.17/dist/tailwind.min.css"></noscript>
 
     <link rel="preload" href="ha-style.css" as="style" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="ha-style.css"></noscript>
@@ -251,10 +251,6 @@
             color: white;
         }
         
-        /* * MODIFICATION: This is the fix.
-         * Added these styles to set the logo size *before*
-         * Tailwind.css loads. This matches your `w-48 h-48 mb-4` classes.
-        */
         .hero-content-wrapper img {
             width: 192px;  /* 12rem (w-48) */
             height: 192px; /* 12rem (h-48) */
@@ -299,7 +295,6 @@
             .hero-section { padding-bottom: 0; }
             .hero-content-wrapper { margin-top: -10vh; } 
             
-            /* This mobile style was correct and overrides the desktop one */
             .hero-content-wrapper img { 
                 width: 144px; 
                 height: 144px; 
@@ -330,7 +325,6 @@
             .desktop-nav { display: block; }
         }
 
-        /* Style for disabled "More Tools" links */
         .disabled-tool-link {
             display: block;
             text-decoration: none;
