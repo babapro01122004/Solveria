@@ -1,0 +1,147 @@
+/*
+  This file contains all your (non-critical) custom CSS.
+  The critical CSS (for the hero section) is inlined in index.html.
+  The slow @import for Google Fonts has been removed and
+  replaced with an async <link> in index.html.
+*/
+
+.content-area {
+    max-width: 1400px; 
+    margin: 0 auto;
+    padding: 20px 40px; 
+}
+
+.breadcrumb-nav { padding: 40px 0 0 0; }
+.breadcrumb-nav a, .breadcrumb-nav span {
+    font-size: 0.9em; font-weight: 300; 
+    color: #777; text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+.breadcrumb-nav a:hover { color: #000; }
+.breadcrumb-nav span { margin: 0 0.5em; }
+.breadcrumb-nav .current-page { color: #333; font-weight: 400; }
+
+.intro-section { padding: 60px 0 0 0; }
+.intro-section h2 { font-weight: 100; font-size: 3.8em; color: #333; margin-bottom: 20px; }
+.intro-section p { font-size: 1.1em; line-height: 1.7; color: #555; font-weight: 300; max-width: 800px; margin-top: 0; }
+
+.calculator-section { padding: 20px 0 60px 0; }
+.calculator-section h2 { font-weight: 100; font-size: 3.8em; color: #333; margin-bottom: 50px; }
+
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px 80px; max-width: 700px; }
+.input-group { position: relative; }
+.input-group label { display: block; font-size: 0.9em; font-weight: 300; color: #555; margin-bottom: 5px; }
+.input-group input[type="number"] {
+    width: 100%; padding: 5px 0; border: none;
+    border-bottom: 1px solid #ccc; outline: none;
+    font-weight: 300; font-size: 1.2em; color: #333;
+    background-color: transparent; transition: border-color 0.3s ease-in-out;
+}
+.input-group input:focus { border-bottom-color: #000; }
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+.custom-select-wrapper { position: relative; margin-top: 15px; }
+.custom-select {
+    background-color: #fff; border-radius: 8px; padding: 10px 15px;
+    cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; font-size: 1.1em; font-weight: 300;
+    user-select: none; transition: box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+.custom-select-arrow { font-size: 0.8em; color: #888; }
+.custom-options {
+    display: none; position: absolute; top: calc(100% + 5px);
+    left: 0; right: 0; background-color: #fff;
+    border-radius: 8px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000; list-style: none; padding: 0; margin: 0; overflow-y: auto;
+}
+.custom-options.open { display: block; }
+.custom-options li { padding: 12px 15px; cursor: pointer; transition: background-color 0.2s; font-weight: 300; }
+.custom-options li:hover { background-color: #f5f5f5; }
+.custom-options li.selected { background-color: #e9e9e9; }
+#dti-ratio-custom { margin-top: 15px; }
+
+.results-section { padding: 20px 0 60px 0; display: none; }
+.results-section h2 { font-weight: 100; font-size: 3.8em; margin-bottom: 30px; } 
+.main-result { text-align: left; margin-bottom: 40px; border-left: 4px solid #2ca86a; padding-left: 25px; }
+.main-result h3 { font-weight: 300; font-size: 1.2em; color: #555; margin: 0 0 5px 0; }
+.main-result p { font-weight: 300; font-size: 3.5em; color: #2ca86a; margin: 0; }
+.main-result .error-message { color: red; font-size: 1.2em; }
+
+.results-summary { margin-bottom: 40px; }
+.results-summary p { margin: 0; font-size: 1.1em; line-height: 1.6; color: #555; font-weight: 300; }
+.results-grid { display: grid; gap: 60px; }
+
+.result-group h4, .results-summary h4 {
+    font-weight: 300; font-size: 1.5em; color: #333;
+    margin: 0 0 20px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;
+}
+.result-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.result-item-label { font-weight: 300; font-size: 1em; color: #555; }
+.result-item-value { font-weight: 400; font-size: 1.1em; color: #333; }
+
+.related-tools { margin: 50px 0 40px; }
+.related-tools-title { font-weight: 300; font-size: 1.5em; color: #333; margin: 0 0 30px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+.related-tools-grid { display: block; }
+.tool-link-block { margin-bottom: 25px; }
+.tool-link-block a { font-size: 1.2em; font-weight: 300; color: #555; text-decoration: none; transition: color 0.3s ease; }
+.tool-link-block a:hover { color: #000; }
+.tool-subtitle { font-size: 0.9em; color: #777; margin-top: 6px; position: relative; height: 1.2em; }
+.tool-subtitle span { position: absolute; width: 100%; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
+.tool-subtitle span.visible { opacity: 1; }
+
+.seo-content-section { padding: 70px 0; border-top: 1px solid #eee; margin-top: 20px; }
+.seo-content-section h2 { font-weight: 100; font-size: 2.8em; color: #333; margin: 40px 0 30px; }
+.seo-content-section h2:first-child { margin-top: 0; }
+.seo-content-section p, .seo-content-section li { font-size: 1.1em; line-height: 1.7; color: #555; font-weight: 300; max-width: 800px; }
+.seo-content-section ol, .seo-content-section ul { padding-left: 25px; }
+.seo-content-section li { margin-bottom: 15px; }
+.seo-content-section ul { list-style-type: disc; margin-top: 15px; }
+.seo-content-section ul li { margin-bottom: 10px; }
+.faq-section { margin-top: 60px; }
+.faq-item { border-bottom: 1px solid #ddd; padding: 15px 0; }
+.faq-item summary { font-size: 1.2em; font-weight: 300; color: #333; cursor: pointer; list-style: none; position: relative; padding-right: 30px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 1.4em; font-weight: 300; color: #777; transition: transform 0.2s ease-in-out; }
+.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item[open] summary { margin-bottom: 15px; }
+.faq-item p, .faq-item .faq-answer { margin: 0; }
+.faq-item ul { padding-left: 20px; margin: 10px 0; }
+
+.page-footer { background: linear-gradient(to top, #eae5df, transparent); padding: 80px 20px 40px; text-align: center; margin-top: 60px; }
+.page-footer nav a { color: #777; text-decoration: none; margin: 0 20px; font-size: 0.9em; font-weight: 300; transition: color 0.3s ease; }
+.page-footer nav a:hover { color: #333; }
+
+.more-tools-section { padding: 70px 0 0 0; border-top: 1px solid #eee; }
+.more-tools-section h2 { font-weight: 100; font-size: 2.8em; color: #333; margin-bottom: 30px; }
+.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.tools-column h4 { font-size: 1.1rem; font-weight: 400; color: #333; margin: 0 0 20px; }
+.tools-column ul { list-style: none; margin: 0; padding: 0; }
+.tools-column li { margin-bottom: 15px; }
+.tools-column a { color: #666; text-decoration: none; font-weight: 300; font-size: 1rem; transition: color 0.3s ease; }
+.tools-column a:hover { color: #000; }
+
+/* Non-critical media queries */
+@media (max-width: 1000px) { .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 50px 40px; } }
+@media (max-width: 833px) {
+    .content-area { padding: 20px 25px; }
+    .breadcrumb-nav { padding-top: 25px; }
+    .intro-section { padding-top: 40px; }
+    .calculator-section, .results-section { padding: 20px 0 40px; }
+    .breadcrumb-nav a, .breadcrumb-nav span { font-size: 0.8rem; }
+    .intro-section h2, .calculator-section h2, .results-section h2, .seo-content-section h2 { font-size: 2.4em; }
+    .input-grid, .results-grid { grid-template-columns: 1fr; gap: 40px; }
+    .input-grid { max-width: none; }
+    .main-result p { font-size: 2.8em; }
+    .result-group h4, .results-summary h4 { font-size: 1.3em; }
+    .page-footer nav a { display: block; margin: 0 0 22px; }
+    .seo-content-section, .more-tools-section { padding: 40px 0 0 0; }
+}
+@media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
+@media (min-width: 834px) {
+    .calculator-layout-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .related-tools-grid { display: flex; gap: 40px; }
+    .tool-link-block { flex: 1; }
+}
