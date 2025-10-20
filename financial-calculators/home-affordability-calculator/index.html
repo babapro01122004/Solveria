@@ -251,6 +251,16 @@
             color: white;
         }
         
+        /* * MODIFICATION: This is the fix.
+         * Added these styles to set the logo size *before*
+         * Tailwind.css loads. This matches your `w-48 h-48 mb-4` classes.
+        */
+        .hero-content-wrapper img {
+            width: 192px;  /* 12rem (w-48) */
+            height: 192px; /* 12rem (h-48) */
+            margin-bottom: 16px; /* 1rem (mb-4) */
+        }
+        
         .hero-section h1 {
             font-weight: 100;
             font-size: 5vw;
@@ -288,7 +298,13 @@
         @media (max-width: 833px) {
             .hero-section { padding-bottom: 0; }
             .hero-content-wrapper { margin-top: -10vh; } 
-            .hero-content-wrapper img { width: 144px; height: 144px; }
+            
+            /* This mobile style was correct and overrides the desktop one */
+            .hero-content-wrapper img { 
+                width: 144px; 
+                height: 144px; 
+            }
+            
             .mobile-nav {
                 display: flex;
                 gap: 40px;
@@ -723,7 +739,7 @@
             <a href="https://solveria.org/contact-us/">Contact Us</a>
         </nav>
     </footer>
-
+    
     <script src="ha-app.js" defer></script>
 
 </body>
