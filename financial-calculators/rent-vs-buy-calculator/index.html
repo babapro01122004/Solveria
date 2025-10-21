@@ -9,9 +9,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
-    crossorigin="anonymous"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rent vs. Buy Calculator | Solveria</title>
@@ -25,7 +22,50 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap">
     </noscript>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { font-size: 17px; }
+        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-weight: 300; overflow-x: hidden; background-color: #f4f4f4; }
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding-bottom: 10vh; overflow: hidden; }
+        .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .hero-background img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; color: white; margin-bottom: 0; position: relative; z-index: 1; }
+        .hero-content-wrapper img { width: 200px; height: 200px; margin-bottom: 25px; }
+        .hero-section h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 100; color: white; margin: 0; padding: 0 20px; text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7); z-index: 1; }
+        .hero-subtitle { font-size: 1.1rem; font-weight: 100; color: white; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); margin-top: 25px; z-index: 1; position: relative; height: 1.5em; width: 100%; }
+        .hero-subtitle span { position: absolute; width: 100%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 1s ease-in-out; will-change: opacity; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .hero-subtitle span.visible { opacity: 1; }
+        .top-nav { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); z-index: 10; }
+        .top-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 50px; }
+        .top-nav a { color: #cbcbca; text-decoration: none; font-size: 0.9rem; font-weight: 300; transition: color 0.3s ease; }
+        .top-nav a:hover { color: #ffffff; }
+        .mobile-nav-container { display: none; position: absolute; top: 40px; left: 50%; transform: translateX(-50%); z-index: 10; gap: 50px; }
+        .mobile-nav-container a { color: #cbcbca; text-decoration: none; font-size: 1rem; font-weight: 300; transition: color 0.3s ease; }
+        .mobile-nav-container a:hover { color: #ffffff; }
+        #scroll-prompt { position: absolute; bottom: 50px; left: 50%; display: flex; align-items: center; cursor: pointer; opacity: 1; transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; z-index: 1; }
+        #scroll-prompt.hidden { opacity: 0; pointer-events: none; }
+        #scroll-prompt-arrow { width: 24px; height: 24px; margin-right: 10px; }
+        #scroll-prompt-text { color: #fff; font-size: 1em; font-weight: 300; white-space: nowrap; opacity: 0; transition: opacity 1s ease-in-out; transform: translateZ(0); backface-visibility: hidden; }
+        #scroll-prompt-text.visible { opacity: 1; }
+        .page-wrapper { background-color: #f4f4f4; flex: 1 0 auto; }
+        @media (max-width: 800px) {
+            .top-nav { display: none; }
+            .mobile-nav-container { display: flex; }
+            .hero-content-wrapper img { width: 160px; height: 160px; margin-bottom: 15px; }
+            .hero-section h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+            .hero-subtitle { margin-top: 20px; }
+            #scroll-prompt-text { display: none; }
+            #scroll-prompt-arrow { margin-right: 0; }
+            #scroll-prompt { transform: translateX(-50%) !important; }
+        }
+        @media (min-width: 801px) { .mobile-nav-container { display: none; } }
+    </style>
+
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="style.css">
+    </noscript>
 
 
     <script type="application/ld+json">
@@ -74,7 +114,7 @@
         "@type": "FAQPage",
         "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#faq",
         "mainEntity": [
-            { "@type": "Question", "name": "What is the \"break-even point\" in the rent vs. buy decision?", "acceptedAnswer": { "@type": "Answer", "text": "The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this point, renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option." }},
+            { "@type": "Question", "name": "What is the \"break-even point\" in the rent vs. buy decision?", "acceptedAnswer": { "@type": "Answer", "text": "The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this. renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option." }},
             { "@type": "Question", "name": "Is renting just \"throwing money away\"?", "acceptedAnswer": { "@type": "Answer", "text": "This is a common myth. You are not \"throwing money away\" any more than you are when paying for groceries or electricity; you are paying for a necessary service—in this case, shelter. Furthermore, renting frees up the large sum of capital that would have been used for a down payment and closing costs, allowing you to invest it elsewhere. If those investments perform well, renting can sometimes be the smarter financial move." }},
             { "@type": "Question", "name": "What are the most important hidden costs of buying a home?", "acceptedAnswer": { "@type": "Answer", "text": "Beyond the mortgage payment (P&I), new homeowners are often surprised by several costs: 1) Property Taxes, which can be thousands of dollars a year. 2) Homeowner's Insurance. 3) Maintenance and Repairs, for which a common rule of thumb is to budget 1% of the home's value annually. 4) Closing Costs, which can be 2-5% of the home's purchase price. 5) Potential HOA (Homeowner Association) fees." }},
             { "@type": "Question", "name": "How does inflation affect the rent vs. buy decision?", "acceptedAnswer": { "@type": "Answer", "text": "Inflation can significantly favor homeowners. With a fixed-rate mortgage, your principal and interest payment remains the same for the life of the loan, while your wages and other prices rise with inflation. This makes your housing payment effectively cheaper over time. In contrast, rent prices typically rise with or even exceed the rate of inflation, increasing your housing costs year after year." }},
@@ -111,7 +151,7 @@
         <picture>
             <source srcset="../../img/Logo_Golden.webp" type="image/webp">
             <source srcset="../../img/Logo_Golden.png" type="image/png">
-            <img src="../../img/Logo_Golden.png" alt="Solveria Logo">
+            <img src="../../img/Logo_Golden.png" alt="Solveria Logo" fetchpriority="high">
         </picture>
         <h1>Rent vs Buy a Home</h1>
     </div>
@@ -364,8 +404,12 @@
 
 <div id="chartTooltip" class="chart-tooltip"></div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 <script src="rent-vs-buy.js" defer></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
+crossorigin="anonymous"></script>
 
 <footer>
     <nav>
