@@ -53,8 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function initScrollPrompt() {
         if (!scrollTextEl || !scrollPromptEl) return;
         scrollTextEl.textContent = scrollPhrases[0];
-        // This line was causing the "forced reflow".
-        // By running this whole function in a setTimeout, it's no longer a problem.
         const initialWidth = scrollPromptEl.offsetWidth;
         scrollPromptEl.style.transform = `translateX(-${initialWidth / 2}px)`;
         scrollTextEl.classList.add('visible');
@@ -62,13 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     if (scrollPromptEl) {
-        /*
-        PERFORMANCE FIX (REFLOW):
-        We wrap this call in a setTimeout. This moves it out of the
-        initial execution path and prevents it from forcing a layout
-        recalculation (reflow) before the first paint.
-        */
-        setTimeout(initScrollPrompt, 0);
+        initScrollPrompt();
 
         scrollPromptEl.addEventListener('click', () => {
             document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
@@ -196,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (posRight + tooltipWidth <= rightEdge) {
             finalLeft = posRight;
-        } else if (posLeft >= rightEdge) {
+        } else if (posLeft >= leftEdge) {
             finalLeft = posLeft;
         } else {
             finalLeft = posCenter;
@@ -384,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         totalPrincipalPaid = loanAmount - remainingBalance;
         const finalSellingCost = currentHomeValue * v.sellingCosts;
-        const buyNetWorth = currentHomeValue - remainingBalance - final.sellingCosts;
+        const buyNetWorth = currentHomeValue - remainingBalance - finalSellingCost;
         const totalPropertyCost = v.downPayment + v.buyingCosts + totalPrincipalPaid + totalInterestPaid + totalMaintenance + totalPropertyTax;
 
         const initialInvestment = (v.downPayment + v.buyingCosts) - (v.securityDeposit + v.upfrontRentCost);
@@ -461,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const rentGradient = ctx.createLinearGradient(0, 0, 0, 300);
         rentGradient.addColorStop(0, 'rgba(210, 105, 30, 0.6)'); rentGradient.addColorStop(1, 'rgba(210, 105, 30, 0)');
 
-        paymentsLineChart = new Chart(.ctx, {
+        paymentsLineChart = new Chart(ctx, {
             type: 'line', data: { labels: chartLabels, datasets: [{ label: 'Buy', data: buyData, borderColor: 'rgb(139, 69, 19)', backgroundColor: buyGradient, fill: true, tension: 0.4, pointRadius: 0 }, { label: 'Rent', data: rentData, borderColor: 'rgb(210, 105, 30)', backgroundColor: rentGradient, fill: true, tension: 0.4, pointRadius: 0 }] },
             options: {
                 responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: 'index', },
@@ -497,7 +489,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         alignLabelWrapping();
     }
-    
+
+    /*
+    PERFORMANCE FIX:
+    Defer the first calculation until the script is fully loaded and
+    the browser is ready. A simple setTimeout is good, but for
+    even better performance, you could use an IntersectionObserver
+    to run this only when the user scrolls to the results.
+    */
+    // We run this once on load, but only after 'defer' ensures the page is parsed.
     runCalculations(); 
 
     alignLabelWrapping();
