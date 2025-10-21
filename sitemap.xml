@@ -63,5 +63,11 @@
     <priority>0.80</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/refinance-calculator/</loc>
+    <lastmod>2025-10-22</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
 </urlset>
