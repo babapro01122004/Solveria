@@ -752,3 +752,14 @@ footer nav a:hover {
         flex: 1;
     }
 }
+
+/* === ADDED CSS FOR DISABLED LINKS === */
+.tools-column a.disabled-link {
+    color: #aaa;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.tools-column a.disabled-link:hover {
+    color: #aaa;
+}
