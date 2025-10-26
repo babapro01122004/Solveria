@@ -107,21 +107,62 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltipEl.innerHTML = innerHtml;
         tooltipEl.style.opacity = 1;
 
+        // --- START: MODIFIED TOOLTIP LOGIC ---
+        // This block replaces the original placement logic with the new "smart" logic.
+
         const tooltipWidth = tooltipEl.offsetWidth;
         const tooltipHeight = tooltipEl.offsetHeight;
         const margin = 15;
-        let finalX = pageX + margin;
-        let finalY = pageY + margin;
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
 
-        if (finalX + tooltipWidth + margin > window.innerWidth) {
-            finalX = pageX - tooltipWidth - margin;
-        }
-        if (finalY + tooltipHeight + margin > window.innerHeight) {
+        let finalX;
+        let finalY;
+
+        // Y-Position (Vertical)
+        // Try placing below cursor first
+        finalY = pageY + margin;
+        // If it goes off-screen bottom, flip it above
+        if (finalY + tooltipHeight + margin > winHeight) {
             finalY = pageY - tooltipHeight - margin;
+            // Handle edge case where it also goes off-screen top (e.g., tall tooltip on short screen)
+            if (finalY < margin) {
+                finalY = margin;
+            }
+        }
+
+        // X-Position (Horizontal)
+        const spaceRight = winWidth - pageX;
+        const spaceLeft = pageX;
+        const neededRight = tooltipWidth + margin;
+        const neededLeft = tooltipWidth + margin;
+
+        // 1. Try Right (Default)
+        if (spaceRight > neededRight) {
+            finalX = pageX + margin;
+        } 
+        // 2. Try Left
+        else if (spaceLeft > neededLeft) {
+            finalX = pageX - tooltipWidth - margin;
+        } 
+        // 3. Middle (Fallback, if both left and right fail)
+        else {
+            finalX = (winWidth - tooltipWidth) / 2;
+        }
+
+        // Final safety net to prevent going off-left
+        if (finalX < margin) {
+            finalX = margin;
+        }
+        // Final safety net to prevent going off-right (if centered)
+        if (finalX + tooltipWidth + margin > winWidth) {
+            finalX = winWidth - tooltipWidth - margin;
         }
         
         tooltipEl.style.left = `${finalX}px`;
         tooltipEl.style.top = `${finalY}px`;
+
+        // --- END: MODIFIED TOOLTIP LOGIC ---
         
         return true;
     };
