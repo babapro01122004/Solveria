@@ -427,10 +427,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
     
-    // Only run scroll animation if it's likely a desktop (basic check)
+    /*
+      CHANGED: Wrapped the initial call in a width check.
+      This prevents the animation from running on mobile,
+      which eliminates the "forced reflow" reported by Lighthouse
+      and saves mobile users battery.
+    */
     if (window.innerWidth > 992) {
        initialScrollAnimation();
     }
+
      // Re-check on resize, debounced
     window.addEventListener('resize', debounce(() => {
         if (window.innerWidth > 992) {
