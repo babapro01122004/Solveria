@@ -41,8 +41,10 @@
           "publisher": { "@id": "https://solveria.org/#organization" },
           "breadcrumb": { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#breadcrumb" },
           "mainEntity": [
+            { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#calculator" },
             { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#howto" },
-            { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#faq" }
+            { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#faq" },
+            { "@id": "https://solveria.org/financial-calculators/refinance-calculator/#results-explained" }
           ]
         },
         {
@@ -82,8 +84,18 @@
             },
             {
               "@type": "HowToStep",
+              "name": "Add Cash Out (Optional)",
+              "text": "If you plan to borrow extra money, enter the amount in the 'Cash Out' field. This will be added to your new loan balance."
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Select Closing Cost Option",
+              "text": "Use the checkbox to specify whether you will pay closing costs upfront or roll them into the new loan amount."
+            },
+            {
+              "@type": "HowToStep",
               "name": "Analyze Your Results",
-              "text": "The calculator will instantly display your new monthly payment, potential savings, break-even point, and a comparison of total interest paid using interactive charts and summary tables."
+              "text": "The calculator will instantly display your new monthly payment, potential savings, break-even point, and a comparison of total interest paid."
             }
           ]
         },
@@ -122,8 +134,49 @@
                 "@type": "Answer",
                 "text": "A cash-out refinance allows you to take out a new, larger mortgage than what you currently owe and receive the difference in cash. It's a way to tap into your home's equity to fund things like home improvements, debt consolidation, or other major purchases."
               }
+            },
+            {
+              "@type": "Question",
+              "name": "Does this calculator guarantee my new loan terms?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. This calculator provides a reliable estimate based on the numbers you provide. Your final loan terms, interest rate, and approval are subject to a formal underwriting process from a lender, which includes verifying your credit score, income, and property value."
+              }
             }
           ]
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://solveria.org/financial-calculators/refinance-calculator/#calculator",
+          "name": "Refinance Calculator",
+          "description": "A refinance calculator is a crucial tool for homeowners looking to replace their existing mortgage with a new one. It helps you determine if refinancing is the right financial move by comparing your current loan terms against a new loan offer.",
+          "applicationCategory": "FinancialApplication",
+          "browserRequirements": "Requires a modern web browser with JavaScript enabled.",
+          "operatingSystem": "Cross-platform",
+          "publisher": { "@id": "https://solveria.org/#organization" },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "mainEntityOfPage": {
+            "@id": "https://solveria.org/financial-calculators/refinance-calculator/"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://solveria.org/financial-calculators/refinance-calculator/#results-explained",
+          "headline": "Understanding Your Refinance Results",
+          "articleBody": "Your results provide a clear financial comparison to help you make an informed decision: \n\nNew Monthly Payment: The new principal and interest payment for your refinanced loan. \nMonthly Savings: The immediate difference between your old and new monthly payments. A positive number indicates savings. \nBreak-Even Point: The number of months it will take for your accumulated monthly savings to cover the closing costs of the refinance. This is a critical metric for deciding if the refinance is worthwhile. \nLifetime Savings: The total amount of money you will save (or lose) in interest payments over the entire life of the new loan compared to your current one. \nVisual Charts: Interactive charts that illustrate the difference in your loan balance payoff over time and compare the total interest you'll pay for each loan.",
+          "author": {
+            "@id": "https://solveria.org/#organization"
+          },
+          "publisher": {
+            "@id": "https://solveria.org/#organization"
+          },
+          "mainEntityOfPage": {
+            "@id": "https://solveria.org/financial-calculators/refinance-calculator/"
+          }
         }
       ]
     }
@@ -414,7 +467,7 @@
                     <div class="faq-answer">
                         A5: No. This calculator provides a reliable estimate based on the numbers you provide. Your final loan terms, interest rate, and approval are subject to a formal underwriting process from a lender, which includes verifying your credit score, income, and property value.
                     </div>
-                </details>
+                </Ddetails>
             </div>
         </section>
 
