@@ -11,7 +11,8 @@ body, html {
     font-weight: 300; 
 }
 strong, b {
-    font-weight: 300;
+    /* CHANGED: Set to 500 so bold text is actually bold */
+    font-weight: 500;
 }
 .hero-section {
     height: 100vh;
@@ -34,7 +35,12 @@ strong, b {
     left: 0;
     width: 100%;
     height: 100%;
-    /* REMOVED: z-index: -1; This was the line causing the issue. */
+    /* FIXED: Re-commented this line. 
+      z-index: -1 sends the image behind its parent's background.
+      Removing it gives it a default z-index of 'auto' (like 0), 
+      which is correct.
+    */
+    /* z-index: -1; */
 }
 .hero-background img {
     width: 100%;
@@ -685,4 +691,3 @@ footer a:hover {
         font-size: 1.1rem;
     }
 }
-
