@@ -1,4 +1,3 @@
-/* All CSS from your file... */
 html {
     scroll-behavior: smooth;
 }
@@ -13,43 +12,40 @@ body, html {
 strong, b {
     font-weight: 500;
 }
+
 .hero-section {
-    height: 100vh;
+    height: 45vh; 
+    min-height: 350px; 
+    /* --- START: BACKGROUND IMAGE FIX --- */
+    background-image: image-set(
+        url("../../img/Refinance_Hero.webp") type("image/webp"),
+        url("../../img/Refinance_Hero.jpg") type("image/jpeg")
+    );
+    /* Fallback for older browsers */
+    background-image: url("../../img/Refinance_Hero.jpg"); 
+    /* --- END: BACKGROUND IMAGE FIX --- */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column; 
-    justify-content: center;
+    justify-content: space-evenly; 
     align-items: center;
     box-sizing: border-box;
-    padding-bottom: 10vh;
+    padding: 20px 0; 
     position: relative; 
     overflow: hidden;
 }
 
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* z-index: -1; */
-}
-.hero-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    object-position: center; 
-    font-family: 'object-fit: cover; object-position: center;'; 
-}
+/* --- REMOVED: .hero-background styles --- */
+/* .hero-background { ... } */
+/* .hero-background img { ... } */
 
 .hero-nav {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%; 
+    text-align: center; 
     display: flex;
+    justify-content: center; 
     gap: 40px;
     z-index: 10;
 }
@@ -70,69 +66,55 @@ strong, b {
     text-align: center;
     color: white;
     position: relative; 
-    z-index: 2;
+    z-index: 2; /* Ensures content is above potential pseudo-elements */
 }
 .hero-content-wrapper img {
-    /* CHANGED: Replaced height: 200px with aspect-ratio */
-    width: 200px;
-    height: 200px; /* Explicitly set height to ensure 1:1 */
+    width: 130px; 
+    height: 130px; 
     aspect-ratio: 1/1; 
-    margin-bottom: 25px;
+    margin-bottom: 20px; 
 }
 .hero-section h1 {
     color: #ffffff;
-    font-size: 5.5rem;
+    font-size: 4rem; 
     font-weight: 100; 
     text-align: center;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     margin: 0; 
 }
+
+.mobile-support-link {
+    display: none; 
+    color: #555555; 
+    text-decoration: none;
+    font-size: 0.9rem; 
+    font-weight: 400;
+    transition: color 0.3s ease;
+    flex-shrink: 0; 
+}
+.mobile-support-link:hover {
+    color: #000;
+}
+
+.mobile-header-placeholder {
+    display: none; 
+}
+
+
 .hero-tagline {
-    height: 40px; 
-    margin-top: 15px;
+    height: auto; 
     position: relative; 
-    z-index: 2;
+    z-index: 2; /* Ensures content is above potential pseudo-elements */
 }
 .hero-tagline p {
     margin: 0;
     color: #e0e0e0;
-    font-size: 1.25rem;
+    font-size: 1.1rem; 
     font-weight: 100;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
     text-align: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transform: translateZ(0);
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-    text-decoration: none;
-    cursor: pointer;
-    z-index: 2;
-    transition: left 0.5s ease-in-out; 
-}
-.scroll-indicator img {
-    width: 30px;
-    height: auto;
-    flex-shrink: 0;
-}
-.scroll-indicator p {
-    margin: 0;
-    color: #e0e0e0;
-    font-size: 1rem;
-    font-weight: 300;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    white-space: nowrap;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transform: translateZ(0);
@@ -158,7 +140,7 @@ strong, b {
     color: #ffffff;
 }
 .content-section {
-    padding: 120px 20px 50px;
+    padding: 80px 20px 50px; 
     box-sizing: border-box;
 }
 .calculator-wrapper {
@@ -172,7 +154,7 @@ strong, b {
 }
 .breadcrumb {
     position: absolute;
-    top: -60px;
+    top: -30px;
     left: -4px;
     color: #777777;
     font-size: 0.9rem;
@@ -366,6 +348,14 @@ input[type=number] {
 .summary-highlight {
     font-weight: 300; 
 }
+
+.summary-header-flex {
+    display: block; 
+}
+.mobile-support-button {
+    display: none; 
+}
+
 .breakdown-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -385,9 +375,9 @@ input[type=number] {
     justify-content: space-between;
     font-size: 1rem;
     padding: 12px 0;
-    border-bottom: 1px solid #eee;
+    
 }
-.result-item:last-child { border-bottom: none; }
+
 .result-item .label { color: #666; }
 .result-item .value {
     font-weight: 300; 
@@ -608,6 +598,35 @@ footer a:hover {
 }
 
 @media (max-width: 992px) {
+     /* --- START: MEDIUM SCREEN HERO ADJUSTMENTS --- */
+     .hero-section {
+        height: auto; /* Allow content to dictate height */
+        min-height: 250px; /* Smaller minimum */
+        padding: 40px 0; /* Adjust padding */
+        justify-content: center; /* Center content vertically too */
+     }
+     .hero-nav {
+         /* Adjust nav positioning for medium screens */
+        position: absolute; 
+        top: 20px; 
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto; /* Allow natural width */
+        margin-bottom: 0; /* Remove extra margin */
+     }
+     .hero-content-wrapper img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+     }
+     .hero-section h1 {
+        font-size: 3rem;
+     }
+     .hero-tagline p {
+        font-size: 1rem;
+     }
+    /* --- END: MEDIUM SCREEN HERO ADJUSTMENTS --- */
+
     .calculator-wrapper {
         grid-template-columns: 1fr;
         gap: 60px;
@@ -615,7 +634,7 @@ footer a:hover {
     }
     .intro-section {
         margin-bottom: 0;
-        margin-top: 0;
+        margin-top: 0; /* <-- This was 20px, now 0 for mobile-first */
     }
      .charts-container {
         grid-template-columns: 1fr;
@@ -625,45 +644,111 @@ footer a:hover {
         grid-template-columns: 1fr 1fr; 
     }
 
-    .scroll-indicator p {
-        display: none;
-    }
-    .scroll-indicator {
-        left: 50% !important;
-        transform: translateX(-50%);
-        transition: none !important;
-    }
+    
 }
+
+/* --- START: ALL MOBILE/TABLET CHANGES ARE HERE --- */
 @media (max-width: 768px) {
     .hero-nav {
-        display: none;
+        display: none; /* Already hidden, kept for clarity */
     }
     .mobile-nav {
-        display: flex;
+        /* display: flex; */
+        display: none; 
     }
-    .hero-section { padding-bottom: 0; }
+
+    .hero-section {
+        height: auto; 
+        min-height: 60px; 
+        padding: 10px 15px; 
+        flex-direction: row; 
+        justify-content: space-between; 
+        /* --- BACKGROUND IMAGE FIX FOR MOBILE --- */
+        background-image: none; /* Remove desktop image */
+        /* --- END BACKGROUND IMAGE FIX FOR MOBILE --- */
+        background-color: #f4f4f4;
+        border-bottom: 1px solid #e5e5e5; 
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        padding-bottom: 10px; 
+    }
+    
+    .hero-background, /* Ensure this doesn't accidentally show */
+    .hero-tagline { 
+        display: none;
+    }
+
+    .hero-content-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0;
+        color: #333; 
+    }
+
     .hero-content-wrapper img {
-        /* CHANGED: Replaced height: 160px with aspect-ratio */
-        width: 160px;
-        height: 160px; /* Explicitly set height to ensure 1:1 */
+        width: 32px; 
+        height: 32px; 
         aspect-ratio: 1/1; 
-        margin-bottom: 15px;
+        margin-bottom: 0; 
     }
-    .hero-section h1 { font-size: 3.5rem; }
-    .hero-tagline p { font-size: 1rem; } 
+    
+    .hero-section h1 {
+        font-size: 1.5rem; 
+        font-weight: 300; 
+        color: #333;
+        text-shadow: none;
+        flex-grow: 1; 
+        text-align: center;
+        margin: 0; 
+    }
+
+    .mobile-support-link {
+        display: none; 
+    }
+
+    .mobile-header-placeholder {
+        display: block;
+        width: 32px; 
+        height: 32px;
+        flex-shrink: 0;
+    }
+    
     .content-section { 
-        padding: 100px 15px 50px;
+        padding: 70px 15px 50px; 
     }
+
     .breadcrumb {
-        top: -55px;
-        left: 0; 
+        position: static;
+        /* Space A: Between header line and breadcrumb */
+        margin-top: 15px;
+        /* Space B: Set to 0 to remove all bottom margin */
+        margin-bottom: -6px; 
+        left: auto;
+        margin-left: 0;
     }
-    .calculator-container h2, .results-container h2, .chart-wrapper h2, .seo-content-section h2, .more-tools-section h2 {
+    
+    /* THE FIX IS HERE */
+    .intro-section h2, .calculator-container h2, .results-container h2, .chart-wrapper h2, .seo-content-section h2, .more-tools-section h2 {
         font-size: 2.5rem; 
         margin-bottom: 30px;
         line-height: 1.2;
         margin-left: 0;
+        /* THIS IS THE NUMBER TO CHANGE. 
+           Make it *more negative* (e.g., -15px) to move it *closer*. 
+           Make it *less negative* (e.g., -5px) to move it *further away*.
+        */
+        margin-top: -10px; 
     }
+    
+    .intro-section {
+        margin-top: 0; /* This stays 0 */
+    }
+    
     .intro-section p, .seo-content-section p, .seo-content-section li, .faq-section .faq-answer, .seo-content-section ul {
         font-size: 1rem;
     }
@@ -673,6 +758,35 @@ footer a:hover {
     .summary-text, .breakdown-container {
         margin-top: 40px;
     }
+
+    /* --- START: PILL BUTTON MOBILE STYLES --- */
+    .summary-text h3 {
+         border-bottom: none;
+         padding-bottom: 0;
+         margin-bottom: 0;
+    }
+    .summary-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .mobile-support-button {
+        display: inline-block;
+        text-decoration: none;
+        color: #333;
+        background-color: #ffffff;
+        padding: 6px 16px;
+        border-radius: 999px; 
+        font-size: 0.9rem;
+        font-weight: 400;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+        border: none;
+        flex-shrink: 0; 
+    }
+     /* --- END: PILL BUTTON MOBILE STYLES --- */
 
     .breakdown-container { grid-template-columns: 1fr; gap: 40px; }
     .charts-container { margin-top: 60px; grid-template-columns: 1fr; }
@@ -689,3 +803,4 @@ footer a:hover {
         font-size: 1.1rem;
     }
 }
+/* --- END: ALL MOBILE/TABLET CHANGES ARE HERE --- */
