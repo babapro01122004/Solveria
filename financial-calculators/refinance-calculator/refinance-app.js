@@ -381,115 +381,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     cycleTaglines();
     
-
-    const scrollTaglines = [
-        "Scroll to calculate",
-        "Your savings analysis is below",
-        "Find your break-even point"
-    ];
-    let scrollTaglineIndex = 0;
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const scrollTaglineElement = document.getElementById('scroll-looping-text');
-    const scrollArrow = scrollIndicator ? scrollIndicator.querySelector('img') : null;
-
-    const scrollTaglineWidths = [];
-    if (scrollTaglineElement) {
-        const tempP = document.createElement('p');
-        tempP.style.cssText = `font-size: 1rem; font-weight: 300; white-space: nowrap; position: absolute; top: -9999px; left: -9999px;`;
-        document.body.appendChild(tempP);
-        scrollTaglines.forEach(text => {
-            tempP.textContent = text;
-            scrollTaglineWidths.push(tempP.offsetWidth);
-        });
-        document.body.removeChild(tempP);
-    }
-
-    function runNextScrollCycle() {
-        if (!scrollTaglineElement || !scrollIndicator || !scrollArrow) return;
-        
-        scrollTaglineIndex = (scrollTaglineIndex + 1) % scrollTaglines.length;
-        scrollTaglineElement.textContent = scrollTaglines[scrollTaglineIndex];
-
-        setTimeout(() => {
-            const arrowWidth = scrollArrow.offsetWidth;
-            const gap = 15;
-            const currentTextWidth = scrollTaglineWidths[scrollTaglineIndex];
-            const totalWidth = arrowWidth + gap + currentTextWidth;
-            const newLeft = (window.innerWidth - totalWidth) / 2;
-            
-            scrollIndicator.style.left = newLeft + 'px';
-
-            setTimeout(() => {
-                scrollTaglineElement.style.opacity = '1';
-                
-                setTimeout(() => {
-                    scrollTaglineElement.style.opacity = '0';
-                    
-                    setTimeout(runNextScrollCycle, 1500);
-                }, 4000);
-            }, 500); 
-        }, 10); 
-    }
-
-    function initialScrollAnimation() {
-        if (!scrollIndicator || !scrollTaglineElement || !scrollArrow) return;
-        
-        scrollTaglineElement.style.opacity = '0';
-        scrollTaglineElement.textContent = scrollTaglines[0];
-        
-        const arrowWidth = scrollArrow.offsetWidth;
-        if (arrowWidth === 0) { 
-            setTimeout(initialScrollAnimation, 50);
-            return;
-        }
-        
-        const initialLeft = (window.innerWidth - arrowWidth) / 2;
-        scrollIndicator.style.transition = 'none'; 
-        scrollIndicator.style.left = initialLeft + 'px';
-
-        setTimeout(() => {
-            const gap = 15;
-            const firstTextWidth = scrollTaglineWidths[0];
-            const totalWidth = arrowWidth + gap + firstTextWidth;
-            const newLeft = (window.innerWidth - totalWidth) / 2;
-            
-            scrollIndicator.style.transition = 'left 0.5s ease-in-out'; 
-            scrollIndicator.style.left = newLeft + 'px';
-
-            setTimeout(() => {
-                scrollTaglineElement.style.opacity = '1';
-                
-                setTimeout(() => {
-                    scrollTaglineElement.style.opacity = '0';
-                    
-                    setTimeout(runNextScrollCycle, 1500);
-                }, 4000);
-            }, 500);
-        }, 100);
-    }
-    
     /*
-      CHANGED: Wrapped the initial call in a width check.
-      This prevents the animation from running on mobile,
-      which eliminates the "forced reflow" reported by Lighthouse
-      and saves mobile users battery.
+      FIX: Removed all code related to the old "scroll-indicator" animation.
+      This includes:
+      - scrollTaglines array
+      - scrollIndicator, scrollTaglineElement, scrollArrow variables
+      - scrollTaglineWidths array and its populating logic
+      - runNextScrollCycle() function
+      - initialScrollAnimation() function
+      - The resize listener logic for the scroll animation
     */
-    if (window.innerWidth > 992) {
-       initialScrollAnimation();
-    }
-
-     // Re-check on resize, debounced
-    window.addEventListener('resize', debounce(() => {
-        if (window.innerWidth > 992) {
-            initialScrollAnimation(); // Re-initialize if resizing to desktop
-        } else {
-             // If resizing to mobile, ensure text is hidden and arrow is centered
-             if(scrollTaglineElement) scrollTaglineElement.style.opacity = '0';
-             if(scrollIndicator && scrollArrow) {
-                scrollIndicator.style.transition = 'none'; 
-                scrollIndicator.style.left = '50%';
-                scrollIndicator.style.transform = 'translateX(-50%)';
-             }
-        }
-    }, 250));
 });
