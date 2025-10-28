@@ -1,5 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- FIX 2: LAZY-LOAD CHART.JS ---
+    // We will load Chart.js only when the charts are about to be seen.
+    let chartJsLoaded = false;
+    let chartsInitialized = false;
+
+    const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            // When the chart container is intersecting (i.e., near the viewport)
+            if (entry.isIntersecting) {
+                // Load the script if it hasn't been loaded yet
+                if (!chartJsLoaded) {
+                    chartJsLoaded = true; // Mark as loading
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                    script.onload = () => {
+                        // Once loaded, initialize the charts
+                        initializeCharts();
+                        // And run the calculation to populate them
+                        calculateAndDisplay(); 
+                    };
+                    document.body.appendChild(script);
+                }
+                // If script is already loaded, just ensure charts are initialized
+                else if (!chartsInitialized) {
+                     initializeCharts();
+                     calculateAndDisplay(); 
+                }
+                
+                // Stop observing once we've started loading
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '50px' }); // Load 50px *before* it enters the viewport
+
+    // Find the chart container to observe
+    const chartContainer = document.getElementById('charts-container');
+    if (chartContainer) {
+        chartObserver.observe(chartContainer);
+    }
+    // --- END OF FIX 2 ---
+
+
     let loanBalanceChart, interestComparisonChart;
 
     const allInputs = {
@@ -107,9 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltipEl.innerHTML = innerHtml;
         tooltipEl.style.opacity = 1;
 
-        // --- START: MODIFIED TOOLTIP LOGIC ---
-        // This block replaces the original placement logic with the new "smart" logic.
-
         const tooltipWidth = tooltipEl.offsetWidth;
         const tooltipHeight = tooltipEl.offsetHeight;
         const margin = 15;
@@ -119,56 +158,52 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalX;
         let finalY;
 
-        // Y-Position (Vertical)
-        // Try placing below cursor first
         finalY = pageY + margin;
-        // If it goes off-screen bottom, flip it above
         if (finalY + tooltipHeight + margin > winHeight) {
             finalY = pageY - tooltipHeight - margin;
-            // Handle edge case where it also goes off-screen top (e.g., tall tooltip on short screen)
             if (finalY < margin) {
                 finalY = margin;
             }
         }
 
-        // X-Position (Horizontal)
         const spaceRight = winWidth - pageX;
         const spaceLeft = pageX;
         const neededRight = tooltipWidth + margin;
         const neededLeft = tooltipWidth + margin;
 
-        // 1. Try Right (Default)
         if (spaceRight > neededRight) {
             finalX = pageX + margin;
         } 
-        // 2. Try Left
         else if (spaceLeft > neededLeft) {
             finalX = pageX - tooltipWidth - margin;
         } 
-        // 3. Middle (Fallback, if both left and right fail)
         else {
             finalX = (winWidth - tooltipWidth) / 2;
         }
 
-        // Final safety net to prevent going off-left
         if (finalX < margin) {
             finalX = margin;
         }
-        // Final safety net to prevent going off-right (if centered)
         if (finalX + tooltipWidth + margin > winWidth) {
             finalX = winWidth - tooltipWidth - margin;
         }
         
         tooltipEl.style.left = `${finalX}px`;
         tooltipEl.style.top = `${finalY}px`;
-
-        // --- END: MODIFIED TOOLTIP LOGIC ---
         
         return true;
     };
 
     const initializeCharts = () => {
-        // Correct context ('2d')
+        // Check if Chart.js is loaded
+        if (typeof Chart === 'undefined') {
+            console.warn('Chart.js is not loaded yet.');
+            return;
+        }
+
+        // Mark that we've run this function
+        chartsInitialized = true; 
+
         const balanceCtx = document.getElementById('loanBalanceChart')?.getContext('2d'); 
         const interestCtx = document.getElementById('interestComparisonChart')?.getContext('2d');
         
@@ -182,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const lineChartOptions = {
             responsive: true, 
-            maintainAspectRatio: false, // <-- This was the change from 2 turns ago
+            maintainAspectRatio: false,
             scales: { y: { ticks: { callback: value => '$' + (value / 1000) + 'k' } } },
             plugins: { legend: { display: false }, tooltip: { enabled: false } },
             interaction: { mode: 'index', intersect: false }
@@ -214,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             options: {
                 responsive: true, 
-                maintainAspectRatio: false, // <-- This was the change from 2 turns ago
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false }, tooltip: { enabled: false } }, 
                 scales: { y: { ticks: { callback: value => '$' + (value / 1000) + 'k' } } }
             }
@@ -306,12 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
-        
-        /* FIX 2: Corrected typo 'formatBmrrency' to 'formatCurrency'.
-          This was breaking the JS and preventing the charts from loading.
-        */
         resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment); 
-        
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
         resultElements.monthlySavingsValue.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
@@ -320,12 +350,15 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.lifetimeSavingsValue.textContent = formatCurrency(lifetimeSavings);
         resultElements.lifetimeSavingsValue.style.color = lifetimeSavings >= 0 ? '#2e7d32' : '#c62828';
 
-        updateCharts(currentBalance, currentMonthlyPayment, currentInterestRate, currentTerm, newLoanPrincipal, newMonthlyPayment, newInterestRate, newTerm, currentTotalInterest, newTotalInterest);
+        // Only update charts if they are already initialized
+        if (chartsInitialized) {
+            updateCharts(currentBalance, currentMonthlyPayment, currentInterestRate, currentTerm, newLoanPrincipal, newMonthlyPayment, newInterestRate, newTerm, currentTotalInterest, newTotalInterest);
+        }
     };
     
     const updateCharts = (currBal, currPmt, currRate, currTerm, newBal, newPmt, newRate, newTerm, currInt, newInt) => {
-        if (!loanBalanceChart || !interestComparisonChart) {
-            console.warn("Attempted to update charts before initialization.");
+        // This check is now critical
+        if (!loanBalanceChart || !interestComparisonChart || !chartsInitialized) {
             return; 
         }
         
@@ -359,58 +392,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
-    // --- START: MODIFIED EVENT LISTENERS ---
-    // This new loop adds capping logic to number inputs
     Object.values(allInputs).forEach(input => {
         if (input.type === 'checkbox') {
-            // Checkbox just needs the calculate listener
             input.addEventListener('input', debouncedCalculate);
         } else {
-            // All other inputs (number, text) get clamping logic
             input.addEventListener('input', (e) => {
                 const target = e.target;
-                // Read the min/max attributes from the HTML
                 const max = parseFloat(target.getAttribute('max'));
                 const min = parseFloat(target.getAttribute('min'));
-                
-                // Parse the current value
                 let value = parseFloat(target.value);
 
-                // Check if the parsed value is a valid number
                 if (!isNaN(value)) {
-                    // Enforce the max cap
                     if (!isNaN(max) && value > max) {
                         target.value = max;
                     }
-                    // Enforce the min floor
                     if (!isNaN(min) && value < min) {
                         target.value = min;
                     }
                 }
-
-                // Call the debounced calculation regardless
                 debouncedCalculate();
             });
         }
     });
-    // --- END: MODIFIED EVENT LISTENERS ---
 
-    // --- **** THIS IS THE CORRECTED LINE **** ---
     const handleResize = debounce(() => {
-        initializeCharts();
-        calculateAndDisplay();
+        // Only re-initialize charts if they are already loaded
+        if (chartsInitialized) {
+            initializeCharts();
+            calculateAndDisplay();
+        }
     }, 250);
 
     window.addEventListener('resize', handleResize);
     
-    initializeCharts();
+    // Do NOT initialize charts here anymore.
+    // initializeCharts(); 
 
+    // Run the first calculation immediately.
+    // This populates the summary boxes.
     setTimeout(calculateAndDisplay, 50);
 
 
-    // --- START: FIX 8 - CSS-BASED TAGLINE ANIMATION ---
-    // Replaced the old setTimeout loop with a more performant
-    // CSS animation coordinator.
+    // Tagline animation logic (no changes)
     const taglines = [
         "Unlock your potential savings.",
         "Clarity for your biggest asset.",
@@ -421,31 +444,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cycleTaglines() {
         if (!taglineElement) return;
-        
-        // Set text content
         taglineElement.textContent = taglines[taglineIndex];
-        
-        // Add class to trigger CSS animation
         taglineElement.classList.add('fade-in-out');
-        
-        // Increment index for the next cycle
         taglineIndex = (taglineIndex + 1) % taglines.length;
     }
     
     if (taglineElement) {
-        // Listen for when the CSS animation finishes
         taglineElement.addEventListener('animationend', () => {
-            // Remove class to reset for the next animation
             taglineElement.classList.remove('fade-in-out');
-            
-            // Call the next cycle after a tiny delay
-            setTimeout(cycleGgclines, 50); 
+            // This typo was in your last file, fixing it.
+            setTimeout(cycleTaglines, 50); 
         });
-        
-        // Start the very first cycle
         cycleTaglines();
     }
-    // --- END: FIX 8 ---
     
-    /* Removed old scroll indicator code */
 });
