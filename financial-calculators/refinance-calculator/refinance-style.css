@@ -1,6 +1,10 @@
 html {
     scroll-behavior: smooth;
 }
+/* FIX (FOR THICK FONTS): Reverted the font-family stack.
+  We are now preloading the font, so we don't need the complex
+  system font stack which wasn't working.
+*/
 body, html {
     margin: 0;
     padding: 0;
@@ -191,6 +195,15 @@ strong, b {
     color: #555;
     max-width: 900px;
 }
+
+/* Styles to toggle desktop/mobile intro text */
+.mobile-intro {
+    display: none;
+}
+.desktop-intro {
+    display: block; 
+}
+
 .calculator-container h2, .results-container h2 {
     font-size: 4rem;
     font-weight: 100; 
@@ -398,10 +411,7 @@ input[type=number] {
     text-align: center;
 }
 
-/* FIX 3 (DEFENSIVE CLS FIX): 
-  This rule reserves space for the canvas charts *before* Chart.js loads, 
-  preventing them from "popping in" and causing layout shift.
-*/
+/* CLS fix from previous step */
 .chart-wrapper canvas {
     width: 100% !important; 
     height: auto !important; 
@@ -759,6 +769,14 @@ footer a:hover {
     
     .intro-section {
         margin-top: 0; /* This stays 0 */
+    }
+
+    /* Toggle the intro text on mobile */
+    .mobile-intro {
+        display: block;
+    }
+    .desktop-intro {
+        display: none;
     }
     
     .intro-section p, .seo-content-section p, .seo-content-section li, .faq-section .faq-answer, .seo-content-section ul {
