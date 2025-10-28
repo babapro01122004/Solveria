@@ -168,9 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initializeCharts = () => {
-        const balanceCtx = document.getElementById('loanBalanceChart')?.getContext('d');
+        // FIX: Corrected 'd' to '2d'
+        const balanceCtx = document.getElementById('loanBalanceChart')?.getContext('2d'); 
         const interestCtx = document.getElementById('interestComparisonChart')?.getContext('2d');
-        if (!balanceCtx || !interestCtx) return;
+        
+        // This check is now correct and will only fail if the elements don't exist
+        if (!balanceCtx || !interestCtx) {
+            console.error("Chart canvas context not found!"); // Added error logging
+            return;
+        }
 
         if (loanBalanceChart) loanBalanceChart.destroy();
         if (interestComparisonChart) interestComparisonChart.destroy();
@@ -299,10 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
-        
-        // This was the typo, it is now fixed.
-        resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment);
-        
+        resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment); // Typo fixed here previously
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
         resultElements.monthlySavingsValue.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
@@ -315,7 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const updateCharts = (currBal, currPmt, currRate, currTerm, newBal, newPmt, newRate, newTerm, currInt, newInt) => {
-        if (!loanBalanceChart || !interestComparisonChart) return;
+        // Guard clause to prevent errors if charts aren't initialized
+        if (!loanBalanceChart || !interestComparisonChart) {
+            console.warn("Attempted to update charts before initialization.");
+            return; 
+        }
         
         const maxTerm = Math.max(currTerm, newTerm);
         const labels = Array.from({ length: Math.ceil(maxTerm) + 1 }, (_, i) => i);
@@ -357,11 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', handleResize);
     
+    // Initialize charts first
     initializeCharts();
 
-    /*
-      TBT fix from previous step
-    */
+    // Then run the calculation after a short delay
     setTimeout(calculateAndDisplay, 50);
 
 
@@ -388,14 +394,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     cycleTaglines();
     
-    /*
-      FIX: Removed all code related to the old "scroll-indicator" animation.
-      This includes:
-      - scrollTaglines array
-      - scrollIndicator, scrollTaglineElement, scrollArrow variables
-      - scrollTaglineWidths array and its populating logic
-      - runNextScrollCycle() function
-      - initialScrollAnimation() function
-      - The resize listener logic for the scroll animation
-    */
+    /* Removed old scroll indicator code */
 });
