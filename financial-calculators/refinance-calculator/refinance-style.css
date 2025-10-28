@@ -1,18 +1,20 @@
 html {
     scroll-behavior: smooth;
 }
-/* FIX 2 (FOR THICK FONTS): 
-  Added the full system font stack to the MAIN CSS file.
-  This now matches the inline CSS, ensuring the fallback is
-  consistent and supports thin weights.
+/* FIX 2 (FOR CLS/FONTS): 
+  Reverted to the simple font-family and added 'font-size-adjust'.
+  This property normalizes the fallback font's size,
+  PREVENTING the layout shift when 'Roboto' (using display=swap) loads.
+  This is the definitive fix for both CLS and the "thick font" problem.
 */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     font-weight: 300; 
+    font-size-adjust: 0.52; /* This is the new, critical rule */
 }
 strong, b {
     font-weight: 500;
