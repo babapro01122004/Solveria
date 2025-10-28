@@ -22,8 +22,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap">
-    <link rel="stylesheet" href="refinance-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=optional" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=optional"></noscript>
+
+    <style>
+      html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f4f4f4;color:#333;font-weight:300}strong,b{font-weight:500}
+      @media (max-width: 768px){
+        .hero-section{height:auto;min-height:60px;padding:10px 15px;flex-direction:row;justify-content:space-between;background-image:none;background-color:#f4f4f4;border-bottom:1px solid #e5e5e5;position:fixed;top:0;left:0;width:100%;z-index:100;padding-bottom:10px;box-sizing:border-box}
+        .hero-tagline{display:none}
+        .hero-content-wrapper{flex-direction:row;justify-content:space-between;align-items:center;width:100%;margin-bottom:0;color:#333}
+        .hero-content-wrapper img{width:32px;height:32px;aspect-ratio:1/1;margin-bottom:0}
+        .hero-section h1{font-size:1.5rem;font-weight:300;color:#333;text-shadow:none;flex-grow:1;text-align:center;margin:0;min-height:29px}
+        .mobile-header-placeholder{display:block;width:32px;height:32px;flex-shrink:0}
+        .content-section{padding:70px 15px 50px;box-sizing:border-box}
+        .breadcrumb{position:static;margin-top:15px;margin-bottom:-6px;left:auto;margin-left:0;color:#777;font-size:.9rem;font-weight:300}
+        .breadcrumb a{color:inherit;text-decoration:none}
+        .breadcrumb span{color:#333;font-weight:400}
+        .intro-section{margin-top:0}
+        .intro-section h2{font-size:2.5rem;margin-bottom:30px;line-height:1.2;margin-left:0;margin-top:-10px;min-height:48px;font-weight:100;color:#333}
+        .mobile-intro{display:block}
+        .desktop-intro{display:none}
+        .intro-section p{font-size:1rem;line-height:1.7;color:#555}
+      }
+    </style>
+
+    <link rel="stylesheet" href="refinance-style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="refinance-style.css"></noscript>
     
     <script type="application/ld+json">
     {
@@ -432,7 +456,7 @@
                 <li>Monthly Savings: The immediate difference between your old and new monthly payments. A positive number indicates savings.</li>
                 <li>Break-Even Point: The number of months it will take for your accumulated monthly savings to cover the closing costs of the refinance. This is a critical metric for deciding if the refinance is worthwhile.</li>
                 <li>Lifetime Savings: The total amount of money you will save (or lose) in interest payments over the entire life of the new loan compared to your current one.</li>
-                <li>Visual Charts: Interactive charts that illustrate the difference in your loan balance payoff over time and compare the total interest you'll pay for each loan.</li>
+<li>Visual Charts: Interactive charts that illustrate the difference in your loan balance payoff over time and compare the total interest you'll pay for each loan.</li>
             </ul>
 
             <div class="faq-section">
