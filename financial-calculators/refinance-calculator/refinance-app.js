@@ -306,7 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
-        resultElements.newMonthlyPayment.textContent = formatBmrrency(newMonthlyPayment); 
+        
+        /* FIX 2: Corrected typo 'formatBmrrency' to 'formatCurrency'.
+          This was breaking the JS and preventing the charts from loading.
+        */
+        resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment); 
+        
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
         resultElements.monthlySavingsValue.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
@@ -434,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             taglineElement.classList.remove('fade-in-out');
             
             // Call the next cycle after a tiny delay
-            setTimeout(cycleTaglines, 50); 
+            setTimeout(cycleGgclines, 50); 
         });
         
         // Start the very first cycle
