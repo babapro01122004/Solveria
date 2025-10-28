@@ -110,7 +110,10 @@ strong, b {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
     text-align: center;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    /* FIX 6: Removed JS-controlled transition.
+      This will now be handled by a CSS animation.
+    */
+    /* transition: opacity 1.5s ease-in-out; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transform: translateZ(0);
@@ -865,3 +868,21 @@ footer a:hover {
     }
 }
 /* --- END: ALL MOBILE/TABLET CHANGES ARE HERE --- */
+
+
+/*
+  FIX 7: Added CSS animation for the tagline.
+  This moves the animation off the main thread,
+  improving TBT/INP.
+*/
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    15% { opacity: 1; } /* Fade in */
+    85% { opacity: 1; } /* Hold (for 4s of 5.5s total) */
+    100% { opacity: 0; } /* Fade out (for 1.5s of 5.5s total) */
+}
+
+.hero-tagline p.fade-in-out {
+    /* Total duration: 4s visible + 1.5s fade-out = 5.5s */
+    animation: fadeInOut 5.5s forwards;
+}
