@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initializeCharts = () => {
-        const balanceCtx = document.getElementById('loanBalanceChart')?.getContext('2d');
+        const balanceCtx = document.getElementById('loanBalanceChart')?.getContext('d');
         const interestCtx = document.getElementById('interestComparisonChart')?.getContext('2d');
         if (!balanceCtx || !interestCtx) return;
 
@@ -300,10 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
         
-        /* FIX (FOR GRAPHS): This was my typo. 
-          'formatShorter' is not a function. Changed to 'formatCurrency'.
-          This fixes the JavaScript crash.
-        */
+        // This was the typo, it is now fixed.
         resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment);
         
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
