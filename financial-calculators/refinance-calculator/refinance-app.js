@@ -181,7 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (interestComparisonChart) interestComparisonChart.destroy();
 
         const lineChartOptions = {
-            responsive: true, maintainAspectRatio: true,
+            responsive: true, 
+            maintainAspectRatio: false, // <-- This was the change from 2 turns ago
             scales: { y: { ticks: { callback: value => '$' + (value / 1000) + 'k' } } },
             plugins: { legend: { display: false }, tooltip: { enabled: false } },
             interaction: { mode: 'index', intersect: false }
@@ -212,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }]
             },
             options: {
-                responsive: true, maintainAspectRatio: true,
+                responsive: true, 
+                maintainAspectRatio: false, // <-- This was the change from 2 turns ago
                 plugins: { legend: { display: false }, tooltip: { enabled: false } }, 
                 scales: { y: { ticks: { callback: value => '$' + (value / 1000) + 'k' } } }
             }
@@ -388,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // --- END: MODIFIED EVENT LISTENERS ---
 
+    // --- **** THIS IS THE CORRECTED LINE **** ---
     const handleResize = debounce(() => {
         initializeCharts();
         calculateAndDisplay();
