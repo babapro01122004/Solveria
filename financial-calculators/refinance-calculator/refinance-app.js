@@ -355,7 +355,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', handleResize);
     
     initializeCharts();
-    calculateAndDisplay();
+
+    /*
+      FIX 3 (FOR TBT):
+      Delay the initial calculation. This unblocks the main thread, allowing the 
+      browser to become interactive much faster, which significantly improves 
+      Total Blocking Time (TBT). 50ms is unnoticeable to the user.
+    */
+    setTimeout(calculateAndDisplay, 50);
 
 
     const taglines = [
