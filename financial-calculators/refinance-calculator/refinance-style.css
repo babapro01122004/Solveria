@@ -337,6 +337,8 @@ input[type=number] {
     font-size: 1.5rem;
     font-weight: 300; 
     color: #333;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 .summary-text {
     margin-top: 60px;
@@ -380,18 +382,30 @@ input[type=number] {
     margin-bottom: 20px;
     margin-top: 0;
 }
+
+/* --- START: FIX FOR BREAKDOWN LIST --- */
 .result-item {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */ /* <-- REMOVED this */
+    align-items: flex-start; /* <-- ADDED this for better wrapping */
     font-size: 1rem;
     padding: 12px 0;
-    
 }
 
-.result-item .label { color: #666; }
-.result-item .value {
-    font-weight: 300; 
+.result-item .label {
+    color: #666;
+    flex-shrink: 0; /* <-- ADDED: Prevents label from shrinking */
+    margin-right: 20px; /* <-- ADDED: Guarantees space */
 }
+.result-item .value {
+    font-weight: 300;
+    flex-grow: 1; /* <-- ADDED: Pushes value to the right */
+    text-align: right; /* <-- ADDED: Aligns value to the right */
+    overflow-wrap: break-word; /* <-- ADDED: Wraps long numbers */
+    word-break: break-all; /* <-- ADDED: Breaks long numbers */
+}
+/* --- END: FIX FOR BREAKDOWN LIST --- */
+
 .savings-item .value {
     font-weight: 400; 
 }
@@ -442,6 +456,8 @@ input[type=number] {
     margin-right: 8px;
     border-radius: 2px;
 }
+
+/* --- START: FIX FOR TOOLTIP --- */
 .chart-tooltip {
     position: absolute;
     background-color: rgb(255, 255, 255);
@@ -455,7 +471,9 @@ input[type=number] {
     font-size: 0.9rem;
     z-index: 10;
     text-align: left;
-    width: 220px;
+    /* width: 220px; */ /* <-- REMOVED: No more fixed width */
+    min-width: 220px; /* <-- ADDED: Keeps original size for normal content */
+    max-width: 350px; /* <-- ADDED: Prevents it from getting too wide */
     box-sizing: border-box; 
 }
 .tooltip-title {
@@ -465,10 +483,23 @@ input[type=number] {
 }
 .tooltip-body-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */ /* <-- REMOVED */
+    align-items: flex-start; /* <-- ADDED */
     margin-top: 6px;
 }
+/* Target the label (div) and value (span) inside the tooltip item */
+.tooltip-body-item > div {
+    flex-shrink: 0;
+    margin-right: 15px; /* <-- ADDED: Guarantees space */
+}
+.tooltip-body-item > span {
+    flex-grow: 1;
+    text-align: right;
+    overflow-wrap: break-word; /* <-- ADDED: Wraps long numbers */
+    word-break: break-all;     /* <-- ADDED: Breaks long numbers */
+}
+/* --- END: FIX FOR TOOLTIP --- */
+
 .tooltip-color-box {
     width: 10px;
     height: 10px;
