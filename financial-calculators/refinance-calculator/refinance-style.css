@@ -383,28 +383,31 @@ input[type=number] {
     margin-top: 0;
 }
 
-/* --- START: FIX FOR BREAKDOWN LIST --- */
+/* --- START: CORRECTED FIX FOR BREAKDOWN LIST PRIORITY --- */
 .result-item {
     display: flex;
-    /* justify-content: space-between; */ /* <-- REMOVED this */
-    align-items: flex-start; /* <-- ADDED this for better wrapping */
+    justify-content: space-between; /* <-- Re-added */
+    align-items: flex-start;
     font-size: 1rem;
     padding: 12px 0;
+    gap: 20px; /* <-- Added for spacing */
 }
 
 .result-item .label {
     color: #666;
-    flex-shrink: 0; /* <-- ADDED: Prevents label from shrinking */
-    margin-right: 20px; /* <-- ADDED: Guarantees space */
+    /* flex-shrink: 0; */ /* <-- REMOVED: Allows label to wrap */
+    /* margin-right: 20px; */ /* <-- REMOVED: Replaced with gap */
+    text-align: left;
 }
 .result-item .value {
     font-weight: 300;
-    flex-grow: 1; /* <-- ADDED: Pushes value to the right */
-    text-align: right; /* <-- ADDED: Aligns value to the right */
-    overflow-wrap: break-word; /* <-- ADDED: Wraps long numbers */
-    word-break: break-all; /* <-- ADDED: Breaks long numbers */
+    /* flex-grow: 1; */ /* <-- REMOVED */
+    text-align: right; 
+    white-space: nowrap; /* <-- ADDED: Prevents the number itself from breaking */
+    /* overflow-wrap: break-word; */ /* <-- REMOVED */
+    /* word-break: break-all; */ /* <-- REMOVED: This was the problem */
 }
-/* --- END: FIX FOR BREAKDOWN LIST --- */
+/* --- END: CORRECTED FIX FOR BREAKDOWN LIST PRIORITY --- */
 
 .savings-item .value {
     font-weight: 400; 
@@ -426,7 +429,7 @@ input[type=number] {
     width: 100% !important; 
     height: auto !important; 
     aspect-ratio: 2 / 1;
-    min-height: 250px; 
+    /* min-height: 250px; <-- REMOVED to allow proper scaling on small screens */
 }
 
 .chart-wrapper h2 {
@@ -457,7 +460,7 @@ input[type=number] {
     border-radius: 2px;
 }
 
-/* --- START: FIX FOR TOOLTIP --- */
+/* --- START: CORRECTED FIX FOR TOOLTIP PRIORITY --- */
 .chart-tooltip {
     position: absolute;
     background-color: rgb(255, 255, 255);
@@ -471,9 +474,8 @@ input[type=number] {
     font-size: 0.9rem;
     z-index: 10;
     text-align: left;
-    /* width: 220px; */ /* <-- REMOVED: No more fixed width */
-    min-width: 220px; /* <-- ADDED: Keeps original size for normal content */
-    max-width: 350px; /* <-- ADDED: Prevents it from getting too wide */
+    min-width: 220px; 
+    max-width: 350px; 
     box-sizing: border-box; 
 }
 .tooltip-title {
@@ -483,22 +485,24 @@ input[type=number] {
 }
 .tooltip-body-item {
     display: flex;
-    /* justify-content: space-between; */ /* <-- REMOVED */
-    align-items: flex-start; /* <-- ADDED */
+    justify-content: space-between; /* <-- ADDED */
+    align-items: flex-start; 
     margin-top: 6px;
+    gap: 15px; /* <-- ADDED */
 }
 /* Target the label (div) and value (span) inside the tooltip item */
-.tooltip-body-item > div {
-    flex-shrink: 0;
-    margin-right: 15px; /* <-- ADDED: Guarantees space */
+.tooltip-body-item > div { /* This is the label part with the color box */
+    /* flex-shrink: 0; */ /* <-- REMOVED: Allows label to wrap */
+    /* margin-right: 15px; */ /* <-- REMOVED: Replaced with gap */
 }
-.tooltip-body-item > span {
-    flex-grow: 1;
+.tooltip-body-item > span { /* This is the value part */
+    /* flex-grow: 1; */ /* <-- REMOVED */
     text-align: right;
-    overflow-wrap: break-word; /* <-- ADDED: Wraps long numbers */
-    word-break: break-all;     /* <-- ADDED: Breaks long numbers */
+    white-space: nowrap; /* <-- ADDED: Prevents number from breaking */
+    /* overflow-wrap: break-word; */ /* <-- REMOVED */
+    /* word-break: break-all; */     /* <-- REMOVED */
 }
-/* --- END: FIX FOR TOOLTIP --- */
+/* --- END: CORRECTED FIX FOR TOOLTIP PRIORITY --- */
 
 .tooltip-color-box {
     width: 10px;
