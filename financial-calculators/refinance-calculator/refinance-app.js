@@ -299,7 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
+        
+        /* FIX (FOR GRAPHS): This was my typo. 
+          'formatShorter' is not a function. Changed to 'formatCurrency'.
+          This fixes the JavaScript crash.
+        */
         resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment);
+        
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
         resultElements.monthlySavingsValue.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
@@ -357,10 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCharts();
 
     /*
-      FIX 3 (FOR TBT):
-      Delay the initial calculation. This unblocks the main thread, allowing the 
-      browser to become interactive much faster, which significantly improves 
-      Total Blocking Time (TBT). 50ms is unnoticeable to the user.
+      TBT fix from previous step
     */
     setTimeout(calculateAndDisplay, 50);
 
