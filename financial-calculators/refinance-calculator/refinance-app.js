@@ -403,6 +403,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(calculateAndDisplay, 50);
 
 
+    // --- START: FIX 8 - CSS-BASED TAGLINE ANIMATION ---
+    // Replaced the old setTimeout loop with a more performant
+    // CSS animation coordinator.
     const taglines = [
         "Unlock your potential savings.",
         "Clarity for your biggest asset.",
@@ -413,18 +416,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cycleTaglines() {
         if (!taglineElement) return;
-        taglineElement.textContent = taglines[taglineIndex];
-        taglineElement.style.opacity = '1';
         
-        setTimeout(() => {
-            taglineElement.style.opacity = '0';
-            setTimeout(() => {
-                taglineIndex = (taglineIndex + 1) % taglines.length;
-                cycleTaglines();
-            }, 1500); 
-        }, 4000);
+        // Set text content
+        taglineElement.textContent = taglines[taglineIndex];
+        
+        // Add class to trigger CSS animation
+        taglineElement.classList.add('fade-in-out');
+        
+        // Increment index for the next cycle
+        taglineIndex = (taglineIndex + 1) % taglines.length;
     }
-    cycleTaglines();
+    
+    if (taglineElement) {
+        // Listen for when the CSS animation finishes
+        taglineElement.addEventListener('animationend', () => {
+            // Remove class to reset for the next animation
+            taglineElement.classList.remove('fade-in-out');
+            
+            // Call the next cycle after a tiny delay
+            setTimeout(cycleTaglines, 50); 
+        });
+        
+        // Start the very first cycle
+        cycleTaglines();
+    }
+    // --- END: FIX 8 ---
     
     /* Removed old scroll indicator code */
 });
