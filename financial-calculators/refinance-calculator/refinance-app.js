@@ -351,9 +351,42 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
+
+    // --- START: MODIFIED EVENT LISTENERS ---
+    // This new loop adds capping logic to number inputs
     Object.values(allInputs).forEach(input => {
-        input.addEventListener('input', debouncedCalculate);
+        if (input.type === 'checkbox') {
+            // Checkbox just needs the calculate listener
+            input.addEventListener('input', debouncedCalculate);
+        } else {
+            // All other inputs (number, text) get clamping logic
+            input.addEventListener('input', (e) => {
+                const target = e.target;
+                // Read the min/max attributes from the HTML
+                const max = parseFloat(target.getAttribute('max'));
+                const min = parseFloat(target.getAttribute('min'));
+                
+                // Parse the current value
+                let value = parseFloat(target.value);
+
+                // Check if the parsed value is a valid number
+                if (!isNaN(value)) {
+                    // Enforce the max cap
+                    if (!isNaN(max) && value > max) {
+                        target.value = max;
+                    }
+                    // Enforce the min floor
+                    if (!isNaN(min) && value < min) {
+                        target.value = min;
+                    }
+                }
+
+                // Call the debounced calculation regardless
+                debouncedCalculate();
+            });
+        }
     });
+    // --- END: MODIFIED EVENT LISTENERS ---
 
     const handleResize = debounce(() => {
         initializeCharts();
