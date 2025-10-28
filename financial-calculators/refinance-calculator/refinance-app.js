@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultElements.currentMonthlyPayment.textContent = formatCurrency(currentMonthlyPayment);
-        resultElements.newMonthlyPayment.textContent = formatCurrency(newMonthlyPayment); 
+        resultElements.newMonthlyPayment.textContent = formatBmrrency(newMonthlyPayment); 
         resultElements.monthlySavingsValue.textContent = formatCurrency(monthlySavings);
         resultElements.monthlySavingsValue.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
