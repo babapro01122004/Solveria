@@ -1,20 +1,14 @@
 html {
     scroll-behavior: smooth;
 }
-/* FIX 2 (FOR CLS/FONTS): 
-  Reverted to the simple font-family and added 'font-size-adjust'.
-  This property normalizes the fallback font's size,
-  PREVENTING the layout shift when 'Roboto' (using display=swap) loads.
-  This is the definitive fix for both CLS and the "thick font" problem.
-*/
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Simple stack is fine with min-height fix */
     background-color: #f4f4f4;
     color: #333;
     font-weight: 300; 
-    font-size-adjust: 0.52; /* This is the new, critical rule */
+    /* font-size-adjust removed - unreliable */
 }
 strong, b {
     font-weight: 500;
@@ -23,14 +17,11 @@ strong, b {
 .hero-section {
     height: 45vh; 
     min-height: 350px; 
-    /* --- START: BACKGROUND IMAGE FIX --- */
     background-image: image-set(
         url("../../img/Refinance_Hero.webp") type("image/webp"),
         url("../../img/Refinance_Hero.jpg") type("image/jpeg")
     );
-    /* Fallback for older browsers */
     background-image: url("../../img/Refinance_Hero.jpg"); 
-    /* --- END: BACKGROUND IMAGE FIX --- */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -43,10 +34,6 @@ strong, b {
     position: relative; 
     overflow: hidden;
 }
-
-/* --- REMOVED: .hero-background styles --- */
-/* .hero-background { ... } */
-/* .hero-background img { ... } */
 
 .hero-nav {
     width: 100%; 
@@ -73,7 +60,7 @@ strong, b {
     text-align: center;
     color: white;
     position: relative; 
-    z-index: 2; /* Ensures content is above potential pseudo-elements */
+    z-index: 2; 
 }
 .hero-content-wrapper img {
     width: 130px; 
@@ -88,6 +75,8 @@ strong, b {
     text-align: center;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     margin: 0; 
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 71px; /* Approx height of 4rem font-size * 1.1 line-height */
 }
 
 .mobile-support-link {
@@ -111,7 +100,7 @@ strong, b {
 .hero-tagline {
     height: auto; 
     position: relative; 
-    z-index: 2; /* Ensures content is above potential pseudo-elements */
+    z-index: 2; 
 }
 .hero-tagline p {
     margin: 0;
@@ -191,6 +180,9 @@ strong, b {
     margin-top: 0;
     margin-bottom: 20px;
     margin-left: -4px;
+    line-height: 1.1; /* Existing style */
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 71px; /* Approx height of 4rem font-size * 1.1 line-height */
 }
 .intro-section p {
     font-size: 1.1rem;
@@ -215,6 +207,8 @@ strong, b {
     margin-bottom: 40px;
     line-height: 1.1; 
     margin-left: -4px;
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 71px; /* Approx height of 4rem font-size * 1.1 line-height */
 }
 .input-section-header {
     margin-top: 40px;
@@ -414,7 +408,6 @@ input[type=number] {
     text-align: center;
 }
 
-/* CLS fix from previous step */
 .chart-wrapper canvas {
     width: 100% !important; 
     height: auto !important; 
@@ -428,6 +421,8 @@ input[type=number] {
     color: #333;
     margin-top: 0;
     margin-bottom: 30px;
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 48px; /* Approx height of 2.5rem font-size * 1.2 line-height (used in mobile) */
 }
 .custom-legend {
     display: flex;
@@ -492,6 +487,8 @@ input[type=number] {
     color: #333;
     margin-top: 60px;
     margin-bottom: 20px;
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 48px; /* Approx height of 2.5rem font-size * 1.2 line-height (used in mobile) */
 }
 .seo-content-section p, .seo-content-section li, .seo-content-section ul {
     font-size: 1.1rem;
@@ -592,6 +589,8 @@ footer a:hover {
     font-weight: 100;
     color: #333;
     margin-bottom: 30px;
+    /* FIX 2 (FOR CLS): Added min-height to reserve space */
+    min-height: 48px; /* Approx height of 2.5rem font-size * 1.2 line-height (used in mobile) */
 }
 .tools-grid {
     display: grid;
@@ -625,19 +624,18 @@ footer a:hover {
 @media (max-width: 992px) {
      /* --- START: MEDIUM SCREEN HERO ADJUSTMENTS --- */
      .hero-section {
-        height: auto; /* Allow content to dictate height */
-        min-height: 250px; /* Smaller minimum */
-        padding: 40px 0; /* Adjust padding */
-        justify-content: center; /* Center content vertically too */
+        height: auto; 
+        min-height: 250px; 
+        padding: 40px 0; 
+        justify-content: center; 
      }
      .hero-nav {
-         /* Adjust nav positioning for medium screens */
         position: absolute; 
         top: 20px; 
         left: 50%;
         transform: translateX(-50%);
-        width: auto; /* Allow natural width */
-        margin-bottom: 0; /* Remove extra margin */
+        width: auto; 
+        margin-bottom: 0; 
      }
      .hero-content-wrapper img {
         width: 100px;
@@ -646,6 +644,7 @@ footer a:hover {
      }
      .hero-section h1 {
         font-size: 3rem;
+        min-height: 53px; /* Adjusted min-height for medium screen font size */
      }
      .hero-tagline p {
         font-size: 1rem;
@@ -659,7 +658,7 @@ footer a:hover {
     }
     .intro-section {
         margin-bottom: 0;
-        margin-top: 0; /* <-- This was 20px, now 0 for mobile-first */
+        margin-top: 0; 
     }
      .charts-container {
         grid-template-columns: 1fr;
@@ -675,10 +674,9 @@ footer a:hover {
 /* --- START: ALL MOBILE/TABLET CHANGES ARE HERE --- */
 @media (max-width: 768px) {
     .hero-nav {
-        display: none; /* Already hidden, kept for clarity */
+        display: none; 
     }
     .mobile-nav {
-        /* display: flex; */
         display: none; 
     }
 
@@ -688,9 +686,7 @@ footer a:hover {
         padding: 10px 15px; 
         flex-direction: row; 
         justify-content: space-between; 
-        /* --- BACKGROUND IMAGE FIX FOR MOBILE --- */
-        background-image: none; /* Remove desktop image */
-        /* --- END BACKGROUND IMAGE FIX FOR MOBILE --- */
+        background-image: none; 
         background-color: #f4f4f4;
         border-bottom: 1px solid #e5e5e5; 
         position: fixed; 
@@ -701,7 +697,7 @@ footer a:hover {
         padding-bottom: 10px; 
     }
     
-    .hero-background, /* Ensure this doesn't accidentally show */
+    .hero-background, 
     .hero-tagline { 
         display: none;
     }
@@ -730,6 +726,8 @@ footer a:hover {
         flex-grow: 1; 
         text-align: center;
         margin: 0; 
+        /* FIX 2 (FOR CLS): Adjusted min-height for mobile */
+        min-height: 29px; /* Approx height of 1.5rem font-size * 1.2 line-height (rough estimate) */
     }
 
     .mobile-support-link {
@@ -749,29 +747,24 @@ footer a:hover {
 
     .breadcrumb {
         position: static;
-        /* Space A: Between header line and breadcrumb */
         margin-top: 15px;
-        /* Space B: Set to 0 to remove all bottom margin */
         margin-bottom: -6px; 
         left: auto;
         margin-left: 0;
     }
     
-    /* THE FIX IS HERE */
     .intro-section h2, .calculator-container h2, .results-container h2, .chart-wrapper h2, .seo-content-section h2, .more-tools-section h2 {
         font-size: 2.5rem; 
         margin-bottom: 30px;
         line-height: 1.2;
         margin-left: 0;
-        /* THIS IS THE NUMBER TO CHANGE. 
-           Make it *more negative* (e.g., -15px) to move it *closer*. 
-           Make it *less negative* (e.g., -5px) to move it *further away*.
-        */
         margin-top: -10px; 
+        /* FIX 2 (FOR CLS): Adjusted min-height for mobile */
+        min-height: 48px; /* Approx height of 2.5rem font-size * 1.2 line-height */
     }
     
     .intro-section {
-        margin-top: 0; /* This stays 0 */
+        margin-top: 0; 
     }
 
     /* Toggle the intro text on mobile */
