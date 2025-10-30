@@ -1,132 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const inputCaps = {
-        homePrice: 10000000000,
-        downPayment: 10000000000,
-        loanTerm: 100,
-        interestRate: 100,
-        startDateYear: 9999,
-        homeInsurance: 1000000000,
-        hoaFee: 1000000,
-        propertyTaxes: 1000000000,
-        otherCosts: 1000000,
-        pmiInsurance: 1000000000,
-        monthlyDebts: 1000000000,
-        closingCosts: 1000000000,
-        appreciationRate: 100,
-        monthlyIncome: 1000000000,
-    };
+    // --- High-Performance: LAZY-LOAD CHART.JS ---
+    let chartJsLoaded = false;
+    let chartsInitialized = false;
 
-    for (const id in inputCaps) {
-        const input = document.getElementById(id);
-        if (input) {
-            input.addEventListener('input', () => {
-                const parsedValue = parseFloat(input.value);
-                if (!isNaN(parsedValue) && parsedValue > inputCaps[id]) {
-                    input.value = inputCaps[id].toString();
+    const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!chartJsLoaded) {
+                    chartJsLoaded = true;
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                    script.onload = () => {
+                        initializeCharts();
+                        calculateAndDisplay(); 
+                    };
+                    document.body.appendChild(script);
                 }
-            });
-        }
+                else if (!chartsInitialized) {
+                     initializeCharts();
+                     calculateAndDisplay(); 
+                }
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '50px' });
+
+    const doughnutContainer = document.getElementById('doughnut-container');
+    if (doughnutContainer) {
+        chartObserver.observe(doughnutContainer);
     }
+    // --- End of Lazy-Load ---
 
-    let costBreakdownChart, loanAmortizationChart, homeEquityChart;
-    let fullAmortizationData = [];
-    let pieChartRawData = {};
+    // --- Chart Variables ---
+    let paymentBreakdownChart, loanAmortizationChart, loanEquityChart;
+    let fullMonthlySchedule = []; 
+    let currentScheduleView = 'yearly'; 
+    let currentCalculatorMode = 'basic'; // Default mode is 'basic'
 
-    const showDetailsBtn = document.getElementById('show-details-btn');
-    const detailsModal = document.getElementById('details-modal');
-    const modalCloseBtn = detailsModal.querySelector('.modal-close-btn');
-
+    // --- ### MODIFIED: Input & Output Element Mapping ### ---
     const allInputs = {
         homePrice: document.getElementById('homePrice'),
-        downPayment: document.getElementById('downPayment'),
+        downPaymentDollars: document.getElementById('downPaymentDollars'),
+        downPaymentPercent: document.getElementById('downPaymentPercent'),
         loanTerm: document.getElementById('loanTerm'),
+        creditScore: document.getElementById('creditScore'), // This is now the hidden input
         interestRate: document.getElementById('interestRate'),
-        propertyTaxes: document.getElementById('propertyTaxes'),
+        propertyTax: document.getElementById('propertyTax'),
         homeInsurance: document.getElementById('homeInsurance'),
-        pmiInsurance: document.getElementById('pmiInsurance'),
-        hoaFee: document.getElementById('hoaFee'),
-        closingCosts: document.getElementById('closingCosts'),
-        otherCosts: document.getElementById('otherCosts'),
-        monthlyIncome: document.getElementById('monthlyIncome'),
-        monthlyDebts: document.getElementById('monthlyDebts'),
-        creditScore: document.getElementById('creditScore'),
-        appreciationRate: document.getElementById('appreciationRate'),
-        day: document.getElementById('startDateDay'),
-        month: document.getElementById('startDateMonth'),
-        year: document.getElementById('startDateYear')
+        pmiPercent: document.getElementById('pmiPercent'), 
+        hoaDues: document.getElementById('hoaDues'),
+        extraPayment: document.getElementById('extraPayment') 
     };
 
     const resultElements = {
+        monthlyPI: document.getElementById('resultMonthlyPI'),
+        monthlyTaxes: document.getElementById('resultMonthlyTaxes'),
+        totalMonthly: document.getElementById('resultTotalMonthly'),
+        summaryText: document.getElementById('resultSummaryText'),
+        year1Principal: document.getElementById('resultYear1Principal'),
+        year1Interest: document.getElementById('resultYear1Interest'),
+        year1Taxes: document.getElementById('resultYear1Taxes'), // This is now Year 1 Total Extras
+        year1Total: document.getElementById('resultYear1Total'),
         loanAmount: document.getElementById('resultLoanAmount'),
         totalInterest: document.getElementById('resultTotalInterest'),
-        cashToClose: document.getElementById('resultCashToClose'),
-        dtiRatio: document.getElementById('resultDtiRatio'),
-        summaryText: document.getElementById('resultSummaryText'),
-        contextualAdvice: document.getElementById('contextual-advice'),
-        fiveYearText: document.getElementById('fiveYearText'),
-        monthlyMortgage: document.getElementById('monthlyMortgage'),
-        monthlyInsurance: document.getElementById('monthlyInsurance'),
-        monthlyHOA: document.getElementById('monthlyHOA'),
-        monthlyTotal: document.getElementById('monthlyTotal'),
-        monthlyTax: document.getElementById('monthlyTax'),
-        monthlyPMI: document.getElementById('monthlyPMI'),
-        monthlyOther: document.getElementById('monthlyOther'),
-        totalMortgage: document.getElementById('totalMortgage'),
-        totalInsurance: document.getElementById('totalInsurance'),
-        totalHOA: document.getElementById('totalHOA'),
-        totalTotal: document.getElementById('totalTotal'),
-        totalTax: document.getElementById('totalTax'),
-        totalPMI: document.getElementById('totalPMI'),
-        totalOther: document.getElementById('totalOther'),
+        totalPaid: document.getElementById('resultTotalPaid'),
+        interestSaved: document.getElementById('resultInterestSaved'), 
+        payoffDate: document.getElementById('resultPayoffDate'), 
+        scheduleHead: document.getElementById('mortgage-schedule-head'),
+        scheduleBody: document.getElementById('mortgage-schedule-body'),
+        modalDetailsBody: document.getElementById('modal-details-body'),
+        modalTotalAmount: document.getElementById('modal-total-amount')
     };
-    const scheduleElements = {
-        yearlyBtn: document.getElementById('yearly-btn'),
-        monthlyBtn: document.getElementById('monthly-btn'),
-        tbody: document.getElementById('amortization-tbody')
-    };
+    // --- End of Modification ---
 
-    const sanitizeDecimal = (event) => {
-        let value = event.target.value;
-        let sanitized = value.replace(/[^0-9.]/g, '');
-        const parts = sanitized.split('.');
-        if (parts.length > 2) {
-            sanitized = parts[0] + '.' + parts.slice(1).join('');
-        }
-        event.target.value = sanitized;
-    };
+    // Modal elements
+    const modalOverlay = document.getElementById('modal-overlay');
+    const detailsModal = document.getElementById('details-modal');
+    const showDetailsButton = document.getElementById('showDetailsButton');
+    const modalCloseButton = document.getElementById('modal-close-button');
 
-    const numberInputs = document.querySelectorAll('input[type="number"]');
-    numberInputs.forEach(input => {
-        input.addEventListener('keydown', (event) => {
-            if (['e', '+', '-', '.'].includes(event.key)) {
-                event.preventDefault();
-            }
-        });
-    });
+    // Toggle switch elements
+    const scheduleToggle = document.getElementById('scheduleToggle');
+    const toggleOptions = scheduleToggle.querySelectorAll('.toggle-option');
 
-    const validateDate = () => {
-        let day = parseInt(allInputs.day.value);
-        let month = parseInt(allInputs.month.value);
-        let year = parseInt(allInputs.year.value);
-        if (!isNaN(month)) {
-            if (month > 12) allInputs.month.value = '12';
-            else if (month < 1 && allInputs.month.value.length > 0) allInputs.month.value = '1';
-        }
-        if (!isNaN(day) && !isNaN(month) && !isNaN(year) && year.toString().length >= 4) {
-            const daysInMonth = new Date(year, month, 0).getDate();
-            if (day > daysInMonth) allInputs.day.value = daysInMonth;
-        }
-        if (!isNaN(day) && day < 1 && allInputs.day.value.length > 0) {
-            allInputs.day.value = '1';
-        }
-    };
-
+    // --- Utility Functions ---
     const formatCurrency = (value) => {
-        return new Intl.NumberFormat('en-US', {
+        if (isNaN(value)) return '$0.00';
+        const absValue = Math.abs(value);
+        const formatted = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
-        }).format(value);
+        }).format(absValue);
+        return value < 0 ? `-${formatted}` : formatted;
     };
     
     const debounce = (func, delay) => {
@@ -137,79 +103,50 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    const populateDetailsModal = () => {
-        const contentEl = document.getElementById('modal-breakdown-content');
-        contentEl.innerHTML = '';
-
-        const total = Object.values(pieChartRawData).reduce((acc, val) => acc + (val || 0), 0);
-
-        let html = `
-            <div class="modal-breakdown-header">
-                <span>Component</span>
-                <span>Percent</span>
-                <span>Amount</span>
-            </div>
-        `;
-
-        if (total === 0) {
-            contentEl.innerHTML = '<p style="text-align: center; color: #666;">No data to display. Please enter your details in the calculator.</p>';
-            return;
-        }
-
-        for (const label in pieChartRawData) {
-            const value = pieChartRawData[label] || 0;
-            const percentage = ((value / total) * 100).toFixed(1);
-            
-            html += `
-                <div class="result-item">
-                    <span class="label">${label}</span>
-                    <span class="percentage">${percentage}%</span>
-                    <span class="value">${formatCurrency(value)}</span>
-                </div>
-            `;
-        }
-
-        contentEl.innerHTML = html;
-    };
-    
+    // --- Tooltip Handler ---
+    // ... (This function is unchanged) ...
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
+        if (!tooltipEl) return false;
         const { pageX, pageY } = event;
-        const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: false }, true);
-
+        const isDoughnut = chart.config.type === 'doughnut';
+        const mode = isDoughnut ? 'nearest' : 'index';
+        const intersect = isDoughnut ? true : false; 
+        const elements = chart.getElementsAtEventForMode(event, mode, { intersect: intersect }, true);
         if (elements.length === 0) {
-            if (event.type === 'mouseout') {
-                tooltipEl.style.opacity = 0;
-            }
-            return false;
+            tooltipEl.style.opacity = 0;
+            return false; 
         }
-
-        const element = elements[0];
-        const { datasetIndex, index } = element;
         const data = chart.data;
-
         let innerHtml = '';
-        
-        if (chart.canvas.id === 'costBreakdownChart') {
-            const label = data.labels[index] || '';
-            const value = data.datasets[datasetIndex].data[index];
-            const total = data.datasets[datasetIndex].data.reduce((acc, current) => acc + current, 0);
-            const percentage = total > 0 ? ((value / total) * 100).toFixed(0) : 0;
-            innerHtml = `
-                <div class="tooltip-title">${label}</div>
-                <div style="text-align: center;">${formatCurrency(value)} (${percentage}%)</div>
+        if (chart.canvas.id === 'paymentBreakdownChart') {
+            const element = elements[0];
+            const { datasetIndex, index } = element;
+            const dataset = data.datasets[datasetIndex];
+            const title = data.labels[index];
+            const value = dataset.data[index];
+            const color = dataset.backgroundColor[index];
+            innerHtml += `<div class="tooltip-title">${title}</div>`;
+            innerHtml += `
+                <div class="tooltip-body-item">
+                    <div style="display: flex; align-items: center;">
+                        <span class="tooltip-color-box" style="background-color: ${color}"></span>
+                        <span>Monthly Cost:</span>
+                    </div>
+                    <span>${formatCurrency(value)}</span>
+                </div>
             `;
         } else {
-            const title = data.labels[index] || '';
+            const title = data.labels[elements[0].index] || '';
             if (title) {
                 innerHtml += `<div class="tooltip-title">Year: ${title}</div>`;
             }
-            chart.getElementsAtEventForMode(event, 'index', { intersect: false }).forEach(point => {
+            elements.forEach(point => {
                 const { datasetIndex, index } = point;
                 const dataset = data.datasets[datasetIndex];
                 const label = dataset.label;
                 const value = dataset.data[index];
-                const color = dataset.borderColor;
+                const color = dataset.backgroundColor || dataset.borderColor;
                 innerHtml += `
                     <div class="tooltip-body-item">
                         <div style="display: flex; align-items: center;">
@@ -221,633 +158,776 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             });
         }
-
         tooltipEl.innerHTML = innerHtml;
         tooltipEl.style.opacity = 1;
-
         const tooltipWidth = tooltipEl.offsetWidth;
         const tooltipHeight = tooltipEl.offsetHeight;
         const margin = 15;
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
         let finalX, finalY;
-
         finalY = pageY + margin;
-        if (finalY + tooltipHeight + margin > window.innerHeight) {
+        if (finalY + tooltipHeight + margin > winHeight) {
             finalY = pageY - tooltipHeight - margin;
+            if (finalY < margin) finalY = margin;
         }
-        if (finalY < 0) {
-            finalY = margin;
-        }
-
-        finalX = pageX + margin;
-        if (finalX + tooltipWidth + margin > window.innerWidth) {
+        const spaceRight = winWidth - pageX;
+        const spaceLeft = pageX;
+        const neededRight = tooltipWidth + margin;
+        const neededLeft = tooltipWidth + margin;
+        if (spaceRight > neededRight) {
+            finalX = pageX + margin;
+        } else if (spaceLeft > neededLeft) {
             finalX = pageX - tooltipWidth - margin;
-            if (finalX < 0) {
-                finalX = pageX - (tooltipWidth / 2);
-            }
+        } else {
+            finalX = (winWidth - tooltipWidth) / 2;
         }
-        
-        if (finalX < 0) {
-            finalX = margin;
+        if (finalX < margin) finalX = margin;
+        if (finalX + tooltipWidth + margin > winWidth) {
+            finalX = winWidth - tooltipWidth - margin;
         }
-        if (finalX + tooltipWidth + margin > window.innerWidth) {
-            finalX = window.innerWidth - tooltipWidth - margin;
-        }
-
-        tooltipEl.style.left = finalX + 'px';
-        tooltipEl.style.top = finalY + 'px';
-        
+        tooltipEl.style.left = `${finalX}px`;
+        tooltipEl.style.top = `${finalY}px`;
         return true;
     };
 
 
+    // --- Chart Initialization ---
+    // ... (This is modified to include PMI color/label) ...
     const initializeCharts = () => {
-        const pieCtx = document.getElementById('costBreakdownChart').getContext('2d');
-        const amortizationCtx = document.getElementById('loanAmortizationChart').getContext('2d');
-        const equityCtx = document.getElementById('homeEquityChart').getContext('2d');
+        if (typeof Chart === 'undefined') return;
+        chartsInitialized = true; 
 
-        [costBreakdownChart, loanAmortizationChart, homeEquityChart].forEach(chart => {
-            if (chart) chart.destroy();
-        });
+        const doughnutCtx = document.getElementById('paymentBreakdownChart')?.getContext('2d'); 
+        const amortizationCtx = document.getElementById('loanAmortizationChart')?.getContext('2d');
+        const equityCtx = document.getElementById('loanEquityChart')?.getContext('2d');
+        
+        if (!doughnutCtx || !amortizationCtx || !equityCtx) return;
 
-        costBreakdownChart = new Chart(pieCtx, {
-            type: 'pie', data: { labels: [], datasets: [{ data: [], backgroundColor: ['#d3b892', '#e4d3b8', '#fff3e0', '#c8a87e', '#b28e68', '#a07c5a'], borderWidth: 0 }] },
-            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { enabled: false } }, interaction: { mode: 'nearest', intersect: false } }
-        });
+        if (paymentBreakdownChart) paymentBreakdownChart.destroy();
+        if (loanAmortizationChart) loanAmortizationChart.destroy();
+        if (loanEquityChart) loanEquityChart.destroy();
 
-        const lineChartOptions = {
-            responsive: true, maintainAspectRatio: true,
-            scales: { y: { ticks: { callback: value => '$' + (value / 1000) + 'k' } } },
-            plugins: { legend: { display: false }, tooltip: { enabled: false } },
-            interaction: { mode: 'index', intersect: false }
+        const chartColors = {
+            principal: '#b5835A', 
+            interest: '#d3b892',  
+            tax: '#E4D1B9',        
+            insurance: '#F5F0E9',  
+            pmi: '#e0d6c7', // NEW Color for PMI
+            hoa: '#fbf9f7',         
+            equity: '#b5835A',    
+            balance: '#d3b892'   
         };
+
+        paymentBreakdownChart = new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Principal & Interest', 'Property Tax', 'Home Insurance', 'PMI', 'HOA Dues'],
+                datasets: [{
+                    label: 'Monthly Payment Breakdown',
+                    data: [0, 0, 0, 0, 0], 
+                    backgroundColor: [chartColors.principal, chartColors.tax, chartColors.insurance, chartColors.pmi, chartColors.hoa], 
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                cutout: '60%'
+            }
+        });
 
         loanAmortizationChart = new Chart(amortizationCtx, {
-            type: 'line',
-            data: { labels: [], datasets: [
-                { label: 'Balance', data: [], borderColor: '#8c5a3c', backgroundColor: 'rgba(140, 90, 60, 0.2)', fill: true, tension: 0.4, pointRadius: 0 },
-                { label: 'Principal Paid', data: [], borderColor: '#d3b892', backgroundColor: 'rgba(211, 184, 146, 0.3)', fill: true, tension: 0.4, pointRadius: 0 },
-                { label: 'Interest', data: [], borderColor: '#d09a7a', backgroundColor: 'rgba(208, 154, 122, 0.3)', fill: true, tension: 0.4, pointRadius: 0 },
-            ]},
-            options: lineChartOptions
+            type: 'bar',
+            data: {
+                labels: [], // Years
+                datasets: [
+                    { label: 'Principal', data: [], backgroundColor: chartColors.principal },
+                    { label: 'Interest', data: [], backgroundColor: chartColors.interest }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    x: { stacked: true }, 
+                    y: { stacked: true, ticks: { callback: value => '$' + (value / 1000) + 'k' } } 
+                },
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                interaction: { mode: 'index', intersect: false } 
+            }
         });
 
-        homeEquityChart = new Chart(equityCtx, {
+        loanEquityChart = new Chart(equityCtx, {
             type: 'line',
-            data: { labels: [], datasets: [
-                { label: 'Home Value', data: [], borderColor: '#8c5a3c', backgroundColor: 'rgba(140, 90, 60, 0.1)', fill: true, tension: 0.4, pointRadius: 0 },
-                { label: 'Equity', data: [], borderColor: '#d09a7a', backgroundColor: 'rgba(208, 154, 122, 0.3)', fill: true, tension: 0.4, pointRadius: 0 },
-                { label: 'Loan Balance', data: [], borderColor: '#d3b892', backgroundColor: 'rgba(211, 184, 146, 0.2)', fill: true, tension: 0.4, pointRadius: 0 },
-            ]},
-            options: lineChartOptions
+            data: {
+                labels: [], // Years
+                datasets: [
+                    { label: 'Home Equity', data: [], fill: true, backgroundColor: 'rgba(181, 131, 90, 0.2)', borderColor: chartColors.equity, tension: 0.4, pointRadius: 0 },
+                    { label: 'Remaining Balance', data: [], fill: true, backgroundColor: 'rgba(211, 184, 146, 0.2)', borderColor: chartColors.balance, tension: 0.4, pointRadius: 0 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { stacked: true, ticks: { callback: value => '$' + (value / 1000) + 'k' } } },
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                interaction: { mode: 'index', intersect: false } 
+            }
         });
 
-        const charts = [costBreakdownChart, loanAmortizationChart, homeEquityChart];
+
+        // Attach tooltip handlers
+        const charts = [paymentBreakdownChart, loanAmortizationChart, loanEquityChart];
         charts.forEach(chart => {
             chart.canvas.addEventListener('mousemove', (e) => customTooltipHandler(e, chart));
+            chart.canvas.addEventListener('click', (e) => customTooltipHandler(e, chart)); 
             chart.canvas.addEventListener('mouseout', () => {
-                document.getElementById('chartTooltip').style.opacity = 0;
-            });
-            chart.canvas.addEventListener('click', (e) => {
-                e.stopPropagation();
-                customTooltipHandler(e, chart);
+                const tooltipEl = document.getElementById('chartTooltip');
+                if (tooltipEl) tooltipEl.style.opacity = 0;
             });
         });
     };
 
-    const calculateAndDisplay = () => {
-        const homePrice = parseFloat(allInputs.homePrice.value) || 0;
-        let downPayment = parseFloat(allInputs.downPayment.value) || 0;
+    // --- Calculation Functions ---
+    const calculatePAndI = (principal, annualRate, termYears) => {
+        if (principal <= 0 || annualRate <= 0 || termYears <= 0) return 0;
+        const monthlyRate = annualRate / 100 / 12;
+        const numPayments = termYears * 12;
+        return principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    };
 
-        if (downPayment > homePrice) {
-            downPayment = homePrice;
-            allInputs.downPayment.value = homePrice.toString();
+    // --- ### HEAVILY MODIFIED: generateAmortizationSchedule (PMI Repair) ### ---
+    const generateAmortizationSchedule = (principal, monthlyPayment, monthlyRate, termYears, downPayment, extraPayment = 0, extras = {}) => {
+        let balance = principal;
+        const numPayments = termYears * 12;
+        const monthlyData = [];
+        const yearlyAggregates = [];
+
+        let yearlyPrincipal = 0;
+        let yearlyInterest = 0;
+        let yearlyExtras = 0; // NEW
+        
+        let totalInterest = 0;
+        let totalExtras = 0; // NEW
+        let totalMonths = 0; 
+        
+        const paymentDate = new Date();
+
+        // Default extras
+        const {
+            monthlyTaxes = 0,
+            monthlyInsurance = 0,
+            hoaDues = 0,
+            monthlyPMI = 0,
+            pmiRemovalTarget = 0 // LTV target to remove PMI
+        } = extras;
+
+        if (principal <= 0 || monthlyPayment <= 0) {
+            return {
+                monthlyData: [],
+                yearlyData: Array(termYears).fill({ year: 0, principal: 0, interest: 0, extras: 0, balance: 0, equity: downPayment }),
+                totalInterest: 0,
+                totalMonths: 0,
+                totalExtras: 0
+            };
         }
         
+        // --- NEW: PMI state flag ---
+        let pmiActive = monthlyPMI > 0;
+
+        for (let i = 1; i <= numPayments; i++) {
+            totalMonths = i; 
+            const interestPayment = balance * monthlyRate;
+            let principalPayment = monthlyPayment - interestPayment;
+            let principalWithExtra = principalPayment + extraPayment;
+
+            // Check for overpayment
+            if (balance - principalWithExtra < 0) {
+                principalWithExtra = balance; 
+                balance = 0;
+            } else {
+                balance -= principalWithExtra;
+            }
+
+            // --- REPAIRED PMI LOGIC ---
+            // Check if PMI should be removed
+            if (pmiActive && balance < pmiRemovalTarget) {
+                pmiActive = false; // Turn off PMI for all future payments
+            }
+            const currentPMI = pmiActive ? monthlyPMI : 0;
+            const currentMonthlyExtras = monthlyTaxes + monthlyInsurance + hoaDues + currentPMI;
+            // --- End REPAIRED PMI LOGIC ---
+
+            totalInterest += interestPayment;
+            totalExtras += currentMonthlyExtras; // Add accurate extras
+            
+            yearlyInterest += interestPayment;
+            yearlyPrincipal += principalWithExtra;
+            yearlyExtras += currentMonthlyExtras;
+            
+            paymentDate.setMonth(paymentDate.getMonth() + 1);
+
+            monthlyData.push({
+                month: i,
+                year: Math.ceil(i/12),
+                date: paymentDate.toLocaleString('default', { month: 'short', year: 'numeric' }),
+                principal: principalWithExtra,
+                interest: interestPayment,
+                extras: currentMonthlyExtras, // Store calculated extras
+                balance: balance,
+            });
+
+            if (i % 12 === 0 || balance === 0) {
+                yearlyAggregates.push({
+                    year: Math.ceil(i / 12),
+                    principal: yearlyPrincipal,
+                    interest: yearlyInterest,
+                    extras: yearlyExtras, // Store calculated extras
+                    balance: balance,
+                    equity: downPayment + (principal - balance) // This is principal-based equity
+                });
+                yearlyPrincipal = 0;
+                yearlyInterest = 0;
+                yearlyExtras = 0; // Reset for next year
+            }
+            
+            if (balance === 0) {
+                break;
+            }
+        }
+        return { monthlyData, yearlyData: yearlyAggregates, totalInterest, totalMonths, totalExtras };
+    };
+    // --- End of Modification ---
+    
+    // --- ### HEAVILY MODIFIED: Main Calculation Engine ### ---
+    const calculateAndDisplay = () => {
+        // --- 1. Get All Inputs ---
+        const homePrice = parseFloat(allInputs.homePrice.value) || 0;
+        const downPaymentDollars = parseFloat(allInputs.downPaymentDollars.value) || 0;
+        const downPaymentPercent = (homePrice > 0) ? (downPaymentDollars / homePrice) * 100 : 0;
         const loanTerm = parseFloat(allInputs.loanTerm.value) || 0;
         const interestRate = parseFloat(allInputs.interestRate.value) || 0;
-        const propertyTaxes = parseFloat(allInputs.propertyTaxes.value) || 0;
+        const propertyTax = parseFloat(allInputs.propertyTax.value) || 0;
         const homeInsurance = parseFloat(allInputs.homeInsurance.value) || 0;
-        const pmiInsurance = parseFloat(allInputs.pmiInsurance.value) || 0;
-        const hoaFee = parseFloat(allInputs.hoaFee.value) || 0;
-        const closingCosts = parseFloat(allInputs.closingCosts.value) || 0;
-        const otherCosts = parseFloat(allInputs.otherCosts.value) || 0;
-        const monthlyIncome = parseFloat(allInputs.monthlyIncome.value) || 0;
-        const monthlyDebts = parseFloat(allInputs.monthlyDebts.value) || 0;
-        const creditScore = allInputs.creditScore.value;
-        const appreciationRate = parseFloat(allInputs.appreciationRate.value) / 100 || 0;
-        const startDay = parseInt(allInputs.day.value) || 1;
-        const startMonth = parseInt(allInputs.month.value) || 1;
-        const startYear = parseInt(allInputs.year.value) || new Date().getFullYear();
-        const startDate = new Date(startYear, startMonth - 1, startDay);
         
-        const principal = homePrice - downPayment;
-        if (principal <= 0) { return; }
-        const monthlyInterestRate = interestRate / 100 / 12;
-        const numberOfPayments = loanTerm * 12;
-        let monthlyPI = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1) || 0;
-        const totalInterest = (monthlyPI * numberOfPayments) - principal;
+        let pmiPercent = 0;
+        let hoaDues = 0;
+        let extraPayment = 0;
 
-        const monthlyTax = propertyTaxes / 12;
-        const monthlyInsurance = homeInsurance / 12;
-        const monthlyPMI = pmiInsurance / 12;
-        const monthlyTotal = monthlyPI + monthlyTax + monthlyInsurance + monthlyPMI + hoaFee + otherCosts;
-
-        const totalMonthlyDebtPayment = monthlyTotal + monthlyDebts;
-        const dtiRatio = monthlyIncome > 0 ? (totalMonthlyDebtPayment / monthlyIncome) : 0;
-
-        const totalMortgage = monthlyPI * numberOfPayments;
-        const totalTax = monthlyTax * numberOfPayments;
-        const totalInsurance = monthlyInsurance * numberOfPayments;
-        const totalPMI = monthlyPMI * numberOfPayments;
-        const totalHOA = hoaFee * numberOfPayments;
-        const totalOther = otherCosts * numberOfPayments;
-        const totalOutOfPocket = downPayment + totalMortgage + totalTax + totalInsurance + totalPMI + totalHOA + totalOther + closingCosts;
-        
-        const cashToClose = downPayment + closingCosts;
-
-        resultElements.loanAmount.textContent = formatCurrency(principal);
-        resultElements.totalInterest.textContent = formatCurrency(totalInterest > 0 ? totalInterest : 0);
-        resultElements.cashToClose.textContent = formatCurrency(cashToClose);
-        resultElements.dtiRatio.textContent = (dtiRatio * 100).toFixed(1) + '%';
-        resultElements.summaryText.innerHTML = `Over the course of your <span class="summary-highlight">${loanTerm}</span> year loan, your total out-of-pocket cost is estimated to be <span class="summary-highlight">${formatCurrency(totalOutOfPocket)}</span>, with <span class="summary-highlight">${formatCurrency(totalInterest > 0 ? totalInterest : 0)}</span> going towards interest.`;
-        resultElements.monthlyTotal.textContent = formatCurrency(monthlyTotal);
-        resultElements.totalTotal.textContent = formatCurrency(totalOutOfPocket);
-        resultElements.monthlyMortgage.textContent = formatCurrency(monthlyPI);
-        resultElements.monthlyTax.textContent = formatCurrency(monthlyTax);
-        resultElements.monthlyInsurance.textContent = formatCurrency(monthlyInsurance);
-        resultElements.monthlyPMI.textContent = formatCurrency(monthlyPMI);
-        resultElements.monthlyHOA.textContent = formatCurrency(hoaFee);
-        resultElements.monthlyOther.textContent = formatCurrency(otherCosts);
-        resultElements.totalMortgage.textContent = formatCurrency(totalMortgage);
-        resultElements.totalTax.textContent = formatCurrency(totalTax);
-        resultElements.totalInsurance.textContent = formatCurrency(totalInsurance);
-        resultElements.totalPMI.textContent = formatCurrency(totalPMI);
-        resultElements.totalHOA.textContent = formatCurrency(totalHOA);
-        resultElements.totalOther.textContent = formatCurrency(totalOther);
-
-        fullAmortizationData = generateFullAmortizationSchedule(principal, monthlyInterestRate, numberOfPayments, monthlyPI, startDate);
-
-        if (fullAmortizationData.length >= 60) {
-            const fiveYearChunk = fullAmortizationData.slice(0, 60);
-            const fiveYearInterest = fiveYearChunk.reduce((acc, month) => acc + month.interest, 0);
-            const fiveYearPrincipal = fiveYearChunk.reduce((acc, month) => acc + month.principal, 0);
-            resultElements.fiveYearText.innerHTML = `You will pay <span class="summary-highlight">${formatCurrency(fiveYearInterest)}</span> in interest and <span class="summary-highlight">${formatCurrency(fiveYearPrincipal)}</span> towards your principal. Your remaining balance will be <span class="summary-highlight">${formatCurrency(fiveYearChunk[59].balance)}</span>.`;
-        } else {
-            resultElements.fiveYearText.textContent = "Loan term is less than five years.";
-        }
-
-        let advice = '';
-        if (dtiRatio > 0.43) {
-            advice += `<p>High DTI Ratio: Your debt-to-income ratio of ${(dtiRatio * 100).toFixed(1)}% is considered high. Lenders typically prefer a DTI below 43%. This could make it more difficult to qualify for a loan.</p>`;
-        } else if (dtiRatio > 0.36) {
-            advice += `<p>Good DTI Ratio: Your DTI of ${(dtiRatio * 100).toFixed(1)}% is in a healthy range, but keeping it lower can improve your loan options.</p>`;
-        }
-        if (creditScore === 'fair' || creditScore === 'poor') {
-            advice += `<p>Credit Score Tip: You've selected a lower credit score tier. Improving your credit score before applying for a mortgage can often result in a lower interest rate, saving you thousands over the life of the loan.</p>`;
-        }
-        resultElements.contextualAdvice.innerHTML = advice;
-        resultElements.contextualAdvice.style.display = advice ? 'block' : 'none';
-        
-        const pieChartData = {
-            'Total Interest': totalInterest, 'Principal': principal, 'Property Taxes & Other': totalTax + totalOther + totalPMI + totalHOA, 
-            'Home Insurance': totalInsurance, 'Closing Costs': closingCosts, 'Down Payment': downPayment
-        };
-
-        pieChartRawData = pieChartData;
-
-        const amortizationData = calculateAmortizationForChart(fullAmortizationData, loanTerm);
-        const equityData = calculateEquityForChart(homePrice, appreciationRate, fullAmortizationData, loanTerm);
-        updateCharts(pieChartData, amortizationData, equityData, loanTerm);
-
-        renderAmortizationTable();
-    };
-
-    const calculateAmortizationForChart = (schedule, loanTerm) => {
-        const labels = []; const balanceData = [schedule[0]?.balance + schedule[0]?.principal || 0];
-        const interestData = [0]; const principalData = [0];
-        let totalInterestPaid = 0; let totalPrincipalPaid = 0;
-
-        schedule.forEach((item, index) => {
-            totalInterestPaid += item.interest;
-            totalPrincipalPaid += item.principal;
-            if ((index + 1) % 12 === 0 || (index + 1) === schedule.length) {
-                labels.push(Math.ceil((index + 1) / 12));
-                balanceData.push(item.balance);
-                interestData.push(totalInterestPaid);
-                principalData.push(totalPrincipalPaid);
+        // NEW: Get advanced inputs only if in advanced mode
+        if (currentCalculatorMode === 'advanced') {
+            // Auto-set PMI if down payment is < 20%
+            if (downPaymentPercent < 20 && allInputs.pmiPercent.value === "0") {
+                // Trigger credit score logic to set a default PMI
+                allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+            } else if (downPaymentPercent >= 20) {
+                allInputs.pmiPercent.value = "0"; // Auto-remove PMI if >= 20% down
             }
-        });
-        return { labels, balanceData, interestData, principalData };
-    };
-    
-    const calculateEquityForChart = (homePrice, appreciationRate, schedule, loanTerm) => {
-        const labels = []; const valueData = [homePrice]; const balanceData = [schedule[0]?.balance + schedule[0]?.principal || 0]; const equityData = [homePrice - balanceData[0]];
-        let currentValue = homePrice;
-
-        for (let year = 1; year <= loanTerm; year++) {
-            labels.push(year);
-            currentValue *= (1 + appreciationRate);
-            const monthIndex = Math.min(year * 12 - 1, schedule.length - 1);
-            const currentBalance = schedule[monthIndex]?.balance || 0;
             
-            valueData.push(currentValue);
-            balanceData.push(currentBalance);
-            equityData.push(currentValue - currentBalance);
+            pmiPercent = parseFloat(allInputs.pmiPercent.value) || 0;
+            hoaDues = parseFloat(allInputs.hoaDues.value) || 0;
+            extraPayment = parseFloat(allInputs.extraPayment.value) || 0;
         }
-        return { labels, valueData, balanceData, equityData };
-    };
 
-    const generateFullAmortizationSchedule = (principal, monthlyRate, numPayments, monthlyPI, startDate) => { 
-        let balance = principal;
-        const schedule = [];
-        for (let i = 1; i <= numPayments; i++) {
-            const interestPayment = balance * monthlyRate;
-            const principalPayment = monthlyPI - interestPayment;
-            balance -= principalPayment;
-            const paymentDate = new Date(startDate);
-            paymentDate.setMonth(paymentDate.getMonth() + i);
-            schedule.push({
-                paymentNumber: i,
-                date: paymentDate,
-                interest: interestPayment,
-                principal: principalPayment,
-                balance: balance > 0 ? balance : 0,
-            });
-        }
-        return schedule;
-    };
-
-    const renderAmortizationTable = () => { 
-         const tbody = scheduleElements.tbody;
-        tbody.innerHTML = '';
-        const isMonthly = scheduleElements.monthlyBtn.classList.contains('active');
-
-        if (isMonthly) {
-            fullAmortizationData.forEach(item => {
-                const row = tbody.insertRow();
-                const dateFormatted = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(item.date);
-                row.innerHTML = `<td>${Math.ceil(item.paymentNumber / 12)}</td><td>${dateFormatted}</td><td>${formatCurrency(item.interest)}</td><td>${formatCurrency(item.principal)}</td><td>${formatCurrency(item.balance)}</td>`;
-            });
-        } else { 
-            const yearlyData = [];
-            for (let i = 0; i < fullAmortizationData.length; i += 12) {
-                const yearChunk = fullAmortizationData.slice(i, i + 12);
-                if (yearChunk.length === 0) continue;
-                const yearSummary = yearChunk.reduce((acc, month) => {
-                    acc.interest += month.interest;
-                    acc.principal += month.principal;
-                    return acc;
-                }, { interest: 0, principal: 0 });
-                
-                yearlyData.push({
-                    year: Math.ceil(yearChunk[0].paymentNumber / 12),
-                    date: yearChunk[yearChunk.length-1].date.getFullYear(),
-                    interest: yearSummary.interest,
-                    principal: yearSummary.principal,
-                    balance: yearChunk[yearChunk.length-1].balance,
-                });
-            }
-            yearlyData.forEach(item => {
-                const row = tbody.insertRow();
-                row.innerHTML = `<td>${item.year}</td><td>${item.date}</td><td>${formatCurrency(item.interest)}</td><td>${formatCurrency(item.principal)}</td><td>${formatCurrency(item.balance)}</td>`;
-            });
-        }
-    };
-
-    const updateCharts = (pieData, amortizationData, equityData, loanTerm) => {
-        const pieLabels = Object.keys(pieData);
-        const pieValues = Object.values(pieData);
-        costBreakdownChart.data.labels = pieLabels;
-        costBreakdownChart.data.datasets[0].data = pieValues;
-        costBreakdownChart.update();
-        updateCustomLegend('cost-breakdown-legend', costBreakdownChart);
+        // --- 2. Core Calculations ---
+        const loanAmount = homePrice - downPaymentDollars;
+        const monthlyRate = interestRate / 100 / 12;
         
-        loanAmortizationChart.data.labels = amortizationData.labels || [];
-        loanAmortizationChart.data.datasets[0].data = amortizationData.balanceData || [];
-        loanAmortizationChart.data.datasets[1].data = amortizationData.principalData || [];
-        loanAmortizationChart.data.datasets[2].data = amortizationData.interestData || [];
-        loanAmortizationChart.update();
-        updateCustomLegend('amortization-legend', loanAmortizationChart);
+        const monthlyPI = calculatePAndI(loanAmount, interestRate, loanTerm);
+        const monthlyTaxes = propertyTax / 12;
+        const monthlyInsurance = homeInsurance / 12;
+        
+        // NEW: Calculate monthly PMI
+        // PMI is only added if down payment is < 20%
+        const monthlyPMI = (downPaymentPercent < 20) ? (loanAmount * (pmiPercent / 100)) / 12 : 0;
+        
+        // This is the *starting* monthly extras payment
+        const startingMonthlyExtras = monthlyTaxes + monthlyInsurance + monthlyPMI + hoaDues;
+        const totalMonthly = monthlyPI + startingMonthlyExtras;
+        
+        // --- 3. Generate Schedule (Standard) ---
+        // We first generate a schedule *without* extra payments to get the original interest
+        const { totalInterest: originalTotalInterest } = generateAmortizationSchedule(loanAmount, monthlyPI, monthlyRate, loanTerm, downPaymentDollars, 0, {
+            monthlyTaxes, monthlyInsurance, hoaDues, monthlyPMI, pmiRemovalTarget: homePrice * 0.80
+        });
+        
+        // --- 4. Generate ACCURATE Schedule (with Extra Payments and PMI Fix) ---
+        const pmiRemovalTarget = homePrice * 0.80; // PMI removed at 80% LTV of *home price*
+        const extrasObject = { monthlyTaxes, monthlyInsurance, hoaDues, monthlyPMI, pmiRemovalTarget };
+        
+        const { monthlyData, yearlyData, totalInterest, totalMonths, totalExtras } = generateAmortizationSchedule(loanAmount, monthlyPI, monthlyRate, loanTerm, downPaymentDollars, extraPayment, extrasObject);
+        fullMonthlySchedule = monthlyData; 
+        
+        const totalPaid = loanAmount + totalInterest + totalExtras;
+        
+        // Savings calculations
+        const totalInterestSaved = (originalTotalInterest > totalInterest) ? (originalTotalInterest - totalInterest) : 0;
+        const payoffYears = Math.floor(totalMonths / 12);
+        const payoffRemainderMonths = totalMonths % 12;
+        const payoffDateString = `${payoffYears} yrs, ${payoffRemainderMonths} mos`;
 
-        homeEquityChart.data.labels = equityData.labels || [];
-        homeEquityChart.data.datasets[0].data = equityData.valueData || [];
-        homeEquityChart.data.datasets[1].data = equityData.equityData || [];
-        homeEquityChart.data.datasets[2].data = equityData.balanceData || [];
-        homeEquityChart.update();
-        updateCustomLegend('equity-legend', homeEquityChart);
+        // --- 5. Update Basic Summary Boxes ---
+        resultElements.monthlyPI.textContent = formatCurrency(monthlyPI);
+        resultElements.monthlyTaxes.textContent = formatCurrency(startingMonthlyExtras); // Show starting payment
+        resultElements.totalMonthly.textContent = formatCurrency(totalMonthly);
+        resultElements.totalMonthly.style.color = '#333';
+        resultElements.totalMonthly.style.fontWeight = '500';
+
+        // Update Summary Text
+        resultElements.summaryText.innerHTML = `Based on your entries, your estimated total monthly payment is <span class="summary-highlight">${formatCurrency(totalMonthly)}</span>. This complete payment includes <span class="summary-highlight">${formatCurrency(monthlyPI)}</span> for your loan's principal and interest, plus an estimated <span class="summary-highlight">${formatCurrency(startingMonthlyExtras)}</span> for taxes, insurance, PMI, and any HOA dues.`;
+
+        // --- 6. Update Advanced Breakdown Boxes ---
+        const year1Data = yearlyData.length > 0 ? yearlyData[0] : { principal: 0, interest: 0, extras: 0 };
+        resultElements.year1Principal.textContent = formatCurrency(year1Data.principal);
+        resultElements.year1Interest.textContent = formatCurrency(year1Data.interest);
+        resultElements.year1Taxes.textContent = formatCurrency(year1Data.extras); // Use accurate extras from schedule
+        resultElements.year1Total.textContent = formatCurrency(year1Data.principal + year1Data.interest + year1Data.extras);
+
+        resultElements.loanAmount.textContent = formatCurrency(loanAmount);
+        resultElements.totalInterest.textContent = formatCurrency(totalInterest);
+        resultElements.totalPaid.textContent = formatCurrency(totalPaid);
+        
+        resultElements.interestSaved.textContent = formatCurrency(totalInterestSaved);
+        resultElements.payoffDate.textContent = (extraPayment > 0 || totalMonths < (loanTerm * 12)) ? payoffDateString : `${loanTerm} yrs, 0 mos`;
+
+        // --- 7. Populate Amortization Table (Advanced) ---
+        populateScheduleTable(yearlyData, fullMonthlySchedule, currentScheduleView); // No longer pass extras
+        
+        // --- 8. Populate Modal Details (Advanced) ---
+        resultElements.modalDetailsBody.innerHTML = `
+            <tr>
+                <td>Principal & Interest</td>
+                <td>${formatCurrency(monthlyPI)}</td>
+            </tr>
+            <tr>
+                <td>Property Tax</td>
+                <td>${formatCurrency(monthlyTaxes)}</td>
+            </tr>
+            <tr>
+                <td>Home Insurance</td>
+                <td>${formatCurrency(monthlyInsurance)}</td>
+            </tr>
+            <tr> 
+                <td>PMI (Starting)</td>
+                <td>${formatCurrency(monthlyPMI)}</td>
+            </tr>
+            <tr>
+                <td>HOA Dues</td>
+                <td>${formatCurrency(hoaDues)}</td>
+            </tr>
+            <tr class="total-row">
+                <td>Total Monthly (Starting)</td>
+                <td>${formatCurrency(totalMonthly)}</td>
+            </tr>
+        `;
+        
+        // --- 9. Update Charts (Advanced) ---
+        if (chartsInitialized) {
+            updateCharts(yearlyData, [monthlyPI, monthlyTaxes, monthlyInsurance, monthlyPMI, hoaDues]);
+        }
+    };
+    // --- End of Calculation Engine ---
+    
+    // --- ### MODIFIED: Amortization Table Population Function ### ---
+    const populateScheduleTable = (yearlyData, monthlyData, view) => {
+        const head = resultElements.scheduleHead;
+        const body = resultElements.scheduleBody;
+        body.innerHTML = ''; 
+        head.innerHTML = ''; 
+        
+        if (view === 'yearly') {
+            head.innerHTML = `
+                <tr>
+                    <th>Year</th>
+                    <th>Principal Paid</th>
+                    <th>Interest Paid</th>
+                    <th>Taxes, Ins. & Dues</th>
+                    <th>Total Paid</th>
+                    <th>Remaining Balance</th>
+                </tr>
+            `;
+            yearlyData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.year}</td>
+                    <td>${formatCurrency(row.principal)}</td>
+                    <td>${formatCurrency(row.interest)}</td>
+                    <td>${formatCurrency(row.extras)}</td> <td>${formatCurrency(row.principal + row.interest + row.extras)}</td> <td>${formatCurrency(row.balance)}</td>
+                `;
+                body.appendChild(tr);
+            });
+        } else { // 'monthly' view
+            head.innerHTML = `
+                <tr>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Principal Paid</th>
+                    <th>Interest Paid</th>
+                    <th>Taxes, Ins. & Dues</th>
+                    <th>Total Paid</th>
+                    <th>Remaining Balance</th>
+                </tr>
+            `;
+            monthlyData.forEach(row => {
+                const tr = document.createElement('tr');
+                const totalMonthlyPaid = row.principal + row.interest + row.extras;
+                tr.innerHTML = `
+                    <td>${row.year}</td>
+                    <td>${row.date}</td>
+                    <td>${formatCurrency(row.principal)}</td>
+                    <td>${formatCurrency(row.interest)}</td>
+                    <td>${formatCurrency(row.extras)}</td> <td>${formatCurrency(totalMonthlyPaid)}</td>
+                    <td>${formatCurrency(row.balance)}</td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+    };
+    // --- End of Modification ---
+    
+    // --- Chart Update Function ---
+    // ... (This function is unchanged) ...
+    const updateCharts = (yearlyData, breakdownData) => {
+        if (!chartsInitialized) return; 
+
+        const labels = yearlyData.map(d => d.year);
+        const principalData = yearlyData.map(d => d.principal);
+        const interestData = yearlyData.map(d => d.interest);
+        const equityData = yearlyData.map(d => d.equity);
+        const balanceData = yearlyData.map(d => d.balance);
+
+        paymentBreakdownChart.data.datasets[0].data = breakdownData;
+        paymentBreakdownChart.update();
+        updateCustomLegend('paymentBreakdownLegend', paymentBreakdownChart);
+
+        loanAmortizationChart.data.labels = labels;
+        loanAmortizationChart.data.datasets[0].data = principalData;
+        loanAmortizationChart.data.datasets[1].data = interestData;
+        loanAmortizationChart.update();
+        updateCustomLegend('loanAmortizationLegend', loanAmortizationChart);
+
+        loanEquityChart.data.labels = labels;
+        loanEquityChart.data.datasets[0].data = equityData;
+        loanEquityChart.data.datasets[1].data = balanceData;
+        loanEquityChart.update();
+        updateCustomLegend('loanEquityLegend', loanEquityChart);
     };
 
+    // --- Custom Legend Function ---
+    // ... (This function is modified to hide $0 items) ...
     const updateCustomLegend = (containerId, chart) => {
         const legendContainer = document.getElementById(containerId);
+        if(!legendContainer) return;
         legendContainer.innerHTML = '';
-        const isPie = chart.config.type === 'pie';
-        const datasets = chart.data.datasets;
-
-        if (isPie) {
-            const labels = chart.data.labels;
-            const colors = datasets[0].backgroundColor;
-            labels.forEach((label, index) => {
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                legendItem.innerHTML = `<div class="legend-color-box" style="background-color: ${colors[index]}"></div><span>${label}</span>`;
-                legendContainer.appendChild(legendItem);
-            });
-        } else {
-            datasets.forEach(dataset => {
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                legendItem.innerHTML = `<div class="legend-color-box" style="background-color: ${dataset.borderColor}"></div><span>${dataset.label}</span>`;
-                legendContainer.appendChild(legendItem);
-            });
+        
+        if (chart.data.labels.length && chart.data.datasets.length) {
+            if (chart.config.type === 'doughnut') {
+                chart.data.labels.forEach((label, index) => {
+                    const value = chart.data.datasets[0].data[index];
+                    // NEW: Don't show legend for $0 items
+                    if (value <= 0) return; 
+                    
+                    const color = chart.data.datasets[0].backgroundColor[index];
+                    const legendItem = document.createElement('div');
+                    legendItem.className = 'legend-item';
+                    legendItem.innerHTML = `<div class="legend-color-box" style="background-color: ${color}"></div><span>${label}</span>`;
+                    legendContainer.appendChild(legendItem);
+                });
+            } else { // For line and bar
+                chart.data.datasets.forEach(dataset => {
+                    const color = dataset.backgroundColor || dataset.borderColor;
+                    const legendItem = document.createElement('div');
+                    legendItem.className = 'legend-item';
+                    legendItem.innerHTML = `<div class="legend-color-box" style="background-color: ${color}"></div><span>${dataset.label}</span>`;
+                    legendContainer.appendChild(legendItem);
+                });
+            }
         }
     };
-    
-    const handleResize = () => { 
-        if (costBreakdownChart) costBreakdownChart.destroy();
-        if (loanAmortizationChart) loanAmortizationChart.destroy();
-        if (homeEquityChart) homeEquityChart.destroy();
-        initializeCharts();
-        calculateAndDisplay();
-    };
 
-    function initializeCustomSelect() {
-        const wrapper = document.querySelector(".custom-select-wrapper");
-        if (!wrapper) return;
-        
-        const selectEl = wrapper.querySelector("select");
-        const selectedDiv = document.createElement("div");
-        selectedDiv.setAttribute("class", "select-selected");
-        selectedDiv.innerHTML = selectEl.options[selectEl.selectedIndex].innerHTML;
-        wrapper.appendChild(selectedDiv);
-        
-        const optionsListDiv = document.createElement("div");
-        optionsListDiv.setAttribute("class", "select-items select-hide");
-        
-        for (let i = 0; i < selectEl.length; i++) {
-            const optionDiv = document.createElement("div");
-            optionDiv.innerHTML = selectEl.options[i].innerHTML;
-            
-            if (i === selectEl.selectedIndex) {
-                optionDiv.setAttribute("class", "same-as-selected");
-            }
 
-            optionDiv.addEventListener("click", function() {
-                const s = this.parentNode.parentNode.querySelector("select");
-                const sl = this.parentNode.previousSibling;
-                for (let j = 0; j < s.length; j++) {
-                    if (s.options[j].innerHTML == this.innerHTML) {
-                        s.selectedIndex = j;
-                        sl.innerHTML = this.innerHTML;
-                        const y = this.parentNode.getElementsByClassName("same-as-selected");
-                        for (let k = 0; k < y.length; k++) {
-                            y[k].removeAttribute("class");
-                        }
-                        this.setAttribute("class", "same-as-selected");
-                        break;
-                    }
-                }
-                sl.click();
-                s.dispatchEvent(new Event('change'));
-            });
-            optionsListDiv.appendChild(optionDiv);
-        }
-        wrapper.appendChild(optionsListDiv);
-        
-        selectedDiv.addEventListener("click", function(e) {
-            e.stopPropagation();
-            closeAllSelect(this);
-            this.nextSibling.classList.toggle("select-hide");
-            this.classList.toggle("select-arrow-active");
-        });
-    }
-
-    function closeAllSelect(elmnt) {
-        const items = document.getElementsByClassName("select-items");
-        const selected = document.getElementsByClassName("select-selected");
-        for (let i = 0; i < selected.length; i++) {
-            if (elmnt == selected[i]) {
-            } else {
-                selected[i].classList.remove("select-arrow-active");
-            }
-        }
-        for (let i = 0; i < items.length; i++) {
-            if (elmnt.nextSibling != items[i]) {
-                items[i].classList.add("select-hide");
-            }
-        }
-    }
-
-    document.addEventListener("click", (e) => {
-        closeAllSelect(e.target);
-        const isChartClick = e.target.closest('.chart-wrapper');
-        const tooltipEl = document.getElementById('chartTooltip');
-        
-        if (!isChartClick && !e.target.closest('.chart-tooltip') && tooltipEl.style.opacity === '1') {
-             tooltipEl.style.opacity = 0;
-        }
-    });
-
-    // --- MODIFICATION: DEBOUNCE THE INPUTS ---
-    // This is the most important fix for the "Script Evaluation" and TBT problem
-    // during user interaction. It prevents the expensive calculateAndDisplay()
-    // from running on every single keystroke.
-
-    // 1. Create a debounced version of your main function (300ms delay)
+    // --- Event Listeners ---
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
-    // 2. Apply the debounced function to all text/number inputs
+    // Standard input listeners
     Object.values(allInputs).forEach(input => {
-        if(input.id !== 'creditScore') {
-            input.addEventListener('input', debouncedCalculate);
+        // MODIFIED: Exclude creditScore (now a hidden input)
+        if (input.id !== 'downPaymentDollars' && input.id !== 'downPaymentPercent' && input.id !== 'creditScore') {
+            input.addEventListener('input', (e) => {
+                const target = e.target;
+                const max = parseFloat(target.getAttribute('max'));
+                const min = parseFloat(target.getAttribute('min'));
+                let value = parseFloat(target.value);
+
+                if (!isNaN(value)) {
+                    if (!isNaN(max) && value > max) target.value = max;
+                    if (!isNaN(min) && value < min) target.value = min;
+                }
+                debouncedCalculate();
+            });
         }
     });
     
-    // 3. Apply the *original* function to the 'change' event for the dropdown
-    //    A 'change' event only fires once, so it doesn't need debouncing.
-    allInputs.creditScore.addEventListener('change', calculateAndDisplay);
-    
-    // --- End of Modification ---
+    // --- ### NEW: Custom Select Logic ### ---
+    const creditScoreWrapper = document.getElementById('creditScoreWrapper');
+    if (creditScoreWrapper) {
+        const creditScoreValue = creditScoreWrapper.querySelector('.custom-select-value');
+        const creditScoreHiddenInput = document.getElementById('creditScore'); // This is our hidden input
+        const creditScoreOptions = creditScoreWrapper.querySelectorAll('.custom-option');
 
+        // Toggle dropdown
+        creditScoreValue.addEventListener('click', () => {
+            creditScoreWrapper.classList.toggle('open');
+        });
 
-     [ allInputs.homePrice, allInputs.downPayment, allInputs.propertyTaxes, allInputs.homeInsurance, allInputs.pmiInsurance, 
-       allInputs.hoaFee, allInputs.otherCosts, allInputs.closingCosts, allInputs.monthlyIncome, allInputs.monthlyDebts, allInputs.appreciationRate
-     ].forEach(input => input.addEventListener('input', sanitizeDecimal));
-    
-    [allInputs.day, allInputs.month, allInputs.year].forEach(input => input.addEventListener('input', validateDate));
-    
-    scheduleElements.yearlyBtn.addEventListener('click', () => {
-        scheduleElements.yearlyBtn.classList.add('active');
-        scheduleElements.monthlyBtn.classList.remove('active');
-        renderAmortizationTable();
+        // Handle option selection
+        creditScoreOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const selectedValue = option.dataset.value;
+                const selectedText = option.textContent;
+
+                // Update UI
+                creditScoreValue.textContent = selectedText;
+                creditScoreValue.dataset.value = selectedValue;
+                
+                // Update hidden input
+                creditScoreHiddenInput.value = selectedValue;
+                
+                // Manually trigger the 'input' event on the hidden input
+                // so our existing logic fires
+                creditScoreHiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+                // Close dropdown
+                creditScoreWrapper.classList.remove('open');
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!creditScoreWrapper.contains(e.target)) {
+                creditScoreWrapper.classList.remove('open');
+            }
+        });
+    }
+    // --- End of Custom Select Logic ---
+
+    // --- ### NEW: Credit Score Listener ### ---
+    const rateMap = {
+        'excellent': { rate: 6.64, pmi: 0.3 },
+        'good': { rate: 7.20, pmi: 0.7 },
+        'fair': { rate: 7.90, pmi: 1.0 },
+        'poor': { rate: 8.50, pmi: 1.5 }
+    };
+
+    // This listener is on the *hidden input*
+    allInputs.creditScore.addEventListener('input', (e) => {
+        const scoreTier = e.target.value; // Reads from the hidden input
+        const rates = rateMap[scoreTier];
+        
+        if (rates) {
+            allInputs.interestRate.value = rates.rate.toFixed(2);
+            
+            // Only set PMI if down payment is less than 20%
+            const homePrice = parseFloat(allInputs.homePrice.value) || 0;
+            const downPaymentDollars = parseFloat(allInputs.downPaymentDollars.value) || 0;
+            const downPaymentPercent = (homePrice > 0) ? (downPaymentDollars / homePrice) * 100 : 0;
+            
+            if (downPaymentPercent < 20) {
+                allInputs.pmiPercent.value = rates.pmi.toFixed(2);
+            } else {
+                allInputs.pmiPercent.value = "0.00"; // Ensure it's zeroed out
+            }
+        }
+        debouncedCalculate();
     });
-    scheduleElements.monthlyBtn.addEventListener('click', () => {
-        scheduleElements.monthlyBtn.classList.add('active');
-        scheduleElements.yearlyBtn.classList.remove('active');
-        renderAmortizationTable();
+    // --- End of New Listener ---
+
+
+    // --- ### MODIFIED: Linked Down Payment Listeners ### ---
+    // ... (This section is modified to also trigger PMI check) ...
+    let isUpdatingDownPayment = false; 
+
+    allInputs.downPaymentDollars.addEventListener('input', () => {
+        if (isUpdatingDownPayment) return;
+        isUpdatingDownPayment = true;
+        const homePrice = parseFloat(allInputs.homePrice.value) || 0;
+        const dollars = parseFloat(allInputs.downPaymentDollars.value) || 0;
+        
+        if (homePrice > 0) {
+            const percent = (dollars / homePrice) * 100;
+            allInputs.downPaymentPercent.value = percent.toFixed(2);
+        } else {
+            allInputs.downPaymentPercent.value = 0;
+        }
+        // NEW: Trigger credit score check to update PMI
+        allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+        // debouncedCalculate(); // This is now called by the event above
+        isUpdatingDownPayment = false;
     });
 
-    showDetailsBtn.addEventListener('click', () => {
-        populateDetailsModal();
-        detailsModal.style.display = 'flex';
+    allInputs.downPaymentPercent.addEventListener('input', () => {
+        if (isUpdatingDownPayment) return;
+        isUpdatingDownPayment = true;
+        const homePrice = parseFloat(allInputs.homePrice.value) || 0;
+        const percent = parseFloat(allInputs.downPaymentPercent.value) || 0;
+        
+        const dollars = (percent / 100) * homePrice;
+        allInputs.downPaymentDollars.value = dollars.toFixed(0);
+        
+        // NEW: Trigger credit score check to update PMI
+        allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+        // debouncedCalculate(); // This is now called by the event above
+        isUpdatingDownPayment = false;
     });
 
-    modalCloseBtn.addEventListener('click', () => {
+    allInputs.homePrice.addEventListener('input', () => {
+        isUpdatingDownPayment = true;
+        const homePrice = parseFloat(allInputs.homePrice.value) || 0;
+        const percent = parseFloat(allInputs.downPaymentPercent.value) || 0;
+        
+        const dollars = (percent / 100) * homePrice;
+        allInputs.downPaymentDollars.value = dollars.toFixed(0);
+        
+        // NEW: Trigger credit score check to update PMI
+        allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+        // debouncedCalculate(); // This is now called by the event above
+        isUpdatingDownPayment = false;
+    });
+
+
+    // Modal Event Listeners
+    // ... (This section is unchanged) ...
+    const openModal = () => {
+        modalOverlay.style.display = 'block';
+        detailsModal.style.display = 'block';
+    };
+    const closeModal = () => {
+        modalOverlay.style.display = 'none';
         detailsModal.style.display = 'none';
+    };
+    showDetailsButton.addEventListener('click', openModal);
+    modalCloseButton.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Toggle Switch Listener (Amortization Table)
+    // ... (This section is unchanged) ...
+    scheduleToggle.addEventListener('click', (e) => {
+        const selectedOption = e.target.closest('.toggle-option');
+        if (!selectedOption || selectedOption.classList.contains('active')) {
+            return;
+        }
+        
+        currentScheduleView = selectedOption.dataset.view;
+        
+        toggleOptions.forEach(opt => opt.classList.remove('active'));
+        selectedOption.classList.add('active');
+
+        if (currentScheduleView === 'monthly') {
+            scheduleToggle.classList.add('monthly');
+        } else {
+            scheduleToggle.classList.remove('monthly');
+        }
+        
+        calculateAndDisplay(); 
     });
 
-    detailsModal.addEventListener('click', (e) => {
-        if (e.target === detailsModal) {
-            detailsModal.style.display = 'none';
+    // --- Mode Toggle Sync Logic ---
+    // ... (This function is unchanged) ...
+    const modeToggles = [document.getElementById('modeToggleDesktop'), document.getElementById('modeToggleMobile')];
+
+    const syncToggles = (newMode) => {
+        if (currentCalculatorMode === newMode) return; // No change
+        currentCalculatorMode = newMode;
+        
+        modeToggles.forEach(toggle => {
+            if (!toggle) return;
+
+            if (newMode === 'advanced') {
+                toggle.classList.add('advanced');
+            } else {
+                toggle.classList.remove('advanced');
+            }
+            if (toggle.getAttribute('role') === 'switch') {
+                toggle.setAttribute('aria-checked', newMode === 'advanced');
+            }
+            toggle.querySelectorAll('.toggle-option').forEach(opt => {
+                if (opt.dataset.mode === newMode) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+        });
+        
+        document.body.classList.toggle('is-advanced', newMode === 'advanced');
+        
+        // NEW: Trigger credit score logic when switching modes
+        allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+        // calculateAndDisplay(); // This is called by the event above
+    };
+
+    modeToggles.forEach(toggle => {
+        if (toggle) {
+            // Clicks on the desktop slider
+            if (toggle.classList.contains('mode-toggle-switch')) {
+                toggle.addEventListener('click', (e) => {
+                    const selectedOption = e.target.closest('.toggle-option');
+                    if (!selectedOption || selectedOption.classList.contains('active')) {
+                        return;
+                    }
+                    syncToggles(selectedOption.dataset.mode);
+                });
+            }
+            // Clicks on the mobile button
+            else if (toggle.classList.contains('mobile-mode-toggle')) {
+                toggle.addEventListener('click', () => {
+                    const newMode = currentCalculatorMode === 'basic' ? 'advanced' : 'basic';
+                    syncToggles(newMode);
+                });
+            }
         }
     });
+    // --- End of Mode Toggle Logic ---
 
-    window.addEventListener('resize', debounce(handleResize, 250));
+    // Resize listener
+    const handleResize = debounce(() => {
+        if (chartsInitialized) {
+            initializeCharts();
+            calculateAndDisplay();
+        }
+    }, 250);
+    window.addEventListener('resize', handleResize);
     
-    initializeCharts();
-    validateDate();
-    initializeCustomSelect(); 
-    calculateAndDisplay();
+    // Initial calculation
+    // NEW: Trigger credit score population on load
+    allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
+    // setTimeout(calculateAndDisplay, 50); // This is called by the event above
 
+    // --- Tagline Animation ---
+    // ... (This function is unchanged) ...
     const taglines = [
-        "Precision today, ownership tomorrow.",
-        "Your future, calculated with care.",
-        "Estimate with elegance, decide with confidence.",
-        "Calculations today, keys in hand tomorrow.",
-        "Scroll down to unlock your monthly payment."
+        "See your full monthly payment, not just P&I.",
+        "Understand your equity and amortization.",
+        "Clarity for your biggest financial decision.",
+        "How much home can you 'really' afford?",
+        "Plan your path to homeownership, one payment at a time."
     ];
     let taglineIndex = 0;
     const taglineElement = document.getElementById('looping-text');
 
     function cycleTaglines() {
-        if (!taglineElement) return; // Add check in case element doesn't exist
+        if (!taglineElement) return;
         taglineElement.textContent = taglines[taglineIndex];
-        taglineElement.style.opacity = '1';
-        setTimeout(() => {
-            taglineElement.style.opacity = '0';
-            setTimeout(() => {
-                taglineIndex = (taglineIndex + 1) % taglines.length;
-                cycleTaglines();
-            }, 1500);
-        }, 4000);
+        taglineElement.classList.add('fade-in-out');
+        taglineIndex = (taglineIndex + 1) % taglines.length;
     }
-    cycleTaglines();
     
-    const scrollTaglines = [
-        "The calculator is right below",
-        "Scroll down to calculate",
-        "Your answers are waiting below",
-        "Begin your journey just beneath"
-    ];
-    let scrollTaglineIndex = 0;
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const scrollTaglineElement = document.getElementById('scroll-looping-text');
-    const scrollArrow = scrollIndicator ? scrollIndicator.querySelector('img') : null;
-
-    const scrollTaglineWidths = [];
-    if (scrollTaglineElement) {
-        const tempP = document.createElement('p');
-        tempP.style.cssText = `font-size: 1rem; font-weight: 300; white-space: nowrap; position: absolute; top: -9999px; left: -9999px;`;
-        document.body.appendChild(tempP);
-        scrollTaglines.forEach(text => {
-            tempP.textContent = text;
-            scrollTaglineWidths.push(tempP.offsetWidth);
+    if (taglineElement) {
+        taglineElement.addEventListener('animationend', () => {
+            taglineElement.classList.remove('fade-in-out');
+            setTimeout(cycleTaglines, 50); 
         });
-        document.body.removeChild(tempP);
+        cycleTaglines();
     }
-
-    function runNextScrollCycle() {
-        if (!scrollTaglineElement || !scrollIndicator || !scrollArrow) return;
-        scrollTaglineIndex = (scrollTaglineIndex + 1) % scrollTaglines.length;
-        scrollTaglineElement.textContent = scrollTaglines[scrollTaglineIndex];
-
-        setTimeout(() => {
-            const arrowWidth = scrollArrow.offsetWidth;
-            const gap = 15;
-            const currentTextWidth = scrollTaglineWidths[scrollTaglineIndex];
-            const totalWidth = arrowWidth + gap + currentTextWidth;
-            const newLeft = (window.innerWidth - totalWidth) / 2;
-            scrollIndicator.style.left = newLeft + 'px';
-
-            setTimeout(() => {
-                scrollTaglineElement.style.opacity = '1';
-                setTimeout(() => {
-                    scrollTaglineElement.style.opacity = '0';
-                    setTimeout(runNextScrollCycle, 1500);
-                }, 4000);
-            }, 500);
-        }, 10);
-    }
-
-    function initialScrollAnimation() {
-        if (!scrollIndicator || !scrollTaglineElement || !scrollArrow) return;
-        scrollTaglineElement.style.opacity = '0';
-        scrollTaglineElement.textContent = scrollTaglines[0];
-        const arrowWidth = scrollArrow.offsetWidth;
-        if (arrowWidth === 0) { 
-            setTimeout(initialScrollAnimation, 50);
-            return;
-        }
-        const initialLeft = (window.innerWidth - arrowWidth) / 2;
-        scrollIndicator.style.transition = 'none';
-        scrollIndicator.style.left = initialLeft + 'px';
-
-        setTimeout(() => {
-            const gap = 15;
-            const firstTextWidth = scrollTaglineWidths[0];
-            const totalWidth = arrowWidth + gap + firstTextWidth;
-            const newLeft = (window.innerWidth - totalWidth) / 2;
-            scrollIndicator.style.transition = 'left 0.5s ease-in-out';
-            scrollIndicator.style.left = newLeft + 'px';
-
-            setTimeout(() => {
-                scrollTaglineElement.style.opacity = '1';
-                setTimeout(() => {
-                    scrollTaglineElement.style.opacity = '0';
-                    setTimeout(runNextScrollCycle, 1500);
-                }, 4000);
-            }, 500);
-        }, 100);
-    }
-    initialScrollAnimation();
-
-    const affordabilityNotes = [
-        "Find out what you can truly afford.",
-        "Calculate your realistic home budget.",
-        "The first step to your new home."
-    ];
-    const rentBuyNotes = [
-        "Is renting or buying right for you?",
-        "Compare the long-term financial impact.",
-        "Make the right choice for your future."
-    ];
-
-    const affordabilityNoteEl = document.getElementById('affordability-note');
-    const rentBuyNoteEl = document.getElementById('rent-buy-note');
-    let affordabilityIndex = 0;
-    let rentBuyIndex = 0;
-
-    function cycleNotes(element, notesArray, index) {
-        if (!element) return;
-        element.textContent = notesArray[index];
-        element.style.opacity = '1';
-        
-        setTimeout(() => {
-            element.style.opacity = '0';
-            setTimeout(() => {
-                let nextIndex = (index + 1) % notesArray.length;
-                if (element.id === 'affordability-note') {
-                    affordabilityIndex = nextIndex;
-                    cycleNotes(element, notesArray, affordabilityIndex);
-                } else {
-                    rentBuyIndex = nextIndex;
-                    cycleNotes(element, notesArray, rentBuyIndex);
-                }
-            }, 1500);
-        }, 4000);
-    }
-
-    cycleNotes(affordabilityNoteEl, affordabilityNotes, affordabilityIndex);
-    setTimeout(() => {
-        cycleNotes(rentBuyNoteEl, rentBuyNotes, rentBuyIndex);
-    }, 2000);
+    
 });
