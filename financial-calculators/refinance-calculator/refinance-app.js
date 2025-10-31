@@ -396,11 +396,56 @@ document.addEventListener('DOMContentLoaded', () => {
         if (input.type === 'checkbox') {
             input.addEventListener('input', debouncedCalculate);
         } else {
+            // --- START: Root Cause Fix ---
+            // Change type to 'text' to prevent browser's 'number' validation
+            // from interfering with our custom sanitization.
+            // .value will now report exactly what's typed (e.g., "250+").
+            input.type = 'text';
+            // Show numeric/decimal keyboard on mobile devices.
+            input.inputMode = 'decimal';
+            // --- END: Root Cause Fix ---
+            
             input.addEventListener('input', (e) => {
                 const target = e.target;
+                
+                // --- START: Input Sanitization ---
+                let originalValue = target.value;
+                let cursorPosition = target.selectionStart;
+                
+                // 1. Store the part of the string before the cursor
+                const originalBeforeCursor = originalValue.substring(0, cursorPosition);
+                
+                // 2. Remove any characters that are not digits or a decimal point
+                let sanitizedValue = originalValue.replace(/[^0-9.]/g, '');
+                
+                // 3. Ensure only one decimal point exists
+                const parts = sanitizedValue.split('.');
+                if (parts.length > 2) {
+                    sanitizedValue = parts[0] + '.' + parts.slice(1).join('');
+                }
+
+                // 4. If the value was changed, restore the cursor position
+                if (originalValue !== sanitizedValue) {
+                    // Sanitize the part of the string that was *before* the cursor
+                    let sanitizedBeforeCursor = originalBeforeCursor.replace(/[^0-9.]/g, '');
+                    const partsBefore = sanitizedBeforeCursor.split('.');
+                    if (partsBefore.length > 2) {
+                        sanitizedBeforeCursor = partsBefore[0] + '.' + partsBefore.slice(1).join('');
+                    }
+
+                    // The new cursor position is simply the length of the sanitized "before" string
+                    const newCursorPos = sanitizedBeforeCursor.length;
+
+                    target.value = sanitizedValue;
+                    target.setSelectionRange(newCursorPos, newCursorPos);
+                }
+                // --- END: Input Sanitization ---
+                
                 const max = parseFloat(target.getAttribute('max'));
                 const min = parseFloat(target.getAttribute('min'));
-                let value = parseFloat(target.value);
+                
+                // 5. Use the newly sanitized value for parsing and validation
+                let value = parseFloat(sanitizedValue); // Use sanitizedValue here
 
                 if (!isNaN(value)) {
                     if (!isNaN(max) && value > max) {
