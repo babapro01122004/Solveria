@@ -646,11 +646,61 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
+    // --- ### NEW ### ---
+    // Keydown handler to restrict input to valid numeric characters
+    const handleNumericKeyDown = (event) => {
+        const key = event.key;
+        const input = event.target;
+
+        // Allow Ctrl/Meta key combinations (copy, paste, select all, etc.)
+        if (event.metaKey || event.ctrlKey) {
+            return;
+        }
+
+        // Allow navigation and editing keys
+        const allowedKeys = [
+            'Backspace', 'Delete', 'Tab', 'Enter',
+            'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+            'Home', 'End'
+        ];
+        if (allowedKeys.includes(key)) {
+            return;
+        }
+
+        // Handle the decimal point
+        if (key === '.') {
+            // If a decimal already exists, prevent another one
+            if (input.value.includes('.')) {
+                event.preventDefault();
+            }
+            // Otherwise, allow it (do nothing)
+            return;
+        }
+
+        // Check if the key is a digit
+        const isDigit = key >= '0' && key <= '9';
+
+        // If it's not a digit (and not one of the allowed keys above), prevent it
+        // This blocks 'e', '+', '-', and other non-numeric symbols
+        if (!isDigit) {
+            event.preventDefault();
+        }
+    };
+    // --- ### END NEW ### ---
+
+
     // --- Event Listeners ---
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
     // Standard input listeners
     Object.values(allInputs).forEach(input => {
+        
+        // ### NEW: Add keydown listener to all number inputs ###
+        if (input.type === 'number') {
+            input.addEventListener('keydown', handleNumericKeyDown);
+        }
+        // ### END NEW ###
+
         // MODIFIED: Exclude creditScore (now a hidden input)
         if (input.id !== 'downPaymentDollars' && input.id !== 'downPaymentPercent' && input.id !== 'creditScore') {
             input.addEventListener('input', (e) => {
@@ -901,7 +951,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial calculation
     // NEW: Trigger credit score population on load
     allInputs.creditScore.dispatchEvent(new Event('input', { bubbles: true }));
-    // setTimeout(calculateAndDisplay, 50); // This is called by the event above
+    // setTimeout(calculateAndVDisplay, 50); // This is called by the event above
 
     // --- Tagline Animation ---
     // ... (This function is unchanged) ...
