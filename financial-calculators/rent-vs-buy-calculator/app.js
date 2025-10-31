@@ -408,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.netAdvantage.textContent = formatCurrency(advantage);
         resultElements.netAdvantage.style.color = advantage >= 0 ? '#2e7d32' : '#c62828';
 
+
         resultElements.buyNetWorth.textContent = formatCurrency(buyNetWorthAtYear);
         resultElements.rentNetWorth.textContent = formatCurrency(rentNetWorthAtYear);
         const netDiff = buyNetWorthAtYear - rentNetWorthAtYear;
@@ -439,6 +440,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
+    // --- NEW FUNCTION TO RESTRICT INPUTS ---
+    const handleNumberInput = (event) => {
+        // Allow: Backspace, Delete, Tab, Enter, Arrows, Home, End
+        if ([
+            'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter',
+            'Home', 'End'
+        ].includes(event.key)) {
+            return; // Allow navigation
+        }
+
+        // Allow: Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+V (and Cmd+ for Mac)
+        if ((event.ctrlKey || event.metaKey) && ['a', 'c', 'x', 'v'].includes(event.key.toLowerCase())) {
+            return; // Allow clipboard shortcuts
+        }
+        
+        // Handle decimal point
+        if (event.key === '.') {
+            // Prevent multiple decimal points
+            if (event.target.value.includes('.')) {
+                event.preventDefault();
+            }
+            return; // Allow the first decimal point (or block the second)
+        }
+
+        // Allow digits
+        if (event.key.length === 1 && (event.key >= '0' && event.key <= '9')) {
+            return; // Allow digit
+        }
+
+        // Block all other keys (e.g., 'e', '+', '-', letters, symbols)
+        event.preventDefault();
+    };
+
     // --- 7. ATTACH EVENT LISTENERS ---
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
@@ -446,6 +480,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (input.type === 'checkbox') {
             input.addEventListener('input', debouncedCalculate);
         } else {
+            // --- ADDED THIS LISTENER ---
+            input.addEventListener('keydown', handleNumberInput);
+            // --- END OF ADDITION ---
+
             input.addEventListener('input', (e) => {
                 const target = e.target;
                 const max = parseFloat(target.getAttribute('max'));
