@@ -1,425 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../site.webmanifest">
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent vs. Buy Calculator | Solveria</title>
 
-    <meta name="description" content="Deciding between renting and buying? Our comprehensive calculator analyzes all costs—mortgage, taxes, rent increases, and investment returns—to show you the financial breakeven point.">
+    <title>Rent vs. Buy Calculator | Solveria</title>
+    <meta name="description" content="Decide if renting or buying is right for you. Calculate your break-even point and compare the long-term costs of buying a home versus renting.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap">
-    </noscript>
-
-    <style>
-        *, *::before, *::after { box-sizing: border-box; }
-        html { font-size: 17px; }
-        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-weight: 300; overflow-x: hidden; background-color: #f4f4f4; }
-        body { display: flex; flex-direction: column; min-height: 100vh; }
-        .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding-bottom: 10vh; overflow: hidden; }
-        .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .hero-background img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; color: white; margin-bottom: 0; position: relative; z-index: 1; }
-        .hero-content-wrapper img { width: 200px; height: 200px; margin-bottom: 25px; }
-        .hero-section h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 100; color: white; margin: 0; padding: 0 20px; text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7); z-index: 1; }
-        .hero-subtitle { font-size: 1.1rem; font-weight: 100; color: white; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); margin-top: 25px; z-index: 1; position: relative; height: 1.5em; width: 100%; }
-        .hero-subtitle span { position: absolute; width: 100%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 1s ease-in-out; will-change: opacity; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        .hero-subtitle span.visible { opacity: 1; }
-        .top-nav { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); z-index: 10; }
-        .top-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 50px; }
-        .top-nav a { color: #cbcbca; text-decoration: none; font-size: 0.9rem; font-weight: 300; transition: color 0.3s ease; }
-        .top-nav a:hover { color: #ffffff; }
-        .mobile-nav-container { display: none; position: absolute; top: 40px; left: 50%; transform: translateX(-50%); z-index: 10; gap: 50px; }
-        .mobile-nav-container a { color: #cbcbca; text-decoration: none; font-size: 1rem; font-weight: 300; transition: color 0.3s ease; }
-        .mobile-nav-container a:hover { color: #ffffff; }
-        #scroll-prompt { position: absolute; bottom: 50px; left: 50%; display: flex; align-items: center; cursor: pointer; opacity: 1; transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; z-index: 1; }
-        #scroll-prompt.hidden { opacity: 0; pointer-events: none; }
-        #scroll-prompt-arrow { width: 24px; height: 24px; margin-right: 10px; }
-        #scroll-prompt-text { color: #fff; font-size: 1em; font-weight: 300; white-space: nowrap; opacity: 0; transition: opacity 1s ease-in-out; transform: translateZ(0); backface-visibility: hidden; }
-        #scroll-prompt-text.visible { opacity: 1; }
-        .page-wrapper { background-color: #f4f4f4; flex: 1 0 auto; }
-        @media (max-width: 800px) {
-            .top-nav { display: none; }
-            .mobile-nav-container { display: flex; }
-            .hero-content-wrapper img { width: 160px; height: 160px; margin-bottom: 15px; }
-            .hero-section h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
-            .hero-subtitle { margin-top: 20px; }
-            #scroll-prompt-text { display: none; }
-            #scroll-prompt-arrow { margin-right: 0; }
-            #scroll-prompt { transform: translateX(-50%) !important; }
-        }
-        @media (min-width: 801px) { .mobile-nav-container { display: none; } }
-    </style>
-
-    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="style.css">
-    </noscript>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
+    
+    <link rel="stylesheet" href="style.css">
 
     <script type="application/ld+json">
     {
-    "@context": "https://schema.org",
-    "@graph": [
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
         {
-        "@type": "WebPage",
-        "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/",
-        "url": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/",
-        "name": "Rent vs Buy Calculator",
-        "description": "Use our comprehensive Rent vs. Buy Calculator to analyze the long-term financial implications of buying a home versus renting. Make an informed decision based on your personal financial situation.",
-        "publisher": { "@id": "https://solveria.org/#organization" },
-        "breadcrumb": { "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#breadcrumb" },
-        "mainEntity": { "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#howto" }
+          "@type": "Question",
+          "name": "What is the \"break-even point\" in the rent vs. buy decision?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The break-even point is the number of years it takes for the total costs of buying a home (including down payment, mortgage payments, closing costs, property taxes, insurance, and maintenance) to become less than the total costs of renting (including rent payments and renter's insurance) over the same period. Before the break-even point, renting is financially cheaper; after it, buying becomes more advantageous."
+          }
         },
         {
-        "@type": "Organization",
-        "@id": "https://solveria.org/#organization",
-        "name": "Solveria",
-        "url": "https://solveria.org/",
-        "logo": "https://solveria.org/img/Logo_Golden.png"
+          "@type": "Question",
+          "name": "Is renting just \"throwing money away\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. While renters don't build equity like homeowners, the money saved on down payments, closing costs, property taxes, maintenance, and insurance can be invested. If invested wisely, these savings can grow significantly. Additionally, renting offers flexibility and fewer responsibilities for repairs, which has its own value."
+          }
         },
         {
-        "@type": "BreadcrumbList",
-        "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#breadcrumb",
-        "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-            { "@type": "ListItem", "position": 2, "name": "Financial Calculators", "item": "https://solveria.org/calculators/" },
-            { "@type": "ListItem", "position": 3, "name": "Rent vs Buy a Home" }
-        ]
+          "@type": "Question",
+          "name": "What are the most important hidden costs of buying a home?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beyond the mortgage payment, common hidden costs of homeownership include:\n<ul>\n<li><strong>Closing Costs:</strong> Fees paid at the close of a real estate transaction (2-5% of the loan amount).</li>\n<li><strong>Property Taxes:</strong> Annual taxes based on your home's assessed value.</li>\n<li><strong>Homeowner's Insurance:</strong> Required to protect against damage and liability.</li>\n<li><strong>Maintenance and Repairs:</strong> Unexpected expenses for upkeep (e.g., roof repair, appliance replacement).</li>\n<li><strong>HOA Fees:</strong> Monthly fees in certain communities for shared amenities.</li>\n</ul>\nThese can significantly add to the overall cost of buying."
+          }
         },
         {
-        "@type": "HowTo",
-        "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#howto",
-        "name": "How to Use the Rent vs. Buy Calculator",
-        "description": "A step-by-step guide to effectively compare the financial outcomes of renting versus buying a home using our calculator.",
-        "step": [
-            { "@type": "HowToStep", "name": "Enter Home Purchase Details", "text": "Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance." },
-            { "@type": "HowToStep", "name": "Provide Home Rent Details", "text": "Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit." },
-            { "@type": "HowToStep", "name": "Fill in Your Financial Information", "text": "This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the 'opportunity cost' of the money you'd spend on a down payment versus investing it." },
-            { "@type": "HowToStep", "name": "Analyze Your Results", "text": "The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time." }
-        ]
+          "@type": "Question",
+          "name": "How does inflation affect the rent vs. buy decision?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inflation can impact both renting and buying. For renters, inflation often leads to annual rent increases. For homeowners, inflation can increase property values (appreciation) and potentially property taxes and insurance costs. However, a fixed-rate mortgage payment remains constant, making it more affordable over time in an inflationary environment. Our calculator allows you to input anticipated home appreciation and rent increase rates to model these effects."
+          }
         },
         {
-        "@type": "FAQPage",
-        "@id": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/#faq",
-        "mainEntity": [
-            { "@type": "Question", "name": "What is the \"break-even point\" in the rent vs. buy decision?", "acceptedAnswer": { "@type": "Answer", "text": "The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this. renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option." }},
-            { "@type": "Question", "name": "Is renting just \"throwing money away\"?", "acceptedAnswer": { "@type": "Answer", "text": "This is a common myth. You are not \"throwing money away\" any more than you are when paying for groceries or electricity; you are paying for a necessary service—in this case, shelter. Furthermore, renting frees up the large sum of capital that would have been used for a down payment and closing costs, allowing you to invest it elsewhere. If those investments perform well, renting can sometimes be the smarter financial move." }},
-            { "@type": "Question", "name": "What are the most important hidden costs of buying a home?", "acceptedAnswer": { "@type": "Answer", "text": "Beyond the mortgage payment (P&I), new homeowners are often surprised by several costs: 1) Property Taxes, which can be thousands of dollars a year. 2) Homeowner's Insurance. 3) Maintenance and Repairs, for which a common rule of thumb is to budget 1% of the home's value annually. 4) Closing Costs, which can be 2-5% of the home's purchase price. 5) Potential HOA (Homeowner Association) fees." }},
-            { "@type": "Question", "name": "How does inflation affect the rent vs. buy decision?", "acceptedAnswer": { "@type": "Answer", "text": "Inflation can significantly favor homeowners. With a fixed-rate mortgage, your principal and interest payment remains the same for the life of the loan, while your wages and other prices rise with inflation. This makes your housing payment effectively cheaper over time. In contrast, rent prices typically rise with or even exceed the rate of inflation, increasing your housing costs year after year." }},
-            { "@type": "Question", "name": "Can this calculator guarantee my financial outcome?", "acceptedAnswer": { "@type": "Answer", "text": "No. This calculator is a powerful financial modeling tool that provides a projection based on the numbers and assumptions you provide. It cannot predict future real estate market fluctuations, changes in interest rates, or unexpected personal events. It should be used as a guide to inform your decision, not as a guarantee of a specific outcome." }}
-        ]
+          "@type": "Question",
+          "name": "Can this calculator guarantee my financial outcome?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, this calculator provides an estimate based on the data you provide and general market assumptions. Actual financial outcomes can vary due to unforeseen market changes, personal financial decisions, interest rate fluctuations, and property-specific events. It's a powerful tool for informed decision-making but should be used as a guide, not a guarantee."
+          }
         }
-    ]
+      ]
     }
     </script>
-</head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Calculator: A Step-by-Step Guide",
+      "description": "Our calculator is designed to give you a clear, numerical comparison based on a wide range of financial variables. Here's how to use it effectively:",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Home Purchase Details",
+          "text": "Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Provide Home Rent Details",
+          "text": "Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Fill in Your Financial Information",
+          "text": "This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the 'opportunity cost' of the money you'd spend on a down payment versus investing it."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Analyze Your Results",
+          "text": "The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time."
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://solveria.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Financial Calculators",
+          "item": "https://solveria.org/calculators/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Rent vs. Buy Calculator",
+          "item": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/"
+        }
+      ]
+    }
+    </script>
+    </head>
 <body>
 
-<div class="page-wrapper">
+    <header class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../">Home</a>
+            <a href="../../support/">Support</a>
+            <a href="../../calculators/">Other Finance Calculators</a>
+        </nav>
+        <div class="hero-content-wrapper">
+             <picture>
+                <source srcset="../../img/Logo_Golden.webp" type="image/webp">
+                <source srcset="../../img/Logo_Golden.png" type="image/png">
+                <img src="../../img/Logo_Golden.png" alt="Solveria Logo" width="130" height="130" loading="lazy">
+            </picture>
+            <h1>Rent vs. Buy Calculator</h1>
+            <div class="mobile-header-placeholder"></div>
+        </div>
+        <div class="hero-tagline">
+            <p id="looping-text">Find your financial turning point.</p>
+        </div>
+    </header>
 
-<div class="hero-section">
-    <picture class="hero-background">
-        <source srcset="../../img/Home_RBC.webp" type="image/webp">
-        <source srcset="../../img/Home_RBC.jpg" type="image/jpeg">
-        <img src="../../img/Home_RBC.jpg" alt="" fetchpriority="high" aria-hidden="true">
-    </picture>
+    <main class="content-section" id="calculator-section">
+        <div class="calculator-wrapper">
 
-    <div class="mobile-nav-container">
-        <a href="../../">Home</a>
-        <a href="../../support/">Support</a>
-    </div>
-    <nav class="top-nav">
-        <ul>
-            <li><a href="../../">Home</a></li>
-            <li><a href="../../support/">Support</a></li>
-            <li><a href="../../calculators/">Other Finance Calculators</a></li>
-        </ul>
-    </nav>
-    <div class="hero-content-wrapper">
-        <picture>
-            <source srcset="../../img/Logo_Golden.webp" type="image/webp">
-            <source srcset="../../img/Logo_Golden.png" type="image/png">
-            <img src="../../img/Logo_Golden.png" alt="Solveria Logo" fetchpriority="high">
-        </picture>
-        <h1>Rent vs Buy a Home</h1>
-    </div>
-    <div class="hero-subtitle">
-        <span class="visible">See beyond the lease.</span>
-        <span>Every number tells a story.</span>
-        <span>Calculate the cost of staying vs moving.</span>
-        <span>Compare lifestyles, not just price tags.</span>
-    </div>
-    <div id="scroll-prompt">
-        <img src="../../img/Arrow.png" alt="Arrow icon prompting user to scroll down" id="scroll-prompt-arrow">
-        <span id="scroll-prompt-text"></span>
-    </div>
-</div>
+            <div class="breadcrumb">
+                <a href="../../">Home</a> / <a href="../../calculators/">Financial Calculators</a> / <span>Rent vs. Buy Calculator</span>
+            </div>
 
-<div class="calculator-section" id="main-content">
-    <nav class="breadcrumb">
-        <a href="../../">Home</a>
-        <span>/</span>
-        <a href="../../calculators/">Financial Calculators</a>
-        <span>/</span>
-        <span class="current-page">Rent vs Buy a Home</span>
-    </nav>
-    <div class="intro-snippet-wrapper">
-        <h2 class="main-title">What is a Rent vs. Buy Calculator?</h2>
-        <p class="intro-snippet-text">A Rent vs. Buy Calculator is a financial tool designed to help you compare the long-term costs and benefits of purchasing a home versus renting one. It analyzes dozens of factors—like your down payment, interest rates, property taxes, rent increases, and potential investment returns—to determine the "break-even point" where buying becomes more financially advantageous than renting.</p>
-    </div>
-    <div class="calculator-content-wrapper">
-        <div class="form-part">
-            <h2 class="main-title">Enter Your Details</h2>
-            <div class="form-container">
-                <div class="form-column">
-                    <h3>Home Purchase</h3>
-                    <div class="input-group"><label for="home-price">Home price ($)</label><input type="number" id="home-price" value="400000" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="down-payment">Down payment ($)</label><input type="number" id="down-payment" value="80000" min="0" max="99999TERMS_OF_USE_RESTRICTION"></div>
-                    <div class="input-group"><label for="interest-rate">Interest rate (%)</label><input type="number" id="interest-rate" class="percentage" step="any" value="6.5" min="0" max="100"></div>
-                    <div class="input-group"><label for="loan-term">Loan term (Years)</label><input type="number" id="loan-term" value="30" min="0" max="50"></div>
-                    <div class="input-group"><label for="pmi-rate">Annual PMI rate (%)</label><input type="number" id="pmi-rate" class="percentage" step="any" value="0.5" min="0" max="100"></div>
-                    <div class="input-group"><label for="buying-costs">Buying closing costs ($)</label><input type="number" id="buying-costs" value="12000" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="property-tax">Property tax (Annual, $)</label><input type="number" id="property-tax" value="4500" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="tax-increase">Property tax increase (%)</label><input type="number" id="tax-increase" class="percentage" step="any" value="2" min="0" max="100"></div>
-                    <div class="input-group"><label for="home-insurance">Home insurance (Annual, $)</label><input type="number" id="home-insurance" value="1500" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="hoa-fee">HOA fee (Annual, $)</label><input type="number" id="hoa-fee" value="0" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="maintenance">Maintenance cost (Annual, $)</label><input type="number" id="maintenance" value="4000" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="appreciation">Home value appreciation (%)</label><input type="number" id="appreciation" class="percentage" step="any" value="3.5" min="0" max="100"></div>
-                    <div class="input-group"><label for="cost-increase">Cost/insurance increase (%)</label><input type="number" id="cost-increase" class="percentage" step="any" value="2.5" min="0" max="100"></div>
-                    <div class="input-group"><label for="selling-costs">Selling closing costs (%)</label><input type="number" id="selling-costs" class="percentage" value="8" min="0" max="100"></div>
+            <div class="intro-section">
+                <h2>Is it Better to Rent or Buy?</h2>
+                <p class="desktop-intro">This calculator helps you answer one of the biggest financial questions. By comparing the total costs of buying a home against the costs of renting over time, it pinpoints your <strong>break-even point</strong>—the number of years it takes for buying to become the cheaper option. See how factors like appreciation, rent increases, and how long you plan to stay will impact your decision.</p>
+                <p class="mobile-intro">This tool helps you find your "break-even point"—the time it takes for buying to become cheaper than renting. Compare costs and see how long you need to stay in a home to make it a worthwhile investment.</p>
+            </div>
+
+            <div class="calculator-container">
+                <h2>Enter Your Details</h2>
+                
+                <div class="input-section-header">
+                    <h3>Home Purchase Details</h3>
                 </div>
-                <div class="form-column">
-                    <h3>Home Rent</h3>
-                    <div class="input-group"><label for="rental-fee">Monthly rental fee ($)</label><input type="number" id="rental-fee" value="2000" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="rental-increase">Rental fee increase (%)</label><input type="number" id="rental-increase" class="percentage" step="any" value="3" min="0" max="100"></div>
-                    <div class="input-group"><label for="renter-insurance">Renter's insurance (Annual, $)</label><input type="number" id="renter-insurance" value="180" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="security-deposit">Security deposit ($)</label><input type="number" id="security-deposit" value="2000" min="0" max="9999999999"></div>
-                    <div class="input-group"><label for="upfront-cost">Upfront cost ($)</label><input type="number" id="upfront-cost" value="0" min="0" max="9999999999"></div>
-
-                    <h3>Your Information</h3>
-                    <div class="input-group"><label for="investment-return">Average investment return (%)</label><input type="number" id="investment-return" class="percentage" step="any" value="8" min="0" max="100"></div>
-                    <div class="input-group"><label for="fed-tax">Marginal federal tax rate (%)</label><input type="number" id="fed-tax" class="percentage" step="any" value="24" min="0" max="100"></div>
-                    <div class="input-group"><label for="state-tax">Marginal state tax rate (%)</label><input type="number" id="state-tax" class="percentage" step="any" value="5" min="0" max="100"></div>
-
+                <div class="input-grid">
                     <div class="input-group">
-                        <label for="filing-status">Tax filing status</label>
-                        <div class="custom-select-container">
-                            <select id="filing-status" class="visually-hidden">
-                                <option value="single">Single</option>
-                                <option value="married">Married Filing Jointly</option>
-                                <option value="married_separately">Married filing separately</option>
-                                <option value="hoh">Head of household</option>
-                                <option value="widow">Qualified widow</option>
-                            </select>
-                            <div class="select-trigger" tabindex="0">
-                                <span>Single</span>
-                                <div class="arrow"></div>
-                            </div>
-                            <div class="custom-options">
-                                <div class="custom-option" data-value="single">Single</div>
-                                <div class="custom-option" data-value="married">Married Filing Jointly</div>
-                                <div class="custom-option" data-value="married_separately">Married filing separately</div>
-                                <div class="custom-option" data-value="hoh">Head of household</div>
-                                <div class="custom-option" data-value="widow">Qualified widow</div>
-                            </div>
+                        <label for="homePrice">Home Price ($)</label>
+                        <input type="number" id="homePrice" value="350000" min="0" max="100000000000" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="downPayment">Down Payment ($)</label>
+                        <input type="number" id="downPayment" value="70000" min="0" max="100000000000" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="interestRate">Interest Rate (%)</label>
+                        <input type="number" id="interestRate" value="6.0" min="0" max="100" step="0.01" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="loanTerm">Loan Term (Years)</label>
+                        <input type="number" id="loanTerm" value="30" min="0" max="100" inputmode="decimal">
+                    </div>
+                </div>
+
+                <div class="input-section-header">
+                    <h3>Renting Details</h3>
+                </div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="monthlyRent">Monthly Rent ($)</label>
+                        <input type="number" id="monthlyRent" value="1800" min="0" max="1000000" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="rentersInsurance">Annual Renter's Insurance ($)</label>
+                        <input type="number" id="rentersInsurance" value="150" min="0" max="100000" inputmode="decimal">
+                    </div>
+                </div>
+
+                <div class="input-section-header">
+                    <h3>Long-Term Assumptions</h3>
+                </div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="yearsToStay">How many years to compare?</label>
+                        <input type="number" id="yearsToStay" value="7" min="1" max="100" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="homeAppreciation">Home Appreciation (Avg. %/yr)</label>
+                        <input type="number" id="homeAppreciation" value="3.0" min="0" max="100" step="0.1" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="rentIncrease">Rent Increase (Avg. %/yr)</label>
+                        <input type="number" id="rentIncrease" value="2.0" min="0" max="100" step="0.1" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="closingCosts">Closing Costs (% of Home Price)</label>
+                        <input type="number" id="closingCosts" value="3.0" min="0" max="100" step="0.1" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="propertyTax">Property Tax (Avg. %/yr)</label>
+                        <input type="number" id="propertyTax" value="1.2" min="0" max="100" step="0.01" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="homeInsurance">Home Insurance (Avg. %/yr)</label>
+                        <input type="number" id="homeInsurance" value="0.5" min="0" max="100" step="0.01" inputmode="decimal">
+                    </div>
+                     <div class="input-group">
+                        <label for="maintenance">Maintenance (Avg. %/yr)</label>
+                        <input type="number" id="maintenance" value="1.0" min="0" max="100" step="0.1" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="hoa">Monthly HOA ($)</label>
+                        <input type="number" id="hoa" value="0" min="0" max="10000" inputmode="decimal">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-container">
+                <h2>Your Rent vs. Buy Summary</h2>
+                <div class="results-summary-grid" aria-live="polite">
+                    <div class="summary-item">
+                        <span class="label">Break-Even Point</span>
+                        <span class="value" id="resultBreakeven">--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Monthly Cost (Buy)</span>
+                        <span class="value" id="resultBuyMonthly">$0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Monthly Cost (Rent)</span>
+                        <span class="value" id="resultRentMonthly">$0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">After <span id="summaryYears">7</span> Years</span>
+                        <span class="value" id="resultVerdict">--</span>
+                    </div>
+                </div>
+
+                <div class="summary-text" id="main-summary" aria-live="polite">
+                    <div class="summary-header-flex">
+                        <h3>Summary</h3>
+                        <a href="../../support/" class="mobile-support-button">Support</a>
+                    </div>
+                    <p id="resultSummaryText">Enter your details to see a summary of your rent vs. buy comparison and identify your break-even point.</p>
+                </div>
+
+                <div class="breakdown-container">
+                    <div class="breakdown-section" id="cost-breakdown">
+                        <h3>Total Cost After <span id="breakdownYears">7</span> Years</h3>
+                        <div class="result-item">
+                            <span class="label">Total Cost of Renting</span>
+                            <span class="value" id="rentTotalCost">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Total Cost of Buying</span>
+                            <span class="value" id="buyTotalCost">$0.00</span>
+                        </div>
+                         <div class="result-item savings-item">
+                            <span class="label">Net Advantage (Buy)</span>
+                            <span class="value" id="netAdvantage">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="breakdown-section" id="net-worth-breakdown">
+                        <h3>Net Worth After <span id="netWorthYears">7</span> Years</h3>
+                        <div class="result-item">
+                            <span class="label">Net Worth (Buying)</span>
+                            <span class="value" id="buyNetWorth">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Net Worth (Renting)</span>
+                            <span class="value" id="rentNetWorth">$0.00</span>
+                        </div>
+                        <div class="result-item savings-item">
+                            <span class="label">Net Worth Difference</span>
+                            <span class="value" id="netWorthDifference">$0.00</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="results-container" id="results-container">
-            <h2 class="main-title">Your Results</h2>
-            <div class="result-statement">
-                <div class="result-bar" id="result-bar"></div>
-                <div class="result-verdict" id="result-verdict"></div>
-            </div>
-            <h3 class="result-summary-title">Summary</h3>
-            <p class="result-summary-text" id="result-summary-text"></p>
 
-            <div class="related-tools">
-                <h3 class="related-tools-title">Related Tools</h3>
-                <div class="related-tools-grid">
-                    <div class="tool-link-block">
-                        <a href="../../financial-calculators/home-affordability-calculator/">Home Affordability Calculator</a>
-                        <div class="tool-subtitle">
-                            <span class="visible">Find out what you can truly afford.</span>
-                            <span>Plan your budget with confidence.</span>
-                        </div>
+        <div class="charts-container" id="charts-container">
+            <div class="chart-wrapper">
+                <h2>Cumulative Cost Over Time</h2>
+                <canvas id="costOverTimeChart">
+                    <p>A line chart showing the cumulative cost of buying versus renting over time.</p>
+                </canvas>
+                <div id="costLegend" class="custom-legend"></div>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Net Worth Comparison</h2>
+                <canvas id="netWorthChart">
+                    <p>A bar chart comparing the estimated net worth from buying versus renting after the specified number of years.</p>
+                </canvas>
+            </div>
+        </div>
+
+        <section class="more-tools-section">
+            <h2>More Tools</h2>
+            <div class="tools-grid">
+                <div class="tools-column">
+                    <h3>Financial Calculators</h3>
+                    <div class="links-container">
+                        <a href="../mortgage-calculator/">Mortgage Calculator</a>
+                        <a href="../home-affordability-calculator/">Home Affordability Calculators</a>
+                        <a href="../refinance-calculator/">Refinance Calculator</a>
+                        <span class="disabled-tool-link">Loan Calculator</span>
                     </div>
-                    <div class="tool-link-block">
-                        <a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a>
-                        <div class="tool-subtitle">
-                            <span>Estimate your monthly payments.</span>
-                            <span class="visible">See how interest rates affect your loan.</span>
-                        </div>
+                </div>
+                <div class="tools-column">
+                    <h3>Life Insurance</h3>
+                    <div class="links-container">
+                        <span class="disabled-tool-link">Life Insurance Calculator</span>
+                        <span class="disabled-tool-link">Term v/s Whole Life Insurance Calculator</span>
+                    </div>
+                </div>
+                <div class="tools-column">
+                    <h3>Finance and Taxes</h3>
+                    <div class="links-container">
+                        <span class="disabled-tool-link">Credit Card Payoff Calculators</span>
+                        <span class="disabled-tool-link">Debt Snowball Calculator</span>
+                        <span class="disabled-tool-link">APR v/s Interest Rate Calculator</span>
+                        <span class="disabled-tool-link">Credit Card Utilization Calculator</span>
+                    </div>
+                </div>
+                <div class="tools-column">
+                    <h3>Real Estate Investment</h3>
+                    <div class="links-container">
+                        <span class="disabled-tool-link">Cap Rate Calculator</span>
+                        <span class="disabled-tool-link">ROI Calculator for Rental Property</span>
+                        <span class="disabled-tool-link">Cash-on-Cash Return Calculator</span>
+                        <span class="disabled-tool-link">Property Tax Calculator</span>
+                        <span class="disabled-tool-link">Closing Costs Calculator</span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div id="breakdown-tables">
-                <div class="scenario-breakdown">
-                    <h3>Buying Scenario</h3>
-                    <div class="breakdown-row"><span>Total Property Value</span><span id="buy-total-value"></span></div>
-                    <div class="breakdown-row"><span>Total Property Cost</span><span id="buy-total-cost"></span></div>
-                    <div class="breakdown-row total-benefit-row"><span>Total Property Benefit</span><span id="buy-total-benefit"></span></div>
-                    <h4 class="components-title">Components of Property Cost</h4>
-                    <div class="breakdown-row component-row"><span>Down Payment</span><span id="buy-down-payment"></span></div>
-                    <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="buy-initial-expenses"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Principal Paid</span><span id="buy-principal-paid"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Interest Paid</span><span id="buy-interest-paid"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Maintenance</span><span id="buy-maintenance-paid"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Property Tax</span><span id="buy-tax-paid"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Tax Savings</span><span id="buy-tax-savings"></span></div>
-                </div>
+        <div class="seo-content-section">
+            <h2>The Definitive Guide to Renting vs. Buying</h2>
+            <p>The decision to rent or buy a home is one of the most significant financial choices you'll make. It's more than just a comparison of a monthly rent check versus a mortgage payment; it's a lifestyle decision that impacts your flexibility, long-term wealth, and responsibilities. This guide explores the core factors to help you make an informed choice.</p>
+            <p><strong>The Case for Renting:</strong> Renting offers unparalleled flexibility. If your career requires you to move, or you're exploring a new city, renting keeps you untethered. Upfront costs are significantly lower—typically a security deposit and the first month's rent. Furthermore, renters are not responsible for maintenance, repairs, or property taxes, providing predictable monthly expenses and freedom from unexpected costs.</p>
+            <p><strong>The Case for Buying:</strong> Homeownership is a cornerstone of long-term wealth building. Each mortgage payment builds equity—ownership in your asset. You have the stability of a fixed monthly payment (with a fixed-rate mortgage) and the freedom to customize your living space. Homeowners can also benefit from property value appreciation and significant tax deductions on mortgage interest and property taxes.</p>
 
-                <div class="scenario-breakdown">
-                    <h3>Renting Scenario</h3>
-                    <div class="breakdown-row"><span>Total Investment Value</span><span id="rent-total-value"></span></div>
-                    <div class="breakdown-row"><span>Total Rental Cost</span><span id="rent-total-cost"></span></div>
-                    <div class="breakdown-row total-benefit-row"><span>Total Rental Benefit</span><span id="rent-total-benefit"></span></div>
-                    <h4 class="components-title">Components of Rental Cost</h4>
-                    <div class="breakdown-row component-row"><span>Security Deposit</span><span id="rent-security-deposit"></span></div>
-                    <div class="breakdown-row component-row"><span>Initial Expenses</span><span id="rent-initial-expenses"></span></div>
-                    <div class="breakdown-row component-row"><span>Total Rent Paid</span><span id="rent-paid"></span></div>
-                    <div class="breakdown-row component-row"><span>Amount Invested</span><span id="rent-amount-invested"></span></div>
-                    <div class="breakdown-row component-row"><span>Investment Growth</span><span id="rent-investment-growth"></span></div>
-                </div>
-            </div>
+            <h2>How to Use the Calculator: A Step-by-Step Guide</h2>
+            <p>Our calculator is designed to give you a clear, numerical comparison based on a wide range of financial variables. Here's how to use it effectively:</p>
+            <ol>
+                <li><strong>Enter Home Purchase Details:</strong> Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance.</li>
+                <li><strong>Provide Home Rent Details:</strong> Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit.</li>
+                <li><strong>Fill in Your Financial Information:</strong> This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the 'opportunity cost' of the money you'd spend on a down payment versus investing it.</li>
+                <li><strong>Analyze Your Results:</strong> The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time.</li>
+            </ol>
+            
+            <section class="faq-section">
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                <details>
+                    <summary>What is the "break-even point" in the rent vs. buy decision?</summary>
+                    <div class="faq-answer">
+                        <p>The break-even point is the number of years it takes for the total costs of buying a home (including down payment, mortgage payments, closing costs, property taxes, insurance, and maintenance) to become less than the total costs of renting (including rent payments and renter's insurance) over the same period. Before the break-even point, renting is financially cheaper; after it, buying becomes more advantageous.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Is renting just "throwing money away"?</summary>
+                    <div class="faq-answer">
+                        <p>Not necessarily. While renters don't build equity like homeowners, the money saved on down payments, closing costs, property taxes, maintenance, and insurance can be invested. If invested wisely, these savings can grow significantly. Additionally, renting offers flexibility and fewer responsibilities for repairs, which has its own value.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>What are the most important hidden costs of buying a home?</summary>
+                    <div class="faq-answer">
+                        <p>Beyond the mortgage payment, common hidden costs of homeownership include:
+                            <ul>
+                                <li><strong>Closing Costs:</strong> Fees paid at the close of a real estate transaction (2-5% of the loan amount).</li>
+                                <li><strong>Property Taxes:</strong> Annual taxes based on your home's assessed value.</li>
+                                <li><strong>Homeowner's Insurance:</strong> Required to protect against damage and liability.</li>
+                                <li><strong>Maintenance and Repairs:</strong> Unexpected expenses for upkeep (e.g., roof repair, appliance replacement).</li>
+                                <li><strong>HOA Fees:</strong> Monthly fees in certain communities for shared amenities.</li>
+                            </ul>
+                            These can significantly add to the overall cost of buying.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>How does inflation affect the rent vs. buy decision?</summary>
+                    <div class="faq-answer">
+                        <p>Inflation can impact both renting and buying. For renters, inflation often leads to annual rent increases. For homeowners, inflation can increase property values (appreciation) and potentially property taxes and insurance costs. However, a fixed-rate mortgage payment remains constant, making it more affordable over time in an inflationary environment. Our calculator allows you to input anticipated home appreciation and rent increase rates to model these effects.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Can this calculator guarantee my financial outcome?</summary>
+                    <div class="faq-answer">
+                        <p>No, this calculator provides an estimate based on the data you provide and general market assumptions. Actual financial outcomes can vary due to unforeseen market changes, personal financial decisions, interest rate fluctuations, and property-specific events. It's a powerful tool for informed decision-making but should be used as a guide, not a guarantee.</p>
+                    </div>
+                </details>
+            </section>
 
-            <section class="scenario-breakdown"> <h3>Monthly Payment Comparison</h3>
-                <div class="chart-container">
-                    <canvas id="paymentsChart"></canvas>
-                </div>
+            <section class="seo-content-section key-takeaway-section">
+                <h2>Key Takeaway</h2>
+                <p>The decision to rent or buy is deeply personal and extends beyond a simple financial calculation. While this tool provides a robust quantitative analysis of the costs and benefits, the right choice must also align with your career flexibility, lifestyle preferences, and long-term personal goals. Use these results as a critical piece of the puzzle, not the entire picture.</p>
             </section>
         </div>
-    </div>
+        </main>
 
-    <div class="more-tools-section">
-        <h2 class="main-title">More Tools</h2>
-        <div class="tools-grid">
-            <div class="tools-column">
-                <h4>Financial Calculators</h4>
-                <ul>
-                    <li><a href="../../financial-calculators/mortgage-calculator/">Mortgage Calculator</a></li>
-                    <li><a href="../../financial-calculators/home-affordability-calculator/">Home Affordability Calculators</a></li>
-                    <li><a href="../../financial-calculators/refinance-calculator/">Refinance Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Loan Calculator</a></li>
-                </ul>
-            </div>
-            <div class="tools-column">
-                <h4>Life Insurance</h4>
-                <ul>
-                    <li><a class="disabled-link" title="Coming Soon">Life Insurance Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Term v/s Whole Life Insurance Calculator</a></li>
-                </ul>
-            </div>
-            <div class="tools-column">
-                <h4>Finance and Taxes</h4>
-                <ul>
-                    <li><a class="disabled-link" title="Coming Soon">Credit Card Payoff Calculators</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Debt Snowball Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">APR v/s Interest Rate Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Credit Card Utilization Calculator</a></li>
-                </ul>
-            </div>
-            <div class="tools-column">
-                <h4>Real Estate Investment</h4>
-                <ul>
-                    <li><a class="disabled-link" title="Coming Soon">Cap Rate Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">ROI Calculator for Rental Property</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Cash-on-Cash Return Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Property Tax Calculator</a></li>
-                    <li><a class="disabled-link" title="Coming Soon">Closing Costs Calculator</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="seo-content-section">
-        <h2>The Definitive Guide to Renting vs. Buying</h2>
-        <p>The decision to rent or buy a home is one of the most significant financial choices you'll make. It's more than just a comparison of a monthly rent check versus a mortgage payment; it's a lifestyle decision that impacts your flexibility, long-term wealth, and responsibilities. This guide explores the core factors to help you make an informed choice.</p>
-        <p><strong>The Case for Renting:</strong> Renting offers unparalleled flexibility. If your career requires you to move, or you're exploring a new city, renting keeps you untethered. Upfront costs are significantly lower—typically a security deposit and the first month's rent. Furthermore, renters are not responsible for maintenance, repairs, or property taxes, providing predictable monthly expenses and freedom from unexpected costs.</p>
-        <p><strong>The Case for Buying:</strong> Homeownership is a cornerstone of long-term wealth building. Each mortgage payment builds equity—ownership in your asset. You have the stability of a fixed monthly payment (with a fixed-rate mortgage) and the freedom to customize your living space. Homeowners can also benefit from property value appreciation and significant tax deductions on mortgage interest and property taxes.</p>
+    <div id="chartTooltip" class="chart-tooltip"></div>
 
-        <h2>How to Use the Calculator: A Step-by-Step Guide</h2>
-        <p>Our calculator is designed to give you a clear, numerical comparison based on a wide range of financial variables. Here’s how to use it effectively:</p>
-        <ol>
-            <li><strong>Enter Home Purchase Details:</strong> Input all costs associated with buying, including the home price, your down payment, interest rate, and estimated annual costs like property tax, insurance, and maintenance.</li>
-            <li><strong>Provide Home Rent Details:</strong> Fill in your current or expected monthly rent, its anticipated annual increase, and any other upfront costs like a security deposit.</li>
-            <li><strong>Fill in Your Financial Information:</strong> This is crucial for an accurate comparison. Your tax rates determine potential deductions, and your expected investment return calculates the 'opportunity cost' of the money you'd spend on a down payment versus investing it.</li>
-            <li><strong>Analyze Your Results:</strong> The calculator provides a verdict on which option is financially better over a set period, a detailed cost breakdown for both scenarios, and a chart comparing the monthly costs over time.</li>
-        </ol>
+    <footer>
+        <a href="../../about/">About</a>
+        <a href="https://solveria.org/contact-us/">Contact Us</a>
+        <a href="../../terms-of-use/">Terms of Use</a>
+        <a href="../../privacy-policy/">Privacy Policy</a>
+    </footer>
 
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-container">
-            <details class="faq-item">
-                <summary>What is the "break-even point" in the rent vs. buy decision?</summary>
-                <div class="faq-answer">
-                    <p>The break-even point is the moment in time when the total costs of buying a home become equal to the total costs of renting an equivalent property. Before this point, renting is typically cheaper due to the high upfront costs of buying (closing costs, down payment). After this point, the benefits of buying, such as equity building and tax deductions, make it the more financially advantageous option.</p>
-                </div>
-            </details>
-            <details class="faq-item">
-                <summary>Is renting just "throwing money away"?</summary>
-                <div class="faq-answer">
-                    <p>This is a common myth. You are not "throwing money away" any more than you are when paying for groceries or electricity; you are paying for a necessary service—in this case, shelter. Furthermore, renting frees up the large sum of capital that would have been used for a down payment and closing costs, allowing you to invest it elsewhere. If those investments perform well, renting can sometimes be the smarter financial move.</p>
-                </div>
-            </details>
-            <details class="faq-item">
-                <summary>What are the most important hidden costs of buying a home?</summary>
-                <div class="faq-answer">
-                    <p>Beyond the mortgage payment (P&I), new homeowners are often surprised by several costs: 1) Property Taxes, which can be thousands of dollars a year. 2) Homeowner's Insurance. 3) Maintenance and Repairs, for which a common rule of thumb is to budget 1% of the home's value annually. 4) Closing Costs, which can be 2-5% of the home's purchase price. 5) Potential HOA (Homeowner Association) fees.</p>
-                </div>
-            </details>
-            <details class="faq-item">
-                <summary>How does inflation affect the rent vs. buy decision?</summary>
-                <div class="faq-answer">
-                    <p>Inflation can significantly favor homeowners. With a fixed-rate mortgage, your principal and interest payment remains the same for the life of the loan, while your wages and other prices rise with inflation. This makes your housing payment effectively cheaper over time. In contrast, rent prices typically rise with or even exceed the rate of inflation, increasing your housing costs year after year.</p>
-                </div>
-            </details>
-            <details class="faq-item">
-                <summary>Can this calculator guarantee my financial outcome?</summary>
-                <div class="faq-answer">
-                    <p>No. This calculator is a powerful financial modeling tool that provides a projection based on the numbers and assumptions you provide. It cannot predict future real estate market fluctuations, changes in interest rates, or unexpected personal events. It should be used as a guide to inform your decision, not as a guarantee of a specific outcome.</p>
-                </div>
-            </details>
-        </div>
-
-        <h2>Key Takeaway</h2>
-        <p>The decision to rent or buy is deeply personal and extends beyond a simple financial calculation. While this tool provides a robust quantitative analysis of the costs and benefits, the right choice must also align with your career flexibility, lifestyle preferences, and long-term personal goals. Use these results as a critical piece of the puzzle, not the entire picture.</p>
-    </div>
-</div>
-</div>
-
-<div id="chartTooltip" class="chart-tooltip"></div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-<script src="rent-vs-buy.js" defer></script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
-crossorigin="anonymous"></script>
-
-<footer>
-    <nav>
-        <ul>
-            <li><a href="../../about/">About</a></li>
-            <li><a href="https://solveria.org/contact-us/">Contact Us</a></li>
-            <li><a href="../../terms-of-use/">Terms of Use</a></li>
-            <li><a href="../../privacy-policy/">Privacy Policy</a></li>
-        </ul>
-    </nav>
-</footer>
-
+    <script src="app.js" defer></script>
 </body>
 </html>
