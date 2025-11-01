@@ -26,7 +26,7 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
 
     <style>
-      html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f4f4f4;color:#333;font-weight:300}strong,b{font-weight:500}.content-section{padding:80px 20px 50px;box-sizing:border-box}.calculator-wrapper{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:baseline;position:relative}.breadcrumb{position:absolute;top:-30px;left:-4px;color:#777;font-size:.9rem;font-weight:300}.breadcrumb a{color:inherit;text-decoration:none;transition:color .2s ease}.breadcrumb a:hover{color:#000}.breadcrumb span{color:#333;font-weight:400}.intro-section{grid-column:1 / -1;margin-bottom:0;margin-top:20px}.intro-section h2{font-size:4rem;font-weight:100;color:#333;margin-top:0;margin-bottom:20px;margin-left:-4px;line-height:1.1;min-height:71px}.intro-section p{font-size:1.1rem;line-height:1.7;color:#555;max-width:900px}.mobile-intro{display:none}.desktop-intro{display:block}.calculator-container h2,.results-container h2{font-size:4rem;font-weight:100;color:#333;margin-top:0;margin-bottom:40px;line-height:1.1;margin-left:-4px;min-height:71px}.input-section-header{margin-top:40px;margin-bottom:30px}.input-section-header:first-of-type{margin-top:0}.input-section-header h3{font-size:1.8rem;font-weight:300;margin:0}.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px}.input-group{position:relative;margin-bottom:20px}.input-group label{display:block;color:#666;font-size:.95rem;margin-bottom:5px;pointer-events:none}.input-group input[type=text],.input-group input[type=number]{width:100%;padding:8px 0;border:none;border-bottom:1px solid #ccc;font-size:1.1rem;color:#333;background-color:transparent;outline:none;font-weight:300;transition:border-bottom-color .3s ease;appearance:none}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}.checkbox-group{display:flex;align-items:center;margin-top:10px}.checkbox-group label{pointer-events:all;cursor:pointer;font-size:1rem;color:#555;margin-left:10px;margin-bottom:0}.checkbox-group input[type=checkbox]{appearance:none;-webkit-appearance:none;background-color:transparent;margin:0;font:inherit;color:currentColor;width:1.15em;height:1.15em;border:1px solid #ccc;border-radius:.15em;transform:translateY(-.075em);display:grid;place-content:center;cursor:pointer}.results-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:20px;margin-bottom:0;text-align:left}.summary-item span{display:block}.summary-item .label{font-size:.9rem;color:#666;margin-bottom:5px}.summary-item .value{font-size:1.5rem;font-weight:300;color:#333;overflow-wrap:break-word;word-break:break-word}
+      html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f4f4f4;color:#333;font-weight:300}strong,b{font-weight:500}.content-section{padding:80px 20px 50px;box-sizing:border-box}.calculator-wrapper{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:baseline;position:relative}.breadcrumb{position:absolute;top:-30px;left:-4px;color:#777;font-size:.9rem;font-weight:300}.breadcrumb a{color:inherit;text-decoration:none;transition:color .2s ease}.breadcrumb a:hover{color:#000}.breadcrumb span{color:#333;font-weight:400}.intro-section{grid-column:1 / -1;margin-bottom:0;margin-top:20px}.intro-section h2{font-size:4rem;font-weight:100;color:#333;margin-top:0;margin-bottom:20px;margin-left:-4px;line-height:1.1;min-height:71px}.intro-section p{font-size:1.1rem;line-height:1.7;color:#555;max-width:900px}.mobile-intro{display:none}.desktop-intro{display:block}.calculator-container h2,.results-container h2{font-size:4rem;font-weight:100;color:#333;margin-top:0;margin-bottom:40px;line-height:1.1;margin-left:-4px;min-height:71px}.input-section-header{margin-top:40px;margin-bottom:30px}.input-section-header:first-of-type{margin-top:0}.input-section-header h3{font-size:1.8rem;font-weight:100;margin:0}.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px}.input-group{position:relative;margin-bottom:20px}.input-group label{display:block;color:#666;font-size:.95rem;margin-bottom:5px;pointer-events:none}.input-group input[type=text],.input-group input[type=number]{width:100%;padding:8px 0;border:none;border-bottom:1px solid #ccc;font-size:1.1rem;color:#333;background-color:transparent;outline:none;font-weight:300;transition:border-bottom-color .3s ease;appearance:none}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}.checkbox-group{display:flex;align-items:center;margin-top:10px}.checkbox-group label{pointer-events:all;cursor:pointer;font-size:1rem;color:#555;margin-left:10px;margin-bottom:0}.checkbox-group input[type=checkbox]{appearance:none;-webkit-appearance:none;background-color:transparent;margin:0;font:inherit;color:currentColor;width:1.15em;height:1.15em;border:1px solid #ccc;border-radius:.15em;transform:translateY(-.075em);display:grid;place-content:center;cursor:pointer}.results-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:20px;margin-bottom:0;text-align:left}.summary-item span{display:block}.summary-item .label{font-size:.9rem;color:#666;margin-bottom:5px}.summary-item .value{font-size:1.5rem;font-weight:300;color:#333;overflow-wrap:break-word;word-break:break-word}
       @media (max-width: 992px){.calculator-wrapper{grid-template-columns:1fr;gap:60px;align-items:flex-start}.intro-section{margin-bottom:0;margin-top:0}}
       @media (max-width: 768px){.hero-nav{display:none}.mobile-nav{display:none}.hero-section{height:auto;min-height:60px;padding:10px 15px;flex-direction:row;justify-content:space-between;background-image:none;background-color:#f4f4f4;border-bottom:1px solid #e5e5e5;position:fixed;top:0;left:0;width:100%;z-index:100;padding-bottom:10px;box-sizing:border-box}.hero-tagline{display:none}.hero-content-wrapper{flex-direction:row;justify-content:space-between;align-items:center;width:100%;margin-bottom:0;color:#333}.hero-content-wrapper img{width:32px;height:32px;aspect-ratio:1/1;margin-bottom:0}.hero-section h1{font-size:1.5rem;font-weight:300;color:#333;text-shadow:none;flex-grow:1;text-align:center;margin:0;min-height:29px}.mobile-header-placeholder{display:block;width:32px;height:32px;flex-shrink:0}.content-section{padding:70px 15px 50px}.breadcrumb{position:static;margin-top:15px;margin-bottom:-6px;left:auto;margin-left:0}.intro-section h2,.calculator-container h2,.results-container h2{font-size:2.5rem;margin-bottom:30px;line-height:1.2;margin-left:0;margin-top:-10px;min-height:48px}.intro-section{margin-top:0}.mobile-intro{display:block}.desktop-intro{display:none}.intro-section p{font-size:1rem}.input-grid{grid-template-columns:1fr;gap:0}.input-group{margin-bottom:30px}}
     </style>
@@ -75,33 +75,50 @@
         {
           "@type": "HowTo",
           "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#howto",
-          "name": "How to Use Our Home Affordability Calculator",
-          "description": "Follow these steps to estimate how much house you can afford:",
+          "name": "A Practical Guide to This Calculator",
+          "description": "This tool is designed to be more than a simple number-cruncher. It's a 'what-if' machine. By inputting your real-world financial data, you can build a clear picture of your home-buying power. Here’s how to get the most out of it.",
           "step": [
             {
-              "@type": "HowToStep",
-              "name": "Enter Income & Debt",
-              "text": "Provide your total annual household income and your total monthly debt payments (like car loans or student loans)."
+              "@type": "HowToSection",
+              "name": "Part 1: Your Financial Profile (Income & Debt)",
+              "itemListElement": [
+                {
+                  "@type": "HowToStep",
+                  "name": "Annual Household Income",
+                  "text": "Enter the total gross (pre-tax) income for everyone who will be on the mortgage."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Monthly Debt Payback",
+                  "text": "This is for your Back-End DTI. Add up all your minimum monthly debt payments: car loans, student loans, credit card minimums, personal loans, etc."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Max DTI Ratios",
+                  "text": "The 28/36 rule is a common guideline, but you can adjust it. A Front-End DTI (28%) is your housing-only cost. A Back-End DTI (36%) is your housing plus all other debts. If you're a strong borrower, you might qualify for higher ratios (e.g., 43%), but a lower ratio is safer."
+                }
+              ]
             },
             {
-              "@type": "HowToStep",
-              "name": "Set DTI Limits",
-              "text": "Enter the maximum Front-End (housing) and Back-End (total debt) DTI ratios you're comfortable with. Lenders often use 28% and 36% as guidelines."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Add Purchase Details",
-              "text": "Input your saved down payment, desired loan term, estimated interest rate, and estimated closing costs as a percentage."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Estimate Ongoing Costs",
-              "text": "Provide estimates for annual property tax, homeowners insurance, monthly HOA fees, and annual maintenance."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Analyze Your Results",
-              "text": "The calculator will instantly show your affordable home price, loan amount, one-time closing costs, and a detailed breakdown of your total monthly payment."
+              "@type": "HowToSection",
+              "name": "Part 2: The Purchase & Property Details",
+              "itemListElement": [
+                {
+                  "@type": "HowToStep",
+                  "name": "Down Payment",
+                  "text": "The cash you're paying upfront. $40,000 down on a $400,000 home is a 10% down payment."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Loan Term & Interest Rate",
+                  "text": "Use 30 years and the current market rate for a good baseline. You can then see how a 15-year loan or a different rate changes your affordability."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Ongoing Costs (The PITI)",
+                  "text": "This is critical. Don't just guess. Use a site like Zillow or Redfin to look at actual tax histories and HOA fees for homes in your target price range. An extra $300/month in taxes and HOA fees can reduce your affordable home price by over $40,000."
+                }
+              ]
             }
           ]
         },
@@ -111,34 +128,42 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "What is the '28/36 Rule' and should I follow it?",
+              "name": "Q1: What is the '28/36 Rule' and should I follow it?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The 28/36 rule is a guideline used by lenders. 28% (Front-End Ratio): Your new total housing payment (PITI + HOA) should be no more than 28% of your gross monthly income. 36% (Back-End Ratio): Your total housing payment plus all your other monthly debts (car, student, credit card) should be no more than 36% of your gross monthly income. This calculator lets you set your own limits. While some lenders may go higher (up to 43% or even 50%), the 28/36 rule is a conservative and safe benchmark for ensuring you are not 'house poor'."
+                "text": "A1: The 28/36 rule is a guideline used by lenders.\n\n- 28% (Front-End Ratio): Your new total housing payment (PITI + HOA) should be no more than 28% of your gross monthly income.\n- 36% (Back-End Ratio): Your total housing payment *plus* all your other monthly debts (car, student, credit card) should be no more than 36% of your gross monthly income.\n\nThis calculator lets you set your own limits. While some lenders may go higher (up to 43% or even 50%), the 28/36 rule is a conservative and safe benchmark for ensuring you are not 'house poor'."
               }
             },
             {
               "@type": "Question",
-              "name": "What do lenders look at besides DTI and income?",
+              "name": "Q2: What do lenders look at besides DTI and income?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Lenders look at your complete financial profile. The most important factors include: Credit Score (a higher score means a lower interest rate), Credit History (history of on-time payments), Cash Reserves (money left over after closing, often 2-6 months of PITI payments), and Employment Stability (2+ years of stable, verifiable income)."
+                "text": "A2: Lenders look at your complete financial profile, which this calculator can't see. The most important factors include:\n\n- Credit Score: This is a massive factor. A higher credit score (e.g., 740+) will get you a much lower interest rate, which significantly increases your affordability.\n- Credit History: They look for a history of on-time payments, the age of your credit accounts, and a healthy mix of credit types.\n- Cash Reserves: Lenders want to see that you have cash left over *after* closing. This 'post-closing liquidity' (often 2-6 months of PITI payments) proves you can handle an emergency without missing a mortgage payment.\n- Employment Stability: They want to see a stable, verifiable (e.g., 2+ years) employment history in the same field."
               }
             },
             {
               "@type": "Question",
-              "name":G "What's the difference between Pre-Qualified and Pre-Approved?",
+              "name": "Q3: What's the difference between Pre-Qualified and Pre-Approved?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Pre-Qualification is a quick, informal estimate of what you might be able to borrow based on self-reported data. Pre-Approval is a formal, conditional commitment from a lender for a specific loan amount. It requires a full application, credit check, and verification of income and assets. A pre-approval letter is essential to show sellers you are a serious buyer."
+                "text": "A3: This is a critical distinction.\n\n- Pre-Qualification: This is a quick, informal estimate of what you *might* be able to borrow. It's based on self-reported data (like using this calculator) and often doesn't involve a credit check. It's a good first step, but it holds no real weight.\n- Pre-Approval: This is a formal, conditional commitment from a lender to give you a loan up to a certain amount. You must submit a full application, including proof of income, assets, and debts. The lender *will* pull your credit. A pre-approval letter shows sellers you are a serious, credible buyer."
               }
             },
-             {
+            {
               "@type": "Question",
-              "name": "How much income do I need to buy a $400,000 house?",
+              "name": "Q4: How much income do I need to buy a $400,000 house?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "This depends heavily on your debts and down payment. For example, with 10% down ($40k), a 6.5% rate, and $1,500/mo in PITI/HOA, you'd need an income over $160,000. But with 25% down ($100k) and $1,000/mo in PITI/HOA, you'd only need ~$125,000. This is why it's better to work backward from your income and debt, as this calculator does."
+                "text": "A4: This is a common question, but it's the wrong way to think about it. Your debt and down payment matter just as much as your income.\n\nFor example, with a $40,000 (10%) down payment, a 6.5% interest rate, and $1,500/mo in taxes/insurance/HOA, the total payment would be ~$3,800/mo. To keep that at a 28% front-end DTI, you'd need an annual gross income of over $160,000.\n\nHowever, if you had a $100,000 (25%) down payment and only $1,000/mo in taxes/insurance/HOA, your payment would be ~$2,900/mo. You'd only need an income of ~$125,000.\n\nThis is exactly why our calculator is so useful. Work backward from your income and debt to find the home price, not the other way around."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Q5: Does this calculator guarantee I'll be approved for this loan amount?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A5: No. This calculator is a powerful estimation tool to help you plan. Your final loan approval, interest rate, and affordable amount are all subject to a formal underwriting process from a lender. They will verify your credit score, income, assets, debts, and the property's appraised value. Use this tool to get a realistic, data-driven starting point for your home search."
               }
             }
           ]
@@ -158,7 +183,7 @@
             "priceCurrency": "USD"
           },
           "mainEntityOfPage": {
-            "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/"
+            "@id":."https://solveria.org/financial-calculators/home-affordability-calculator/"
           }
         },
         {
