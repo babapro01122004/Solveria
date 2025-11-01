@@ -30,7 +30,7 @@ html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sa
 /* --- Input Fields --- */
 .input-section-header{margin-top:40px;margin-bottom:30px}
 .input-section-header:first-of-type{margin-top:0}
-.input-section-header h3{font-size:1.8rem;font-weight:300;margin:0}
+.input-section-header h3{font-size:1.8rem;font-weight:100;margin:0}
 .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px}
 .input-group{position:relative;margin-bottom:20px}
 .input-group label{display:block;color:#666;font-size:.95rem;margin-bottom:5px;pointer-events:none}
@@ -44,14 +44,14 @@ input[type=number]{-moz-appearance:textfield}
 .summary-item span{display:block}.summary-item .label{font-size:.9rem;color:#666;margin-bottom:5px}
 .summary-item .value{font-size:1.5rem;font-weight:300;color:#333;overflow-wrap:break-word;word-break:break-word}
 .summary-text{margin-top:60px}
-.summary-text h3{font-size:1.8rem;font-weight:300;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:20px;margin-top:0}
+.summary-text h3{font-size:1.8rem;font-weight:100;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:20px;margin-top:0}
 .summary-text p{font-size:1rem;line-height:1.6;color:#555;margin-bottom:0}
 .summary-highlight{font-weight:500; color: #333;}
 .summary-header-flex{display:block}.mobile-support-button{display:none}
 
 /* --- Results Breakdown (NEW) --- */
 .results-breakdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px 80px;margin-top:60px}
-.breakdown-section h3{font-size:1.8rem;font-weight:300;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:20px;margin-top:0}
+.breakdown-section h3{font-size:1.8rem;font-weight:100;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:20px;margin-top:0}
 .result-item{display:flex;justify-content:space-between;align-items:flex-start;font-size:1rem;padding:12px 0;gap:20px}
 .result-item .label{color:#666;text-align:left}
 .result-item .value{font-weight:300;text-align:right;white-space:nowrap}
@@ -63,7 +63,9 @@ input[type=number]{-moz-appearance:textfield}
 /* --- SEO Content & Footer --- */
 .seo-content-section{max-width:1400px;margin:100px auto 50px;padding:0;text-align:left}
 .seo-content-section h2{font-size:2.5rem;font-weight:100;color:#333;margin-top:60px;margin-bottom:20px;min-height:48px}
+.seo-content-section h3{font-size:1.8rem;font-weight:100;color:#333;margin-top:50px;margin-bottom:20px;border-bottom:1px solid #eee;padding-bottom:10px}
 .seo-content-section p,.seo-content-section li,.seo-content-section ul{font-size:1.1rem;line-height:1.7;color:#555;padding-left:0;list-style-position:inside}
+.seo-content-section ul{list-style-type:disc;padding-left:40px;margin-bottom:25px}
 .seo-content-section ol{list-style:none;padding-left:0;counter-reset:guide-counter}
 .seo-content-section ol li{counter-increment:guide-counter;margin-bottom:25px;position:relative;padding-left:40px}
 .seo-content-section ol li::before{content:counter(guide-counter);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background-color:#e9e9e9;border:1px solid #ddd;box-sizing:border-box;color:#555;font-weight:300;text-align:center;line-height:26px;font-size:.9rem}
@@ -125,6 +127,7 @@ footer a:hover{color:#000}
 .seo-content-section,.more-tools-section{margin-top:60px;padding:0}
 .tools-grid{grid-template-columns:1fr}
 .faq-section summary{font-size:1.1rem}
+.seo-content-section h3{font-size:1.6rem;margin-top:40px}
 }
 
 /* --- Animations --- */
