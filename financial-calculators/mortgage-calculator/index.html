@@ -74,32 +74,27 @@
           "@type": "HowTo",
           "@id": "https://solveria.org/financial-calculators/mortgage-calculator/#howto",
           "name": "How to Use Our Mortgage Calculator (with PITI)",
-          "description": "Follow these steps to estimate your total monthly home payment:",
+          "description": "Follow these steps to get a realistic estimate of your total monthly home payment:",
           "step": [
             {
               "@type": "HowToStep",
-              "name": "Enter Home Price",
-              "text": "Input the full purchase price of the property."
+              "name": "Enter Home & Loan Details",
+              "text": "Start with the 'Home Price,' then your 'Down Payment' (as a percentage or dollar amount). Fill in the 'Loan Term' (e.g., 30 years) and your estimated 'Interest Rate.'"
             },
             {
               "@type": "HowToStep",
-              "name": "Provide Down Payment",
-              "text": "Enter either a dollar amount ($) or a percentage (%) of the home price. The other field will update automatically."
+              "name": "Add Extra Costs (PITI)",
+              "text": "Input the estimated annual 'Property Taxes' and 'Home Insurance.' You can find these on real estate listings or county assessor websites. These are crucial for an accurate payment estimate."
             },
             {
               "@type": "HowToStep",
-              "name": "Set Loan Term & Interest Rate",
-              "text": "Enter the loan duration (e.g., 30 or 15 years) and the annual interest rate."
+              "name": "Toggle Advanced Mode (Optional)",
+              "text": "For the full picture, switch to 'Advanced' mode. Here you can add your 'Credit Score' (which auto-populates rates), 'PMI' (if your down payment is under 20%), 'HOA Dues,' and any 'Extra Monthly Payments' you plan to make."
             },
             {
               "@type": "HowToStep",
-              "name": "Add Extra Costs",
-              "text": "Input the estimated annual property taxes, annual home insurance, and monthly HOA dues (if any) to get a full PITI payment."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Analyze Your Results",
-              "text": "The calculator will instantly display your total monthly payment, a breakdown of P&I vs. extra costs, and detailed amortization charts."
+              "name": "Analyze Your Full Results",
+              "text": "Instantly see your 'Total Monthly Payment' at the top. In Advanced mode, scroll down to see your long-term 'Loan Amortization' (principal vs. interest), 'Equity Growth,' and a detailed 'Mortgage Schedule' table that you can switch from a yearly to a monthly view."
             }
           ]
         },
@@ -109,18 +104,26 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "What is PITI?",
+              "name": "What is PITI, and why does it matter?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "PITI stands for Principal, Interest, Taxes, and Insurance. It represents the four components of a total monthly mortgage payment. Principal is the portion that pays down your loan balance. Interest is the fee paid to the lender. Taxes are the property taxes. Insurance is your homeowner's insurance."
+                "text": "PITI stands for Principal, Interest, Taxes, and Insurance. It's the four components of a total monthly mortgage payment. 'Principal' is the part that pays down your loan balance. 'Interest' is the fee you pay the lender to borrow. 'Taxes' are for local property taxes, and 'Insurance' is your homeowner's insurance. Lenders collect all four, so PITI represents your true monthly housing cost, not just the loan payment."
               }
             },
             {
               "@type": "Question",
-              "name": "What is a down payment?",
+              "name": "What's the difference between Interest Rate and APR?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "A down payment is the amount of money you pay upfront when purchasing a home. It's typically a percentage of the home's purchase price. A larger down payment can lower your monthly payment and help you avoid Private Mortgage Insurance (PMI)."
+                "text": "The 'Interest Rate' is the cost of borrowing the money, expressed as a percentage. The 'Annual Percentage Rate (APR)' is a broader measure. It includes the interest rate plus other loan costs like lender fees, origination fees, and mortgage insurance. APR is always slightly higher than the interest rate and gives you a more complete picture of the loan's total cost."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does my down payment affect my loan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your down payment is your upfront investment in the home. A larger down payment reduces your loan amount, which lowers your monthly P&I payment and the total interest you'll pay. If you put down 20% or more, you also avoid 'Private Mortgage Insurance (PMI),' which is an extra monthly fee designed to protect the lender in case you default."
               }
             },
             {
@@ -128,15 +131,31 @@
               "name": "What is loan amortization?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Amortization is the process of paying off a loan over time with regular, scheduled payments. In the early years of a mortgage, a larger portion of your payment goes toward interest. Over time, this shifts, and more of your payment goes toward paying down the principal balance."
+                "text": "Amortization is the process of paying off a loan with regular payments over time. With a mortgage, your first payments are 'interest-heavy,' meaning most of the money goes to the lender. As you continue to pay, this slowly shifts. In the later years of your loan, the majority of your payment goes toward 'principal' (paying down the balance), which is how you build equity. Our amortization chart visualizes this process perfectly."
               }
             },
             {
               "@type": "Question",
-              "name": "How are property taxes and insurance handled?",
+              "name": "What happens if I make extra payments?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Lenders typically collect 1/12th of your annual property tax and homeowner's insurance bill with each monthly mortgage payment. They hold this money in an 'escrow' account and pay the bills on your behalf when they are due."
+                "text": "Making extra payments is a powerful financial strategy. Any extra money you pay, even $50 a month, goes directly toward the 'principal' balance. This has two major benefits: 1) You pay off your loan years earlier, and 2) You save a significant amount of money on total interest. Our Advanced calculator shows you exactly how much interest you'll save and your new, earlier payoff date."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is an escrow account?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "An escrow account is a special savings account managed by your lender. Each month, 1/12th of your annual property tax bill and 1/12th of your homeowner's insurance premium are added to your P&I payment. The lender puts this extra money into your escrow account and then pays those bills on your behalf when they're due. It ensures the taxes and insurance are always paid on time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why might my monthly payment change after a year?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If you have an escrow account, your total-monthly payment can (and often does) change once a year. This is not because your loan changed, but because your property taxes or home insurance premium went up (or, rarely, down). The lender will perform an 'escrow analysis' each year and adjust your monthly payment to cover the new, higher costs. This is a very common part of homeownership."
               }
             }
           ]
@@ -157,13 +176,21 @@
           },
           "mainEntityOfPage": {
             "@id": "https://solveria.org/financial-calculators/mortgage-calculator/"
-          }
+          },
+          "featureList": [
+            "PITI (Principal, Interest, Tax, Insurance) Calculation",
+            "Advanced Mode with PMI, HOA, and Extra Payments",
+            "Credit Score to Interest Rate/PMI Estimation",
+            "Interactive Amortization Charts (Doughnut, Bar, Line)",
+            "Yearly and Monthly Amortization Schedule Table",
+            "Interest Savings & Early Payoff Calculation"
+          ]
         },
         {
           "@type": "Article",
           "@id": "https://solveria.org/financial-calculators/mortgage-calculator/#results-explained",
-          "headline": "Understanding Your Mortgage Results",
-          "articleBody": "Our calculator provides a detailed look at your potential home ownership costs:\n\nTotal Monthly Payment: This is the full estimated PITI (Principal, Interest, Taxes, Insurance) plus any HOA dues. This is the amount you'll likely pay each month.\nPayment Breakdown: The doughnut chart visualizes how much of your payment goes to P&I versus your extra escrow costs (taxes, insurance, HOA).\nLoan Amortization: This chart shows how your payments chip away at the loan. You'll see how, in the beginning, most of your payment is interest, but over time, it shifts to paying down principal.\nLoan Liability / Equity: This visual tracks your remaining loan balance against the equity you've built (by paying down principal) over the life of the loan.\nMortgage Schedule: A year-by-year table showing your principal, interest, and total payments, along with your remaining loan balance.",
+          "headline": "Interpreting Your Personalized Results",
+          "articleBody": "The numbers are calculated. Now, what do they actually mean for you? Here’s a breakdown of the results panel and how to use the data to make smarter decisions.\n\nTotal Monthly Payment: This is your 'go/no-go' number. It's the full, all-in amount that will leave your bank account each month. You must be 100% comfortable with this figure. Pro Tip: 'Stress-test' this number. Compare it to your monthly take-home pay, not your gross salary. Can you still save money and pay for other life expenses with this payment?\n\nPayment Breakdown (Chart): Think of this doughnut chart as a financial x-ray of your very first payment. It's often surprising (and a little sad) to see how much goes to interest, taxes, and insurance versus the small slice that is 'principal' (the part that builds equity). Don't be discouraged! This is normal. Instead, see it as a powerful visual motivator to use the 'Extra Payment' feature.\n\nLoan Amortization (Chart): This is the story of your loan. This bar chart shows the multi-decade journey of your payments. You'll see that in the early years, you're mostly 'renting the money' (the interest portion is huge). But as you continue to pay, the balance tips. Watch as the 'principal' bar (the part you own) grows larger and larger, while the interest you pay shrinks. This is the magic of amortization in action.\n\nLoan Liability vs. Equity (Chart): This is your wealth-building chart. The 'Liability' line is your remaining loan balance, which trends down to $0. The 'Equity' area is the principal you've paid off—your stake in the home. The growing gap between those two lines is your wealth. And remember: this chart only shows equity from paying down your loan. It doesn't even include potential market appreciation, which could make your equity grow even faster.\n\nMortgage Schedule (Table): This is the blueprint of your loan. For the true data-lover, this table provides the raw numbers. Toggle to the 'Monthly' view to see the exact principal and interest for any payment. This isn't just data; it's a planning tool. You can use it to find the exact month your PMI will be removed (when your balance hits 80% LTV) or see the precise impact of that extra $100 payment you're considering.",
           "author": {
             "@id": "https://solveria.org/#organization"
           },
@@ -177,8 +204,7 @@
       ]
     }
     </script>
-</head>
-<body>
+</head><body>
 
     <header class="hero-section">
         <nav class="hero-nav">
@@ -225,9 +251,13 @@
                 <h2>What is a Mortgage Calculator?</h2>
                 
                 <p class="desktop-intro">
-                    Buying a home is one of the most significant financial milestones in life. But the excitement can quickly be overshadowed by complex numbers and confusing terms. A mortgage calculator is your first and most powerful tool for demystifying this process. It cuts through the jargon to give you a clear, actionable number: your estimated total monthly housing cost.
+                    It’s more than just a tool; it’s your financial co-pilot for one of the biggest journeys you'll ever take.
                     <br><br>
-                    This tool goes far beyond the "sticker price" of a home. It calculates your complete PITI payment—that's <strong>P</strong>rincipal, <strong>I</strong>nterest, <strong>T</strong>axes, and <strong>I</strong>nsurance—plus any HOA dues. By seeing how your loan principal is paid down over time (amortization) and how much you're paying in interest, you're not just getting a quote; you're gaining a comprehensive understanding of your long-term financial commitment. This clarity empowers you to budget confidently, compare loan options effectively, and walk into negotiations with a realistic grasp of what you can truly afford.
+                    Buying a home is a thrilling milestone, but let's be honest—the numbers can be intimidating. The "sticker price" of a home is one thing, but what you'll <strong>actually</strong> pay each month is a completely different story. That's where this calculator becomes your most trusted guide. It’s designed to cut through the confusion of lender jargon and complex fees to give you one, simple, powerful number: <strong>your estimated total monthly housing cost.</strong>
+                    <br><br>
+                    This isn't just about P&I (Principal & Interest). A real budget must account for the <strong>full</strong> payment, or what's known as <strong>PITI</strong>: <strong>P</strong>rincipal, <strong>I</strong>nterest, <strong>T</strong>axes, and <strong>I</strong>nsurance. Our calculator takes it even further, allowing you to add <strong>PMI</strong> (Private Mortgage Insurance) and <strong>HOA Dues</strong> for a complete, realistic picture.
+                    <br><br>
+                    By using this tool, you're not just "getting a quote." You are empowering yourself. You're moving from "I <strong>think</strong> I can afford this" to "I <strong>know</strong> I can afford this." You'll see exactly how your loan is paid down over 30 years (amortization), understand the long-term cost of interest, and gain the clarity you need to budget with confidence. This is the first step to ensuring your new house truly feels like a home, not a financial burden.
                 </p>
                 <p class="mobile-intro">
                     Estimate your total monthly home payment, including PITI (Principal, Interest, Taxes, and Insurance) plus HOA dues. This tool provides a complete, realistic breakdown of your costs, helping you budget confidently for your new home.
@@ -491,63 +521,86 @@ D                </div>
             <p>Our tool is designed for both simplicity and power. To get the most accurate and insightful results, it helps to understand what each field represents and how it impacts your financial picture. Here is a step-by-step walk-through:</p>
             <ol>
                 <li>
-                    <strong>Home Price:</strong> This is the starting point—the full purchase price of the property you're considering.
+                    <strong>Home Price:</strong> This is the starting line. Enter the full purchase price of the property. This number is the foundation for all other calculations, including your loan amount and down payment.
                 </li>
                 <li>
-                    <strong>Down Payment:</strong> This is the cash you're paying upfront. You can enter a flat dollar amount (e.g., $70,000) or a percentage (e.g., 20%). Notice how the other field updates automatically. A larger down payment reduces your loan amount, which in turn lowers your monthly payment and total interest paid. Putting down 20% or more also helps you avoid Private Mortgage Insurance (PMI), an extra fee not included in this calculator.
+                    <strong>Down Payment:</strong> This is your upfront investment. You can enter a flat dollar amount (e.g., $70,000) or a percentage (e.g., 20%). Notice how the other field updates automatically. A larger down payment reduces your loan amount, which lowers your monthly payment. Crucially, if you pay <strong>20% or more</strong>, you avoid PMI (Private Mortgage Insurance), an extra fee that protects the lender.
                 </li>
                 <li>
-                    <strong>Loan Term (Years):</strong> This is the length of your mortgage. The most common terms are 30 years (which offers lower monthly payments) and 15 years (which has higher payments but saves you a significant amount of interest over the life of the loan).
+                    <strong>Loan Term (Years):</strong> This is the marathon you're signing up for. The <strong>30-year</strong> term is most common, offering the lowest monthly payments. A <strong>15-year</strong> term has higher payments, but you'll build equity much faster and save a massive amount of interest over the life of the loan.
                 </li>
                 <li>
-                    <strong>Interest Rate (%):</strong> This is the annual percentage rate (APR) your lender charges you to borrow the money. Even a small change here can have a massive impact on your monthly payment and total interest. It's wise to get pre-approved by a lender to get a realistic rate for your financial situation.
+                    <strong>Interest Rate (%):</strong> This is the annual cost of borrowing the money. Even a small change here (e.g., 6.5% vs 6.75%) can have a huge impact on your total interest paid. In our 'Advanced' mode, this rate is estimated based on your credit score, but you should always get a pre-approval from a lender for the most accurate number.
                 </li>
                 <li>
-                    <strong>Property Tax ($ / yr):</strong> This is an estimate of the annual taxes you'll pay to your local government. This cost is based on the home's assessed value and local tax rates. A good way to estimate this is to look up the tax history for the specific property or similar properties in the area.
+                    <strong>Property Tax ($ / yr):</strong> This is one of the "hidden" costs of homeownership. Lenders will collect 1/12th of this amount from you every month. To find a good estimate, check online listings for the home (they often list annual taxes) or visit the local county assessor's website. Don't guess on this one!
                 </li>
                 <li>
-                    <strong>Home Insurance ($ / yr):</strong> Lenders require you to have homeowner's insurance (also called hazard insurance) to protect the property. This annual premium can vary widely based on location, home size, and coverage. Your lender will collect 1/12th of this cost each month and hold it in an escrow account.
+                    <strong>Home Insurance ($ / yr):</strong> This is another required cost. Lenders demand you have homeowner's insurance to protect the property (and their investment). The cost varies wildly based on location (e.g., hurricane or wildfire zones are more expensive), home size, and coverage. Get a few quotes from insurance carriers to get a solid estimate.
                 </li>
                 <li>
-                    <strong>HOA Dues ($ / mo):</strong> If the property is in a condominium, townhouse complex, or a planned neighborhood, you will likely have Homeowners' Association (HOA) dues. These monthly fees cover shared amenities and maintenance. They are a crucial and non-negotiable part of your total monthly housing cost.
+                    <strong>Advanced: PMI (% / yr):</strong> Private Mortgage Insurance. If your down payment is under 20%, you'll likely pay this. It's an insurance policy that protects the <strong>lender</strong>. Our calculator automatically applies this based on your credit score and loan amount, and just as importantly, it <strong>stops</strong> charging you once your loan balance drops to 80% of the home price.
+                </li>
+                <li>
+                    <strong>Advanced: HOA Dues ($ / mo):</strong> If you're looking at a condo, townhouse, or a home in a planned community, you will likely have Homeowners' Association dues. These monthly fees cover shared amenities and maintenance. They are a non-negotiable part of your total monthly cost and <strong>must</strong> be included in your budget.
+                </li>
+                <li>
+                    <strong>Advanced: Extra Monthly Payment ($):</strong> This is your secret weapon. Any amount you add here goes <strong>100% to principal</strong>. It's the key to paying off your loan years early and saving thousands (or tens of thousands) in interest. Try adding even $100 and watch what happens to your payoff date.
                 </li>
             </ol>
 
             <h2>Interpreting Your Personalized Results</h2>
              <p>The numbers are calculated. Now, what do they actually mean for you? Here’s a breakdown of the results panel and how to use the data to make smarter decisions.</p>
             <ul>
-                <li><strong>Total Monthly Payment:</strong> This is your all-in, real-world number. It's the sum of your PITI (Principal, Interest, Taxes, Insurance) and any HOA dues. This is the figure you must be comfortable with in your monthly budget.</li>
-                <li><strong>Payment Breakdown (Chart):</strong> The doughnut chart is your at-a-glance guide to your payment. It's often surprising to see how much of your initial payment goes to interest, taxes, and insurance versus the principal that actually builds your equity.</li>
-                <li><strong>Loan Amortization (Chart):</strong> This is the most powerful visualization for long-term planning. The "Amortization" chart shows you the multi-decade journey of your loan. You can visually confirm that in the early years, your payments are heavily weighted toward interest. As you pass the midpoint of your loan, the balance tips, and your payments begin to aggressively pay down the principal balance.</li>
-                <li><strong>Loan Liability vs. Equity (Chart):</strong> This chart tracks your wealth-building journey. Your "Liability" is the remaining loan balance, which trends down to $0. Your "Equity" is the portion of the principal you've paid off. This is the part of the home you truly own, and it grows with every single payment.</li>
-                <li><strong>Mortgage Schedule (Table):</strong> For the true data-lover. This table provides the raw numbers behind the charts. You can toggle to the "Monthly" view to see the exact principal and interest breakdown for any given payment, or stick to the "Yearly" view for a high-level summary. This is especially useful for seeing the financial impact of making extra principal payments (which this calculator doesn't model, but you've seen the baseline here).
-                </li>
+                <li><strong>Total Monthly Payment:</strong> This is your 'go/no-go' number. It's the full, all-in amount that will leave your bank account each month. You must be 100% comfortable with this figure. <strong>Pro Tip:</strong> 'Stress-test' this number. Compare it to your monthly <strong>take-home pay</strong>, not your gross salary. Can you still save money and pay for other life expenses with this payment?</li>
+                <li><strong>Payment Breakdown (Chart):</strong> Think of this doughnut chart as a financial x-ray of your very first payment. It's often surprising (and a little sad) to see how much goes to interest, taxes, and insurance versus the small slice that is 'principal' (the part that builds equity). Don't be discouraged! This is normal. Instead, see it as a powerful visual motivator to use the 'Extra Payment' feature.</li>
+                <li><strong>Loan Amortization (Chart):</strong> This is the story of your loan. This bar chart shows the multi-decade journey of your payments. You'll see that in the early years, you're mostly 'renting the money' (the interest portion is huge). But as you continue to pay, the balance tips. Watch as the 'principal' bar (the part you own) grows larger and larger, while the interest you pay shrinks. This is the magic of amortization in action.</li>
+                <li><strong>Loan Liability vs. Equity (Chart):</strong> This is your wealth-building chart. The 'Liability' line is your remaining loan balance, which trends down to $0. The 'Equity' area is the principal you've paid off—your stake in the home. The growing gap between those two lines is your wealth. And remember: this chart <strong>only</strong> shows equity from paying down your loan. It doesn't even include potential market appreciation, which could make your equity grow even faster.</li>
+                <li><strong>Mortgage Schedule (Table):</strong> This is the blueprint of your loan. For the true data-lover, this table provides the raw numbers. Toggle to the "Monthly" view to see the exact principal and interest for any payment. This isn't just data; it's a planning tool. You can use it to find the exact month your PMI will be removed (when your balance hits 80% LTV) or see the precise impact of that extra $100 payment you're considering.</li>
             </ul>
 
             <div class="faq-section">
                 <h2>Frequently Asked Questions (FAQ)</h2>
                 <details>
-                    <summary>Q1: What is PITI?</summary>
+                    <summary>Q1: What is PITI, and why does it matter?</summary>
                     <div class="faq-answer">
-                        A1: PITI stands for **P**rincipal, **I**nterest, **T**axes, and **I**nsurance. It represents the four components of a total monthly mortgage payment. Principal is the portion that pays down your loan balance. Interest is the fee paid to the lender. Taxes are the property taxes. Insurance is your homeowner's insurance.
+                        A1: PITI stands for <strong>P</strong>rincipal, <strong>I</strong>nterest, <strong>T</strong>axes, and <strong>I</strong>nsurance. It's the four components of a total monthly mortgage payment. 'Principal' is the part that pays down your loan balance. 'Interest' is the fee you pay the lender to borrow. 'Taxes' are for local property taxes, and 'Insurance' is your homeowner's insurance. Lenders collect all four, so PITI represents your <strong>true</strong> monthly housing cost, not just the loan payment.
                     </div>
                 </details>
                 <details>
-                    <summary>Q2: What is a down payment?</summary>
+                    <summary>Q2: What's the difference between Interest Rate and APR?</summary>
                     <div class="faq-answer">
-                        A2: A down payment is the amount of money you pay upfront when purchasing a home. It's typically a percentage of the home's purchase price. A larger down payment can lower your monthly payment and help you avoid Private Mortgage Insurance (PMI), which is often required for down payments under 20%.
+                        A2: The <strong>Interest Rate</strong> is the cost of borrowing the money, expressed as a percentage. The <strong>Annual Percentage Rate (APR)</strong> is a broader measure. It includes the interest rate <strong>plus</strong> other loan costs like lender fees, origination fees, and mortgage insurance. APR is always slightly higher than the interest rate and gives you a more complete picture of the loan's total cost.
                     </div>
                 </details>
                 <details>
-                    <summary>Q3: What is loan amortization?</summary>
+                    <summary>Q3: How does my down payment affect my loan?</summary>
                     <div class="faq-answer">
-                        A3: Amortization is the process of paying off a loan over time with regular, scheduled payments. In the early years of a mortgage, a larger portion of your payment goes toward interest. Over time, this shifts, and more of your payment goes toward paying down the principal balance. Our charts and schedule table visualize this process.
+                        A3: Your down payment is your upfront investment in the home. A larger down payment reduces your loan amount, which lowers your monthly P&I payment and the total interest you'll pay. If you put down <strong>20% or more</strong>, you also avoid <strong>Private Mortgage Insurance (PMI)</strong>, which is an extra monthly fee designed to protect the lender in case you default.
                     </div>
                 </details>
                  <details>
-                    <summary>Q4: How are property taxes and insurance handled?</summary>
+                    <summary>Q4: What is loan amortization?</summary>
                     <div class="faq-answer">
-                        A4: Lenders typically collect 1/12th of your annual property tax and homeowner's insurance bill with each monthly mortgage payment. They hold this money in an 'escrow' account and pay the bills on your behalf when they are due. This calculator includes those costs in the 'Total Monthly Payment'.
+                        A4: Amortization is the process of paying off a loan with regular payments over time. With a mortgage, your first payments are 'interest-heavy,' meaning most of the money goes to the lender. As you continue to pay, this slowly shifts. In the later years of your loan, the majority of your payment goes toward 'principal' (paying down the balance), which is how you build equity. Our amortization chart visualizes this process perfectly.
+                    </div>
+                </details>
+                 <details>
+                    <summary>Q5: What happens if I make extra payments?</summary>
+                    <div class="faq-answer">
+                        A5: Making extra payments is a powerful financial strategy. Any extra money you pay, even $50 a month, goes directly toward the <strong>'principal'</strong> balance. This has two major benefits: 1) You pay off your loan years earlier, and 2) You save a significant amount of money on total interest. Our Advanced calculator shows you exactly <strong>how much</strong> interest you'll save and your new, earlier payoff date.
+                    </div>
+                </details>
+                <details>
+                    <summary>Q6: What is an escrow account?</summary>
+                    <div class="faq-answer">
+                        A6: An escrow account is a special savings account managed by your lender. Each month, 1/12th of your annual property tax bill and 1/12th of your homeowner's insurance premium are added to your P&I payment. The lender puts this extra money into your escrow account and then pays those bills on your behalf when they're due. It ensures the taxes and insurance are always paid on time.
+                    </div>
+                </details>
+                <details>
+                    <summary>Q7: Why might my monthly payment change after a year?</summary>
+                    <div class="faq-answer">
+                        A7: If you have an escrow account, your total-monthly payment can (and often does) change once a year. This is not because your loan changed, but because your <strong>property taxes</strong> or <strong>home insurance premium</strong> went up (or, rarely, down). The lender will perform an 'escrow analysis' each year and adjust your monthly payment to cover the new, higher costs. This is a very common part of homeownership.
                     </div>
                 </details>
             </div>
