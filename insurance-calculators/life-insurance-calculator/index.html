@@ -32,16 +32,23 @@
       
       /* --- NEW STYLES for disclaimer and richer content --- */
       .seo-content-section ul {
-        list-style-type: disc;
-        padding-left: 40px;
+        list-style-type: none; /* Removed default disc bullet */
+        padding-left: 20px; /* Use padding on the UL for alignment */
         margin-bottom: 25px;
       }
       .seo-content-section ul li {
-        padding-left: 0;
+        padding-left: 20px; /* Indent text to make room for the dash */
         margin-bottom: 10px;
+        position: relative; /* Anchor for the ::before pseudo-element */
       }
       .seo-content-section ul li::before {
-        display: none; /* Disable number counters for standard UL */
+        content: "–"; /* Use an en-dash as the new bullet */
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 1px; /* Fine-tune vertical alignment */
+        color: #555;
+        font-weight: 500;
       }
       .seo-content-section h3 {
         font-size: 1.8rem;
@@ -466,10 +473,10 @@
              <p>Your 'Total Coverage Needed' is the single most important result. This number represents your 'financial gap'—the difference between your family's total financial needs (debts, lost income, etc.) and the assets you already have (savings, existing insurance).</p>
              
             <h3>This Number is an Estimate, Not a Quote</h3>
-            <p>This calculator provides a strong estimate of your *needs*, but it's not a price *quote*. The actual cost of a policy will depend on your age, health, lifestyle (e.g., smoking), and the type of policy you choose. Your recommended coverage is the *death benefit* you should seek, not the price you will pay.</p>
+            <p>This calculator provides a strong estimate of your <strong>needs</strong>, but it's not a price <strong>quote</strong>. The actual cost of a policy will depend on your age, health, lifestyle (e.g., smoking), and the type of policy you choose. Your recommended coverage is the <strong>death benefit</strong> you should seek, not the price you will pay.</p>
 
             <h3>Your Next Step: Compare Term vs. Whole Life</h3>
-            <p>Now that you have your coverage amount, your next big decision is the *type* of policy. For most people, this comes down to two main options:</p>
+            <p>Now that you have your coverage amount, your next big decision is the <strong>type</strong> of policy. For most people, this comes down to two main options:</p>
             <ul>
              <li><strong>Term Life:</strong> This is the most affordable option. It covers you for a specific "term" (e.g., 20 or 30 years). It's pure insurance, designed to cover your most expensive years (when your mortgage is high and your kids are young).</li>
              <li><strong>Whole Life:</strong> This is a permanent policy that lasts your entire life. It's more expensive because it also includes a "cash value" savings component.</li>
@@ -477,7 +484,7 @@
             <p>Our calculator is designed to find the coverage you need for a specific period, making it especially useful for sizing a <strong>Term Life</strong> policy.</p>
 
             <h3>What if This Number Seems Too High?</h3>
-            <p>Seeing a number over a million dollars can be a shock, but it's common. Remember, this amount is designed to replace *decades* of your income. If the number seems unaffordable, <strong>don't get discouraged.</strong> A common expert tip is that <em>some</em> coverage is infinitely better than <em>no</em> coverage. It's better to buy a smaller, affordable policy today than to wait.</p>
+            <p>Seeing a number over a million dollars can be a shock, but it's common. Remember, this amount is designed to replace *decades* of your income. If the number seems unaffordable, <strong>don't get discouraged.</strong> A common expert tip is that <strong>some</strong> coverage is infinitely better than <strong>no</strong> coverage. It's better to buy a smaller, affordable policy today than to wait.</p>
 
             <h2>A Deeper Look: How We Calculate Your Needs</h2>
             <p>You may have heard simple rules of thumb, like "you need 10 times your income". While a good starting point, this rule often misses the complete picture. Our calculator uses a more comprehensive method similar to the "DIME" formula, which stands for:</p>
@@ -487,7 +494,7 @@
              <li><strong>Mortgage:</strong> We include this in your "Total Debt" to ensure your largest liability is covered.</li>
              <li><strong>Education:</strong> The future cost of college or trade school for your children.</li>
             </ul>
-            <p>Our calculator then adds final expenses (like funeral costs) and subtracts your existing assets (like savings) to find the <em>true</em> financial gap. This gives you a much more accurate and personalized number than any simple rule of thumb.</p>
+            <p>Our calculator then adds final expenses (like funeral costs) and subtracts your existing assets (like savings) to find the <strong>true</strong> financial gap. This gives you a much more accurate and personalized number than any simple rule of thumb.</p>
 
              
             <div class="faq-section">
