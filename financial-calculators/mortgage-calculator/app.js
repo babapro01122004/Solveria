@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.totalMonthly.style.fontWeight = '500';
 
         // Update Summary Text
-        resultElements.summaryText.innerHTML = `Based on your entries, your estimated total monthly payment is <span class="summary-highlight">${formatCurrency(totalMonthly)}</span>. This complete payment includes <span class="summary-highlight">${formatCurrency(monthlyPI)}</span> for your loan's principal and interest, plus an estimated <span class="summary-highlight">${formatCurrency(startingMonthlyExtras)}</span> for taxes, insurance, PMI, and any HOA dues.`;
+        resultElements.summaryText.innerHTML = `Based on your entries, your estimated total monthly payment is <span class="summary-highlight"><strong>${formatCurrency(totalMonthly)}</strong></span>. This complete payment includes <span class="summary-highlight"><strong>${formatCurrency(monthlyPI)}</strong></span> for your loan's principal and interest, plus an estimated <span class="summary-highlight"><strong>${formatCurrency(startingMonthlyExtras)}</strong></span> for taxes, insurance, PMI, and any HOA dues.`;
 
         // --- 6. Update Advanced Breakdown Boxes ---
         const year1Data = yearlyData.length > 0 ? yearlyData[0] : { principal: 0, interest: 0, extras: 0 };
