@@ -330,10 +330,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.lifetimeSavings.style.color = lifetimeSavings >= 0 ? '#2e7d32' : '#c62828';
         resultElements.monthlySavings.style.color = monthlySavings >= 0 ? '#2e7d32' : '#c62828';
         
-        resultElements.summaryText.innerHTML = `Refinancing could <span class="summary-highlight">${monthlySavings >= 0 ? 'save you' : 'cost you'} ${formatCurrency(Math.abs(monthlySavings))} per month</span>. Your new estimated payment will be <span class="summary-highlight">${formatCurrency(newMonthlyPayment)}</span>.`;
+        resultElements.summaryText.innerHTML = `Refinancing could <strong class="summary-highlight">${monthlySavings >= 0 ? 'save you' : 'cost you'} ${formatCurrency(Math.abs(monthlySavings))} per month</strong>. Your new estimated payment will be <strong class="summary-highlight">${formatCurrency(newMonthlyPayment)}</strong>.`;
         
         if (breakevenMonths !== '--' && breakevenMonths !== 'N/A') {
-            resultElements.breakevenText.innerHTML = `It will take approximately <span class="summary-highlight">${breakevenMonths}</span> to recoup your <span class="summary-highlight">${formatCurrency(closingCosts)} in closing costs</span>. After this point, your monthly savings are realized.`;
+            resultElements.breakevenText.innerHTML = `It will take approximately <strong class="summary-highlight">${breakevenMonths}</strong> to recoup your <strong class="summary-highlight">${formatCurrency(closingCosts)} in closing costs</strong>. After this point, your monthly savings are realized.`;
         } else if (monthlySavings <= 0 && closingCosts > 0) {
              resultElements.breakevenText.innerHTML = `With a higher monthly payment, there is no break-even point on closing costs through monthly savings. The decision to refinance would depend on other goals like paying off the loan faster or cashing out equity.`;
         } else {
