@@ -399,7 +399,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.breakdownYears.textContent = years;
         resultElements.netWorthYears.textContent = years;
 
-        resultElements.summaryText.innerHTML = `After <span class="summary-highlight">${years} years</span>, it is estimated to be <span class="summary-highlight">${formatCurrency(Math.abs(buyTotalCostAtYear - rentTotalCostAtYear))} ${verdict.toLowerCase()}</span>. Your break-even point is around <span class="summary-highlight">${breakEvenYear > 0 ? `${breakEvenYear} years` : 'N/A'}</span>.`;
+        // --- MODIFIED LINE ---
+        resultElements.summaryText.innerHTML = `After <span class="summary-highlight">${years}</span> years, it is estimated to be <span class="summary-highlight">${formatCurrency(Math.abs(buyTotalCostAtYear - rentTotalCostAtYear))}</span> ${verdict.toLowerCase()}. Your break-even point is around ${breakEvenYear > 0 ? `<span class="summary-highlight">${breakEvenYear}</span> years` : `<span class="summary-highlight">N/A</span>`}.`;
 
         // Update breakdowns
         resultElements.rentTotalCost.textContent = formatCurrency(rentTotalCostAtYear);
