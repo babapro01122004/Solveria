@@ -204,4 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
         cycleTaglines();
     }
     
+    // ### NEW: Lazy-load Google Ads script to fix TBT ###
+    function loadAdScript() {
+        const adScript = document.createElement('script');
+        adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793";
+        adScript.async = true;
+        adScript.crossOrigin = "anonymous";
+        document.body.appendChild(adScript);
+    }
+    
+    // Load the ad script 3 seconds after the page is interactive.
+    // This stops it from blocking LCP and TBT.
+    setTimeout(loadAdScript, 3000);
+
 });
