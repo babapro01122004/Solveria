@@ -1,7 +1,6 @@
 html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f4f4f4;color:#333;font-weight:300}strong,b{font-weight:500}
 .hero-section{
-    height:45vh;
-    min-height:350px;
+    height:380px;
     /* --- UPDATED IMAGE PATH --- */
     background-image:image-set(url(../../img/Refinance_Hero.webp) type("image/webp"),url(../../img/Refinance_Hero.jpg) type("image/jpeg"));
     background-image:url(../../img/Refinance_Hero.jpg);
@@ -11,7 +10,7 @@ html{scroll-behavior:smooth}body,html{margin:0;padding:0;font-family:'Roboto',sa
     background-repeat:no-repeat;
     display:flex;
     flex-direction:column;
-    justify-content:space-evenly;
+    justify-content:space-between;
     align-items:center;
     box-sizing:border-box;
     padding:20px 0;
@@ -34,6 +33,7 @@ footer{padding:100px 20px 40px;background:linear-gradient(to top,#eae5df 20%,tra
     .hero-nav{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:auto;margin-bottom:0}
     .hero-content-wrapper img{width:100px;height:100px;margin-top:30px;margin-bottom:15px}
     .hero-section h1{font-size:3rem;min-height:53px}
+    .hero-tagline{margin-top: 30px;}
     .hero-tagline p{font-size:1rem}
     .calculator-wrapper{grid-template-columns:1fr;gap:60px;align-items:flex-start}
     .intro-section{margin-bottom:0;margin-top:0}
@@ -77,9 +77,12 @@ footer{padding:100px 20px 40px;background:linear-gradient(to top,#eae5df 20%,tra
         color:#333;
         text-shadow:none;
         text-align:center;
-        margin:0;
+        margin: 0 10px;
         min-height:auto; 
         flex-grow: 1; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .mobile-support-link{display:none}
     .mobile-header-placeholder{display:block;width:32px;height:32px;flex-shrink:0}
