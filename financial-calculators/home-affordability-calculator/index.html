@@ -11,14 +11,18 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap" as="style">
     
     <style>
-        /* This moves the background image request to the very first moment of page load */
+        /* Basic Reset for critical items */
+        html { scroll-behavior: smooth; height: 100%; }
+        body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: #f4f4f4; }
+        
+        /* Hero Section - Inlined to load image INSTANTLY */
         .hero-section {
             height: auto;
             min-height: 250px;
-            background-color: #333; /* Placeholder color while loading */
-            /* Default to JPG for safety */
+            background-color: #333;
+            /* Fallback */
             background-image: url('../../img/Refinance_Hero.jpg');
-            /* Modern browsers load WebP immediately */
+            /* Modern WebP */
             background-image: image-set(
                 url('../../img/Refinance_Hero.webp') type("image/webp"),
                 url('../../img/Refinance_Hero.jpg') type("image/jpeg")
@@ -34,9 +38,27 @@
             position: relative;
             overflow: hidden;
         }
-        /* Basic layout stability for the logo to prevent shifting */
+        .hero-nav { width: 100%; text-align: center; display: flex; justify-content: center; gap: 40px; z-index: 10; }
+        .hero-nav a { color: #cacaca; text-decoration: none; font-size: 1rem; font-weight: 300; }
+        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; color: #fff; position: relative; z-index: 2; }
+        /* Explicit dimensions to prevent layout shift */
         .hero-content-wrapper img { width: 130px; height: 130px; margin-top: 40px; margin-bottom: 20px; }
+        .hero-section h1 { color: #fff; font-size: 4rem; font-weight: 100; text-align: center; text-shadow: 2px 2px 8px rgba(0,0,0,.7); margin: 0; min-height: 71px; }
+        
+        @media (max-width: 768px) {
+            .hero-nav { display: none; }
+            .hero-section { 
+                height: auto; padding: 0 15px; flex-direction: row; justify-content: space-between; 
+                background: none; background-color: #f4f4f4; border-bottom: 1px solid #e5e5e5; 
+                position: fixed; top: 0; left: 0; width: 100%; z-index: 100; 
+            }
+            .hero-content-wrapper { flex-direction: row; width: 100%; color: #333; }
+            .hero-content-wrapper img { width: 24px; height: 24px; margin: 0; transform: translateY(-13px); }
+            .hero-section h1 { font-size: 1.3rem; color: #333; text-shadow: none; margin: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        }
     </style>
+
+    <link rel="stylesheet" href="ha-style.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -54,9 +76,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
-    <link rel="stylesheet" href="ha-style.css">
     
     <script type="application/ld+json">
     {
@@ -68,12 +88,7 @@
           "url": "https://solveria.org/financial-calculators/home-affordability-calculator/",
           "name": "Home Affordability Calculator | Solveria",
           "description": "Calculate your true home buying power. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis.",
-          "primaryImageOfPage": {
-            "@id": "https://solveria.org/img/social-share-card.jpg"
-          },
-          "image": {
-            "@id": "https://solveria.org/img/social-share-card.jpg"
-          },
+          "primaryImageOfPage": { "@id": "https://solveria.org/img/social-share-card.jpg" },
           "publisher": { "@id": "https://solveria.org/#organization" },
           "breadcrumb": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#breadcrumb" },
           "mainEntity": [
@@ -112,66 +127,32 @@
           "applicationCategory": "FinanceApplication",
           "operatingSystem": "Any",
           "browserRequirements": "Requires JavaScript",
-          "featureList": "Front-End and Back-End DTI Analysis, PMI Estimation, FHA/VA/Conventional Loan Logic, Closing Cost Calculator",
           "screenshot": "https://solveria.org/img/social-share-card.jpg",
           "publisher": { "@id": "https://solveria.org/#organization" },
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "mainEntityOfPage": {
-            "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/"
-          }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "mainEntityOfPage": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/" }
         },
         {
           "@type": "HowTo",
           "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#howto",
           "name": "How to Calculate Your Home Affordability",
-          "description": "Use this guide to input your financial data correctly and determine your realistic home-buying power using the 28/36 rule.",
-          "totalTime": "PT5M",
-          "tool": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#calculator" },
           "step": [
             {
               "@type": "HowToSection",
               "name": "Part 1: Your Financial Profile (Income & Debt)",
               "itemListElement": [
-                {
-                  "@type": "HowToStep",
-                  "name": "Annual Household Income",
-                  "text": "Enter the total gross (pre-tax) income for everyone who will be on the mortgage."
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Monthly Debt Payback",
-                  "text": "Add up all your minimum monthly debt payments: car loans, student loans, credit card minimums, etc."
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Max DTI Ratios",
-                  "text": "The 28/36 rule is a common guideline. 28% for housing costs, and 36% for total debt. You can adjust these if needed."
-                }
+                { "@type": "HowToStep", "name": "Annual Household Income", "text": "Enter the total gross (pre-tax) income for everyone who will be on the mortgage." },
+                { "@type": "HowToStep", "name": "Monthly Debt Payback", "text": "Add up all your minimum monthly debt payments." },
+                { "@type": "HowToStep", "name": "Max DTI Ratios", "text": "The 28/36 rule is a common guideline." }
               ]
             },
             {
               "@type": "HowToSection",
               "name": "Part 2: The Purchase & Property Details",
               "itemListElement": [
-                {
-                  "@type": "HowToStep",
-                  "name": "Down Payment",
-                  "text": "Enter the cash you are paying upfront. This affects your loan amount and PMI."
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Loan Term & Interest Rate",
-                  "text": "Input the loan duration (e.g., 30 years) and current market interest rate."
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Ongoing Costs (PITI)",
-                  "text": "Estimate Property Taxes, HOA fees, and Insurance based on local listings."
-                }
+                { "@type": "HowToStep", "name": "Down Payment", "text": "Enter the cash you are paying upfront." },
+                { "@type": "HowToStep", "name": "Loan Term & Interest Rate", "text": "Input the loan duration and current market interest rate." },
+                { "@type": "HowToStep", "name": "Ongoing Costs (PITI)", "text": "Estimate Property Taxes, HOA fees, and Insurance." }
               ]
             }
           ]
@@ -182,55 +163,15 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Q1: What is the '28/36 Rule' and should I follow it?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A1: The 28/36 rule is a guideline used by lenders. 28% (Front-End Ratio) means your housing payment shouldn't exceed 28% of gross income. 36% (Back-End Ratio) means housing plus other debts shouldn't exceed 36%."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Q2: What do lenders look at besides DTI and income?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A2: Lenders also look at your Credit Score, Credit History, Cash Reserves (post-closing liquidity), and Employment Stability."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Q3: What's the difference between Pre-Qualified and Pre-Approved?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A3: Pre-Qualification is a quick estimate based on self-reported data. Pre-Approval is a formal commitment requiring a credit check and verified documents."
-              }
+              "name": "Q1: What is the '28/36 Rule'?",
+              "acceptedAnswer": { "@type": "Answer", "text": "28% of income for housing, 36% for total debt." }
             },
             {
               "@type": "Question",
               "name": "Q4: How much income do I need to buy a $400,000 house?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A4: It depends on your down payment and debt. With 10% down and average debt, you might need ~$160k. With 25% down and low debt, you might only need ~$125k."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Q5: Does this calculator guarantee I'll be approved?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A5: No. This is an estimation tool. Final approval depends on formal underwriting by a licensed lender."
-              }
+              "acceptedAnswer": { "@type": "Answer", "text": "With 10% down ($40k), you need approx $160k income. With 20% down, less." }
             }
           ]
-        },
-        {
-          "@type": "Article",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#results-explained",
-          "headline": "Understanding Your Affordability Results",
-          "description": "A detailed breakdown of one-time costs, DTI ratios, annual costs, and monthly housing expenses.",
-          "author": { "@id": "https://solveria.org/#organization" },
-          "publisher": { "@id": "https://solveria.org/#organization" },
-          "image": { "@id": "https://solveria.org/img/social-share-card.jpg" },
-          "mainEntityOfPage": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/" }
         }
       ]
     }
