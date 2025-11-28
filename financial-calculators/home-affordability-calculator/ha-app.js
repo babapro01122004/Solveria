@@ -10,21 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let latestResults = null; // Store latest calc to update chart if it loads late
 
     // --- 0. CRITICAL PERFORMANCE: LAZY LOAD ADS ---
-    // Fixes the "Reduce unused JavaScript" and "Forced Reflow" errors by
-    // deferring AdSense until the user actually interacts with the page.
     let adsLoaded = false;
     const loadAds = () => {
         if (adsLoaded) return;
         adsLoaded = true;
-
         const script = document.createElement('script');
         script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793';
         script.crossOrigin = 'anonymous';
         script.async = true;
         document.body.appendChild(script);
-
-        // Optional: Trigger any ad slots specifically if needed
-        // (adsbygoogle = window.adsbygoogle || []).push({});
     };
 
     // Load ads on scroll or mouse move, but not immediately on load
@@ -152,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Update DOM only if changed
         if (tooltipEl.innerHTML !== newHtml) {
              tooltipEl.innerHTML = newHtml;
              cachedTooltipWidth = tooltipEl.offsetWidth;
@@ -161,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tooltipEl.style.opacity = 1;
 
-        // Position Logic (Request Animation Frame to avoid Jitter)
         if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
         tooltipRequest = requestAnimationFrame(() => {
@@ -186,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (finalX < margin) finalX = margin;
             
-            // Use transform for smooth 60fps movement
             tooltipEl.style.transform = `translate(${finalX}px, ${finalY}px)`;
         });
     };
@@ -206,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
         monthlyCostChart.data.datasets[0].data = data;
         monthlyCostChart.update();
         
-        // Pass results to legend to show values in print
         updateCustomLegend(monthlyCostChart, results);
         updateBreakdownMenu(results);
     };
@@ -218,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         legendContainer.innerHTML = '';
         const data = chart.data.datasets[0].data;
 
-        // Map labels to actual result values for accuracy
         const valuesMap = {
             'Principal & Interest': results.mortgagePI,
             'Property Tax': results.propTaxMonthly,
@@ -234,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const legendItem = document.createElement('div');
                 legendItem.className = 'legend-item';
-                // UPDATED: Moved colon inside legend-value-print so it hides on web but shows on print
                 legendItem.innerHTML = `
                     <div class="legend-color-box" style="background-color: ${color}"></div>
                     <span>${label}</span>
@@ -336,54 +324,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return value < 0 ? `-${formatted}` : formatted;
     };
 
-    // --- REPLACED: Safer cleanNumber Function ---
     const cleanNumber = (str) => {
-        // Remove commas and spaces
         const cleaned = String(str).replace(/,/g, '').trim();
         const floatVal = parseFloat(cleaned);
-        // If it's Not a Number (NaN) or negative, return 0
         if (isNaN(floatVal) || floatVal < 0) return 0;
         return floatVal;
     };
 
-    // --- UPDATED INPUT FORMATTER ---
-    // Enforces strict numeric limits and cleans input
     const formatInput = (input) => {
-        // 1. Remove non-numeric/non-dot characters
         let value = input.value.replace(/[^0-9.]/g, '');
-
-        // 2. Prevent multiple dots
         const parts = value.split('.');
         if (parts.length > 2) {
             value = parts[0] + '.' + parts.slice(1).join('');
         }
-
-        // 3. Define Limits based on Input ID
         const isPercentage = ['maxFrontEndDTI', 'maxBackEndDTI', 'interestRate', 'closingCosts', 'propertyTax', 'insurance', 'maintenance'].includes(input.id);
         const isYear = input.id === 'loanTerm';
 
-        // 4. Enforce Limits
         if (isPercentage) {
-            // Cap percentages at 100
             if (parseFloat(value) > 100) value = '100';
         } else if (isYear) {
-            // Cap years at 100
             if (parseFloat(value) > 100) value = '100';
         } else {
-            // Money fields: Cap integer length to 9 digits (999,999,999)
-            // This prevents "absurdly high" numbers that break layout/calculations
             if (parts[0].length > 9) {
                 parts[0] = parts[0].substring(0, 9);
                 value = parts.length > 1 ? parts[0] + '.' + parts[1] : parts[0];
             }
         }
-
-        // 5. Limit Decimal Places to 2
         if (parts.length > 1) {
             value = parts[0] + '.' + parts[1].substring(0, 2);
         }
-
-        // 6. Apply Commas to Integer Part
         if (value === '') {
             input.value = '';
             return;
@@ -391,9 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let integerPart = value.split('.')[0];
         let decimalPart = value.includes('.') ? '.' + value.split('.')[1] : '';
-        
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        
         input.value = integerPart + decimalPart;
     };
     
@@ -411,9 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const monthlyRate = annualRate / 100 / 12;
         const numPayments = termYears * 12;
-        
         if (numPayments <= 0) return 0;
-
         return principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
     };
 
@@ -535,7 +500,6 @@ document.addEventListener('DOMContentLoaded', () => {
         latestResults = results; 
 
         updateDOM(results);
-        
         if (chartsInitialized) {
             updateCharts(results);
         }
@@ -586,21 +550,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
-    // --- OPTIMIZED INPUT LISTENERS ---
     Object.values(allInputs).forEach(input => {
         if (!input) return;
-        
-        // 1. Initial Format
         formatInput(input);
-        
-        // 2. Heavy processing on blur (comma separation)
         input.addEventListener('blur', (e) => {
             formatInput(e.target);
         });
-
-        // 3. Lightweight processing on input (strip invalid chars only)
         input.addEventListener('input', (e) => {
-             // Only remove illegal characters, do not re-format commas while typing
             let val = e.target.value.replace(/[^0-9.]/g, '');
             if (val !== e.target.value) {
                 e.target.value = val;
@@ -668,14 +624,12 @@ document.addEventListener('DOMContentLoaded', () => {
         optionsOverlay.addEventListener('click', closeMenu);
     }
 
-    // --- NEW: Close Menu on ESC Key ---
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && optionsMenu && optionsMenu.classList.contains('active')) {
             closeMenu();
         }
     });
 
-    // --- Print Date Logic ---
     const printDateEl = document.getElementById('printDate');
     if (printDateEl) {
         const now = new Date();
