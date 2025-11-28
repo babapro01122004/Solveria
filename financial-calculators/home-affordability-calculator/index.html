@@ -7,58 +7,14 @@
     <meta name="description" content="Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.">
     <link rel="canonical" href="https://solveria.org/financial-calculators/home-affordability-calculator/" />
 
-    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap" as="style">
-    
-    <style>
-        /* Basic Reset for critical items */
-        html { scroll-behavior: smooth; height: 100%; }
-        body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: #f4f4f4; }
-        
-        /* Hero Section - Inlined to load image INSTANTLY */
-        .hero-section {
-            height: auto;
-            min-height: 250px;
-            background-color: #333;
-            /* Fallback */
-            background-image: url('../../img/Refinance_Hero.jpg');
-            /* Modern WebP */
-            background-image: image-set(
-                url('../../img/Refinance_Hero.webp') type("image/webp"),
-                url('../../img/Refinance_Hero.jpg') type("image/jpeg")
-            );
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-nav { width: 100%; text-align: center; display: flex; justify-content: center; gap: 40px; z-index: 10; }
-        .hero-nav a { color: #cacaca; text-decoration: none; font-size: 1rem; font-weight: 300; }
-        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; color: #fff; position: relative; z-index: 2; }
-        /* Explicit dimensions to prevent layout shift */
-        .hero-content-wrapper img { width: 130px; height: 130px; margin-top: 40px; margin-bottom: 20px; }
-        .hero-section h1 { color: #fff; font-size: 4rem; font-weight: 100; text-align: center; text-shadow: 2px 2px 8px rgba(0,0,0,.7); margin: 0; min-height: 71px; }
-        
-        @media (max-width: 768px) {
-            .hero-nav { display: none; }
-            .hero-section { 
-                height: auto; padding: 0 15px; flex-direction: row; justify-content: space-between; 
-                background: none; background-color: #f4f4f4; border-bottom: 1px solid #e5e5e5; 
-                position: fixed; top: 0; left: 0; width: 100%; z-index: 100; 
-            }
-            .hero-content-wrapper { flex-direction: row; width: 100%; color: #333; }
-            .hero-content-wrapper img { width: 24px; height: 24px; margin: 0; transform: translateY(-13px); }
-            .hero-section h1 { font-size: 1.3rem; color: #333; text-shadow: none; margin: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp">
+    
     <link rel="stylesheet" href="ha-style.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -73,10 +29,6 @@
     <meta property="og:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market." />
     <meta property="og:image" content="https://solveria.org/img/social-share-card.jpg" />
     <meta property="og:url" content="https://solveria.org/financial-calculators/home-affordability-calculator/" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
     
     <script type="application/ld+json">
     {
