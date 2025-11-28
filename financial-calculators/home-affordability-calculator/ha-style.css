@@ -371,3 +371,78 @@ footer a:hover { color: #000; }
     /* 8. LEGAL FOOTER */
     .print-footer-disclaimer { display: block; margin-top: 50px; font-size: 8px; color: #444; text-align: center; border-top: 1px solid #ccc; padding-top: 10px; line-height: 1.4; }
 }
+
+/* --- Data Tables (New Section) --- */
+.data-table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Enables scroll on mobile */
+    margin: 30px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.income-req-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Forces scroll on small screens */
+    font-size: 1rem;
+    text-align: left;
+    background-color: #fff;
+}
+
+.income-req-table caption {
+    caption-side: top;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #f4f4f4;
+}
+
+.income-req-table th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: 500;
+    padding: 15px;
+    border-bottom: 2px solid #eee;
+    white-space: nowrap;
+}
+
+.income-req-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    vertical-align: middle;
+}
+
+.income-req-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.income-req-table tbody tr:hover {
+    background-color: #fcfcfc;
+}
+
+.table-footer-note {
+    font-size: 0.9rem !important;
+    color: #777 !important;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Mobile Tweak for Table */
+@media (max-width: 768px) {
+    .income-req-table th, .income-req-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Print Friendly Table */
+@media print {
+    .data-table-wrapper { box-shadow: none; border: 1px solid #000; overflow: visible; }
+    .income-req-table th { background-color: #eee !important; color: #000 !important; border-bottom: 1px solid #000; }
+    .income-req-table td { color: #000 !important; border-bottom: 1px solid #ccc; }
+}
