@@ -7,9 +7,37 @@
     <meta name="description" content="Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.">
     <link rel="canonical" href="https://solveria.org/financial-calculators/home-affordability-calculator/" />
 
-    <link rel="preload" as="image" href="../../img/Refinance_Hero.jpg">
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap" as="style">
     
+    <style>
+        /* This moves the background image request to the very first moment of page load */
+        .hero-section {
+            height: auto;
+            min-height: 250px;
+            background-color: #333; /* Placeholder color while loading */
+            /* Default to JPG for safety */
+            background-image: url('../../img/Refinance_Hero.jpg');
+            /* Modern browsers load WebP immediately */
+            background-image: image-set(
+                url('../../img/Refinance_Hero.webp') type("image/webp"),
+                url('../../img/Refinance_Hero.jpg') type("image/jpeg")
+            );
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Basic layout stability for the logo to prevent shifting */
+        .hero-content-wrapper img { width: 130px; height: 130px; margin-top: 40px; margin-bottom: 20px; }
+    </style>
+
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
@@ -28,7 +56,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
-    
     <link rel="stylesheet" href="ha-style.css">
     
     <script type="application/ld+json">
