@@ -10,11 +10,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp">
+    <link rel="preload" as="image" href="../../img/Logo_Golden%20-%20Phone.webp" type="image/webp" media="(max-width: 768px)">
     
-    <link rel="stylesheet" href="ha-style.css">
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp" media="(min-width: 769px)">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
+    <link rel="preload" href="ha-style.css" as="style">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600&display=swap">
+    </noscript>
+
+    <link rel="stylesheet" href="ha-style.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -153,10 +160,15 @@
 
         <div class="hero-content-wrapper">
             <picture>
+                <source media="(max-width: 768px)" srcset="../../img/Logo_Golden%20-%20Phone.webp" type="image/webp">
+                <source media="(max-width: 768px)" srcset="../../img/Logo_Golden%20-%20Phone.png" type="image/png">
+                
                 <source srcset="../../img/Logo_Golden.webp" type="image/webp">
                 <source srcset="../../img/Logo_Golden.png" type="image/png">
+                
                 <img src="../../img/Logo_Golden.png" alt="Solveria Financial Tools" width="130" height="130" loading="eager" fetchpriority="high">
             </picture>
+            
             <h1>Home Affordability Calculator</h1>
             <div class="mobile-header-placeholder"></div>
         </div>
