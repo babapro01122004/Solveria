@@ -346,3 +346,11 @@ footer a:hover { color: #000; }
     /* 8. LEGAL FOOTER */
     .print-footer-disclaimer { display: block; margin-top: 50px; font-size: 8px; color: #444; text-align: center; border-top: 1px solid #ccc; padding-top: 10px; line-height: 1.4; }
 }
+
+/* Ad Slot Height Reservation - Prevents Layout Shift */
+.ad-slot-container {
+    min-height: 280px; 
+    background-color: #f4f4f4; 
+    display: block;
+    width: 100%;
+}
