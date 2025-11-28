@@ -9,6 +9,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let chartsInitialized = false;
     let latestResults = null; // Store latest calc to update chart if it loads late
 
+    // --- 0. CRITICAL PERFORMANCE: LAZY LOAD ADS ---
+    // Fixes the "Reduce unused JavaScript" and "Forced Reflow" errors by
+    // deferring AdSense until the user actually interacts with the page.
+    let adsLoaded = false;
+    const loadAds = () => {
+        if (adsLoaded) return;
+        adsLoaded = true;
+
+        const script = document.createElement('script');
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793';
+        script.crossOrigin = 'anonymous';
+        script.async = true;
+        document.body.appendChild(script);
+
+        // Optional: Trigger any ad slots specifically if needed
+        // (adsbygoogle = window.adsbygoogle || []).push({});
+    };
+
+    // Load ads on scroll or mouse move, but not immediately on load
+    const userInteractionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown'];
+    userInteractionEvents.forEach(event => {
+        window.addEventListener(event, loadAds, { once: true, passive: true });
+    });
+
+
     // --- 1. Lazy Load Chart.js ---
     const chartObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -37,15 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 2. Initialize Charts ---
+    // Tooltip State for Performance (Reflow Prevention)
+    let tooltipRequest = null;
+    let cachedTooltipWidth = 0;
+    let cachedTooltipHeight = 0;
+
     const initializeCharts = () => {
         if (typeof Chart === 'undefined') return;
         chartsInitialized = true;
 
-        // --- CRITICAL FIX: MOVE TOOLTIP TO BODY ---
         const tooltipEl = document.getElementById('chartTooltip');
         if (tooltipEl && tooltipEl.parentElement.tagName !== 'BODY') {
             document.body.appendChild(tooltipEl);
             tooltipEl.style.zIndex = '1000'; 
+            tooltipEl.style.top = '0'; // Reset for transform
+            tooltipEl.style.left = '0';
+            tooltipEl.style.willChange = 'transform'; // GPU Acceleration
         }
 
         const ctx = document.getElementById('monthlyCostChart')?.getContext('2d');
@@ -68,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true,
                 maintainAspectRatio: true, 
-                // --- THE ROOT CAUSE FIX: FORCE SQUARE ASPECT RATIO ---
                 aspectRatio: 1, 
                 cutout: '65%', 
                 plugins: {
@@ -90,12 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 3. Custom Tooltip Handler ---
+    // --- 3. Custom Tooltip Handler (Optimized) ---
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
         if (!tooltipEl) return;
 
-        const { pageX, pageY } = event;
         const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
 
         if (elements.length === 0) {
@@ -111,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const value = dataset.data[index];
         const color = dataset.backgroundColor[index];
 
-        let innerHtml = `
+        const newHtml = `
             <div class="tooltip-title">${label}</div>
             <div class="tooltip-body-item">
                 <div style="display: flex; align-items: center;">
@@ -122,33 +152,43 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        tooltipEl.innerHTML = innerHtml;
+        // Update DOM only if changed
+        if (tooltipEl.innerHTML !== newHtml) {
+             tooltipEl.innerHTML = newHtml;
+             cachedTooltipWidth = tooltipEl.offsetWidth;
+             cachedTooltipHeight = tooltipEl.offsetHeight;
+        }
+
         tooltipEl.style.opacity = 1;
 
-        // Position Logic
-        const tooltipWidth = tooltipEl.offsetWidth;
-        const tooltipHeight = tooltipEl.offsetHeight;
-        const margin = 15;
-        const winWidth = window.innerWidth;
-        const winHeight = window.innerHeight;
-        const docScrollY = window.scrollY || window.pageYOffset;
-        let finalX, finalY;
+        // Position Logic (Request Animation Frame to avoid Jitter)
+        if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
-        finalY = pageY + margin;
-        if ((finalY + tooltipHeight) - docScrollY > winHeight) {
-            finalY = pageY - tooltipHeight - margin;
-        }
+        tooltipRequest = requestAnimationFrame(() => {
+            const { pageX, pageY } = event;
+            const margin = 15;
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+            const docScrollY = window.scrollY || window.pageYOffset;
+            let finalX, finalY;
 
-        const spaceRight = winWidth - (pageX - (window.scrollX || 0));
-        if (spaceRight < tooltipWidth + margin) {
-             finalX = pageX - tooltipWidth - margin;
-        } else {
-             finalX = pageX + margin;
-        }
+            finalY = pageY + margin;
+            if ((finalY + cachedTooltipHeight) - docScrollY > winHeight) {
+                finalY = pageY - cachedTooltipHeight - margin;
+            }
 
-        if (finalX < margin) finalX = margin;
-        tooltipEl.style.left = `${finalX}px`;
-        tooltipEl.style.top = `${finalY}px`;
+            const spaceRight = winWidth - (pageX - (window.scrollX || 0));
+            if (spaceRight < cachedTooltipWidth + margin) {
+                 finalX = pageX - cachedTooltipWidth - margin;
+            } else {
+                 finalX = pageX + margin;
+            }
+
+            if (finalX < margin) finalX = margin;
+            
+            // Use transform for smooth 60fps movement
+            tooltipEl.style.transform = `translate(${finalX}px, ${finalY}px)`;
+        });
     };
 
     // --- 4. Update Charts Function ---
@@ -546,15 +586,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const debouncedCalculate = debounce(calculateAndDisplay, 300);
 
+    // --- OPTIMIZED INPUT LISTENERS ---
     Object.values(allInputs).forEach(input => {
         if (!input) return;
+        
+        // 1. Initial Format
         formatInput(input);
-        input.addEventListener('input', (e) => {
-            formatInput(e.target);
-            debouncedCalculate();
-        });
+        
+        // 2. Heavy processing on blur (comma separation)
         input.addEventListener('blur', (e) => {
             formatInput(e.target);
+        });
+
+        // 3. Lightweight processing on input (strip invalid chars only)
+        input.addEventListener('input', (e) => {
+             // Only remove illegal characters, do not re-format commas while typing
+            let val = e.target.value.replace(/[^0-9.]/g, '');
+            if (val !== e.target.value) {
+                e.target.value = val;
+            }
+            debouncedCalculate();
         });
     });
 
