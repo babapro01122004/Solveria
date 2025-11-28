@@ -51,10 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. Initialize Charts ---
     let tooltipRequest = null;
     
-    // VARIABLES FOR THE FIX (Zero Reflow)
-    let cachedTooltipWidth = 0;
-    let cachedTooltipHeight = 0;
-
     const initializeCharts = () => {
         if (typeof Chart === 'undefined') return;
         chartsInitialized = true;
@@ -110,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- 3. Custom Tooltip Handler (Fix Reflow) ---
+    // UPDATED: Completely refactored to remove synchronous layout thrashing
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
         if (!tooltipEl) return;
@@ -139,19 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // 1. Write Phase: Update content if needed.
+        // We do NOT measure offsetWidth here anymore.
         if (tooltipEl.innerHTML !== newHtml) {
              tooltipEl.innerHTML = newHtml;
-             // MEASURE ONCE HERE (Zero Reflow Strategy)
-             cachedTooltipWidth = tooltipEl.offsetWidth;
-             cachedTooltipHeight = tooltipEl.offsetHeight;
         }
 
         tooltipEl.style.opacity = 1;
 
         if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
+        // 2. Read & Position Phase: Deferred to Animation Frame
         tooltipRequest = requestAnimationFrame(() => {
-            // USE CACHED VALUES HERE
+            // Measure NOW, when the browser is ready to paint.
+            // This prevents the "Forced Reflow" warning.
+            const tooltipWidth = tooltipEl.offsetWidth;
+            const tooltipHeight = tooltipEl.offsetHeight;
             
             const { clientX, clientY } = event; 
             const margin = 15;
@@ -161,11 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let finalX = clientX + margin;
             let finalY = clientY + margin;
 
-            if (finalY + cachedTooltipHeight > winHeight) {
-                finalY = clientY - cachedTooltipHeight - margin;
+            if (finalY + tooltipHeight > winHeight) {
+                finalY = clientY - tooltipHeight - margin;
             }
-            if (finalX + cachedTooltipWidth > winWidth) {
-                 finalX = clientX - cachedTooltipWidth - margin;
+            if (finalX + tooltipWidth > winWidth) {
+                 finalX = clientX - tooltipWidth - margin;
             }
 
             tooltipEl.style.position = 'fixed';
