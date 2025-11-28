@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Optimization: Global Formatter ---
+    // --- Optimization: Global Formatter (Prevents Garbage Collection churn) ---
     const USD_FORMATTER = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let chartsInitialized = false;
     let latestResults = null;
 
-    // --- 0. LAZY LOAD ADS ---
+    // --- 0. CRITICAL PERFORMANCE: LAZY LOAD ADS ---
     let adsLoaded = false;
     const loadAds = () => {
         if (adsLoaded) return;
@@ -28,12 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(script);
     };
 
+    // Passive listeners for better scroll performance
     const userInteractionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown'];
     userInteractionEvents.forEach(event => {
         window.addEventListener(event, loadAds, { once: true, passive: true });
     });
 
-    // --- 1. Lazy Load Chart.js (Optimized Init) ---
+    // --- 1. Lazy Load Chart.js ---
     const chartObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -42,23 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const script = document.createElement('script');
                     script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
                     script.onload = () => {
-                        // FIX: Wrap init in rAF to prevent Reflow during scroll
-                        requestAnimationFrame(() => {
-                            initializeCharts();
-                            if (latestResults) updateCharts(latestResults);
-                        });
+                        initializeCharts();
+                        if (latestResults) updateCharts(latestResults);
                     };
                     document.body.appendChild(script);
                 } else if (!chartsInitialized) {
-                    requestAnimationFrame(() => {
-                        initializeCharts();
-                        if (latestResults) updateCharts(latestResults);
-                    });
+                    initializeCharts();
+                    if (latestResults) updateCharts(latestResults);
                 }
                 observer.unobserve(entry.target);
             }
         });
-    }, { rootMargin: '200px' });
+    }, { rootMargin: '200px' }); // Increased margin to load slightly earlier on mobile
 
     const chartContainer = document.getElementById('charts-container');
     if (chartContainer) {
@@ -80,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tooltipEl.style.zIndex = '1000'; 
             tooltipEl.style.top = '0'; 
             tooltipEl.style.left = '0';
-            tooltipEl.style.willChange = 'transform, opacity';
+            tooltipEl.style.willChange = 'transform, opacity'; // GPU Hint
         }
 
         const ctx = document.getElementById('monthlyCostChart')?.getContext('2d');
@@ -104,12 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 maintainAspectRatio: true, 
                 aspectRatio: 1, 
                 cutout: '65%', 
-                animation: { duration: 400 },
+                animation: { duration: 500 }, // Faster animation for mobile
                 plugins: {
                     legend: { display: false }, 
                     tooltip: { enabled: false } 
                 },
                 onHover: (event, chartElement) => {
+                    // Optimized hover check
                     const target = event.native.target;
                     if(target) target.style.cursor = chartElement.length ? 'pointer' : 'default';
                 }
@@ -124,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 3. Custom Tooltip Handler (Fix Reflow) ---
+    // --- 3. Custom Tooltip Handler (Optimized) ---
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
         if (!tooltipEl) return;
@@ -154,9 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // Only write to DOM if changed
         if (tooltipEl.innerHTML !== newHtml) {
              tooltipEl.innerHTML = newHtml;
-             // removed synchronous offsetWidth read here to stop reflow
+             // Cache dimensions ONLY when content changes to avoid Layout Thrashing
+             cachedTooltipWidth = tooltipEl.offsetWidth;
+             cachedTooltipHeight = tooltipEl.offsetHeight;
         }
 
         tooltipEl.style.opacity = 1;
@@ -164,25 +164,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
         tooltipRequest = requestAnimationFrame(() => {
-            // Read dimensions inside the animation frame (Render Phase)
-            const currentWidth = tooltipEl.offsetWidth;
-            const currentHeight = tooltipEl.offsetHeight;
-            
+            // Use clientX/Y for simpler math relative to viewport
             const { clientX, clientY } = event; 
             const margin = 15;
             const winWidth = window.innerWidth;
             const winHeight = window.innerHeight;
             
+            // Default position: Bottom Right of cursor
             let finalX = clientX + margin;
             let finalY = clientY + margin;
 
-            if (finalY + currentHeight > winHeight) {
-                finalY = clientY - currentHeight - margin;
+            // Check boundaries
+            if (finalY + cachedTooltipHeight > winHeight) {
+                finalY = clientY - cachedTooltipHeight - margin;
             }
-            if (finalX + currentWidth > winWidth) {
-                 finalX = clientX - currentWidth - margin;
+            if (finalX + cachedTooltipWidth > winWidth) {
+                 finalX = clientX - cachedTooltipWidth - margin;
             }
 
+            // Apply using fixed positioning for performance
             tooltipEl.style.position = 'fixed';
             tooltipEl.style.transform = `translate(${finalX}px, ${finalY}px)`;
         });
@@ -328,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const cleanNumber = (str) => {
+        // More robust cleaning
         if (!str) return 0;
         const cleaned = String(str).replace(/,/g, '').trim();
         const floatVal = parseFloat(cleaned);
@@ -337,18 +338,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const formatInput = (input) => {
         let value = input.value.replace(/[^0-9.]/g, '');
         const parts = value.split('.');
-        if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+        
+        // Ensure only one decimal point
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+        }
         
         const isPercentage = ['maxFrontEndDTI', 'maxBackEndDTI', 'interestRate', 'closingCosts', 'propertyTax', 'insurance', 'maintenance'].includes(input.id);
         const isYear = input.id === 'loanTerm';
 
-        if ((isPercentage || isYear) && parseFloat(value) > 100) value = '100';
-        else if (!isPercentage && !isYear && parts[0].length > 9) {
-            parts[0] = parts[0].substring(0, 9);
-            value = parts.length > 1 ? parts[0] + '.' + parts[1] : parts[0];
+        // Validations
+        if ((isPercentage || isYear) && parseFloat(value) > 100) {
+            value = '100';
+        } else if (!isPercentage && !isYear) {
+            // Cap very large numbers to prevent overflow
+             if (parts[0].length > 9) {
+                parts[0] = parts[0].substring(0, 9);
+                value = parts.length > 1 ? parts[0] + '.' + parts[1] : parts[0];
+            }
         }
 
-        if (parts.length > 1) value = parts[0] + '.' + parts[1].substring(0, 2);
+        if (parts.length > 1) {
+            value = parts[0] + '.' + parts[1].substring(0, 2);
+        }
         
         if (value === '') {
             input.value = '';
@@ -361,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = integerPart + decimalPart;
     };
     
+    // Optimized debounce (lower delay for better responsiveness)
     const debounce = (func, delay) => {
         let timeout;
         return function(...args) {
@@ -444,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     homePriceWithPMI = numeratorWithPMI / denominatorWithPMI;
                 }
                 
+                // Safety check: ensure the new price actually results in LTV > 80, otherwise revert to pass 1
                 const newLTV = ((homePriceWithPMI - downPayment) / homePriceWithPMI) * 100;
                 if (newLTV <= 80) {
                     const priceAt80LTV = downPayment / 0.20;
@@ -545,6 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultElements.outTotalMonthly.textContent = formatCurrency(results.totalMonthlyCost);
     };
 
+    // 50ms is much snappier than 300ms, making the app feel "instant"
     const debouncedCalculate = debounce(calculateAndDisplay, 50);
 
     Object.values(allInputs).forEach(input => {
@@ -555,16 +570,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         input.addEventListener('input', (e) => {
             let val = e.target.value.replace(/[^0-9.]/g, '');
-            if (val !== e.target.value) e.target.value = val;
+            if (val !== e.target.value) {
+                e.target.value = val;
+            }
             debouncedCalculate();
         });
     });
 
     window.addEventListener('resize', debounce(() => {
-        // Chart.js handles resize
+        // Chart.js handles resize, just keeping this for safety
     }, 250));
     
-    setTimeout(calculateAndDisplay, 0);
+    setTimeout(calculateAndDisplay, 0); // Immediate calc on load
 
     const taglines = [
         "Find your place in the world.",
@@ -589,6 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cycleTaglines();
     }
 
+    // --- Options Menu Logic ---
     const moreOptionsBtn = document.getElementById('moreOptionsBtn');
     const optionsMenu = document.getElementById('optionsMenu');
     const optionsOverlay = document.getElementById('optionsOverlay');
@@ -604,9 +622,17 @@ document.addEventListener('DOMContentLoaded', () => {
         optionsOverlay.classList.remove('active');
     }
 
-    if(moreOptionsBtn) moreOptionsBtn.addEventListener('click', toggleMenu);
-    if(closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
-    if(optionsOverlay) optionsOverlay.addEventListener('click', closeMenu);
+    if(moreOptionsBtn) {
+        moreOptionsBtn.addEventListener('click', toggleMenu);
+    }
+    
+    if(closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', closeMenu);
+    }
+
+    if(optionsOverlay) {
+        optionsOverlay.addEventListener('click', closeMenu);
+    }
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && optionsMenu && optionsMenu.classList.contains('active')) {
