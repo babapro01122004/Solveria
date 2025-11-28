@@ -16,23 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let chartsInitialized = false;
     let latestResults = null;
 
-    // --- 0. LAZY LOAD ADS ---
-    let adsLoaded = false;
-    const loadAds = () => {
-        if (adsLoaded) return;
-        adsLoaded = true;
-        const script = document.createElement('script');
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793';
-        script.crossOrigin = 'anonymous';
-        script.async = true;
-        document.body.appendChild(script);
-    };
-
-    const userInteractionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown'];
-    userInteractionEvents.forEach(event => {
-        window.addEventListener(event, loadAds, { once: true, passive: true });
-    });
-
     // --- 1. Lazy Load Chart.js (Optimized Init) ---
     const chartObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
