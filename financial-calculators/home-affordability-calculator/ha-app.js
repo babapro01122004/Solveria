@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- 3. Custom Tooltip Handler (Fix Reflow) ---
-    // UPDATED: Completely refactored to remove synchronous layout thrashing
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
         if (!tooltipEl) return;
@@ -136,8 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // 1. Write Phase: Update content if needed.
-        // We do NOT measure offsetWidth here anymore.
         if (tooltipEl.innerHTML !== newHtml) {
              tooltipEl.innerHTML = newHtml;
         }
@@ -146,10 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
-        // 2. Read & Position Phase: Deferred to Animation Frame
         tooltipRequest = requestAnimationFrame(() => {
-            // Measure NOW, when the browser is ready to paint.
-            // This prevents the "Forced Reflow" warning.
+            // Measure NOW (deferred) to avoid reflow
             const tooltipWidth = tooltipEl.offsetWidth;
             const tooltipHeight = tooltipEl.offsetHeight;
             
@@ -319,31 +314,60 @@ document.addEventListener('DOMContentLoaded', () => {
         return (isNaN(floatVal) || floatVal < 0) ? 0 : floatVal;
     };
 
+    // --- UPDATED: Strict Input Formatting ---
     const formatInput = (input) => {
+        // 1. Sanitize: Allow only numbers (0-9) and dots (.)
+        // This regex removes any character that is NOT a digit or a dot.
         let value = input.value.replace(/[^0-9.]/g, '');
+
+        // 2. Prevent Multiple Dots: "12.5.5" -> "12.55"
         const parts = value.split('.');
-        if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-        
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // 3. Identify Input Type
         const isPercentage = ['maxFrontEndDTI', 'maxBackEndDTI', 'interestRate', 'closingCosts', 'propertyTax', 'insurance', 'maintenance'].includes(input.id);
         const isYear = input.id === 'loanTerm';
 
-        if ((isPercentage || isYear) && parseFloat(value) > 100) value = '100';
-        else if (!isPercentage && !isYear && parts[0].length > 9) {
-            parts[0] = parts[0].substring(0, 9);
-            value = parts.length > 1 ? parts[0] + '.' + parts[1] : parts[0];
+        // 4. Cap & Limit Logic
+        if (isPercentage || isYear) {
+            // Strictly cap at 100
+            if (parseFloat(value) > 100) {
+                value = '100';
+            }
+        } else {
+            // Cap digits for Currency to avoid layout breaking (Max 10 digits = 9.9 Billion)
+            // We check the length of the integer part only
+            let intPart = parts[0];
+            if (intPart.length > 10) {
+                intPart = intPart.substring(0, 10);
+                value = parts.length > 1 ? intPart + '.' + parts[1] : intPart;
+            }
         }
 
-        if (parts.length > 1) value = parts[0] + '.' + parts[1].substring(0, 2);
-        
+        // 5. Apply Formatting (Commas)
         if (value === '') {
             input.value = '';
             return;
         }
 
-        let integerPart = value.split('.')[0];
-        let decimalPart = value.includes('.') ? '.' + value.split('.')[1] : '';
+        // Split to format the integer part separately
+        let [integerPart, decimalPart] = value.split('.');
+        
+        // Add Commas to Integer Part (US/International Format)
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        input.value = integerPart + decimalPart;
+
+        // Reconstruct the value
+        if (value.includes('.')) {
+            // Optional: Limit decimal places to 2 for cleaner UI
+            if (decimalPart.length > 2) {
+                decimalPart = decimalPart.substring(0, 2);
+            }
+            input.value = `${integerPart}.${decimalPart}`;
+        } else {
+            input.value = integerPart;
+        }
     };
     
     const debounce = (func, delay) => {
@@ -534,13 +558,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     Object.values(allInputs).forEach(input => {
         if (!input) return;
+        
+        // Initial formatting on load
         formatInput(input);
+        
+        // Format on blur to ensure clean display
         input.addEventListener('blur', (e) => {
             formatInput(e.target);
         });
+
+        // Main input handler: Format and Calculate real-time
         input.addEventListener('input', (e) => {
-            let val = e.target.value.replace(/[^0-9.]/g, '');
-            if (val !== e.target.value) e.target.value = val;
+            // 1. Sanitize and Format immediate value
+            formatInput(e.target);
+            
+            // 2. Trigger calculation
             debouncedCalculate();
         });
     });
