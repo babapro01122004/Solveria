@@ -314,31 +314,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return (isNaN(floatVal) || floatVal < 0) ? 0 : floatVal;
     };
 
-    // --- UPDATED: Strict Input Formatting ---
+    // --- Strict Input Formatting ---
     const formatInput = (input) => {
-        // 1. Sanitize: Allow only numbers (0-9) and dots (.)
-        // This regex removes any character that is NOT a digit or a dot.
         let value = input.value.replace(/[^0-9.]/g, '');
-
-        // 2. Prevent Multiple Dots: "12.5.5" -> "12.55"
         const parts = value.split('.');
         if (parts.length > 2) {
             value = parts[0] + '.' + parts.slice(1).join('');
         }
 
-        // 3. Identify Input Type
         const isPercentage = ['maxFrontEndDTI', 'maxBackEndDTI', 'interestRate', 'closingCosts', 'propertyTax', 'insurance', 'maintenance'].includes(input.id);
         const isYear = input.id === 'loanTerm';
 
-        // 4. Cap & Limit Logic
         if (isPercentage || isYear) {
-            // Strictly cap at 100
-            if (parseFloat(value) > 100) {
-                value = '100';
-            }
+            if (parseFloat(value) > 100) value = '100';
         } else {
-            // Cap digits for Currency to avoid layout breaking (Max 10 digits = 9.9 Billion)
-            // We check the length of the integer part only
             let intPart = parts[0];
             if (intPart.length > 10) {
                 intPart = intPart.substring(0, 10);
@@ -346,30 +335,132 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 5. Apply Formatting (Commas)
         if (value === '') {
             input.value = '';
             return;
         }
 
-        // Split to format the integer part separately
         let [integerPart, decimalPart] = value.split('.');
-        
-        // Add Commas to Integer Part (US/International Format)
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        // Reconstruct the value
         if (value.includes('.')) {
-            // Optional: Limit decimal places to 2 for cleaner UI
-            if (decimalPart.length > 2) {
-                decimalPart = decimalPart.substring(0, 2);
-            }
+            if (decimalPart.length > 2) decimalPart = decimalPart.substring(0, 2);
             input.value = `${integerPart}.${decimalPart}`;
         } else {
             input.value = integerPart;
         }
     };
     
+    // --- Slider Sync Logic with Power Curve ---
+    const SLIDER_CONFIG = {
+        annualIncome: { type: 'cubic', max: 10000000 },
+        monthlyDebt: { type: 'cubic', max: 50000 },
+        maxFrontEndDTI: { type: 'linear', max: 60, min: 10 },
+        maxBackEndDTI: { type: 'linear', max: 60, min: 10 },
+        downPayment: { type: 'cubic', max: 5000000 },
+        loanTerm: { type: 'linear', max: 40, min: 5 },
+        interestRate: { type: 'linear', max: 15 },
+        closingCosts: { type: 'linear', max: 10 },
+        propertyTax: { type: 'linear', max: 5 },
+        insurance: { type: 'linear', max: 5 },
+        hoaFee: { type: 'cubic', max: 5000 },
+        maintenance: { type: 'linear', max: 5 }
+    };
+
+    // Convert Real Value to Slider Percent (0-100)
+    const valToSlider = (val, id) => {
+        const config = SLIDER_CONFIG[id];
+        if (!config) return 0;
+        
+        if (config.type === 'cubic') {
+            // Cubic: slider% = 100 * (val / max)^(1/3)
+            return Math.pow(val / config.max, 1/3) * 100;
+        } else {
+            // Linear
+            const min = config.min || 0;
+            return ((val - min) / (config.max - min)) * 100;
+        }
+    };
+
+    // Convert Slider Percent to Real Value
+    const sliderToVal = (percent, id) => {
+        const config = SLIDER_CONFIG[id];
+        if (!config) return 0;
+
+        if (config.type === 'cubic') {
+            // Cubic: val = max * (percent / 100)^3
+            return config.max * Math.pow(percent / 100, 3);
+        } else {
+            // Linear
+            const min = config.min || 0;
+            return ((percent / 100) * (config.max - min)) + min;
+        }
+    };
+
+    const updateSliderVisual = (slider) => {
+        const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+        // IMPORTANT: Use backgroundImage to prevent overriding CSS background-size
+        slider.style.backgroundImage = `linear-gradient(to right, #B5855E 0%, #B5855E ${val}%, #e0e0e0 ${val}%, #e0e0e0 100%)`;
+    };
+
+    // --- Initialize Sliders ---
+    Object.keys(allInputs).forEach(key => {
+        const input = allInputs[key];
+        const slider = document.getElementById(`slider_${key}`);
+        if (!input || !slider) return;
+
+        // Init logic moved to Deep Linking section to handle overwrite
+
+        // 2. Slider -> Input Sync
+        slider.addEventListener('input', (e) => {
+            const pct = parseFloat(e.target.value);
+            let realVal = sliderToVal(pct, key);
+            
+            // Rounding logic for cleaner numbers
+            if (SLIDER_CONFIG[key].type === 'cubic') {
+                if (realVal > 1000) realVal = Math.round(realVal / 100) * 100; // Round to nearest 100 for big numbers
+                else realVal = Math.round(realVal);
+            } else {
+                // Keep decimals for percentages
+                realVal = Math.round(realVal * 100) / 100; 
+                // Special integer handling for Term
+                if (key === 'loanTerm') realVal = Math.round(realVal);
+            }
+
+            input.value = realVal; 
+            formatInput(input); // Add commas
+            updateSliderVisual(e.target);
+            debouncedCalculate(); // Trigger calc
+        });
+
+        // 3. Input -> Slider Sync
+        input.addEventListener('input', (e) => {
+            formatInput(e.target); // Standard format
+            const currentVal = cleanNumber(e.target.value);
+            slider.value = valToSlider(currentVal, key);
+            updateSliderVisual(slider);
+            debouncedCalculate();
+        });
+        
+        // Also sync on blur to catch any edge cases
+        input.addEventListener('blur', (e) => {
+            const currentVal = cleanNumber(e.target.value);
+            slider.value = valToSlider(currentVal, key);
+            updateSliderVisual(slider);
+        });
+
+        // --- Toggle Active Class on Interaction ---
+        const addActive = () => slider.classList.add('active-slider');
+        const removeActive = () => slider.classList.remove('active-slider');
+        input.addEventListener('focus', addActive);
+        input.addEventListener('blur', removeActive);
+        slider.addEventListener('touchstart', addActive, { passive: true });
+        slider.addEventListener('touchend', removeActive);
+        slider.addEventListener('touchcancel', removeActive);
+        slider.addEventListener('mousedown', addActive);
+        slider.addEventListener('mouseup', removeActive);
+    });
+
     const debounce = (func, delay) => {
         let timeout;
         return function(...args) {
@@ -556,32 +647,153 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const debouncedCalculate = debounce(calculateAndDisplay, 50);
 
-    Object.values(allInputs).forEach(input => {
-        if (!input) return;
-        
-        // Initial formatting on load
-        formatInput(input);
-        
-        // Format on blur to ensure clean display
-        input.addEventListener('blur', (e) => {
-            formatInput(e.target);
-        });
-
-        // Main input handler: Format and Calculate real-time
-        input.addEventListener('input', (e) => {
-            // 1. Sanitize and Format immediate value
-            formatInput(e.target);
-            
-            // 2. Trigger calculation
-            debouncedCalculate();
-        });
-    });
-
     window.addEventListener('resize', debounce(() => {
         // Chart.js handles resize
     }, 250));
+
+    // --- DEEP LINKING: Check URL params on load ---
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('inc')) {
+        // Short keys: inc, debt, fdti, bdti, down, term, rate, clos, tax, ins, hoa, maint
+        if(params.has('inc')) allInputs.annualIncome.value = params.get('inc');
+        if(params.has('debt')) allInputs.monthlyDebt.value = params.get('debt');
+        if(params.has('fdti')) allInputs.maxFrontEndDTI.value = params.get('fdti');
+        if(params.has('bdti')) allInputs.maxBackEndDTI.value = params.get('bdti');
+        if(params.has('down')) allInputs.downPayment.value = params.get('down');
+        if(params.has('term')) allInputs.loanTerm.value = params.get('term');
+        if(params.has('rate')) allInputs.interestRate.value = params.get('rate');
+        if(params.has('clos')) allInputs.closingCosts.value = params.get('clos');
+        if(params.has('tax')) allInputs.propertyTax.value = params.get('tax');
+        if(params.has('ins')) allInputs.insurance.value = params.get('ins');
+        if(params.has('hoa')) allInputs.hoaFee.value = params.get('hoa');
+        if(params.has('maint')) allInputs.maintenance.value = params.get('maint');
+    }
+
+    // --- Initialize Inputs & Sliders (Handles Default or Deep Link values) ---
+    Object.keys(allInputs).forEach(key => {
+        const input = allInputs[key];
+        const slider = document.getElementById(`slider_${key}`);
+        if(input && slider) {
+            formatInput(input);
+            slider.value = valToSlider(cleanNumber(input.value), key);
+            updateSliderVisual(slider);
+        }
+    });
     
     setTimeout(calculateAndDisplay, 0);
+
+    // --- Reset Button Logic ---
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            Object.keys(allInputs).forEach(key => {
+                const input = allInputs[key];
+                if (input) {
+                    input.value = input.defaultValue; 
+                    formatInput(input);
+                    const slider = document.getElementById(`slider_${key}`);
+                    if (slider) {
+                        slider.value = valToSlider(cleanNumber(input.value), key);
+                        updateSliderVisual(slider);
+                    }
+                }
+            });
+            // Clear URL params on reset for clean state
+            window.history.replaceState({}, document.title, window.location.pathname);
+            calculateAndDisplay();
+        });
+    }
+
+    // --- SMART SHARE LOGIC ---
+    const shareBtn = document.getElementById('shareBtn');
+    const shareMenu = document.getElementById('shareMenu');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const emailShareBtn = document.getElementById('emailShareBtn');
+
+    const generateDeepLink = () => {
+        const p = new URLSearchParams();
+        p.set('inc', cleanNumber(allInputs.annualIncome.value));
+        p.set('debt', cleanNumber(allInputs.monthlyDebt.value));
+        p.set('fdti', cleanNumber(allInputs.maxFrontEndDTI.value));
+        p.set('bdti', cleanNumber(allInputs.maxBackEndDTI.value));
+        p.set('down', cleanNumber(allInputs.downPayment.value));
+        p.set('term', cleanNumber(allInputs.loanTerm.value));
+        p.set('rate', cleanNumber(allInputs.interestRate.value));
+        p.set('clos', cleanNumber(allInputs.closingCosts.value));
+        p.set('tax', cleanNumber(allInputs.propertyTax.value));
+        p.set('ins', cleanNumber(allInputs.insurance.value));
+        p.set('hoa', cleanNumber(allInputs.hoaFee.value));
+        p.set('maint', cleanNumber(allInputs.maintenance.value));
+        return `${window.location.origin}${window.location.pathname}?${p.toString()}`;
+    };
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async (e) => {
+            e.stopPropagation(); // Stop bubbling
+            const shareUrl = generateDeepLink();
+            const shareTitle = 'My Home Affordability Analysis';
+            const shareText = `I checked my home buying power on Solveria. Check out the numbers: ${shareUrl}`;
+
+            // 1. Mobile / OS Level Share
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: shareTitle,
+                        text: shareText,
+                        url: shareUrl
+                    });
+                } catch (err) {
+                    console.log('Share canceled or failed', err);
+                }
+            } else {
+                // 2. Desktop Fallback (Custom Menu)
+                if (shareMenu) {
+                    shareMenu.classList.toggle('active');
+                }
+            }
+        });
+    }
+
+    // Desktop Menu Actions
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', (e) => {
+            const url = generateDeepLink();
+            navigator.clipboard.writeText(url).then(() => {
+                const originalText = copyLinkBtn.textContent;
+                copyLinkBtn.textContent = 'Copied!';
+                setTimeout(() => copyLinkBtn.textContent = originalText, 2000);
+            });
+        });
+    }
+
+    if (emailShareBtn) {
+        emailShareBtn.addEventListener('click', () => {
+            const url = generateDeepLink();
+            const subject = "Home Affordability Estimate";
+            const body = `I calculated my home buying budget. Here is the breakdown:\n\n${url}`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    }
+
+    // Close menus on outside click
+    document.addEventListener('click', (e) => {
+        if (shareMenu && shareMenu.classList.contains('active')) {
+            if (!shareMenu.contains(e.target) && e.target !== shareBtn) {
+                shareMenu.classList.remove('active');
+            }
+        }
+        
+        // Also close the main Options menu
+        const optionsMenu = document.getElementById('optionsMenu');
+        const optionsOverlay = document.getElementById('optionsOverlay');
+        const moreOptionsBtn = document.getElementById('moreOptionsBtn');
+        if (optionsMenu && optionsMenu.classList.contains('active')) {
+            if (!optionsMenu.contains(e.target) && e.target !== moreOptionsBtn) {
+                optionsMenu.classList.remove('active');
+                optionsOverlay.classList.remove('active');
+            }
+        }
+    });
 
     const taglines = [
         "Find your place in the world.",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,9 @@
     <meta name="description" content="Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.">
     <link rel="canonical" href="https://solveria.org/financial-calculators/home-affordability-calculator/" />
 
+    <meta name="geo.region" content="US">
+    <meta name="geo.placename" content="United States">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -36,6 +39,7 @@
     <meta property="og:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market." />
     <meta property="og:image" content="https://solveria.org/img/social-share-card.jpg" />
     <meta property="og:url" content="https://solveria.org/financial-calculators/home-affordability-calculator/" />
+    <meta property="og:locale" content="en_US" />
     
     <script type="application/ld+json">
     {
@@ -46,7 +50,8 @@
           "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/",
           "url": "https://solveria.org/financial-calculators/home-affordability-calculator/",
           "name": "Home Affordability Calculator | Solveria",
-          "description": "Calculate your true home buying power. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis.",
+          "description": "Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.",
+          "inLanguage": "en-US",
           "primaryImageOfPage": { "@id": "https://solveria.org/img/social-share-card.jpg" },
           "publisher": { "@id": "https://solveria.org/#organization" },
           "breadcrumb": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#breadcrumb" },
@@ -67,6 +72,10 @@
             "url": "https://solveria.org/img/Logo_Golden.png",
             "width": 130,
             "height": 130
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "United States"
           }
         },
         {
@@ -89,6 +98,14 @@
           "screenshot": "https://solveria.org/img/social-share-card.jpg",
           "publisher": { "@id": "https://solveria.org/#organization" },
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Homebuyers",
+            "geographicArea": {
+                "@type": "Country",
+                "name": "United States"
+            }
+          },
           "mainEntityOfPage": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/" }
         },
         {
@@ -122,13 +139,28 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Q1: What is the '28/36 Rule'?",
-              "acceptedAnswer": { "@type": "Answer", "text": "28% of income for housing, 36% for total debt." }
+              "name": "Q1: What is the '28/36 Rule' and should I follow it?",
+              "acceptedAnswer": { "@type": "Answer", "text": "The 28/36 rule is a guideline used by lenders. 28% (Front-End Ratio) of your gross monthly income should go to housing costs, and 36% (Back-End Ratio) to total debt including housing. Sticking to this ensures financial stability." }
+            },
+            {
+              "@type": "Question",
+              "name": "Q2: What do lenders look at besides DTI and income?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Lenders also verify your Credit Score (740+ gets better rates), Credit History (on-time payments), Cash Reserves (post-closing liquidity), and Employment Stability (typically 2+ years)." }
+            },
+            {
+              "@type": "Question",
+              "name": "Q3: What's the difference between Pre-Qualified and Pre-Approved?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Pre-Qualification is an informal estimate based on self-reported data. Pre-Approval is a formal commitment where the lender verifies your income, assets, and credit, holding significantly more weight with sellers." }
             },
             {
               "@type": "Question",
               "name": "Q4: How much income do I need to buy a $400,000 house?",
-              "acceptedAnswer": { "@type": "Answer", "text": "With 10% down ($40k), you need approx $160k income. With 20% down, less." }
+              "acceptedAnswer": { "@type": "Answer", "text": "It depends on your down payment. With an FHA loan (3.5% down), you need approx $110,400. With a Conventional 5% down, ~$105,000. With 20% down, ~$91,800 annually, assuming standard 2025 underwriting rates." }
+            },
+            {
+              "@type": "Question",
+              "name": "Q5: Does this calculator guarantee I'll be approved for this loan amount?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No. This tool provides an estimate. Final approval depends on a formal underwriting process verifying your credit, income, assets, and the property's value." }
             }
           ]
         }
@@ -200,23 +232,29 @@
                 
                 <div class="input-section-header">
                     <h3>Income & Debt</h3>
+                    <button id="resetBtn" class="reset-link" aria-label="Reset Calculator">Reset</button>
                 </div>
+                
                 <div class="input-grid">
                     <div class="input-group">
                         <label for="annualIncome">Annual Household Income ($)</label>
                         <input type="text" id="annualIncome" value="90,000" inputmode="decimal">
+                        <input type="range" id="slider_annualIncome" min="0" max="100" step="0.1" value="0">
                     </div>
                     <div class="input-group">
                         <label for="monthlyDebt">Monthly Debt Payback ($)</label>
                         <input type="text" id="monthlyDebt" value="500" inputmode="decimal">
+                        <input type="range" id="slider_monthlyDebt" min="0" max="100" step="0.1" value="0">
                     </div>
                     <div class="input-group">
                         <label for="maxFrontEndDTI">Max Front-End DTI (%)</label>
                         <input type="text" id="maxFrontEndDTI" value="28" inputmode="decimal">
+                        <input type="range" id="slider_maxFrontEndDTI" min="10" max="60" step="1" value="28">
                     </div>
                     <div class="input-group">
                         <label for="maxBackEndDTI">Max Back-End DTI (%)</label>
                         <input type="text" id="maxBackEndDTI" value="36" inputmode="decimal">
+                        <input type="range" id="slider_maxBackEndDTI" min="10" max="60" step="1" value="36">
                     </div>
                 </div>
 
@@ -227,18 +265,22 @@
                     <div class="input-group">
                         <label for="downPayment">Down Payment ($)</label>
                         <input type="text" id="downPayment" value="40,000" inputmode="decimal">
+                         <input type="range" id="slider_downPayment" min="0" max="100" step="0.1" value="0">
                     </div>
                     <div class="input-group">
                         <label for="loanTerm">Mortgage Loan Term (Years)</label>
                         <input type="text" id="loanTerm" value="30" inputmode="decimal">
+                         <input type="range" id="slider_loanTerm" min="5" max="40" step="5" value="30">
                     </div>
                     <div class="input-group">
                         <label for="interestRate">Interest Rate (%)</label>
                         <input type="text" id="interestRate" value="6.8" inputmode="decimal">
+                         <input type="range" id="slider_interestRate" min="0" max="15" step="0.1" value="6.8">
                     </div>
                     <div class="input-group">
                         <label for="closingCosts">Closing Costs (Est. %)</label>
                         <input type="text" id="closingCosts" value="3" inputmode="decimal">
+                        <input type="range" id="slider_closingCosts" min="0" max="10" step="0.1" value="3">
                     </div>
                 </div>
 
@@ -249,18 +291,22 @@
                     <div class="input-group">
                         <label for="propertyTax">Property Tax (Annual %)</label>
                         <input type="text" id="propertyTax" value="1.2" inputmode="decimal">
+                         <input type="range" id="slider_propertyTax" min="0" max="5" step="0.1" value="1.2">
                     </div>
                     <div class="input-group">
                         <label for="insurance">Insurance (Annual %)</label>
                         <input type="text" id="insurance" value="0.5" inputmode="decimal">
+                        <input type="range" id="slider_insurance" min="0" max="5" step="0.1" value="0.5">
                     </div>
                     <div class="input-group">
                         <label for="hoaFee">HOA Fee (Monthly $)</label>
                         <input type="text" id="hoaFee" value="75" inputmode="decimal">
+                         <input type="range" id="slider_hoaFee" min="0" max="100" step="0.1" value="0">
                     </div>
                     <div class="input-group">
                         <label for="maintenance">Maintenance (Est. %)</label>
                         <input type="text" id="maintenance" value="1.5" inputmode="decimal">
+                         <input type="range" id="slider_maintenance" min="0" max="5" step="0.1" value="1.5">
                     </div>
                 </div>
             </div>
@@ -290,7 +336,14 @@
                 <div class="summary-text" id="main-summary" aria-live="polite">
                     <div class="summary-header-flex">
                         <h3>Summary</h3>
-                        <a href="../../support/" class="mobile-support-button">Support</a>
+                        <div class="summary-actions">
+                            <button id="shareBtn" class="share-link" type="button" aria-label="Share Results">Share</button>
+                            <div id="shareMenu" class="share-menu">
+                                <button class="share-option" id="copyLinkBtn">Copy Link</button>
+                                <button class="share-option" id="emailShareBtn">Email Result</button>
+                            </div>
+                            <a href="../../support/" class="mobile-support-button">Support</a>
+                        </div>
                     </div>
                     <p id="resultSummaryText">Enter your details to see a summary of your home affordability.</p>
                 </div>
