@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 3. Custom Tooltip Handler ---
+   // --- 3. Custom Tooltip Handler (Optimized) ---
     const customTooltipHandler = (event, chart) => {
         const tooltipEl = document.getElementById('chartTooltip');
         if (!tooltipEl) return;
@@ -148,15 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // Only write to DOM if content changed (Reduces layout thrashing)
         if (tooltipEl.innerHTML !== newHtml) {
              tooltipEl.innerHTML = newHtml;
         }
 
-        tooltipEl.style.opacity = 1;
-
+        // Use requestAnimationFrame to separate the "Read" from the "Write"
         if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
 
         tooltipRequest = requestAnimationFrame(() => {
+            // Make visible first so dimensions are calculable, but keep in separate frame
+            tooltipEl.style.opacity = 1;
+            
             const tooltipWidth = tooltipEl.offsetWidth;
             const tooltipHeight = tooltipEl.offsetHeight;
             const { clientX, clientY } = event; 
@@ -173,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tooltipEl.style.transform = `translate(${finalX}px, ${finalY}px)`;
         });
     };
-
     // --- 4. Update Charts Function ---
     const updateCharts = (results) => {
         if (!chartsInitialized || !monthlyCostChart) return;
