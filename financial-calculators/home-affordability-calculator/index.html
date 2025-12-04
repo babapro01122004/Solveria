@@ -10,6 +10,22 @@
     <meta name="geo.region" content="US">
     <meta name="geo.placename" content="United States">
     
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Much House Can I Afford? | Solveria">
+    <meta name="twitter:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market. Calculate your true buying power now.">
+    <meta name="twitter:image" content="https://solveria.org/img/social-share-card.jpg">
+    <meta name="twitter:image:alt" content="Solveria Home Affordability Calculator Dashboard">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Much House Can I Afford? | Solveria" />
+    <meta property="og:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market." />
+    <meta property="og:image" content="https://solveria.org/img/social-share-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://solveria.org/financial-calculators/home-affordability-calculator/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Solveria" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -33,25 +49,22 @@
     <link rel="shortcut" href="../../favicon.ico">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="How Much House Can I Afford? | Solveria" />
-    <meta property="og:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market." />
-    <meta property="og:image" content="https://solveria.org/img/social-share-card.jpg" />
-    <meta property="og:url" content="https://solveria.org/financial-calculators/home-affordability-calculator/" />
-    <meta property="og:locale" content="en_US" />
     
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
+         {
           "@type": "WebPage",
           "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/",
           "url": "https://solveria.org/financial-calculators/home-affordability-calculator/",
           "name": "Home Affordability Calculator | Solveria",
           "description": "Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.",
+          "isAccessibleForFree": true,  
           "inLanguage": "en-US",
+          "datePublished": "2025-01-15T08:00:00+00:00",
+          "dateModified": "2025-12-02T09:30:00+00:00",
           "primaryImageOfPage": { "@id": "https://solveria.org/img/social-share-card.jpg" },
           "publisher": { "@id": "https://solveria.org/#organization" },
           "breadcrumb": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#breadcrumb" },
@@ -59,9 +72,19 @@
              "@type": "SpeakableSpecification",
              "cssSelector": [".intro-section p", ".faq-answer"]
           },
+          "potentialAction": {
+            "@type": "ShareAction",
+            "target": "https://solveria.org/financial-calculators/home-affordability-calculator/?share=true"
+          },
+          "mentions": [
+            { "@type": "Organization", "name": "Fannie Mae", "url": "https://www.fanniemae.com/" },
+            { "@type": "Organization", "name": "Freddie Mac", "url": "https://www.freddiemac.com/" },
+            { "@type": "Organization", "name": "Federal Housing Administration", "url": "https://www.hud.gov/federal_housing_administration" }
+          ],
           "mainEntity": [
             { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#calculator" },
             { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#howto" },
+            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#glossary" },
             { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#faq" },
             { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#results-explained" }
           ]
@@ -80,7 +103,13 @@
           "areaServed": {
             "@type": "Country",
             "name": "United States"
-          }
+          },
+          "sameAs": [
+            "https://www.facebook.com/Solveria",
+            "https://twitter.com/Solveria",
+            "https://www.linkedin.com/company/solveria",
+            "https://www.pinterest.com/Solveria"
+          ]
         },
         {
           "@type": "BreadcrumbList",
@@ -125,7 +154,14 @@
           "browserRequirements": "Requires JavaScript",
           "screenshot": "https://solveria.org/img/social-share-card.jpg",
           "publisher": { "@id": "https://solveria.org/#organization" },
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "offers": { 
+            "@type": "Offer", 
+            "price": "0", 
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "category": "Free Tool"
+          },
+          "featureList": "Reverse affordability analysis, 28/36 Rule validation, FHA vs Conventional comparison, Real-time PMI calculation, Print-to-PDF report generation",
           "audience": {
             "@type": "Audience",
             "audienceType": "Homebuyers",
@@ -135,6 +171,37 @@
             }
           },
           "mainEntityOfPage": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/" }
+        },
+        {
+          "@type": "DefinedTermSet",
+          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#glossary",
+          "name": "Mortgage Affordability Glossary",
+          "hasDefinedTerm": [
+            {
+              "@type": "DefinedTerm",
+              "termCode": "DTI",
+              "name": "Debt-to-Income Ratio",
+              "description": "A personal finance measure that compares an individual's monthly debt payment to their monthly gross income."
+            },
+            {
+              "@type": "DefinedTerm",
+              "termCode": "Front-End DTI",
+              "name": "Front-End Ratio",
+              "description": "The percentage of gross monthly income that goes toward housing costs (Principal, Interest, Taxes, Insurance, and HOA)."
+            },
+            {
+              "@type": "DefinedTerm",
+              "termCode": "Back-End DTI",
+              "name": "Back-End Ratio",
+              "description": "The percentage of gross monthly income that goes toward all debt obligations, including housing costs and other debts like car loans or credit cards."
+            },
+            {
+              "@type": "DefinedTerm",
+              "termCode": "PITI",
+              "name": "PITI",
+              "description": "An acronym for Principal, Interest, Taxes, and Insurance—the sum components of a standard mortgage payment."
+            }
+          ]
         },
         {
           "@type": "HowTo",
@@ -259,8 +326,52 @@
                 <h2>Enter Your Details</h2>
                 
                 <div class="input-section-header">
+                    <h3>Loan Profile</h3>
+                    <div class="header-actions">
+                        <button id="mobilePdfBtn" class="reset-link pdf-mobile-trigger" aria-label="Save as PDF">PDF</button>
+                        <button id="mobilePrintBtn" class="reset-link pdf-mobile-trigger" aria-label="Print Page">Print</button>
+                        <button id="resetBtn" class="reset-link" aria-label="Reset Calculator">Reset</button>
+                    </div>
+                </div>
+
+                <div class="input-grid" style="margin-bottom: 40px;">
+                    <div class="input-group">
+                        <label>Loan Program</label>
+                        <div class="custom-dropdown-container" id="loanTypeDropdown">
+                            <select id="loanType" style="display:none">
+                                <option value="conventional">Conventional Loan</option>
+                                <option value="fha">FHA Loan (3.5% Down)</option>
+                                <option value="va">VA Loan (0% Down)</option>
+                            </select>
+                            <button type="button" class="custom-dropdown-trigger" id="loanTypeTrigger">Conventional Loan</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-option selected" data-value="conventional">Conventional Loan</div>
+                                <div class="dropdown-option" data-value="fha">FHA Loan (3.5% Down)</div>
+                                <div class="dropdown-option" data-value="va">VA Loan (0% Down)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Credit Score Range</label>
+                        <div class="custom-dropdown-container" id="creditScoreDropdown">
+                            <select id="creditScore" style="display:none">
+                                <option value="excellent">Excellent (760+)</option>
+                                <option value="good" selected>Good (700-759)</option>
+                                <option value="fair">Fair (640-699)</option>
+                            </select>
+                            <button type="button" class="custom-dropdown-trigger" id="creditScoreTrigger">Good (700-759)</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-option" data-value="excellent">Excellent (760+)</div>
+                                <div class="dropdown-option selected" data-value="good">Good (700-759)</div>
+                                <div class="dropdown-option" data-value="fair">Fair (640-699)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-section-header">
                     <h3>Income & Debt</h3>
-                    <button id="resetBtn" class="reset-link" aria-label="Reset Calculator">Reset</button>
                 </div>
                 
                 <div class="input-grid">
@@ -307,6 +418,7 @@
                     </div>
                     <div class="input-group">
                         <label for="closingCosts">Closing Costs (Est. %)</label>
+                        <span style="display:block; font-size: 0.75rem; color:#999; margin-bottom:5px; margin-top:-3px;">Typically 2-5% in the US</span>
                         <input type="text" id="closingCosts" value="3" inputmode="decimal">
                         <input type="range" id="slider_closingCosts" min="0" max="10" step="0.1" value="3">
                     </div>
@@ -318,6 +430,7 @@
                 <div class="input-grid">
                     <div class="input-group">
                         <label for="propertyTax">Property Tax (Annual %)</label>
+                        <span style="display:block; font-size: 0.75rem; color:#999; margin-bottom:5px; margin-top:-3px;">US Average ~1.1%</span>
                         <input type="text" id="propertyTax" value="1.2" inputmode="decimal">
                          <input type="range" id="slider_propertyTax" min="0" max="5" step="0.1" value="1.2">
                     </div>
@@ -366,6 +479,11 @@
                         <h3>Summary</h3>
                         <div class="summary-actions">
                             <button id="shareBtn" class="share-link" type="button" aria-label="Share Results">Share</button>
+                            <button id="pdfBtn" class="share-link pdf-link desktop-only-btn" type="button" aria-label="Save as PDF">
+                                <span class="pdf-text-desktop">Save as PDF</span>
+                            </button>
+                            <button id="desktopPrintBtn" class="share-link desktop-only-btn" type="button" aria-label="Print Results">Print</button>
+
                             <div id="shareMenu" class="share-menu">
                                 <button class="share-option" id="copyLinkBtn">Copy Link</button>
                                 <button class="share-option" id="emailShareBtn">Email Result</button>
@@ -437,7 +555,7 @@
                                 <span class="value" id="outMortgagePI">$0.00</span>
                             </div>
                              <div class="result-item">
-                                <span class="label">PMI (Mortgage Ins.)</span>
+                                <span class="label">PMI / MIP (Mortgage Ins.)</span>
                                 <span class="value" id="outPMIMonthly">$0.00</span>
                             </div>
                             <div class="result-item">
@@ -696,21 +814,117 @@
         <div id="breakdownList" class="breakdown-list">
             </div>
 
-        <button class="print-btn" onclick="window.print()">Print Result</button>
+    </div>
+
+    <div id="pdfMenu" class="options-menu">
+        <div class="menu-header">
+            <h3>Save Results as PDF</h3>
+            <button id="closePdfMenuBtn" class="close-btn" aria-label="Close PDF menu">&times;</button>
+        </div>
+        
+        <div class="pdf-tutorial-content">
+            <div class="tutorial-grid">
+                <div class="tutorial-step">
+                    <img src="../../img/Tutorial_1.webp" alt="Select Print Destination">
+                    <p>1. Change Destination</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Tutorial_2.webp" alt="Select Save as PDF">
+                    <p>2. Select "Save as PDF"</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Tutorial_3.webp" alt="Click Save">
+                    <p>3. Click "Save"</p>
+                </div>
+            </div>
+        </div>
+
+        <button id="proceedPdfBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
+    </div>
+
+    <!-- NEW PRINT MENU (DESKTOP) -->
+    <div id="printMenu" class="options-menu">
+        <div class="menu-header">
+            <h3>Print</h3>
+            <button id="closePrintMenuBtn" class="close-btn" aria-label="Close Print menu">&times;</button>
+        </div>
+        
+        <div class="pdf-tutorial-content">
+            <div class="tutorial-grid">
+                <div class="tutorial-step">
+                    <img src="../../img/Tutorial_1.webp" alt="Select Printer">
+                    <p>1. Select Printer</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Print_2.webp" alt="Select Printer Name">
+                    <p>2. Select Printer Name</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Print_4.webp" alt="Click More settings">
+                    <p>3. Click "More settings"</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Print_5.1.webp" alt="Checked Headers and footers">
+                     <img src="../../img/Print_5.2.webp" alt="Unchecked Headers and footers">
+                    <p>4. Uncheck "Headers and footers"</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Print_3.webp" alt="Click Print">
+                    <p>5. Click "Print"</p>
+                </div>
+            </div>
+        </div>
+
+        <button id="proceedPrintBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
+    </div>
+
+    <!-- NEW ACTION MENU (MOBILE) -->
+    <div id="mobileActionMenu" class="options-menu">
+        <div class="menu-header">
+            <h3>Action</h3>
+            <button id="closeMobileActionMenuBtn" class="close-btn" aria-label="Close Action menu">&times;</button>
+        </div>
+        
+        <div class="pdf-tutorial-content">
+            <div class="tutorial-grid">
+                <div class="tutorial-step">
+                    <img src="../../img/Tutorial_1.webp" alt="Select Destination">
+                    <p>1. Select Destination</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Tutorial_2.webp" alt="Select Print or PDF">
+                    <p>2. Print or Save</p>
+                </div>
+                <div class="tutorial-step">
+                     <img src="../../img/Tutorial_3.webp" alt="Click Blue Button">
+                    <p>3. Click Blue Button</p>
+                </div>
+            </div>
+        </div>
+
+        <button id="proceedMobileActionBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
     </div>
 
     <div class="print-footer-disclaimer">
         Disclaimer: This report is an estimate of affordability based on the information you provided. It is not a loan approval, commitment to lend, or guarantee of interest rates. Actual loan approval and terms depend on a full underwriting process including verification of credit, income, assets, and property value. Solveria.org is not a lender. Please consult a qualified mortgage professional for specific financial advice.
     </div>
 
-    <footer>
-        <div style="width: 100%; text-align: center; margin-bottom: 20px; color: #777; font-size: 0.9rem;">
+    <footer style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 60px 20px;">
+        <div style="width: 100%; text-align: center; color: #777; font-size: 0.85rem; max-width: 800px; line-height: 1.5;">
+            <strong>Disclaimer:</strong> Solveria.org is an independent financial publisher and comparison service, not a lender, bank, or mortgage broker. We do not originate mortgages or issue loan commitments. All figures are estimates for educational purposes only.
+        </div>
+        
+        <div style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;">
+            <a href="../../about/">About</a>
+            <a href="https://solveria.org/contact-us/">Contact Us</a>
+            <a href="../../terms-of-use/">Terms of Use</a>
+            <a href="../../privacy-policy/">Privacy Policy</a>
+            <a href="../../privacy-policy/#do-not-sell" style="color: #777; text-decoration: none;">Do Not Sell or Share My Personal Information</a>
+        </div>
+
+        <div style="width: 100%; text-align: center; color: #999; font-size: 0.8rem;">
             &copy; 2025 Solveria. All rights reserved.
         </div>
-        <a href="../../about/">About</a>
-        <a href="https://solveria.org/contact-us/">Contact Us</a>
-        <a href="../../terms-of-use/">Terms of Use</a>
-        <a href="../../privacy-policy/">Privacy Policy</a>
     </footer>
 
     <script src="ha-app.js" defer></script>
