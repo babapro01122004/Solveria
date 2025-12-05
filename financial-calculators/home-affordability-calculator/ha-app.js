@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+// --- FIX: Populate Print Date (American Format: MM/DD/YYYY) ---
+    const printDateEl = document.getElementById('printDate');
+    if (printDateEl) {
+        printDateEl.textContent = new Date().toLocaleDateString('en-US', {
+            month: '2-digit', 
+            day: '2-digit', 
+            year: 'numeric'
+        });
+    }
+
     /* --- MARKET DATA (Update Weekly/Monthly) ---
        Last Updated: Dec 2, 2025
        Source: FRED / Mortgage News Daily
