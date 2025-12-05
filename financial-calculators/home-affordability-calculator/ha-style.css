@@ -1,11 +1,13 @@
 /* --- SELF-HOSTED ROBOTO FONTS --- */
+
 /* v50 - Thin (100) */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url('../../fonts/roboto-v50-latin-100.woff2') format('woff2');
+  /* Fixed: Absolute path */
+  src: url('/fonts/roboto-v50-latin-100.woff2') format('woff2');
 }
 
 /* v50 - Light (300) - Main Body Text */
@@ -14,16 +16,18 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url('../../fonts/roboto-v50-latin-300.woff2') format('woff2');
+  /* Fixed: Absolute path */
+  src: url('/fonts/roboto-v50-latin-300.woff2') format('woff2');
 }
 
-/* v50 - Regular (400) */
+/* v50 - Regular (400) --> CRITICAL FIX HERE */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../../fonts/roboto-v50-latin-400.woff2') format('woff2');
+  /* Fixed: Changed '400' to 'regular' to match your file */
+  src: url('/fonts/roboto-v50-latin-regular.woff2') format('woff2');
 }
 
 /* v50 - Medium (500) - Headers */
@@ -32,8 +36,11 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../../fonts/roboto-v50-latin-500.woff2') format('woff2');
-}/* --- Base Styles & Hero Section --- */
+  /* Fixed: Absolute path */
+  src: url('/fonts/roboto-v50-latin-500.woff2') format('woff2');
+}
+
+/* --- Base Styles & Hero Section --- */
 html {
     scroll-behavior: smooth;
     height: 100%;
