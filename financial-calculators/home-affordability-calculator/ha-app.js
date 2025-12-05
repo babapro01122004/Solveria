@@ -1,924 +1,985 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Affordability Calculator | Solveria</title>
-    <meta name="description" content="Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.">
-    <link rel="canonical" href="https://solveria.org/financial-calculators/home-affordability-calculator/" />
+document.addEventListener('DOMContentLoaded', () => {
 
-    <meta name="geo.region" content="US">
-    <meta name="geo.placename" content="United States">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="How Much House Can I Afford? | Solveria">
-    <meta name="twitter:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market. Calculate your true buying power now.">
-    <meta name="twitter:image" content="https://solveria.org/img/social-share-card.jpg">
-    <meta name="twitter:image:alt" content="Solveria Home Affordability Calculator Dashboard">
+    /* --- MARKET DATA (Update Weekly/Monthly) ---
+       Last Updated: Dec 2, 2025
+       Source: FRED / Mortgage News Daily
+    */
+    const BASE_RATES = {
+        conventional: 6.8,
+        fha: 6.2,
+        va: 6.2
+    };
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="How Much House Can I Afford? | Solveria" />
-    <meta property="og:description" content="Don't guess. Use the 28/36 rule to find your realistic budget for the US housing market." />
-    <meta property="og:image" content="https://solveria.org/img/social-share-card.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://solveria.org/financial-calculators/home-affordability-calculator/" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Solveria" />
-    
-    <link rel="preload" as="image" href="../../img/Logo_Golden%20-%20Phone.webp" type="image/webp" media="(max-width: 768px)">
-    
-    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp" media="(min-width: 769px)">
+    const CREDIT_ADJUSTMENTS = {
+        excellent: 0,    // 760+
+        good: 0.25,      // 700-759
+        fair: 0.5        // 640-699
+    };
 
-    <link rel="preload" href="ha-style.css" as="style">
+    // --- Optimization: Global Formatter ---
+    const USD_FORMATTER = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    });
 
-    <link rel="stylesheet" href="ha-style.css">
+    // --- Chart Global Variables ---
+    let monthlyCostChart;
+    let chartJsLoaded = false;
+    let chartsInitialized = false;
+    let latestResults = null;
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../site.webmanifest">
-    <link rel="shortcut" href="../../favicon.ico">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-         {
-          "@type": "WebPage",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/",
-          "url": "https://solveria.org/financial-calculators/home-affordability-calculator/",
-          "name": "Home Affordability Calculator | Solveria",
-          "description": "Calculate your true home buying power for 2025. Accurate for US Conventional, FHA & VA loans. Uses strict 28/36 debt-to-income analysis. Free & fast.",
-          "isAccessibleForFree": true,  
-          "inLanguage": "en-US",
-          "datePublished": "2025-01-15T08:00:00+00:00",
-          "dateModified": "2025-12-02T09:30:00+00:00",
-          "primaryImageOfPage": { "@id": "https://solveria.org/img/social-share-card.jpg" },
-          "publisher": { "@id": "https://solveria.org/#organization" },
-          "breadcrumb": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#breadcrumb" },
-          "speakable": {
-             "@type": "SpeakableSpecification",
-             "cssSelector": [".intro-section p", ".faq-answer"]
-          },
-          "potentialAction": {
-            "@type": "ShareAction",
-            "target": "https://solveria.org/financial-calculators/home-affordability-calculator/?share=true"
-          },
-          "mentions": [
-            { "@type": "Organization", "name": "Fannie Mae", "url": "https://www.fanniemae.com/" },
-            { "@type": "Organization", "name": "Freddie Mac", "url": "https://www.freddiemac.com/" },
-            { "@type": "Organization", "name": "Federal Housing Administration", "url": "https://www.hud.gov/federal_housing_administration" }
-          ],
-          "mainEntity": [
-            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#calculator" },
-            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#howto" },
-            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#glossary" },
-            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#faq" },
-            { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#results-explained" }
-          ]
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://solveria.org/#organization",
-          "name": "Solveria",
-          "url": "https://solveria.org/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://solveria.org/img/Logo_Golden.png",
-            "width": 130,
-            "height": 130
-          },
-          "areaServed": {
-            "@type": "Country",
-            "name": "United States"
-          },
-          "sameAs": [
-            "https://www.facebook.com/Solveria",
-            "https://twitter.com/Solveria",
-            "https://www.linkedin.com/company/solveria",
-            "https://www.pinterest.com/Solveria"
-          ]
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#breadcrumb",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-            { "@type": "ListItem", "position": 2, "name": "Loans & Mortgages", "item": "https://solveria.org/calculators/" },
-            { "@type": "ListItem", "position": 3, "name": "Home Affordability Calculator" }
-          ]
-        },
-        {
-          "@type": "ItemList",
-          "name": "Related Financial Calculators",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "url": "https://solveria.org/financial-calculators/mortgage-calculator/",
-              "name": "Mortgage Calculator"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "url": "https://solveria.org/financial-calculators/refinance-calculator/",
-              "name": "Refinance Calculator"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "url": "https://solveria.org/financial-calculators/rent-vs-buy-calculator/",
-              "name": "Rent vs Buy Calculator"
+    // --- 1. Lazy Load Chart.js (Optimized Init) ---
+    const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!chartJsLoaded) {
+                    chartJsLoaded = true;
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                    script.onload = () => {
+                        requestAnimationFrame(() => {
+                            initializeCharts();
+                            if (latestResults) updateCharts(latestResults);
+                        });
+                    };
+                    document.body.appendChild(script);
+                } else if (!chartsInitialized) {
+                    requestAnimationFrame(() => {
+                        initializeCharts();
+                        if (latestResults) updateCharts(latestResults);
+                    });
+                }
+                observer.unobserve(entry.target);
             }
-          ]
-        },
-        {
-          "@type": ["WebApplication", "FinanceApplication"],
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#calculator",
-          "name": "Home Affordability Calculator",
-          "description": "A comprehensive financial tool to determine maximum home purchase price based on income, debt obligations, and down payment capabilities.",
-          "applicationCategory": "FinanceApplication",
-          "operatingSystem": "Any",
-          "browserRequirements": "Requires JavaScript",
-          "screenshot": "https://solveria.org/img/social-share-card.jpg",
-          "publisher": { "@id": "https://solveria.org/#organization" },
-          "offers": { 
-            "@type": "Offer", 
-            "price": "0", 
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock",
-            "category": "Free Tool"
-          },
-          "featureList": "Reverse affordability analysis, 28/36 Rule validation, FHA vs Conventional comparison, Real-time PMI calculation, Print-to-PDF report generation",
-          "audience": {
-            "@type": "Audience",
-            "audienceType": "Homebuyers",
-            "geographicArea": {
-                "@type": "Country",
-                "name": "United States"
-            }
-          },
-          "mainEntityOfPage": { "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/" }
-        },
-        {
-          "@type": "DefinedTermSet",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#glossary",
-          "name": "Mortgage Affordability Glossary",
-          "hasDefinedTerm": [
-            {
-              "@type": "DefinedTerm",
-              "termCode": "DTI",
-              "name": "Debt-to-Income Ratio",
-              "description": "A personal finance measure that compares an individual's monthly debt payment to their monthly gross income."
-            },
-            {
-              "@type": "DefinedTerm",
-              "termCode": "Front-End DTI",
-              "name": "Front-End Ratio",
-              "description": "The percentage of gross monthly income that goes toward housing costs (Principal, Interest, Taxes, Insurance, and HOA)."
-            },
-            {
-              "@type": "DefinedTerm",
-              "termCode": "Back-End DTI",
-              "name": "Back-End Ratio",
-              "description": "The percentage of gross monthly income that goes toward all debt obligations, including housing costs and other debts like car loans or credit cards."
-            },
-            {
-              "@type": "DefinedTerm",
-              "termCode": "PITI",
-              "name": "PITI",
-              "description": "An acronym for Principal, Interest, Taxes, and Insurance—the sum components of a standard mortgage payment."
-            }
-          ]
-        },
-        {
-          "@type": "HowTo",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#howto",
-          "name": "How to Calculate Your Home Affordability",
-          "step": [
-            {
-              "@type": "HowToSection",
-              "name": "Part 1: Your Financial Profile (Income & Debt)",
-              "itemListElement": [
-                { "@type": "HowToStep", "name": "Annual Household Income", "text": "Enter the total gross (pre-tax) income for everyone who will be on the mortgage." },
-                { "@type": "HowToStep", "name": "Monthly Debt Payback", "text": "Add up all your minimum monthly debt payments." },
-                { "@type": "HowToStep", "name": "Max DTI Ratios", "text": "The 28/36 rule is a common guideline." }
-              ]
-            },
-            {
-              "@type": "HowToSection",
-              "name": "Part 2: The Purchase & Property Details",
-              "itemListElement": [
-                { "@type": "HowToStep", "name": "Down Payment", "text": "Enter the cash you are paying upfront." },
-                { "@type": "HowToStep", "name": "Loan Term & Interest Rate", "text": "Input the loan duration and current market interest rate." },
-                { "@type": "HowToStep", "name": "Ongoing Costs (PITI)", "text": "Estimate Property Taxes, HOA fees, and Insurance." }
-              ]
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://solveria.org/financial-calculators/home-affordability-calculator/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Q1: What is the '28/36 Rule' and should I follow it?",
-              "acceptedAnswer": { "@type": "Answer", "text": "The 28/36 rule is a guideline used by lenders. 28% (Front-End Ratio) of your gross monthly income should go to housing costs, and 36% (Back-End Ratio) to total debt including housing. Sticking to this ensures financial stability." }
-            },
-            {
-              "@type": "Question",
-              "name": "Q2: What do lenders look at besides DTI and income?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Lenders also verify your Credit Score (740+ gets better rates), Credit History (on-time payments), Cash Reserves (post-closing liquidity), and Employment Stability (typically 2+ years)." }
-            },
-            {
-              "@type": "Question",
-              "name": "Q3: What's the difference between Pre-Qualified and Pre-Approved?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Pre-Qualification is an informal estimate based on self-reported data. Pre-Approval is a formal commitment where the lender verifies your income, assets, and credit, holding significantly more weight with sellers." }
-            },
-            {
-              "@type": "Question",
-              "name": "Q4: How much income do I need to buy a $400,000 house?",
-              "acceptedAnswer": { "@type": "Answer", "text": "It depends on your down payment. With an FHA loan (3.5% down), you need approx $110,400. With a Conventional 5% down, ~$105,000. With 20% down, ~$91,800 annually, assuming standard 2025 underwriting rates." }
-            },
-            {
-              "@type": "Question",
-              "name": "Q5: Does this calculator guarantee I'll be approved for this loan amount?",
-              "acceptedAnswer": { "@type": "Answer", "text": "No. This tool provides an estimate. Final approval depends on a formal underwriting process verifying your credit, income, assets, and the property's value." }
-            }
-          ]
-        }
-      ]
+        });
+    }, { rootMargin: '200px' });
+
+    const chartContainer = document.getElementById('charts-container');
+    if (chartContainer) {
+        chartObserver.observe(chartContainer);
     }
-    </script>
-</head>
-<body>
 
-    <div id="printHeader" class="print-header">
-        <div class="print-logo-row">
-             <img src="../../img/Logo_Golden.png" alt="Solveria Financial Tools" width="80" height="80">
-             <div class="print-brand-text">Solveria</div>
-        </div>
-        <div class="print-meta-info">
-            <h2>Home Affordability Analysis</h2>
-            <p>Generated on: <span id="printDate"></span></p>
-        </div>
-    </div>
-    <h1 class="print-title">Mortgage Affordability Assessment</h1>
+    // --- 2. Initialize Charts ---
+    let tooltipRequest = null;
+    
+    const initializeCharts = () => {
+        if (typeof Chart === 'undefined') return;
+        chartsInitialized = true;
 
-    <header class="hero-section">
+        const tooltipEl = document.getElementById('chartTooltip');
+        if (tooltipEl && tooltipEl.parentElement.tagName !== 'BODY') {
+            document.body.appendChild(tooltipEl);
+            tooltipEl.style.zIndex = '1000'; 
+            tooltipEl.style.top = '0'; 
+            tooltipEl.style.left = '0';
+            tooltipEl.style.willChange = 'transform, opacity';
+        }
 
-        <nav class="hero-nav">
-            <a href="../../">Home</a>
-            <a href="../../support/">Support</a>
-            <a href="../../calculators/">Other Finance Calculators</a>
-        </nav>
+        const ctx = document.getElementById('monthlyCostChart')?.getContext('2d');
+        if (!ctx) return;
 
-        <div class="hero-content-wrapper">
-            <picture>
-                <source media="(max-width: 768px)" srcset="../../img/Logo_Golden%20-%20Phone.webp" type="image/webp">
-                <source media="(max-width: 768px)" srcset="../../img/Logo_Golden%20-%20Phone.png" type="image/png">
-                
-                <source srcset="../../img/Logo_Golden.webp" type="image/webp">
-                <source srcset="../../img/Logo_Golden.png" type="image/png">
-                
-                <img src="../../img/Logo_Golden.png" alt="Solveria Financial Tools" width="130" height="130" loading="eager" fetchpriority="high">
-            </picture>
-            
-            <h1>Home Affordability Calculator</h1>
-            <div class="mobile-header-placeholder"></div>
-        </div>
+        if (monthlyCostChart) monthlyCostChart.destroy();
 
-        <div class="hero-tagline">
-            <p id="looping-text">Find your place in the world.</p>
-        </div>
-        
-    </header>
+        monthlyCostChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Principal & Interest', 'Property Tax', 'Insurance', 'HOA', 'PMI / MIP'],
+                datasets: [{
+                    data: [0, 0, 0, 0, 0],
+                    backgroundColor: ['#B5855E', '#E5D1B8', '#DED5C8', '#F5F1EA', '#8B6343'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true, 
+                aspectRatio: 1, 
+                cutout: '65%', 
+                animation: { duration: 400 },
+                plugins: {
+                    legend: { display: false }, 
+                    tooltip: { enabled: false } 
+                },
+                onHover: (event, chartElement) => {
+                    const target = event.native.target;
+                    if(target) target.style.cursor = chartElement.length ? 'pointer' : 'default';
+                }
+            }
+        });
 
-    <main class="content-section" id="calculator-section">
-        <div class="calculator-wrapper">
+        const canvas = monthlyCostChart.canvas;
+        canvas.addEventListener('mousemove', (e) => customTooltipHandler(e, monthlyCostChart), {passive: true});
+        canvas.addEventListener('mouseout', () => {
+            const tooltipEl = document.getElementById('chartTooltip');
+            if (tooltipEl) tooltipEl.style.opacity = 0;
+        });
+    };
 
-            <div class="breadcrumb">
-                <a href="../../">Home</a> / <a href="../../calculators/">Loans & Mortgages</a> / <span>Home Affordability Calculator</span>
-            </div>
+   // --- 3. Custom Tooltip Handler (Optimized) ---
+    const customTooltipHandler = (event, chart) => {
+        const tooltipEl = document.getElementById('chartTooltip');
+        if (!tooltipEl) return;
 
-            <div class="intro-section">
-                <h2>What is Your True Home Buying Power?</h2>
-                
-                <p class="desktop-intro">Our calculator helps you move beyond generic estimates. Designed for the <strong>US housing market</strong>, it analyzes your income, debts, and down payment to calculate a realistic home price based on the same debt-to-income (DTI) ratios used by lenders like <a href="https://www.fanniemae.com/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;"><strong>Fannie Mae</strong></a> and <a href="https://www.freddiemac.com/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;"><strong>Freddie Mac</strong></a>.</p>
-                <p class="mobile-intro">Find out what home price fits your budget. This tool uses your income, debt, and down payment to estimate an affordable home price and your total monthly payment (PITI + HOA).</p>
-            </div>
+        const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
 
-            <div class="calculator-container">
-                <h2 class="print-only-section-title">Financial Parameters</h2>
+        if (elements.length === 0) {
+            tooltipEl.style.opacity = 0;
+            return;
+        }
 
-                <h2>Enter Your Details</h2>
-                
-                <div class="input-section-header">
-                    <h3>Loan Profile</h3>
-                    <div class="header-actions">
-                        <button id="mobilePdfBtn" class="reset-link pdf-mobile-trigger" aria-label="Save as PDF">PDF</button>
-                        <button id="mobilePrintBtn" class="reset-link pdf-mobile-trigger" aria-label="Print Page">Print</button>
-                        <button id="resetBtn" class="reset-link" aria-label="Reset Calculator">Reset</button>
-                    </div>
+        const data = chart.data;
+        const index = elements[0].index;
+        const dataset = data.datasets[0];
+        const label = data.labels[index];
+        const value = dataset.data[index];
+        const color = dataset.backgroundColor[index];
+
+        const newHtml = `
+            <div class="tooltip-title">${label}</div>
+            <div class="tooltip-body-item">
+                <div style="display: flex; align-items: center;">
+                    <span class="tooltip-color-box" style="background-color: ${color}"></span>
+                    <span>Cost:</span>
                 </div>
+                <span style="font-weight:500;">${formatCurrency(value)}</span>
+            </div>
+        `;
 
-                <div class="input-grid" style="margin-bottom: 40px;">
-                    <div class="input-group">
-                        <label>Loan Program</label>
-                        <div class="custom-dropdown-container" id="loanTypeDropdown">
-                            <select id="loanType" style="display:none">
-                                <option value="conventional">Conventional Loan</option>
-                                <option value="fha">FHA Loan (3.5% Down)</option>
-                                <option value="va">VA Loan (0% Down)</option>
-                            </select>
-                            <button type="button" class="custom-dropdown-trigger" id="loanTypeTrigger">Conventional Loan</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-option selected" data-value="conventional">Conventional Loan</div>
-                                <div class="dropdown-option" data-value="fha">FHA Loan (3.5% Down)</div>
-                                <div class="dropdown-option" data-value="va">VA Loan (0% Down)</div>
-                            </div>
-                        </div>
+        // Only write to DOM if content changed (Reduces layout thrashing)
+        if (tooltipEl.innerHTML !== newHtml) {
+             tooltipEl.innerHTML = newHtml;
+        }
+
+        // Use requestAnimationFrame to separate the "Read" from the "Write"
+        if (tooltipRequest) cancelAnimationFrame(tooltipRequest);
+
+        tooltipRequest = requestAnimationFrame(() => {
+            // Make visible first so dimensions are calculable, but keep in separate frame
+            tooltipEl.style.opacity = 1;
+            
+            const tooltipWidth = tooltipEl.offsetWidth;
+            const tooltipHeight = tooltipEl.offsetHeight;
+            const { clientX, clientY } = event; 
+            const margin = 15;
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+            let finalX = clientX + margin;
+            let finalY = clientY + margin;
+
+            if (finalY + tooltipHeight > winHeight) finalY = clientY - tooltipHeight - margin;
+            if (finalX + tooltipWidth > winWidth) finalX = clientX - tooltipWidth - margin;
+
+            tooltipEl.style.position = 'fixed';
+            tooltipEl.style.transform = `translate(${finalX}px, ${finalY}px)`;
+        });
+    };
+    // --- 4. Update Charts Function ---
+    const updateCharts = (results) => {
+        if (!chartsInitialized || !monthlyCostChart) return;
+
+        const data = [
+            results.mortgagePI, 
+            results.propTaxMonthly, 
+            results.insuranceMonthly, 
+            results.hoaMonthly, 
+            results.finalPMIMonthly
+        ];
+
+        monthlyCostChart.data.datasets[0].data = data;
+        monthlyCostChart.update();
+        
+        updateCustomLegend(monthlyCostChart, results);
+        updateBreakdownMenu(results);
+    };
+
+    const updateCustomLegend = (chart, results) => {
+        const legendContainer = document.getElementById('chartLegend');
+        if (!legendContainer) return;
+        
+        legendContainer.innerHTML = '';
+        const data = chart.data.datasets[0].data;
+        const labels = chart.data.labels;
+        const colors = chart.data.datasets[0].backgroundColor;
+
+        const valuesMap = {
+            'Principal & Interest': results.mortgagePI,
+            'Property Tax': results.propTaxMonthly,
+            'Insurance': results.insuranceMonthly,
+            'HOA': results.hoaMonthly,
+            'PMI / MIP': results.finalPMIMonthly
+        };
+
+        labels.forEach((label, index) => {
+            if (data[index] > 0) {
+                const color = colors[index];
+                const value = valuesMap[label];
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <div class="legend-color-box" style="background-color: ${color}"></div>
+                    <span>${label}</span>
+                    <span class="legend-value-print">: ${formatCurrency(value)}</span>
+                `;
+                legendContainer.appendChild(legendItem);
+            }
+        });
+    };
+    
+    const updateBreakdownMenu = (results) => {
+        const listContainer = document.getElementById('breakdownList');
+        if (!listContainer || !monthlyCostChart) return;
+
+        listContainer.innerHTML = ''; 
+        const chartData = monthlyCostChart.data;
+        const labels = chartData.labels;
+        const values = chartData.datasets[0].data;
+        const colors = chartData.datasets[0].backgroundColor;
+        const total = values.reduce((acc, curr) => acc + curr, 0);
+
+        labels.forEach((label, index) => {
+            const val = values[index];
+            if (val > 0) {
+                const percentage = total > 0 ? ((val / total) * 100).toFixed(1) + '%' : '0%';
+                const row = document.createElement('div');
+                row.className = 'breakdown-row';
+                row.innerHTML = `
+                    <div class="breakdown-label">
+                        <div class="color-dot" style="background-color: ${colors[index]}"></div>
+                        <span>${label}</span>
                     </div>
+                    <div class="breakdown-values">
+                        <span class="cost-val">${formatCurrency(val)}</span>
+                        <span class="share-val">${percentage}</span>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            }
+        });
+    };
+
+    // --- Input Elements ---
+    const allInputs = {
+        loanType: document.getElementById('loanType'),
+        creditScore: document.getElementById('creditScore'),
+        annualIncome: document.getElementById('annualIncome'),
+        monthlyDebt: document.getElementById('monthlyDebt'),
+        maxFrontEndDTI: document.getElementById('maxFrontEndDTI'),
+        maxBackEndDTI: document.getElementById('maxBackEndDTI'),
+        downPayment: document.getElementById('downPayment'),
+        loanTerm: document.getElementById('loanTerm'),
+        interestRate: document.getElementById('interestRate'),
+        closingCosts: document.getElementById('closingCosts'),
+        propertyTax: document.getElementById('propertyTax'),
+        insurance: document.getElementById('insurance'),
+        hoaFee: document.getElementById('hoaFee'),
+        maintenance: document.getElementById('maintenance')
+    };
+
+    const resultElements = {
+        homePrice: document.getElementById('resultHomePrice'),
+        monthlyPayment: document.getElementById('resultMonthlyPayment'),
+        loanAmount: document.getElementById('resultLoanAmount'),
+        totalClosing: document.getElementById('resultTotalClosing'),
+        summaryText: document.getElementById('resultSummaryText'),
+        outDownPayment: document.getElementById('outDownPayment'),
+        outClosingCosts: document.getElementById('outClosingCosts'),
+        outClosingCostsLabel: document.querySelector('#one-time-costs .result-item:nth-child(2) .label'),
+        outTotalAtClosing: document.getElementById('outTotalAtClosing'),
+        outLoanAmount: document.getElementById('outLoanAmount'),
+        outFrontDTI: document.getElementById('outFrontDTI'),
+        outBackDTI: document.getElementById('outBackDTI'),
+        outPropertyTaxAnnually: document.getElementById('outPropertyTaxAnnually'),
+        outInsuranceAnnually: document.getElementById('outInsuranceAnnually'),
+        outHOAAnnually: document.getElementById('outHOAAnnually'),
+        outMaintenanceAnnually: document.getElementById('outMaintenanceAnnually'),
+        outMaintenanceAnnuallyLabel: document.querySelector('#annual-costs .result-item:nth-child(4) .label'),
+        outMortgagePI: document.getElementById('outMortgagePI'),
+        outPMIMonthly: document.getElementById('outPMIMonthly'),
+        outPropertyTaxMonthly: document.getElementById('outPropertyTaxMonthly'),
+        outInsuranceMonthly: document.getElementById('outInsuranceMonthly'),
+        outHOAMonthly: document.getElementById('outHOAMonthly'),
+        outMaintenanceMonthly: document.getElementById('outMaintenanceMonthly'),
+        outMaintenanceMonthlyLabel: document.querySelector('#monthly-costs .result-item:nth-child(6) .label'),
+        outTotalMonthly: document.getElementById('outTotalMonthly')
+    };
+
+    // --- Utility Functions ---
+    const formatCurrency = (value) => {
+        if (isNaN(value)) return '$0.00';
+        return USD_FORMATTER.format(value);
+    };
+
+    const cleanNumber = (str) => {
+        if (!str) return 0;
+        const cleaned = String(str).replace(/,/g, '').trim();
+        const floatVal = parseFloat(cleaned);
+        return (isNaN(floatVal) || floatVal < 0) ? 0 : floatVal;
+    };
+
+    const formatInput = (input) => {
+        let value = input.value.replace(/[^0-9.]/g, '');
+        const parts = value.split('.');
+        if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+        
+        const isPercentage = ['maxFrontEndDTI', 'maxBackEndDTI', 'interestRate', 'closingCosts', 'propertyTax', 'insurance', 'maintenance'].includes(input.id);
+        const isYear = input.id === 'loanTerm';
+
+        if (isPercentage || isYear) {
+            if (parseFloat(value) > 100) value = '100';
+        } else {
+            let intPart = parts[0];
+            if (intPart.length > 10) {
+                intPart = intPart.substring(0, 10);
+                value = parts.length > 1 ? intPart + '.' + parts[1] : intPart;
+            }
+        }
+
+        if (value === '') {
+            input.value = '';
+            return;
+        }
+
+        let [integerPart, decimalPart] = value.split('.');
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        if (value.includes('.')) {
+            if (decimalPart.length > 2) decimalPart = decimalPart.substring(0, 2);
+            input.value = `${integerPart}.${decimalPart}`;
+        } else {
+            input.value = integerPart;
+        }
+    };
+    
+    // --- Slider Configuration ---
+    const SLIDER_CONFIG = {
+        annualIncome: { type: 'cubic', max: 10000000 },
+        monthlyDebt: { type: 'cubic', max: 50000 },
+        maxFrontEndDTI: { type: 'linear', max: 60, min: 10 },
+        maxBackEndDTI: { type: 'linear', max: 60, min: 10 },
+        downPayment: { type: 'cubic', max: 5000000 },
+        loanTerm: { type: 'linear', max: 40, min: 5 },
+        interestRate: { type: 'linear', max: 15 },
+        closingCosts: { type: 'linear', max: 10 },
+        propertyTax: { type: 'linear', max: 5 },
+        insurance: { type: 'linear', max: 5 },
+        hoaFee: { type: 'cubic', max: 5000 },
+        maintenance: { type: 'linear', max: 5 }
+    };
+
+    const valToSlider = (val, id) => {
+        const config = SLIDER_CONFIG[id];
+        if (!config) return 0;
+        if (config.type === 'cubic') return Math.pow(val / config.max, 1/3) * 100;
+        const min = config.min || 0;
+        return ((val - min) / (config.max - min)) * 100;
+    };
+
+    const sliderToVal = (percent, id) => {
+        const config = SLIDER_CONFIG[id];
+        if (!config) return 0;
+        if (config.type === 'cubic') return config.max * Math.pow(percent / 100, 3);
+        const min = config.min || 0;
+        return ((percent / 100) * (config.max - min)) + min;
+    };
+
+    const updateSliderVisual = (slider) => {
+        const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+        slider.style.backgroundImage = `linear-gradient(to right, #B5855E 0%, #B5855E ${val}%, #e0e0e0 ${val}%, #e0e0e0 100%)`;
+    };
+
+    const updateSliderAndInput = (key, value) => {
+        const input = allInputs[key];
+        const slider = document.getElementById(`slider_${key}`);
+        if(input && slider) {
+            input.value = value;
+            formatInput(input);
+            slider.value = valToSlider(value, key);
+            updateSliderVisual(slider);
+        }
+    };
+
+    // --- LOAN SCENARIO LOGIC ---
+    const updateScenarioDefaults = () => {
+        const loanType = allInputs.loanType.value;
+        const creditScore = allInputs.creditScore.value;
+
+        // 1. Set Interest Rate
+        const baseRate = BASE_RATES[loanType];
+        const adj = CREDIT_ADJUSTMENTS[creditScore];
+        const finalRate = (baseRate + adj).toFixed(3);
+        updateSliderAndInput('interestRate', finalRate);
+
+        // 2. Set DTI Defaults & Down Payment (Only if Loan Type changed)
+        // Note: We don't overwrite if user manually changed them, 
+        // but for simplicity here we reset to standard guidelines on type change.
+        if (loanType === 'fha') {
+            updateSliderAndInput('maxFrontEndDTI', 31);
+            updateSliderAndInput('maxBackEndDTI', 43);
+            // Don't force down payment overwrite to avoid user frustration, 
+            // but ensure validation later.
+        } else if (loanType === 'va') {
+            updateSliderAndInput('maxFrontEndDTI', 41); // VA uses residual income, but 41 back is standard
+            updateSliderAndInput('maxBackEndDTI', 41);
+        } else {
+            // Conventional
+            updateSliderAndInput('maxFrontEndDTI', 28);
+            updateSliderAndInput('maxBackEndDTI', 36);
+        }
+        
+        calculateAndDisplay();
+    };
+
+    // --- Event Listeners for New Inputs ---
+    if(allInputs.loanType) allInputs.loanType.addEventListener('change', updateScenarioDefaults);
+    if(allInputs.creditScore) allInputs.creditScore.addEventListener('change', updateScenarioDefaults);
+
+    // --- Slider & Input Sync ---
+    Object.keys(allInputs).forEach(key => {
+        const input = allInputs[key];
+        if(input.tagName === 'SELECT') return; // Skip dropdowns
+
+        const slider = document.getElementById(`slider_${key}`);
+        if (!input || !slider) return;
+
+        slider.addEventListener('input', (e) => {
+            const pct = parseFloat(e.target.value);
+            let realVal = sliderToVal(pct, key);
+            if (SLIDER_CONFIG[key].type === 'cubic') {
+                if (realVal > 1000) realVal = Math.round(realVal / 100) * 100;
+                else realVal = Math.round(realVal);
+            } else {
+                realVal = Math.round(realVal * 100) / 100; 
+                if (key === 'loanTerm') realVal = Math.round(realVal);
+            }
+            input.value = realVal; 
+            formatInput(input); 
+            updateSliderVisual(e.target);
+            debouncedCalculate(); 
+        });
+
+        input.addEventListener('input', (e) => {
+            formatInput(e.target);
+            const currentVal = cleanNumber(e.target.value);
+            slider.value = valToSlider(currentVal, key);
+            updateSliderVisual(slider);
+            debouncedCalculate();
+        });
+        
+        input.addEventListener('blur', (e) => {
+            const currentVal = cleanNumber(e.target.value);
+            slider.value = valToSlider(currentVal, key);
+            updateSliderVisual(slider);
+        });
+
+        const addActive = () => slider.classList.add('active-slider');
+        const removeActive = () => slider.classList.remove('active-slider');
+        input.addEventListener('focus', addActive);
+        input.addEventListener('blur', removeActive);
+        slider.addEventListener('touchstart', addActive, { passive: true });
+        slider.addEventListener('touchend', removeActive);
+        slider.addEventListener('mousedown', addActive);
+        slider.addEventListener('mouseup', removeActive);
+    });
+
+    const debounce = (func, delay) => {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    };
+
+    const calculatePAndI = (principal, annualRate, termYears) => {
+        if (principal <= 0) return 0;
+        if (annualRate <= 0) return principal / (termYears * 12);
+        const monthlyRate = annualRate / 100 / 12;
+        const numPayments = termYears * 12;
+        return principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    };
+
+    // --- THE ITERATIVE SOLVER (The "Smart Engine") ---
+    const calculateMaximumHomePrice = (
+        maxMonthlyPayment, downPayment, interestRate, loanTerm, 
+        taxRate, insuranceRate, hoaFee, maintRate, loanType
+    ) => {
+        let low = downPayment;
+        let high = 10000000; // $10M cap
+        let price = downPayment;
+        let attempts = 0;
+
+        while (attempts < 30) { // Binary search for price
+            price = (low + high) / 2;
+            
+            // Calculate Costs for this Price
+            const baseLoanAmount = Math.max(0, price - downPayment);
+            
+            // --- LOAN TYPE SPECIFIC LOGIC ---
+            let totalLoanAmount = baseLoanAmount;
+            let upfrontFee = 0;
+            let monthlyMIP = 0;
+
+            if (loanType === 'fha') {
+                upfrontFee = baseLoanAmount * 0.0175; // 1.75% UFMIP
+                totalLoanAmount = baseLoanAmount + upfrontFee;
+                monthlyMIP = (baseLoanAmount * 0.0055) / 12; // 0.55% Annual MIP
+            } else if (loanType === 'va') {
+                upfrontFee = baseLoanAmount * 0.0215; // 2.15% Funding Fee (Avg)
+                totalLoanAmount = baseLoanAmount + upfrontFee;
+                monthlyMIP = 0; // No monthly PMI for VA
+            } else {
+                // Conventional
+                if ((baseLoanAmount / price) > 0.80) {
+                    monthlyMIP = (baseLoanAmount * 0.005) / 12; // ~0.5% PMI
+                }
+            }
+
+            const mortgagePI = calculatePAndI(totalLoanAmount, interestRate, loanTerm);
+            const propTax = (price * (taxRate / 100)) / 12;
+            const insurance = (price * (insuranceRate / 100)) / 12;
+            const maint = (price * (maintRate / 100)) / 12;
+            
+            const totalMonthly = mortgagePI + propTax + insurance + hoaFee + monthlyMIP + maint;
+
+            if (Math.abs(totalMonthly - maxMonthlyPayment) < 5) {
+                break; // Close enough
+            } else if (totalMonthly > maxMonthlyPayment) {
+                high = price;
+            } else {
+                low = price;
+            }
+            attempts++;
+        }
+        return price;
+    };
+
+    const calculateAndDisplay = () => {
+        const annualIncome = cleanNumber(allInputs.annualIncome.value);
+        const monthlyDebt = cleanNumber(allInputs.monthlyDebt.value);
+        const maxFrontEndDTI = cleanNumber(allInputs.maxFrontEndDTI.value);
+        const maxBackEndDTI = cleanNumber(allInputs.maxBackEndDTI.value);
+        const downPayment = cleanNumber(allInputs.downPayment.value);
+        const loanTerm = cleanNumber(allInputs.loanTerm.value);
+        const interestRate = cleanNumber(allInputs.interestRate.value);
+        const closingCostsPercent = cleanNumber(allInputs.closingCosts.value);
+        const propTaxPercent = cleanNumber(allInputs.propertyTax.value);
+        const insurancePercent = cleanNumber(allInputs.insurance.value);
+        const hoaMonthly = cleanNumber(allInputs.hoaFee.value);
+        const maintenancePercent = cleanNumber(allInputs.maintenance.value);
+        const loanType = allInputs.loanType.value;
+
+        const monthlyIncome = annualIncome / 12;
+        if (monthlyIncome === 0) { updateDOM(null); return; }
+        
+        const maxFrontEndPayment = monthlyIncome * (maxFrontEndDTI / 100);
+        const maxBackEndPayment = monthlyIncome * (maxBackEndDTI / 100);
+        const availableForHousing = maxBackEndPayment - monthlyDebt;
+        
+        // The max payment user can afford PITI+HOA+Maint+MIP
+        const totalAffordableMonthlyPayment = Math.max(0, Math.min(maxFrontEndPayment, availableForHousing));
+
+        // Solve for Price
+        const homePrice = calculateMaximumHomePrice(
+            totalAffordableMonthlyPayment, downPayment, interestRate, loanTerm,
+            propTaxPercent, insurancePercent, hoaMonthly, maintenancePercent, loanType
+        );
+
+        if (homePrice < downPayment) {
+            updateDOM(null); // Can't afford anything above downpayment
+            return;
+        }
+
+        // Re-calculate details for the found price to display breakdown
+        const baseLoanAmount = Math.max(0, homePrice - downPayment);
+        let totalLoanAmount = baseLoanAmount;
+        let finalPMIMonthly = 0;
+
+        if (loanType === 'fha') {
+            totalLoanAmount = baseLoanAmount * 1.0175;
+            finalPMIMonthly = (baseLoanAmount * 0.0055) / 12;
+        } else if (loanType === 'va') {
+            totalLoanAmount = baseLoanAmount * 1.0215;
+            finalPMIMonthly = 0;
+        } else {
+            // Conventional
+            if ((baseLoanAmount / homePrice) > 0.80) {
+                finalPMIMonthly = (baseLoanAmount * 0.005) / 12; 
+            }
+        }
+
+        const mortgagePI = calculatePAndI(totalLoanAmount, interestRate, loanTerm);
+        const propTaxMonthly = (homePrice * (propTaxPercent / 100)) / 12;
+        const insuranceMonthly = (homePrice * (insurancePercent / 100)) / 12;
+        const maintenanceMonthly = (homePrice * (maintenancePercent / 100)) / 12;
+        
+        const totalMonthlyCost = mortgagePI + propTaxMonthly + insuranceMonthly + hoaMonthly + maintenanceMonthly + finalPMIMonthly;
+        
+        const closingCostsValue = homePrice * (closingCostsPercent / 100);
+        const totalAtClosing = downPayment + closingCostsValue;
+
+        const results = {
+            homePrice, totalMonthlyCost, loanAmount: totalLoanAmount, totalAtClosing,
+            downPayment, closingCostsValue, closingCostsPercent,
+            frontDTI: (totalMonthlyCost / monthlyIncome) * 100,
+            backDTI: ((totalMonthlyCost + monthlyDebt) / monthlyIncome) * 100,
+            mortgagePI, 
+            propTaxAnnual: propTaxMonthly * 12, 
+            insuranceAnnual: insuranceMonthly * 12, 
+            hoaAnnual: hoaMonthly * 12, 
+            maintenanceAnnual: maintenanceMonthly * 12, 
+            maintenancePercent,
+            propTaxMonthly, insuranceMonthly, hoaMonthly, maintenanceMonthly, finalPMIMonthly
+        };
+
+        latestResults = results; 
+        updateDOM(results);
+        if (chartsInitialized) updateCharts(results);
+    };
+
+    const updateDOM = (results) => {
+        if (!results) {
+            // ... (Empty state logic same as before)
+             Object.values(resultElements).forEach(el => {
+                if (el) {
+                    if (el.id.includes('DTI')) el.textContent = '--';
+                    else if (el.tagName === 'P') el.textContent = 'Enter your details to see a summary.';
+                    else if (el.tagName === 'SPAN') el.textContent = '$0.00';
+                }
+            });
+            return;
+        }
+
+        resultElements.homePrice.textContent = formatCurrency(results.homePrice);
+        resultElements.monthlyPayment.textContent = formatCurrency(results.totalMonthlyCost);
+        resultElements.loanAmount.textContent = formatCurrency(results.loanAmount);
+        resultElements.totalClosing.textContent = formatCurrency(results.totalAtClosing);
+        resultElements.summaryText.innerHTML = `Based on your numbers, you can afford a home priced around <span class="summary-highlight">${formatCurrency(results.homePrice)}</span> with a total monthly payment of <span class="summary-highlight">${formatCurrency(results.totalMonthlyCost)}</span>.`;
+
+        resultElements.outDownPayment.textContent = formatCurrency(results.downPayment);
+        resultElements.outClosingCosts.textContent = formatCurrency(results.closingCostsValue);
+        resultElements.outClosingCostsLabel.textContent = `Closing Costs (Est. ${results.closingCostsPercent}%)`;
+        resultElements.outTotalAtClosing.textContent = formatCurrency(results.totalAtClosing);
+        
+        resultElements.outLoanAmount.textContent = formatCurrency(results.loanAmount);
+        resultElements.outFrontDTI.textContent = `${results.frontDTI.toFixed(1)}%`;
+        resultElements.outBackDTI.textContent = `${results.backDTI.toFixed(1)}%`;
+
+        resultElements.outPropertyTaxAnnually.textContent = formatCurrency(results.propTaxAnnual);
+        resultElements.outInsuranceAnnually.textContent = formatCurrency(results.insuranceAnnual);
+        resultElements.outHOAAnnually.textContent = formatCurrency(results.hoaAnnual);
+        resultElements.outMaintenanceAnnually.textContent = formatCurrency(results.maintenanceAnnual);
+        
+        resultElements.outMortgagePI.textContent = formatCurrency(results.mortgagePI);
+        resultElements.outPMIMonthly.textContent = formatCurrency(results.finalPMIMonthly);
+        resultElements.outPropertyTaxMonthly.textContent = formatCurrency(results.propTaxMonthly);
+        resultElements.outInsuranceMonthly.textContent = formatCurrency(results.insuranceMonthly);
+        resultElements.outHOAMonthly.textContent = formatCurrency(results.hoaMonthly);
+        resultElements.outMaintenanceMonthly.textContent = formatCurrency(results.maintenanceMonthly);
+        resultElements.outTotalMonthly.textContent = formatCurrency(results.totalMonthlyCost);
+    };
+
+    const debouncedCalculate = debounce(calculateAndDisplay, 50);
+    window.addEventListener('resize', debounce(() => {}, 250));
+
+    // --- DEEP LINKING ---
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('inc')) {
+        // ... (Existing deep link logic, add 'type' and 'score' if needed later)
+    }
+
+    // --- Initialize ---
+    Object.keys(allInputs).forEach(key => {
+        const input = allInputs[key];
+        const slider = document.getElementById(`slider_${key}`);
+        if(input && slider) {
+            formatInput(input);
+            slider.value = valToSlider(cleanNumber(input.value), key);
+            updateSliderVisual(slider);
+        }
+    });
+    
+    // Initial Calc
+    updateScenarioDefaults();
+
+    // --- CUSTOM DROPDOWN LOGIC (NEW) ---
+    function initializeCustomDropdowns() {
+        const wrappers = document.querySelectorAll('.custom-dropdown-container');
+        
+        wrappers.forEach(wrapper => {
+            const select = wrapper.querySelector('select');
+            const trigger = wrapper.querySelector('.custom-dropdown-trigger');
+            const menu = wrapper.querySelector('.custom-dropdown-menu');
+            const options = wrapper.querySelectorAll('.dropdown-option');
+
+            // Open/Close Trigger
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close others first
+                document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
+                    if (m !== menu) m.classList.remove('active');
+                });
+                menu.classList.toggle('active');
+            });
+
+            // Option Select
+            options.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const value = option.getAttribute('data-value');
                     
-                    <div class="input-group">
-                        <label>Credit Score Range</label>
-                        <div class="custom-dropdown-container" id="creditScoreDropdown">
-                            <select id="creditScore" style="display:none">
-                                <option value="excellent">Excellent (760+)</option>
-                                <option value="good" selected>Good (700-759)</option>
-                                <option value="fair">Fair (640-699)</option>
-                            </select>
-                            <button type="button" class="custom-dropdown-trigger" id="creditScoreTrigger">Good (700-759)</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-option" data-value="excellent">Excellent (760+)</div>
-                                <div class="dropdown-option selected" data-value="good">Good (700-759)</div>
-                                <div class="dropdown-option" data-value="fair">Fair (640-699)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    // Update UI
+                    trigger.textContent = option.textContent;
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    menu.classList.remove('active');
 
-                <div class="input-section-header">
-                    <h3>Income & Debt</h3>
-                </div>
-                
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label for="annualIncome">Annual Household Income ($)</label>
-                        <input type="text" id="annualIncome" value="90,000" inputmode="decimal">
-                        <input type="range" id="slider_annualIncome" min="0" max="100" step="0.1" value="0">
-                    </div>
-                    <div class="input-group">
-                        <label for="monthlyDebt">Monthly Debt Payback ($)</label>
-                        <input type="text" id="monthlyDebt" value="500" inputmode="decimal">
-                        <input type="range" id="slider_monthlyDebt" min="0" max="100" step="0.1" value="0">
-                    </div>
-                    <div class="input-group">
-                        <label for="maxFrontEndDTI">Max Front-End DTI (%)</label>
-                        <input type="text" id="maxFrontEndDTI" value="28" inputmode="decimal">
-                        <input type="range" id="slider_maxFrontEndDTI" min="10" max="60" step="1" value="28">
-                    </div>
-                    <div class="input-group">
-                        <label for="maxBackEndDTI">Max Back-End DTI (%)</label>
-                        <input type="text" id="maxBackEndDTI" value="36" inputmode="decimal">
-                        <input type="range" id="slider_maxBackEndDTI" min="10" max="60" step="1" value="36">
-                    </div>
-                </div>
+                    // Update Hidden Select & Trigger Change
+                    select.value = value;
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                });
+            });
+        });
 
-                <div class="input-section-header">
-                    <h3>Property & Purchase</h3>
-                </div>
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label for="downPayment">Down Payment ($)</label>
-                        <input type="text" id="downPayment" value="40,000" inputmode="decimal">
-                         <input type="range" id="slider_downPayment" min="0" max="100" step="0.1" value="0">
-                    </div>
-                    <div class="input-group">
-                        <label for="loanTerm">Mortgage Loan Term (Years)</label>
-                        <input type="text" id="loanTerm" value="30" inputmode="decimal">
-                         <input type="range" id="slider_loanTerm" min="5" max="40" step="5" value="30">
-                    </div>
-                    <div class="input-group">
-                        <label for="interestRate">Interest Rate (%)</label>
-                        <input type="text" id="interestRate" value="6.8" inputmode="decimal">
-                         <input type="range" id="slider_interestRate" min="0" max="15" step="0.1" value="6.8">
-                    </div>
-                    <div class="input-group">
-                        <label for="closingCosts">Closing Costs (Est. %)</label>
-                        <span style="display:block; font-size: 0.75rem; color:#999; margin-bottom:5px; margin-top:-3px;">Typically 2-5% in the US</span>
-                        <input type="text" id="closingCosts" value="3" inputmode="decimal">
-                        <input type="range" id="slider_closingCosts" min="0" max="10" step="0.1" value="3">
-                    </div>
-                </div>
+        // Close on Click Outside
+        document.addEventListener('click', (e) => {
+            document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
+                if (!menu.parentElement.contains(e.target)) {
+                    menu.classList.remove('active');
+                }
+            });
+        });
+    }
 
-                <div class="input-section-header">
-                    <h3>Ongoing Costs</h3>
-                </div>
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label for="propertyTax">Property Tax (Annual %)</label>
-                        <span style="display:block; font-size: 0.75rem; color:#999; margin-bottom:5px; margin-top:-3px;">US Average ~1.1%</span>
-                        <input type="text" id="propertyTax" value="1.2" inputmode="decimal">
-                         <input type="range" id="slider_propertyTax" min="0" max="5" step="0.1" value="1.2">
-                    </div>
-                    <div class="input-group">
-                        <label for="insurance">Insurance (Annual %)</label>
-                        <input type="text" id="insurance" value="0.5" inputmode="decimal">
-                        <input type="range" id="slider_insurance" min="0" max="5" step="0.1" value="0.5">
-                    </div>
-                    <div class="input-group">
-                        <label for="hoaFee">HOA Fee (Monthly $)</label>
-                        <input type="text" id="hoaFee" value="75" inputmode="decimal">
-                         <input type="range" id="slider_hoaFee" min="0" max="100" step="0.1" value="0">
-                    </div>
-                    <div class="input-group">
-                        <label for="maintenance">Maintenance (Est. %)</label>
-                        <input type="text" id="maintenance" value="1.5" inputmode="decimal">
-                         <input type="range" id="slider_maintenance" min="0" max="5" step="0.1" value="1.5">
-                    </div>
-                </div>
-            </div>
+    initializeCustomDropdowns(); // Run the logic
 
-            <div class="results-container">
-                <h2>Your Affordability</h2>
-                
-                <div class="results-summary-grid" aria-live="polite">
-                    <div class="summary-item">
-                        <span class="label">Affordable Home Price</span>
-                        <span class="value" id="resultHomePrice">$0.00</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="label">Total Monthly Payment</span>
-                        <span class="value" id="resultMonthlyPayment">$0.00</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="label">Loan Amount</span>
-                        <span class="value" id="resultLoanAmount">$0.00</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="label">Total at Closing</span>
-                        <span class="value" id="resultTotalClosing">$0.00</span>
-                    </div>
-                </div>
-
-                <div class="summary-text" id="main-summary" aria-live="polite">
-                    <div class="summary-header-flex">
-                        <h3>Summary</h3>
-                        <div class="summary-actions">
-                            <button id="shareBtn" class="share-link" type="button" aria-label="Share Results">Share</button>
-                            <button id="pdfBtn" class="share-link pdf-link desktop-only-btn" type="button" aria-label="Save as PDF">
-                                <span class="pdf-text-desktop">Save as PDF</span>
-                            </button>
-                            <button id="desktopPrintBtn" class="share-link desktop-only-btn" type="button" aria-label="Print Results">Print</button>
-
-                            <div id="shareMenu" class="share-menu">
-                                <button class="share-option" id="copyLinkBtn">Copy Link</button>
-                                <button class="share-option" id="emailShareBtn">Email Result</button>
-                            </div>
-                            <a href="../../support/" class="mobile-support-button">Support</a>
-                        </div>
-                    </div>
-                    <p id="resultSummaryText">Enter your details to see a summary of your home affordability.</p>
-                </div>
-
-                <div class="results-breakdown-wrapper">
-                    <div class="results-breakdown-grid">
-                        <div class="breakdown-section" id="one-time-costs">
-                            <h3>One-Time Costs</h3>
-                            <div class="result-item">
-                                <span class="label">Down Payment</span>
-                                <span class="value" id="outDownPayment">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Closing Costs (Est. 3%)</span>
-                                <span class="value" id="outClosingCosts">$0.00</span>
-                            </div>
-                            <div class="result-item savings-item">
-                                <span class="label">Total at Closing</span>
-                                <span class="value" id="outTotalAtClosing">$0.00</span>
-                            </div>
-                        </div>
-
-                        <div class="breakdown-section" id="loan-ratios">
-                            <h3>Loan & Ratios</h3>
-                            <div class="result-item">
-                                <span class="label">You Can Borrow</span>
-                                <span class="value" id="outLoanAmount">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Front-End DTI Ratio</span>
-                                <span class="value" id="outFrontDTI">--</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Back-End DTI Ratio</span>
-                                <span class="value" id="outBackDTI">--</span>
-                            </div>
-                        </div>
-
-                        <div class="breakdown-section" id="annual-costs">
-                            <h3>Annual Costs</h3>
-                            <div class="result-item">
-                                <span class="label">Property Tax</span>
-                                <span class="value" id="outPropertyTaxAnnually">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Insurance</span>
-                                <span class="value" id="outInsuranceAnnually">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">HOA Fee</span>
-                                <span class="value" id="outHOAAnnually">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Maintenance (Est. 1.5%)</span>
-                                <span class="value" id="outMaintenanceAnnually">$0.00</span>
-                            </div>
-                        </div>
-
-                        <div class="breakdown-section" id="monthly-costs">
-                            <h3>Monthly House Costs</h3>
-                            <div class="result-item">
-                                <span class="label">Mortgage (P&I)</span>
-                                <span class="value" id="outMortgagePI">$0.00</span>
-                            </div>
-                             <div class="result-item">
-                                <span class="label">PMI / MIP (Mortgage Ins.)</span>
-                                <span class="value" id="outPMIMonthly">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Property Tax</span>
-                                <span class="value" id="outPropertyTaxMonthly">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Insurance</span>
-                                <span class="value" id="outInsuranceMonthly">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">HOA Fee</span>
-                                <span class="value" id="outHOAMonthly">$0.00</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">Maintenance (Est. 1.5%)</span>
-                                <span class="value" id="outMaintenanceMonthly">$0.00</span>
-                            </div>
-                            <div class="result-item savings-item">
-                                <span class="label">Total Monthly Cost</span>
-                                <span class="value" id="outTotalMonthly">$0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="charts-container" id="charts-container">
-            <div class="chart-wrapper">
-                <h2>Monthly Payment Breakdown</h2>
-                <p class="chart-description">See exactly where your money goes. This breakdown visualizes the principal, interest, taxes, and fees that make up your total monthly payment.</p>
-                <canvas id="monthlyCostChart"></canvas>
-                <div id="chartLegend" class="custom-legend"></div>
-                <button id="moreOptionsBtn" class="more-options-btn">More Details</button>
-            </div>
-            <div id="chartTooltip" class="chart-tooltip"></div>
-        </div>
-        <section class="more-tools-section">
-            <h2>More Tools</h2>
-            <p class="tools-description">Continue your financial journey. Use these additional tools to calculate mortgage payments, evaluate refinancing, or decide between renting and buying.</p>
-            <div class="tools-card-grid">
-                
-                <a href="../mortgage-calculator/" class="tool-card">
-                    <div class="card-image-wrapper">
-                        <picture>
-                            <source srcset="../../img/Mortgage_CARD.webp" type="image/webp">
-                            <source srcset="../../img/Mortgage_CARD.jpg" type="image/jpeg">
-                            <img src="../../img/Mortgage_CARD.jpg" alt="Mortgage Calculator" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="card-content">
-                        <h3>Mortgage Calculator</h3>
-                        <p>Calculate your monthly mortgage payments with taxes and insurance.</p>
-                    </div>
-                </a>
-
-                <a href="../refinance-calculator/" class="tool-card">
-                    <div class="card-image-wrapper">
-                        <picture>
-                            <source srcset="../../img/Refinance_CARD.webp" type="image/webp">
-                            <source srcset="../../img/Refinance_CARD.jpg" type="image/jpeg">
-                            <img src="../../img/Refinance_CARD.jpg" alt="Refinance Calculator" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="card-content">
-                        <h3>Refinance Calculator</h3>
-                        <p>See how much you can save by refinancing your current home loan.</p>
-                    </div>
-                </a>
-
-                <a href="../rent-vs-buy-calculator/" class="tool-card">
-                    <div class="card-image-wrapper">
-                        <picture>
-                            <source srcset="../../img/Rent_vs_Buy_CARD.webp" type="image/webp">
-                            <source srcset="../../img/Rent_vs_Buy_CARD.jpg" type="image/jpeg">
-                            <img src="../../img/Rent_vs_Buy_CARD.jpg" alt="Rent vs Buy Calculator" loading="lazy">
-                        </picture>
-                    </div>
-                    <div class="card-content">
-                        <h3>Rent vs Buy Calculator</h3>
-                        <p>Compare the long-term costs of renting versus buying a home.</p>
-                    </div>
-                </a>
-
-            </div>
-        </section>
-
-        <section class="seo-content-section">
-            <h2 id="howto">A Practical Guide to This Calculator</h2>
-            <p>This tool is designed to be more than a simple number-cruncher. It's a "what-if" machine. By inputting your real-world financial data, you can build a clear picture of your home-buying power. Here’s how to get the most out of it.</p>
+    // --- Reset Button ---
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            // Reset Dropdowns UI (Must manually reset custom triggers)
+            allInputs.loanType.value = 'conventional';
+            allInputs.creditScore.value = 'good';
             
-            <h3>Part 1: Your Financial Profile (Income & Debt)</h3>
-            <p>This is the foundation of your affordability. Lenders will look at this first, and so should you.</p>
-            <ul>
-                <li><strong>Annual Household Income:</strong> Enter the total <strong>gross</strong> (pre-tax) income for everyone who will be on the mortgage.</li>
-                <li><strong>Monthly Debt Payback:</strong> This is for your Back-End DTI. Add up all your minimum monthly debt payments: car loans, student loans, credit card minimums, personal loans, etc. Do <em>not</em> include rent or utility bills.</li>
-                <li><strong>Max DTI Ratios:</strong> The 28/36 rule is the standard for <strong>Conventional Loans</strong>. A <strong>Front-End DTI (28%)</strong> is your housing-only cost. A <strong>Back-End DTI (36%)</strong> includes all debts. Note: <strong>FHA Loans</strong> and <strong>VA Loans</strong> often allow higher ratios (up to 43%+), which you can adjust manually in the inputs above.</li>
-            </ul>
-
-            <p><strong>How the 28/36 Rule Actually Works:</strong><br>
-            The first limit (28% Front-End) covers your housing-only cost. The second limit (36% Back-End) includes that <em>plus</em> all your debts. Front-end DTI keeps your payment predictable; back-end DTI keeps your entire financial picture stable. When the back-end ratio fails, the loan fails—even if the housing payment alone looks fine. This is where most first-time homebuyer budgets crack.</p>
-
-            <h3>Part 2: The Purchase & Property Details</h3>
-            <p>This section defines the specifics of the home you're looking for.</p>
-            <ul>
-                <li><strong>Down Payment:</strong> The cash you're paying upfront. This is <em>not</em> the same as "cash at closing." $40,000 down on a $400,000 home is a 10% down payment. (Low down payment options like <a href="https://www.hud.gov/buying/loans" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">FHA loans</a> allow for as little as 3.5% down).</li>
-                <li><strong>Loan Term & Interest Rate:</strong> Use 30 years and the current market rate for a good baseline. You can then see how a 15-year loan or a different rate changes your affordability.</li>
-                <li><strong>Ongoing Costs (The PITI):</strong> This is critical. Don't just guess. Use a site like Zillow or Redfin to look at <em>actual</em> tax histories and HOA fees for homes in your target price range. An extra $300/month in taxes and HOA fees can reduce your affordable home price by over $40,000.</li>
-            </ul>
-
-            <h3>Strategy: FHA vs. Conventional Loans</h3>
-            <p>An <strong>FHA loan</strong> (3.5% down) often approves buyers with higher DTIs because FHA’s tolerances are looser. This may let you “buy more house,” but the trade-off is higher monthly mortgage insurance and an upfront MIP fee. Over time, that raises your total cost even if your entry point looks cheaper.</p>
-            <p>A <strong>Conventional loan</strong> with 20% down eliminates monthly PMI entirely. This lowers the payment enough that some buyers actually qualify for the same-priced home or higher, despite tighter DTI rules. If you’re debating, remember: underwriters compare monthly cost, not just down payment size.</p>
-
-            <h2 id="results-explained">A Deeper Dive: Understanding Your Affordability Results</h2>
-            <p>The numbers in the results panel tell a story. Here’s how to read them and what they mean for your home-buying journey.</p>
+            document.getElementById('loanTypeTrigger').textContent = 'Conventional Loan';
+            document.getElementById('creditScoreTrigger').textContent = 'Good (700-759)';
             
-            <h3>One-Time Costs: The Cash You Need to Close</h3>
-            <p>This is the total liquid cash you'll need on closing day. It’s made of two parts:<br><br>
-            1. <strong>Down Payment:</strong> Your equity stake in the home.<br>
-            2. <strong>Closing Costs:</strong> These are "sunk costs" that don't build equity. In the US, this typically includes <strong>Origination Fees</strong> (paid to the lender), <strong>Appraisal Fees</strong> ($300–$600), <strong>Title Insurance</strong>, <strong>Recording Fees</strong>, and pre-paid Property Taxes.<br><br><em>Note: In some markets, you can negotiate for the seller to pay a portion of these costs (known as "Seller Concessions") to keep your cash out-of-pocket lower.</em></p>
+            // ... (Rest of reset logic)
+            Object.keys(allInputs).forEach(key => {
+                const input = allInputs[key];
+                if (input && input.tagName !== 'SELECT') {
+                    input.value = input.defaultValue; 
+                    formatInput(input);
+                    const slider = document.getElementById(`slider_${key}`);
+                    if (slider) {
+                        slider.value = valToSlider(cleanNumber(input.value), key);
+                        updateSliderVisual(slider);
+                    }
+                }
+            });
+            window.history.replaceState({}, document.title, window.location.pathname);
+            updateScenarioDefaults();
+        });
+    }
 
-            <h3>Loan & Ratios: The 'Why' Behind Your Numbers</h3>
-            <p>This section shows you the <strong>Loan Amount</strong> you can likely borrow. More importantly, it confirms the <strong>Debt-to-Income (DTI) Ratios</strong> your affordable payment is based on. Lenders see DTI as a primary measure of risk. Your <strong>Front-End DTI</strong> is just your new housing payment (PITI+HOA) against your income. Your <strong>Back-End DTI</strong> includes that *plus* all your other existing debts (car loans, student loans, etc.). This calculator finds the maximum home price that keeps both of these ratios at or below the limits you set.</p>
-            <p><strong>⚠️ Pro Tip for High-Value Homes:</strong> If your estimated loan amount exceeds the <strong>Conforming Loan Limit</strong> (currently $806,500 for most US counties in 2025), you will likely need a <strong>Jumbo Loan</strong>. Jumbo loans often require a higher credit score (700+) and larger cash reserves (6–12 months of payments) than the standard rules shown here.</p>
+    // --- PDF / PRINT MODAL LOGIC (Refactored for Multiple Menus) ---
+    // Buttons
+    const pdfBtn = document.getElementById('pdfBtn');
+    const mobilePdfBtn = document.getElementById('mobilePdfBtn'); 
+    const mobilePrintBtn = document.getElementById('mobilePrintBtn'); // New Button
+    const desktopPrintBtn = document.getElementById('desktopPrintBtn');
 
-            <h3>Annual Costs: Budgeting for the Big Picture</h3>
-            <p>It's easy to forget these large, non-mortgage expenses. This section bundles your estimated <strong>Property Tax</strong>, <strong>Homeowners Insurance</strong>, <strong>HOA Fees</strong>, and <strong>Maintenance</strong> into a yearly total. Many lenders will collect the tax and insurance portions monthly in an "escrow" account and pay them on your behalf. This summary helps you understand the full, long-term financial commitment beyond just the loan.</p>
-            <p><strong>The "Hidden" Reality:</strong> Online calculators often ignore maintenance, but a realistic budget includes a 1% annual reserve (e.g., $333/mo for a $400k home). Property taxes and insurance rise over time, and roofs or HVAC systems do not care about your budget. Underwriters look at long-term sustainability, not just month-one affordability.</p>
+    // Menus
+    const pdfMenu = document.getElementById('pdfMenu');
+    const printMenu = document.getElementById('printMenu');
+    const mobileActionMenu = document.getElementById('mobileActionMenu');
 
-            <h3>Monthly House Costs: Your True Monthly Payment</h3>
-            <p>This is arguably the most important number for your day-to-day budget. This is the <strong>total, all-in cost of living in the home each month.</strong> It includes not just the mortgage principal and interest (P&I), but also the monthly slices of property taxes, insurance, HOA fees, and estimated maintenance. When you ask, "Can I afford this payment?" this is the number you should be looking at. It ensures you won't be "house poor" and can comfortably cover the complete cost of homeownership.</p>
+    // Close Buttons
+    const closePdfMenuBtn = document.getElementById('closePdfMenuBtn');
+    const closePrintMenuBtn = document.getElementById('closePrintMenuBtn');
+    const closeMobileActionMenuBtn = document.getElementById('closeMobileActionMenuBtn');
 
+    // Proceed Buttons
+    const proceedPdfBtn = document.getElementById('proceedPdfBtn');
+    const proceedPrintBtn = document.getElementById('proceedPrintBtn');
+    const proceedMobileActionBtn = document.getElementById('proceedMobileActionBtn');
 
-            <h2>How to Improve Your Home Affordability</h2>
-            <p>If the "Affordable Home Price" in the results isn't what you'd hoped for, don't be discouraged. You have several powerful levers you can pull to change the outcome. This calculator is the perfect tool to model these scenarios.</p>
+    let pdfCountdown;
+    let menuTutorialSeen = false; 
 
-            <h3>1. Reduce Your Monthly Debt (Lower Back-End DTI)</h3>
-            <p>This is often the most impactful change you can make. Every dollar of existing debt (like a car payment or credit card balance) directly reduces the amount of income available for your housing payment. Try this: lower the "Monthly Debt Payback" input in the calculator and watch your affordable home price jump. Focusing on paying off a small loan before you apply for a mortgage can make a massive difference.</p>
-
-            <h3>2. Increase Your Down Payment</h3>
-            <p>Saving more for a down payment helps in two ways. First, it directly reduces the <strong>Loan Amount</strong> you need to borrow, which lowers your monthly P&I payment. Second, a larger down payment (especially 20% or more) can help you avoid <strong>Private Mortgage Insurance (PMI)</strong>, which is an extra monthly fee lenders charge on "high-risk" loans that isn't even included in this calculation. A larger down payment makes you a stronger, less-risky borrower.</p>
-
-            <h3>3. Boost Your Household Income</h3>
-            <p>This is the other side of the DTI coin. Increasing your <strong>Annual Household Income</strong> (whether through a raise, a new job, a side business, or adding a co-borrower's income) directly increases the payment you can afford. This, in turn, boosts the home price you can qualify for. Use the calculator to set an income goal and see how it affects your target home price.</p>
-
-            <h3>4. Re-evaluate Your Loan and Location</h3>
-            <p>Sometimes, the numbers are fixed, but the expectations can change. A <strong>15-year loan term</strong> will have much higher payments (and lower affordability) than a <strong>30-year term</strong>. Likewise, the <strong>Property Tax</strong> and <strong>HOA Fee</strong> inputs are huge factors. A home in a neighboring town with lower tax rates, or a single-family home with no HOA fee, might be significantly more affordable even at the same price point. Be sure to research realistic local tax and insurance rates.</p>
-
-            <h3>5. Polish Your Credit Score</h3><p>Your credit score is the single biggest factor controlling your interest rate. The difference between a <strong>680 score</strong> and a <strong>760 score</strong> can be as much as 0.5% to 0.75% in interest. On a $400,000 loan, improving your score could lower your monthly payment by over $200—without you paying an extra dime in down payment. Check your report for errors before you apply.</p>
-
-            <div class="faq-section">
-                <h2 id="faq">People Also Ask (FAQ)</h2>
-                <details>
-                    <summary>Q1: What is the "28/36 Rule" and should I follow it?</summary>
-                    <div class="faq-answer">
-                        A1: The 28/36 rule is a guideline used by lenders.
-                        <ul>
-                            <li><strong>28% (Front-End Ratio):</strong> Your new total housing payment (Principal, Interest, Taxes, Insurance) should be no more than 28% of your gross monthly income.</li>
-                            <li><strong>36% (Back-End Ratio):</strong> Your total housing payment <em>plus</em> all your other monthly debts should be no more than 36%.</li>
-                        </ul>
-                        While government-backed loans (like FHA) allow for more debt, sticking to the 28/36 rule ensures you stay safe in the current US economy.
-                    </div>
-                </details>
-                <details>
-                    <summary>Q2: What do lenders look at besides DTI and income?</summary>
-                    <div class="faq-answer">
-                        A2: Lenders look at your complete financial profile, which this calculator can't see. The most important factors include:
-                        <ul>
-                            <li><strong>Credit Score:</strong> This is a massive factor. A higher credit score (e.g., 740+) will get you a much lower interest rate, which significantly increases your affordability.</li>
-                            <li><strong>Credit History:</strong> They look for a history of on-time payments, the age of your credit accounts, and a healthy mix of credit types.</li>
-                            <li><strong>Cash Reserves:</strong> Lenders want to see that you have cash left over <em>after</em> closing. This "post-closing liquidity" (often 2-6 months of PITI payments) proves you can handle an emergency without missing a mortgage payment.</li>
-                            <li><strong>Employment Stability:</strong> They want to see a stable, verifiable (e.g., 2+ years) employment history in the same field.</li>
-                        </ul>
-                    </div>
-                </details>
-                <details>
-                    <summary>Q3: What's the difference between Pre-Qualified and Pre-Approved?</summary>
-                    <div class="faq-answer">
-                        A3: This is a critical distinction.
-                        <ul>
-                            <li><strong>Pre-Qualification:</strong> This is a quick, informal estimate of what you <em>might</em> be able to borrow. It's based on self-reported data (like using this calculator) and often doesn't involve a credit check. It's a good first step, but it holds no real weight.</li>
-                            <li><strong>Pre-Approval:</strong> This is a formal, conditional commitment from a lender to give you a loan up to a certain amount. You must submit a full application, including proof of income, assets, and debts. The lender <em>will</em> pull your credit. A pre-approval letter shows sellers you are a serious, credible buyer.</li>
-                        </ul>
-                    </div>
-                </details>
-                 <details>
-                    <summary>Q4: How much income do I need to buy a $400,000 house?</summary>
-                    <div class="faq-answer">
-                        <p>It depends heavily on your debts and down payment. Below is a breakdown using standard 2025 underwriting assumptions (7.0% rate, ~$400/mo debts):</p>
-                        <div class="data-table-wrapper">
-                            <table class="income-req-table">
-                                <caption>Income Required for a $400k Home</caption>
-                                <thead>
-                                    <tr>
-                                        <th>Scenario</th>
-                                        <th>Down Payment</th>
-                                        <th>Est. Monthly Payment<br><span style="font-size:0.85em; font-weight:300;">(PITI + PMI)</span></th>
-                                        <th>Required Income<br><span style="font-size:0.85em; font-weight:300;">(Annual Gross)</span></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>FHA Loan</strong></td>
-                                        <td>3.5%</td>
-                                        <td>~$3,300</td>
-                                        <td><strong>~$110,400</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Conventional</strong><br><span style="font-size:0.9em; color:#666;">(5% Down)</span></td>
-                                        <td>5%</td>
-                                        <td>~$3,150</td>
-                                        <td><strong>~$105,000</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Conventional</strong><br><span style="font-size:0.9em; color:#666;">(20% Down)</span></td>
-                                        <td>20%</td>
-                                        <td>~$2,750</td>
-                                        <td><strong>~$91,800</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p class="table-footer-note">Note: Lower down payments increase your monthly obligation, which raises the income required to qualify.</p>
-                    </div>
-                </details>
-                 <details>
-                    <summary>Q5: Does this calculator guarantee I'll be approved for this loan amount?</summary>
-                    <div class="faq-answer">
-                        A5: No. This calculator is a powerful estimation tool to help you plan. Your final loan approval, interest rate, and affordable amount are all subject to a formal underwriting process from a lender. They will verify your credit score, income, assets, debts, and the property's appraised value. Use this tool to get a realistic, data-driven starting point for your home search.
-                    </div>
-                </details>
-            </div>
-        </section>
-
-    </main>
-
-    <div id="optionsOverlay" class="options-overlay"></div>
-
-    <div id="optionsMenu" class="options-menu">
-        <div class="menu-header">
-            <h3>Monthly Payment</h3>
-            <button id="closeMenuBtn" class="close-btn" aria-label="Close details menu">&times;</button>
-        </div>
-
-        <div class="breakdown-header">
-            <span class="header-label">Category</span>
-            <div class="header-values">
-                <span class="header-cost">Amount</span>
-                <span class="header-share">Share</span>
-            </div>
-        </div>
-
-        <div id="breakdownList" class="breakdown-list">
-            </div>
-
-    </div>
-
-    <div id="pdfMenu" class="options-menu">
-        <div class="menu-header">
-            <h3>Save Results as PDF</h3>
-            <button id="closePdfMenuBtn" class="close-btn" aria-label="Close PDF menu">&times;</button>
-        </div>
+    function openInstructionMenu(menuElement, proceedButton) {
+        // Reset and close any potentially open menus first (safety)
+        closeAllMenus();
         
-        <div class="pdf-tutorial-content">
-            <div class="tutorial-grid">
-    <div class="tutorial-step">
-        <img src="../../img/Tutorial_1.webp" alt="Select Print Destination" width="310" height="174" loading="lazy">
-        <p>1. Change Destination</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Tutorial_2.webp" alt="Select Save as PDF" width="310" height="174" loading="lazy">
-        <p>2. Select "Save as PDF"</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Tutorial_3.webp" alt="Click Save" width="310" height="174" loading="lazy">
-        <p>3. Click "Save"</p>
-    </div>
-</div>
-        </div>
-
-        <button id="proceedPdfBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
-    </div>
-
-    <!-- NEW PRINT MENU (DESKTOP) -->
-    <div id="printMenu" class="options-menu">
-        <div class="menu-header">
-            <h3>Print</h3>
-            <button id="closePrintMenuBtn" class="close-btn" aria-label="Close Print menu">&times;</button>
-        </div>
+        menuElement.classList.add('active');
+        document.getElementById('optionsOverlay').classList.add('active');
         
-        <div class="pdf-tutorial-content">
-            <div class="tutorial-grid">
-    <div class="tutorial-step">
-        <img src="../../img/Tutorial_1.webp" alt="Select Printer" width="310" height="174" loading="lazy">
-        <p>1. Select Printer</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Print_2.webp" alt="Select Printer Name" width="310" height="174" loading="lazy">
-        <p>2. Select Printer Name</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Print_4.webp" alt="Click More settings" width="310" height="139" loading="lazy">
-        <p>3. Click "More settings"</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Print_5.1.webp" alt="Checked Headers and footers" width="310" height="100" loading="lazy">
-         <img src="../../img/Print_5.2.webp" alt="Unchecked Headers and footers" width="310" height="100" loading="lazy">
-        <p>4. Uncheck "Headers and footers"</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Print_3.webp" alt="Click Print" width="310" height="174" loading="lazy">
-        <p>5. Click "Print"</p>
-    </div>
-</div>
-        </div>
+        if (menuTutorialSeen) {
+            if(proceedButton) {
+                proceedButton.textContent = 'Proceed';
+                proceedButton.disabled = false;
+                proceedButton.style.opacity = '1';
+                proceedButton.style.cursor = 'pointer';
+            }
+        } else {
+            startCountdown(proceedButton);
+        }
+    }
 
-        <button id="proceedPrintBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
-    </div>
+    function closeAllMenus() {
+        if(pdfMenu) pdfMenu.classList.remove('active');
+        if(printMenu) printMenu.classList.remove('active');
+        if(mobileActionMenu) mobileActionMenu.classList.remove('active');
+        document.getElementById('optionsOverlay').classList.remove('active');
+        clearInterval(pdfCountdown);
+    }
 
-    <!-- NEW ACTION MENU (MOBILE) -->
-    <div id="mobileActionMenu" class="options-menu">
-        <div class="menu-header">
-            <h3>Action</h3>
-            <button id="closeMobileActionMenuBtn" class="close-btn" aria-label="Close Action menu">&times;</button>
-        </div>
+    function startCountdown(btn) {
+        if (!btn) return;
+        let count = 3;
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
+        btn.textContent = `Please Read Instructions (${count})`;
         
-        <div class="pdf-tutorial-content">
-            <div class="tutorial-grid">
-    <div class="tutorial-step">
-        <img src="../../img/Tutorial_1.webp" alt="Select Destination" width="310" height="174" loading="lazy">
-        <p>1. Select Destination</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Tutorial_2.webp" alt="Select Print or PDF" width="310" height="174" loading="lazy">
-        <p>2. Print or Save</p>
-    </div>
-    <div class="tutorial-step">
-         <img src="../../img/Tutorial_3.webp" alt="Click Blue Button" width="310" height="174" loading="lazy">
-        <p>3. Click Blue Button</p>
-    </div>
-</div>
-        </div>
+        clearInterval(pdfCountdown);
+        pdfCountdown = setInterval(() => {
+            count--;
+            if (count > 0) {
+                btn.textContent = `Please Read Instructions (${count})`;
+            } else {
+                clearInterval(pdfCountdown);
+                btn.textContent = 'Proceed';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                menuTutorialSeen = true; 
+            }
+        }, 1000);
+    }
 
-        <button id="proceedMobileActionBtn" class="print-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Please Read Instructions (3)</button>
-    </div>
+// Event Listeners for Opening Menus
+    if(pdfBtn) pdfBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        openInstructionMenu(pdfMenu, proceedPdfBtn); 
+    });
+    
+    // UPDATED: Mobile PDF now opens the specific PDF menu (3-step)
+    if(mobilePdfBtn) mobilePdfBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        openInstructionMenu(pdfMenu, proceedPdfBtn); 
+    });
 
-    <div class="print-footer-disclaimer">
-        Disclaimer: This report is an estimate of affordability based on the information you provided. It is not a loan approval, commitment to lend, or guarantee of interest rates. Actual loan approval and terms depend on a full underwriting process including verification of credit, income, assets, and property value. Solveria.org is not a lender. Please consult a qualified mortgage professional for specific financial advice.
-    </div>
+    // NEW: Mobile Print now opens the specific Print menu (5-step)
+    if(mobilePrintBtn) mobilePrintBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        openInstructionMenu(printMenu, proceedPrintBtn); 
+    });
+    
+    if(desktopPrintBtn) desktopPrintBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        openInstructionMenu(printMenu, proceedPrintBtn); 
+    }); 
+    
+    // Event Listeners for Closing
+    if(closePdfMenuBtn) closePdfMenuBtn.addEventListener('click', closeAllMenus);
+    if(closePrintMenuBtn) closePrintMenuBtn.addEventListener('click', closeAllMenus);
+    if(closeMobileActionMenuBtn) closeMobileActionMenuBtn.addEventListener('click', closeAllMenus);
 
-    <footer style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 60px 20px;">
-        <div style="width: 100%; text-align: center; color: #777; font-size: 0.85rem; max-width: 800px; line-height: 1.5;">
-            <strong>Disclaimer:</strong> Solveria.org is an independent financial publisher and comparison service, not a lender, bank, or mortgage broker. We do not originate mortgages or issue loan commitments. All figures are estimates for educational purposes only.
-        </div>
+    // Event Listeners for Proceeding (Print)
+    const triggerPrint = () => { window.print(); closeAllMenus(); };
+    if(proceedPdfBtn) proceedPdfBtn.addEventListener('click', triggerPrint);
+    if(proceedPrintBtn) proceedPrintBtn.addEventListener('click', triggerPrint);
+    if(proceedMobileActionBtn) proceedMobileActionBtn.addEventListener('click', triggerPrint);
+
+
+    // Share Menu Logic
+    const shareBtn = document.getElementById('shareBtn');
+    const shareMenu = document.getElementById('shareMenu');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const emailShareBtn = document.getElementById('emailShareBtn');
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            if (navigator.share) {
+                try { await navigator.share({ title: 'My Home Affordability', url: window.location.href }); } catch (err) {}
+            } else {
+                if (shareMenu) shareMenu.classList.toggle('active');
+            }
+        });
+    }
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                copyLinkBtn.textContent = 'Copied!';
+                setTimeout(() => copyLinkBtn.textContent = 'Copy Link', 2000);
+            });
+        });
+    }
+    if (emailShareBtn) {
+        emailShareBtn.addEventListener('click', () => {
+            window.location.href = `mailto:?subject=Affordability&body=${window.location.href}`;
+        });
+    }
+    
+    // Close Logic (General)
+    const moreOptionsBtn = document.getElementById('moreOptionsBtn');
+    const optionsMenu = document.getElementById('optionsMenu');
+    const optionsOverlay = document.getElementById('optionsOverlay');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+
+    function toggleMenu() { optionsMenu.classList.toggle('active'); optionsOverlay.classList.toggle('active'); }
+    function closeMenu() { optionsMenu.classList.remove('active'); optionsOverlay.classList.remove('active'); }
+
+    if(moreOptionsBtn) moreOptionsBtn.addEventListener('click', toggleMenu);
+    if(closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if(optionsOverlay) optionsOverlay.addEventListener('click', () => { closeMenu(); closeAllMenus(); });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeMenu(); closeAllMenus(); }
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (shareMenu && shareMenu.classList.contains('active') && !shareMenu.contains(e.target) && e.target !== shareBtn) {
+            shareMenu.classList.remove('active');
+        }
+    });
+// --- LOOPING TAGLINE LOGIC (RESTORED) ---
+    const taglineElement = document.getElementById('looping-text');
+    if (taglineElement) {
+        // You can add your own phrases here!
+        const taglines = [
+            "Find your place in the world.",
+            "Know your true buying power.",
+            "Plan your future with confidence.",
+            "Smart tools for smart decisions."
+        ];
         
-        <div style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;">
-            <a href="../../about/">About</a>
-            <a href="https://solveria.org/contact-us/">Contact Us</a>
-            <a href="../../terms-of-use/">Terms of Use</a>
-            <a href="../../privacy-policy/">Privacy Policy</a>
-            <a href="../../privacy-policy/#do-not-sell" style="color: #777; text-decoration: none;">Do Not Sell or Share My Personal Information</a>
-        </div>
+        let tagIndex = 0;
+        
+        const animateTagline = () => {
+            // 1. Reset: Remove class to stop current animation
+            taglineElement.classList.remove('fade-in-out');
+            
+            // 2. Update Text
+            taglineElement.textContent = taglines[tagIndex];
+            
+            // 3. Trigger Reflow (Crucial: forces browser to acknowledge the reset)
+            void taglineElement.offsetWidth; 
+            
+            // 4. Start Animation (CSS handles the fade in/out)
+            taglineElement.classList.add('fade-in-out');
+            
+            // 5. Increment Index for next loop
+            tagIndex = (tagIndex + 1) % taglines.length;
+        };
 
-        <div style="width: 100%; text-align: center; color: #999; font-size: 0.8rem;">
-            &copy; 2025 Solveria. All rights reserved.
-        </div>
-    </footer>
-
-    <script src="ha-app.js" defer></script>
-</body>
-</html>
+        // Start immediately
+        animateTagline();
+        
+        // Loop every 6 seconds (Matches your 5.5s CSS animation + buffer)
+        setInterval(animateTagline, 6000);
+    }
+});

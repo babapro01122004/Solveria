@@ -421,7 +421,11 @@ input[type=number] { -moz-appearance: textfield; }
            On smaller screens, they will wrap automatically. */
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         justify-content: center;
-        align-items: start;
+        
+        /* UPDATED: Aligns items in the vertical center of the row 
+           without stretching or distorting the images. */
+        align-items: center; 
+        
         gap: 30px;
     }
     /* --- NEW: Compact Header Buttons for Mobile ONLY --- */
