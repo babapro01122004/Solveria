@@ -380,13 +380,15 @@ input[type=number] { -moz-appearance: textfield; }
     transition: all 0.3s ease; 
     box-sizing: border-box; 
     width: calc(100% - 40px); 
-    max-width: 1200px; /* INCREASED WIDTH */
+    
+    /* FIX: Widened to 1600px to allow 5 items in one row without squeezing */
+    max-width: 1600px; 
+    
     max-height: 85vh; 
     overflow-y: auto; 
     display: flex; 
     flex-direction: column; 
-}
-.options-menu.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+}.options-menu.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
 .menu-header { position: relative; margin-bottom: 25px; padding-bottom: 15px; border-bottom: none; }
 .menu-header h3 { margin: 0; font-size: 1.6rem; font-weight: 300; color: #333; text-align: center; margin-left: 50px; margin-right: 50px; }
 .close-btn { position: absolute; right: 0; top: 0; background: none; border: none; font-size: 2rem; color: #999; cursor: pointer; padding: 0; line-height: 1; transition: color 0.2s; }
@@ -415,8 +417,12 @@ input[type=number] { -moz-appearance: textfield; }
 
 /* FIX: Desktop defaults to 5 columns & Vertically Centers items */
     #printMenu .tutorial-grid {
-        grid-template-columns: repeat(5, 1fr);
-        align-items: center; /* <--- THIS CENTERS THE STEPS VERTICALLY */
+        /* FIX: 210px width allows 5 items to fit in one line on desktop (1600px container).
+           On smaller screens, they will wrap automatically. */
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        justify-content: center;
+        align-items: start;
+        gap: 30px;
     }
     /* --- NEW: Compact Header Buttons for Mobile ONLY --- */
     @media (max-width: 768px) {
@@ -435,12 +441,12 @@ input[type=number] { -moz-appearance: textfield; }
 
 .tutorial-step img {
     width: 100%;
+    height: auto; /* <--- CRITICAL: Prevents stretching/elongating */
     border-radius: 8px;
     border: 1px solid #eee;
     margin-bottom: 10px;
     display: block;
 }
-
 .tutorial-step p {
     margin: 0;
     font-size: 0.9rem;
