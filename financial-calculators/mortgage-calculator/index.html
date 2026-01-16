@@ -15,8 +15,14 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#B5855E">
 
-    <!-- PERFORMANCE: Preload Critical Assets (LCP Fix) -->
+    <!-- PERFORMANCE: Critical Font Preloads (Breaks the chain) -->
+    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../../fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
+
+    <!-- PERFORMANCE: Preload Hero Image (LCP Fix) -->
     <link rel="preload" href="../../img/Refinance_Hero.webp" as="image">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     
     <!-- PERFORMANCE: Defer Non-Critical Scripts -->
@@ -76,27 +82,6 @@
           ]
         },
         {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is a safe Debt-to-Income (DTI) ratio?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "While lenders approve up to 50%, financial prudence suggests keeping total housing expense under 28% of gross income to leave room for savings."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is it better to put 20% down or pay PMI?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "It depends on ROI. If your cash earns a higher return in the market than the cost of PMI, putting less down may be mathematically superior."
-              }
-            }
-          ]
-        },
-        {
           "@type": "Organization",
           "name": "Golden Financial Tools",
           "logo": {
@@ -112,13 +97,16 @@
 
     <!-- Hero Section -->
     <div class="hero-section">
+        <!-- LCP FIX: Image is now in HTML with fetchpriority="high" -->
+        <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" width="1920" height="1080">
+        
         <nav class="hero-nav" aria-label="Main Navigation">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <!-- ADDED WIDTH/HEIGHT TO PREVENT LAYOUT SHIFT -->
+        <!-- Fixed Width/Height to prevent layout shift -->
         <img src="../../img/Logo_Golden.webp" alt="Golden Financial Tools Logo" class="hero-logo" width="200" height="85">
 
         <h1>Mortgage Calculator</h1>
@@ -151,26 +139,25 @@
                 <button class="mode-card active-mode" data-mode="mode-a" role="radio" aria-checked="true"
                     data-tooltip-title="True Affordability Check" 
                     data-tooltip-desc="Goes beyond the monthly payment. This mode compares your liquid assets against the total cash-to-close (Down Payment + Closing Costs) to ensure you won't be house poor.">
-                    <!-- ADDED DIMENSIONS FOR PERFORMANCE -->
-                    <img src="../../img/1.jpg" alt="Person holding a model house representing ownership" width="400" height="250">
+                    <img src="../../img/1.jpg" alt="Person holding a model house representing ownership" width="400" height="250" loading="lazy">
                     <span>Ownership Readiness</span>
                 </button>
                 <button class="mode-card" data-mode="mode-b" role="radio" aria-checked="false"
                     data-tooltip-title="Refinance Breakeven Analysis" 
                     data-tooltip-desc="A mathematical approach to refinancing. It calculates the exact Breakeven Horizon—the number of months it takes for your monthly interest savings to fully recover the upfront closing costs.">
-                    <img src="../../img/2.jpg" alt="Floating money symbols representing equity" width="400" height="250">
+                    <img src="../../img/2.jpg" alt="Floating money symbols representing equity" width="400" height="250" loading="lazy">
                     <span>Equity Optimization</span>
                 </button>
                 <button class="mode-card" data-mode="mode-c" role="radio" aria-checked="false"
                     data-tooltip-title="Investment & DSCR Analyzer" 
                     data-tooltip-desc="Designed for investors. This mode calculates the Debt Service Coverage Ratio (DSCR) to see if rental income covers the debt.">
-                    <img src="../../img/3.jpg" alt="Bank vault representing cash flow" width="400" height="250">
+                    <img src="../../img/3.jpg" alt="Bank vault representing cash flow" width="400" height="250" loading="lazy">
                     <span>Cash Flow Strategy</span>
                 </button>
                 <button class="mode-card" data-mode="mode-d" role="radio" aria-checked="false"
                     data-tooltip-title="FHA & VA Loan Assessment" 
                     data-tooltip-desc="Evaluates the trade-off between low down payments and higher long-term costs.">
-                    <img src="../../img/4.jpg" alt="US Flag representing government programs" width="400" height="250">
+                    <img src="../../img/4.jpg" alt="US Flag representing government programs" width="400" height="250" loading="lazy">
                     <span>Program Advantage</span>
                 </button>
             </div>
