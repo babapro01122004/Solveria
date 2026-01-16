@@ -181,11 +181,11 @@ body {
     position: sticky;
     top: 30px; /* Margin from top of screen */
     
-    /* == NEW CARD STYLING == */
-    background-color: #ECECEC; /* Slightly darker than F4F4F4 */
-    border-radius: 24px; /* Rounded Corners */
-    padding: 40px 10px 40px 20px; /* Inner spacing (Right side less for scrollbar) */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Faint Shadow */
+    /* == CLEAN LOOK (No background/shadow card) == */
+    background-color: transparent; 
+    border-radius: 0; 
+    padding: 0; 
+    box-shadow: none; 
 
     /* Remove scroll logic from parent */
     overflow: visible;
@@ -220,13 +220,17 @@ body {
     margin-bottom: 2vh;
 }
 
+/* MASSIVE INDEPENDENT HEADINGS */
 .calc-section h2 {
     font-family: 'ProductSans-Thin', sans-serif;
     font-weight: 300;
-    font-size: 6vmin;
+    /* Independent Logic: Scales from 3rem up to 6rem based on viewport width */
+    font-size: clamp(3rem, 9vw, 6rem);
     color: #333;
     margin: 0;
-    white-space: nowrap; 
+    line-height: 1.1;
+    white-space: normal; /* Allow wrapping if absolutely needed */
+    overflow-wrap: break-word; /* Prevent overflow */
 }
 
 .text-link-btn {
@@ -393,19 +397,19 @@ body {
     min-width: 0; 
 }
 
+/* FLEXBOX -> NOW CSS GRID FOR ROBUST LAYOUT */
 .input-split-secondary {
-    display: flex;
-    align-items: center;       
-    justify-content: flex-end; 
+    display: grid;
+    grid-template-columns: 1fr auto; /* 1fr for input, Auto for symbol */
+    align-items: center;
+    justify-content: end;
     flex: 1;
-    min-width: 80px; 
-    max-width: 110px;
-    position: relative;
+    min-width: 90px;
+    max-width: 140px;
+    gap: 5px; /* Hard spacing */
 }
 
 .percent-input {
-    flex: 1; 
-    min-width: 0; 
     width: 100% !important; 
     text-align: right; 
     color: #B5855E !important; 
@@ -416,13 +420,10 @@ body {
 }
 
 .percent-symbol {
-    flex: 0 0 auto; 
-    position: static; 
-    transform: none; 
+    position: static; /* Normal flow, part of the grid */
     font-size: 2.2vh; 
     color: #B5855E; 
     pointer-events: none;
-    margin-left: 3px;
     line-height: 1;
 }
 
@@ -656,7 +657,8 @@ body {
     font-size: clamp(1.8rem, 3vw, 3.2rem); 
     color: #333;
     line-height: 1.1;
-    word-wrap: break-word; 
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* Ensure it wraps if too long */
     /* Push to bottom of flex container */
     margin-top: auto; 
 }
@@ -701,10 +703,10 @@ body {
 /* Wrapper to hold Chart Card (Left) and CTA Card (Right) */
 .chart-row-wrapper {
     display: flex;
-    flex-wrap: wrap; /* CRITICAL: Allows stacking when space is low */
-    justify-content: center; /* Centers items */
-    align-items: stretch; /* Stretch height */
-    gap: 30px;
+    flex-flow: row wrap; /* Explicitly allow wrapping */
+    justify-content: center; /* Keep centered */
+    align-items: stretch; /* Stretch height to match tallest */
+    gap: 20px; /* Reduced gap to help side-by-side fitting */
     width: 100%;
     /* Separator is now on this container */
     margin-top: 30px; 
@@ -714,12 +716,20 @@ body {
 
 /* VISUAL CARD (Invisible Wrapper for Heading + Chart) */
 .visual-card {
-    flex: 1 1 300px; /* Base 300px, grow/shrink */
-    max-width: 350px;
-    min-width: 250px;
+    /* 
+       Flex Basis: 260px. 
+       Grow: 1 (fill space). 
+       Shrink: 1 (allow shrinking). 
+    */
+    flex: 1 1 260px; 
+    /* Allow it to get smaller than 260px before breaking, but not less than min-width */
+    min-width: 240px; 
+    max-width: 100%; /* Allow filling full width */
     display: flex;
     flex-direction: column;
     align-items: center; /* Centers heading and chart */
+    /* Ensure it doesn't overflow horizontally */
+    box-sizing: border-box; 
 }
 
 /* Chart Heading inside the Visual Card */
@@ -760,9 +770,11 @@ body {
 /* CTA Card Styling             */
 /* ============================ */
 .cta-card {
-    flex: 1 1 300px; /* MATCHES Visual Card Base */
-    max-width: 350px;
-    min-width: 250px;
+    /* Match visual-card flex properties */
+    flex: 1 1 260px;
+    min-width: 240px;
+    max-width: 100%;
+    
     /* Ensure height matches visually or stretches */
     min-height: 250px; 
     
@@ -1084,9 +1096,6 @@ body {
 
 /* Laptop / Mid-size */
 @media (max-width: 1214px) {
-    .calc-section h2 {
-        font-size: 6vmin; 
-    }
     .mode-cards-container {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1109,42 +1118,27 @@ body {
         max-width: 700px; /* Allow wider content on tablet */
     }
 
+    /* Keep headings left aligned */
     .right-section h2 {
         text-align: left; 
     }
     
-    /* Center align Heading on Stacked View */
-    .right-section h2 {
-        text-align: center;
-    }
     .right-section .input-category-header {
-        text-align: center;
-    }
-    .advisor-text {
-        text-align: center;
+        text-align: left;
     }
     
-    /* CENTER ALIGN RESULTS WHEN STACKED */
+    .advisor-text {
+        text-align: left;
+    }
+    
+    /* LEFT ALIGN RESULTS WHEN STACKED */
     .result-box {
-        text-align: center; 
-        align-items: center; /* Center flex items (Numbers) */
+        text-align: left; 
+        align-items: flex-start; 
     }
     
     .metrics-grid {
         gap: 30px; 
-    }
-
-    /* Stack Chart and CTA on Tablet */
-    .chart-row-wrapper {
-        flex-direction: column; /* Forces vertical stack when space is tight */
-        align-items: center;
-        gap: 40px;
-    }
-    
-    /* Ensure cards take decent width when stacked */
-    .visual-card, .cta-card {
-        max-width: 450px; 
-        width: 100%;
     }
 
     /* DISABLE STICKY ON STACKED LAYOUT AND RESET CARD STYLE */
@@ -1154,7 +1148,7 @@ body {
         overflow-y: visible;
         
         /* RESET CARD STYLE FOR INVISIBLE LOOK */
-        background-color: #F4F4F4; /* Match Page BG */
+        background-color: transparent; 
         box-shadow: none;
         border-radius: 0;
         padding: 0;
@@ -1192,20 +1186,22 @@ body {
         min-width: auto; /* Remove min-width */
     }
 
-    /* Stack metrics on mobile if needed, or keep 2 col if fits */
+    /* FORCE 2x2 Grid even on mobile */
     .metrics-grid {
-        grid-template-columns: 1fr; /* Stack results on mobile for safety */
-        gap: 20px;
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px; /* Slightly tighter gap to allow space */
     }
     
     .result-value {
-        font-size: 3.5rem; /* Larger static size for mobile stack */
+        /* Independent sizing that shrinks uniformly for all boxes */
+        /* Safe check against huge numbers on small screens */
+        font-size: clamp(1.4rem, 6vw, 2.5rem); 
     }
 
-    /* CENTER ALIGN RESULTS ON MOBILE */
+    /* LEFT ALIGN RESULTS ON MOBILE */
     .result-box {
-        text-align: center;
-        align-items: center;
+        text-align: left;
+        align-items: flex-start;
     }
     
     .seo-header h2 {

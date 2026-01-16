@@ -504,7 +504,8 @@ function syncInputs(sourceKey, value) {
              
              const pctA = (newPrice > 0) ? (safeDownA / newPrice) * 100 : 0;
              const pctInputA = document.getElementById('input_downPaymentPercentA');
-             if(pctInputA) pctInputA.value = pctA.toFixed(1);
+             // MODIFIED: Remove trailing .0
+             if(pctInputA) pctInputA.value = parseFloat(pctA.toFixed(1));
 
              SLIDER_CONFIG.downPaymentD.max = newPrice;
              const currentDownD = cleanNumber(document.getElementById('input_downPaymentD').value);
@@ -518,7 +519,8 @@ function syncInputs(sourceKey, value) {
              if (safeDownD !== currentDownD) document.getElementById('input_downPaymentD').value = safeDownD;
              const pctD = (newPrice > 0) ? (safeDownD / newPrice) * 100 : 0;
              const pctInputD = document.getElementById('input_downPaymentPercentD');
-             if(pctInputD) pctInputD.value = pctD.toFixed(1);
+             // MODIFIED: Remove trailing .0
+             if(pctInputD) pctInputD.value = parseFloat(pctD.toFixed(1));
         }
     }
 
@@ -539,7 +541,9 @@ function syncInputs(sourceKey, value) {
             let safeVal = value;
             if (value > price) safeVal = price;
             const pct = (safeVal / price) * 100;
-            const pctVal = Math.min(100, pct).toFixed(1);
+            // MODIFIED: Use parseFloat to strip trailing zeros (e.g. 20.0 -> 20)
+            const pctVal = parseFloat(Math.min(100, pct).toFixed(1));
+            
             const aPercent = document.getElementById('input_downPaymentPercentA');
             const dPercent = document.getElementById('input_downPaymentPercentD');
             if(aPercent) aPercent.value = pctVal;
