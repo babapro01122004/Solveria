@@ -303,20 +303,23 @@ const externalTooltipHandler = (context) => {
 /* ============================ */
 /* CHART JS HANDLERS (UPDATED)  */
 /* ============================ */
-let chartA, chartB; // chartC and chartD removed
+let chartA, chartB; 
 
-// NEW LIGHTER / SOFTER BROWN PALETTE
 const CHART_COLORS = {
-    primary: '#C59F80',    // Lighter Brown/Tan
-    secondary: '#E8DCCA',  // Very Light Beige
-    tertiary: '#BFA596',   // Muted Light Brown
-    accent: '#F4E6DC',     // Pale Sand
-    dark: '#8D7B6F'        // Soft Coffee (Not too dark)
+    primary: '#C59F80',    
+    secondary: '#E8DCCA',  
+    tertiary: '#BFA596',   
+    accent: '#F4E6DC',     
+    dark: '#8D7B6F'        
 };
 
 function updateChartA(principal, tax, insurance) {
     const ctx = document.getElementById('chartA');
     if(!ctx) return;
+    
+    // Check if Chart is loaded
+    if(typeof Chart === 'undefined') return;
+
     if (chartA) chartA.destroy();
     
     chartA = new Chart(ctx, {
@@ -356,6 +359,9 @@ function updateChartB(savingsPerMonth, refiCost) {
     const ctx = document.getElementById('chartB');
     if(!ctx) return;
     
+    // Check if Chart is loaded
+    if(typeof Chart === 'undefined') return;
+    
     const labels = [];
     const costData = [];
     const savingsData = [];
@@ -389,7 +395,7 @@ function updateChartB(savingsPerMonth, refiCost) {
                     backgroundColor: CHART_COLORS.primary, 
                     fill: {
                          target: 'origin',
-                         above: 'rgba(197, 159, 128, 0.2)' // Light transparent primary
+                         above: 'rgba(197, 159, 128, 0.2)' 
                     }
                 }
             ]
@@ -504,7 +510,6 @@ function syncInputs(sourceKey, value) {
              
              const pctA = (newPrice > 0) ? (safeDownA / newPrice) * 100 : 0;
              const pctInputA = document.getElementById('input_downPaymentPercentA');
-             // MODIFIED: Remove trailing .0
              if(pctInputA) pctInputA.value = parseFloat(pctA.toFixed(1));
 
              SLIDER_CONFIG.downPaymentD.max = newPrice;
@@ -519,7 +524,6 @@ function syncInputs(sourceKey, value) {
              if (safeDownD !== currentDownD) document.getElementById('input_downPaymentD').value = safeDownD;
              const pctD = (newPrice > 0) ? (safeDownD / newPrice) * 100 : 0;
              const pctInputD = document.getElementById('input_downPaymentPercentD');
-             // MODIFIED: Remove trailing .0
              if(pctInputD) pctInputD.value = parseFloat(pctD.toFixed(1));
         }
     }
@@ -541,7 +545,6 @@ function syncInputs(sourceKey, value) {
             let safeVal = value;
             if (value > price) safeVal = price;
             const pct = (safeVal / price) * 100;
-            // MODIFIED: Use parseFloat to strip trailing zeros (e.g. 20.0 -> 20)
             const pctVal = parseFloat(Math.min(100, pct).toFixed(1));
             
             const aPercent = document.getElementById('input_downPaymentPercentA');
@@ -651,6 +654,9 @@ function initializeModes() {
         card.addEventListener('click', () => {
             modeCards.forEach(c => c.classList.remove('active-mode'));
             card.classList.add('active-mode');
+            card.setAttribute('aria-checked', 'true');
+            modeCards.forEach(c => { if(c !== card) c.setAttribute('aria-checked', 'false'); });
+
             const modeId = card.getAttribute('data-mode');
             
             document.querySelectorAll('.mode-inputs').forEach(el => el.classList.add('hidden'));
@@ -674,7 +680,6 @@ function setupTooltipListeners() {
             const desc = card.getAttribute('data-tooltip-desc');
             
             if(title && desc) {
-                // Using existing styles, injecting inline styles for the longer text body
                 tooltipEl.innerHTML = `
                     <strong style="color: #C59F80; font-size: 1.1em; display: block; margin-bottom: 5px;">${title}</strong>
                     <div style="max-width: 250px; white-space: normal; line-height: 1.4; color: #333;">${desc}</div>
@@ -726,7 +731,6 @@ function calculateModeA() {
     let downPayment = cleanNumber(document.getElementById('input_downPaymentA').value);
     if(downPayment > homePrice) downPayment = homePrice;
 
-    // New Inputs for Readiness Logic
     const userIncome = cleanNumber(document.getElementById('input_incomeUserA').value);
     const userCash = cleanNumber(document.getElementById('input_cashUserA').value);
 
@@ -762,19 +766,16 @@ function calculateModeA() {
 
     document.getElementById('res_monthlyA').textContent = formatCurrency(totalMonthlyPayment);
 
-    // LOGIC 1: Cash to Close Traffic Light
     const cashEl = document.getElementById('res_cashCloseA');
     cashEl.textContent = formatCurrency(totalCashToClose);
     cashEl.className = 'result-value'; 
     if (userCash >= totalCashToClose) cashEl.classList.add('text-success');
     else cashEl.classList.add('text-danger');
 
-    // Interest Burn (Neutral or Warn - sticking to warn for high waste)
     const burnEl = document.getElementById('res_burnA');
     burnEl.textContent = formatCurrency(interestBurn);
     burnEl.className = 'result-value text-warning'; 
 
-    // LOGIC 2: Income Traffic Light
     const incomeEl = document.getElementById('res_incomeA');
     incomeEl.textContent = formatCurrency(incomeRequiredYearly) + "/yr";
     incomeEl.className = 'result-value';
@@ -783,7 +784,6 @@ function calculateModeA() {
     
     updateChartA(monthlyPI, monthlyTax, monthlyIns + monthlyPMI + hoa);
 
-    // ADVISOR TEXT A
     const advisorA = document.getElementById('summaryA');
     if(advisorA) {
         if (userCash < totalCashToClose) {
@@ -820,28 +820,24 @@ function calculateModeB() {
     const monthlySavings = currentPayment - newMonthlyPI;
     const netGain = (monthlySavings * 12 * yearsStay) - refiCosts + cashOut;
 
-    // LOGIC: New Payment vs Old
     const payEl = document.getElementById('res_newPayB');
     payEl.textContent = formatCurrency(newTotalPayment);
     payEl.className = 'result-value';
     if (newTotalPayment < currentPayment) payEl.classList.add('text-success');
     else payEl.classList.add('text-danger');
 
-    // LOGIC: Savings
     const saveEl = document.getElementById('res_saveB');
     saveEl.textContent = formatCurrency(monthlySavings);
     saveEl.className = 'result-value';
     if (monthlySavings > 0) saveEl.classList.add('text-success');
     else saveEl.classList.add('text-danger');
 
-    // LOGIC: Net Gain
     const netGainEl = document.getElementById('res_netGainB');
     netGainEl.textContent = formatCurrency(netGain);
     netGainEl.className = 'result-value';
     if (netGain >= 0) netGainEl.classList.add('text-success');
     else netGainEl.classList.add('text-danger');
 
-    // NEW LOGIC: Breakeven Timeline
     const breakEl = document.getElementById('res_breakTimeB');
     let breakText = "Never";
     let breakClass = "text-danger";
@@ -865,9 +861,9 @@ function calculateModeB() {
                  else breakText = `${m} Months`;
              }
 
-             if (monthsToBreak <= 24) breakClass = "text-success"; // Green < 2 yrs
-             else if (monthsToBreak <= 60) breakClass = "text-warning"; // Yellow < 5 yrs
-             else breakClass = "text-danger"; // Red > 5 yrs
+             if (monthsToBreak <= 24) breakClass = "text-success"; 
+             else if (monthsToBreak <= 60) breakClass = "text-warning"; 
+             else breakClass = "text-danger"; 
         }
     } else {
         breakText = "Never";
@@ -881,7 +877,6 @@ function calculateModeB() {
 
     updateChartB(monthlySavings, refiCosts);
 
-    // ADVISOR TEXT B
     const advisorB = document.getElementById('summaryB');
     if(advisorB) {
         if (monthlySavings <= 0) {
@@ -925,25 +920,21 @@ function calculateModeC() {
     const totalExpenses = ioPayment + monthlyTax + monthlyIns;
     const cashFlow = rent - totalExpenses;
 
-    // LOGIC: IO Payment (Usually safe initially, keeping green per request)
     const ioEl = document.getElementById('res_ioPayC');
     ioEl.textContent = formatCurrency(ioPayment);
     ioEl.className = 'result-value text-success';
 
-    // LOGIC: Shock (Always Warning)
     const shockEl = document.getElementById('res_shockC');
     shockEl.textContent = "+" + formatCurrency(shock) + "/mo";
     if(remainingYears <= 0) shockEl.textContent = "Balloon/End";
     shockEl.className = 'result-value text-warning';
 
-    // LOGIC: Cash Flow
     const flowEl = document.getElementById('res_cashFlowC');
     flowEl.textContent = formatCurrency(cashFlow);
     flowEl.className = 'result-value';
     if(cashFlow > 0) flowEl.classList.add('text-success');
     else flowEl.classList.add('text-danger');
 
-    // NEW LOGIC: DSCR (Debt Service Coverage Ratio)
     const dscrEl = document.getElementById('res_dscrC');
     let dscrVal = 0;
     if (totalExpenses > 0) dscrVal = rent / totalExpenses;
@@ -951,12 +942,11 @@ function calculateModeC() {
     if(dscrEl) {
         dscrEl.textContent = dscrVal.toFixed(2) + "x";
         dscrEl.className = 'result-value';
-        if (dscrVal >= 1.25) dscrEl.classList.add('text-success'); // Healthy
-        else if (dscrVal >= 1.0) dscrEl.classList.add('text-warning'); // Break-even / Risky
-        else dscrEl.classList.add('text-danger'); // Losing money
+        if (dscrVal >= 1.25) dscrEl.classList.add('text-success'); 
+        else if (dscrVal >= 1.0) dscrEl.classList.add('text-warning'); 
+        else dscrEl.classList.add('text-danger'); 
     }
 
-    // ADVISOR TEXT C
     const advisorC = document.getElementById('summaryC');
     if(advisorC) {
         if (dscrVal < 1.0) {
@@ -1032,12 +1022,10 @@ function calculateModeD() {
 
     document.getElementById('res_totalPayD').textContent = formatCurrency(totalPayment);
     
-    // LOGIC: Fee Neutral
     const feeEl = document.getElementById('res_feeD');
     feeEl.textContent = formatCurrency(upfrontFeeAmt);
     feeEl.className = 'result-value text-neutral';
 
-    // LOGIC: APR Warning (If > Base Rate + 0.5%)
     const aprEl = document.getElementById('res_aprD');
     aprEl.textContent = properAPR.toFixed(3) + "%";
     aprEl.className = 'result-value';
@@ -1045,22 +1033,18 @@ function calculateModeD() {
     if ((properAPR / 100) > (rawBaseRate / 100 + 0.005)) {
         aprEl.classList.add('text-warning');
     } else {
-        aprEl.classList.add('text-info'); // Info color for normal
+        aprEl.classList.add('text-info'); 
     }
 
-    // NEW LOGIC: 5-Year Sunk Cost (Interest + MIP + Upfront Fee)
-    let sunkCost = upfrontFeeAmt; // Start with the fee you paid/financed
+    let sunkCost = upfrontFeeAmt; 
     let tempBalance = totalLoanAmount;
     
-    // Simulate 60 months
     for (let i = 1; i <= 60; i++) {
         let interestPart = tempBalance * monthlyRate;
         let principalPart = monthlyPI - interestPart;
         
-        // Add interest and MIP to sunk cost
         sunkCost += interestPart + monthlyMIP;
         
-        // Reduce balance
         tempBalance -= principalPart;
         if(tempBalance < 0) tempBalance = 0;
     }
@@ -1068,10 +1052,9 @@ function calculateModeD() {
     const sunkEl = document.getElementById('res_sunkD');
     if(sunkEl) {
         sunkEl.textContent = formatCurrency(sunkCost);
-        sunkEl.className = 'result-value'; // Default styling
+        sunkEl.className = 'result-value'; 
     }
 
-    // ADVISOR TEXT D
     const advisorD = document.getElementById('summaryD');
     if(advisorD) {
         advisorD.innerHTML = `This program is a <strong class="text-success">powerful tool for liquidity</strong>. It allows you to control a ${formatCurrency(price)} asset with minimal capital upfront, preserving your cash for renovations. But leverage has a <strong class="text-danger">price tag</strong>. Because of the Funding Fee and Mortgage Insurance, you will pay <strong class="text-warning">${formatCurrency(sunkCost)}</strong> in "Sunk Costs" (Interest + Fees) over the first 5 years. You are effectively paying a premium for the flexibility of keeping your cash today.`;
@@ -1157,7 +1140,6 @@ function setupGlobalListeners() {
         document.getElementById('input_downPaymentPercentD').addEventListener('input', handleDownPercentD);
     }
     
-    // NEW LISTENERS FOR INCOME/CASH
     document.getElementById('input_incomeUserA').addEventListener('input', (e) => {
         const val = cleanNumber(e.target.value);
         const slider = document.getElementById('slider_incomeUserA');
@@ -1238,7 +1220,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceInput = document.getElementById('input_homePriceA');
         if(priceInput) priceInput.dispatchEvent(new Event('input'));
         
-        // Auto-update date in button
         const btn = document.getElementById('ctaBtnA');
         if(btn) {
             const date = new Date();
