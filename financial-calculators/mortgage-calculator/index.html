@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Mortgage Calculator & US Home Finance Guide | Rates, Refinance, ROI</title>
-    <meta name="description" content="Comprehensive US Mortgage Calculator for 2026. Compare FHA, VA, and Conventional loans. Analyze DTI, cash flow, equity optimization, and refinancing strategies. The ultimate guide to home finance and banking.">
+    <meta name="description" content="Comprehensive US Mortgage Calculator for 2026. Compare FHA, VA, and Conventional loans. Analyze DTI, cash flow, equity optimization, and refinancing strategies.">
+    
+    <!-- SEO: Canonical & Social Tags -->
+    <link rel="canonical" href="https://www.yourwebsite.com/calculators/mortgage/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Advanced Mortgage Calculator & Financial Decision Engine">
+    <meta property="og:description" content="Calculate readiness, refinance breakeven, and rental cash flow with the ultimate home finance tool.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#B5855E">
+
+    <!-- PERFORMANCE: Preload Critical Assets (LCP Fix) -->
+    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- PERFORMANCE: Defer Non-Critical Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="script.js" defer></script>
 
     <!-- Favicon & Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
@@ -80,14 +93,6 @@
                 "@type": "Answer",
                 "text": "It depends on ROI. If your cash earns a higher return in the market than the cost of PMI, putting less down may be mathematically superior."
               }
-            },
-            {
-              "@type": "Question",
-              "name": "When does refinancing make sense?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Only when your cumulative monthly savings exceed the upfront closing costs within the time you plan to stay in the home."
-              }
             }
           ]
         },
@@ -107,13 +112,14 @@
 
     <!-- Hero Section -->
     <div class="hero-section">
-        <nav class="hero-nav">
+        <nav class="hero-nav" aria-label="Main Navigation">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+        <!-- ADDED WIDTH/HEIGHT TO PREVENT LAYOUT SHIFT -->
+        <img src="../../img/Logo_Golden.webp" alt="Golden Financial Tools Logo" class="hero-logo" width="200" height="85">
 
         <h1>Mortgage Calculator</h1>
         
@@ -121,12 +127,12 @@
     </div>
 
     <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb-nav">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
         <a href="../../index.html">Home</a>
-        <span class="separator">/</span>
+        <span class="separator" aria-hidden="true">/</span>
         <a href="../../calculators/index.html">Finance</a>
-        <span class="separator">/</span>
-        <span class="current-page">Decision Engine</span>
+        <span class="separator" aria-hidden="true">/</span>
+        <span class="current-page" aria-current="page">Decision Engine</span>
     </nav>
 
     <!-- Main Calculator Content -->
@@ -137,49 +143,50 @@
             
             <div class="header-row">
                 <h2>Inputs</h2>
-                <button id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
+                <button id="advanced-toggle" class="text-link-btn" aria-label="Toggle Advanced Options">Switch to Advanced</button>
             </div>
 
-            <!-- Input Mode Cards with Data Attributes for Tooltips -->
-            <div class="mode-cards-container">
-                <button class="mode-card active-mode" data-mode="mode-a" 
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container" role="radiogroup" aria-label="Calculator Modes">
+                <button class="mode-card active-mode" data-mode="mode-a" role="radio" aria-checked="true"
                     data-tooltip-title="True Affordability Check" 
-                    data-tooltip-desc="Goes beyond the monthly payment. This mode compares your liquid assets against the total cash-to-close (Down Payment + Closing Costs) to ensure you won't be house poor. It also calculates the Burn Rate—the unrecoverable cost of interest, taxes, and insurance in the early years.">
-                    <img src="../../img/1.jpg" alt="House on hand">
+                    data-tooltip-desc="Goes beyond the monthly payment. This mode compares your liquid assets against the total cash-to-close (Down Payment + Closing Costs) to ensure you won't be house poor.">
+                    <!-- ADDED DIMENSIONS FOR PERFORMANCE -->
+                    <img src="../../img/1.jpg" alt="Person holding a model house representing ownership" width="400" height="250">
                     <span>Ownership Readiness</span>
                 </button>
-                <button class="mode-card" data-mode="mode-b"
+                <button class="mode-card" data-mode="mode-b" role="radio" aria-checked="false"
                     data-tooltip-title="Refinance Breakeven Analysis" 
-                    data-tooltip-desc="A mathematical approach to refinancing. It calculates the exact Breakeven Horizon—the number of months it takes for your monthly interest savings to fully recover the upfront closing costs. It also projects your net profit over your specific time horizon.">
-                    <img src="../../img/2.jpg" alt="Floating money">
+                    data-tooltip-desc="A mathematical approach to refinancing. It calculates the exact Breakeven Horizon—the number of months it takes for your monthly interest savings to fully recover the upfront closing costs.">
+                    <img src="../../img/2.jpg" alt="Floating money symbols representing equity" width="400" height="250">
                     <span>Equity Optimization</span>
                 </button>
-                <button class="mode-card" data-mode="mode-c"
+                <button class="mode-card" data-mode="mode-c" role="radio" aria-checked="false"
                     data-tooltip-title="Investment & DSCR Analyzer" 
-                    data-tooltip-desc="Designed for investors. This mode calculates the Debt Service Coverage Ratio (DSCR) to see if rental income covers the debt. It specifically highlights the Payment Shock risk of Interest-Only (IO) loans when the amortization period begins.">
-                    <img src="../../img/3.jpg" alt="Bank Vault">
+                    data-tooltip-desc="Designed for investors. This mode calculates the Debt Service Coverage Ratio (DSCR) to see if rental income covers the debt.">
+                    <img src="../../img/3.jpg" alt="Bank vault representing cash flow" width="400" height="250">
                     <span>Cash Flow Strategy</span>
                 </button>
-                <button class="mode-card" data-mode="mode-d"
+                <button class="mode-card" data-mode="mode-d" role="radio" aria-checked="false"
                     data-tooltip-title="FHA & VA Loan Assessment" 
-                    data-tooltip-desc="Evaluates the trade-off between low down payments and higher long-term costs. It calculates the Sunk Cost of Mortgage Insurance (MIP) and Funding Fees over a 5-year period to determine if preserving liquidity is worth the price of leverage.">
-                    <img src="../../img/4.jpg" alt="US Flag">
+                    data-tooltip-desc="Evaluates the trade-off between low down payments and higher long-term costs.">
+                    <img src="../../img/4.jpg" alt="US Flag representing government programs" width="400" height="250">
                     <span>Program Advantage</span>
                 </button>
             </div>
 
-            <!-- GLOBAL SETTINGS (Categorized) -->
+            <!-- GLOBAL SETTINGS -->
             <div class="input-category-block">
                 <h3 class="input-category-header">Property & Market Data</h3>
                 <div class="input-grid">
                     
                     <!-- Location -->
                     <div class="input-wrapper full-width-col">
-                        <label>Location (State)</label>
+                        <label for="stateSelector">Location (State)</label>
                         <div class="custom-dropdown-container" id="state-dropdown-container">
-                            <select id="stateSelector" class="hidden-select"></select>
-                            <button class="custom-dropdown-trigger">Loading...</button>
-                            <div class="custom-dropdown-menu">
+                            <select id="stateSelector" class="hidden-select" aria-label="Select State"></select>
+                            <button class="custom-dropdown-trigger" aria-haspopup="listbox">Loading...</button>
+                            <div class="custom-dropdown-menu" role="listbox">
                                 <div class="dropdown-options-wrapper"></div>
                             </div>
                         </div>
@@ -188,21 +195,21 @@
 
                     <!-- Property Tax -->
                     <div class="input-wrapper advanced-content hidden">
-                        <label>Property Tax (%)</label>
+                        <label for="input_propTaxGlobal">Property Tax (%)</label>
                         <div class="input-group">
-                            <input type="number" id="input_propTaxGlobal" value="1.2" step="0.1">
+                            <input type="number" id="input_propTaxGlobal" value="1.2" step="0.1" aria-label="Property Tax Percentage">
                             <span id="badge_propTaxGlobal" class="auto-badge visible">Auto</span>
-                            <input type="range" id="slider_propTaxGlobal" min="0" max="5" step="0.1">
+                            <input type="range" id="slider_propTaxGlobal" min="0" max="5" step="0.1" aria-hidden="true">
                         </div>
                     </div>
 
                     <!-- Home Insurance -->
                     <div class="input-wrapper advanced-content hidden">
-                        <label>Home Insurance ($/yr)</label>
+                        <label for="input_insuranceGlobal">Home Insurance ($/yr)</label>
                         <div class="input-group">
-                            <input type="number" id="input_insuranceGlobal" value="1200">
+                            <input type="number" id="input_insuranceGlobal" value="1200" aria-label="Annual Home Insurance Cost">
                             <span id="badge_insuranceGlobal" class="auto-badge visible">Auto</span>
-                            <input type="range" id="slider_insuranceGlobal" min="0" max="6000">
+                            <input type="range" id="slider_insuranceGlobal" min="0" max="6000" aria-hidden="true">
                         </div>
                     </div>
 
@@ -214,22 +221,21 @@
             <!-- MODE A: Ownership Readiness -->
             <div id="mode-a-inputs" class="mode-inputs">
                 
-                <!-- NEW: Financial Context for Readiness Check -->
                 <div class="input-category-block">
                     <h3 class="input-category-header">Financial Context</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Annual Household Income ($)</label>
+                            <label for="input_incomeUserA">Annual Household Income ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_incomeUserA" value="95000">
-                                <input type="range" id="slider_incomeUserA" min="0" max="100">
+                                <input type="number" id="input_incomeUserA" value="95000" aria-label="Annual Income">
+                                <input type="range" id="slider_incomeUserA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Liquid Assets / Cash ($)</label>
+                            <label for="input_cashUserA">Liquid Assets / Cash ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_cashUserA" value="50000">
-                                <input type="range" id="slider_cashUserA" min="0" max="100">
+                                <input type="number" id="input_cashUserA" value="50000" aria-label="Liquid Assets">
+                                <input type="range" id="slider_cashUserA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -239,23 +245,23 @@
                     <h3 class="input-category-header">Purchase Details</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Home Price ($)</label>
+                            <label for="input_homePriceA">Home Price ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_homePriceA" value="450000">
-                                <input type="range" id="slider_homePriceA" min="0" max="100">
+                                <input type="number" id="input_homePriceA" value="450000" aria-label="Home Price">
+                                <input type="range" id="slider_homePriceA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Down Payment ($ vs %)</label>
+                            <label for="input_downPaymentA">Down Payment ($ vs %)</label>
                             <div class="input-group">
                                 <div class="input-split-group">
-                                    <input type="number" id="input_downPaymentA" value="90000" class="input-split-primary">
+                                    <input type="number" id="input_downPaymentA" value="90000" class="input-split-primary" aria-label="Down Payment Amount">
                                     <div class="input-split-secondary">
-                                        <input type="number" id="input_downPaymentPercentA" value="20" step="1" max="100" class="percent-input">
+                                        <input type="number" id="input_downPaymentPercentA" value="20" step="1" max="100" class="percent-input" aria-label="Down Payment Percentage">
                                         <span class="percent-symbol">%</span>
                                     </div>
                                 </div>
-                                <input type="range" id="slider_downPaymentA" min="0" max="100">
+                                <input type="range" id="slider_downPaymentA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -265,33 +271,33 @@
                     <h3 class="input-category-header">Loan Terms</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Interest Rate (%)</label>
+                            <label for="input_rateA">Interest Rate (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_rateA" value="6.5" step="0.125">
-                                <input type="range" id="slider_rateA" min="0" max="100">
+                                <input type="number" id="input_rateA" value="6.5" step="0.125" aria-label="Interest Rate">
+                                <input type="range" id="slider_rateA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Loan Term</label>
+                            <label for="termA">Loan Term</label>
                             <div class="custom-dropdown-container">
-                                <select id="termA" class="hidden-select">
+                                <select id="termA" class="hidden-select" aria-label="Loan Term">
                                     <option value="30" selected>30 Years</option>
                                     <option value="15">15 Years</option>
                                 </select>
-                                <button class="custom-dropdown-trigger">30 Years</button>
-                                <div class="custom-dropdown-menu">
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">30 Years</button>
+                                <div class="custom-dropdown-menu" role="listbox">
                                     <div class="dropdown-options-wrapper">
-                                        <div class="dropdown-option selected" data-value="30">30 Years</div>
-                                        <div class="dropdown-option" data-value="15">15 Years</div>
+                                        <div class="dropdown-option selected" data-value="30" role="option" aria-selected="true">30 Years</div>
+                                        <div class="dropdown-option" data-value="15" role="option">15 Years</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-wrapper advanced-content hidden">
-                            <label>Points / Credits (%)</label>
+                            <label for="input_pointsA">Points / Credits (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_pointsA" value="0" step="0.125">
-                                <input type="range" id="slider_pointsA" min="0" max="100">
+                                <input type="number" id="input_pointsA" value="0" step="0.125" aria-label="Points or Credits">
+                                <input type="range" id="slider_pointsA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -301,17 +307,17 @@
                     <h3 class="input-category-header">Recurring Expenses</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>HOA Fees ($/mo)</label>
+                            <label for="input_hoaA">HOA Fees ($/mo)</label>
                             <div class="input-group">
-                                <input type="number" id="input_hoaA" value="0">
-                                <input type="range" id="slider_hoaA" min="0" max="100">
+                                <input type="number" id="input_hoaA" value="0" aria-label="HOA Fees">
+                                <input type="range" id="slider_hoaA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>PMI Rate (%)</label>
+                            <label for="input_pmiA">PMI Rate (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_pmiA" value="0.5" step="0.1">
-                                <input type="range" id="slider_pmiA" min="0" max="100">
+                                <input type="number" id="input_pmiA" value="0.5" step="0.1" aria-label="PMI Rate">
+                                <input type="range" id="slider_pmiA" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -324,17 +330,17 @@
                     <h3 class="input-category-header">Current Situation</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Current Home Value ($)</label>
+                            <label for="input_homeValueB">Current Home Value ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_homeValueB" value="450000">
-                                <input type="range" id="slider_homeValueB" min="0" max="100">
+                                <input type="number" id="input_homeValueB" value="450000" aria-label="Current Home Value">
+                                <input type="range" id="slider_homeValueB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Current Monthly P&I ($)</label>
+                            <label for="input_currentPaymentB">Current Monthly P&I ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_currentPaymentB" value="2800">
-                                <input type="range" id="slider_currentPaymentB" min="0" max="100">
+                                <input type="number" id="input_currentPaymentB" value="2800" aria-label="Current Payment">
+                                <input type="range" id="slider_currentPaymentB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -344,24 +350,24 @@
                     <h3 class="input-category-header">New Loan Structure</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>New Loan Amount ($)</label>
+                            <label for="input_newLoanB">New Loan Amount ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_newLoanB" value="400000">
-                                <input type="range" id="slider_newLoanB" min="0" max="100">
+                                <input type="number" id="input_newLoanB" value="400000" aria-label="New Loan Amount">
+                                <input type="range" id="slider_newLoanB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>New Interest Rate (%)</label>
+                            <label for="input_rateB">New Interest Rate (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_rateB" value="5.5" step="0.125">
-                                <input type="range" id="slider_rateB" min="0" max="100">
+                                <input type="number" id="input_rateB" value="5.5" step="0.125" aria-label="New Interest Rate">
+                                <input type="range" id="slider_rateB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper advanced-content hidden">
-                            <label>Cash Out Amount ($)</label>
+                            <label for="input_cashOutB">Cash Out Amount ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_cashOutB" value="0">
-                                <input type="range" id="slider_cashOutB" min="0" max="100">
+                                <input type="number" id="input_cashOutB" value="0" aria-label="Cash Out Amount">
+                                <input type="range" id="slider_cashOutB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -371,17 +377,17 @@
                     <h3 class="input-category-header">Cost Benefit Analysis</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Refinance Costs ($)</label>
+                            <label for="input_costsB">Refinance Costs ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_costsB" value="5000">
-                                <input type="range" id="slider_costsB" min="0" max="100">
+                                <input type="number" id="input_costsB" value="5000" aria-label="Refinance Costs">
+                                <input type="range" id="slider_costsB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Years You'll Stay</label>
+                            <label for="input_yearsStayB">Years You'll Stay</label>
                             <div class="input-group">
-                                <input type="number" id="input_yearsStayB" value="7">
-                                <input type="range" id="slider_yearsStayB" min="0" max="100">
+                                <input type="number" id="input_yearsStayB" value="7" aria-label="Years Remaining">
+                                <input type="range" id="slider_yearsStayB" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -394,17 +400,17 @@
                     <h3 class="input-category-header">Asset Performance</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Home Price ($)</label>
+                            <label for="input_homePriceC">Home Price ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_homePriceC" value="450000">
-                                <input type="range" id="slider_homePriceC" min="0" max="100">
+                                <input type="number" id="input_homePriceC" value="450000" aria-label="Investment Home Price">
+                                <input type="range" id="slider_homePriceC" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Estimated Monthly Rent ($)</label>
+                            <label for="input_rentC">Estimated Monthly Rent ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_rentC" value="3500">
-                                <input type="range" id="slider_rentC" min="0" max="100">
+                                <input type="number" id="input_rentC" value="3500" aria-label="Estimated Rent">
+                                <input type="range" id="slider_rentC" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -414,17 +420,17 @@
                     <h3 class="input-category-header">Financing Strategy</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Loan Amount ($)</label>
+                            <label for="input_loanC">Loan Amount ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_loanC" value="360000">
-                                <input type="range" id="slider_loanC" min="0" max="100">
+                                <input type="number" id="input_loanC" value="360000" aria-label="Loan Amount">
+                                <input type="range" id="slider_loanC" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Interest Rate (%)</label>
+                            <label for="input_rateC">Interest Rate (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_rateC" value="6.5" step="0.125">
-                                <input type="range" id="slider_rateC" min="0" max="100">
+                                <input type="number" id="input_rateC" value="6.5" step="0.125" aria-label="Interest Rate">
+                                <input type="range" id="slider_rateC" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -434,28 +440,28 @@
                     <h3 class="input-category-header">Term Configuration</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>IO Period (Years)</label>
+                            <label for="ioPeriodC">IO Period (Years)</label>
                             <div class="custom-dropdown-container">
-                                <select id="ioPeriodC" class="hidden-select">
+                                <select id="ioPeriodC" class="hidden-select" aria-label="Interest Only Period">
                                     <option value="5">5 Years</option>
                                     <option value="7">7 Years</option>
                                     <option value="10" selected>10 Years</option>
                                 </select>
-                                <button class="custom-dropdown-trigger">10 Years</button>
-                                <div class="custom-dropdown-menu">
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">10 Years</button>
+                                <div class="custom-dropdown-menu" role="listbox">
                                     <div class="dropdown-options-wrapper">
-                                        <div class="dropdown-option" data-value="5">5 Years</div>
-                                        <div class="dropdown-option" data-value="7">7 Years</div>
-                                        <div class="dropdown-option selected" data-value="10">10 Years</div>
+                                        <div class="dropdown-option" data-value="5" role="option">5 Years</div>
+                                        <div class="dropdown-option" data-value="7" role="option">7 Years</div>
+                                        <div class="dropdown-option selected" data-value="10" role="option" aria-selected="true">10 Years</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Amortization Term (Years)</label>
+                            <label for="input_amortC">Amortization Term (Years)</label>
                             <div class="input-group">
-                                <input type="number" id="input_amortC" value="30">
-                                <input type="range" id="slider_amortC" min="0" max="100">
+                                <input type="number" id="input_amortC" value="30" aria-label="Amortization Term">
+                                <input type="range" id="slider_amortC" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -468,53 +474,53 @@
                     <h3 class="input-category-header">Eligibility Profile</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Loan Type</label>
+                            <label for="loanTypeD">Loan Type</label>
                             <div class="custom-dropdown-container">
-                                <select id="loanTypeD" class="hidden-select">
+                                <select id="loanTypeD" class="hidden-select" aria-label="Loan Type">
                                     <option value="VA" selected>VA Loan</option>
                                     <option value="FHA">FHA Loan</option>
                                 </select>
-                                <button class="custom-dropdown-trigger">VA Loan</button>
-                                <div class="custom-dropdown-menu">
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">VA Loan</button>
+                                <div class="custom-dropdown-menu" role="listbox">
                                     <div class="dropdown-options-wrapper">
-                                        <div class="dropdown-option selected" data-value="VA">VA Loan</div>
-                                        <div class="dropdown-option" data-value="FHA">FHA Loan</div>
+                                        <div class="dropdown-option selected" data-value="VA" role="option" aria-selected="true">VA Loan</div>
+                                        <div class="dropdown-option" data-value="FHA" role="option">FHA Loan</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-wrapper advanced-content hidden">
-                            <label>Credit Score</label>
+                            <label for="creditScoreD">Credit Score</label>
                             <div class="custom-dropdown-container">
-                                <select id="creditScoreD" class="hidden-select">
+                                <select id="creditScoreD" class="hidden-select" aria-label="Credit Score Range">
                                     <option value="720" selected>720+ (Excellent)</option>
                                     <option value="680">680 - 719 (Good)</option>
                                     <option value="620">620 - 679 (Fair)</option>
                                     <option value="580">580 - 619 (Minimum)</option>
                                 </select>
-                                <button class="custom-dropdown-trigger">720+ (Excellent)</button>
-                                <div class="custom-dropdown-menu">
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">720+ (Excellent)</button>
+                                <div class="custom-dropdown-menu" role="listbox">
                                     <div class="dropdown-options-wrapper">
-                                        <div class="dropdown-option selected" data-value="720">720+ (Excellent)</div>
-                                        <div class="dropdown-option" data-value="680">680 - 719 (Good)</div>
-                                        <div class="dropdown-option" data-value="620">620 - 679 (Fair)</div>
-                                        <div class="dropdown-option" data-value="580">580 - 619 (Minimum)</div>
+                                        <div class="dropdown-option selected" data-value="720" role="option" aria-selected="true">720+ (Excellent)</div>
+                                        <div class="dropdown-option" data-value="680" role="option">680 - 719 (Good)</div>
+                                        <div class="dropdown-option" data-value="620" role="option">620 - 679 (Fair)</div>
+                                        <div class="dropdown-option" data-value="580" role="option">580 - 619 (Minimum)</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-wrapper advanced-content hidden">
-                            <label>VA Disability (Exempt from Fee)?</label>
+                            <label for="vaDisabilityD">VA Disability (Exempt from Fee)?</label>
                             <div class="custom-dropdown-container">
-                                <select id="vaDisabilityD" class="hidden-select">
+                                <select id="vaDisabilityD" class="hidden-select" aria-label="VA Disability Status">
                                     <option value="No" selected>No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
-                                <button class="custom-dropdown-trigger">No</button>
-                                <div class="custom-dropdown-menu">
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">No</button>
+                                <div class="custom-dropdown-menu" role="listbox">
                                     <div class="dropdown-options-wrapper">
-                                        <div class="dropdown-option selected" data-value="No">No</div>
-                                        <div class="dropdown-option" data-value="Yes">Yes</div>
+                                        <div class="dropdown-option selected" data-value="No" role="option" aria-selected="true">No</div>
+                                        <div class="dropdown-option" data-value="Yes" role="option">Yes</div>
                                     </div>
                                 </div>
                             </div>
@@ -526,23 +532,23 @@
                     <h3 class="input-category-header">Transaction Specifics</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Home Price ($)</label>
+                            <label for="input_homePriceD">Home Price ($)</label>
                             <div class="input-group">
-                                <input type="number" id="input_homePriceD" value="400000">
-                                <input type="range" id="slider_homePriceD" min="0" max="100">
+                                <input type="number" id="input_homePriceD" value="400000" aria-label="Home Price">
+                                <input type="range" id="slider_homePriceD" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <label>Down Payment ($ vs %)</label>
+                            <label for="input_downPaymentD">Down Payment ($ vs %)</label>
                             <div class="input-group">
                                 <div class="input-split-group">
-                                    <input type="number" id="input_downPaymentD" value="0" class="input-split-primary">
+                                    <input type="number" id="input_downPaymentD" value="0" class="input-split-primary" aria-label="Down Payment Amount">
                                     <div class="input-split-secondary">
-                                        <input type="number" id="input_downPaymentPercentD" value="0" step="1" max="100" class="percent-input">
+                                        <input type="number" id="input_downPaymentPercentD" value="0" step="1" max="100" class="percent-input" aria-label="Down Payment Percentage">
                                         <span class="percent-symbol">%</span>
                                     </div>
                                 </div>
-                                <input type="range" id="slider_downPaymentD" min="0" max="100">
+                                <input type="range" id="slider_downPaymentD" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -552,10 +558,10 @@
                     <h3 class="input-category-header">Rate Calculation</h3>
                     <div class="input-grid">
                         <div class="input-wrapper">
-                            <label>Base Interest Rate (%)</label>
+                            <label for="input_rateD">Base Interest Rate (%)</label>
                             <div class="input-group">
-                                <input type="number" id="input_rateD" value="6.5" step="0.125">
-                                <input type="range" id="slider_rateD" min="0" max="100">
+                                <input type="number" id="input_rateD" value="6.5" step="0.125" aria-label="Base Rate">
+                                <input type="range" id="slider_rateD" min="0" max="100" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -570,7 +576,6 @@
             <div id="results-display-container">
                 <!-- Mode A Results -->
                 <div id="mode-a-results" class="mode-results">
-                    <!-- NEW GRID CONTAINER -->
                     <div class="metrics-grid">
                         <div class="result-box">
                             <span class="result-label">Monthly Payment</span>
@@ -592,35 +597,29 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END GRID -->
 
-                    <!-- Summary Block A -->
                     <div class="summary-container">
                         <h3 class="input-category-header">Summary</h3>
                         <p id="summaryA" class="advisor-text">Loading...</p>
                     </div>
 
-                    <!-- CHART ROW (Visual Card + CTA Card) -->
                     <div class="chart-row-wrapper">
-                        <!-- INVISIBLE VISUAL CARD -->
                         <div class="visual-card">
                             <h3 class="chart-card-header">Monthly Cost Breakdown</h3>
                             <div class="chart-container">
-                                <canvas id="chartA"></canvas>
+                                <canvas id="chartA" aria-label="Chart showing monthly payment breakdown" role="img"></canvas>
                             </div>
                         </div>
                         
-                        <!-- CTA CARD -->
                         <div class="cta-card">
                             <div class="cta-title">See your actual buying power.</div>
-                            <a href="https://www.lendingtree.com" target="_blank" class="cta-button" id="ctaBtnA">See Today's Rates</a>
+                            <a href="https://www.lendingtree.com" target="_blank" class="cta-button" id="ctaBtnA" rel="noopener noreferrer">See Today's Rates</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mode B Results -->
                 <div id="mode-b-results" class="mode-results hidden">
-                    <!-- NEW GRID CONTAINER -->
                     <div class="metrics-grid">
                         <div class="result-box">
                             <span class="result-label">New Monthly Payment</span>
@@ -642,35 +641,29 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END GRID -->
 
-                    <!-- Summary Block B -->
                     <div class="summary-container">
                         <h3 class="input-category-header">Summary</h3>
                         <p id="summaryB" class="advisor-text">Loading...</p>
                     </div>
 
-                    <!-- CHART ROW (Visual Card + CTA Card) -->
                     <div class="chart-row-wrapper">
-                        <!-- INVISIBLE VISUAL CARD -->
                         <div class="visual-card">
                             <h3 class="chart-card-header">Savings Projection</h3>
                             <div class="chart-container">
-                                <canvas id="chartB"></canvas>
+                                <canvas id="chartB" aria-label="Chart showing savings over time" role="img"></canvas>
                             </div>
                         </div>
 
-                        <!-- CTA CARD -->
                         <div class="cta-card">
                             <div class="cta-title">Ready to lock in savings?</div>
-                            <a href="https://www.refinetwork.com" target="_blank" class="cta-button">Calculate Your New Monthly Savings</a>
+                            <a href="https://www.refinetwork.com" target="_blank" class="cta-button" rel="noopener noreferrer">Calculate Your New Monthly Savings</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mode C Results -->
                 <div id="mode-c-results" class="mode-results hidden">
-                    <!-- NEW GRID CONTAINER -->
                     <div class="metrics-grid">
                         <div class="result-box">
                             <span class="result-label">Interest-Only Payment</span>
@@ -692,26 +685,22 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END GRID -->
                     
-                    <!-- Summary Block C -->
                     <div class="summary-container">
                         <h3 class="input-category-header">Summary</h3>
                         <p id="summaryC" class="advisor-text">Loading...</p>
                     </div>
 
-                    <!-- CTA ONLY (No Visual Chart Requested) -->
                     <div class="chart-row-wrapper">
                         <div class="cta-card" style="max-width: 100%; width: 100%;">
                             <div class="cta-title">Investment financing is different.</div>
-                            <a href="https://www.kiavi.com" target="_blank" class="cta-button">Get DSCR Rental Loan Quote</a>
+                            <a href="https://www.kiavi.com" target="_blank" class="cta-button" rel="noopener noreferrer">Get DSCR Rental Loan Quote</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mode D Results -->
                 <div id="mode-d-results" class="mode-results hidden">
-                    <!-- NEW GRID CONTAINER -->
                     <div class="metrics-grid">
                         <div class="result-box">
                             <span class="result-label">Total Monthly Payment</span>
@@ -733,19 +722,16 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END GRID -->
 
-                    <!-- Summary Block D -->
                     <div class="summary-container">
                         <h3 class="input-category-header">Summary</h3>
                         <p id="summaryD" class="advisor-text">Loading...</p>
                     </div>
 
-                    <!-- CTA ONLY (No Visual Chart Requested) -->
                     <div class="chart-row-wrapper">
                         <div class="cta-card" style="max-width: 100%; width: 100%;">
                             <div class="cta-title">See if you qualify for $0 Down.</div>
-                            <a href="https://www.lendingtree.com" target="_blank" class="cta-button">Check VA/FHA Eligibility</a>
+                            <a href="https://www.lendingtree.com" target="_blank" class="cta-button" rel="noopener noreferrer">Check VA/FHA Eligibility</a>
                         </div>
                     </div>
                 </div>
@@ -755,7 +741,7 @@
 
     </div>
 
-    <!-- SEO & FINANCIAL AUTHORITY CONTENT BLOCK (EXPANDED) -->
+    <!-- SEO & FINANCIAL AUTHORITY CONTENT BLOCK -->
     <div class="seo-content-container">
         
         <header class="seo-header">
@@ -764,7 +750,6 @@
         </header>
 
         <div class="seo-columns">
-            <!-- Row 1 -->
             <article class="seo-topic">
                 <h3>Financial Solvency & Readiness</h3>
                 <p>Buying a home is often the largest leveraged transaction of your life. The question isn't just "Can I make the payment?" but "Can I survive the shock?"</p>
@@ -785,7 +770,6 @@
                 </ul>
             </article>
 
-            <!-- Row 2 -->
             <article class="seo-topic">
                 <h3>Asset Performance & Cash Flow</h3>
                 <p>When you buy a rental property, you are buying a business. The metrics for a home (emotion) are different from the metrics for an asset (math).</p>
@@ -806,7 +790,6 @@
                 </ul>
             </article>
 
-            <!-- Row 3 -->
             <article class="seo-topic">
                 <h3>Banking & Credit Secrets</h3>
                 <p>Understanding how US banks view your profile is key to securing the best mortgage rates.</p>
@@ -899,19 +882,18 @@
 
     </div>
 
-    <!-- NEW: Global Site Footer -->
+    <!-- GLOBAL SITE FOOTER -->
     <footer class="site-footer">
-        <div class="footer-nav">
+        <nav class="footer-nav" aria-label="Footer Navigation">
             <a href="../../about/index.html">About</a>
             <a href="../../contact-us/index.html">Contact Us</a>
             <a href="../../terms-of-use/index.html">Terms of Use</a>
             <a href="../../privacy-policy/index.html">Privacy Policy</a>
-        </div>
+        </nav>
     </footer>
 
     <!-- Custom Tooltip Container -->
-    <div id="custom-tooltip"></div>
+    <div id="custom-tooltip" aria-hidden="true"></div>
 
-    <script src="script.js"></script>
 </body>
 </html>
