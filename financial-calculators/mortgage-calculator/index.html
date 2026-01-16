@@ -15,20 +15,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#B5855E">
 
-    <!-- PERFORMANCE: Critical Font Preloads -->
+    <!-- PERFORMANCE: Critical Preloads -->
+    <!-- Preloading fonts saves ~600ms on text rendering -->
     <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="../../fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
-
-    <!-- PERFORMANCE: Intelligent Image Preload (The Magic Switch) -->
-    <!-- 1. If screen is small (Mobile), preload the small image -->
+    
+    <!-- Preloading LCP Image (Hero) -->
+    <!-- Intelligent switch: Mobile gets small file, Desktop gets big file -->
     <link rel="preload" href="../../img/Refinance_Hero_Mobile.webp" as="image" media="(max-width: 768px)">
-    <!-- 2. If screen is big (Desktop), preload the big image -->
     <link rel="preload" href="../../img/Refinance_Hero.webp" as="image" media="(min-width: 769px)">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- PERFORMANCE: JS Defer -->
+    <!-- PERFORMANCE: JS Defer (Chart.js is now removed from here and loaded dynamically in script.js) -->
     <script src="script.js" defer></script>
 
     <!-- Favicon & Manifest -->
@@ -101,7 +101,7 @@
     <div class="hero-section">
         
         <!-- RESPONSIVE IMAGE SWITCHER -->
-        <!-- This tells the browser: "If you are a phone, download the Mobile file. If not, download the desktop file." -->
+        <!-- LCP FIX: fetchpriority="high" forces immediate download -->
         <picture class="hero-bg-wrapper">
             <source media="(max-width: 768px)" srcset="../../img/Refinance_Hero_Mobile.webp">
             <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" decoding="sync" width="1920" height="1080">
@@ -113,7 +113,7 @@
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <!-- Logo -->
+        <!-- Logo: Eager load because it is above the fold -->
         <img src="../../img/Logo_Golden.webp" alt="Golden Financial Tools Logo" class="hero-logo" loading="eager" width="200" height="85">
 
         <h1>Mortgage Calculator</h1>
@@ -146,6 +146,7 @@
                 <button class="mode-card active-mode" data-mode="mode-a" role="radio" aria-checked="true"
                     data-tooltip-title="True Affordability Check" 
                     data-tooltip-desc="Goes beyond the monthly payment. This mode compares your liquid assets against the total cash-to-close (Down Payment + Closing Costs) to ensure you won't be house poor.">
+                    <!-- Lazy load these images as they are below the fold on mobile -->
                     <img src="../../img/1.jpg" alt="Person holding a model house representing ownership" width="400" height="250" loading="lazy" decoding="async">
                     <span>Ownership Readiness</span>
                 </button>
