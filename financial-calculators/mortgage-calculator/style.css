@@ -5,28 +5,32 @@
     box-sizing: border-box;
 }
 
-/* Font Definitions */
+/* Font Definitions with Display Swap for Performance */
 @font-face {
     font-family: 'Roboto-Light';
     src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'ProductSans-Light';
     src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'ProductSans-Thin';
     src: url('../../fonts/ProductSans-Thin.ttf') format('truetype');
+    font-display: swap;
 }
 
 /* Page Background Color */
 body {
     background-color: #F4F4F4;
     font-family: 'ProductSans-Light', sans-serif;
-    overflow-x: hidden; /* Prevent accidental horizontal scroll */
+    overflow-x: hidden; 
     width: 100%;
+    color: #333; /* Default darker text color */
 }
 
 /* ============================ */
@@ -35,6 +39,7 @@ body {
 .hero-section {
     width: 100%;
     height: 40vh;
+    /* This background image is now Preloaded in HTML for LCP boost */
     background-image: url('../../img/Refinance_Hero.webp');
     background-size: cover;
     background-position: center;
@@ -59,7 +64,7 @@ body {
 }
 
 .hero-nav a { 
-    color: #cacaca; 
+    color: #e0e0e0; /* Lighter for better contrast against dark hero */
     text-decoration: none; 
     font-size: 1.8vh;
     font-family: 'ProductSans-Light', sans-serif;
@@ -120,7 +125,7 @@ body {
     align-items: center;
     gap: 10px;
     margin-top: 2vh;
-    padding: 0 5vw; /* Optimized padding */
+    padding: 0 5vw; 
     font-family: 'ProductSans-Light', sans-serif;
     font-weight: 300;
     font-size: 1.8vh; 
@@ -130,7 +135,7 @@ body {
 .breadcrumb-nav .current-page,
 .breadcrumb-nav .separator {
     text-decoration: none;
-    color: #7a7a7a; 
+    color: #555555; /* Darkened for accessibility (was #7a7a7a) */
     transition: color 0.3s ease;
 }
 
@@ -151,7 +156,6 @@ body {
 /* ============================ */
 .calculator-container {
     width: 100%;
-    /* Reduced horizontal padding to allow content to use more space */
     padding: 0 5vw; 
     margin-top: 2vh;
     margin-bottom: 8vh;
@@ -159,7 +163,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap; 
-    gap: 60px; /* Reduced gap slightly for better fit */
+    gap: 60px; 
 }
 
 .calc-section {
@@ -167,39 +171,29 @@ body {
 }
 
 .left-section {
-    /* Adjusted ratio: Give Right section slightly more room (was 1.8) */
     flex: 1.5; 
 }
 
 .right-section {
     flex: 1;
-    /* Ensure it doesn't shrink too small before breaking to new line */
     min-width: 320px; 
-    
-    /* STICKY SIDEBAR LOGIC */
-    position: -webkit-sticky; /* For Safari */
+    position: -webkit-sticky; 
     position: sticky;
-    top: 30px; /* Margin from top of screen */
-    
-    /* == CLEAN LOOK (No background/shadow card) == */
+    top: 30px; 
     background-color: transparent; 
     border-radius: 0; 
     padding: 0; 
     box-shadow: none; 
-
-    /* Remove scroll logic from parent */
     overflow: visible;
     max-height: none;
 }
 
-/* The wrapper handles the scrolling inside the card */
 .results-scroll-wrapper {
-    max-height: 85vh; /* Fits within viewport */
-    overflow-y: auto; /* Scrollable */
-    padding-right: 20px; /* Spacing for content from scrollbar */
+    max-height: 85vh; 
+    overflow-y: auto; 
+    padding-right: 20px; 
 }
 
-/* Custom Scrollbar for Right Section */
 .results-scroll-wrapper::-webkit-scrollbar {
     width: 6px;
 }
@@ -220,23 +214,21 @@ body {
     margin-bottom: 2vh;
 }
 
-/* MASSIVE INDEPENDENT HEADINGS */
 .calc-section h2 {
     font-family: 'ProductSans-Thin', sans-serif;
     font-weight: 300;
-    /* Independent Logic: Scales from 3rem up to 6rem based on viewport width */
     font-size: clamp(3rem, 9vw, 6rem);
     color: #333;
     margin: 0;
     line-height: 1.1;
-    white-space: normal; /* Allow wrapping if absolutely needed */
-    overflow-wrap: break-word; /* Prevent overflow */
+    white-space: normal; 
+    overflow-wrap: break-word; 
 }
 
 .text-link-btn {
     background: none;
     border: none;
-    color: #7a7a7a;
+    color: #555555; /* Darkened for accessibility */
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.8vh;
     cursor: pointer;
@@ -255,7 +247,6 @@ body {
 .right-section h2 {
     text-align: left; 
     margin-bottom: 30px;
-    /* Adjust header for card context */
     margin-top: 0;
 }
 
@@ -265,7 +256,7 @@ body {
 .mode-cards-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    gap: 10px; /* Tighter gap */
+    gap: 10px; 
     width: 100%;
     margin-bottom: 40px;
 }
@@ -316,7 +307,7 @@ body {
     white-space: normal; 
     line-height: 1.1;
     font-family: 'ProductSans-Light', sans-serif; 
-    font-size: 1.4vh; /* Slightly smaller to prevent text overflow */
+    font-size: 1.4vh; 
     color: #ffffff; 
     background: none; 
     text-align: center;
@@ -345,7 +336,7 @@ body {
 .input-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 30px; /* Reduced gap */
+    column-gap: 30px; 
     row-gap: 30px; 
     width: 100%;
 }
@@ -375,7 +366,7 @@ body {
     display: block;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.6vh;
-    color: #666;
+    color: #555555; /* Darkened for accessibility */
     margin-bottom: 3px;
 }
 
@@ -397,16 +388,15 @@ body {
     min-width: 0; 
 }
 
-/* FLEXBOX -> NOW CSS GRID FOR ROBUST LAYOUT */
 .input-split-secondary {
     display: grid;
-    grid-template-columns: 1fr auto; /* 1fr for input, Auto for symbol */
+    grid-template-columns: 1fr auto; 
     align-items: center;
     justify-content: end;
     flex: 1;
     min-width: 90px;
     max-width: 140px;
-    gap: 5px; /* Hard spacing */
+    gap: 5px; 
 }
 
 .percent-input {
@@ -420,7 +410,7 @@ body {
 }
 
 .percent-symbol {
-    position: static; /* Normal flow, part of the grid */
+    position: static; 
     font-size: 2.2vh; 
     color: #B5855E; 
     pointer-events: none;
@@ -602,31 +592,27 @@ body {
 /* ============================ */
 /* Results & Charts             */
 /* ============================ */
-
-/* Grid Container for Result Boxes */
 .metrics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 20px; /* Balanced Gap */
+    gap: 20px 20px; 
     margin-bottom: 30px;
     width: 100%;
 }
 
 .right-section .advanced-content {
-    display: contents; /* Allows children to be grid items of .metrics-grid */
+    display: contents; 
 }
 
-/* Hide children when wrapper has hidden class */
 .right-section .advanced-content.hidden,
 .right-section .advanced-content.hidden > * {
     display: none;
 }
 
 .result-box {
-    margin-bottom: 0; /* Let grid gap handle spacing */
+    margin-bottom: 0; 
     text-align: left; 
-    min-width: 0; /* Prevents flex/grid blowouts */
-    /* FLEX COLUMN ensures boxes stretch evenly and content pushes down */
+    min-width: 0; 
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -635,7 +621,7 @@ body {
 .left-section .result-box {
     text-align: left;
     margin-bottom: 30px;
-    display: block; /* Keep left section inputs standard */
+    display: block; 
     height: auto;
 }
 
@@ -643,46 +629,35 @@ body {
     display: block;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.6vh;
-    color: #666;
+    color: #555555; /* Darkened */
     margin-bottom: 5px;
     white-space: normal; 
     line-height: 1.2; 
-    flex-grow: 0; /* Don't expand unnecessarily */
+    flex-grow: 0; 
 }
 
 .result-value {
     display: block;
     font-family: 'ProductSans-Thin', sans-serif;
-    /* FLUID TYPOGRAPHY: Scales between 1.8rem and 3rem based on width */
     font-size: clamp(1.8rem, 3vw, 3.2rem); 
     color: #333;
     line-height: 1.1;
     word-wrap: break-word;
-    overflow-wrap: break-word; /* Ensure it wraps if too long */
-    /* Push to bottom of flex container */
+    overflow-wrap: break-word; 
     margin-top: auto; 
 }
 
 /* ============================ */
 /* TRAFFIC LIGHT SYSTEM COLORS  */
 /* ============================ */
-.text-success { color: #388E3C !important; } /* Green */
-.text-danger { color: #D32F2F !important; }  /* Red */
-.text-warning { color: #F57C00 !important; } /* Amber/Orange */
-.text-neutral { color: #757575 !important; } /* Gray */
-
-/* Old Classes Fallback (Mapped if needed, but new logic uses above) */
-.text-good { color: #B5855E !important; }
-.text-good-bold { color: #8D6E63 !important; font-weight: 500; }
-.text-warn { color: #A1887F !important; }
-.text-bad { color: #5D4037 !important; }
-.text-info { color: #8D6E63 !important; }
-.text-amber { color: #D4BCA9 !important; }
-.text-gold { color: #B5855E !important; }
+.text-success { color: #388E3C !important; } 
+.text-danger { color: #D32F2F !important; }  
+.text-warning { color: #F57C00 !important; } 
+.text-neutral { color: #757575 !important; } 
 
 .disclosure-text {
     font-size: 1.5vh; 
-    color: #999;
+    color: #888; /* Darkened */
     margin-top: 5px;
 }
 
@@ -699,40 +674,28 @@ body {
 /* ============================ */
 /* Chart + CTA Layout           */
 /* ============================ */
-
-/* Wrapper to hold Chart Card (Left) and CTA Card (Right) */
 .chart-row-wrapper {
     display: flex;
-    flex-flow: row wrap; /* Explicitly allow wrapping */
-    justify-content: center; /* Keep centered */
-    align-items: stretch; /* Stretch height to match tallest */
-    gap: 20px; /* Reduced gap to help side-by-side fitting */
+    flex-flow: row wrap; 
+    justify-content: center; 
+    align-items: stretch; 
+    gap: 20px; 
     width: 100%;
-    /* Separator is now on this container */
     margin-top: 30px; 
     padding-top: 30px;
     border-top: 1px solid #d0d0d0;
 }
 
-/* VISUAL CARD (Invisible Wrapper for Heading + Chart) */
 .visual-card {
-    /* 
-       Flex Basis: 260px. 
-       Grow: 1 (fill space). 
-       Shrink: 1 (allow shrinking). 
-    */
     flex: 1 1 260px; 
-    /* Allow it to get smaller than 260px before breaking, but not less than min-width */
     min-width: 240px; 
-    max-width: 100%; /* Allow filling full width */
+    max-width: 100%; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers heading and chart */
-    /* Ensure it doesn't overflow horizontally */
+    align-items: center; 
     box-sizing: border-box; 
 }
 
-/* Chart Heading inside the Visual Card */
 .chart-card-header {
     margin-top: 0;
     margin-bottom: 25px; 
@@ -745,7 +708,6 @@ body {
     font-weight: 300;
 }
 
-/* Chart Container */
 .chart-container {
     position: relative;
     width: 100%;
@@ -753,7 +715,6 @@ body {
     margin-top: 0;
 }
 
-/* Remove old Mode A specific style since we use centering now */
 #mode-a-results .chart-container {
     width: 100%;
     max-width: 100%;
@@ -761,24 +722,12 @@ body {
     padding-left: 0;
 }
 
-/* Remove old Header style (using new logic inside visual-card) */
-.chart-section-header {
-    display: none; /* Hiding the old class usage if any remains */
-}
-
-/* ============================ */
-/* CTA Card Styling             */
-/* ============================ */
 .cta-card {
-    /* Match visual-card flex properties */
     flex: 1 1 260px;
     min-width: 240px;
     max-width: 100%;
-    
-    /* Ensure height matches visually or stretches */
     min-height: 250px; 
-    
-    background-color: #333; /* Fallback Color */
+    background-color: #333; 
     background-image: url('../../img/Hero.webp'); 
     background-size: cover;
     background-position: center;
@@ -791,7 +740,7 @@ body {
     text-align: center;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
     color: #fff;
-    margin-top: 0; /* Aligned via flex */
+    margin-top: 0; 
 }
 
 .cta-title {
@@ -805,7 +754,7 @@ body {
 }
 
 .cta-button {
-    background: rgba(255, 255, 255, 0.2); /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.2); 
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
@@ -821,7 +770,7 @@ body {
 
 .cta-button:hover {
     background: #fff;
-    color: #B5855E; /* Brand Gold */
+    color: #B5855E; 
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
@@ -831,12 +780,12 @@ body {
 /* ============================ */
 #custom-tooltip {
     opacity: 0;
-    position: fixed; /* Fixed to handle viewport boundaries easily */
+    position: fixed; 
     background: #ffffff;
     color: #333;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 8px; 
     pointer-events: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Faint blurry shadow */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
     padding: 10px 15px;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.6vh;
@@ -847,7 +796,7 @@ body {
 
 #custom-tooltip strong {
     display: block;
-    text-align: center; /* Center Align Heading */
+    text-align: center; 
     font-weight: 500;
     margin-bottom: 4px;
 }
@@ -856,7 +805,7 @@ body {
 /* Advisor Text Summary         */
 /* ============================ */
 .summary-container {
-    margin-top: 0; /* Flows naturally after grid */
+    margin-top: 0; 
     border-top: 1px solid #e0e0e0;
     padding-top: 20px;
 }
@@ -867,7 +816,6 @@ body {
     color: #555;
     line-height: 1.5;
     margin-top: 10px;
-    /* Ensure summary uses full space */
     max-width: 100%;
 }
 
@@ -876,13 +824,11 @@ body {
 }
 
 /* ============================ */
-/* SEO Content Section (EXPANDED) */
+/* SEO Content Section          */
 /* ============================ */
 .seo-content-container {
     width: 100%;
-    /* Match page background exactly */
     background-color: transparent; 
-    /* Match Main Calculator Spacing */
     padding: 0 5vw; 
     margin-bottom: 100px;
     margin-top: 0;
@@ -890,7 +836,7 @@ body {
 
 .seo-header {
     margin-bottom: 50px;
-    text-align: left; /* Strict Left Align */
+    text-align: left; 
     border-bottom: 1px solid #d0d0d0;
     padding-bottom: 20px;
 }
@@ -907,23 +853,21 @@ body {
 .seo-intro {
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 2.2vh;
-    color: #666;
+    color: #555555; /* Darkened */
     max-width: 800px;
     line-height: 1.6;
     text-align: left;
     margin: 0;
 }
 
-/* 2-Column Text Layout (Not Cards) */
 .seo-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px; /* Spacious gap for readability */
+    gap: 60px; 
     margin-bottom: 60px;
-    align-items: start; /* Ensures tops align */
+    align-items: start; 
 }
 
-/* Flattened items need no margin bottom, gap handles it */
 .seo-topic {
     margin-bottom: 0;
 }
@@ -939,7 +883,7 @@ body {
     letter-spacing: 1px;
     border-bottom: 1px solid #e0e0e0;
     padding-bottom: 10px;
-    min-height: 50px; /* Ensures visual alignment if heading wraps */
+    min-height: 50px; 
     display: flex;
     align-items: flex-end;
 }
@@ -947,7 +891,7 @@ body {
 .seo-topic p {
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.8vh;
-    color: #555;
+    color: #555555;
     line-height: 1.6;
     margin-bottom: 15px;
     text-align: left;
@@ -962,9 +906,9 @@ body {
 .seo-list li {
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.7vh;
-    color: #555;
+    color: #555555;
     margin-bottom: 12px;
-    padding-left: 15px; /* Slight indent */
+    padding-left: 15px; 
     position: relative;
     line-height: 1.5;
     text-align: left;
@@ -978,7 +922,6 @@ body {
     font-weight: bold;
 }
 
-/* SEO: Glossary Grid Style */
 .seo-glossary {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1007,12 +950,11 @@ body {
 
 .glossary-item p {
     font-size: 1.5vh;
-    color: #666;
+    color: #555555;
     line-height: 1.4;
     margin: 0;
 }
 
-/* FAQ Minimal List */
 .faq-section {
     margin-top: 60px;
     padding-top: 40px;
@@ -1043,7 +985,7 @@ body {
 .faq-item p {
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.8vh;
-    color: #555;
+    color: #555555;
     line-height: 1.6;
     text-align: left;
     max-width: 900px;
@@ -1054,7 +996,7 @@ body {
     border-top: 1px solid #e0e0e0;
     padding-top: 20px;
     font-size: 1.4vh;
-    color: #999;
+    color: #888;
     text-align: left;
 }
 
@@ -1064,7 +1006,6 @@ body {
 .site-footer {
     width: 100%;
     padding: 40px 5vw;
-    /* Gradient from a darker grey (#cfcfcf) fading UP into page color (#F4F4F4) */
     background: linear-gradient(to top, #cfcfcf 0%, #F4F4F4 100%);
     display: flex;
     justify-content: center;
@@ -1076,7 +1017,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* Space between links */
+    gap: 40px; 
     flex-wrap: wrap;
 }
 
@@ -1084,17 +1025,16 @@ body {
     text-decoration: none;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.8vh;
-    color: #555; /* Dark grey text for contrast against the grey gradient */
+    color: #444; /* Darkened for accessibility */
     transition: color 0.3s ease;
 }
 
 .footer-nav a:hover {
-    color: #B5855E; /* Brand Gold */
+    color: #B5855E; 
 }
 
 /* Responsive */
 
-/* Laptop / Mid-size */
 @media (max-width: 1214px) {
     .mode-cards-container {
         grid-template-columns: repeat(2, 1fr);
@@ -1104,7 +1044,6 @@ body {
     }
 }
 
-/* Tablet / Stacked Layout */
 @media (max-width: 990px) {
     .calculator-container {
         padding: 0 5vw;
@@ -1115,10 +1054,9 @@ body {
 
     .calc-section {
         width: 100%;
-        max-width: 700px; /* Allow wider content on tablet */
+        max-width: 700px; 
     }
 
-    /* Keep headings left aligned */
     .right-section h2 {
         text-align: left; 
     }
@@ -1131,7 +1069,6 @@ body {
         text-align: left;
     }
     
-    /* LEFT ALIGN RESULTS WHEN STACKED */
     .result-box {
         text-align: left; 
         align-items: flex-start; 
@@ -1141,35 +1078,29 @@ body {
         gap: 30px; 
     }
 
-    /* DISABLE STICKY ON STACKED LAYOUT AND RESET CARD STYLE */
     .right-section {
         position: static;
         max-height: none;
         overflow-y: visible;
-        
-        /* RESET CARD STYLE FOR INVISIBLE LOOK */
         background-color: transparent; 
         box-shadow: none;
         border-radius: 0;
         padding: 0;
-        margin-top: 40px; /* Add space since padding is gone */
+        margin-top: 40px; 
     }
     
-    /* Reset scroll wrapper */
     .results-scroll-wrapper {
         max-height: none;
         padding-right: 0;
         overflow-y: visible;
     }
 
-    /* SEO Grid Stack */
     .seo-columns {
         grid-template-columns: 1fr;
-        gap: 40px; /* Restore gap for mobile stack */
+        gap: 40px; 
     }
 }
 
-/* Mobile Layout */
 @media (max-width: 768px) {
     .input-grid {
         grid-template-columns: 1fr; 
@@ -1179,26 +1110,22 @@ body {
     }
     
     .calculator-container {
-        padding: 0 4vw; /* Minimal padding on mobile */
+        padding: 0 4vw; 
     }
 
     .calc-section {
-        min-width: auto; /* Remove min-width */
+        min-width: auto; 
     }
 
-    /* FORCE 2x2 Grid even on mobile */
     .metrics-grid {
         grid-template-columns: 1fr 1fr; 
-        gap: 15px; /* Slightly tighter gap to allow space */
+        gap: 15px; 
     }
     
     .result-value {
-        /* Independent sizing that shrinks uniformly for all boxes */
-        /* Safe check against huge numbers on small screens */
         font-size: clamp(1.4rem, 6vw, 2.5rem); 
     }
 
-    /* LEFT ALIGN RESULTS ON MOBILE */
     .result-box {
         text-align: left;
         align-items: flex-start;
@@ -1208,9 +1135,7 @@ body {
         font-size: 8vmin;
     }
 
-    /* Footer Mobile */
     .footer-nav {
         gap: 20px;
-        /* Keeps row layout but allows wrap if very small */
     }
 }
