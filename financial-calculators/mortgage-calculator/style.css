@@ -60,6 +60,7 @@ body {
     object-fit: cover;
     z-index: 0; /* Behind content */
     pointer-events: none;
+    will-change: opacity; /* Optimizes for paint */
 }
 
 /* Ensure content sits on top of the image */
@@ -97,6 +98,7 @@ body {
     width: auto;
     display: block;
     filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+    will-change: transform; /* Performance */
 }
 
 .hero-section h1 {
@@ -149,7 +151,7 @@ body {
 .breadcrumb-nav .current-page,
 .breadcrumb-nav .separator {
     text-decoration: none;
-    color: #555555; /* Darkened for accessibility (was #7a7a7a) */
+    color: #555555; /* Darkened for accessibility */
     transition: color 0.3s ease;
 }
 
@@ -178,6 +180,7 @@ body {
     align-items: flex-start;
     flex-wrap: wrap; 
     gap: 60px; 
+    contain: content; /* PERFORMANCE: Isolates layout recalculations */
 }
 
 .calc-section {

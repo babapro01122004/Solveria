@@ -301,9 +301,10 @@ const externalTooltipHandler = (context) => {
 };
 
 /* ============================ */
-/* CHART JS HANDLERS (UPDATED)  */
+/* CHART JS HANDLERS (DYNAMIC)  */
 /* ============================ */
 let chartA, chartB; 
+let ChartConstructor = null; // Store the class here when loaded
 
 const CHART_COLORS = {
     primary: '#C59F80',    
@@ -313,16 +314,51 @@ const CHART_COLORS = {
     dark: '#8D7B6F'        
 };
 
+// DYNAMIC CHART LOADER
+// This function downloads Chart.js ONLY when needed.
+function loadChartJsIfNeeded(callback) {
+    if (ChartConstructor) {
+        callback();
+        return;
+    }
+    
+    // Check if script already exists to avoid dupes
+    if (document.getElementById('chartjs-script')) {
+        // If it exists but isn't ready, wait
+        const interval = setInterval(() => {
+            if (typeof Chart !== 'undefined') {
+                clearInterval(interval);
+                ChartConstructor = Chart;
+                callback();
+            }
+        }, 100);
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.id = 'chartjs-script';
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    script.async = true;
+    script.onload = () => {
+        ChartConstructor = Chart;
+        callback();
+    };
+    document.body.appendChild(script);
+}
+
 function updateChartA(principal, tax, insurance) {
     const ctx = document.getElementById('chartA');
     if(!ctx) return;
     
-    // Check if Chart is loaded
-    if(typeof Chart === 'undefined') return;
+    // If Charts aren't loaded, load them, then run this function again
+    if (!ChartConstructor) {
+        loadChartJsIfNeeded(() => updateChartA(principal, tax, insurance));
+        return;
+    }
 
     if (chartA) chartA.destroy();
     
-    chartA = new Chart(ctx, {
+    chartA = new ChartConstructor(ctx, {
         type: 'doughnut',
         data: {
             labels: ['Principal & Interest', 'Property Tax', 'Insurance'],
@@ -335,6 +371,7 @@ function updateChartA(principal, tax, insurance) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: false, // PERFORMANCE: Disable animation on mobile
             plugins: {
                 legend: { 
                     position: 'bottom',
@@ -359,8 +396,10 @@ function updateChartB(savingsPerMonth, refiCost) {
     const ctx = document.getElementById('chartB');
     if(!ctx) return;
     
-    // Check if Chart is loaded
-    if(typeof Chart === 'undefined') return;
+    if (!ChartConstructor) {
+        loadChartJsIfNeeded(() => updateChartB(savingsPerMonth, refiCost));
+        return;
+    }
     
     const labels = [];
     const costData = [];
@@ -375,7 +414,7 @@ function updateChartB(savingsPerMonth, refiCost) {
     
     if (chartB) chartB.destroy();
     
-    chartB = new Chart(ctx, {
+    chartB = new ChartConstructor(ctx, {
         type: 'line',
         data: {
             labels: labels,
@@ -403,6 +442,7 @@ function updateChartB(savingsPerMonth, refiCost) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: false, // PERFORMANCE
             scales: { y: { beginAtZero: false } },
             interaction: {
                 mode: 'nearest',
@@ -1220,6 +1260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceInput = document.getElementById('input_homePriceA');
         if(priceInput) priceInput.dispatchEvent(new Event('input'));
         
+        // Auto-update date in button
         const btn = document.getElementById('ctaBtnA');
         if(btn) {
             const date = new Date();
