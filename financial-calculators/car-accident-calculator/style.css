@@ -241,8 +241,8 @@ body {
 
 .section-header h3 {
     font-family: 'ProductSans-Light', sans-serif;
-    font-weight: 500;  /* Restored to original weight */
-    font-size: 2.2vh;  /* Restored to original size */
+    font-weight: 500;  /* Standard Weight */
+    font-size: 2.2vh;  /* Size Preserved */
     color: #000;
     letter-spacing: 0.5px;
     text-transform: uppercase; 
@@ -251,6 +251,8 @@ body {
 /* Input Wrappers */
 .input-wrapper {
     width: 100%;
+    /* FIX: Prevents grid column blowout from long text */
+    min-width: 0; 
 }
 
 .input-wrapper.full-width {
@@ -414,16 +416,22 @@ body {
     height: auto;
     font-size: 2.2vh; 
     color: #333;
-    background-color: transparent;
+    
+    /* CONTRAST FIX: Light Gray Background */
+    background-color: #F5F5F5;
+    
     outline: none;
     font-family: 'ProductSans-Light', sans-serif;
     font-weight: 300;
     cursor: pointer;
     text-align: left;
+    
+    /* OVERFLOW FIX: Ensure dots appear */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: border-color 0.3s ease;
+    
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 /* Dropdown Arrow */
@@ -431,6 +439,8 @@ body {
     background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center; 
+    /* OVERLAP FIX: Padding prevents text from touching arrow */
+    padding-right: 40px; 
 }
 
 /* Date Icon - REMOVED AS REQUESTED */
@@ -442,6 +452,7 @@ body {
 .custom-dropdown-trigger:hover,
 .custom-date-trigger:hover {
     border-color: #D4BCA9;
+    background-color: #f0f0f0; /* Slightly darker on hover */
 }
 
 /* Active State - Brown */
@@ -449,6 +460,7 @@ body {
 .custom-dropdown-container:focus-within .custom-date-trigger,
 .custom-date-trigger.active {
     border-color: #B5855E; 
+    background-color: #ffffff; /* White when active */
 }
 
 /* Popup Menu */
