@@ -517,11 +517,11 @@ function calculateModeA(triggerKey) {
     setClass('res_netMonthlyA', cashFlow > 0 ? 'good' : 'bad');
     setClass('res_cocA', coc > 8 ? 'good' : (coc > 4 ? 'warn' : 'bad'));
 
-    let verdict = "Bad 🔴";
+    let verdict = "Bad";
     let verdictClass = "bad";
-    if (cashFlow > 100 && coc > 5) { verdict = "Borderline 🟡"; verdictClass = "warn"; }
-    if (cashFlow > 300 && coc > 9) { verdict = "Great 🟢"; verdictClass = "good"; }
-    if (cashFlow < 0) { verdict = "Negative 🔴"; verdictClass = "bad"; }
+    if (cashFlow > 100 && coc > 5) { verdict = "Borderline"; verdictClass = "warn"; }
+    if (cashFlow > 300 && coc > 9) { verdict = "Great"; verdictClass = "good"; }
+    if (cashFlow < 0) { verdict = "Negative"; verdictClass = "bad"; }
     
     const vEl = document.getElementById('res_verdictA');
     if(vEl) {
@@ -551,17 +551,17 @@ function runStressTestModeA(baseCF, baseRent, baseExp, debt) {
     const stKill = document.getElementById('st_kill_var');
 
     if (bearCF > 0) {
-        stBadge.textContent = "🟢 Ironclad";
+        stBadge.textContent = "Ironclad";
         stBadge.style.backgroundColor = "#2ecc71";
         stAction.textContent = "Deal survives a 10% rent drop. Safe buy.";
         stKill.textContent = "None";
     } else if (baseCF > 0) {
-        stBadge.textContent = "🟡 Moderate Risk";
+        stBadge.textContent = "Moderate Risk";
         stBadge.style.backgroundColor = "#f1c40f";
         stAction.textContent = "Cash flows now, but fails in a downturn.";
         stKill.textContent = "Vacancy / Rent Drop";
     } else {
-        stBadge.textContent = "🔴 Toxic Asset";
+        stBadge.textContent = "Toxic Asset";
         stBadge.style.backgroundColor = "#e74c3c";
         stAction.textContent = "Negative cash flow today. Do not buy.";
         stKill.textContent = "Price / Rates";
@@ -609,7 +609,7 @@ function calculateModeB(triggerKey) {
     }
     const dailyBurn = (holdCostsMo + monthlyInterest) / 30;
     const mao = (arv * 0.70) - totalRehab;
-    const ruleVerdict = price <= mao ? "Pass 🟢" : "Fail 🔴";
+    const ruleVerdict = price <= mao ? "Pass" : "Fail";
 
     setText('res_netProfitB', formatMoney.format(netProfit));
     setText('res_marginB', formatPct(profitMargin));
@@ -653,17 +653,17 @@ function runStressTestModeB(baseProfit, arv, rehab, price, buyCosts, points, dra
     const stKill = document.getElementById('st_kill_var');
 
     if (bearProfit > 0) {
-        stBadge.textContent = "🟢 Ironclad";
+        stBadge.textContent = "Ironclad";
         stBadge.style.backgroundColor = "#2ecc71";
         stAction.textContent = "Profit remains even with overrun & market dip.";
         stKill.textContent = "None";
     } else if (baseProfit > 0) {
-        stBadge.textContent = "🟡 Moderate Risk";
+        stBadge.textContent = "Moderate Risk";
         stBadge.style.backgroundColor = "#f1c40f";
         stAction.textContent = "Profitable now, but fails in a downturn.";
         stKill.textContent = "Market / Timeline";
     } else {
-        stBadge.textContent = "🔴 Toxic Deal";
+        stBadge.textContent = "Toxic Deal";
         stBadge.style.backgroundColor = "#e74c3c";
         stAction.textContent = "Projected loss. Negotiate price down.";
         stKill.textContent = "Price / Rehab";
@@ -759,7 +759,7 @@ function calculateModeC(triggerKey) {
     // 6. Update UI
     setText('res_cashPulledC', cashPulledOut > 0 ? formatMoney.format(cashPulledOut) : "$0");
     setText('res_cashLeftC', cashLeftInDeal > 0 ? formatMoney.format(cashLeftInDeal) : "$0");
-    setText('res_infiniteC', isInfinite ? "YES 🚀" : "NO");
+    setText('res_infiniteC', isInfinite ? "YES" : "NO");
     setText('res_cashFlowC', formatMoney.format(monthlyCashFlow) + "/mo");
     
     setText('res_mortgageC', formatMoney.format(newMortgagePI));
@@ -813,17 +813,17 @@ function runStressTestModeC(baseCF, baseCashLeft, haircutPct, totalAllIn, arv, l
     const stKill = document.getElementById('st_kill_var');
 
     if (bearCashLeft <= 0) {
-        stBadge.textContent = "🟢 Perfect BRRRR";
+        stBadge.textContent = "Perfect BRRRR";
         stBadge.style.backgroundColor = "#2ecc71";
         stAction.textContent = "You get all money back even with a low appraisal.";
         stKill.textContent = "None";
     } else if (bearCF > 0 && bearCashLeft < 20000) {
-        stBadge.textContent = "🟡 Decent Deal";
+        stBadge.textContent = "Decent Deal";
         stBadge.style.backgroundColor = "#f1c40f";
         stAction.textContent = "Some cash trapped, but cash flows cover it.";
         stKill.textContent = "Appraisal Gap";
     } else {
-        stBadge.textContent = "🔴 Trap Warning";
+        stBadge.textContent = "Trap Warning";
         stBadge.style.backgroundColor = "#e74c3c";
         stAction.textContent = "High risk of trapped capital. Refi fails.";
         stKill.textContent = "Appraisal / ARV";

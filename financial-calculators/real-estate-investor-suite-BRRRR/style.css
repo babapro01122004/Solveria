@@ -176,10 +176,40 @@ body {
     min-width: 0; /* Allows flex item to shrink properly */
 }
 
-/* Right Section (Results) */
+/* Right Section (Results) - STICKY, EXPANDED & MASKED */
 .right-section {
     flex: 1;
     min-width: 0;
+    
+    /* Sticky Logic starts here */
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 40px; /* Sticks 40px from top of viewport */
+    align-self: flex-start; /* Ensures it doesn't stretch */
+    
+    /* Scroll Logic (Invisible Scrollbar) */
+    max-height: calc(100vh - 50px); /* Restrict height to viewport */
+    overflow-y: auto; /* Enable internal scroll */
+    scrollbar-width: none; /* Firefox: Hide scrollbar */
+    -ms-overflow-style: none; /* IE/Edge: Hide scrollbar */
+    
+    z-index: 10;
+
+    /* EXPAND REGION FOR SHADOWS */
+    /* Padding creates internal space for shadows/mask */
+    padding: 40px; 
+    /* Negative margin pulls the box boundaries out so it fits visually in the same slot */
+    margin: -40px;
+
+    /* FADE MASK FOR SCROLL EDGES */
+    /* Fades the top 40px and bottom 40px to transparent */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 40px, black calc(100% - 40px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0px, black 40px, black calc(100% - 40px), transparent 100%);
+}
+
+/* Chrome/Safari/Webkit: Hide scrollbar for Results */
+.right-section::-webkit-scrollbar {
+    display: none;
 }
 
 /* Header Row */
@@ -1135,6 +1165,17 @@ body {
     .left-section, .right-section {
         width: 100%;
         flex: 1;
+    }
+
+    /* Reset Desktop Sticky/Scroll logic for Mobile */
+    .right-section {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+        -webkit-mask-image: none;
+        mask-image: none;
     }
 
     .calc-section {
