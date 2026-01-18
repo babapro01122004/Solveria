@@ -231,18 +231,21 @@ body {
 /* Section Headers within Grid */
 .section-header {
     grid-column: 1 / -1; 
-    margin-top: 25px;
-    margin-bottom: 5px;
+    margin-top: 30px;      /* Separates from section above */
+    margin-bottom: -25px;  /* Negative margin pulls inputs very close to header */
     border-bottom: none; 
     padding-bottom: 0;
+    z-index: 1;            /* Ensures header stays on top */
+    position: relative;
 }
 
 .section-header h3 {
     font-family: 'ProductSans-Light', sans-serif;
-    font-weight: 500;
-    font-size: 2.2vh;
+    font-weight: 500;  /* Restored to original weight */
+    font-size: 2.2vh;  /* Restored to original size */
     color: #000;
     letter-spacing: 0.5px;
+    text-transform: uppercase; 
 }
 
 /* Input Wrappers */
