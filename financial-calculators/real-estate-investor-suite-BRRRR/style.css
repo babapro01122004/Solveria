@@ -222,12 +222,18 @@ body {
     margin-bottom: 2vh; 
 }
 
+/* THIS IS THE UPDATED HEADING STYLE */
 .calc-section h2 {
     font-family: 'ProductSans-Thin', sans-serif;
     font-weight: 300;
-    font-size: 6vmin; 
+    /* Massive Independent Sizing Logic */
+    /* Min: 3.5rem (Mobile), Preferred: 8vw (Fluid), Max: 7rem (Desktop) */
+    font-size: clamp(3.5rem, 8vw, 7rem); 
+    line-height: 1.1; /* Tighter line height for large text */
+    letter-spacing: -1px; /* Slightly tighter spacing for elegance */
     color: #333;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 30px; /* Increased margin for massive size */
     white-space: nowrap; 
 }
 

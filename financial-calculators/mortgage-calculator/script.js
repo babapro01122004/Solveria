@@ -1,95 +1,166 @@
-/* ========================================================================== */
-/* PART 1: US STATE DATA (INTEGRATED - NO EXPORTS)                           */
-/* ========================================================================== */
-
+/* ============================ */
+/* 🇺🇸 US STATE DATA REPOSITORY  */
+/* ============================ */
 const US_STATE_DATA = {
-  AL: { name: "Alabama", propertyTaxRate: 0.41, stateIncomeTaxRate: 5.0, evictionDays: 25, landlordScore: 5, insuranceRate: 0.55, vacancyRate: 7.5, rentGrowth: 3.0, closingCostBuy: 3.0, closingCostSell: 5.5, transferTax: 0.10 },
-  AK: { name: "Alaska", propertyTaxRate: 1.19, stateIncomeTaxRate: 0.0, evictionDays: 30, landlordScore: 4, insuranceRate: 0.40, vacancyRate: 8.0, rentGrowth: 2.5, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  AZ: { name: "Arizona", propertyTaxRate: 0.62, stateIncomeTaxRate: 2.5, evictionDays: 21, landlordScore: 5, insuranceRate: 0.35, vacancyRate: 6.0, rentGrowth: 4.5, closingCostBuy: 2.5, closingCostSell: 5.5, transferTax: 0.00 },
-  AR: { name: "Arkansas", propertyTaxRate: 0.62, stateIncomeTaxRate: 4.4, evictionDays: 14, landlordScore: 5, insuranceRate: 0.70, vacancyRate: 7.2, rentGrowth: 3.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.33 },
-  CA: { name: "California", propertyTaxRate: 0.75, stateIncomeTaxRate: 13.3, evictionDays: 75, landlordScore: 1, insuranceRate: 0.25, vacancyRate: 4.2, rentGrowth: 3.8, closingCostBuy: 2.0, closingCostSell: 5.0, transferTax: 0.11 },
-  CO: { name: "Colorado", propertyTaxRate: 0.51, stateIncomeTaxRate: 4.4, evictionDays: 25, landlordScore: 4, insuranceRate: 0.45, vacancyRate: 6.3, rentGrowth: 4.2, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.01 },
-  CT: { name: "Connecticut", propertyTaxRate: 2.15, stateIncomeTaxRate: 6.99, evictionDays: 45, landlordScore: 2, insuranceRate: 0.45, vacancyRate: 6.8, rentGrowth: 2.8, closingCostBuy: 3.5, closingCostSell: 6.0, transferTax: 0.75 },
-  DE: { name: "Delaware", propertyTaxRate: 0.56, stateIncomeTaxRate: 6.6, evictionDays: 45, landlordScore: 3, insuranceRate: 0.40, vacancyRate: 7.0, rentGrowth: 3.0, closingCostBuy: 4.0, closingCostSell: 6.0, transferTax: 4.00 },
-  DC: { name: "District of Columbia", propertyTaxRate: 0.85, stateIncomeTaxRate: 10.75, evictionDays: 90, landlordScore: 1, insuranceRate: 0.35, vacancyRate: 5.5, rentGrowth: 3.2, closingCostBuy: 3.5, closingCostSell: 6.0, transferTax: 1.10 },
-  FL: { name: "Florida", propertyTaxRate: 0.86, stateIncomeTaxRate: 0.0, evictionDays: 25, landlordScore: 5, insuranceRate: 1.10, vacancyRate: 5.8, rentGrowth: 4.8, closingCostBuy: 3.5, closingCostSell: 6.0, transferTax: 0.70 },
-  GA: { name: "Georgia", propertyTaxRate: 0.90, stateIncomeTaxRate: 5.49, evictionDays: 25, landlordScore: 5, insuranceRate: 0.50, vacancyRate: 6.5, rentGrowth: 5.0, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.10 },
-  HI: { name: "Hawaii", propertyTaxRate: 0.28, stateIncomeTaxRate: 11.0, evictionDays: 45, landlordScore: 3, insuranceRate: 0.20, vacancyRate: 5.0, rentGrowth: 3.5, closingCostBuy: 2.0, closingCostSell: 5.0, transferTax: 0.15 },
-  ID: { name: "Idaho", propertyTaxRate: 0.63, stateIncomeTaxRate: 5.8, evictionDays: 20, landlordScore: 5, insuranceRate: 0.30, vacancyRate: 5.2, rentGrowth: 3.0, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.00 },
-  IL: { name: "Illinois", propertyTaxRate: 2.23, stateIncomeTaxRate: 4.95, evictionDays: 90, landlordScore: 2, insuranceRate: 0.50, vacancyRate: 7.0, rentGrowth: 2.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.15 },
-  IN: { name: "Indiana", propertyTaxRate: 0.83, stateIncomeTaxRate: 3.15, evictionDays: 30, landlordScore: 4, insuranceRate: 0.45, vacancyRate: 6.5, rentGrowth: 3.5, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  IA: { name: "Iowa", propertyTaxRate: 1.57, stateIncomeTaxRate: 5.7, evictionDays: 25, landlordScore: 4, insuranceRate: 0.48, vacancyRate: 6.0, rentGrowth: 2.8, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.16 },
-  KS: { name: "Kansas", propertyTaxRate: 1.43, stateIncomeTaxRate: 5.7, evictionDays: 30, landlordScore: 4, insuranceRate: 0.65, vacancyRate: 6.8, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  KY: { name: "Kentucky", propertyTaxRate: 0.85, stateIncomeTaxRate: 4.0, evictionDays: 30, landlordScore: 4, insuranceRate: 0.45, vacancyRate: 6.5, rentGrowth: 3.2, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.10 },
-  LA: { name: "Louisiana", propertyTaxRate: 0.56, stateIncomeTaxRate: 4.25, evictionDays: 30, landlordScore: 4, insuranceRate: 0.98, vacancyRate: 8.5, rentGrowth: 2.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.00 },
-  ME: { name: "Maine", propertyTaxRate: 1.28, stateIncomeTaxRate: 7.15, evictionDays: 30, landlordScore: 3, insuranceRate: 0.38, vacancyRate: 5.5, rentGrowth: 3.8, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.44 },
-  MD: { name: "Maryland", propertyTaxRate: 1.07, stateIncomeTaxRate: 5.75, evictionDays: 90, landlordScore: 2, insuranceRate: 0.40, vacancyRate: 5.8, rentGrowth: 3.5, closingCostBuy: 4.5, closingCostSell: 6.5, transferTax: 1.00 },
-  MA: { name: "Massachusetts", propertyTaxRate: 1.15, stateIncomeTaxRate: 5.0, evictionDays: 90, landlordScore: 1, insuranceRate: 0.38, vacancyRate: 4.0, rentGrowth: 4.0, closingCostBuy: 2.5, closingCostSell: 5.5, transferTax: 0.46 },
-  MI: { name: "Michigan", propertyTaxRate: 1.48, stateIncomeTaxRate: 4.25, evictionDays: 45, landlordScore: 3, insuranceRate: 0.42, vacancyRate: 5.5, rentGrowth: 3.2, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.75 },
-  MN: { name: "Minnesota", propertyTaxRate: 1.11, stateIncomeTaxRate: 9.85, evictionDays: 45, landlordScore: 2, insuranceRate: 0.48, vacancyRate: 5.0, rentGrowth: 3.0, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.33 },
-  MS: { name: "Mississippi", propertyTaxRate: 0.79, stateIncomeTaxRate: 4.7, evictionDays: 25, landlordScore: 5, insuranceRate: 0.75, vacancyRate: 8.5, rentGrowth: 2.5, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  MO: { name: "Missouri", propertyTaxRate: 0.96, stateIncomeTaxRate: 4.8, evictionDays: 21, landlordScore: 4, insuranceRate: 0.55, vacancyRate: 6.5, rentGrowth: 3.0, closingCostBuy: 2.0, closingCostSell: 6.0, transferTax: 0.00 },
-  MT: { name: "Montana", propertyTaxRate: 0.83, stateIncomeTaxRate: 5.9, evictionDays: 20, landlordScore: 4, insuranceRate: 0.35, vacancyRate: 5.5, rentGrowth: 4.0, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.00 },
-  NE: { name: "Nebraska", propertyTaxRate: 1.67, stateIncomeTaxRate: 5.84, evictionDays: 30, landlordScore: 4, insuranceRate: 0.58, vacancyRate: 5.8, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.23 },
-  NV: { name: "Nevada", propertyTaxRate: 0.55, stateIncomeTaxRate: 0.0, evictionDays: 25, landlordScore: 4, insuranceRate: 0.32, vacancyRate: 6.5, rentGrowth: 4.0, closingCostBuy: 2.5, closingCostSell: 5.5, transferTax: 0.51 },
-  NH: { name: "New Hampshire", propertyTaxRate: 2.09, stateIncomeTaxRate: 0.0, evictionDays: 30, landlordScore: 3, insuranceRate: 0.35, vacancyRate: 3.5, rentGrowth: 4.5, closingCostBuy: 3.5, closingCostSell: 6.0, transferTax: 1.50 },
-  NJ: { name: "New Jersey", propertyTaxRate: 2.47, stateIncomeTaxRate: 10.75, evictionDays: 90, landlordScore: 1, insuranceRate: 0.42, vacancyRate: 6.9, rentGrowth: 3.0, closingCostBuy: 4.0, closingCostSell: 7.0, transferTax: 0.85 },
-  NM: { name: "New Mexico", propertyTaxRate: 0.78, stateIncomeTaxRate: 5.9, evictionDays: 30, landlordScore: 3, insuranceRate: 0.40, vacancyRate: 7.0, rentGrowth: 3.2, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  NY: { name: "New York", propertyTaxRate: 1.73, stateIncomeTaxRate: 10.9, evictionDays: 120, landlordScore: 1, insuranceRate: 0.48, vacancyRate: 5.5, rentGrowth: 3.5, closingCostBuy: 5.0, closingCostSell: 7.5, transferTax: 0.40 },
-  NC: { name: "North Carolina", propertyTaxRate: 0.80, stateIncomeTaxRate: 4.5, evictionDays: 30, landlordScore: 4, insuranceRate: 0.48, vacancyRate: 6.0, rentGrowth: 5.2, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.20 },
-  ND: { name: "North Dakota", propertyTaxRate: 0.98, stateIncomeTaxRate: 2.5, evictionDays: 30, landlordScore: 4, insuranceRate: 0.42, vacancyRate: 7.5, rentGrowth: 2.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  OH: { name: "Ohio", propertyTaxRate: 1.53, stateIncomeTaxRate: 3.5, evictionDays: 35, landlordScore: 4, insuranceRate: 0.45, vacancyRate: 6.2, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.30 },
-  OK: { name: "Oklahoma", propertyTaxRate: 0.90, stateIncomeTaxRate: 4.75, evictionDays: 25, landlordScore: 5, insuranceRate: 0.85, vacancyRate: 7.5, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.08 },
-  OR: { name: "Oregon", propertyTaxRate: 0.93, stateIncomeTaxRate: 9.9, evictionDays: 45, landlordScore: 2, insuranceRate: 0.30, vacancyRate: 4.5, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.00 },
-  PA: { name: "Pennsylvania", propertyTaxRate: 1.53, stateIncomeTaxRate: 3.07, evictionDays: 45, landlordScore: 3, insuranceRate: 0.40, vacancyRate: 6.0, rentGrowth: 3.2, closingCostBuy: 4.5, closingCostSell: 6.5, transferTax: 2.00 },
-  RI: { name: "Rhode Island", propertyTaxRate: 1.53, stateIncomeTaxRate: 5.99, evictionDays: 60, landlordScore: 2, insuranceRate: 0.48, vacancyRate: 5.0, rentGrowth: 3.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.46 },
-  SC: { name: "South Carolina", propertyTaxRate: 0.56, stateIncomeTaxRate: 6.4, evictionDays: 30, landlordScore: 5, insuranceRate: 0.58, vacancyRate: 7.0, rentGrowth: 4.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.37 },
-  SD: { name: "South Dakota", propertyTaxRate: 1.24, stateIncomeTaxRate: 0.0, evictionDays: 20, landlordScore: 4, insuranceRate: 0.48, vacancyRate: 6.0, rentGrowth: 3.0, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.10 },
-  TN: { name: "Tennessee", propertyTaxRate: 0.66, stateIncomeTaxRate: 0.0, evictionDays: 30, landlordScore: 5, insuranceRate: 0.48, vacancyRate: 6.0, rentGrowth: 5.5, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.37 },
-  TX: { name: "Texas", propertyTaxRate: 1.74, stateIncomeTaxRate: 0.0, evictionDays: 21, landlordScore: 5, insuranceRate: 0.75, vacancyRate: 6.2, rentGrowth: 4.5, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.00 },
-  UT: { name: "Utah", propertyTaxRate: 0.58, stateIncomeTaxRate: 4.65, evictionDays: 15, landlordScore: 5, insuranceRate: 0.28, vacancyRate: 4.5, rentGrowth: 4.0, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.00 },
-  VT: { name: "Vermont", propertyTaxRate: 1.86, stateIncomeTaxRate: 8.75, evictionDays: 90, landlordScore: 2, insuranceRate: 0.38, vacancyRate: 3.8, rentGrowth: 3.0, closingCostBuy: 3.5, closingCostSell: 6.5, transferTax: 1.25 },
-  VA: { name: "Virginia", propertyTaxRate: 0.82, stateIncomeTaxRate: 5.75, evictionDays: 45, landlordScore: 3, insuranceRate: 0.38, vacancyRate: 5.5, rentGrowth: 3.8, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.25 },
-  WA: { name: "Washington", propertyTaxRate: 0.94, stateIncomeTaxRate: 0.0, evictionDays: 60, landlordScore: 2, insuranceRate: 0.30, vacancyRate: 5.0, rentGrowth: 3.5, closingCostBuy: 2.5, closingCostSell: 5.5, transferTax: 1.60 },
-  WV: { name: "West Virginia", propertyTaxRate: 0.59, stateIncomeTaxRate: 6.5, evictionDays: 30, landlordScore: 5, insuranceRate: 0.42, vacancyRate: 8.0, rentGrowth: 2.0, closingCostBuy: 3.0, closingCostSell: 6.0, transferTax: 0.44 },
-  WI: { name: "Wisconsin", propertyTaxRate: 1.73, stateIncomeTaxRate: 7.65, evictionDays: 45, landlordScore: 3, insuranceRate: 0.40, vacancyRate: 5.5, rentGrowth: 3.0, closingCostBuy: 2.5, closingCostSell: 6.0, transferTax: 0.30 },
-  WY: { name: "Wyoming", propertyTaxRate: 0.61, stateIncomeTaxRate: 0.0, evictionDays: 30, landlordScore: 4, insuranceRate: 0.38, vacancyRate: 7.0, rentGrowth: 2.5, closingCostBuy: 2.0, closingCostSell: 5.5, transferTax: 0.00 }
+  AL: { name: "Alabama", propertyTaxRate: 0.0040, insuranceAvg: 3420, closingCosts: { feesPct: 0.013, totalPct: 0.024 } },
+  AK: { name: "Alaska", propertyTaxRate: 0.0107, insuranceAvg: 1035, closingCosts: { feesPct: 0.012, totalPct: 0.022 } },
+  AZ: { name: "Arizona", propertyTaxRate: 0.0045, insuranceAvg: 2565, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  AR: { name: "Arkansas", propertyTaxRate: 0.0053, insuranceAvg: 3215, closingCosts: { feesPct: 0.012, totalPct: 0.023 } },
+  CA: { name: "California", propertyTaxRate: 0.0068, insuranceAvg: 1550, closingCosts: { feesPct: 0.011, totalPct: 0.022 } },
+  CO: { name: "Colorado", propertyTaxRate: 0.0045, insuranceAvg: 4175, closingCosts: { feesPct: 0.012, totalPct: 0.024 } },
+  CT: { name: "Connecticut", propertyTaxRate: 0.0178, insuranceAvg: 1870, closingCosts: { feesPct: 0.018, totalPct: 0.032 } },
+  DE: { name: "Delaware", propertyTaxRate: 0.0048, insuranceAvg: 1025, closingCosts: { feesPct: 0.038, totalPct: 0.048 } },
+  DC: { name: "Dist. Columbia", propertyTaxRate: 0.0056, insuranceAvg: 1295, closingCosts: { feesPct: 0.028, totalPct: 0.038 } },
+  FL: { name: "Florida", propertyTaxRate: 0.0071, insuranceAvg: 5800, closingCosts: { feesPct: 0.022, totalPct: 0.038 } },
+  GA: { name: "Georgia", propertyTaxRate: 0.0072, insuranceAvg: 2435, closingCosts: { feesPct: 0.014, totalPct: 0.026 } },
+  HI: { name: "Hawaii", propertyTaxRate: 0.0026, insuranceAvg: 1100, closingCosts: { feesPct: 0.014, totalPct: 0.024 } },
+  ID: { name: "Idaho", propertyTaxRate: 0.0047, insuranceAvg: 1460, closingCosts: { feesPct: 0.012, totalPct: 0.023 } },
+  IL: { name: "Illinois", propertyTaxRate: 0.0195, insuranceAvg: 2420, closingCosts: { feesPct: 0.015, totalPct: 0.028 } },
+  IN: { name: "Indiana", propertyTaxRate: 0.0071, insuranceAvg: 2495, closingCosts: { feesPct: 0.012, totalPct: 0.023 } },
+  IA: { name: "Iowa", propertyTaxRate: 0.0140, insuranceAvg: 2505, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  KS: { name: "Kansas", propertyTaxRate: 0.0126, insuranceAvg: 3735, closingCosts: { feesPct: 0.013, totalPct: 0.026 } },
+  KY: { name: "Kentucky", propertyTaxRate: 0.0074, insuranceAvg: 2510, closingCosts: { feesPct: 0.012, totalPct: 0.023 } },
+  LA: { name: "Louisiana", propertyTaxRate: 0.0051, insuranceAvg: 6200, closingCosts: { feesPct: 0.014, totalPct: 0.028 } },
+  ME: { name: "Maine", propertyTaxRate: 0.0096, insuranceAvg: 1180, closingCosts: { feesPct: 0.014, totalPct: 0.026 } },
+  MD: { name: "Maryland", propertyTaxRate: 0.0095, insuranceAvg: 1945, closingCosts: { feesPct: 0.035, totalPct: 0.048 } },
+  MA: { name: "Massachusetts", propertyTaxRate: 0.0104, insuranceAvg: 1600, closingCosts: { feesPct: 0.015, totalPct: 0.028 } },
+  MI: { name: "Michigan", propertyTaxRate: 0.0124, insuranceAvg: 2100, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  MN: { name: "Minnesota", propertyTaxRate: 0.0098, insuranceAvg: 2920, closingCosts: { feesPct: 0.014, totalPct: 0.027 } },
+  MS: { name: "Mississippi", propertyTaxRate: 0.0070, insuranceAvg: 3310, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  MO: { name: "Missouri", propertyTaxRate: 0.0083, insuranceAvg: 3290, closingCosts: { feesPct: 0.012, totalPct: 0.024 } },
+  MT: { name: "Montana", propertyTaxRate: 0.0069, insuranceAvg: 2735, closingCosts: { feesPct: 0.011, totalPct: 0.022 } },
+  NE: { name: "Nebraska", propertyTaxRate: 0.0144, insuranceAvg: 4505, closingCosts: { feesPct: 0.012, totalPct: 0.025 } },
+  NV: { name: "Nevada", propertyTaxRate: 0.0044, insuranceAvg: 1305, closingCosts: { feesPct: 0.011, totalPct: 0.021 } },
+  NH: { name: "New Hampshire", propertyTaxRate: 0.0161, insuranceAvg: 1185, closingCosts: { feesPct: 0.016, totalPct: 0.029 } },
+  NJ: { name: "New Jersey", propertyTaxRate: 0.0223, insuranceAvg: 1290, closingCosts: { feesPct: 0.025, totalPct: 0.040 } },
+  NM: { name: "New Mexico", propertyTaxRate: 0.0067, insuranceAvg: 1730, closingCosts: { feesPct: 0.012, totalPct: 0.024 } },
+  NY: { name: "New York", propertyTaxRate: 0.0154, insuranceAvg: 1740, closingCosts: { feesPct: 0.042, totalPct: 0.060 } },
+  NC: { name: "North Carolina", propertyTaxRate: 0.0063, insuranceAvg: 2490, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  ND: { name: "North Dakota", propertyTaxRate: 0.0097, insuranceAvg: 2805, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  OH: { name: "Ohio", propertyTaxRate: 0.0136, insuranceAvg: 1590, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  OK: { name: "Oklahoma", propertyTaxRate: 0.0076, insuranceAvg: 6210, closingCosts: { feesPct: 0.013, totalPct: 0.028 } },
+  OR: { name: "Oregon", propertyTaxRate: 0.0077, insuranceAvg: 1305, closingCosts: { feesPct: 0.011, totalPct: 0.022 } },
+  PA: { name: "Pennsylvania", propertyTaxRate: 0.0135, insuranceAvg: 1440, closingCosts: { feesPct: 0.040, totalPct: 0.055 } },
+  RI: { name: "Rhode Island", propertyTaxRate: 0.0132, insuranceAvg: 2080, closingCosts: { feesPct: 0.013, totalPct: 0.026 } },
+  SC: { name: "South Carolina", propertyTaxRate: 0.0046, insuranceAvg: 2350, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  SD: { name: "South Dakota", propertyTaxRate: 0.0101, insuranceAvg: 3345, closingCosts: { feesPct: 0.012, totalPct: 0.024 } },
+  TN: { name: "Tennessee", propertyTaxRate: 0.0048, insuranceAvg: 2850, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  TX: { name: "Texas", propertyTaxRate: 0.0147, insuranceAvg: 4585, closingCosts: { feesPct: 0.015, totalPct: 0.035 } },
+  UT: { name: "Utah", propertyTaxRate: 0.0047, insuranceAvg: 1385, closingCosts: { feesPct: 0.011, totalPct: 0.022 } },
+  VT: { name: "Vermont", propertyTaxRate: 0.0156, insuranceAvg: 950,  closingCosts: { feesPct: 0.016, totalPct: 0.032 } },
+  VA: { name: "Virginia", propertyTaxRate: 0.0087, insuranceAvg: 1705, closingCosts: { feesPct: 0.015, totalPct: 0.028 } },
+  WA: { name: "Washington", propertyTaxRate: 0.0072, insuranceAvg: 1415, closingCosts: { feesPct: 0.018, totalPct: 0.032 } },
+  WV: { name: "West Virginia", propertyTaxRate: 0.0055, insuranceAvg: 1770, closingCosts: { feesPct: 0.013, totalPct: 0.025 } },
+  WI: { name: "Wisconsin", propertyTaxRate: 0.0138, insuranceAvg: 1515, closingCosts: { feesPct: 0.012, totalPct: 0.024 } },
+  WY: { name: "Wyoming", propertyTaxRate: 0.0055, insuranceAvg: 1555, closingCosts: { feesPct: 0.012, totalPct: 0.023 } }
 };
 
-const getStateData = (stateCode) => {
-  // Safe accessor to prevent crashes if code is invalid
-  const data = US_STATE_DATA[stateCode] || US_STATE_DATA["TX"];
-  
-  // Logic from the data file, integrated here
-  const riskFlags = {
-    insuranceVolatility: data.insuranceRate > 0.9,
-    evictionDrag: data.evictionDays >= 60,
-    taxBurden: data.propertyTaxRate >= 1.7,
-    wealthDrag: data.stateIncomeTaxRate >= 8.0
-  };
-  
-  let autoNotes = [];
-  if (riskFlags.insuranceVolatility) autoNotes.push("Insurance is a primary kill variable.");
-  if (riskFlags.evictionDrag) autoNotes.push("Eviction timeline breaks BRRRR repeatability.");
-  if (riskFlags.taxBurden && data.rentGrowth < 3) autoNotes.push("High tax drag with low growth = bad ROI.");
-  if (!riskFlags.evictionDrag && !riskFlags.taxBurden && data.rentGrowth > 4) autoNotes.push("High velocity growth market.");
-  
-  return { ...data, riskFlags, notes: autoNotes.join(" ") || "Balanced market profile." };
+const NATIONAL_DEFAULT = {
+  name: "National Average",
+  propertyTaxRate: 0.011,
+  insuranceAvg: 2110,
+  closingCosts: { feesPct: 0.020, totalPct: 0.035 }
 };
 
-/* ========================================================================== */
-/* PART 2: UI & CALCULATOR ENGINE                                           */
-/* ========================================================================== */
+const INSURANCE_PIVOT_PRICE = 350000;
 
-/* Breathing Text Logic */
+/* ============================ */
+/* DATA HELPERS                 */
+/* ============================ */
+function getStateData(stateCode) {
+    const code = (stateCode || "US").toUpperCase();
+    return US_STATE_DATA[code] || NATIONAL_DEFAULT;
+}
+
+function getStateOptions() {
+    return Object.keys(US_STATE_DATA).map(key => ({
+        value: key,
+        label: US_STATE_DATA[key].name
+    })).sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function estimateInsurance(stateCode, homePrice) {
+    const data = getStateData(stateCode);
+    const baseRate = data.insuranceAvg;
+    let estimatedPremium;
+    if (homePrice > INSURANCE_PIVOT_PRICE) {
+        const excess = homePrice - INSURANCE_PIVOT_PRICE;
+        estimatedPremium = baseRate + (excess * (baseRate / INSURANCE_PIVOT_PRICE) * 0.60);
+    } else {
+        estimatedPremium = baseRate * (homePrice / INSURANCE_PIVOT_PRICE);
+    }
+    return Math.max(500, Math.round(estimatedPremium));
+}
+
+function estimateCashToClose(stateCode, homePrice) {
+    const data = getStateData(stateCode);
+    return Math.round(homePrice * data.closingCosts.totalPct);
+}
+
+/* ============================ */
+/* GLOBAL CONFIG & FORMATTING   */
+/* ============================ */
+const SLIDER_CONFIG = {
+    propTaxGlobal: { type: 'linear', max: 5 },
+    insuranceGlobal: { type: 'cubic', max: 6000 }, 
+    
+    // MODE A
+    incomeUserA: { type: 'cubic', max: 1000000 }, 
+    cashUserA: { type: 'cubic', max: 1000000 },   
+    homePriceA: { type: 'cubic', max: 5000000 },
+    downPaymentA: { type: 'linear', max: 0 }, 
+    rateA: { type: 'linear', max: 12 },
+    hoaA: { type: 'cubic', max: 2000 },
+    pmiA: { type: 'linear', max: 3 },
+    pointsA: { type: 'linear', max: 5 },
+
+    // MODE B
+    homeValueB: { type: 'cubic', max: 5000000 },
+    currentPaymentB: { type: 'cubic', max: 20000 },
+    newLoanB: { type: 'cubic', max: 5000000 },
+    rateB: { type: 'linear', max: 12 },
+    costsB: { type: 'cubic', max: 50000 },
+    cashOutB: { type: 'cubic', max: 500000 },
+    yearsStayB: { type: 'linear', max: 30 },
+
+    // MODE C
+    homePriceC: { type: 'cubic', max: 5000000 },
+    loanC: { type: 'cubic', max: 5000000 },
+    rateC: { type: 'linear', max: 12 },
+    amortC: { type: 'linear', max: 40 },
+    rentC: { type: 'cubic', max: 20000 },
+
+    // MODE D
+    homePriceD: { type: 'cubic', max: 2000000 },
+    downPaymentD: { type: 'linear', max: 0 },
+    rateD: { type: 'linear', max: 12 }
+};
+
+const formatCurrency = (num) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    }).format(num);
+};
+
+const cleanNumber = (num) => parseFloat(num) || 0;
+
+/* ============================ */
+/* BREATHING TEXT LOGIC         */
+/* ============================ */
 const phrases = [
-    "Analyze Deals. Build Wealth.",
     "See the full cost — not just the payment.",
-    "Cash flow is queen.",
-    "Understand today. Regret less tomorrow."
+    "Understand today. Regret less tomorrow.",
+    "Banking on yourself starts with clarity.",
+    "Master your mortgage, master your wealth.",
+    "Every loan has a tradeoff.",
+    "Know what changes after year one."
 ];
+
 let currentIndex = 0;
 const textElement = document.getElementById('breathing-text');
+
 function cycleText() {
     if (!textElement) return;
     textElement.classList.add('fade-out');
@@ -101,90 +172,327 @@ function cycleText() {
 }
 setInterval(cycleText, 4000);
 
-/* Slider Configuration */
-const SLIDER_CONFIG = {
-    purchasePriceA: { type: 'cubic', max: 5000000 },
-    downPaymentA: { type: 'cubic', max: 2000000 },
-    rateA: { type: 'linear', max: 12 },
-    rentA: { type: 'cubic', max: 30000 },
-    opexRatioA: { type: 'linear', max: 100 },
-    closingCostsA: { type: 'cubic', max: 50000 },
-    propTaxA: { type: 'cubic', max: 40000 },
-    insuranceA: { type: 'cubic', max: 10000 },
-    hoaA: { type: 'cubic', max: 3000 },
-    managementA: { type: 'linear', max: 30 },
-    maintenanceA: { type: 'linear', max: 20 },
-    capexA: { type: 'linear', max: 20 },
-    vacancyA: { type: 'linear', max: 25 },
-    rentGrowthA: { type: 'linear', max: 10 },
-    appreciationA: { type: 'linear', max: 15 },
-    expenseInfA: { type: 'linear', max: 10 },
-    taxRateA: { type: 'linear', max: 50 },
-    holdYearsA: { type: 'linear', max: 40 },
-    sellCostA: { type: 'linear', max: 15 },
-    // Mode B
-    purchasePriceB: { type: 'cubic', max: 2000000 },
-    rehabB: { type: 'cubic', max: 1000000 },
-    arvB: { type: 'cubic', max: 3000000 },
-    timelineB: { type: 'linear', max: 24 },
-    closingCostsB: { type: 'cubic', max: 30000 },
-    holdingCostsB: { type: 'cubic', max: 10000 },
-    interestRateB: { type: 'linear', max: 20 },
-    pointsB: { type: 'linear', max: 10 },
-    drawFeesB: { type: 'cubic', max: 10000 },
-    contingencyB: { type: 'linear', max: 50 },
-    overrunRiskB: { type: 'linear', max: 12 },
-    marketSlideB: { type: 'linear', max: 30 },
-    taxRateB: { type: 'linear', max: 50 },
-    // Mode C
-    purchasePriceC: { type: 'cubic', max: 2000000 },
-    rehabC: { type: 'cubic', max: 1000000 },
-    arvC: { type: 'cubic', max: 3000000 },
-    rentC: { type: 'cubic', max: 20000 },
-    refiLtvC: { type: 'linear', max: 100 },
-    refiRateC: { type: 'linear', max: 15 },
-    initialPointsC: { type: 'linear', max: 10 },
-    initialInterestC: { type: 'cubic', max: 50000 },
-    seasoningC: { type: 'linear', max: 24 },
-    appraisalHaircutC: { type: 'linear', max: 30 },
-    refiCostsC: { type: 'cubic', max: 20000 },
-    vacancyC: { type: 'linear', max: 20 },
-    maintenanceC: { type: 'linear', max: 20 },
-    capexC: { type: 'linear', max: 20 },
-    managementC: { type: 'linear', max: 20 }
-};
-
-/* Helpers */
+/* ============================ */
+/* SLIDER UTILS                 */
+/* ============================ */
 const valToSlider = (val, id) => {
     const config = SLIDER_CONFIG[id];
     if (!config) return 0;
-    if (config.type === 'cubic') return Math.pow(val / config.max, 1/3) * 100;
+    const max = config.max || 100; 
+    if (max === 0) return 0;
+    if (config.type === 'cubic') return Math.pow(val / max, 1/3) * 100;
     const min = config.min || 0;
-    return ((val - min) / (config.max - min)) * 100;
+    return ((val - min) / (max - min)) * 100;
 };
+
 const sliderToVal = (percent, id) => {
     const config = SLIDER_CONFIG[id];
     if (!config) return 0;
-    if (config.type === 'cubic') return config.max * Math.pow(percent / 100, 3);
+    const max = config.max || 100; 
+    if (config.type === 'cubic') return max * Math.pow(percent / 100, 3);
     const min = config.min || 0;
-    return ((percent / 100) * (config.max - min)) + min;
+    return ((percent / 100) * (max - min)) + min;
 };
+
 const updateSliderVisual = (slider) => {
     if (!slider) return;
     const min = parseFloat(slider.min) || 0;
     const max = parseFloat(slider.max) || 100;
-    const val = (slider.value - min) / (max - min) * 100;
+    let val = (slider.value - min) / (max - min) * 100;
+    const badgeId = slider.id.replace('slider_', 'badge_');
+    const badge = document.getElementById(badgeId);
+    if (badge && badge.classList.contains('visible')) val = 100;
     slider.style.backgroundImage = `linear-gradient(to right, #B5855E 0%, #B5855E ${val}%, #e0e0e0 ${val}%, #e0e0e0 100%)`;
 };
-const cleanNumber = (num) => parseFloat(num) || 0;
+
+/* ============================ */
+/* REAL-TIME CUSTOM TOOLTIP     */
+/* ============================ */
+let globalMouseX = 0;
+let globalMouseY = 0;
+let tooltipVisible = false;
+const tooltipEl = document.getElementById('custom-tooltip');
+
+// Track Mouse Globally for Instant Response
+window.addEventListener('mousemove', (e) => {
+    globalMouseX = e.clientX;
+    globalMouseY = e.clientY;
+    
+    if (tooltipVisible && tooltipEl) {
+        updateTooltipPosition(tooltipEl);
+    }
+});
+
+function updateTooltipPosition(el) {
+    if (!el) return;
+    
+    // Default: Cursor at Top-Left of Tooltip (Tooltip is bottom-right)
+    const offset = 15;
+    let left = globalMouseX + offset;
+    let top = globalMouseY + offset;
+
+    const tooltipRect = el.getBoundingClientRect();
+    const tooltipWidth = tooltipRect.width;
+    const tooltipHeight = tooltipRect.height;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Flip to Left if off-screen right
+    if (left + tooltipWidth > viewportWidth - 10) {
+        // Cursor at Top-Right (Tooltip is bottom-left)
+        left = globalMouseX - tooltipWidth - offset;
+    }
+
+    // Flip to Center-Top if off-screen left (after flip)
+    if (left < 10) {
+        // Cursor at Top-Middle
+        left = globalMouseX - (tooltipWidth / 2);
+    }
+    
+    // Flip Up if off-screen bottom
+    if (top + tooltipHeight > viewportHeight - 10) {
+        top = globalMouseY - tooltipHeight - offset;
+    }
+
+    el.style.left = `${left}px`;
+    el.style.top = `${top}px`;
+}
+
+const externalTooltipHandler = (context) => {
+    const {chart, tooltip} = context;
+    if (!tooltipEl) return;
+
+    // Hide if no tooltip
+    if (tooltip.opacity === 0) {
+        tooltipVisible = false;
+        tooltipEl.style.opacity = 0;
+        return;
+    }
+
+    // Set Text & Color
+    if (tooltip.body) {
+        const titleLines = tooltip.title || [];
+        const bodyLines = tooltip.body.map(b => b.lines);
+        
+        // Extract color from Chart.js context for the specific hovered item
+        const labelColors = tooltip.labelColors[0];
+        const headerColor = labelColors ? labelColors.backgroundColor : '#C59F80';
+        
+        let innerHtml = '';
+        titleLines.forEach(title => {
+            // Apply Dynamic Color and Center Alignment
+            innerHtml += `<strong style="color: ${headerColor};">${title}</strong>`;
+        });
+        bodyLines.forEach((body, i) => {
+            body.forEach(line => {
+                 innerHtml += `<div>${line}</div>`;
+            });
+        });
+        
+        tooltipEl.innerHTML = innerHtml;
+    }
+
+    // Show Tooltip
+    tooltipVisible = true;
+    tooltipEl.style.opacity = 1;
+    
+    // Initial Position Update
+    updateTooltipPosition(tooltipEl);
+};
+
+/* ============================ */
+/* CHART JS HANDLERS (DYNAMIC)  */
+/* ============================ */
+let chartA, chartB; 
+let ChartConstructor = null; // Store the class here when loaded
+
+const CHART_COLORS = {
+    primary: '#C59F80',    
+    secondary: '#E8DCCA',  
+    tertiary: '#BFA596',   
+    accent: '#F4E6DC',     
+    dark: '#8D7B6F'        
+};
+
+// DYNAMIC CHART LOADER
+// This function downloads Chart.js ONLY when needed.
+function loadChartJsIfNeeded(callback) {
+    if (ChartConstructor) {
+        callback();
+        return;
+    }
+    
+    // Check if script already exists to avoid dupes
+    if (document.getElementById('chartjs-script')) {
+        // If it exists but isn't ready, wait
+        const interval = setInterval(() => {
+            if (typeof Chart !== 'undefined') {
+                clearInterval(interval);
+                ChartConstructor = Chart;
+                callback();
+            }
+        }, 100);
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.id = 'chartjs-script';
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    script.async = true;
+    script.onload = () => {
+        ChartConstructor = Chart;
+        callback();
+    };
+    document.body.appendChild(script);
+}
+
+function updateChartA(principal, tax, insurance) {
+    const ctx = document.getElementById('chartA');
+    if(!ctx) return;
+    
+    // If Charts aren't loaded, load them, then run this function again
+    if (!ChartConstructor) {
+        loadChartJsIfNeeded(() => updateChartA(principal, tax, insurance));
+        return;
+    }
+
+    if (chartA) chartA.destroy();
+    
+    chartA = new ChartConstructor(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Principal & Interest', 'Property Tax', 'Insurance'],
+            datasets: [{
+                data: [principal, tax, insurance],
+                backgroundColor: [CHART_COLORS.primary, CHART_COLORS.secondary, CHART_COLORS.tertiary],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false, // PERFORMANCE: Disable animation on mobile
+            plugins: {
+                legend: { 
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded',
+                        padding: 20,
+                        font: { family: 'ProductSans-Light', size: 12 },
+                        color: '#666'
+                    }
+                },
+                tooltip: {
+                    enabled: false,
+                    external: externalTooltipHandler
+                }
+            }
+        }
+    });
+}
+
+function updateChartB(savingsPerMonth, refiCost) {
+    const ctx = document.getElementById('chartB');
+    if(!ctx) return;
+    
+    if (!ChartConstructor) {
+        loadChartJsIfNeeded(() => updateChartB(savingsPerMonth, refiCost));
+        return;
+    }
+    
+    const labels = [];
+    const costData = [];
+    const savingsData = [];
+    
+    for(let i=0; i<=7; i++) {
+        labels.push(`Year ${i}`);
+        costData.push(-refiCost);
+        const cumSavings = (savingsPerMonth * 12 * i) - refiCost;
+        savingsData.push(cumSavings);
+    }
+    
+    if (chartB) chartB.destroy();
+    
+    chartB = new ChartConstructor(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Refi Cost',
+                    data: costData,
+                    borderColor: CHART_COLORS.tertiary,
+                    backgroundColor: CHART_COLORS.tertiary, 
+                    borderDash: [5, 5],
+                    pointRadius: 0
+                },
+                {
+                    label: 'Cumulative Gain',
+                    data: savingsData,
+                    borderColor: CHART_COLORS.primary,
+                    backgroundColor: CHART_COLORS.primary, 
+                    fill: {
+                         target: 'origin',
+                         above: 'rgba(197, 159, 128, 0.2)' 
+                    }
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false, // PERFORMANCE
+            scales: { y: { beginAtZero: false } },
+            interaction: {
+                mode: 'nearest',
+                intersect: false,
+                axis: 'x'
+            },
+            plugins: {
+                legend: { 
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded',
+                        padding: 20,
+                        font: { family: 'ProductSans-Light', size: 12 },
+                        color: '#666'
+                    }
+                },
+                tooltip: {
+                    enabled: false,
+                    external: externalTooltipHandler
+                }
+            }
+        }
+    });
+}
+
+/* ============================ */
+/* INITIALIZATION               */
+/* ============================ */
 
 function initializeSliders() {
     Object.keys(SLIDER_CONFIG).forEach(key => {
         const input = document.getElementById(`input_${key}`);
         const slider = document.getElementById(`slider_${key}`);
-        if (!input || !slider) return;
 
-        const startVal = cleanNumber(input.value);
+        if (!input || !slider) return;
+        
+        if (key === 'downPaymentA') {
+             const price = cleanNumber(document.getElementById('input_homePriceA').value);
+             SLIDER_CONFIG.downPaymentA.max = price;
+        }
+        if (key === 'downPaymentD') {
+             const price = cleanNumber(document.getElementById('input_homePriceD').value);
+             SLIDER_CONFIG.downPaymentD.max = price;
+        }
+
+        let startVal = cleanNumber(input.value);
+        const config = SLIDER_CONFIG[key];
+        if (config.max > 0 && startVal > config.max) startVal = config.max;
+        
         slider.value = valToSlider(startVal, key);
         updateSliderVisual(slider);
 
@@ -192,22 +500,137 @@ function initializeSliders() {
             const pct = parseFloat(e.target.value);
             let realVal = sliderToVal(pct, key);
             if (SLIDER_CONFIG[key].type === 'cubic') {
-                if (realVal > 1000) realVal = Math.round(realVal / 100) * 100; 
+                if (realVal > 1000) realVal = Math.round(realVal / 100) * 100;
                 else realVal = Math.round(realVal);
             } else {
                 realVal = Math.round(realVal * 1000) / 1000;
             }
             input.value = realVal; 
             updateSliderVisual(e.target);
-            calculateAll(key);
+            triggerCalculation();
+            syncInputs(key, realVal);
         });
+
         input.addEventListener('input', (e) => {
-            const currentVal = cleanNumber(e.target.value);
-            slider.value = valToSlider(currentVal, key);
+            let currentVal = cleanNumber(e.target.value);
+            if (SLIDER_CONFIG[key].max > 0 && currentVal > SLIDER_CONFIG[key].max) {
+                 slider.value = 100;
+            } else {
+                 slider.value = valToSlider(currentVal, key);
+            }
             updateSliderVisual(slider);
-            calculateAll(key);
+            triggerCalculation();
+            syncInputs(key, currentVal);
         });
     });
+}
+
+function syncInputs(sourceKey, value) {
+    const priceKeys = ['homePriceA', 'homeValueB', 'homePriceC', 'homePriceD'];
+    if (priceKeys.includes(sourceKey)) {
+        priceKeys.forEach(targetKey => {
+            if (targetKey !== sourceKey) updateFieldAndSlider(targetKey, value);
+        });
+        const state = document.getElementById('stateSelector').value;
+        updateInsuranceEstimate(state, value);
+        
+        if (sourceKey === 'homePriceA' || sourceKey === 'homePriceD') { 
+             const newPrice = value;
+             SLIDER_CONFIG.downPaymentA.max = newPrice;
+             const currentDownA = cleanNumber(document.getElementById('input_downPaymentA').value);
+             let safeDownA = currentDownA;
+             if (currentDownA > newPrice) safeDownA = newPrice;
+             
+             const sliderA = document.getElementById('slider_downPaymentA');
+             if (sliderA) {
+                 sliderA.value = valToSlider(safeDownA, 'downPaymentA');
+                 updateSliderVisual(sliderA);
+             }
+             if (safeDownA !== currentDownA) document.getElementById('input_downPaymentA').value = safeDownA;
+             
+             const pctA = (newPrice > 0) ? (safeDownA / newPrice) * 100 : 0;
+             const pctInputA = document.getElementById('input_downPaymentPercentA');
+             if(pctInputA) pctInputA.value = parseFloat(pctA.toFixed(1));
+
+             SLIDER_CONFIG.downPaymentD.max = newPrice;
+             const currentDownD = cleanNumber(document.getElementById('input_downPaymentD').value);
+             let safeDownD = currentDownD;
+             if (currentDownD > newPrice) safeDownD = newPrice;
+             const sliderD = document.getElementById('slider_downPaymentD');
+             if (sliderD) {
+                 sliderD.value = valToSlider(safeDownD, 'downPaymentD');
+                 updateSliderVisual(sliderD);
+             }
+             if (safeDownD !== currentDownD) document.getElementById('input_downPaymentD').value = safeDownD;
+             const pctD = (newPrice > 0) ? (safeDownD / newPrice) * 100 : 0;
+             const pctInputD = document.getElementById('input_downPaymentPercentD');
+             if(pctInputD) pctInputD.value = parseFloat(pctD.toFixed(1));
+        }
+    }
+
+    const rateKeys = ['rateA', 'rateC', 'rateD'];
+    if (rateKeys.includes(sourceKey)) {
+        rateKeys.forEach(targetKey => {
+            if (targetKey !== sourceKey) updateFieldAndSlider(targetKey, value);
+        });
+    }
+
+    const downKeys = ['downPaymentA', 'downPaymentD'];
+    if (downKeys.includes(sourceKey)) {
+        downKeys.forEach(targetKey => {
+            if (targetKey !== sourceKey) updateFieldAndSlider(targetKey, value);
+        });
+        const price = cleanNumber(document.getElementById('input_homePriceA').value);
+        if(price > 0) {
+            let safeVal = value;
+            if (value > price) safeVal = price;
+            const pct = (safeVal / price) * 100;
+            const pctVal = parseFloat(Math.min(100, pct).toFixed(1));
+            
+            const aPercent = document.getElementById('input_downPaymentPercentA');
+            const dPercent = document.getElementById('input_downPaymentPercentD');
+            if(aPercent) aPercent.value = pctVal;
+            if(dPercent) dPercent.value = pctVal;
+        }
+    }
+}
+
+function updateFieldAndSlider(key, value) {
+    const input = document.getElementById(`input_${key}`);
+    const slider = document.getElementById(`slider_${key}`);
+    if (input) input.value = value;
+    if (slider) {
+        slider.value = valToSlider(value, key);
+        updateSliderVisual(slider);
+    }
+}
+
+function populateStateDropdown() {
+    const states = getStateOptions();
+    const container = document.getElementById('state-dropdown-container');
+    const select = container.querySelector('select');
+    const menuWrapper = container.querySelector('.dropdown-options-wrapper');
+    const trigger = container.querySelector('.custom-dropdown-trigger');
+
+    select.innerHTML = '';
+    menuWrapper.innerHTML = '';
+
+    states.forEach(state => {
+        const option = document.createElement('option');
+        option.value = state.value;
+        option.textContent = state.label;
+        if(state.value === 'CA') option.selected = true;
+        select.appendChild(option);
+
+        const div = document.createElement('div');
+        div.className = 'dropdown-option';
+        div.setAttribute('data-value', state.value);
+        div.textContent = state.label;
+        if(state.value === 'CA') div.classList.add('selected');
+        menuWrapper.appendChild(div);
+    });
+
+    trigger.textContent = "California";
 }
 
 function initializeCustomDropdowns() {
@@ -216,8 +639,7 @@ function initializeCustomDropdowns() {
         const select = wrapper.querySelector('select');
         const trigger = wrapper.querySelector('.custom-dropdown-trigger');
         const menu = wrapper.querySelector('.custom-dropdown-menu');
-
-        // Toggle menu visibility
+        
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
@@ -226,31 +648,24 @@ function initializeCustomDropdowns() {
             menu.classList.toggle('active');
         });
 
-        // Use Event Delegation for options (handles dynamic elements)
         menu.addEventListener('click', (e) => {
-            // Find the clicked option div, even if user clicks text inside it
             const option = e.target.closest('.dropdown-option');
-            if (option) {
-                e.stopPropagation();
-                const value = option.getAttribute('data-value');
-                trigger.textContent = option.textContent;
-                
-                // Remove selected class from siblings
-                menu.querySelectorAll('.dropdown-option').forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                
-                menu.classList.remove('active');
-                
-                // Sync with hidden select
-                if(select) {
-                    select.value = value;
-                    select.dispatchEvent(new Event('change', { bubbles: true }));
-                }
+            if (!option) return;
+            e.stopPropagation();
+            
+            const value = option.getAttribute('data-value');
+            trigger.textContent = option.textContent;
+            menu.querySelectorAll('.dropdown-option').forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            menu.classList.remove('active');
+            
+            if(select) {
+                select.value = value;
+                select.dispatchEvent(new Event('change', { bubbles: true }));
             }
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
             if (!menu.parentElement.contains(e.target)) {
@@ -258,80 +673,10 @@ function initializeCustomDropdowns() {
             }
         });
     });
-
-    // Attach change listeners to hidden selects
-    document.querySelectorAll('select').forEach(sel => {
-        sel.addEventListener('change', (e) => calculateAll(e.target.id));
-    });
-}
-
-/* 
- * NEW FUNCTION: Populates the state dropdown from US_STATE_DATA 
- * Ensures all 50 states are visible in the menu
- */
-function populateStateDropdowns() {
-    const selector = document.getElementById('stateSelector');
-    const customWrapper = document.querySelector('.dropdown-options-wrapper');
-    const trigger = document.querySelector('.custom-dropdown-trigger');
-
-    if (!selector || !customWrapper) return;
-
-    // Clear existing content to prevent duplicates
-    selector.innerHTML = '';
-    customWrapper.innerHTML = '';
-
-    // Sort states alphabetically by name
-    const sortedKeys = Object.keys(US_STATE_DATA).sort((a, b) => 
-        US_STATE_DATA[a].name.localeCompare(US_STATE_DATA[b].name)
-    );
-
-    sortedKeys.forEach(key => {
-        const state = US_STATE_DATA[key];
-        
-        // 1. Create Native Select Option (Hidden but accessible)
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = state.name;
-        if (key === 'CA') option.selected = true; // Default
-        selector.appendChild(option);
-
-        // 2. Create Custom Div Option (Visible UI)
-        const div = document.createElement('div');
-        div.className = 'dropdown-option';
-        if (key === 'CA') div.classList.add('selected');
-        div.setAttribute('data-value', key);
-        div.textContent = state.name;
-        customWrapper.appendChild(div);
-    });
-
-    // Reset trigger text to default
-    if(trigger) trigger.textContent = US_STATE_DATA['CA'].name;
-}
-
-let currentMode = 'mode-a';
-function initializeModes() {
-    const modeCards = document.querySelectorAll('.mode-card');
-    modeCards.forEach(card => {
-        card.addEventListener('click', () => {
-            modeCards.forEach(c => c.classList.remove('active-mode'));
-            card.classList.add('active-mode');
-            currentMode = card.getAttribute('data-mode');
-
-            document.querySelectorAll('.mode-inputs').forEach(el => el.classList.add('hidden'));
-            const inputSection = document.getElementById(`${currentMode}-inputs`);
-            if (inputSection) inputSection.classList.remove('hidden');
-
-            document.querySelectorAll('.mode-results').forEach(el => el.classList.add('hidden'));
-            const resultSection = document.getElementById(`${currentMode}-results`);
-            if (resultSection) resultSection.classList.remove('hidden');
-            calculateAll();
-        });
-    });
 }
 
 function initializeAdvancedToggle() {
     const btn = document.getElementById('advanced-toggle');
-    if (!btn) return;
     let isAdvanced = false;
     btn.addEventListener('click', () => {
         isAdvanced = !isAdvanced;
@@ -343,600 +688,584 @@ function initializeAdvancedToggle() {
     });
 }
 
-function initializeStateSelector() {
-    const stateSelect = document.getElementById('stateSelector');
-    if(!stateSelect) return;
-    stateSelect.addEventListener('change', () => {
-        const stateCode = stateSelect.value;
-        const stateData = getStateData(stateCode);
-        
-        // Mode A Updates
-        const priceA = cleanNumber(document.getElementById('input_purchasePriceA').value);
-        if (priceA > 0) {
-            const estTax = Math.round(priceA * (stateData.propertyTaxRate / 100));
-            const estIns = Math.round(priceA * (stateData.insuranceRate / 100));
-            updateInputAndSlider('propTaxA', estTax);
-            updateInputAndSlider('insuranceA', estIns);
-        }
-        
-        // Triggers calculation for current mode
-        calculateAll('stateSelector');
-    });
-}
+function initializeModes() {
+    const modeCards = document.querySelectorAll('.mode-card');
+    modeCards.forEach(card => {
+        card.addEventListener('click', () => {
+            modeCards.forEach(c => c.classList.remove('active-mode'));
+            card.classList.add('active-mode');
+            card.setAttribute('aria-checked', 'true');
+            modeCards.forEach(c => { if(c !== card) c.setAttribute('aria-checked', 'false'); });
 
-function updateInputAndSlider(key, value) {
-    const input = document.getElementById(`input_${key}`);
-    const slider = document.getElementById(`slider_${key}`);
-    if(input && slider) {
-        input.value = value; 
-        slider.value = valToSlider(value, key);
-        updateSliderVisual(slider);
-    }
-}
-
-/* ========================================================================== */
-/* CALCULATION ENGINE                                                       */
-/* ========================================================================== */
-
-const formatMoney = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-const formatPct = (num) => `${num.toFixed(1)}%`;
-
-function calculateAll(triggerKey) {
-    if (currentMode === 'mode-a') calculateModeA(triggerKey);
-    if (currentMode === 'mode-b') calculateModeB(triggerKey);
-    if (currentMode === 'mode-c') calculateModeC(triggerKey);
-}
-
-// -----------------------------------------------------------
-// MENTOR LOGIC HELPER FUNCTION
-// -----------------------------------------------------------
-function updateMentorSummary(mode, metrics) {
-    const el = document.getElementById(`mentor-summary-${mode}`);
-    if (!el) return;
-
-    let title = "", body = "";
-
-    if (mode === 'A') {
-        const cf = metrics.cashFlow;
-        const coc = metrics.coc;
-        if (cf < 0) {
-            title = "🛑 Asset or Liability?";
-            body = "You are effectively subsidizing your tenant's lifestyle. Even if the property appreciates, the monthly negative cash flow will drain your reserves and hurt your Debt-to-Income ratio for future loans. <strong>Unless you can drop the purchase price by at least 15%, walk away.</strong>";
-        } else if (cf < 200) {
-            title = "⚠️ Walking on Thin Ice.";
-            body = "You are technically profitable, but one broken water heater or a two-month vacancy will wipe out your entire year's profit. You are betting 100% on appreciation, not cash flow. <strong>This deal requires a heavy cash reserve fund to be safe.</strong>";
-        } else {
-            title = "🚀 The Cash Flow Machine.";
-            body = "This asset pays for itself and puts money in your pocket every month. The rent covers the mortgage, expenses, and vacancy buffers with room to spare. <strong>Verify your expense assumptions (especially taxes), then get this under contract.</strong>";
-        }
-    } else if (mode === 'B') {
-        const profit = metrics.netProfit;
-        const margin = metrics.margin;
-        if (profit < 0) {
-            title = "☠️ Financial Suicide Warning.";
-            body = "After closing costs, holding fees, and realtor commissions, you are paying for the privilege of working. You will lose money on this deal. <strong>The only way to save this is to slash the acquisition price or cut the rehab scope dramatically.</strong>";
-        } else if (profit < 20000 || margin < 10) {
-            title = "😓 Working for Minimum Wage.";
-            body = "You might make a small profit, but is it worth the stress and risk? If the market dips 5% or the timeline slips by two months, you break even. <strong>Experienced flippers usually demand a 15%+ margin to cover the 'unknowns' found behind the walls.</strong>";
-        } else {
-            title = "💰 Green Light Special.";
-            body = "This deal has a wide margin of safety. Even if the renovation goes over budget or the house sits on the market for an extra month, you still walk away with a profit. <strong>Double-check your ARV comps, secure your hard money, and start swinging hammers.</strong>";
-        }
-    } else if (mode === 'C') {
-        const left = metrics.cashLeft;
-        const minAppr = metrics.minAppraisal;
-        const arv = metrics.arv;
-        if (left > 25000) {
-            title = "🪤 Velocity Killer.";
-            body = "The bank won't give you enough cash back to pay off your initial investment. You are leaving significant capital trapped in the deal, which prevents you from buying the next property. <strong>This isn't a BRRRR; it's just a rental with a renovation project attached.</strong>";
-        } else if (left <= 0) {
-            title = "🦄 The Holy Grail (Infinite Return).";
-            body = "You are pulling out 100% (or more) of your initial investment. You effectively own this cash-flowing asset for $0. Since you have no money left in the deal, your ROI is mathematically infinite. <strong>Rinse and repeat this exact model immediately.</strong>";
-        } else {
-            // Check for Appraisal Gap (if refi loan isn't enough to cover hard money, usually implies cash left > 0 but we want to warn about appraisal specifically if it's tight)
-            // But here "Appraisal Danger Zone" logic:
-            if (minAppr > arv) {
-                 title = "📉 Appraisal Danger Zone.";
-                 body = "The math works on paper, but the Appraisal is the boss. If the appraiser doesn't agree with your ARV, you will have to bring cash to the closing table to pay off your hard money lender. <strong>Do you have the liquidity to cover a short appraisal?</strong>";
-            } else {
-                 title = "✅ Respectable BRRRR.";
-                 body = "You are leaving a little skin in the game, but the remaining ROI is likely high. It's a solid base hit that builds your portfolio without over-leveraging. <strong>Proceed with confidence.</strong>";
-            }
-        }
-    }
-
-    el.innerHTML = `<strong>${title}</strong>${body}`;
-}
-
-/* --- MODE A: Rental Analysis --- */
-function calculateModeA(triggerKey) {
-    const price = cleanNumber(document.getElementById('input_purchasePriceA').value);
-    const downPayment = cleanNumber(document.getElementById('input_downPaymentA').value);
-    const rate = cleanNumber(document.getElementById('input_rateA').value);
-    const termVal = document.getElementById('termA').value;
-    const rent = cleanNumber(document.getElementById('input_rentA').value);
-    
-    let propTax = cleanNumber(document.getElementById('input_propTaxA').value);
-    let insurance = cleanNumber(document.getElementById('input_insuranceA').value);
-    const hoa = cleanNumber(document.getElementById('input_hoaA').value);
-    const vacancyRate = cleanNumber(document.getElementById('input_vacancyA').value);
-    const mgmtRate = cleanNumber(document.getElementById('input_managementA').value);
-    const maintRate = cleanNumber(document.getElementById('input_maintenanceA').value);
-    const capexRate = cleanNumber(document.getElementById('input_capexA').value);
-    
-    const loanAmount = price - downPayment;
-    let monthlyPI = 0;
-    if (termVal === 'IO') {
-        monthlyPI = (loanAmount * (rate / 100)) / 12;
-    } else {
-        const r = rate / 100 / 12;
-        const n = parseInt(termVal) * 12;
-        if (r > 0 && n > 0) {
-            monthlyPI = loanAmount * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        } else {
-            monthlyPI = loanAmount / (n || 1);
-        }
-    }
-
-    let totalMonthlyExpenses = 0;
-    const vacancyCost = rent * (vacancyRate / 100);
-    const mgmtCost = rent * (mgmtRate / 100);
-    const maintCost = rent * (maintRate / 100);
-    const capexCost = rent * (capexRate / 100);
-    const taxMonthly = propTax / 12;
-    const insMonthly = insurance / 12;
-    const detailedExpenses = taxMonthly + insMonthly + hoa + vacancyCost + mgmtCost + maintCost + capexCost;
-
-    if (triggerKey === 'opexRatioA') {
-        const userRatio = cleanNumber(document.getElementById('input_opexRatioA').value);
-        totalMonthlyExpenses = rent * (userRatio / 100);
-    } else {
-        totalMonthlyExpenses = detailedExpenses;
-        const impliedRatio = rent > 0 ? (detailedExpenses / rent) * 100 : 0;
-        updateInputAndSlider('opexRatioA', Math.round(impliedRatio * 10) / 10);
-    }
-    
-    const noi = rent - totalMonthlyExpenses;
-    const cashFlow = noi - monthlyPI;
-    const annualCashFlow = cashFlow * 12;
-    const closingCosts = cleanNumber(document.getElementById('input_closingCostsA').value);
-    const cashToClose = downPayment + closingCosts;
-    const coc = cashToClose > 0 ? (annualCashFlow / cashToClose) * 100 : 0;
-    const dcr = monthlyPI > 0 ? noi / monthlyPI : 99;
-
-    const appreciationRate = cleanNumber(document.getElementById('input_appreciationA').value) / 100;
-    const futureValue = price * Math.pow(1 + appreciationRate, 10);
-    const equityGain = futureValue - price; 
-    const wealth = equityGain + (annualCashFlow * 10);
-
-    setText('res_netMonthlyA', formatMoney.format(cashFlow));
-    setText('res_annualCFA', formatMoney.format(annualCashFlow));
-    setText('res_cocA', formatPct(coc));
-    setText('res_dcrA', dcr.toFixed(2));
-    setText('res_wealthA', formatMoney.format(wealth));
-    setClass('res_netMonthlyA', cashFlow > 0 ? 'good' : 'bad');
-    setClass('res_cocA', coc > 8 ? 'good' : (coc > 4 ? 'warn' : 'bad'));
-
-    let verdict = "Bad";
-    let verdictClass = "bad";
-    if (cashFlow > 100 && coc > 5) { verdict = "Borderline"; verdictClass = "warn"; }
-    if (cashFlow > 300 && coc > 9) { verdict = "Great"; verdictClass = "good"; }
-    if (cashFlow < 0) { verdict = "Negative"; verdictClass = "bad"; }
-    
-    const vEl = document.getElementById('res_verdictA');
-    if(vEl) {
-        vEl.textContent = verdict;
-        vEl.className = `result-value ${verdictClass}`;
-    }
-
-    // UPDATE MENTOR SUMMARY
-    updateMentorSummary('A', { cashFlow, coc });
-
-    runStressTestModeA(cashFlow, rent, totalMonthlyExpenses, monthlyPI);
-}
-
-function runStressTestModeA(baseCF, baseRent, baseExp, debt) {
-    const optRent = baseRent * 1.05;
-    const optCF = (optRent - baseExp - debt) + (baseRent * 0.02); 
-    const bearRent = baseRent * 0.90;
-    const bearShock = (baseRent * 0.05) + (baseRent * 0.05);
-    const bearCF = (bearRent - baseExp - debt) - bearShock;
-
-    setText('st_opt_val', formatMoney.format(optCF));
-    setText('st_base_val', formatMoney.format(baseCF));
-    setText('st_bear_val', formatMoney.format(bearCF));
-
-    const stBadge = document.getElementById('st_verdict');
-    const stAction = document.getElementById('st_action');
-    const stKill = document.getElementById('st_kill_var');
-
-    if (bearCF > 0) {
-        stBadge.textContent = "Ironclad";
-        stBadge.style.backgroundColor = "#2ecc71";
-        stAction.textContent = "Deal survives a 10% rent drop. Safe buy.";
-        stKill.textContent = "None";
-    } else if (baseCF > 0) {
-        stBadge.textContent = "Moderate Risk";
-        stBadge.style.backgroundColor = "#f1c40f";
-        stAction.textContent = "Cash flows now, but fails in a downturn.";
-        stKill.textContent = "Vacancy / Rent Drop";
-    } else {
-        stBadge.textContent = "Toxic Asset";
-        stBadge.style.backgroundColor = "#e74c3c";
-        stAction.textContent = "Negative cash flow today. Do not buy.";
-        stKill.textContent = "Price / Rates";
-    }
-}
-
-/* --- MODE B: Fix & Flip --- */
-function calculateModeB(triggerKey) {
-    const price = cleanNumber(document.getElementById('input_purchasePriceB').value);
-    const rehab = cleanNumber(document.getElementById('input_rehabB').value);
-    const arv = cleanNumber(document.getElementById('input_arvB').value);
-    const timeline = cleanNumber(document.getElementById('input_timelineB').value);
-    const buyCosts = cleanNumber(document.getElementById('input_closingCostsB').value);
-    const holdCostsMo = cleanNumber(document.getElementById('input_holdingCostsB').value);
-    const taxRate = cleanNumber(document.getElementById('input_taxRateB').value);
-    const interestRate = cleanNumber(document.getElementById('input_interestRateB').value);
-    const points = cleanNumber(document.getElementById('input_pointsB').value);
-    const drawFees = cleanNumber(document.getElementById('input_drawFeesB').value);
-    const contingency = cleanNumber(document.getElementById('input_contingencyB').value);
-    const overrunRisk = cleanNumber(document.getElementById('input_overrunRiskB').value);
-    const marketSlide = cleanNumber(document.getElementById('input_marketSlideB').value);
-    
-    const stateCode = document.getElementById('stateSelector').value;
-    const sData = getStateData(stateCode);
-    const sellCostPct = sData.closingCostSell || 6.0;
-
-    const totalRehab = rehab * (1 + (contingency/100));
-    const loanBasis = price + totalRehab; 
-    const totalPoints = loanBasis * (points/100);
-    const monthlyInterest = (loanBasis * (interestRate/100)) / 12;
-    const totalInterest = monthlyInterest * timeline;
-    const totalHold = holdCostsMo * timeline;
-    const sellingCosts = arv * (sellCostPct/100);
-    const totalSoftCosts = buyCosts + totalInterest + totalPoints + drawFees + totalHold + sellingCosts;
-    const totalCostBasis = price + totalRehab + totalSoftCosts;
-    const grossProfit = arv - totalCostBasis;
-    const capitalGainsTax = grossProfit > 0 ? grossProfit * (taxRate/100) : 0;
-    const netProfit = grossProfit - capitalGainsTax;
-    const profitMargin = arv > 0 ? (netProfit / arv) * 100 : 0;
-    const roi = totalCostBasis > 0 ? (netProfit / totalCostBasis) * 100 : 0;
-    
-    let annualizedRoi = 0;
-    if (roi > 0 && timeline > 0) {
-        annualizedRoi = (Math.pow(1 + (roi/100), 12/timeline) - 1) * 100;
-    }
-    const dailyBurn = (holdCostsMo + monthlyInterest) / 30;
-    const mao = (arv * 0.70) - totalRehab;
-    const ruleVerdict = price <= mao ? "Pass" : "Fail";
-
-    setText('res_netProfitB', formatMoney.format(netProfit));
-    setText('res_marginB', formatPct(profitMargin));
-    setText('res_rule70B', ruleVerdict);
-    setText('res_maoB', formatMoney.format(mao));
-    setText('res_annRoiB', formatPct(annualizedRoi));
-    setText('res_costDelayB', `-$${Math.round(dailyBurn)}/day`);
-    // NEW: Set Break Even Price
-    setText('res_breakEvenB', formatMoney.format(totalCostBasis));
-
-    setClass('res_netProfitB', netProfit > 0 ? 'good' : 'bad');
-    setClass('res_costDelayB', 'bad'); 
-
-    // UPDATE MENTOR SUMMARY
-    updateMentorSummary('B', { netProfit, margin: profitMargin });
-
-    runStressTestModeB(netProfit, arv, totalRehab, price, buyCosts, points, drawFees, sellingCosts, holdCostsMo, monthlyInterest, timeline, overrunRisk, marketSlide, sData.closingCostSell);
-}
-
-function runStressTestModeB(baseProfit, arv, rehab, price, buyCosts, points, drawFees, baseSellCosts, holdCostsMo, monthlyInterest, baseTimeline, overrunMonths, slidePct, sellCostPct) {
-    const optArv = arv * 1.05;
-    const optRehab = rehab * 0.95;
-    const optSell = optArv * (sellCostPct/100);
-    const optSoft = buyCosts + points + drawFees + (holdCostsMo * baseTimeline) + (monthlyInterest * baseTimeline) + optSell;
-    const optProfit = optArv - (price + optRehab + optSoft);
-
-    const bearArv = arv * (1 - (slidePct/100));
-    const bearTimeline = baseTimeline + overrunMonths;
-    const bearHold = holdCostsMo * bearTimeline;
-    const bearInterest = monthlyInterest * bearTimeline;
-    const bearSell = bearArv * (sellCostPct/100);
-    const bearSoft = buyCosts + points + drawFees + bearHold + bearInterest + bearSell;
-    const bearProfit = bearArv - (price + rehab + bearSoft);
-
-    setText('st_opt_val', formatMoney.format(optProfit));
-    setText('st_base_val', formatMoney.format(baseProfit));
-    setText('st_bear_val', formatMoney.format(bearProfit));
-
-    const stBadge = document.getElementById('st_verdict');
-    const stAction = document.getElementById('st_action');
-    const stKill = document.getElementById('st_kill_var');
-
-    if (bearProfit > 0) {
-        stBadge.textContent = "Ironclad";
-        stBadge.style.backgroundColor = "#2ecc71";
-        stAction.textContent = "Profit remains even with overrun & market dip.";
-        stKill.textContent = "None";
-    } else if (baseProfit > 0) {
-        stBadge.textContent = "Moderate Risk";
-        stBadge.style.backgroundColor = "#f1c40f";
-        stAction.textContent = "Profitable now, but fails in a downturn.";
-        stKill.textContent = "Market / Timeline";
-    } else {
-        stBadge.textContent = "Toxic Deal";
-        stBadge.style.backgroundColor = "#e74c3c";
-        stAction.textContent = "Projected loss. Negotiate price down.";
-        stKill.textContent = "Price / Rehab";
-    }
-}
-
-/* --- MODE C: BRRRR Strategy --- */
-function calculateModeC(triggerKey) {
-    // 1. Gather Inputs
-    const price = cleanNumber(document.getElementById('input_purchasePriceC').value);
-    const rehab = cleanNumber(document.getElementById('input_rehabC').value);
-    const arv = cleanNumber(document.getElementById('input_arvC').value);
-    const rent = cleanNumber(document.getElementById('input_rentC').value);
-    const refiLtv = cleanNumber(document.getElementById('input_refiLtvC').value);
-    const refiRate = cleanNumber(document.getElementById('input_refiRateC').value);
-    
-    // Advanced
-    const initPoints = cleanNumber(document.getElementById('input_initialPointsC').value);
-    const initInterestCarry = cleanNumber(document.getElementById('input_initialInterestC').value); // $ Amount
-    const seasoning = cleanNumber(document.getElementById('input_seasoningC').value); // Months
-    const appraisalHaircut = cleanNumber(document.getElementById('input_appraisalHaircutC').value); // %
-    const refiCosts = cleanNumber(document.getElementById('input_refiCostsC').value);
-    
-    const vacancyRate = cleanNumber(document.getElementById('input_vacancyC').value);
-    const maintRate = cleanNumber(document.getElementById('input_maintenanceC').value);
-    const capexRate = cleanNumber(document.getElementById('input_capexC').value);
-    const mgmtRate = cleanNumber(document.getElementById('input_managementC').value);
-
-    // State Data for Estimating Hold Costs (Tax/Ins)
-    const stateCode = document.getElementById('stateSelector').value;
-    const sData = getStateData(stateCode);
-    const buyClosingPct = sData.closingCostBuy || 3.0;
-    
-    // 2. Phase 1: Total Cost to Own (All-In)
-    const buyClosingCosts = price * (buyClosingPct/100);
-    const loanPointsCost = (price + rehab) * (initPoints/100); // Assuming loan on Price+Rehab
-    
-    // Holding Costs during Seasoning (Taxes + Insurance + Hard Money Interest)
-    // Estimate Annual Tax/Ins based on Price
-    const annualTax = price * (sData.propertyTaxRate / 100);
-    const annualIns = price * (sData.insuranceRate / 100);
-    const holdTaxIns = ((annualTax + annualIns) / 12) * seasoning;
-    
-    // Total Project Cost
-    const totalAllIn = price + rehab + buyClosingCosts + loanPointsCost + initInterestCarry + holdTaxIns;
-
-    // 3. Phase 2: Refinance
-    const refiLoanAmount = arv * (refiLtv/100);
-    // Cash Returned = Refi Loan - Refi Costs - Payoff (We assume Payoff = Total All In for simplicity of "Cash Left" calc)
-    // Actually, "Cash Left in Deal" = Total All In - (Refi Loan - Refi Costs)
-    const netRefiProceeds = refiLoanAmount - refiCosts;
-    const cashLeftInDeal = totalAllIn - netRefiProceeds;
-    const cashPulledOut = netRefiProceeds - totalAllIn; // Inverse of cash left, but usually means surplus
-
-    // 4. Phase 3: Long Term Cash Flow
-    const vacancyCost = rent * (vacancyRate/100);
-    const maintCost = rent * (maintRate/100);
-    const capexCost = rent * (capexRate/100);
-    const mgmtCost = rent * (mgmtRate/100);
-    
-    // New Mortgage P&I
-    const r = refiRate / 100 / 12;
-    const n = 360; // 30 Years
-    let newMortgagePI = 0;
-    if (r > 0) newMortgagePI = refiLoanAmount * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    else newMortgagePI = refiLoanAmount / n;
-
-    // Recalculate Tax/Ins based on NEW Value (ARV) for long term? 
-    // Usually taxes reassess. Let's use ARV for long term tax/ins estimates.
-    const longTermTax = (arv * (sData.propertyTaxRate / 100)) / 12;
-    const longTermIns = (arv * (sData.insuranceRate / 100)) / 12;
-
-    const totalExpenses = vacancyCost + maintCost + capexCost + mgmtCost + longTermTax + longTermIns + newMortgagePI;
-    const monthlyCashFlow = rent - totalExpenses;
-
-    // 5. Metrics
-    const isInfinite = cashLeftInDeal <= 0;
-    const trappedEquityPct = (1 - (refiLtv/100)) * 100; // Roughly 25% if 75% LTV
-    // Capital Velocity: (Net Refi Proceeds / Total All In) * 100
-    const capVelocity = (netRefiProceeds / totalAllIn) * 100; 
-
-    // Break Even Appraisal: What ARV makes Cash Left = 0?
-    // 0 = TotalAllIn - ((ARV * LTV) - RefiCosts)
-    // TotalAllIn + RefiCosts = ARV * LTV
-    // ARV = (TotalAllIn + RefiCosts) / LTV
-    const minAppraisal = (totalAllIn + refiCosts) / (refiLtv/100);
-
-    // Scaling Power Text
-    let scalingText = "Low (Trapped Capital)";
-    if (capVelocity >= 100) scalingText = "High (Redeploy in 6mo)";
-    else if (capVelocity >= 80) scalingText = "Moderate (Some trap)";
-
-    // 6. Update UI
-    setText('res_cashPulledC', cashPulledOut > 0 ? formatMoney.format(cashPulledOut) : "$0");
-    setText('res_cashLeftC', cashLeftInDeal > 0 ? formatMoney.format(cashLeftInDeal) : "$0");
-    setText('res_infiniteC', isInfinite ? "YES" : "NO");
-    setText('res_cashFlowC', formatMoney.format(monthlyCashFlow) + "/mo");
-    
-    setText('res_mortgageC', formatMoney.format(newMortgagePI));
-    setText('res_capVelocityC', formatPct(capVelocity) + " Recaptured");
-    setText('res_trappedEquityC', formatPct(trappedEquityPct));
-    setText('res_minAppraisalC', formatMoney.format(minAppraisal));
-    setText('res_scalingC', scalingText);
-
-    // Coloring
-    setClass('res_cashPulledC', cashPulledOut > 0 ? 'good' : 'warn');
-    setClass('res_infiniteC', isInfinite ? 'good' : 'bad');
-    setClass('res_cashFlowC', monthlyCashFlow > 100 ? 'good' : 'bad');
-
-    // UPDATE MENTOR SUMMARY
-    updateMentorSummary('C', { cashLeft: cashLeftInDeal, minAppraisal, arv });
-
-    // 7. Stress Test Mode C
-    runStressTestModeC(monthlyCashFlow, cashLeftInDeal, appraisalHaircut, totalAllIn, arv, refiLtv, refiCosts, rent, totalExpenses, newMortgagePI);
-}
-
-function runStressTestModeC(baseCF, baseCashLeft, haircutPct, totalAllIn, arv, ltv, refiCosts, rent, totalExp, debt) {
-    // Scenario 1: Optimistic (Appraisal comes in 5% higher, Rent +5%)
-    const optArv = arv * 1.05;
-    const optLoan = optArv * (ltv/100);
-    const optProceeds = optLoan - refiCosts;
-    const optCashLeft = totalAllIn - optProceeds; // Should be lower/negative
-    
-    // Scenario 2: Base (Current Inputs)
-    
-    // Scenario 3: Bear (Appraisal Haircut & Rent Drop)
-    const bearArv = arv * (1 - (haircutPct/100));
-    const bearLoan = bearArv * (ltv/100);
-    const bearProceeds = bearLoan - refiCosts;
-    const bearCashLeft = totalAllIn - bearProceeds; // How much cash trapped?
-    
-    // Bear Cash Flow? (Assume rent drops 5% too)
-    const bearRent = rent * 0.95;
-    // Note: Debt service might change if loan amount drops, but usually you qualify for less loan. 
-    // Let's assume loan drops with ARV.
-    const bearDebt = debt * (1 - (haircutPct/100)); 
-    const bearExp = (totalExp - debt) + bearDebt;
-    const bearCF = bearRent - bearExp;
-
-    // FIX: Added newlines (\n) to force "Left:" onto its own line
-    setText('st_opt_val', `Left:\n${formatMoney.format(optCashLeft)}`);
-    setText('st_base_val', `Left:\n${formatMoney.format(baseCashLeft)}`);
-    setText('st_bear_val', `Left:\n${formatMoney.format(bearCashLeft)}`);
-
-    const stBadge = document.getElementById('st_verdict');
-    const stAction = document.getElementById('st_action');
-    const stKill = document.getElementById('st_kill_var');
-
-    if (bearCashLeft <= 0) {
-        stBadge.textContent = "Perfect BRRRR";
-        stBadge.style.backgroundColor = "#2ecc71";
-        stAction.textContent = "You get all money back even with a low appraisal.";
-        stKill.textContent = "None";
-    } else if (bearCF > 0 && bearCashLeft < 20000) {
-        stBadge.textContent = "Decent Deal";
-        stBadge.style.backgroundColor = "#f1c40f";
-        stAction.textContent = "Some cash trapped, but cash flows cover it.";
-        stKill.textContent = "Appraisal Gap";
-    } else {
-        stBadge.textContent = "Trap Warning";
-        stBadge.style.backgroundColor = "#e74c3c";
-        stAction.textContent = "High risk of trapped capital. Refi fails.";
-        stKill.textContent = "Appraisal / ARV";
-    }
-}
-
-function setText(id, val) {
-    const el = document.getElementById(id);
-    if(el) el.textContent = val;
-}
-function setClass(id, cls) {
-    const el = document.getElementById(id);
-    if(el) {
-        el.classList.remove('good', 'bad', 'warn');
-        el.classList.add(cls);
-    }
-}
-
-// ----------------------------------------
-// NEW: FAQ ACCORDION LOGIC
-// ----------------------------------------
-function initializeFAQ() {
-    const faqButtons = document.querySelectorAll('.faq-question');
-    
-    faqButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Toggle 'active' class on button for rotation/color
-            btn.classList.toggle('active');
+            const modeId = card.getAttribute('data-mode');
             
-            // Toggle the panel
-            const panel = btn.nextElementSibling;
+            document.querySelectorAll('.mode-inputs').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`${modeId}-inputs`).classList.remove('hidden');
+
+            document.querySelectorAll('.mode-results').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`${modeId}-results`).classList.remove('hidden');
             
-            if (panel.style.maxHeight) {
-                // Collapse
-                panel.style.maxHeight = null;
-            } else {
-                // Expand
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
+            triggerCalculation(); 
         });
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. POPULATE DATA
-    populateStateDropdowns();
-    
-    // 2. INITIALIZE LISTENERS
-    initializeSliders();
-    initializeCustomDropdowns();
-    initializeModes();
-    initializeAdvancedToggle();
-    initializeStateSelector();
-    
-    // 3. INITIALIZE FAQ (NEW)
-    initializeFAQ();
-    
-    // 4. FIRST RUN
-    setTimeout(() => calculateAll(null), 500);
+function setupTooltipListeners() {
+    const modeCards = document.querySelectorAll('.mode-card');
+    if(!tooltipEl) return;
 
-    // Auto-update date in button
-    const btn = document.getElementById('ctaBtnFunding');
-    if(btn) {
-        const date = new Date();
-        const dateStr = date.toLocaleString('default', { month: 'short', year: 'numeric' });
-        btn.textContent = `See Today's Rates (${dateStr})`;
-    }
-
-    // --- TOOLTIP LOGIC ---
-    initializeTooltips();
-});
-
-function initializeTooltips() {
-    const tooltip = document.getElementById('global-tooltip');
-    const titleEl = document.getElementById('tooltip-title');
-    const textEl = document.getElementById('tooltip-text');
-    const cards = document.querySelectorAll('.mode-card');
-
-    if (!tooltip || !cards.length) return;
-
-    cards.forEach(card => {
+    modeCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             const title = card.getAttribute('data-tooltip-title');
-            const text = card.getAttribute('data-tooltip-text');
-            if (title && text) {
-                titleEl.textContent = title;
-                textEl.textContent = text;
-                tooltip.style.opacity = '1';
-                tooltip.style.visibility = 'visible';
+            const desc = card.getAttribute('data-tooltip-desc');
+            
+            if(title && desc) {
+                tooltipEl.innerHTML = `
+                    <strong style="color: #C59F80; font-size: 1.1em; display: block; margin-bottom: 5px;">${title}</strong>
+                    <div style="max-width: 250px; white-space: normal; line-height: 1.4; color: #333;">${desc}</div>
+                `;
+                tooltipEl.style.opacity = 1;
+                tooltipVisible = true;
             }
         });
 
         card.addEventListener('mouseleave', () => {
-            tooltip.style.opacity = '0';
-            tooltip.style.visibility = 'hidden';
-        });
-
-        card.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const tipW = tooltip.offsetWidth;
-            const winW = window.innerWidth;
-            let finalLeft = x + 15; 
-            let finalTop = y + 15;
-            if (finalLeft + tipW > winW - 20) {
-                finalLeft = x - tipW - 15;
-            }
-            if (finalLeft < 10) {
-                finalLeft = (winW / 2) - (tipW / 2);
-                finalTop = y + 25; 
-            }
-            tooltip.style.left = `${finalLeft}px`;
-            tooltip.style.top = `${finalTop}px`;
+            tooltipEl.style.opacity = 0;
+            tooltipVisible = false;
         });
     });
 }
+
+/* ============================ */
+/* CALCULATION LOGIC            */
+/* ============================ */
+
+function calculateRealAPR(amountFinanced, monthlyPayment, termMonths) {
+    if (amountFinanced <= 0 || monthlyPayment <= 0) return 0;
+    const tolerance = 0.000001;
+    let guessRate = 0.05 / 12; 
+    const calcPV = (r) => {
+        if (r === 0) return monthlyPayment * termMonths;
+        return (monthlyPayment * (1 - Math.pow(1 + r, -termMonths))) / r;
+    };
+    const calcDerivative = (r) => {
+        if (r === 0) return 0;
+        const top = termMonths * monthlyPayment * Math.pow(1 + r, -termMonths - 1);
+        const bot = r;
+        const term1 = top / bot;
+        const term2 = -(monthlyPayment * (1 - Math.pow(1 + r, -termMonths))) / (r * r);
+        return term1 + term2;
+    };
+    for (let i = 0; i < 20; i++) {
+        const y = calcPV(guessRate) - amountFinanced;
+        const dy = calcDerivative(guessRate);
+        const nextRate = guessRate - (y / dy);
+        if (Math.abs(nextRate - guessRate) < tolerance) return nextRate * 12 * 100;
+        guessRate = nextRate;
+    }
+    return guessRate * 12 * 100; 
+}
+
+function calculateModeA() {
+    const homePrice = cleanNumber(document.getElementById('input_homePriceA').value);
+    let downPayment = cleanNumber(document.getElementById('input_downPaymentA').value);
+    if(downPayment > homePrice) downPayment = homePrice;
+
+    const userIncome = cleanNumber(document.getElementById('input_incomeUserA').value);
+    const userCash = cleanNumber(document.getElementById('input_cashUserA').value);
+
+    const interestRate = cleanNumber(document.getElementById('input_rateA').value);
+    const termYears = cleanNumber(document.getElementById('termA').value);
+    const hoa = cleanNumber(document.getElementById('input_hoaA').value);
+    const pmiRate = cleanNumber(document.getElementById('input_pmiA').value);
+    const points = cleanNumber(document.getElementById('input_pointsA').value);
+    const propTaxRate = cleanNumber(document.getElementById('input_propTaxGlobal').value);
+    const yearlyInsurance = cleanNumber(document.getElementById('input_insuranceGlobal').value);
+    const state = document.getElementById('stateSelector').value;
+
+    const loanAmount = Math.max(0, homePrice - downPayment);
+    const monthlyRate = (interestRate / 100) / 12;
+    const totalPayments = termYears * 12;
+
+    let monthlyPI = 0;
+    if (loanAmount > 0 && monthlyRate > 0) {
+        monthlyPI = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+    } else if (loanAmount > 0) monthlyPI = loanAmount / totalPayments;
+
+    const monthlyTax = (homePrice * (propTaxRate / 100)) / 12;
+    const monthlyIns = yearlyInsurance / 12;
+    const ltv = loanAmount / homePrice;
+    
+    const monthlyPMI = (ltv > 0.8001) ? (loanAmount * (pmiRate / 100) / 12) : 0;
+    const totalMonthlyPayment = monthlyPI + monthlyTax + monthlyIns + monthlyPMI + hoa;
+    const estimatedClosingCosts = estimateCashToClose(state, homePrice); 
+    const pointsCost = loanAmount * (points / 100);
+    const totalCashToClose = downPayment + estimatedClosingCosts + pointsCost;
+    const interestBurn = loanAmount * monthlyRate;
+    const incomeRequiredYearly = (totalMonthlyPayment / 0.28) * 12;
+
+    document.getElementById('res_monthlyA').textContent = formatCurrency(totalMonthlyPayment);
+
+    const cashEl = document.getElementById('res_cashCloseA');
+    cashEl.textContent = formatCurrency(totalCashToClose);
+    cashEl.className = 'result-value'; 
+    if (userCash >= totalCashToClose) cashEl.classList.add('text-success');
+    else cashEl.classList.add('text-danger');
+
+    const burnEl = document.getElementById('res_burnA');
+    burnEl.textContent = formatCurrency(interestBurn);
+    burnEl.className = 'result-value text-warning'; 
+
+    const incomeEl = document.getElementById('res_incomeA');
+    incomeEl.textContent = formatCurrency(incomeRequiredYearly) + "/yr";
+    incomeEl.className = 'result-value';
+    if (userIncome >= incomeRequiredYearly) incomeEl.classList.add('text-success');
+    else incomeEl.classList.add('text-danger');
+    
+    updateChartA(monthlyPI, monthlyTax, monthlyIns + monthlyPMI + hoa);
+
+    const advisorA = document.getElementById('summaryA');
+    if(advisorA) {
+        if (userCash < totalCashToClose) {
+             advisorA.innerHTML = `Your income supports the monthly payment, but <strong class="text-danger">your liquidity is the bottleneck</strong>. After paying the down payment and closing costs, you are left with almost zero buffer. This is <strong class="text-danger">financially fragile</strong>. Consider asking for seller credits to keep cash in your pocket.`;
+        } else if (userIncome < incomeRequiredYearly) {
+             advisorA.innerHTML = `<strong class="text-danger">Caution:</strong> This loan requires significantly more than 28% of your monthly income. Lenders may classify this as <strong class="text-danger">"House Poor."</strong> While you have the cash reserves to close, the monthly obligation will strain your budget.`;
+        } else {
+             advisorA.innerHTML = `<strong class="text-success">You are in a strong position.</strong> Your liquid assets comfortably cover the cash-to-close, leaving you with a safety net. However, keep your eye on the <strong class="text-warning">"Unrecoverable Costs"</strong>—in Year 1, over 70% of your monthly payment is purely interest, tax, and insurance. You are buying the home, but effectively renting the money.`;
+        }
+    }
+}
+
+function calculateModeB() {
+    const homeValue = cleanNumber(document.getElementById('input_homeValueB').value);
+    const currentPayment = cleanNumber(document.getElementById('input_currentPaymentB').value);
+    const newLoanAmount = cleanNumber(document.getElementById('input_newLoanB').value);
+    const newRate = cleanNumber(document.getElementById('input_rateB').value);
+    const refiCosts = cleanNumber(document.getElementById('input_costsB').value);
+    const cashOut = cleanNumber(document.getElementById('input_cashOutB').value);
+    const yearsStay = cleanNumber(document.getElementById('input_yearsStayB').value);
+    const propTaxRate = cleanNumber(document.getElementById('input_propTaxGlobal').value);
+    const annualIns = cleanNumber(document.getElementById('input_insuranceGlobal').value);
+
+    const monthlyRate = (newRate / 100) / 12;
+    const totalPayments = 30 * 12;
+    let newMonthlyPI = 0;
+    if (newLoanAmount > 0 && monthlyRate > 0) {
+        newMonthlyPI = newLoanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+    } else if (newLoanAmount > 0) newMonthlyPI = newLoanAmount / totalPayments;
+
+    const monthlyTax = (homeValue * (propTaxRate / 100)) / 12;
+    const monthlyIns = annualIns / 12;
+    const newTotalPayment = newMonthlyPI + monthlyTax + monthlyIns;
+    const monthlySavings = currentPayment - newMonthlyPI;
+    const netGain = (monthlySavings * 12 * yearsStay) - refiCosts + cashOut;
+
+    const payEl = document.getElementById('res_newPayB');
+    payEl.textContent = formatCurrency(newTotalPayment);
+    payEl.className = 'result-value';
+    if (newTotalPayment < currentPayment) payEl.classList.add('text-success');
+    else payEl.classList.add('text-danger');
+
+    const saveEl = document.getElementById('res_saveB');
+    saveEl.textContent = formatCurrency(monthlySavings);
+    saveEl.className = 'result-value';
+    if (monthlySavings > 0) saveEl.classList.add('text-success');
+    else saveEl.classList.add('text-danger');
+
+    const netGainEl = document.getElementById('res_netGainB');
+    netGainEl.textContent = formatCurrency(netGain);
+    netGainEl.className = 'result-value';
+    if (netGain >= 0) netGainEl.classList.add('text-success');
+    else netGainEl.classList.add('text-danger');
+
+    const breakEl = document.getElementById('res_breakTimeB');
+    let breakText = "Never";
+    let breakClass = "text-danger";
+    let monthsToBreak = 999;
+
+    if (monthlySavings > 0) {
+        const totalCostToRecover = refiCosts; 
+        if (totalCostToRecover <= 0) {
+             breakText = "Immediate";
+             breakClass = "text-success";
+             monthsToBreak = 0;
+        } else {
+             monthsToBreak = totalCostToRecover / monthlySavings;
+             const y = Math.floor(monthsToBreak / 12);
+             const m = Math.ceil(monthsToBreak % 12);
+             
+             if (y > 30) {
+                 breakText = "30+ Years";
+             } else {
+                 if(y > 0) breakText = `${y} Yr, ${m} Mo`;
+                 else breakText = `${m} Months`;
+             }
+
+             if (monthsToBreak <= 24) breakClass = "text-success"; 
+             else if (monthsToBreak <= 60) breakClass = "text-warning"; 
+             else breakClass = "text-danger"; 
+        }
+    } else {
+        breakText = "Never";
+        breakClass = "text-danger";
+    }
+
+    if(breakEl) {
+        breakEl.textContent = breakText;
+        breakEl.className = `result-value ${breakClass}`;
+    }
+
+    updateChartB(monthlySavings, refiCosts);
+
+    const advisorB = document.getElementById('summaryB');
+    if(advisorB) {
+        if (monthlySavings <= 0) {
+            advisorB.innerHTML = `<strong class="text-danger">STOP.</strong> This refinance <strong class="text-danger">increases your monthly cost</strong>. The lower rate does not offset the new loan balance or terms. Unless you desperately need cash-out for an emergency, this deals harms your financial position.`;
+        } else if (monthsToBreak < 24) {
+            advisorB.innerHTML = `<strong class="text-success">This is a mathematical slam dunk.</strong> You will recover the cost of refinancing in just ${breakText}. Since you plan to stay for ${yearsStay} years, you are effectively paying yourself an extra ${formatCurrency(netGain)} in profit. Invest the monthly savings rather than spending them.`;
+        } else if (monthsToBreak > 60) {
+            advisorB.innerHTML = `<strong class="text-warning">Proceed with caution.</strong> It takes nearly 5 years just to earn back the fees you are paying today. If you sell the house or refinance again before then, you actually <strong class="text-danger">lose money</strong> on this deal. Unless this is your "forever loan," the upfront friction cost might outweigh the benefit.`;
+        } else {
+            advisorB.innerHTML = `This is a <strong class="text-success">strategic move</strong>, but depends entirely on your timeline. You break even in ${breakText}. If you stay the full ${yearsStay} years, you come out ahead by ${formatCurrency(netGain)}. Ensure you won't move before that breakeven date.`;
+        }
+    }
+}
+
+function calculateModeC() {
+    const homePrice = cleanNumber(document.getElementById('input_homePriceC').value);
+    const loanAmount = cleanNumber(document.getElementById('input_loanC').value);
+    const rate = cleanNumber(document.getElementById('input_rateC').value);
+    const ioYears = cleanNumber(document.getElementById('ioPeriodC').value);
+    const amortYears = cleanNumber(document.getElementById('input_amortC').value);
+    const rent = cleanNumber(document.getElementById('input_rentC').value);
+    const propTaxRate = cleanNumber(document.getElementById('input_propTaxGlobal').value);
+    const annualIns = cleanNumber(document.getElementById('input_insuranceGlobal').value);
+
+    const monthlyRate = (rate / 100) / 12;
+    let ioPayment = 0;
+    if (loanAmount > 0) ioPayment = loanAmount * monthlyRate;
+
+    const remainingYears = amortYears - ioYears;
+    let futurePayment = 0;
+    if (remainingYears > 0 && monthlyRate > 0 && loanAmount > 0) {
+        const remainingMonths = remainingYears * 12;
+        futurePayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, remainingMonths)) / (Math.pow(1 + monthlyRate, remainingMonths) - 1);
+    } else if (remainingYears <= 0 && loanAmount > 0) futurePayment = ioPayment;
+
+    let shock = 0;
+    if (futurePayment > ioPayment) shock = futurePayment - ioPayment;
+
+    const monthlyTax = (homePrice * (propTaxRate / 100)) / 12;
+    const monthlyIns = annualIns / 12;
+    const totalExpenses = ioPayment + monthlyTax + monthlyIns;
+    const cashFlow = rent - totalExpenses;
+
+    const ioEl = document.getElementById('res_ioPayC');
+    ioEl.textContent = formatCurrency(ioPayment);
+    ioEl.className = 'result-value text-success';
+
+    const shockEl = document.getElementById('res_shockC');
+    shockEl.textContent = "+" + formatCurrency(shock) + "/mo";
+    if(remainingYears <= 0) shockEl.textContent = "Balloon/End";
+    shockEl.className = 'result-value text-warning';
+
+    const flowEl = document.getElementById('res_cashFlowC');
+    flowEl.textContent = formatCurrency(cashFlow);
+    flowEl.className = 'result-value';
+    if(cashFlow > 0) flowEl.classList.add('text-success');
+    else flowEl.classList.add('text-danger');
+
+    const dscrEl = document.getElementById('res_dscrC');
+    let dscrVal = 0;
+    if (totalExpenses > 0) dscrVal = rent / totalExpenses;
+    
+    if(dscrEl) {
+        dscrEl.textContent = dscrVal.toFixed(2) + "x";
+        dscrEl.className = 'result-value';
+        if (dscrVal >= 1.25) dscrEl.classList.add('text-success'); 
+        else if (dscrVal >= 1.0) dscrEl.classList.add('text-warning'); 
+        else dscrEl.classList.add('text-danger'); 
+    }
+
+    const advisorC = document.getElementById('summaryC');
+    if(advisorC) {
+        if (dscrVal < 1.0) {
+             advisorC.innerHTML = `<strong class="text-danger">Liability Alert.</strong> You are personally subsidizing this property with <strong class="text-danger">${formatCurrency(Math.abs(cashFlow))}</strong> from your own pocket every month. While you might be banking on appreciation, the month-to-month mathematics are dangerous. If the unit goes vacant, the bleeding worsens immediately.`;
+        } else if (dscrVal >= 1.25) {
+             advisorC.innerHTML = `<strong class="text-success">This asset is a self-sustaining machine.</strong> With a DSCR of ${dscrVal.toFixed(2)}, rental income covers the debt with a safety margin—banks love seeing this. However, do not ignore the Year ${ioYears+1} cliff. Your payment spikes by <strong class="text-warning">${formatCurrency(shock)}/mo</strong>. You have a decade to increase rents or pay down principal to soften that blow.`;
+        } else {
+             advisorC.innerHTML = `<strong class="text-warning">The margins are tight.</strong> A DSCR of ${dscrVal.toFixed(2)} means you are barely breaking even. One major repair or two months of vacancy could turn this asset into a liability. Ensure you have significant cash reserves to weather any volatility.`;
+        }
+    }
+}
+
+function calculateModeD() {
+    const loanType = document.getElementById('loanTypeD').value;
+    const price = cleanNumber(document.getElementById('input_homePriceD').value);
+    let down = cleanNumber(document.getElementById('input_downPaymentD').value);
+    if (down > price) {
+        down = price;
+        document.getElementById('input_downPaymentD').value = down;
+        const downSlider = document.getElementById('slider_downPaymentD');
+        if(downSlider) {
+            SLIDER_CONFIG.downPaymentD.max = price;
+            downSlider.value = valToSlider(down, 'downPaymentD');
+            updateSliderVisual(downSlider);
+        }
+    }
+
+    const creditScore = cleanNumber(document.getElementById('creditScoreD').value);
+    const disability = document.getElementById('vaDisabilityD').value;
+    const state = document.getElementById('stateSelector').value;
+    const stateData = getStateData(state);
+    const propTaxRate = cleanNumber(document.getElementById('input_propTaxGlobal').value);
+    const annualIns = cleanNumber(document.getElementById('input_insuranceGlobal').value);
+
+    const baseLoan = Math.max(0, price - down);
+    let upfrontFeePct = 0;
+    let monthlyMIP = 0;
+
+    if (loanType === 'FHA') {
+        upfrontFeePct = 1.75; 
+        const ltv = (baseLoan / price) * 100;
+        const annualMIPPct = (ltv > 95) ? 0.55 : 0.50;
+        monthlyMIP = (baseLoan * (annualMIPPct / 100)) / 12;
+    } else {
+        const downPct = (price > 0) ? (down / price) * 100 : 0;
+        if (downPct < 5) upfrontFeePct = 2.15; 
+        else if (downPct < 10) upfrontFeePct = 1.5; 
+        else upfrontFeePct = 1.25; 
+        if (disability === 'Yes') upfrontFeePct = 0;
+    }
+
+    const upfrontFeeAmt = baseLoan * (upfrontFeePct / 100);
+    const totalLoanAmount = baseLoan + upfrontFeeAmt;
+    let baseRate = cleanNumber(document.getElementById('input_rateD').value); 
+    if (creditScore === 680) baseRate += 0.125;
+    else if (creditScore === 620) baseRate += 0.375;
+    else if (creditScore === 580) baseRate += 0.750;
+
+    const monthlyRate = (baseRate / 100) / 12;
+    const termMonths = 360; 
+    let monthlyPI = 0;
+    if (totalLoanAmount > 0) {
+        monthlyPI = totalLoanAmount * (monthlyRate * Math.pow(1 + monthlyRate, termMonths)) / (Math.pow(1 + monthlyRate, termMonths) - 1);
+    }
+
+    const monthlyTax = (price * (propTaxRate / 100)) / 12;
+    const monthlyIns = annualIns / 12;
+    const totalPayment = monthlyPI + monthlyTax + monthlyIns + monthlyMIP;
+    const closingCosts = (price * stateData.closingCosts.feesPct); 
+    const amountFinanced = baseLoan - closingCosts;
+    const paymentForAPR = monthlyPI + monthlyMIP;
+    const properAPR = calculateRealAPR(amountFinanced, paymentForAPR, termMonths);
+
+    document.getElementById('res_totalPayD').textContent = formatCurrency(totalPayment);
+    
+    const feeEl = document.getElementById('res_feeD');
+    feeEl.textContent = formatCurrency(upfrontFeeAmt);
+    feeEl.className = 'result-value text-neutral';
+
+    const aprEl = document.getElementById('res_aprD');
+    aprEl.textContent = properAPR.toFixed(3) + "%";
+    aprEl.className = 'result-value';
+    const rawBaseRate = cleanNumber(document.getElementById('input_rateD').value);
+    if ((properAPR / 100) > (rawBaseRate / 100 + 0.005)) {
+        aprEl.classList.add('text-warning');
+    } else {
+        aprEl.classList.add('text-info'); 
+    }
+
+    let sunkCost = upfrontFeeAmt; 
+    let tempBalance = totalLoanAmount;
+    
+    for (let i = 1; i <= 60; i++) {
+        let interestPart = tempBalance * monthlyRate;
+        let principalPart = monthlyPI - interestPart;
+        
+        sunkCost += interestPart + monthlyMIP;
+        
+        tempBalance -= principalPart;
+        if(tempBalance < 0) tempBalance = 0;
+    }
+
+    const sunkEl = document.getElementById('res_sunkD');
+    if(sunkEl) {
+        sunkEl.textContent = formatCurrency(sunkCost);
+        sunkEl.className = 'result-value'; 
+    }
+
+    const advisorD = document.getElementById('summaryD');
+    if(advisorD) {
+        advisorD.innerHTML = `This program is a <strong class="text-success">powerful tool for liquidity</strong>. It allows you to control a ${formatCurrency(price)} asset with minimal capital upfront, preserving your cash for renovations. But leverage has a <strong class="text-danger">price tag</strong>. Because of the Funding Fee and Mortgage Insurance, you will pay <strong class="text-warning">${formatCurrency(sunkCost)}</strong> in "Sunk Costs" (Interest + Fees) over the first 5 years. You are effectively paying a premium for the flexibility of keeping your cash today.`;
+    }
+}
+
+function triggerCalculation() {
+    calculateModeA();
+    calculateModeB();
+    calculateModeC();
+    calculateModeD();
+}
+
+function updateGlobalDefaults() {
+    const stateCode = document.getElementById('stateSelector').value;
+    const stateData = getStateData(stateCode);
+    const homePrice = cleanNumber(document.getElementById('input_homePriceA').value);
+
+    const taxInput = document.getElementById('input_propTaxGlobal');
+    const taxSlider = document.getElementById('slider_propTaxGlobal');
+    if (taxInput && taxSlider) {
+        const ratePct = (stateData.propertyTaxRate * 100).toFixed(2);
+        taxInput.value = ratePct;
+        taxSlider.value = valToSlider(ratePct, 'propTaxGlobal');
+        updateSliderVisual(taxSlider);
+    }
+    
+    const taxBadge = document.getElementById('badge_propTaxGlobal');
+    if(taxBadge) taxBadge.classList.add('visible');
+    if(taxSlider) updateSliderVisual(taxSlider);
+
+    updateInsuranceEstimate(stateCode, homePrice);
+}
+
+function updateInsuranceEstimate(stateCode, homePrice) {
+    const insInput = document.getElementById('input_insuranceGlobal');
+    const insSlider = document.getElementById('slider_insuranceGlobal');
+    if (insInput && insSlider) {
+        const estPremium = estimateInsurance(stateCode, homePrice);
+        insInput.value = estPremium;
+        insSlider.value = valToSlider(estPremium, 'insuranceGlobal');
+        updateSliderVisual(insSlider);
+    }
+    const insBadge = document.getElementById('badge_insuranceGlobal');
+    if(insBadge) insBadge.classList.add('visible');
+    if(insSlider) updateSliderVisual(insSlider);
+}
+
+function setupGlobalListeners() {
+    const stateSelect = document.getElementById('stateSelector');
+    stateSelect.addEventListener('change', () => {
+        updateGlobalDefaults();
+        triggerCalculation();
+    });
+    
+    const hideTaxBadge = () => document.getElementById('badge_propTaxGlobal').classList.remove('visible');
+    document.getElementById('input_propTaxGlobal').addEventListener('input', hideTaxBadge);
+    document.getElementById('slider_propTaxGlobal').addEventListener('input', hideTaxBadge);
+
+    const hideInsBadge = () => document.getElementById('badge_insuranceGlobal').classList.remove('visible');
+    document.getElementById('input_insuranceGlobal').addEventListener('input', hideInsBadge);
+    document.getElementById('slider_insuranceGlobal').addEventListener('input', hideInsBadge);
+
+    const handleDownPercentA = () => {
+        const price = cleanNumber(document.getElementById('input_homePriceA').value);
+        let percent = cleanNumber(document.getElementById('input_downPaymentPercentA').value);
+        if (percent > 100) percent = 100;
+        if (percent < 0) percent = 0;
+        const down = (percent / 100) * price;
+        syncInputs('downPaymentA', Math.round(down)); 
+    };
+    document.getElementById('input_downPaymentPercentA').addEventListener('input', handleDownPercentA);
+
+    const handleDownPercentD = () => {
+        const price = cleanNumber(document.getElementById('input_homePriceD').value);
+        let percent = cleanNumber(document.getElementById('input_downPaymentPercentD').value);
+        if (percent > 100) percent = 100;
+        if (percent < 0) percent = 0;
+        const down = (percent / 100) * price;
+        syncInputs('downPaymentD', Math.round(down)); 
+    };
+    if(document.getElementById('input_downPaymentPercentD')) {
+        document.getElementById('input_downPaymentPercentD').addEventListener('input', handleDownPercentD);
+    }
+    
+    document.getElementById('input_incomeUserA').addEventListener('input', (e) => {
+        const val = cleanNumber(e.target.value);
+        const slider = document.getElementById('slider_incomeUserA');
+        if(slider) {
+            slider.value = valToSlider(val, 'incomeUserA');
+            updateSliderVisual(slider);
+        }
+        triggerCalculation();
+    });
+    document.getElementById('slider_incomeUserA').addEventListener('input', (e) => {
+        const val = sliderToVal(parseFloat(e.target.value), 'incomeUserA');
+        document.getElementById('input_incomeUserA').value = Math.round(val);
+        updateSliderVisual(e.target);
+        triggerCalculation();
+    });
+    document.getElementById('input_cashUserA').addEventListener('input', (e) => {
+        const val = cleanNumber(e.target.value);
+        const slider = document.getElementById('slider_cashUserA');
+        if(slider) {
+            slider.value = valToSlider(val, 'cashUserA');
+            updateSliderVisual(slider);
+        }
+        triggerCalculation();
+    });
+    document.getElementById('slider_cashUserA').addEventListener('input', (e) => {
+        const val = sliderToVal(parseFloat(e.target.value), 'cashUserA');
+        document.getElementById('input_cashUserA').value = Math.round(val);
+        updateSliderVisual(e.target);
+        triggerCalculation();
+    });
+
+
+    document.getElementById('input_homePriceA').addEventListener('input', (e) => syncInputs('homePriceA', cleanNumber(e.target.value)));
+    document.getElementById('slider_homePriceA').addEventListener('input', (e) => syncInputs('homePriceA', sliderToVal(parseFloat(e.target.value), 'homePriceA')));
+    document.getElementById('input_downPaymentA').addEventListener('input', (e) => syncInputs('downPaymentA', cleanNumber(e.target.value)));
+    document.getElementById('slider_downPaymentA').addEventListener('input', (e) => syncInputs('downPaymentA', sliderToVal(parseFloat(e.target.value), 'downPaymentA')));
+    
+    const termSelect = document.getElementById('termA');
+    if(termSelect) termSelect.addEventListener('change', triggerCalculation);
+
+    const ioSelect = document.getElementById('ioPeriodC');
+    if(ioSelect) ioSelect.addEventListener('change', triggerCalculation);
+
+    const modeDids = ['loanTypeD', 'creditScoreD', 'vaDisabilityD', 'input_rateD'];
+    modeDids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.addEventListener('change', triggerCalculation);
+            el.addEventListener('input', triggerCalculation);
+        }
+    });
+    
+    document.getElementById('input_homeValueB').addEventListener('input', (e) => syncInputs('homeValueB', cleanNumber(e.target.value)));
+    document.getElementById('slider_homeValueB').addEventListener('input', (e) => syncInputs('homeValueB', sliderToVal(parseFloat(e.target.value), 'homeValueB')));
+    document.getElementById('input_homePriceC').addEventListener('input', (e) => syncInputs('homePriceC', cleanNumber(e.target.value)));
+    document.getElementById('slider_homePriceC').addEventListener('input', (e) => syncInputs('homePriceC', sliderToVal(parseFloat(e.target.value), 'homePriceC')));
+    document.getElementById('input_rateC').addEventListener('input', (e) => syncInputs('rateC', cleanNumber(e.target.value)));
+    document.getElementById('slider_rateC').addEventListener('input', (e) => syncInputs('rateC', sliderToVal(parseFloat(e.target.value), 'rateC')));
+    document.getElementById('input_homePriceD').addEventListener('input', (e) => syncInputs('homePriceD', cleanNumber(e.target.value)));
+    document.getElementById('slider_homePriceD').addEventListener('input', (e) => syncInputs('homePriceD', sliderToVal(parseFloat(e.target.value), 'homePriceD')));
+    document.getElementById('input_downPaymentD').addEventListener('input', (e) => syncInputs('downPaymentD', cleanNumber(e.target.value)));
+    document.getElementById('slider_downPaymentD').addEventListener('input', (e) => syncInputs('downPaymentD', sliderToVal(parseFloat(e.target.value), 'downPaymentD')));
+    document.getElementById('input_rateD').addEventListener('input', (e) => syncInputs('rateD', cleanNumber(e.target.value)));
+    document.getElementById('slider_rateD').addEventListener('input', (e) => syncInputs('rateD', sliderToVal(parseFloat(e.target.value), 'rateD')));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    populateStateDropdown();
+    initializeCustomDropdowns();
+    initializeSliders();
+    initializeModes();
+    initializeAdvancedToggle();
+    setupTooltipListeners();
+    setupGlobalListeners();
+    
+    setTimeout(() => {
+        updateGlobalDefaults(); 
+        const priceInput = document.getElementById('input_homePriceA');
+        if(priceInput) priceInput.dispatchEvent(new Event('input'));
+        
+        // Auto-update date in button
+        const btn = document.getElementById('ctaBtnA');
+        if(btn) {
+            const date = new Date();
+            const dateStr = date.toLocaleString('default', { month: 'short', year: 'numeric' });
+            btn.textContent = `See Today's Rates (${dateStr})`;
+        }
+    }, 50);
+});
