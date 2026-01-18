@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Accident Calculator & Settlement Guide (2026 Edition)</title>
+    <meta name="description" content="Calculate your car accident settlement value. Comprehensive guide on pain and suffering, medical liens, lost wages, Uber/Lyft crashes, and negotiating with insurance adjusters.">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+
+        <h1>Car Accident Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Understand your claim value.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Car Accident Calculator</span>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+            </div>
+
+            <!-- MAIN GRID CONTAINER FOR ALL INPUT SECTIONS -->
+            <div class="input-grid-container">
+
+                <!-- SECTION 1 -->
+                <div class="section-header">
+                    <h3>Accident Details</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Where did it happen?</label>
+                    <div class="custom-dropdown-container" id="stateDropdownWrapper">
+                        <!-- JS Will Populate Options Here -->
+                        <select id="stateSelector" class="hidden-select">
+                            <!-- Populated via script.js -->
+                        </select>
+                        <button class="custom-dropdown-trigger">Select State</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <!-- Populated via script.js -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Your location determines fault rules and liability caps.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Date of Accident</label>
+                    <div class="custom-dropdown-container" id="datePickerContainer">
+                        <!-- Custom Date Display (Trigger) -->
+                        <button type="button" class="custom-date-trigger" id="dateTrigger">Select Date</button>
+                        
+                        <!-- Hidden Real Input -->
+                        <input type="hidden" id="accidentDateHidden">
+
+                        <!-- Custom Calendar Popup (White Borderless Block) -->
+                        <div class="custom-calendar-popup" id="customCalendar">
+                            <div class="calendar-header">
+                                <button type="button" id="prevMonth">&lt;</button>
+                                <span id="currentMonthYear">January 2026</span>
+                                <button type="button" id="nextMonth">&gt;</button>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-name">Su</div>
+                                <div class="calendar-day-name">Mo</div>
+                                <div class="calendar-day-name">Tu</div>
+                                <div class="calendar-day-name">We</div>
+                                <div class="calendar-day-name">Th</div>
+                                <div class="calendar-day-name">Fr</div>
+                                <div class="calendar-day-name">Sa</div>
+                                <!-- Days injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Essential for determining if the Statute of Limitations has expired.</div>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Other Driver's Insurance</label>
+                    <div class="custom-dropdown-container">
+                        <select id="driverInsurance" class="hidden-select">
+                            <option value="state_min" selected>State Minimum</option>
+                            <option value="25k">$25,000 Limit</option>
+                            <option value="50k">$50,000 Limit</option>
+                            <option value="100k">$100,000 Limit</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">State Minimum</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="state_min">State Minimum</div>
+                                <div class="dropdown-option" data-value="25k">$25,000 Limit</div>
+                                <div class="dropdown-option" data-value="50k">$50,000 Limit</div>
+                                <div class="dropdown-option" data-value="100k">$100,000 Limit</div>
+                                <div class="dropdown-option" data-value="unknown">Unknown</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">If unknown, we assume State Minimum for safety.</div>
+                </div>
+
+                <!-- SECTION 2 -->
+                <div class="section-header">
+                    <h3>Economic Damages</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Medical Bills ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_medicalBills" value="5000">
+                        <input type="range" id="slider_medicalBills" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Enter full billed amount, not just co-pay.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Did Insurance Pay?</label>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label" id="insurancePaidLabel">No</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="insurancePaidToggle">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <!-- FAKE SLIDER (Empty Track) -->
+                    <div class="fake-slider"></div>
+                    <div class="disclosure-text">If yes, your health insurer may claim a lien (repayment) from your settlement.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Lost Wages ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_lostWages" value="0">
+                        <input type="range" id="slider_lostWages" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Includes past missed hours and loss of future earning capacity.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Property Damage ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_propDamage" value="2000">
+                        <input type="range" id="slider_propDamage" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Repair costs or the fair market value of your vehicle if totaled.</div>
+                </div>
+
+                <!-- SECTION 3 -->
+                <div class="section-header">
+                    <h3>Injury Assessment</h3>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Injury Severity</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="soft" checked> Soft Tissue
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="fracture"> Fracture
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="surgery"> Surgery
+                        </label>
+                    </div>
+                    <div class="disclosure-text">Objective medical evidence (like MRI/X-Ray) significantly increases value.</div>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Life Impact Audit (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="meds"> Daily Pain Meds
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="work"> Missed Work > 1 Mo
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="anxiety"> Anxiety / PTSD
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="scarring"> Visible Scarring
+                        </label>
+                    </div>
+                    
+                    <!-- Visual Severity Meter -->
+                    <div class="severity-bar-container">
+                        <div class="severity-bar-fill" id="severityBar" style="width: 25%;"></div>
+                    </div>
+                    <div class="disclosure-text">This intensity score adjusts the multiplier for your Pain & Suffering damages.</div>
+                </div>
+
+                <!-- SECTION 4 -->
+                <div class="section-header">
+                    <h3>Case Factors</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Your Fault %</label>
+                    <div class="input-group">
+                        <input type="number" id="input_faultShare" value="0" max="100">
+                        <input type="range" id="slider_faultShare" min="0" max="100" value="0">
+                    </div>
+                    <div class="disclosure-text">Be realistic; adjusters will aggressively assign blame to reduce payouts.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Hiring Attorney?</label>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label" id="attorneyLabel">Yes</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="attorneyToggle" checked>
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <!-- FAKE SLIDER (Empty Track) -->
+                    <div class="fake-slider"></div>
+                    <div class="disclosure-text">Calculates the standard 33.3% contingency fee deduction.</div>
+                </div>
+
+            </div> <!-- End Input Grid -->
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            <h2>Results</h2>
+            
+            <div id="results-display-container">
+                
+                <!-- SECTION 5: THE WATERFALL -->
+                <div class="gross-value-container">
+                    <div class="gross-value-label">Estimated Case Value</div>
+                    <div class="gross-value-number" id="grossValue">$45,000 - $52,000</div>
+                    
+                    <!-- Hidden by default, shown via JS logic later -->
+                    <div class="policy-limit-warning hidden" id="policyLimitWarning">
+                        <span class="warning-text">Uncollectible (Exceeds Policy Limits)</span>
+                    </div>
+                </div>
+
+                <div class="waterfall-container">
+                    <div class="chart-title">Where the money goes:</div>
+                    <div class="stacked-bar-chart">
+                        <!-- Placeholder Widths -->
+                        <div class="bar-segment attorney" style="width: 33%;">
+                            <span>Attorney</span>
+                        </div>
+                        <div class="bar-segment liens" style="width: 20%;">
+                            <span>Liens</span>
+                        </div>
+                        <div class="bar-segment net" style="width: 47%;">
+                            <span>Your Net</span>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item"><span class="dot attorney"></span>Attorney</div>
+                        <div class="legend-item"><span class="dot liens"></span>Liens</div>
+                        <div class="legend-item"><span class="dot net"></span><strong>You</strong></div>
+                    </div>
+                </div>
+
+                <!-- SECTION 6: THE VERDICT -->
+                <div class="verdict-container" id="verdictCard">
+                    <div class="verdict-icon">⚖️</div>
+                    <div class="verdict-text">
+                        Serious Injury detected. Insurance adjusters will try to minimize this. Professional representation is recommended.
+                    </div>
+                </div>
+
+                <!-- SECTION 7: CALL TO ACTION -->
+                <a href="tel:YOUR_NUMBER_HERE" class="cta-card">
+                    <div class="cta-content">
+                        <div class="cta-text-group">
+                            <span class="cta-title">Get Free Attorney Case Review</span>
+                            <span class="cta-subtitle">Call now for a free consultation</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SEO & CONTENT SECTION (MASSIVELY EXPANDED) -->
+    <div class="seo-section-wrapper">
+        <div class="seo-container">
+            
+            <div class="seo-header">
+                <h2>The 2026 Car Accident Settlement Guide</h2>
+                <p class="seo-intro-text">A complete breakdown of claim values, insurance negotiation, and legal strategies for maximizing compensation.</p>
+            </div>
+
+            <div class="seo-content-block">
+                
+                <!-- ARTICLE CONTENT START -->
+                <div class="seo-article">
+                    
+                    <!-- CHAPTER 1: IMMEDIATE STEPS -->
+                    <h3>1. The "Golden Hour": Protecting Your Claim Immediately</h3>
+                    <p>
+                        The first hour after a collision is critical. Insurance companies often deploy "Rapid Response Teams" to gather evidence to lower your payout. You must be equally proactive.
+                    </p>
+                    <ul class="seo-list">
+                        <li><strong>Police Report (Crash Exchange):</strong> This is the foundation of your claim. In states like Texas and California, a police report acts as the primary leverage for liability. Ensure the officer notes any admissions of guilt by the other driver.</li>
+                        <li><strong>Photos of Context:</strong> Don't just photograph the damage. Photograph skid marks, weather conditions, obscured traffic signs, and the other driver's license plate.</li>
+                        <li><strong>Medical Triage:</strong> Adrenaline masks pain. A delay in seeking medical care (known as a "Gap in Treatment") is the #1 reason claims are devalued. Go to Urgent Care or the ER immediately if you feel any discomfort.</li>
+                    </ul>
+
+                    <!-- CHAPTER 2: INSURANCE TYPES -->
+                    <h3>2. Insurance Coverage Types Explained</h3>
+                    <p>
+                        Your settlement is often capped by insurance policy limits. Understanding these acronyms is vital for your financial recovery.
+                    </p>
+                    
+                    <div class="info-card">
+                        <h4>The "Alphabet Soup" of Coverage</h4>
+                        <ul class="plain-list">
+                            <li><strong>BI (Bodily Injury):</strong> The at-fault driver's insurance. This pays for your pain, suffering, and bills.</li>
+                            <li><strong>PD (Property Damage):</strong> Pays for your vehicle repairs. This is usually handled separately from the injury claim.</li>
+                            <li><strong>UIM (Uninsured/Underinsured Motorist):</strong> CRITICAL COVERAGE. If your claim is worth $100k, but the other driver only has $25k coverage, your UIM policy pays the remaining $75k.</li>
+                            <li><strong>PIP / MedPay:</strong> "No-Fault" benefits that pay your medical bills immediately, regardless of who caused the crash. Mandatory in FL, NY, NJ, UT, etc.</li>
+                            <li><strong>Gap Insurance:</strong> Covers the difference if you owe more on your car loan than the car is actually worth.</li>
+                        </ul>
+                    </div>
+
+                    <!-- CHAPTER 3: INJURY VALUATION -->
+                    <h3>3. Valuing Specific Injuries (Whiplash vs. Fractures)</h3>
+                    <p>
+                        Insurance adjusters use software like "Colossus" to calculate value. They look for "Objective Injuries" (visible on X-Ray/MRI) versus "Subjective Injuries" (Pain).
+                    </p>
+                    <p><strong>Whiplash & Soft Tissue:</strong> Often valued at 1.5x to 2.5x medical bills. Documentation is key here. You need consistent physical therapy records to prove the pain is real.</p>
+                    <p><strong>Fractures & Surgery:</strong> These trigger higher multipliers (3x to 5x+). Broken bones are objective evidence of high-impact force. Cases involving surgery often demand full policy limits.</p>
+                    <p><strong>Concussions (TBI):</strong> Mild Traumatic Brain Injuries are high-value but hard to prove. Symptoms like memory loss, dizziness, or photosensitivity must be documented by a neurologist.</p>
+
+                    <!-- CHAPTER 4: RIDESHARE & TRUCKS -->
+                    <h3>4. Uber, Lyft, and Commercial Truck Accidents</h3>
+                    <p>
+                        Accidents involving commercial vehicles differ significantly from standard car crashes due to the insurance limits involved.
+                    </p>
+                    <ul class="seo-list">
+                        <li><strong>Uber & Lyft:</strong> If the app was ON and they had a passenger (Period 3), these companies typically provide a <strong>$1,000,000</strong> liability policy. This is huge for serious injury cases. If the app was off, only personal insurance applies.</li>
+                        <li><strong>Commercial Trucks (18-Wheelers):</strong> Federal law requires commercial trucks to carry substantially higher minimums ($750k to $5M). However, trucking companies fight aggressively, often blaming the victim for "blind spot" violations.</li>
+                    </ul>
+
+                    <!-- CHAPTER 5: NEGOTIATION TACTICS -->
+                    <h3>5. Secrets of Insurance Negotiation</h3>
+                    <p>
+                        Adjusters are trained to close files quickly and cheaply. Here are common tactics they use:
+                    </p>
+                    <ul class="seo-list">
+                        <li><strong>The "Swoop and Settle":</strong> Offering $500 to $1,000 immediately after the crash. If you sign, you waive all future rights, even if you need surgery later.</li>
+                        <li><strong>The "Recorded Statement":</strong> They will ask you to give a statement on tape. They will ask "How are you?" hoping you say "I'm fine" out of politeness. This recording will be used to deny your injury claim.</li>
+                        <li><strong>Pre-Existing Condition Argument:</strong> They will claim your back pain is from age or an old sports injury, not the crash. You need a doctor to write a causation letter stating the crash aggravated the condition.</li>
+                    </ul>
+
+                </div>
+                <!-- ARTICLE CONTENT END -->
+
+                <!-- FAQ SECTION (NOW MOVED TO BOTTOM) -->
+                <div class="seo-faq-section">
+                    <h3>Frequently Asked Questions</h3>
+                    
+                    <div class="faq-grid">
+                        
+                        <div class="faq-item">
+                            <h4>How long does a settlement take?</h4>
+                            <p>Simple cases typically settle 30-90 days <em>after</em> you finish medical treatment. Litigation cases (filing a lawsuit) can take 1-3 years.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Is my settlement taxable?</h4>
+                            <p>Generally, no. The IRS excludes settlements for "physical bodily injury" from income tax. However, interest and punitive damages are taxable.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>What if the other driver fled (Hit & Run)?</h4>
+                            <p>You must file a claim under your own Uninsured Motorist (UM) coverage. It typically does not raise your rates if you were not at fault.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>What is a Medical Lien?</h4>
+                            <p>If health insurance (or Medicare) pays your bills, they have a right to be paid back from your settlement. This is called "subrogation."</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Can I claim for Diminished Value?</h4>
+                            <p>Yes. If your car is repaired but now has a "wrecked" history, it is worth less. You can demand the insurance company pay this difference.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h4>How much do lawyers charge?</h4>
+                            <p>Most personal injury attorneys work on contingency. They take 33.3% of the settlement. If they don't win, you pay $0.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>What is "Loss of Consortium"?</h4>
+                            <p>A legal claim for the spouse of an injured person, compensating for loss of companionship, affection, and household help.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Does "Fault" vary by state?</h4>
+                            <p>Yes. In "No-Fault" states (like FL), your own insurance pays bills first. In "Tort" states (like CA), the at-fault driver pays.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- SEO CONTENT SECTION END -->
+
+    <script src="script.js"></script>
+</body>
+</html>
