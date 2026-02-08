@@ -296,7 +296,7 @@
 
     <footer>
         <div class="footer-container">
-            <p>&copy; 2025 Solveria. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2026</span> Solveria. All rights reserved.</p>
             <div class="footer-nav">
                 <a href="../privacy-policy/">Privacy Policy</a>
                 <a href="../about/">About Us</a>
@@ -304,6 +304,15 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const yearSpan = document.getElementById("copyright-year");
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
 
 </body>
 </html>
