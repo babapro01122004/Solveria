@@ -101,12 +101,12 @@
             flex-direction: column;
         }
 
-        /* Navigation Container */
+        /* Navigation Container - WIDE (Edge to Edge) */
         .nav-container {
-            max-width: 1400px;
             width: 100%;
+            max-width: 100%; /* Spread to edges */
             margin: 0 auto;
-            padding: 1.5rem 1rem;
+            padding: 1.5rem 2.5rem; /* Padding to keep it off the literal pixel edge */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -184,7 +184,16 @@
         .article-body ul { padding-left: 20px; list-style-type: disc; }
         .article-body a { color: #047857; text-decoration: none; font-weight: 400; }
         .article-body a:hover { text-decoration: underline; }
-        .article-body .last-updated { font-style: italic; color: #888; font-size: 0.9rem; margin-bottom: 30px; display: block; border-bottom: 1px solid #eee; padding-bottom: 20px;}
+        
+        /* UPDATED: Removed border-bottom and padding-bottom */
+        .article-body .last-updated { 
+            font-style: italic; 
+            color: #888; 
+            font-size: 0.9rem; 
+            margin-bottom: 30px; 
+            display: block; 
+        }
+        
         .article-body strong { font-weight: 500; color: #222; }
 
         /* Standardized Footer */
@@ -195,13 +204,17 @@
             font-weight: 300;
             color: #6e6e73;
         }
+        
+        /* Footer Container - ORIGINAL WIDTH (Not Edge to Edge) */
         .footer-container {
-            max-width: 1400px;
+            max-width: 1400px; /* Kept at original limited width */
+            width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        
         .footer-nav {
             display: flex;
             gap: 1.5rem;

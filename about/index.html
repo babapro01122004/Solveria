@@ -117,14 +117,17 @@
             width: 100%;
             z-index: 10;
         }
+        
+        /* UPDATED: Changed max-width to 100% and adjusted padding to push elements to edges */
         .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px 40px; /* Narrower internal margins closer to edge */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        
         .header .logo img {
             height: 35px;
             width: auto;
