@@ -15,13 +15,13 @@
     <meta property="og:url" content="https://solveria.org/terms-of-use/">
     <meta property="og:title" content="Terms of Use | Solveria">
     <meta property="og:description" content="Legal terms and conditions for using Solveria's automated calculation tools and SaaS platform.">
-    <meta property="og:image" content="https://solveria.org/img/terms%20of%20use.jpg">
+    <meta property="og:image" content="https://solveria.org/img/privacy%20policy.webp">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/terms-of-use/">
     <meta property="twitter:title" content="Terms of Use | Solveria">
     <meta property="twitter:description" content="Legal terms and conditions for using Solveria's automated calculation tools and SaaS platform.">
-    <meta property="twitter:image" content="https://solveria.org/img/terms%20of%20use.jpg">
+    <meta property="twitter:image" content="https://solveria.org/img/privacy%20policy.webp">
     
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -31,7 +31,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <link rel="preload" href="../img/terms%20of%20use.jpg" as="image">
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +93,8 @@
         .hero-header {
             width: 100%;
             height: 450px;
-            background-image: url('../img/terms%20of%20use.jpg');
+            /* Updated to use the requested privacy policy image */
+            background-image: url('../img/privacy%20policy.webp');
             background-size: cover;
             background-position: center center;
             position: relative;
@@ -104,27 +105,27 @@
         /* Navigation Container - WIDE (Edge to Edge) */
         .nav-container {
             width: 100%;
-            max-width: 100%; /* Spread to edges */
+            max-width: 100%;
             margin: 0 auto;
-            padding: 1.5rem 2.5rem; /* Padding to keep it off the literal pixel edge */
+            padding: 1.5rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Logo Styling with DROP SHADOW */
+        /* Logo Styling */
         .logo img {
             height: 38px;
             width: auto;
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
         }
 
-        /* Nav Text Styling - THIN FONT - SENTENCE CASE */
+        /* Nav Text Styling */
         .hero-header nav a {
             color: #ffffff; 
             text-decoration: none; 
             font-size: 0.95rem; 
-            font-weight: 300; /* Roboto Light/Thin look */
+            font-weight: 300; 
             margin-left: 30px;
             letter-spacing: 0.5px; 
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
@@ -136,7 +137,7 @@
             text-shadow: 0 4px 8px rgba(0, 0, 0, 1);
         }
 
-        /* Hero Content (The H1) - THIN FONT */
+        /* Hero Content (The H1) */
         .hero-content {
             flex-grow: 1;
             display: flex;
@@ -165,27 +166,30 @@
             margin: 0 auto;
         }
 
+        /* Breadcrumb */
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
         .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
         .breadcrumb a:hover { color: #000; }
         .breadcrumb span { margin: 0 8px; color: #ccc; }
         .breadcrumb .current-page { color: #333; font-weight: 400; }
         
+        /* Article Typography */
         .article-body h2 {
             font-size: 1.8rem; font-weight: 300;
             color: #333; margin-top: 40px; margin-bottom: 20px;
             border-bottom: 1px solid #eee; padding-bottom: 10px;
         }
         .article-body h2:first-of-type { margin-top: 10px; }
+        
         .article-body h3 {
             font-size: 1.3rem; font-weight: 400; color: #444; margin-top: 30px; margin-bottom: 10px;
         }
+        
         .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 1em; }
         .article-body ul { padding-left: 20px; list-style-type: disc; }
         .article-body a { color: #047857; text-decoration: none; font-weight: 400; }
         .article-body a:hover { text-decoration: underline; }
         
-        /* UPDATED: Removed border-bottom and padding-bottom */
         .article-body .last-updated { 
             font-style: italic; 
             color: #888; 
@@ -205,9 +209,8 @@
             color: #6e6e73;
         }
         
-        /* Footer Container - ORIGINAL WIDTH (Not Edge to Edge) */
         .footer-container {
-            max-width: 1400px; /* Kept at original limited width */
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
             display: flex;

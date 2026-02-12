@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact & Support Operations | Solveria</title>
+    <title>Contact Us | Solveria</title>
     
     <meta name="description" content="Contact Solveria support operations. Direct routing for technical anomalies, strategic partnerships, and legal compliance inquiries. Mon-Fri 9AM-5PM EST.">
     
@@ -18,13 +18,13 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/contact/">
-    <meta property="og:title" content="Contact & Support Operations | Solveria">
+    <meta property="og:title" content="Contact Us | Solveria">
     <meta property="og:description" content="Contact Solveria support operations. Direct routing for technical anomalies, strategic partnerships, and legal compliance inquiries.">
     <meta property="og:image" content="https://solveria.org/img/contact-us.webp">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/contact/">
-    <meta property="twitter:title" content="Contact & Support Operations | Solveria">
+    <meta property="twitter:title" content="Contact Us | Solveria">
     <meta property="twitter:description" content="Contact Solveria support operations. Direct routing for technical anomalies, strategic partnerships, and legal compliance inquiries.">
     <meta property="twitter:image" content="https://solveria.org/img/contact-us.webp">
 
@@ -83,7 +83,7 @@
           "@type": "ContactPage",
           "@id": "https://solveria.org/contact/#webpage",
           "url": "https://solveria.org/contact/",
-          "name": "Contact & Support Operations | Solveria",
+          "name": "Contact Us | Solveria",
           "description": "Operational contact dispatch for Solveria. Technical support, partnerships, and compliance routing.",
           "isPartOf": { "@id": "https://solveria.org/#website" },
           "breadcrumb": { "@id": "https://solveria.org/contact/#breadcrumb" },
@@ -126,10 +126,9 @@
             z-index: 10;
         }
         .header-container {
-            /* Full width with minimal padding to push content to edges */
             width: 100%;
             max-width: none; 
-            padding: 20px 40px; /* 40px padding pushes logos to the edge but keeps them safe */
+            padding: 20px 40px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -149,7 +148,8 @@
         .hero-section {
             height: 50vh;
             min-height: 300px;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/contact-us.webp'); 
+            /* OVERLAY REMOVED - NOW 100% TRANSPARENT */
+            background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../img/privacy policy.webp'); 
             background-color: #333; 
             background-size: cover;
             background-position: center;
@@ -230,17 +230,15 @@
         /* Footer */
         footer {
             background-color: #f5f5f7;
-            padding: 2.5rem 0; /* Remove side padding to match header logic */
+            padding: 2.5rem 0; 
             font-size: 0.875rem;
             font-weight: 300;
             color: #6e6e73;
         }
         .footer-container {
-            /* Match Header width */
             width: 100%;
             max-width: none;
             padding: 0 40px;
-            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -258,9 +256,7 @@
         @media (min-width: 768px) {
             .footer-container {
                 flex-direction: row;
-                /* Center alignment */
                 justify-content: center;
-                /* UPDATED: Massive gap of 25rem (approx 400px) */
                 gap: 60rem; 
             }
             .footer-nav {
