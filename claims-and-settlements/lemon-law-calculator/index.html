@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemon Law Calculator & Refund Estimator (50 State Compliant)</title>
+    <meta name="description" content="Free Lemon Law Calculator. Estimate your buyback refund, calculate mileage offsets, and check case strength eligibility for California, Texas, Florida, and all 50 states.">
+    <meta name="keywords" content="Lemon Law Calculator, Car Refund Estimator, Lemon Law Buyback Formula, Mileage Offset Calculator, State Lemon Laws, Auto Warranty Refund, Leased Car Lemon Law, Magnuson-Moss Warranty Act">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lemon Law Calculator & Refund Estimator">
+    <meta property="og:description" content="Calculate your potential Lemon Law refund and check case eligibility instantly.">
+    <meta property="og:image" content="../../img/hero-social.webp">
+    <meta property="og:url" content="https://solveria.org/calculators/lemon-law">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://solveria.org/calculators/lemon-law">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Lemon Law Calculator",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "A hybrid engine to calculate Lemon Law buyback amounts and determine case strength based on state-specific statutes."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How is the Lemon Law mileage offset calculated?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The mileage offset (or usage deduction) is calculated by multiplying the purchase price by the miles driven at the first repair attempt, divided by a statutory divisor (typically 120,000 in CA/TX, or 100,000 in other states)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Lemon Law apply to leased vehicles?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Leased vehicles are fully covered under Lemon Laws in most states. The refund formula is similar, but the payoff goes to the leasing company first, with the remaining equity and lease payments returned to the consumer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the Magnuson-Moss Warranty Act?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Often called the 'Federal Lemon Law,' this Act protects consumers in all 50 states. It provides relief for breach of warranty even if a vehicle doesn't meet the strict state-level Lemon Law definition (e.g., used cars in Florida)."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" loading="lazy" width="150" height="150">
+
+        <h1>Lemon Law Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Validate your frustration.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Auto</a>
+        <span class="separator">/</span>
+        <span class="current-page">Lemon Law Calculator</span>
+    </nav>
+
+    <!-- CORE QUESTION (Placed ABOVE the Tool) -->
+    <div class="seo-intro-block">
+        <h2>Is Your Vehicle Legally a Lemon?</h2>
+        <p>
+            It is not just about a car breaking down; it is about the "Statutory Presumption." 
+            Most US states have a specific legal formula involving <strong>days out of service</strong>, <strong>repair attempts</strong>, 
+            and a <strong>mileage offset deduction</strong> to determine if a manufacturer is legally required to buy back your vehicle. 
+            Use the engine below to verify if your vehicle meets these strict legal thresholds in your specific state.
+        </p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn hidden">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a" 
+                        data-title="Case Strength Quiz" 
+                        data-desc="Validate frustration and determine eligibility.">
+                    <img src="../../img/1.jpg" alt="Checklist" loading="lazy">
+                    <span>Case Strength</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" 
+                        data-title="Refund Estimator" 
+                        data-desc="Estimate potential buyback value and usage offset.">
+                    <img src="../../img/2.jpg" alt="Calculator" loading="lazy">
+                    <span>Refund Estimator</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS (Always Visible) -->
+            <div class="global-settings">
+                <h3 class="input-sub-heading">Global Configuration</h3>
+                <div class="input-wrapper full-width-span">
+                    <label>Select Your State</label>
+                    <div class="custom-dropdown-container">
+                        <!-- Options populated via JS from US_STATES -->
+                        <select id="stateSelector" class="hidden-select"></select>
+                        <button class="custom-dropdown-trigger" id="stateTrigger">California</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper" id="stateOptionsWrapper">
+                                <!-- Options populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Lemon Laws vary by state. We use this to reflect the specific patterns and mileage formulas for where you live.</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: Case Strength Quiz -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                <h3 class="input-sub-heading">Case Details</h3>
+                
+                <div class="input-wrapper full-width-span">
+                    <label>Vehicle Status</label>
+                    <div class="button-group" id="bg_vehicleStatus">
+                        <button type="button" class="select-btn selected" data-value="New">New</button>
+                        <button type="button" class="select-btn" data-value="Used">Used</button>
+                        <button type="button" class="select-btn" data-value="Leased">Leased</button>
+                    </div>
+                    <!-- Generic Warning Container (Populated by JS Data) -->
+                    <div id="state-warning" class="disclosure-text warn hidden" style="color: #e67e22; font-weight: 500;"></div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Time Since Purchase</label>
+                    <div class="button-group" id="bg_timePurchase">
+                        <button type="button" class="select-btn selected" data-value="<18"> &lt; 18 Mo</button>
+                        <button type="button" class="select-btn" data-value="18-36">18–36 Mo</button>
+                        <button type="button" class="select-btn" data-value="3+">3+ Yrs</button>
+                    </div>
+                    <div class="disclosure-text">Older vehicles face higher scrutiny.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Repair Attempts (Same Issue)</label>
+                    <div class="button-group" id="bg_repairAttempts">
+                        <button type="button" class="select-btn" data-value="1">1</button>
+                        <button type="button" class="select-btn selected" data-value="2">2</button>
+                        <button type="button" class="select-btn" data-value="3">3</button>
+                        <button type="button" class="select-btn" data-value="4+">4+</button>
+                    </div>
+                    <div class="disclosure-text">Visits to the shop for the exact same defect.</div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Days Out of Service (Total)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_daysService" value="10">
+                        <input type="range" id="slider_daysService" min="0" max="45">
+                    </div>
+                    <div class="disclosure-text">Cumulative days your car has been in the shop.</div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Defect Type</label>
+                    <div class="button-group" id="bg_defectType">
+                        <button type="button" class="select-btn selected" data-value="General">General Issue</button>
+                        <button type="button" class="select-btn" data-value="Safety">Safety Defect</button>
+                    </div>
+                    <div class="disclosure-text">Safety includes brakes, steering, or stalling.</div>
+                </div>
+            </div>
+
+            <!-- MODE B: Refund Estimator -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Financial Inputs</h3>
+                
+                <!-- Basic Inputs -->
+                <div class="input-wrapper">
+                    <label>Vehicle Purchase Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_priceB" value="35000">
+                        <input type="range" id="slider_priceB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total cash price on your contract (excluding interest).</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Usage Offset Mileage</label>
+                    <div class="input-group">
+                        <input type="number" id="input_milesB" value="4000">
+                        <input type="range" id="slider_milesB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Miles on odometer when the problem <strong>first</strong> started.</div>
+                </div>
+
+                <!-- Advanced Inputs -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Debt & Costs</h3>
+                    <div class="input-wrapper">
+                        <label>Current Loan Payoff ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_loanB" value="25000">
+                            <input type="range" id="slider_loanB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Amount currently owed to the bank.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Incidental Costs ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_incidentalsB" value="500">
+                            <input type="range" id="slider_incidentalsB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Towing, rentals, and repair costs you paid.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <div id="results-display-container">
+                <h2>Results</h2>
+                
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons-row">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print">Print</button>
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+
+                <!-- Mode A Results: Traffic Light Signal -->
+                <div id="mode-a-results" class="mode-results">
+                    <div id="lemon-signal-banner" class="signal-card grey">
+                        <h3 class="signal-headline" id="signal-head">Outside Typical Patterns</h3>
+                        <p class="signal-msg" id="signal-msg">Based on these inputs, this does not yet align with common Lemon Law scenarios. However, federal warranty laws may still apply.</p>
+                        <div class="signal-action" id="signal-action">Keep documenting all repairs.</div>
+                    </div>
+                </div>
+
+                <!-- Mode B Results: Refund Estimator -->
+                <div id="mode-b-results" class="mode-results hidden">
+                    <h3 class="result-sub-heading">Usage Offset</h3>
+                    
+                    <!-- Result A: The Visual Bar -->
+                    <div class="offset-bar-wrapper">
+                        <div class="offset-bar-container">
+                            <div id="bar-refund" class="offset-segment green" style="width: 90%;"></div>
+                            <div id="bar-deduction" class="offset-segment red" style="width: 10%;"></div>
+                        </div>
+                        <div class="offset-labels">
+                            <span class="offset-label green-text">Potential Refund</span>
+                            <span class="offset-label red-text">Mileage Deduction</span>
+                        </div>
+                        <div class="disclosure-text">Driving more before the issue is reported reduces the final value.</div>
+                    </div>
+
+                    <h3 class="result-sub-heading">Financial Estimate</h3>
+                    
+                    <!-- Result B: Total Recovery -->
+                    <div class="result-row">
+                        <div class="result-box full-width">
+                            <span class="result-label">Estimated Total Recovery</span>
+                            <span class="result-value" id="res_totalRecoveryB">$33,833</span>
+                            <div class="disclosure-text" id="res_deductionTextB">Includes an estimated deduction of ~$1,166 for the usage offset.</div>
+                        </div>
+                    </div>
+
+                    <!-- Result C: Who Gets What (Conditional) -->
+                    <div id="split-results-B" class="advanced-content"> 
+                        <h3 class="result-sub-heading">Who Gets What</h3>
+                        <div class="result-row">
+                            <div class="result-box alt">
+                                <span class="result-label">To the Bank</span>
+                                <span class="result-value" id="res_bankPayB">$25,000</span>
+                            </div>
+                            <div class="result-box alt">
+                                <span class="result-label">Cash to You</span>
+                                <span class="result-value good" id="res_userCashB">$8,833</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- TOOLTIP ELEMENT -->
+        <div id="cursor-tooltip" class="cursor-tooltip"></div>
+
+    </div>
+
+    <!-- SEO DEEP DIVE CONTENT (Placed BELOW the Tool) -->
+    <div class="seo-content-block">
+        <h2>Deep Dive: Understanding Lemon Law Buybacks</h2>
+        <p>
+            When a vehicle is deemed a "Lemon," the manufacturer is typically required to buy it back or replace it. However, this is rarely a 100% refund of every dollar you spent. The <strong>Refund Estimator</strong> (Mode B above) helps you calculate the <em>Usage Offset</em> (or mileage deduction), which is the specific amount the manufacturer is legally allowed to deduct from your settlement for the time you drove the car trouble-free.
+        </p>
+        
+        <h3>1. The Mileage Offset Formula</h3>
+        <p>
+            The most critical part of any Lemon Law negotiation is the "Usage Offset." This is not an arbitrary number; it is defined by state statute. 
+            <br><br>
+            In states like <strong>California</strong> (under the Song-Beverly Consumer Warranty Act) and <strong>Texas</strong>, the formula is: 
+            <br><em>(Purchase Price × Mileage at First Repair Attempt) / 120,000</em>. 
+            <br><br>
+            In other jurisdictions like <strong>New Jersey</strong> or <strong>Massachusetts</strong>, the divisor might be 100,000. Our calculator automatically adjusts this divisor based on the state you select in the Global Configuration settings above. The lower the mileage when you <em>first</em> reported the defect, the higher your refund will be.
+        </p>
+
+        <h3>2. What Qualifies as a "Reasonable Number" of Attempts?</h3>
+        <p>
+            Federal and State laws require you to give the manufacturer a "reasonable opportunity" to fix the vehicle. While this varies by state, the general legal consensus (and what our <strong>Case Strength</strong> tool checks for) is:
+        </p>
+        <ul style="margin-left: 20px; color: #555; line-height: 1.6; margin-bottom: 20px;">
+            <li><strong>4 Attempts</strong> for a general defect that impacts value or use.</li>
+            <li><strong>2 Attempts</strong> for a serious safety defect (e.g., brakes, steering, stalling).</li>
+            <li><strong>30 Days</strong> cumulative time out of service (in the shop), regardless of the number of attempts.</li>
+        </ul>
+
+        <h3>3. Does Lemon Law Apply to Used Cars?</h3>
+        <p>
+            This is the most common misconception. The answer depends entirely on your jurisdiction:
+            <br>
+            <strong>California:</strong> Yes, used cars are covered <em>if</em> they are sold with a written warranty (usually the balance of the manufacturer's original warranty).
+            <br>
+            <strong>New York:</strong> Yes, NY has a specific "Used Car Lemon Law" for vehicles purchased for more than $1,500 with less than 100,000 miles.
+            <br>
+            <strong>Florida & Texas:</strong> Generally, no. These states restrict Lemon Law remedies to new vehicles only.
+        </p>
+
+        <h3>4. What About Negative Equity?</h3>
+        <p>
+            Lemon Law buybacks are designed to make you "whole," which means paying off the loan balance associated with the <em>lemon vehicle</em> and refunding your down payment and monthly payments. However, if you rolled over negative equity (debt) from a previous trade-in into your current loan, the manufacturer is typically <strong>not</strong> responsible for paying that portion of the debt. You may still owe the bank for that prior negative equity even after a successful buyback.
+        </p>
+
+        <h3>5. Lemon Law for Leased Vehicles</h3>
+        <p>
+            If you lease your vehicle, you are typically entitled to the same protections as a purchaser. However, the disbursement of funds differs. In a <strong>lease buyback</strong>, the manufacturer will pay the remaining lease balance directly to the financial institution (the lessor). The consumer is usually refunded the down payment (capitalized cost reduction) and the monthly lease payments made to date, minus the usage offset.
+        </p>
+
+        <h3>6. The "Federal Lemon Law" (Magnuson-Moss Warranty Act)</h3>
+        <p>
+            If your vehicle does not meet the strict mileage or age requirements of your specific state's Lemon Law (e.g., you bought a used car in Florida), you may still have a claim under the <strong>Magnuson-Moss Warranty Act</strong>. This federal law governs consumer product warranties and can provide cash compensation for the diminished value of the vehicle and legal fees, even if a full buyback is not awarded.
+        </p>
+
+        <h3>7. The Demand Letter & Documentation</h3>
+        <p>
+            The legal process typically begins with a formal <strong>Demand Letter</strong>sent to the manufacturer. This letter outlines the vehicle's history, the defects, and the repair attempts. To support this, you must maintain a "Lemon Law File" containing:
+        </p>
+        <ul style="margin-left: 20px; color: #555; line-height: 1.6; margin-bottom: 20px;">
+            <li><strong>Repair Orders (ROs):</strong> Every service visit must have an invoice stating the date in, date out, and the specific complaint (e.g., "Customer states check engine light is on").</li>
+            <li><strong>Purchase/Lease Agreement:</strong> To verify the price for offset calculations.</li>
+            <li><strong>Current Registration:</strong> To prove ownership.</li>
+        </ul>
+    </div>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- PRINT CONTAINER (Cleared for JS Injection) -->
+    <div id="print-view-container" class="print-view">
+        <div id="print-content-injection"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

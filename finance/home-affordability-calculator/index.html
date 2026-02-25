@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate exactly how much house you can afford in 2026. Our Home Affordability Calculator considers state taxes, closing costs, and liquidity to ensure financial solvency.">
+    <meta name="keywords" content="home affordability calculator, how much house can I afford, mortgage calculator with taxes, home buying solvency, housing market 2026, real estate liquidity analysis, debt to income ratio calculator, closing cost estimator">
+    <title>Home Affordability Calculator 2026 | Solveria</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Preload Print Logo to Fix Loading Bug -->
+    <link rel="preload" href="../../img/Logo_Gold.webp" as="image">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- SEO Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Solveria Home Affordability Calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A privacy-focused financial tool that calculates home affordability based on income, debts, and state-specific tax data."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How much income do I need to buy a $450k house?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To comfortably afford a $450,000 home, most financial experts recommend an annual household income between $100,000 and $120,000, assuming a 20% down payment and minimal other debts. This ensures your housing costs stay below 28% of your gross income."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the 28/36 rule for home affordability?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 28/36 rule states that your mortgage payment (principal, interest, taxes, and insurance) should not exceed 28% of your gross monthly income, and your total debt payments (including student loans and cars) should not exceed 36%."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do I need 20% down to buy a house?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, you do not strictly need 20% down. Conventional loans allow for as little as 3% down, and FHA loans require 3.5%. However, putting down less than 20% typically triggers Private Mortgage Insurance (PMI), which increases your monthly costs."
+        }
+      }]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="150" height="150">
+
+        <h1>Home Affordability Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Stop guessing. Start planning.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Home Affordability Calculator</span>
+    </nav>
+
+    <!-- Core Intro Content (Above Tool) -->
+    <div class="tool-intro-container">
+        <h2>How much house can I actually afford?</h2>
+        <p>Determine your true purchasing power by analyzing not just your income, but your liquidity, state-specific property taxes, and "ghost costs" like maintenance. Unlike standard bank pre-approvals, this tool focuses on your financial solvency—ensuring you don't just buy a home, but can afford to keep it.</p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+            </div>
+
+            <!-- MAIN GRID CONTAINER FOR ALL INPUT SECTIONS -->
+            <div class="input-grid-container">
+
+                <!-- SECTION 1: THE ASSETS -->
+                <div class="section-header">
+                    <h3>The Assets</h3>
+                </div>
+
+                <!-- 1. Target State (Dynamic) -->
+                <div class="input-wrapper full-width">
+                    <label>Target State</label>
+                    <div class="custom-dropdown-container">
+                        <!-- Select populated by JS -->
+                        <select id="stateSelector" class="hidden-select"></select>
+                        
+                        <!-- Trigger Text -->
+                        <button class="custom-dropdown-trigger" id="dropdownTrigger">Loading States...</button>
+                        
+                        <!-- Menu populated by JS -->
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper" id="dropdownOptionsContainer">
+                                <!-- Options will be injected here by script.js -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Affects Property Tax & Take-Home Pay.</div>
+                </div>
+
+                <!-- 2. Annual Gross Income -->
+                <div class="input-wrapper">
+                    <label>Annual Gross Income ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_annualIncome" value="85000">
+                        <input type="range" id="slider_annualIncome" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total household income before taxes.</div>
+                </div>
+
+                <!-- 3. Monthly Debt Payments -->
+                <div class="input-wrapper">
+                    <label>Monthly Debt Payments ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_monthlyDebt" value="500">
+                        <input type="range" id="slider_monthlyDebt" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Student loans, car notes, minimum CC payments.</div>
+                </div>
+
+                <!-- 4. Total Cash Saved -->
+                <div class="input-wrapper">
+                    <label>Total Cash Saved ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_cashSaved" value="40000">
+                        <input type="range" id="slider_cashSaved" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Liquid cash available (Exclude 401k).</div>
+                </div>
+
+                <!-- 5. High-Cost Area -->
+                <div class="input-wrapper">
+                    <label>High-Cost Area / Major City?</label>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label" id="highCostLabel">No</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="highCostToggle">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <!-- FAKE SLIDER (Empty Track) -->
+                    <div class="fake-slider"></div>
+                    <div class="disclosure-text">Adds estimated HOA fee & Insurance premium.</div>
+                </div>
+
+                <!-- SECTION 2: THE HOUSE -->
+                <div class="section-header">
+                    <h3>The House</h3>
+                </div>
+
+                <!-- 6. Target Home Price -->
+                <div class="input-wrapper">
+                    <label>Target Home Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_homePrice" value="450000">
+                        <input type="range" id="slider_homePrice" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">The list price of the home you want.</div>
+                </div>
+
+                <!-- 7. Down Payment -->
+                <div class="input-wrapper">
+                    <label>Down Payment ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_downPayment" value="30000">
+                        <input type="range" id="slider_downPayment" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Cash you are putting down upfront.</div>
+                </div>
+
+                <!-- 8. Interest Rate -->
+                <div class="input-wrapper full-width">
+                    <label>Interest Rate (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_interestRate" value="6.5" step="0.1">
+                        <input type="range" id="slider_interestRate" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Current average market rate.</div>
+                </div>
+
+                <!-- SECTION 3: THE REALITY -->
+                <div class="section-header">
+                    <h3>The Reality (Monthly)</h3>
+                </div>
+
+                <!-- 9. Monthly Must-Haves -->
+                <div class="input-wrapper">
+                    <label>Monthly "Must-Haves" ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_mustHaves" value="1500">
+                        <input type="range" id="slider_mustHaves" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Utilities, groceries, childcare, gas.</div>
+                </div>
+
+                <!-- 10. Monthly Fun Money -->
+                <div class="input-wrapper">
+                    <label>Monthly "Fun Money" ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_funMoney" value="600">
+                        <input type="range" id="slider_funMoney" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Dining out, travel, hobbies, shopping.</div>
+                </div>
+
+                <!-- 11. Maintenance Buffer -->
+                <div class="input-wrapper full-width">
+                    <label>Maintenance Buffer ("Ghost Cost") ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_maintenance" value="375">
+                        <input type="range" id="slider_maintenance" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Saving for future repairs (Roof, HVAC). Default: 1% rule.</div>
+                </div>
+
+            </div> <!-- End Input Grid -->
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            <div class="header-row">
+                <h2>Results</h2>
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons-row">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print">Print</button>
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+            </div>
+            
+            <div id="results-display-container">
+
+                <!-- SUMMARY Heading (First Item) -->
+                <div class="section-header first-result-header">
+                    <h3>SUMMARY</h3>
+                </div>
+
+                <!-- Dynamic Financial Story -->
+                <div class="summary-verdict" id="dynamicVerdict">
+                    Calculating your financial outlook...
+                </div>
+                
+                <!-- GROUP 1: MONTHLY FINANCIALS -->
+                <div class="section-header">
+                    <h3>Financial Impact</h3>
+                </div>
+
+                <!-- START SPLIT ROW FOR FINANCIALS -->
+                <div class="financials-split-row">
+                    
+                    <!-- OUTPUT A: Total Monthly Obligation -->
+                    <div class="output-container">
+                        <div class="output-label">The "Real" Monthly Bill</div>
+                        <div class="output-value hero" id="monthlyObligation">$0</div>
+                        <div class="output-subtitle">Mortgage + Tax + Insurance + HOA + PMI + Maintenance</div>
+                    </div>
+
+                    <!-- OUTPUT B: The Hero Metric -->
+                    <div class="output-container hero-container">
+                        <div class="output-label">TRUE MONTHLY LEFTOVER</div>
+                        <div class="output-value hero" id="monthlyLeftover">$0</div>
+                        <div class="output-subtitle">Cash left in your pocket at the end of the month.</div>
+                    </div>
+
+                </div>
+                <!-- END SPLIT ROW -->
+
+                <!-- GROUP 2: REALITY CHECKS -->
+                <div class="section-header">
+                    <h3>Reality Checks</h3>
+                </div>
+
+                <!-- OUTPUT C: Survival Check -->
+                <div class="alert-box neutral" id="survivalCheck">
+                    <div class="alert-label">Job Loss Survival</div>
+                    <div class="alert-value" id="survivalText">Calculating...</div>
+                </div>
+
+                <!-- OUTPUT D: The Cash Gap -->
+                <div class="alert-box warning" id="cashGap">
+                    <div class="alert-label">Upfront Cash Needed</div>
+                    <div class="alert-value" id="cashGapText">Calculating...</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Extended SEO Content (FAQs & Info) -->
+    <div class="seo-content-container">
+        <h3>Mastering Your Housing Budget in 2026</h3>
+        <p>Buying a home is the largest financial transaction most people will make in their lifetime. However, the sticker price of the home is only one part of the equation. True affordability involves understanding your debt-to-income ratio (DTI), the impact of current interest rates, and the "ghost costs" of homeownership that banks often overlook.</p>
+
+        <h4>Why Traditional Calculators Fail</h4>
+        <p>Most standard mortgage calculators only look at Principal and Interest (P&I). They neglect the critical factors that actually break a budget: state-specific property taxes, insurance premiums in high-risk areas, and the inevitable maintenance costs of owning physical property. Solveria's engine integrates these variables to give you a "Solvency Score"—a measure of whether you can stay in the home long-term.</p>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>What is the 28/36 Rule?</h4>
+                <p>Financial advisors often cite the 28/36 rule as a baseline for affordability. It suggests you spend no more than 28% of your gross monthly income on housing expenses and no more than 36% on total debt (including housing). Our calculator helps you visualize these ratios in real-time to see if you are over-leveraging yourself.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Why do I need a Maintenance Buffer?</h4>
+                <p>Homes depreciate physically. The "1% Rule" suggests saving 1% of the home's value annually for maintenance (e.g., $4,500/year for a $450k home). We include this in your monthly obligation to prevent future cash-flow shock when a water heater breaks or a roof needs patching.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How do Interest Rates affect buying power?</h4>
+                <p>As interest rates rise, your purchasing power decreases because more of your monthly payment goes toward interest rather than principal. A 1% increase in rates can reduce your buying power by approximately 10-11%. It is crucial to lock in rates or plan for refinancing if rates drop in the future.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What are Closing Costs?</h4>
+                <p>Closing costs typically range from 2% to 5% of the loan amount. These fees cover appraisal, title insurance, loan origination, and prepaid taxes. If you don't have this cash upfront, you cannot close the deal, even if you can afford the monthly payments. Our tool explicitly calculates this "Cash Gap."</p>
+            </div>
+            <div class="faq-item">
+                <h4>How does State Tax affect affordability?</h4>
+                <p>Property taxes vary wildly by state. For example, New Jersey has an average effective rate of over 2%, while Hawaii is under 0.3%. Furthermore, state income taxes affect your take-home pay, which is the actual pool of money you use to pay the mortgage. We adjust your net income based on the selected state's tax brackets.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What is Private Mortgage Insurance (PMI)?</h4>
+                <p>If your down payment is less than 20%, lenders typically require PMI to protect themselves in case of default. This is an extra monthly cost that provides no benefit to you. Our calculator automatically adds this fee if your down payment slider is below the 20% threshold.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solveria Footer -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" loading="lazy" alt="Step 1"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" loading="lazy" alt="Step 2"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" loading="lazy" alt="Step 3"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- INVISIBLE PRINT CONTAINER -->
+    <div id="print-view-container" class="print-view">
+        <div id="print-content-injection"></div>
+    </div>
+
+    <!-- Hidden Preload for Print Image to ensure availability -->
+    <img src="../../img/Logo_Gold.webp" style="display:none;" alt="preload-print-logo">
+
+    <script src="script.js"></script>
+</body>
+</html>

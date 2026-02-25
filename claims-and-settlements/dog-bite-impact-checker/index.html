@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Dog Bite Settlement Calculator. Assess lawsuit value, check Strict Liability vs. One Bite Rule laws in your state, and generate an official incident report.">
+    <meta name="keywords" content="dog bite settlement calculator, average dog bite payout 2026, sue for dog bite, strict liability states list, one bite rule exceptions, pain and suffering multiplier, animal control report lawsuit, personal injury claims">
+    <meta name="author" content="Solveria">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/tools/dog-bite-calculator">
+    <meta property="og:title" content="Dog Bite Settlement Calculator & Liability Tool">
+    <meta property="og:description" content="Calculate your potential dog bite settlement and assess liability laws in your state. Free instant analysis tool.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Dog Bite Settlement Calculator & Liability Tool">
+    <meta property="twitter:description" content="Calculate your potential dog bite settlement and assess liability laws in your state. Free instant analysis tool.">
+    <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
+
+    <title>Dog Bite Settlement Calculator & Lawsuit Value | Solveria</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Dog Bite Settlement Calculator",
+        "operatingSystem": "Web",
+        "applicationCategory": "LegalApplication",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "A browser-based tool to calculate dog bite case strength, assess state liability laws (Strict vs One-Bite), and estimate settlement factors."
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is pain and suffering calculated for a dog bite?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Pain and suffering is typically calculated using a multiplier method, often 1.5x to 5x the total medical bills (economic damages). The multiplier increases with injury severity, scarring, and psychological impact." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the average payout for a dog bite lawsuit?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The average cost per dog bite claim in the U.S. is approximately $50,000 to $60,000 depending on the state. Severe cases involving reconstructive surgery or permanent nerve damage can settle for significantly more." }
+          },
+          {
+            "@type": "Question",
+            "name": "What creates a strong dog bite case?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A strong case typically involves: 1) Clear liability (Strict Liability state or proof of prior aggression), 2) Documented medical treatment, 3) An Animal Control report, and 4) An insured dog owner." }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Calculate Dog Bite Settlement Value",
+        "step": [
+          { "@type": "HowToStep", "text": "Sum all medical bills (past and estimated future)." },
+          { "@type": "HowToStep", "text": "Calculate lost wages from missed work." },
+          { "@type": "HowToStep", "text": "Apply a multiplier (1.5x - 5x) to economic damages for pain and suffering based on injury severity." },
+          { "@type": "HowToStep", "text": "Adjust for state liability laws (Strict Liability vs. One Bite Rule)." }
+        ]
+      }
+    ]
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="150" height="150">
+
+        <h1>Dog Bite Incident Report</h1>
+        
+        <p id="breathing-text" class="breathing-text">Assess the risk. Know your rights.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Legal Tools</a>
+        <span class="separator">/</span>
+        <span class="current-page">Dog Bite Calculator</span>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- INTRO QUESTION -->
+        <div class="intro-question-block">
+            <h2>Do you have a valid claim?</h2>
+            <p>Determine liability, estimate case strength, and generate a formal incident report based on the laws of your State.</p>
+        </div>
+
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Incident Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn" data-mode="basic">Switch to Case Builder</button>
+            </div>
+
+            <!-- GLOBAL SETTINGS (Always Visible) -->
+            <div class="global-settings">
+                <h3 class="input-sub-heading">Jurisdiction & Time</h3>
+                
+                <div class="input-wrapper full-width-span">
+                    <label>Jurisdiction (State)</label>
+                    <div class="custom-dropdown-container">
+                        <!-- JS populates this. Logic ensures CA is default. -->
+                        <select id="stateSelector" class="hidden-select"></select>
+                        <button class="custom-dropdown-trigger" id="stateTrigger">California</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper" id="stateOptionsWrapper"></div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text" id="state-disclosure">Laws vary by state. This sets your legal baseline.</div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Time Since Incident</label>
+                    <div class="custom-dropdown-container">
+                        <select id="timerSelector" class="hidden-select">
+                            <option value="1h">Less than 1 Hour</option>
+                            <option value="24h" selected>Less than 24 Hours</option>
+                            <option value="1w">Within 1 Week</option>
+                            <option value="1m">Over 1 Month</option>
+                            <option value="1y">Over 1 Year</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Less than 24 Hours</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="1h">Less than 1 Hour</div>
+                                <div class="dropdown-option selected" data-value="24h">Less than 24 Hours</div>
+                                <div class="dropdown-option" data-value="1w">Within 1 Week</div>
+                                <div class="dropdown-option" data-value="1m">Over 1 Month</div>
+                                <div class="dropdown-option" data-value="1y">Over 1 Year</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Critical for infection risk and legal deadlines.</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- BASIC MODE: Triage -->
+            <div id="mode-basic-inputs" class="mode-inputs">
+                <h3 class="input-sub-heading">Triage Details</h3>
+                
+                <!-- Injury Severity Slider -->
+                <div class="input-wrapper full-width-span">
+                    <label>Injury Severity (1-5)</label>
+                    <div class="input-group">
+                        <input type="text" id="input_severity" value="Level 3: Shallow Puncture" readonly style="border:none; width:100%; font-size:1.1rem; color:#333; background:transparent;">
+                        <input type="range" id="slider_severity" min="1" max="5" step="1" value="3">
+                    </div>
+                    <div class="disclosure-text" id="severity-text">Single puncture, minor bleeding.</div>
+                </div>
+
+                <!-- Body Map -->
+                <div class="input-wrapper">
+                    <label>Injury Location</label>
+                    <div class="custom-dropdown-container">
+                        <select id="bodySelector" class="hidden-select">
+                            <option value="arm">Arm/Leg</option>
+                            <option value="hand" selected>Hand/Finger</option>
+                            <option value="face">Face/Neck</option>
+                            <option value="torso">Torso</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Hand/Finger</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="arm">Arm/Leg</div>
+                                <div class="dropdown-option selected" data-value="hand">Hand/Finger</div>
+                                <div class="dropdown-option" data-value="face">Face/Neck</div>
+                                <div class="dropdown-option" data-value="torso">Torso</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Face/Hand injuries carry higher legal weight.</div>
+                </div>
+
+                <!-- Victim Vulnerability -->
+                <div class="input-wrapper">
+                    <label>Victim Age Group</label>
+                    <div class="custom-dropdown-container">
+                        <select id="victimSelector" class="hidden-select">
+                            <option value="adult" selected>Adult (18+)</option>
+                            <option value="child">Child (<18)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Adult (18+)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="adult">Adult (18+)</div>
+                                <div class="dropdown-option" data-value="child">Child (<18)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text" id="child-alert">Standard statute of limitations applies.</div>
+                </div>
+
+                <!-- Dealbreakers -->
+                <div class="input-wrapper full-width-span">
+                    <label>Context (The "Dealbreakers")</label>
+                    <div class="checkbox-group-row">
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="chk_trespass">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Was Trespassing?</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="chk_provoked">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Was Provoked?</span>
+                        </label>
+                    </div>
+                    <div class="disclosure-text" id="defense-alert">Answering 'Yes' may void the claim.</div>
+                </div>
+            </div>
+
+            <!-- ADVANCED MODE: Case Builder -->
+            <div class="advanced-content hidden">
+                <hr class="divider" style="margin: 20px 0;">
+                <h3 class="input-sub-heading">Case Valuation</h3>
+                
+                <div class="input-wrapper">
+                    <label>Medical Costs</label>
+                    <div class="custom-dropdown-container">
+                        <select id="medCostSelector" class="hidden-select">
+                            <option value="min">Minimal ($0-500)</option>
+                            <option value="mod" selected>Moderate ($500-5k)</option>
+                            <option value="major">Major ($5k-20k)</option>
+                            <option value="cat">Catastrophic ($20k+)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Moderate ($500-5k)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="min">Minimal ($0-500)</div>
+                                <div class="dropdown-option selected" data-value="mod">Moderate ($500-5k)</div>
+                                <div class="dropdown-option" data-value="major">Major ($5k-20k)</div>
+                                <div class="dropdown-option" data-value="cat">Catastrophic ($20k+)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Work Impact</label>
+                    <div class="custom-dropdown-container">
+                        <select id="workSelector" class="hidden-select">
+                            <option value="none">None</option>
+                            <option value="days" selected>Missed Days</option>
+                            <option value="job">Lost Job</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Missed Days</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="none">None</div>
+                                <div class="dropdown-option selected" data-value="days">Missed Days</div>
+                                <div class="dropdown-option" data-value="job">Lost Job</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Long-Term Damage (Check all that apply)</label>
+                    <div class="checkbox-group-grid">
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="dmg_scar_body" class="calc-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Scarring (Body)</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="dmg_scar_face" class="calc-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Scarring (Face)</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="dmg_nerve" class="calc-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Nerve Damage</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="dmg_ptsd" class="calc-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Fear/PTSD</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Dog History</label>
+                    <div class="custom-dropdown-container">
+                        <select id="historySelector" class="hidden-select">
+                            <option value="unknown">Unknown</option>
+                            <option value="no">Never Bitten</option>
+                            <option value="yes" selected>Has Bitten Before</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Has Bitten Before</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="unknown">Unknown</div>
+                                <div class="dropdown-option" data-value="no">Never Bitten</div>
+                                <div class="dropdown-option selected" data-value="yes">Has Bitten Before</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Owner Insurance</label>
+                    <div class="custom-dropdown-container">
+                        <select id="insuranceSelector" class="hidden-select">
+                            <option value="unknown">Unknown</option>
+                            <option value="yes" selected>Yes (Home/Renters)</option>
+                            <option value="no">No</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Yes (Home/Renters)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="unknown">Unknown</div>
+                                <div class="dropdown-option selected" data-value="yes">Yes (Home/Renters)</div>
+                                <div class="dropdown-option" data-value="no">No</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Evidence Locker</label>
+                    <div class="checkbox-group-grid">
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="ev_photos" class="evidence-trigger" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Photos of Injury</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="ev_dog" class="evidence-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Photos of Dog</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="ev_witness" class="evidence-trigger" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Witness Info</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="ev_report" class="evidence-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Animal Control Rpt</span>
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" id="ev_bills" class="evidence-trigger">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Medical Bills</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <div id="results-display-container">
+                <!-- Header and Buttons ALIGNED in a row -->
+                <div class="header-row">
+                    <h2>Analysis</h2>
+                    <div class="action-buttons-row">
+                        <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save as PDF">Save as PDF</button>
+                        <button class="action-btn print-btn" id="btn-print" aria-label="Print Report">Print</button>
+                        <button class="action-btn share-btn" id="btn-share" aria-label="Share Analysis">Share</button>
+                    </div>
+                </div>
+
+                <!-- BASIC RESULTS -->
+                <div class="mode-results">
+                    
+                    <!-- Traffic Light -->
+                    <div id="traffic-light-box" class="traffic-light-box">
+                        <div class="traffic-content">
+                            <span class="traffic-title" id="res_riskTitle">Moderate Risk</span>
+                            <span class="traffic-desc" id="res_riskDesc">Monitor closely. See a doctor if redness spreads.</span>
+                        </div>
+                    </div>
+
+                    <h3 class="result-sub-heading">Legal Reality</h3>
+                    <div class="law-card" id="res_lawCard"></div>
+
+                    <h3 class="result-sub-heading">Immediate Protocol</h3>
+                    <ul class="protocol-list" id="res_protocol">
+                        <li>Wash wound with soap for 5 minutes.</li>
+                        <li>Photograph injuries immediately.</li>
+                        <li>Identify the dog owner.</li>
+                    </ul>
+
+                    <button id="btn-copy" class="action-btn" style="background-color: #333; color: white; padding: 15px; border-radius: 8px; width: 100%;">Copy Full Report</button>
+
+                    <!-- ADVANCED RESULTS (Hidden by default) -->
+                    <div class="advanced-content hidden">
+                        <div id="loading-bar-container" class="hidden">
+                            <div class="loading-bar"></div>
+                            <div class="loading-text">Analyzing State Liability Laws...</div>
+                        </div>
+
+                        <h3 class="result-sub-heading">Case Strength</h3>
+                        <div class="gauge-container">
+                            <div class="gauge-bar">
+                                <div class="gauge-fill" id="strength-fill" style="width: 50%;"></div>
+                            </div>
+                            <div class="gauge-label" id="strength-text">Medium Strength</div>
+                        </div>
+                        <div class="disclosure-text" id="strength-reason">Based on liability laws and evidence.</div>
+
+                        <h3 class="result-sub-heading">Readiness Score</h3>
+                        <div class="gauge-container">
+                            <div class="gauge-bar">
+                                <div class="gauge-fill" id="readiness-fill" style="width: 0%;"></div>
+                            </div>
+                            <div class="gauge-label" id="readiness-text">0% Prepared</div>
+                        </div>
+                        <div class="disclosure-text" id="readiness-advice">Collect photos and reports to increase score.</div>
+
+                        <h3 class="result-sub-heading">Eligible Compensation</h3>
+                        <div class="result-value small-text" id="res_buckets">
+                            Medical Bills, Pain & Suffering
+                        </div>
+
+                        <h3 class="result-sub-heading">Est. Timeline</h3>
+                        <div class="result-value small-text" id="res_timeline">
+                            6 - 9 Months
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO & FAQ Section -->
+    <section class="seo-content-section">
+        <h2>Dog Bite Settlement Calculator & Liability Laws</h2>
+        
+        <div class="seo-block">
+            <h3>How much is a dog bite lawsuit worth?</h3>
+            <p>Use our <strong>dog bite settlement calculator</strong> to estimate the value of your claim. Settlements are calculated based on <strong>economic damages</strong> (medical bills, lost wages) and <strong>non-economic damages</strong> (pain and suffering, emotional distress). In many states, settlements for facial scarring, nerve damage, or attacks on children can exceed $100,000.</p>
+        </div>
+
+        <div class="seo-block">
+            <h3>Key Factors Influencing Payouts</h3>
+            <p>1. <strong>Severity of Injury:</strong> Puncture wounds vs. maulings. Permanent scarring increases the "pain and suffering multiplier" significantly.</p>
+            <p>2. <strong>State Laws:</strong> <a href="#stateSelector">Strict Liability states</a> (like CA, FL) favor victims, while One Bite Rule states (like TX, VA) require proving negligence.</p>
+            <p>3. <strong>Insurance Policy Limits:</strong> Most homeowner's insurance policies have limits between $100,000 and $300,000. Collecting above this amount is difficult unless the owner has assets.</p>
+        </div>
+
+        <div class="seo-block">
+            <h3>Frequently Asked Questions (FAQ)</h3>
+            
+            <div class="faq-item">
+                <h4>What should I do immediately after a dog bite?</h4>
+                <p><strong>Step 1:</strong> Seek medical attention immediately to document the injury. <strong>Step 2:</strong> Report the bite to Animal Control or the police to create an official paper trail. <strong>Step 3:</strong> Get the owner's insurance information. <strong>Step 4:</strong> Take photos of the injuries and the dog.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I sue if the dog bite was minor?</h4>
+                <p>Yes. Even if the skin wasn't broken, you may have a claim for assault or psychological trauma (PTSD). However, without significant medical bills, the settlement value will be lower. Always document bruising or torn clothing.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>How long do I have to file a claim?</h4>
+                <p>The <strong>Statute of Limitations</strong> varies by state. For example, it is 1 year in Tennessee but 6 years in Maine. If you miss this window, you cannot sue. Our tool automatically checks your specific state deadline.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js" defer></script>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- INVISIBLE PRINT CONTAINER -->
+    <div id="print-view-container" class="print-view">
+        <div class="print-header">
+            <img src="../../img/Logo_Gold.webp" class="print-logo" alt="Solveria Logo">
+            <div class="print-meta">
+                <h1 id="print-doc-title">DOG BITE INCIDENT REPORT</h1> 
+                <p>REF: <span id="print-ref">SOLVERIA-CANINE-26</span> &nbsp;|&nbsp; Generated on: <span id="print-date"></span></p>
+            </div>
+        </div>
+        <!-- JS INJECTS CONTENT HERE -->
+        <div id="print-content-injection"></div>
+        <div class="print-footer">
+            <p><strong>DISCLAIMER:</strong> This document provides a mathematical approximation based on user-supplied data. It does not constitute a binding financial offer, legal advice, or a guarantee of terms. Generated by Solveria Sovereign Finance Engine.</p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

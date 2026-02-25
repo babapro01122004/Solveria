@@ -1,0 +1,1946 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font Definitions with Performance Swap */
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ProductSans-Light';
+    src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ProductSans-Thin';
+    src: url('../../fonts/ProductSans-Thin.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* Page Background Color */
+body {
+    background-color: #F4F4F4;
+    font-family: 'ProductSans-Light', sans-serif;
+}
+
+/* ============================ */
+/* Hero Section                 */
+/* ============================ */
+.hero-section {
+    width: 100%;
+    height: 40vh; /* Reduced height to pull content up */
+    background-image: url('../../img/Refinance_Hero.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh; /* Reduced gap */
+    overflow: hidden; 
+}
+
+.hero-nav { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 3vh; /* Reduced gap */
+    z-index: 10; 
+    margin-top: 1vh;
+}
+
+.hero-nav a { 
+    color: #cacaca; 
+    text-decoration: none; 
+    /* CHANGED to rem for stability */
+    font-size: 0.95rem;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300; 
+    transition: color .3s ease; 
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap; 
+}
+
+.hero-nav a:hover { 
+    color: #fff; 
+}
+
+.hero-logo {
+    height: 15vh; /* Slightly smaller logo */
+    width: auto;
+    display: block;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+.hero-section h1 {
+    color: #ffffff;
+    font-family: 'ProductSans-Thin', sans-serif; /* UPDATED to Thin */
+    font-weight: 300;
+    font-size: 7vmin;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.1;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    max-width: 95%;
+}
+
+.breathing-text {
+    color: #e0e0e0;
+    font-family: 'ProductSans-Thin', sans-serif; /* UPDATED to Thin */
+    font-size: 2vmin;
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    min-height: 1.5em;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.breathing-text.fade-out {
+    opacity: 0;
+}
+
+/* ============================ */
+/* Breadcrumb Navigation        */
+/* ============================ */
+.breadcrumb-nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 2vh; /* Reduced margin */
+    padding: 0 8vw; /* Matches calculator container padding */
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    /* CHANGED to rem for stability */
+    font-size: 0.9rem; 
+}
+
+.breadcrumb-nav a, 
+.breadcrumb-nav .current-page,
+.breadcrumb-nav .separator {
+    text-decoration: none;
+    color: #7a7a7a; 
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #000000;
+}
+
+.breadcrumb-nav .separator {
+    opacity: 0.5;
+}
+
+.breadcrumb-nav .current-page {
+    cursor: default;
+}
+
+/* ============================ */
+/* Calculator Main Layout       */
+/* ============================ */
+.calculator-container {
+    width: 100%;
+    padding: 0 8vw; /* Reduced from 15vw to use more screen width */
+    margin-top: 40px; /* FIXED: Increased to 40px for GAP 1 */
+    margin-bottom: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; 
+    
+    /* UPDATED: Split gap to remove vertical space between Question and Tool */
+    column-gap: 80px; 
+    row-gap: 0px; 
+}
+
+/* CORE QUESTION STYLING (FIXED & BOLD) */
+.core-question-block {
+    width: 100%;
+    /* This margin now fully defines the gap (40px) to match the breadcrumb gap */
+    margin-bottom: 40px; 
+    padding-bottom: 15px;
+}
+
+/* BOLD HEADING AS REQUESTED */
+.core-question-heading {
+    font-family: 'ProductSans-Light', sans-serif; /* Using Light but with weight for bold effect */
+    font-weight: 500; /* BOLDER than Thin */
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    color: #333;
+    line-height: 1.3;
+    max-width: 900px;
+    margin-bottom: 10px;
+}
+
+.core-question-answer {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.5;
+    max-width: 900px;
+}
+
+.core-question-answer strong {
+    font-weight: 500;
+    color: #000;
+}
+
+/* SEO CONTENT SECTION STYLING */
+.content-section {
+    width: 100%;
+    padding: 0 8vw; /* Matches calculator container */
+    margin-bottom: 80px;
+    background-color: #F4F4F4; /* Same as body */
+    content-visibility: auto; /* Performance boost for large text blocks */
+}
+
+.content-wrapper {
+    max-width: 900px;
+}
+
+.content-heading {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: #000;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.content-text {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.content-list {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.content-list li {
+    margin-bottom: 10px;
+}
+
+.highlight-text {
+    color: #B5855E;
+    font-weight: 500;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}
+
+.faq-question {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.3rem;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: 500; /* Bold questions */
+}
+
+.faq-answer {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+.calc-section {
+    min-width: 300px;
+}
+
+/* Left Section (Inputs) - Wider */
+.left-section {
+    flex: 1.8; 
+}
+
+/* Right Section (Results) - Sticky Sidebar */
+.right-section {
+    flex: 1;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 30px; /* Offset from the top of the viewport */
+    height: fit-content; /* Ensure height adjusts to content for sticky to work */
+    z-index: 100;
+}
+
+/* Header Row for Inputs & Toggle */
+.header-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 2vh; /* Reduced margin */
+}
+
+/* 
+   MASSIVE HEADINGS: Inputs & Results 
+   Independent from H1. Using clamp for massive responsiveness.
+*/
+.calc-section h2 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300;
+    /* Scales between 4rem (64px) and 9rem (144px) based on width */
+    font-size: clamp(4rem, 6vw, 9rem);
+    line-height: 1.1;
+    color: #333;
+    margin: 0;
+    white-space: nowrap; 
+}
+
+/* "Switch to Advanced" Button */
+.text-link-btn {
+    background: none;
+    border: none;
+    color: #7a7a7a;
+    font-family: 'ProductSans-Light', sans-serif;
+    /* UPDATED: Increased size for better visibility */
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+}
+
+.text-link-btn:hover {
+    color: #000;
+}
+
+/* Left Section Specifics */
+.left-section h2 {
+    text-align: left;
+}
+
+/* Right Section Specifics */
+.right-section h2 {
+    text-align: left; 
+    margin-bottom: 5px; /* Reduced to bring disclaimer closer */
+}
+
+/* ============================ */
+/* Input Mode Cards             */
+/* ============================ */
+.mode-cards-container {
+    display: grid;
+    /* CHANGED: Maintain 4 col structure to keep size same for 2 items */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 40px; 
+}
+
+.mode-card {
+    appearance: none;
+    position: relative;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px; 
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    overflow: hidden;
+    height: 12vh; /* Reduced height */
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, outline 0.1s;
+    padding: 0;
+}
+
+.mode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.mode-card.active-mode {
+    box-shadow: 0px 0px 0px 3px #B5855E; 
+}
+
+.mode-card img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.65); 
+    transition: filter 0.3s ease;
+}
+
+.mode-card:hover img {
+    filter: brightness(0.75); 
+}
+
+.mode-card span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%; 
+    white-space: normal; 
+    line-height: 1.1;
+    font-family: 'ProductSans-Light', sans-serif; 
+    /* CHANGED to rem for consistent reading size */
+    font-size: 0.85rem; 
+    color: #ffffff; 
+    background: none; 
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 1); 
+    pointer-events: none; 
+}
+
+/* ============================ */
+/* Inputs Styling (GRID)        */
+/* ============================ */
+
+/* Grid System for Inputs */
+.global-settings,
+.mode-inputs,
+.advanced-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns Side-by-Side */
+    column-gap: 40px; /* Space between columns */
+    row-gap: 30px; /* Space between rows */
+    width: 100%;
+}
+
+/* Utility to ensure internal grids match parent */
+.grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 30px;
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+/* Added Spacing to separate Location from the inputs below */
+.global-settings {
+    margin-bottom: 50px; 
+}
+
+/* 
+   INPUT SUB-HEADING 
+*/
+.input-sub-heading {
+    grid-column: 1 / -1; /* Spans full width */
+    font-family: 'ProductSans-Thin', sans-serif; /* Thinner font */
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300; 
+    letter-spacing: 0.05em;
+    margin-top: 25px;
+    margin-bottom: 15px; 
+    padding-left: 2px;
+    line-height: 1;
+    overflow-wrap: break-word; /* Safety */
+}
+
+/* Full Width Spans */
+.full-width-span {
+    grid-column: 1 / -1;
+}
+
+/* Global Header Wrapper for Badge Alignment */
+.global-header-wrapper {
+    display: flex;
+    flex-direction: column; /* Stacked layout */
+    align-items: flex-start;
+    margin-bottom: 0px; 
+    padding-bottom: 10px; 
+    gap: 10px;
+}
+
+.global-header-wrapper .input-sub-heading {
+    margin: 0; /* Reset margins for flex context */
+    grid-column: auto;
+}
+
+/* Privacy Badge - UPDATED STYLE */
+.privacy-badge {
+    background-color: #ffffff;
+    color: #555;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.privacy-icon {
+    width: 16px;
+    height: 16px;
+    color: #B5855E;
+}
+
+/* Advanced Content Wrapper */
+.advanced-content {
+    grid-column: 1 / -1; 
+    margin-top: 0;
+}
+
+.input-wrapper {
+    margin-bottom: 0; /* Handled by grid-gap now */
+    width: 100%;
+}
+
+.input-wrapper label {
+    display: flex;          
+    justify-content: space-between; /* To push Auto label to right */
+    align-items: flex-end; 
+    min-height: 2.5em;      
+    line-height: 1.2;       
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 3px;
+    width: 100%;
+}
+
+/* Auto Badge Style */
+.auto-badge {
+    font-family: 'ProductSans-Light', sans-serif;
+    color: #B5855E;
+    font-size: 0.9rem;
+}
+
+/* 
+   ANDROID STYLE CHECKBOX 
+*/
+/* Container Layout */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Overriding the generic label justify-content for checkboxes */
+label.custom-checkbox-container {
+    justify-content: flex-start; /* FIX: Snap text to the left */
+    gap: 15px; /* Spacing between circle and text */
+    display: flex;
+    align-items: center; 
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.95rem;
+    color: #555;
+    font-family: 'ProductSans-Light', sans-serif; 
+    min-height: auto !important; /* Override standard label height */
+}
+
+/* Hide the default browser checkbox */
+.custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* The Outer Circle */
+.checkmark {
+    position: relative; 
+    height: 20px;
+    width: 20px;
+    flex-shrink: 0; 
+    background-color: transparent;
+    border: 2px solid #e0e0e0;
+    border-radius: 50%; /* Makes it round like Android */
+    transition: all 0.2s ease;
+}
+
+/* Hover Effect */
+.custom-checkbox-container:hover .checkmark {
+    border-color: #D4BCA9;
+}
+
+/* Checked State - Outer Circle */
+.custom-checkbox-container input:checked ~ .checkmark {
+    border-color: #B5855E;
+    background-color: #fff; 
+}
+
+/* The Inner Dot (Hidden by default) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    
+    /* Perfect Centering */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #B5855E;
+}
+
+/* Show the Dot when Checked */
+.custom-checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-text {
+    line-height: 1.3;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Number Input - BORDER REMOVED */
+.input-group input[type=number] {
+    width: 100%;
+    border: none; 
+    background: transparent;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 2px 0 0 0;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.input-group input[type=number]::-webkit-outer-spin-button,
+.input-group input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Slider Styling */
+.input-group input[type=range] {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 100%; 
+    height: 20px; 
+    border: 9px solid transparent; 
+    border-left: 0; border-right: 0; 
+    background-clip: content-box; 
+    background-color: transparent;
+    border-radius: 0px; 
+    outline: none; 
+    opacity: 0.5; 
+    transition: border-width .2s ease, opacity .2s ease; 
+    cursor: pointer;
+    margin-top: 2px; 
+    display: block;
+    position: relative;
+    z-index: 5;
+}
+
+/* Track */
+.input-group input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: transparent; 
+    border: none;
+    border-radius: 0px;
+}
+
+/* Interaction States */
+.input-group input[type=range]:hover, 
+.input-group input[type=range]:focus, 
+.input-group input[type=range]:active,
+.input-group input[type=range].active-slider { 
+    border-width: 7px;
+    opacity: 1; 
+}
+
+/* Thumb (Hidden) */
+.input-group input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 0; height: 0; background: transparent; cursor: pointer; opacity: 0;
+}
+.input-group input[type=range]::-moz-range-thumb {
+    width: 0; height: 0; border: none; background: transparent; cursor: pointer; opacity: 0;
+}
+
+/* ============================ */
+/* Strategy Toggle (Mode A/B)   */
+/* ============================ */
+.strategy-toggle-container {
+    display: flex;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+    width: 100%;
+    margin-top: 3px;
+}
+
+.strategy-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.strategy-btn:hover {
+    color: #333;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.strategy-btn.active {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: 500;
+}
+
+.scenario-container {
+    grid-column: 1 / -1;
+    display: none; /* Controlled by JS */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.scenario-container.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================ */
+/* Nudge Pills (Shadowed)       */
+/* ============================ */
+.nudge-pill {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+    color: #ffffff;
+}
+
+/* Green Pill */
+.nudge-pill.green {
+    background-color: #27ae60;
+    box-shadow: 0 10px 20px -5px rgba(39, 174, 96, 0.6);
+}
+
+/* Yellow Pill (Golden for white text) */
+.nudge-pill.yellow {
+    background-color: #f39c12;
+    box-shadow: 0 10px 20px -5px rgba(243, 156, 18, 0.6);
+}
+
+/* Red Pill */
+.nudge-pill.red {
+    background-color: #e74c3c;
+    box-shadow: 0 10px 20px -5px rgba(231, 76, 60, 0.6);
+}
+
+/* Text Only Status Colors (No Background) */
+.status-text-green { color: #27ae60; font-weight: 500; }
+.status-text-yellow { color: #f39c12; font-weight: 500; }
+.status-text-gray { color: #95a5a6; font-weight: 500; }
+
+/* ============================ */
+/* Visual Metaphor: Two Piles   */
+/* ============================ */
+.visual-piles-container {
+    display: flex;
+    justify-content: flex-start; /* Changed back to left as requested */
+    align-items: flex-end;
+    gap: 30px;
+    height: 120px; /* Shortened */
+    margin-top: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 2px;
+}
+
+.pile {
+    width: 60px;
+    background-color: #e0e0e0;
+    position: relative;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.pile span {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.8rem;
+    color: #666;
+    white-space: nowrap;
+}
+
+.pile-gray { background-color: #ccc; }
+.pile-solid { background-color: #B5855E; }
+
+/* ============================ */
+/* Custom Dropdown BOXED        */
+/* ============================ */
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box; 
+    margin-top: 3px; /* Spacing from label */
+}
+
+.hidden-select {
+    display: none;
+}
+
+/* The Trigger Box */
+.custom-dropdown-trigger {
+    width: 100%;
+    
+    /* Box Styling */
+    border: 2px solid #e0e0e0; /* Empty track color when inactive */
+    border-radius: 8px;        /* Rectangular square-ish box */
+    padding: 10px 12px;        /* Volume for the box */
+    font-size: 1.1rem; 
+    color: #333;
+    background-color: transparent;
+    outline: none;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Arrow moved inside the box */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; 
+    
+    transition: border-color 0.3s ease;
+}
+
+/* Hover State */
+.custom-dropdown-trigger:hover {
+    border-color: #D4BCA9;
+}
+
+/* Selected / Active State (When menu is open or focus) */
+.custom-dropdown-container:focus-within .custom-dropdown-trigger {
+    border-color: #B5855E; /* Slider color */
+}
+
+/* Dropdown Menu Position */
+.custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    padding: 6px 2px 6px 6px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.custom-dropdown-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.dropdown-options-wrapper {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 4px;
+}
+
+.dropdown-options-wrapper::-webkit-scrollbar { width: 8px; }
+.dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
+
+.dropdown-option {
+    padding: 10px 15px; 
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+    border-radius: 8px; 
+    margin-bottom: 2px; 
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-option:hover { background: #eae5df; color: #000; }
+.dropdown-option.selected { font-weight: 500; color: #000; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* ============================ */
+/* Results Styling              */
+/* ============================ */
+
+/* 
+   Results Layout
+*/
+.mode-results {
+    display: block;
+    width: 100%;
+    /* No top padding here; handled by container */
+    padding-bottom: 15px;
+}
+
+/* 
+   NEW: Scrollable Container with Fade Mask
+*/
+#results-display-container {
+    /* Height Constraint for Scrolling */
+    max-height: 85vh; 
+    overflow-y: auto;
+    
+    /* Scrollbar Hiding (Invisible Sliders) */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    
+    /* Fade Effect (Top & Bottom) using Mask */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    
+    /* Layout correction */
+    width: 100%;
+    padding: 25px 2px 20px 2px; 
+}
+
+/* Chrome/Safari/Webkit Scrollbar Hide */
+#results-display-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+   New Wrapper for result box pairs
+*/
+.result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    column-gap: 20px; /* Space between columns */
+    row-gap: 20px;
+    width: 100%;
+    margin-bottom: 50px; 
+}
+
+/* Helper Class: Reduced Bottom Margin */
+.result-row.tight-bottom {
+    margin-bottom: 15px;
+}
+
+/* Helper Class: Extra Bottom Margin */
+.result-row.extra-bottom {
+    margin-bottom: 70px;
+}
+
+/* 
+   Allow Advanced Content to be a standard block container
+*/
+.right-section .advanced-content {
+    display: block;
+}
+
+.result-box {
+    margin-bottom: 0; /* Spacing handled by result-row gap now */
+    text-align: left; 
+    min-width: 0; /* Allows text truncation/resizing to work in Grid */
+}
+
+.result-box.full-width-result {
+    grid-column: 1 / -1;
+}
+
+.left-section .result-box {
+    text-align: left;
+}
+
+.result-label {
+    display: block;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 3px;
+    white-space: normal; 
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+/* 
+   Result Value Resizing & Layout
+*/
+.result-value {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: clamp(1.8rem, 2.8vw, 3.2rem);
+    color: #333;
+    line-height: 1.1;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word; 
+}
+
+.result-value.good { color: #2ecc71; }
+.result-value.warn { color: #e67e22; }
+.result-value.bad { color: #e74c3c; }
+
+/* 
+   RESULT SUB-HEADING (Updated)
+   Increased margin-top to separate sections
+*/
+.result-sub-heading {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.08em; 
+    margin-top: 60px; /* Increased separation */
+    margin-bottom: 15px; 
+    padding-left: 2px;
+    line-height: 1;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.mode-results > .result-sub-heading:first-child {
+    margin-top: 0;
+}
+
+/* Disclaimer Text */
+.disclaimer-small {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 0; /* Keep closer to Results heading */
+    margin-bottom: 30px; 
+    font-style: italic;
+}
+
+/* 
+   Disclosure Text / Subtitle 
+*/
+.disclosure-text {
+    font-size: 0.86rem; 
+    color: #999;
+    margin-top: 5px;
+    min-height: 2.5em; /* Reserve space for 2 lines */
+    line-height: 1.2;
+}
+
+.divider {
+    display: none; 
+    border: none;
+    margin: 0;
+}
+
+/* ============================ */
+/* TOOLTIP STYLING              */
+/* ============================ */
+.cursor-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    max-width: 250px;
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 4px; /* Blocky but slight radius */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Faint blurry shadow */
+    pointer-events: none; /* Ignore mouse events so it doesn't flicker */
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.1s linear; /* Smooth fade & move */
+    text-align: center;
+    transform: translate(15px, 15px); /* Offset from cursor */
+}
+
+.cursor-tooltip.active {
+    opacity: 1;
+}
+
+.tooltip-title {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 1.1rem;
+    color: #000;
+    margin-bottom: 4px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tooltip-desc {
+    display: block;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.3;
+}
+
+/* ============================ */
+/* NEW: ACTION BUTTONS          */
+/* ============================ */
+.action-buttons-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px; /* Spacing before disclaimer */
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.15rem;
+    color: #7a7a7a;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+}
+
+/* HOVER BECOMES BLACK (UPDATED) */
+.action-btn:hover {
+    color: #000000; 
+}
+
+.action-btn:active {
+    color: #333;
+}
+
+/* ============================ */
+/* TUTORIAL MODAL (Pop-In)      */
+/* ============================ */
+.tutorial-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    
+    /* VIGNETTE EFFECT: Light center, subtle dark edges + BLUR */
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 10%, rgba(0,0,0,0.15) 100%);
+    backdrop-filter: blur(8px);
+    
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden; /* Ensure it's hidden from clicks when faded out */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tutorial-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tutorial-overlay.active .tutorial-card {
+    /* Pop-In Animation Trigger */
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.tutorial-card {
+    background: #fff;
+    /* Box Shadow only, borderless rounded block */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15); 
+    width: 90%;
+    max-width: 800px; /* Increased Width for larger images */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    border-radius: 12px; /* Smoother rounding */
+}
+
+.tutorial-title {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.tutorial-instruction {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.tutorial-caption {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: -10px;
+    text-align: center;
+}
+
+.tutorial-images-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Increased Spacing */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tut-img-wrapper {
+    flex: 1;
+    /* Forces Square Aspect Ratio */
+    aspect-ratio: 1 / 1; 
+    height: auto; /* Let width determine height */
+    border: none; 
+    overflow: hidden;
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+}
+
+.tut-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures entire square image is visible */
+}
+
+/* Proceed Button (Soft Grey Horizontal Pill) */
+.proceed-btn {
+    border: none;
+    background-color: #f4f4f4; /* Very Light Grey */
+    font-family: 'ProductSans-Thin', sans-serif; /* THINNER FONT */
+    font-size: 1.1rem;
+    
+    /* Horizontal Pill Styling */
+    padding: 10px 50px;
+    border-radius: 50px; 
+    
+    cursor: default; 
+    color: #ccc; /* Disabled Color */
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    letter-spacing: 0.05em;
+}
+
+.proceed-btn:not(:disabled) {
+    color: #000; /* Enabled Color */
+    cursor: pointer;
+    font-weight: 600; /* Text-like prominence */
+}
+
+/* HOVER BECOMES DARK GREY (#333) per request */
+.proceed-btn:not(:disabled):hover {
+    color: #ffffff;
+    background-color: #333333; /* Pill fills dark grey on hover */
+}
+
+
+/* ============================ */
+/* NEW ROBOTO FONTS FOR FOOTER  */
+/* ============================ */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 600; /* Matching footer bold weight */
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* ============================ */
+/* PRINT VIEW (DIMINISHED VALUE STYLE) */
+/* ============================ */
+.print-view {
+    display: none; /* Hidden on screen */
+}
+
+/* PRINT MEDIA QUERY */
+@media print {
+    @page {
+        size: letter;
+        margin: 0.5in;
+    }
+
+    body {
+        background-color: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        /* Force Roboto as primary font for print doc per request */
+        font-family: 'Roboto', 'ProductSans-Light', sans-serif; 
+    }
+
+    /* Hide Web Elements */
+    .hero-section, 
+    .breadcrumb-nav, 
+    .calculator-container, 
+    .site-footer, 
+    #cursor-tooltip, 
+    .tutorial-overlay,
+    .content-section { /* HIDE SEO CONTENT IN PRINT */
+        display: none !important;
+    }
+
+    /* Show Print Container */
+    #print-view-container {
+        display: block;
+        width: 100%; 
+        color: #000;
+    }
+
+    /* 1. Header with Thick Lines */
+    .print-header-thick {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 4px solid #000;
+        border-bottom: 4px solid #000;
+        padding: 20px 0;
+        margin-bottom: 25px;
+    }
+
+    .header-left {
+        flex: 0 0 auto;
+    }
+
+    .print-logo {
+        height: 60px; /* Reduced to fit neatly */
+        width: auto;
+    }
+
+    .header-right {
+        text-align: right;
+        flex: 1;
+        padding-left: 20px;
+    }
+
+    .report-title {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400; /* Regular weight */
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        letter-spacing: 0.05em;
+    }
+
+    .report-subtitle {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300; /* Light/Thin */
+        font-size: 0.9rem;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* 2. Meta Data Row */
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9rem;
+    }
+
+    .meta-col {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .meta-label {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    .meta-value {
+        font-weight: 300;
+    }
+    
+    .meta-value.underline {
+        border-bottom: 1px solid #000;
+        min-width: 150px;
+        display: inline-block;
+    }
+
+    /* 3. Sections */
+    .print-section {
+        margin-bottom: 35px;
+    }
+
+    .section-title {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000; /* Thin line */
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    /* Content Blocks */
+    .print-content-block p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 5px;
+        font-weight: 300;
+    }
+
+    .note-text {
+        font-size: 0.85rem;
+        color: #444;
+        margin-top: 5px;
+    }
+
+    /* Data Grids (2 Columns) */
+    .data-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 40px;
+        row-gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .data-pair {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+    }
+
+    .data-label {
+        color: #555;
+        font-weight: 300;
+    }
+
+    .data-value {
+        font-weight: 600; /* Pop the numbers slightly */
+        text-align: right;
+    }
+    
+    .data-value.bold {
+        font-weight: 700;
+    }
+
+    /* Analyst Note Box (Side Bar Style) */
+    .analyst-note-box {
+        border-left: 4px solid #000; /* Thick vertical line */
+        padding-left: 15px;
+        margin: 15px 0 20px 0;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #333;
+        line-height: 1.4;
+    }
+
+    /* Highlight Grid (Centered or spaced out) */
+    .highlight-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 20px;
+        margin-top: 10px;
+        border-top: 1px dotted #ccc;
+        padding-top: 10px;
+    }
+    
+    /* Strategy Row */
+    .strategy-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        border-top: 1px dotted #ccc;
+        padding-top: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .strategy-label { font-weight: 600; text-transform: uppercase; }
+    .strategy-value { font-weight: 300; }
+
+    /* Summary Section */
+    .summary-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Total Savings Footer */
+    .total-savings-container {
+        border-top: 4px solid #000;
+        border-bottom: 4px solid #000;
+        padding: 15px 0;
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    .savings-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    /* Signatures & Legal */
+    .print-footer-legal {
+        margin-top: 40px;
+    }
+
+    .signatures-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        padding: 0 50px;
+    }
+
+    .sig-block {
+        text-align: center;
+        width: 35%;
+    }
+
+    .sig-block .line {
+        border-bottom: 1px solid #000;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .sig-block .label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: #555;
+    }
+
+    .legal-text {
+        font-size: 0.7rem;
+        color: #666;
+        text-align: justify;
+        line-height: 1.3;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+
+/* TABLET & INTERMEDIATE: (1214px and below) */
+@media (max-width: 1214px) {
+    .calc-section h2 {
+        /* FIXED: Tablet specific massive sizing (approx 7vw) */
+        font-size: clamp(3.5rem, 7vw, 6rem);
+    }
+
+    /* ADDED: Switch Mode Cards back to 2x2 grid when space is limited */
+    .mode-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* MODE 3: SMALL TABLET (Results Below Inputs, but Wide Inputs) */
+/* CHANGED: Breakpoint moved from 1024px to 990px */
+@media (max-width: 990px) {
+    .calculator-container {
+        padding: 0 5vw;
+        flex-direction: column; 
+        
+        /* UPDATED: Reduced vertical gap on mobile for better flow */
+        gap: 40px; 
+        
+        align-items: center; /* FIX: Centers the column */
+    }
+
+    /* UPDATED: Remove double margin on mobile since gap handles it */
+    .core-question-block {
+        margin-bottom: 0;
+    }
+
+    .calc-section {
+        width: 100%;
+        max-width: 600px; /* FIX: constraints width so it looks centered */
+    }
+
+    .right-section {
+        position: static; /* Disable sticky on mobile so it sits naturally at bottom */
+    }
+
+    /* MASSIVE on Mobile */
+    .calc-section h2 {
+        font-size: 15vw; /* Fills width comfortably */
+        padding-bottom: 10px;
+    }
+
+    .right-section h2 {
+        text-align: left; 
+    }
+    
+    .result-box {
+        text-align: left; 
+    }
+    
+    /* --- NEW UPDATES FOR MODE 3 ONLY --- */
+    /* Increased font size for sub-headings only in this mode */
+    .input-sub-heading {
+        font-size: 3rem; 
+    }
+
+    .result-sub-heading {
+        font-size: 2.2rem;
+    }
+
+    /* 
+       LOCALIZED RESULT SIZING FOR MOBILE & TABLET (2 Column)
+    */
+    #mode-a-results .result-value,
+    #mode-b-results .result-value {
+        font-size: clamp(1.2rem, 5vw, 2.5rem);
+    }
+
+    /* Hide Tooltip on Mobile */
+    .cursor-tooltip {
+        display: none;
+    }
+}
+
+/* MODE 4: PHONE (Single Column Inputs) */
+@media (max-width: 768px) {
+    /* Revert Inputs to Single Column on Mobile */
+    .global-settings,
+    .mode-inputs,
+    .advanced-content,
+    .grid-2-col {
+        grid-template-columns: 1fr; 
+    }
+    
+    .input-sub-heading {
+        font-size: 2.0rem; 
+    }
+    .result-sub-heading {
+        font-size: 1.6rem; 
+    }
+    
+    .advanced-content {
+        grid-column: span 1;
+    }
+
+    /* PDF BUTTON TEXT CHANGE */
+    .pdf-btn {
+        font-size: 0; /* Hide original text */
+    }
+    .pdf-btn::after {
+        content: "PDF";
+        font-size: 1.15rem;
+    }
+
+    /* SHARE BUTTON MOBILE LOGIC */
+    .share-btn {
+        font-size: 0; 
+    }
+    .share-btn::after {
+        content: "Share";
+        font-size: 1.15rem;
+    }
+
+    /* Adjust Tutorial Modal for Mobile */
+    .tutorial-card {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    /* SCROLLABLE IMAGES ON MOBILE */
+    .tutorial-images-row {
+        flex-wrap: nowrap; /* Prevent stacking */
+        overflow-x: auto; /* Enable horizontal scroll */
+        justify-content: flex-start; /* Align left for scrolling */
+        gap: 15px;
+        padding-bottom: 10px; /* Space for hidden scrollbar */
+        
+        /* Smooth Scrolling */
+        -webkit-overflow-scrolling: touch; 
+        scroll-snap-type: x mandatory;
+    }
+    
+    /* Hide scrollbar for Chrome/Safari/Opera */
+    .tutorial-images-row::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .tutorial-images-row {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    .tut-img-wrapper {
+        flex: 0 0 85%; /* Don't shrink, take 85% width to hint at more content */
+        aspect-ratio: 1/1;
+        scroll-snap-align: center; /* Snap to center */
+    }
+}
+
+/* ============================ */
+/* FOOTER STYLES                */
+/* ============================ */
+.site-footer {
+    position: relative;
+    width: 100%;
+    /* Ensure this path points to your image correctly */
+    background-image: url('../../img/footer.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto;
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 25, 20, 0.85);
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 100px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Branding */
+.footer-left {
+    flex: 0 1 auto;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-logo {
+    height: 80px;
+    width: auto;
+    opacity: 1;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.brand-name {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-top: 8px;
+}
+
+.tagline {
+    font-size: 1rem;
+    color: #e0e0e0;
+    font-style: italic;
+    margin: 0;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 5px 0;
+}
+
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.email-link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/* Links */
+.footer-links {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 140px;
+}
+
+.footer-col h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+/* Legal */
+.footer-legal-row {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    line-height: 1.5;
+    max-width: 900px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 990px) {
+    .footer-main-row {
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+    }
+    
+    .footer-links {
+        width: 100%;
+        justify-content: center;
+        gap: 50px;
+        flex: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+    
+    .footer-col {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-content {
+        padding: 40px 5vw 30px 5vw;
+    }
+}

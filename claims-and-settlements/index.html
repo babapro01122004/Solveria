@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+
+    <title>Civil Justice Suite | Solveria Decision Engine</title>
+    <meta name="description" content="Calculate fair settlement values for car accidents, diminished value claims, and lemon law disputes. Actuarial-grade modeling based on state tort statutes.">
+    <meta name="keywords" content="civil justice, settlement calculator, lemon law, diminished value, injury claim, pain and suffering multiplier, wage theft recovery">
+    <meta name="author" content="Solveria">
+    
+    <link rel="canonical" href="https://solveria.org/civil-justice/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/civil-justice/">
+    <meta property="og:title" content="Civil Justice Suite | Solveria Decision Engine">
+    <meta property="og:description" content="Model your claim value using the same 'Multiplier Method' and actuarial tables used by defense firms.">
+    <meta property="og:image" content="https://solveria.org/img/social-share.png">
+
+    <!-- Preload Critical Hero Image for LCP Score -->
+    <link rel="preload" as="image" href="../img/support.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Fonts: Display Swap ensures text is visible immediately -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================ */
+        /* CORE RESET & TYPOGRAPHY      */
+        /* ============================ */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            background-color: #f5f5f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ============================ */
+        /* HEADER                       */
+        /* ============================ */
+        .header {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 10;
+            padding: 1.5rem 1rem;
+        }
+        .header-container {
+            max-width: 98%; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header .logo img { 
+            height: 40px; /* Standard Desktop Size */
+            width: auto; 
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)); 
+        }
+        
+        /* NAVIGATION LINKS STYLING */
+        .header nav a {
+            /* Light Grey Default */
+            color: #bbbbbb; 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 400; 
+            margin-left: 30px; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            transition: color 0.3s ease; /* Smooth transition */
+        }
+        
+        /* White only on Hover or Active/Click */
+        .header nav a:hover,
+        .header nav a:active,
+        .header nav a:focus {
+            color: #ffffff;
+        }
+
+        /* ============================ */
+        /* HERO SECTION                 */
+        /* ============================ */
+        .hero-section {
+            position: relative; 
+            height: 60vh; 
+            min-height: 500px;
+            background-image: url('../img/support.webp'); 
+            background-size: cover; 
+            background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff;
+        }
+        /* Boundary Fade (Vignette) */
+        .hero-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.95) 100%);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 1000px; padding: 20px; transition: padding 0.3s ease; }
+        .hero-content h1 { 
+            font-size: 3.5rem;
+            font-weight: 100; letter-spacing: 2px; 
+            text-transform: uppercase; margin-bottom: 1rem; margin-top: 0;
+        }
+        .hero-content .mission-statement {
+            font-size: 1.15rem; font-weight: 300; line-height: 1.6;
+            color: #e5e7eb; max-width: 800px; margin-inline: auto;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* ============================ */
+        /* MAIN LAYOUT                  */
+        /* ============================ */
+        .content-section { padding: 30px 20px 60px; flex: 1; }
+        .content-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        .breadcrumb { margin-bottom: 30px; font-size: 0.9rem; color: #777; }
+        .breadcrumb a { color: #777; text-decoration: none; }
+        .breadcrumb .current { color: #000; font-weight: 400; }
+
+        /* ============================ */
+        /* SECTIONS & HEADINGS          */
+        /* ============================ */
+        .section-intro { margin-bottom: 20px; margin-top: 50px; }
+        .section-intro:first-of-type { margin-top: 0; }
+        .section-intro h2 {
+            font-size: 1.8rem; font-weight: 300; text-transform: uppercase; 
+            letter-spacing: 1px; color: #111; margin-bottom: 8px; margin-top: 0;
+        }
+        .section-intro p { 
+            color: #555; 
+            font-size: 1rem; max-width: 700px; line-height: 1.5; margin-top: 0;
+        }
+
+        /* ============================ */
+        /* GRID SYSTEM                  */
+        /* ============================ */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .tools-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ============================ */
+        /* CARDS                        */
+        /* ============================ */
+        .tool-card {
+            position: relative; border-radius: 8px; overflow: hidden; height: 380px;
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; text-decoration: none;
+            background-color: #222;
+        }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
+        
+        /* BACKGROUND IMAGES */
+        .card-bg-img { 
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            object-fit: cover; z-index: 0; transition: transform 0.6s ease; 
+        }
+        /* No brightness filter - keeping them bright/original */
+        
+        .tool-card:hover .card-bg-img { transform: scale(1.05); }
+        
+        .card-overlay { 
+            position: absolute; inset: 0; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.95) 100%); 
+            z-index: 1; 
+        }
+        
+        .card-content { position: relative; z-index: 2; padding: 2rem; color: #fff; text-align: center; }
+        
+        /* Text Shadows for Contrast against Bright Images */
+        .tool-title { 
+            font-size: 1.6rem; font-weight: 100; margin: 0 0 0.5rem 0; 
+            color: #fff; line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .tool-desc { 
+            font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin: 0 0 1.5rem 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        /* LINK BUTTON TEXT */
+        .tool-link-text { 
+            /* Lighter color (Bisque) for better visibility */
+            color: #FFE4C4; 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            letter-spacing: 1px; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+        }
+
+        /* HORIZONTAL CARD (Financial Planning) */
+        .horizontal-card { 
+            min-height: 260px;
+            height: auto !important; 
+            width: 100%;
+        }
+
+        .horizontal-card .card-bg-img {
+            filter: brightness(0.85); 
+        }
+
+        .horizontal-overlay {
+            position: absolute; inset: 0;
+            background-color: rgba(0, 0, 0, 0.35); 
+            z-index: 1;
+        }
+        .horizontal-content-layout {
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            height: 100%; padding: 2.5rem; position: relative; z-index: 2;
+            text-align: center;
+            gap: 1.5rem; 
+        }
+        .horizontal-title { font-size: 2.2rem; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .horizontal-desc { max-width: 650px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+
+        /* RESPONSIVE TEXT ADJUSTMENTS FOR CARDS */
+        @media (max-width: 900px) {
+            .horizontal-title { font-size: 1.8rem; }
+            .tool-title { font-size: 1.45rem; }
+        }
+
+        /* ============================ */
+        /* INFO LISTS                   */
+        /* ============================ */
+        .info-list-container {
+            display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;
+        }
+        .info-item { margin-bottom: 0.5rem; }
+        .info-item h4 { 
+            font-weight: 400; 
+            color: #333333; 
+            margin: 0 0 0.2rem 0;
+            font-size: 1.15rem; 
+        }
+        .info-item p { 
+            color: #4b5563; 
+            font-size: 0.95rem; line-height: 1.5; max-width: 800px; margin-top: 0; 
+        }
+
+        /* ============================ */
+        /* PAGE RESPONSIVE LOGIC        */
+        /* ============================ */
+
+        /* Mobile Adjustments for Header & Hero & Cards (Non-Footer) */
+        @media (max-width: 600px) {
+            
+            /* 1. Header Container turns into a column */
+            .header-container { 
+                justify-content: center; 
+                flex-direction: column; 
+                gap: 15px; 
+                align-items: center;
+            }
+
+            /* 2. NAVIGATION FIRST (Order 1) */
+            .header nav { 
+                order: 1; /* Buttons at Top */
+                display: flex; 
+                justify-content: center;
+                gap: 20px; 
+                width: 100%;
+                padding-top: 10px;
+            }
+            .header nav a {
+                margin-left: 0;
+                font-size: 0.9rem;
+            }
+
+            /* 3. LOGO SECOND (Order 2) - Large & Centered */
+            .header .logo { 
+                order: 2; /* Below buttons */
+                display: block; 
+                margin: 10px 0; /* Reduced margin to bring elements closer */
+            }
+            .header .logo img {
+                height: 150px; /* INCREASED SIZE */
+                width: auto;
+            }
+
+            /* 4. HERO TEXT PUSHED DOWN */
+            .hero-content {
+                /* 
+                   Padding calculation adjusted to push text UP closer to logo.
+                   Header Top(24) + Nav(25) + Gap(10) + Logo(150) + Gap(10)
+                   = ~219px.
+                   Setting to 220px to sit right below the logo.
+                */
+                padding-top: 220px; 
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content .mission-statement {
+                font-size: 0.9rem; 
+                padding: 0 10px;
+            }
+
+            /* -- Cards Adjustments -- */
+            .horizontal-title { font-size: 1.6rem; }
+            .tool-title { font-size: 1.35rem; }
+            .tool-desc { font-size: 0.9rem; }
+            .horizontal-content-layout { padding: 2rem 1.5rem; }
+        }
+
+        /* ============================ */
+        /* FOOTER STYLES                */
+        /* ============================ */
+        .site-footer {
+            position: relative; width: 100%;
+            /* Ensure this path points to your image correctly */
+            background-image: url('../img/footer.webp');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            color: #ffffff; font-family: 'Roboto', sans-serif; margin-top: auto; 
+        }
+        .footer-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(30, 25, 20, 0.85); z-index: 1;
+        }
+        .footer-content {
+            position: relative; z-index: 2; padding: 50px 8vw 30px 8vw;
+            display: flex; flex-direction: column; gap: 40px;
+        }
+        .footer-main-row {
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 100px; width: 100%; align-items: center; 
+        }
+
+        /* Branding */
+        .footer-left {
+            flex: 0 1 auto; min-width: 280px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .footer-logo { height: 80px; width: auto; opacity: 1; }
+        .footer-info { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .brand-name {
+            font-family: 'Roboto', sans-serif; font-size: 3rem; font-weight: 100; 
+            color: #fff; letter-spacing: 0.05em; margin-top: 8px; 
+        }
+        .tagline { font-size: 1rem; color: #e0e0e0; font-style: italic; margin: 0; }
+        .description {
+            font-size: 0.85rem; color: #ccc; line-height: 1.5;
+            max-width: 300px; margin: 5px 0;
+        }
+        .email-link {
+            color: #D4BCA9; text-decoration: none; font-size: 0.9rem;
+            margin-top: 5px; border-bottom: 1px solid transparent; transition: all 0.3s ease;
+        }
+        .email-link:hover { color: #fff; border-bottom-color: #fff; }
+
+        /* Links */
+        .footer-links {
+            flex: 0 1 auto; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+        }
+        .footer-col { display: flex; flex-direction: column; gap: 10px; min-width: 140px; }
+        .footer-col h4 {
+            font-family: 'Roboto', sans-serif; font-size: 0.8rem; text-transform: uppercase; 
+            letter-spacing: 0.15em; color: #ffffff; margin: 0 0 8px 0; font-weight: 600;
+        }
+        .footer-col a {
+            color: #bbbbbb; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;
+        }
+        .footer-col a:hover { color: #ffffff; }
+
+        /* Legal */
+        .footer-legal-row {
+            width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 20px; display: flex; flex-direction: column;
+            align-items: center; text-align: center; gap: 10px;
+        }
+        .copyright { font-size: 0.85rem; color: #bbb; margin: 0; }
+        .disclaimer {
+            font-size: 0.7rem; color: #999; line-height: 1.5;
+            max-width: 900px; opacity: 0.7; margin: 0;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 990px) {
+            .footer-main-row { flex-direction: column; gap: 50px; align-items: center; }
+            .footer-links { width: 100%; justify-content: center; gap: 50px; flex: auto; }
+        }
+        @media (max-width: 600px) {
+            .footer-links { flex-direction: column; gap: 40px; align-items: center; }
+            .footer-col { width: 100%; align-items: center; text-align: center; }
+            .footer-content { padding: 40px 5vw 30px 5vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo" aria-label="Solveria Home">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32">
+            </a>
+            <nav>
+                <a href="../calculators/">Calculators</a>
+                <a href="../about/">About</a>
+                <a href="../support/">Help Center</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Civil Justice</h1>
+            <p class="mission-statement">
+                Insurance adjusters use algorithmic software to minimize your payout. We provide the counter-algorithm. Model your claim value using the same 'Multiplier Method' and actuarial tables used by defense firms, but calibrated for your recovery.
+            </p>
+        </div>
+    </section>
+
+    <main class="content-section">
+        <div class="content-container">
+            <nav class="breadcrumb">
+                <a href="../">Home</a> / <span class="current">Civil Justice</span>
+            </nav>
+
+            <!-- CIVIL JUSTICE TOOLS -->
+            <div class="section-intro">
+                <h2>Settlement Intelligence</h2>
+                <p>Direct access to actuarial-grade algorithms. Select a decision engine below to analyze liability, asset depreciation, and damages with zero-knowledge privacy.</p>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Card 1: Auto Liability -->
+                <a href="car-accident-calculator/" class="tool-card group">
+                    <img src="../img/A.webp" class="card-bg-img" alt="Auto Liability" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Auto Injury Settlement</h3>
+                        <p class="tool-desc">Estimate 'Pain & Suffering' utilizing the 1.5x - 5x Multiplier Method. Account for medical specials, lost wages, and localized liability caps.</p>
+                        <span class="tool-link-text">Estimate Settlement ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 2: Diminished Value -->
+                <a href="diminished-value-calculator/" class="tool-card group">
+                    <img src="../img/B.webp" class="card-bg-img" alt="Diminished Value" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Diminished Value Claim</h3>
+                        <p class="tool-desc">Your repaired car is worth less than a crash-free one. Calculate the recoverable 'inherent diminution' value based on the 17c Formula and market data.</p>
+                        <span class="tool-link-text">Calculate Diminution ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 3: Lemon Law -->
+                <a href="lemon-law-calculator/" class="tool-card group">
+                    <img src="../img/C.webp" class="card-bg-img" alt="Lemon Law" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Lemon Law Buyback</h3>
+                        <p class="tool-desc">Is your vehicle a lemon? Calculate statutory repurchase values, including usage offsets and collateral charge refunds under State Civil Codes.</p>
+                        <span class="tool-link-text">Check Eligibility ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 4: Premises Liability -->
+                <a href="dog-bite-impact-checker/" class="tool-card group">
+                    <img src="../img/D.webp" class="card-bg-img" alt="Premises Liability" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Trauma & Liability</h3>
+                        <p class="tool-desc">Assess settlement ranges for premises liability cases. Factor in strict liability statutes, scar permanence, and psychological impact multipliers.</p>
+                        <span class="tool-link-text">Assess Liability ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 5: High-Stakes Injury -->
+                <a href="motorcycle-accident-calculator/" class="tool-card group">
+                    <img src="../img/E.webp" class="card-bg-img" alt="Catastrophic Injury" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Catastrophic Injury Model</h3>
+                        <p class="tool-desc">Motorcycle claims require distinct actuarial weighting. Model high-severity outcomes, long-term care costs, and 'bias adjustment' factors.</p>
+                        <span class="tool-link-text">Model Costs ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 6: Labor Rights -->
+                <a href="unpaid-wages-calculator/" class="tool-card group">
+                    <img src="../img/F.webp" class="card-bg-img" alt="Labor Rights" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Wage Theft Recovery</h3>
+                        <p class="tool-desc">Audit your paycheck. Calculate unpaid overtime (1.5x), missed meal breaks, and statutory waiting time penalties under federal/state labor laws.</p>
+                        <span class="tool-link-text">Audit Paycheck ↗</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- CROSS SELL SECTION -->
+            <div class="section-intro">
+                <h2>Wealth Preservation</h2>
+                <p>Once you secure your settlement, protect your liquidity. Use our banking-grade tools to plan your long-term financial future.</p>
+            </div>
+
+            <a href="../finance/" class="tool-card horizontal-card">
+                <img src="../img/G.webp" alt="Finance Suite" class="card-bg-img" loading="lazy">
+                <div class="horizontal-overlay"></div>
+                <div class="horizontal-content-layout">
+                    <h3 class="tool-title horizontal-title">Looking for Financial Planning?</h3>
+                    <div>
+                        <p class="tool-desc horizontal-desc">Secure your long-term wealth. Switch to the Sovereign Finance Suite for mortgage, tax, and investment modeling.</p>
+                        <span class="tool-link-text">Launch Finance Suite ↗</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- METHODOLOGY SECTION -->
+            <div class="section-intro">
+                <h2>Litigation Logic Cores</h2>
+            </div>
+            <div class="info-list-container">
+                <div class="info-item">
+                    <h4>Statutory Benchmarks</h4>
+                    <p>Calculations reference specific Civil Codes (e.g., California Song-Beverly Act) and standard insurance industry formulas (17c) to ensure your settlement targets are grounded in legal reality.</p>
+                </div>
+                <div class="info-item">
+                    <h4>The Multiplier Standard</h4>
+                    <p>We utilize the standard 'Special Damages Multiplier' approach to estimate non-economic damages (Pain & Suffering), adjusted for injury severity and regional venue factors.</p>
+                </div>
+                <div class="info-item">
+                    <h4>Disclaimer</h4>
+                    <p>These models generate estimates for negotiation, not legal advice. Every case has unique evidentiary variables. Always consult with a qualified attorney before accepting a settlement offer.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            
+            <!-- Main Footer Row: Identity + Links -->
+            <div class="footer-main-row">
+                
+                <!-- Column 1: Identity -->
+                <div class="footer-left">
+                    <!-- Ensure this path points to your logo correctly -->
+                    <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <!-- EMAIL LINK WITH SUBJECT LINE -->
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <!-- Right Columns: Navigation -->
+                <div class="footer-links">
+                    
+                    <!-- Column 2: Platform -->
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../about/">About Solveria</a>
+                        <a href="../contact-us/">Contact Engineering</a>
+                        <a href="../support/">System Status</a>
+                    </div>
+                    
+                    <!-- Column 3: Suites -->
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../finance/">Sovereign Finance</a>
+                        <a href="../claims-and-settlements/">Civil Justice</a>
+                        <a href="../calculators/">Full Tool Library</a>
+                    </div>
+                    
+                    <!-- Column 4: Governance -->
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../privacy-policy/">Privacy Policy</a>
+                        <a href="../terms-of-use/">Terms of Use</a>
+                        <a href="../editorial-standards/">Editorial Standards</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Row: Disclaimer -->
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>

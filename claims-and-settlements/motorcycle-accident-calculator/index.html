@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free Motorcycle Accident Settlement Calculator. Estimate your injury claim value, pain and suffering multiplier (1.5x-5x), and analyze liability based on state laws (Lane Splitting, Helmet Rules).">
+<meta name="keywords" content="motorcycle accident settlement calculator, pain and suffering multiplier motorcycle, average payout for road rash, lane splitting accident fault, wrongful death motorcycle settlement, soft tissue injury motorcycle claim, helmet law negligence, insurance claim estimator">
+<meta name="author" content="Solveria">
+<meta property="og:title" content="Motorcycle Accident Settlement Calculator | Liability & Payout Estimator">
+<meta property="og:description" content="Calculate the true value of your motorcycle injury claim. Factor in medical bills, lost wages, and state-specific liability rules regarding lane splitting and helmets.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="../../img/Refinance_Hero.webp">
+<title>Motorcycle Settlement Calculator 2026 | Pain & Suffering Estimator</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Favicon & Manifest -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="icon" href="../../favicon.ico">
+
+<!-- Schema Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Motorcycle Accident Settlement Calculator",
+  "applicationCategory": "LegalApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "An advanced legal tool for estimating motorcycle accident settlements, calculating pain and suffering multipliers, and analyzing comparative negligence based on 50-state traffic laws.",
+  "featureList": ["Liability Analysis", "Statute of Limitations Tracker", "Pain and Suffering Multiplier", "Lane Splitting Compliance Check"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "How is pain and suffering calculated in motorcycle accidents?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Insurance adjusters typically use the 'Multiplier Method'. They take your total economic damages (medical bills + lost wages) and multiply them by a number between 1.5 and 5. A 1.5x multiplier applies to minor injuries, while 5x is reserved for catastrophic, permanent injuries like TBI, amputation, or severe scarring."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Does lane splitting affect my settlement value?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. In states where lane splitting is illegal, doing so is often considered 'negligence per se,' which can reduce your settlement by your percentage of fault (Comparative Negligence). In California, where it is legal, you can still be found partially at fault if you were splitting at an unsafe speed (usually >10mph faster than traffic)."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What is the average settlement for motorcycle road rash?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Settlements for road rash vary by severity. Minor 'friction burns' may settle for $10,000-$25,000. However, Grade 3 road rash requiring skin grafts or resulting in permanent disfigurement is often valued significantly higher, potentially reaching $100,000+ depending on the location of the scarring and policy limits."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Can I claim compensation if I wasn't wearing a helmet?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on the state and your injury. In states with Universal Helmet Laws, not wearing one allows the defense to argue you failed to mitigate damages. This often drastically reduces compensation for head/neck injuries but should NOT affect compensation for unrelated injuries (e.g., a broken leg)."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Why are motorcycle settlements often higher than car accidents?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Motorcycle claims often command higher verdicts due to the severity of injuries (lack of protection) and the high probability of permanent disability. However, 'Jury Bias' against motorcyclists can make these cases riskier to take to trial, often leading to negotiated settlements."
+    }
+  }, {
+    "@type": "Question",
+    "name": "What if the at-fault driver has minimum insurance?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "State minimums (e.g., $15k in CA or PA) are rarely enough for motorcycle trauma. If your damages exceed their limits, you must file an Underinsured Motorist (UIM) claim against your own policy. If you lack UIM coverage, recovering additional funds is extremely difficult unless the driver has personal assets."
+    }
+  }]
+}
+</script>
+</head>
+<body>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <nav class="hero-nav">
+        <a href="../../index.html">Home</a>
+        <a href="../../support/index.html">Support</a>
+        <a href="../../calculators/index.html">More</a>
+    </nav>
+
+    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" loading="eager" width="120" height="120">
+
+    <h1>Settlement Analyzer</h1>
+    
+    <p id="breathing-text" class="breathing-text">Know your rights. Don't settle for less.</p>
+</div>
+
+<!-- Breadcrumb Navigation -->
+<nav class="breadcrumb-nav">
+    <a href="../../index.html">Home</a>
+    <span class="separator">/</span>
+    <a href="../../calculators/index.html">Legal</a>
+    <span class="separator">/</span>
+    <span class="current-page">Motorcycle Accident</span>
+</nav>
+
+<!-- Core Question / Intro (Above Tool) -->
+<div class="intro-content-wrapper">
+    <h2>Calculate the True Value of Your Injury Claim</h2>
+    <p>Motorcycle accidents present unique liability challenges. From <strong>jury bias</strong> to <strong>lane-splitting statutes</strong>, insurance adjusters look for reasons to deny your claim. Use this engine to estimate your pain and suffering multiplier, analyze comparative fault, and determine if your settlement offer is fair based on 2026 jurisdictional data.</p>
+</div>
+
+<!-- Main Calculator Content -->
+<div class="calculator-container">
+    
+    <!-- Left Side: Inputs (Progressive 5-Step Flow) -->
+    <div class="calc-section left-section">
+        
+        <!-- Header Row: Stacked -->
+        <div class="header-row">
+            <h2>Case Details</h2>
+            <div class="step-indicator">Step <span id="step-number">1</span> of 5</div>
+        </div>
+
+        <!-- STEP 1: THE BASICS -->
+        <div class="step-content active" id="step-1">
+            <h3 class="input-sub-heading">The Basics</h3>
+            
+            <!-- Location (50 States) -->
+            <div class="input-wrapper full-width-span">
+                <label>Where did it happen?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_state" class="hidden-select">
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA" selected>California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">California</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option" data-value="AL">Alabama</div>
+                            <div class="dropdown-option" data-value="AK">Alaska</div>
+                            <div class="dropdown-option" data-value="AZ">Arizona</div>
+                            <div class="dropdown-option" data-value="AR">Arkansas</div>
+                            <div class="dropdown-option selected" data-value="CA">California</div>
+                            <div class="dropdown-option" data-value="CO">Colorado</div>
+                            <div class="dropdown-option" data-value="CT">Connecticut</div>
+                            <div class="dropdown-option" data-value="DE">Delaware</div>
+                            <div class="dropdown-option" data-value="DC">District of Columbia</div>
+                            <div class="dropdown-option" data-value="FL">Florida</div>
+                            <div class="dropdown-option" data-value="GA">Georgia</div>
+                            <div class="dropdown-option" data-value="HI">Hawaii</div>
+                            <div class="dropdown-option" data-value="ID">Idaho</div>
+                            <div class="dropdown-option" data-value="IL">Illinois</div>
+                            <div class="dropdown-option" data-value="IN">Indiana</div>
+                            <div class="dropdown-option" data-value="IA">Iowa</div>
+                            <div class="dropdown-option" data-value="KS">Kansas</div>
+                            <div class="dropdown-option" data-value="KY">Kentucky</div>
+                            <div class="dropdown-option" data-value="LA">Louisiana</div>
+                            <div class="dropdown-option" data-value="ME">Maine</div>
+                            <div class="dropdown-option" data-value="MD">Maryland</div>
+                            <div class="dropdown-option" data-value="MA">Massachusetts</div>
+                            <div class="dropdown-option" data-value="MI">Michigan</div>
+                            <div class="dropdown-option" data-value="MN">Minnesota</div>
+                            <div class="dropdown-option" data-value="MS">Mississippi</div>
+                            <div class="dropdown-option" data-value="MO">Missouri</div>
+                            <div class="dropdown-option" data-value="MT">Montana</div>
+                            <div class="dropdown-option" data-value="NE">Nebraska</div>
+                            <div class="dropdown-option" data-value="NV">Nevada</div>
+                            <div class="dropdown-option" data-value="NH">New Hampshire</div>
+                            <div class="dropdown-option" data-value="NJ">New Jersey</div>
+                            <div class="dropdown-option" data-value="NM">New Mexico</div>
+                            <div class="dropdown-option" data-value="NY">New York</div>
+                            <div class="dropdown-option" data-value="NC">North Carolina</div>
+                            <div class="dropdown-option" data-value="ND">North Dakota</div>
+                            <div class="dropdown-option" data-value="OH">Ohio</div>
+                            <div class="dropdown-option" data-value="OK">Oklahoma</div>
+                            <div class="dropdown-option" data-value="OR">Oregon</div>
+                            <div class="dropdown-option" data-value="PA">Pennsylvania</div>
+                            <div class="dropdown-option" data-value="RI">Rhode Island</div>
+                            <div class="dropdown-option" data-value="SC">South Carolina</div>
+                            <div class="dropdown-option" data-value="SD">South Dakota</div>
+                            <div class="dropdown-option" data-value="TN">Tennessee</div>
+                            <div class="dropdown-option" data-value="TX">Texas</div>
+                            <div class="dropdown-option" data-value="UT">Utah</div>
+                            <div class="dropdown-option" data-value="VT">Vermont</div>
+                            <div class="dropdown-option" data-value="VA">Virginia</div>
+                            <div class="dropdown-option" data-value="WA">Washington</div>
+                            <div class="dropdown-option" data-value="WV">West Virginia</div>
+                            <div class="dropdown-option" data-value="WI">Wisconsin</div>
+                            <div class="dropdown-option" data-value="WY">Wyoming</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Determines Statute of Limitations & Liability Rules.</div>
+            </div>
+
+            <!-- Custom Date Picker -->
+            <div class="input-wrapper">
+                <label>When did it happen?</label>
+                <div class="custom-date-wrapper" id="custom-date-wrapper">
+                    <input type="text" id="input_date" class="hidden-date-input" style="display:none;" value=""> 
+                    <button class="custom-date-trigger" id="date-trigger">
+                        <span id="date-text">Select Date</span>
+                        <span class="calendar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </span>
+                    </button>
+                    <div class="custom-date-picker" id="date-picker-popup">
+                        <div class="picker-header">
+                            <button class="nav-btn prev-year" id="prev-year-btn">&lt;</button>
+                            <span class="current-year-display" id="year-display">--</span>
+                            <button class="nav-btn next-year" id="next-year-btn">&gt;</button>
+                        </div>
+                        <div class="picker-months-grid" id="months-grid"></div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Used to calculate the remaining time to file.</div>
+            </div>
+
+            <!-- Police Report -->
+            <div class="input-wrapper full-width-span">
+                <label>Was a Police Report filed?</label>
+                <div class="button-group" id="group_police">
+                    <button type="button" class="select-btn" data-value="yes">Yes</button>
+                    <button type="button" class="select-btn" data-value="no">No</button>
+                    <button type="button" class="select-btn" data-value="unsure">Not Sure</button>
+                </div>
+                <input type="hidden" id="input_police" value="">
+                <div class="disclosure-text">Official reports are the strongest evidence of fault.</div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn next-btn" onclick="nextStep(2)">Next &rarr;</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: THE CRASH -->
+        <div class="step-content" id="step-2">
+            <h3 class="input-sub-heading">The Crash</h3>
+            <div class="input-wrapper full-width-span">
+                <label>What best describes the accident?</label>
+                <div class="icon-card-grid" id="group_type">
+                    <button type="button" class="icon-card" data-value="rear_end">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        </span>
+                        <span class="card-text">Rear-ended</span>
+                    </button>
+                    <button type="button" class="icon-card" data-value="left_turn">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 7.41L10.41 12 15 16.59 13.59 18l-6-6 6-6z"/></svg>
+                        </span>
+                        <span class="card-text">Left Turn</span>
+                    </button>
+                    <button type="button" class="icon-card" data-value="lane_change">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>
+                        </span>
+                        <span class="card-text">Lane Change</span>
+                    </button>
+                    <button type="button" class="icon-card" data-value="door">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19V5c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v14H3v2h18v-2h-2zm-6-6h-2v-2h2v2z"/></svg>
+                        </span>
+                        <span class="card-text">Door Prize</span>
+                    </button>
+                    <button type="button" class="icon-card" data-value="solo">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 16c0 3.31 2.69 6 6 6s6-2.69 6-6-2.69-6-6-6-6 2.69-6 6zM15.5 9c1.93 0 3.5-1.57 3.5-3.5S17.43 2 15.5 2 12 3.57 12 5.5s1.57 3.5 3.5 3.5z"/></svg>
+                        </span>
+                        <span class="card-text">Solo</span>
+                    </button>
+                    <button type="button" class="icon-card" data-value="other">
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                        </span>
+                        <span class="card-text">Other</span>
+                    </button>
+                </div>
+                <input type="hidden" id="input_type" value="">
+                <div class="disclosure-text">Helps determine the baseline fault scenarios.</div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>What were you doing?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_action" class="hidden-select">
+                        <option value="straight">Riding Straight / Stopped</option>
+                        <option value="splitting">Lane Splitting / Filtering</option>
+                        <option value="turning">Turning / Merging</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">Riding Straight / Stopped</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option selected" data-value="straight">Riding Straight / Stopped</div>
+                            <div class="dropdown-option" data-value="splitting">Lane Splitting / Filtering</div>
+                            <div class="dropdown-option" data-value="turning">Turning / Merging</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Lane splitting legality varies significantly by state.</div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Did other driver get a ticket?</label>
+                <div class="button-group" id="group_ticket">
+                    <button type="button" class="select-btn" data-value="yes">Yes</button>
+                    <button type="button" class="select-btn" data-value="no">No</button>
+                    <button type="button" class="select-btn" data-value="unsure">Unknown</button>
+                </div>
+                <input type="hidden" id="input_ticket" value="">
+                <div class="disclosure-text">A citation is strong evidence of the other driver's negligence.</div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn back-btn" onclick="prevStep(1)">&larr; Back</button>
+                <button class="nav-btn next-btn" onclick="nextStep(3)">Next &rarr;</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: THE DAMAGE -->
+        <div class="step-content" id="step-3">
+            <h3 class="input-sub-heading">The Damage</h3>
+            <div class="input-wrapper full-width-span">
+                <label>Medical Situation?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_medical" class="hidden-select">
+                        <option value="hospital">Ambulance / Hospital / Surgery</option>
+                        <option value="er">ER Visit (Self-transport)</option>
+                        <option value="urgent">Urgent Care / Chiropractor</option>
+                        <option value="none">No doctor yet</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">Select Medical Status...</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option" data-value="hospital">Ambulance / Hospital / Surgery</div>
+                            <div class="dropdown-option" data-value="er">ER Visit (Self-transport)</div>
+                            <div class="dropdown-option" data-value="urgent">Urgent Care / Chiropractor</div>
+                            <div class="dropdown-option" data-value="none">No doctor yet</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Treatment gaps can be used to reduce settlement value.</div>
+            </div>
+
+            <div class="input-wrapper full-width-span">
+                <label>Primary Injuries (Select all that apply)</label>
+                <div class="checkbox-grid" id="group_injuries">
+                    <label class="checkbox-btn"><input type="checkbox" value="fracture"> Fractures</label>
+                    <label class="checkbox-btn"><input type="checkbox" value="head"> Head Injury</label>
+                    <label class="checkbox-btn"><input type="checkbox" value="rash"> Road Rash</label>
+                    <label class="checkbox-btn"><input type="checkbox" value="soft"> Soft Tissue</label>
+                </div>
+                <input type="hidden" id="input_injuries" value="">
+                <div class="disclosure-text">Severe injuries significantly increase pain & suffering value.</div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Work Impact?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_work" class="hidden-select">
+                        <option value="lost_job">Lost Job / Can't Return</option>
+                        <option value="missed">Missed 3+ Days</option>
+                        <option value="none">Returned Immediately</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">Select Work Impact...</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option" data-value="lost_job">Lost Job / Can't Return</div>
+                            <div class="dropdown-option" data-value="missed">Missed 3+ Days</div>
+                            <div class="dropdown-option" data-value="none">Returned Immediately</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Lost income is a recoverable economic damage.</div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Bike Condition?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_bike" class="hidden-select">
+                        <option value="totaled">Totaled / Unrideable</option>
+                        <option value="minor">Rideable / Minor Damage</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">Select Condition...</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option" data-value="totaled">Totaled / Unrideable</div>
+                            <div class="dropdown-option" data-value="minor">Rideable / Minor Damage</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Vehicle damage severity often correlates with injury claims.</div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn back-btn" onclick="prevStep(2)">&larr; Back</button>
+                <button class="nav-btn next-btn" onclick="nextStep(4)">Next &rarr;</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: COMPLIANCE -->
+        <div class="step-content" id="step-4">
+            <h3 class="input-sub-heading">Compliance</h3>
+            <div class="input-wrapper">
+                <label>Were you wearing a helmet?</label>
+                <div class="button-group" id="group_helmet">
+                    <button type="button" class="select-btn" data-value="yes">Yes</button>
+                    <button type="button" class="select-btn" data-value="no">No</button>
+                </div>
+                <input type="hidden" id="input_helmet" value="">
+                <div class="disclosure-text">Non-compliance may reduce your compensation in some states.</div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Was alcohol involved?</label>
+                <div class="button-group" id="group_alcohol">
+                    <button type="button" class="select-btn" data-value="no">No</button>
+                    <button type="button" class="select-btn" data-value="yes">Yes</button>
+                    <button type="button" class="select-btn" data-value="prefer_not">Prefer not to say</button>
+                </div>
+                <input type="hidden" id="input_alcohol" value="">
+                <div class="disclosure-text">Intoxication can completely bar recovery in most jurisdictions.</div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn back-btn" onclick="prevStep(3)">&larr; Back</button>
+                <button class="nav-btn next-btn" onclick="nextStep(5)">Next &rarr;</button>
+            </div>
+        </div>
+
+        <!-- STEP 5: INSURANCE -->
+        <div class="step-content" id="step-5">
+            <h3 class="input-sub-heading">Insurance</h3>
+            <div class="input-wrapper full-width-span">
+                <label>The Other Driver?</label>
+                <div class="custom-dropdown-container">
+                    <select id="input_driver" class="hidden-select">
+                        <option value="insured">Insured (Personal Vehicle)</option>
+                        <option value="commercial">Commercial (Truck/Uber/Amazon)</option>
+                        <option value="uninsured">Uninsured / Hit & Run</option>
+                        <option value="unknown">I Don't Know</option>
+                    </select>
+                    <button class="custom-dropdown-trigger">Select Driver Type...</button>
+                    <div class="custom-dropdown-menu">
+                        <div class="dropdown-options-wrapper">
+                            <div class="dropdown-option" data-value="insured">Insured (Personal Vehicle)</div>
+                            <div class="dropdown-option" data-value="commercial">Commercial (Truck/Uber/Amazon)</div>
+                            <div class="dropdown-option" data-value="uninsured">Uninsured / Hit & Run</div>
+                            <div class="dropdown-option" data-value="unknown">I Don't Know</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disclosure-text">Commercial policies typically carry much higher limits.</div>
+            </div>
+
+            <div class="input-wrapper full-width-span">
+                <label>Do you have Uninsured Motorist (UM) Coverage?</label>
+                <div class="button-group" id="group_um">
+                    <button type="button" class="select-btn" data-value="yes">Yes</button>
+                    <button type="button" class="select-btn" data-value="no">No</button>
+                    <button type="button" class="select-btn" data-value="check">Need to Check</button>
+                </div>
+                <input type="hidden" id="input_um" value="">
+                <div class="disclosure-text">Crucial for recovery if the at-fault driver is uninsured.</div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn back-btn" onclick="prevStep(4)">&larr; Back</button>
+                <button class="nav-btn next-btn analyze-btn" onclick="calculateAndShow()">ANALYZE CASE</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Right Side: Results (Dashboard) -->
+    <div class="calc-section right-section">
+        <div id="results-display-container">
+            <h2>Analysis</h2>
+            
+            <!-- RESULTS CONTAINER (VISIBLE BUT BLURRED INITIALLY) -->
+            <div id="dashboard-results" class="mode-results results-blurred">
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons-row" style="margin-bottom: 20px;">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print">Print</button>
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+
+                <!-- Empathy Anchor -->
+                <p class="disclosure-text" style="font-size: 1rem; color: #555; margin-bottom: 20px;">
+                    Accidents are overwhelming. We've organized your facts below to help you feel more in control.
+                </p>
+
+                <!-- Visual Scorecard -->
+                <h3 class="result-sub-heading">Case Scorecard</h3>
+                
+                <!-- Liability Score -->
+                <div class="score-row">
+                    <div class="score-label">Liability Strength</div>
+                    <div class="score-indicator" id="res_liability">
+                        <span class="light red"></span><span class="light yellow"></span><span class="light green"></span>
+                        <span class="score-text">--</span>
+                    </div>
+                </div>
+
+                <!-- Severity Score -->
+                <div class="score-row">
+                    <div class="score-label">Case Severity</div>
+                    <div class="score-indicator" id="res_severity">
+                        <span class="light red"></span><span class="light yellow"></span><span class="light green"></span>
+                        <span class="score-text">--</span>
+                    </div>
+                </div>
+
+                <!-- Time Limit -->
+                <div class="time-limit-box">
+                    <div class="score-label">Statute of Limitations</div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="res_time_bar" style="width: 0%;"></div>
+                    </div>
+                    <div class="result-value" id="res_time_text" style="font-size: 1.5rem; margin-top: 5px;">-- Remaining</div>
+                </div>
+
+                <hr class="divider" style="display:block; margin: 20px 0; border-top: 1px solid #ddd;">
+
+                <!-- Evidence Strength -->
+                <div class="result-box">
+                    <span class="result-label">Documentation Status</span>
+                    <span class="result-value" id="res_docs">Pending</span>
+                </div>
+
+                <!-- Reality Checks / Alerts -->
+                <div id="alert-container-1" class="alert-box hidden" style="margin-bottom:15px;">
+                    <span class="alert-icon">
+                         <svg fill="#ffffff" width="24" height="24" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    </span>
+                    <span class="alert-msg" id="alert-msg-1"></span>
+                </div>
+                <div id="alert-container-2" class="alert-box hidden">
+                    <span class="alert-icon">
+                        <svg fill="#ffffff" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    </span>
+                    <span class="alert-msg" id="alert-msg-2"></span>
+                </div>
+            </div>
+
+            <!-- WHITE BORDERLESS PLACEHOLDER BLOCK (OVERLAY) -->
+            <div id="dashboard-placeholder" class="white-borderless-block">
+                <p id="placeholder-text">Enter details to analyze case</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SEO & Educational Content (Seamless Integration) -->
+<div class="seo-content-container">
+    <div class="content-block">
+        <h2>Comprehensive Guide to Motorcycle Accident Settlements</h2>
+        <p>Motorcycle accidents differ fundamentally from passenger vehicle collisions in legal practice. "Biker Prejudice" (or bias) is a documented phenomenon where juries and insurance adjusters unfairly assume motorcyclists are risk-takers. To maximize your settlement, you must present a claim that scientifically dismantles these biases using the <strong>Multiplier Method</strong> and <strong>Comparative Fault</strong> statutes.</p>
+        
+        <h3>1. The "Multiplier Method" Explained</h3>
+        <p>Most insurance companies calculate the "Pain and Suffering" component of your settlement (non-economic damages) by applying a multiplier to your economic damages (medical bills + lost wages).</p>
+        <ul class="seo-list">
+            <li><strong>1.5x - 2.0x Multiplier:</strong> Applied to soft tissue injuries, road rash, and minor sprains with full recovery.</li>
+            <li><strong>3.0x - 4.0x Multiplier:</strong> Applied to fractures, surgeries (ORIF), and injuries requiring long-term physical therapy.</li>
+            <li><strong>5.0x+ Multiplier:</strong> Reserved for catastrophic injuries like Traumatic Brain Injury (TBI), amputation, or permanent nerve damage/paralysis.</li>
+        </ul>
+
+        <h3>2. Common Motorcycle Injuries & Valuation</h3>
+        <p><strong>Road Rash:</strong> Often undervalued by adjusters. Severe road rash (Grade 3) involving the dermis can lead to permanent scarring and nerve damage. Settlements for severe road rash alone can exceed $50,000 if plastic surgery is indicated.</p>
+        <p><strong>Biker's Arm:</strong> Nerve damage in the upper arm caused by landing on the shoulder. This can lead to permanent loss of sensation or movement, significantly increasing the claim's value due to "loss of enjoyment of life."</p>
+
+        <h3>3. Liability Traps: Lane Splitting & Helmets</h3>
+        <p><strong>Lane Splitting:</strong> In California, lane splitting is legal if done safely. In other states (like Texas or Florida), it is illegal. If you were splitting illegally, the defense will argue <em>Comparative Negligence</em>, attempting to reduce your payout by your percentage of fault.</p>
+        <p><strong>Helmet Defense:</strong> In states with Universal Helmet Laws, failure to wear a helmet can be used to deny compensation for head injuries. It generally does not affect compensation for body injuries (e.g., a broken leg).</p>
+    </div>
+
+    <div class="faq-section">
+        <h3>Frequently Asked Questions</h3>
+        
+        <div class="faq-item">
+            <h4>How long does a motorcycle settlement take?</h4>
+            <p>Simple cases with clear liability may settle in 3-6 months. However, cases involving commercial vehicles, disputed liability (e.g., left-turn accidents), or high-value injuries often take 12-24 months to reach a fair value or go to trial.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Can I sue if the accident was a "Solo" crash?</h4>
+            <p>Generally, no, unless the crash was caused by a roadway defect (e.g., a massive pothole or construction debris). In those cases, you may have a claim against the city or municipality, but the statute of limitations is often much shorter (sometimes only 6 months).</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Is my settlement taxable?</h4>
+            <p>According to the IRS, settlement proceeds for "physical injuries or physical sickness" are generally tax-free. However, punitive damages or interest earned on the settlement are typically taxable.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TUTORIAL MODAL -->
+<div id="pdf-tutorial-overlay" class="tutorial-overlay">
+    <div class="tutorial-card">
+        <h3 class="tutorial-title">Generating Document...</h3>
+        <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+        <div class="tutorial-images-row">
+            <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy"></div>
+            <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy"></div>
+            <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy"></div>
+        </div>
+        <p class="tutorial-caption">Follow the steps above to save your results.</p>
+        <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+    </div>
+</div>
+
+<!-- INVISIBLE PRINT CONTAINER (CLEAN SLATE) -->
+<div id="print-view-container" class="print-view">
+    <div id="print-content-injection"></div>
+</div>
+
+<script src="script.js"></script>
+<footer class="site-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        <div class="footer-main-row">
+            <div class="footer-left">
+                <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                <div class="footer-info">
+                    <span class="brand-name">Solveria.</span>
+                    <p class="tagline">Engineered for Decision Sovereignty.</p>
+                    <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>PLATFORM</h4>
+                    <a href="../../about/">About Solveria</a>
+                    <a href="../../contact-us/">Contact Engineering</a>
+                    <a href="../../support/">System Status</a>
+                </div>
+                <div class="footer-col">
+                    <h4>SUITES</h4>
+                    <a href="../../finance/">Sovereign Finance</a>
+                    <a href="../../claims-and-settlements/">Civil Justice</a>
+                    <a href="../../calculators/">Full Tool Library</a>
+                </div>
+                <div class="footer-col">
+                    <h4>GOVERNANCE</h4>
+                    <a href="../../privacy-policy/">Privacy Policy</a>
+                    <a href="../../terms-of-use/">Terms of Use</a>
+                    <a href="../../editorial-standards/">Editorial Standards</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-legal-row">
+            <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+            <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
