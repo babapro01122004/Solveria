@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+
+    <!-- SEO: Meta Description & Keywords -->
+    <meta name="description" content="Access Solveria's complete index of sovereign financial and legal decision engines. Use our zero-trust calculators for mortgages, settlements, taxes, and investments.">
+    <meta name="keywords" content="financial calculators, settlement calculator, mortgage analysis, rent vs buy, auto injury settlement, sovereign finance, Solveria index">
+    <meta name="author" content="Solveria">
+    <meta name="robots" content="index, follow">
+
+    <!-- SEO: Open Graph (Facebook/LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Solveria Index | All Tools">
+    <meta property="og:description" content="Model your wealth and legal claims with banking-grade algorithms. The complete directory of Solveria's decision engines.">
+    <meta property="og:image" content="https://solveria.org/img/support.webp">
+    <meta property="og:url" content="https://solveria.org/index/">
+    <meta property="og:site_name" content="Solveria">
+
+    <!-- SEO: Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Solveria Index | All Tools">
+    <meta name="twitter:description" content="Model your wealth and legal claims with banking-grade algorithms.">
+    <meta name="twitter:image" content="https://solveria.org/img/support.webp">
+
+    <!-- Title Updated for Index -->
+    <title>The Solveria Index | All Tools</title>
+    
+    <!-- Core Assets: Preloading LCP Image -->
+    <link rel="preload" as="image" href="../img/support.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- SEO: JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "The Solveria Index",
+      "description": "The complete directory of our zero-trust financial and legal decision engines.",
+      "url": "https://solveria.org/index/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Solveria",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://solveria.org/img/Logo_Golden.webp",
+          "width": 600,
+          "height": 600
+        }
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Mortgage & Amortization",
+            "url": "https://solveria.org/finance/mortgage-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Affordability Stress Test",
+            "url": "https://solveria.org/finance/home-affordability-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Rent vs. Buy Projection",
+            "url": "https://solveria.org/finance/rent-vs-buy-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Auto Injury Settlement",
+            "url": "https://solveria.org/claims-and-settlements/car-accident-settlement-calculator/"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        /* ============================ */
+        /* CORE RESET & TYPOGRAPHY      */
+        /* ============================ */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            background-color: #f5f5f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ============================ */
+        /* HEADER                       */
+        /* ============================ */
+        .header {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 10;
+            padding: 1.5rem 1rem;
+        }
+        .header-container {
+            max-width: 98%; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header .logo img { 
+            height: 40px; 
+            width: auto; 
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)); 
+        }
+        
+        .header nav a {
+            color: #bbbbbb; 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 400; 
+            margin-left: 30px; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            transition: color 0.3s ease;
+        }
+        
+        .header nav a:hover,
+        .header nav a:active,
+        .header nav a:focus {
+            color: #ffffff;
+        }
+
+        /* ============================ */
+        /* HERO SECTION                 */
+        /* ============================ */
+        .hero-section {
+            position: relative; 
+            height: 60vh; 
+            min-height: 500px;
+            background-image: url('../img/support.webp'); 
+            background-size: cover; 
+            background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff;
+        }
+        .hero-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.95) 100%);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 1000px; padding: 20px; transition: padding 0.3s ease; }
+        .hero-content h1 { 
+            font-size: 3.5rem;
+            font-weight: 100; letter-spacing: 3px; 
+            text-transform: uppercase; margin-bottom: 1rem; margin-top: 0;
+        }
+        .hero-content .sub-headline {
+            font-size: 1.15rem; font-weight: 300; line-height: 1.6;
+            color: #e5e7eb; max-width: 800px; margin-inline: auto;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* ============================ */
+        /* MAIN LAYOUT                  */
+        /* ============================ */
+        .content-section { padding: 50px 20px 80px; flex: 1; }
+        .content-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        /* ============================ */
+        /* SECTIONS & HEADINGS          */
+        /* ============================ */
+        .section-intro { margin-bottom: 30px; margin-top: 80px; }
+        .section-intro:first-of-type { margin-top: 0; }
+        
+        .section-intro h2 {
+            font-size: 1.8rem; font-weight: 300; text-transform: uppercase; 
+            letter-spacing: 2px; color: #111; margin-bottom: 15px; margin-top: 0;
+        }
+        .section-intro p { 
+            color: #555; 
+            font-size: 1.05rem; max-width: 750px; line-height: 1.6; margin-top: 0;
+        }
+
+        /* ============================ */
+        /* GRID SYSTEM                  */
+        /* ============================ */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .tools-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ============================ */
+        /* CARDS                        */
+        /* ============================ */
+        .tool-card {
+            position: relative; border-radius: 8px; overflow: hidden; height: 380px;
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; text-decoration: none;
+            background-color: #222;
+        }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
+        
+        .card-bg-img { 
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            object-fit: cover; z-index: 0; transition: transform 0.6s ease; 
+        }
+        .tool-card:hover .card-bg-img { transform: scale(1.05); }
+        
+        .card-overlay { 
+            position: absolute; inset: 0; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.95) 100%); 
+            z-index: 1; 
+        }
+        
+        .card-content { position: relative; z-index: 2; padding: 2rem; color: #fff; text-align: center; }
+        
+        .tool-title { 
+            font-size: 1.6rem; font-weight: 100; margin: 0 0 0.5rem 0; 
+            color: #fff; line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .tool-desc { 
+            font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin: 0 0 1.5rem 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .tool-link-text { 
+            color: #FFE4C4; text-transform: uppercase; font-size: 0.85rem; 
+            letter-spacing: 1px; text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+        }
+
+        /* BOTTOM BANNER (Ledger) */
+        .bottom-banner {
+            position: relative; 
+            margin-top: 80px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background-color: #1a1a1a;
+        }
+        .banner-bg {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.4;
+        }
+        .banner-content {
+            position: relative; z-index: 2;
+            text-align: center; color: #fff;
+            padding: 3rem;
+            max-width: 800px;
+        }
+        .banner-title {
+            font-size: 2.5rem; font-weight: 100; margin: 0 0 1rem 0;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .banner-desc {
+            font-size: 1.1rem; color: #e5e5e5; margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .bottom-banner:hover .tool-link-text {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ============================ */
+        /* FOOTER                       */
+        /* ============================ */
+        .site-footer {
+            position: relative; width: 100%;
+            background-image: url('../img/footer.webp');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            color: #ffffff; font-family: 'Roboto', sans-serif; margin-top: auto; 
+        }
+        .footer-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(30, 25, 20, 0.85); z-index: 1;
+        }
+        .footer-content {
+            position: relative; z-index: 2; padding: 50px 8vw 30px 8vw;
+            display: flex; flex-direction: column; gap: 40px;
+        }
+        .footer-main-row {
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 100px; width: 100%; align-items: center; 
+        }
+
+        /* Branding */
+        .footer-left {
+            flex: 0 1 auto; min-width: 280px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .footer-logo { height: 80px; width: auto; opacity: 1; }
+        .footer-info { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .brand-name {
+            font-family: 'Roboto', sans-serif; font-size: 3rem; font-weight: 100; 
+            color: #fff; letter-spacing: 0.05em; margin-top: 8px; 
+        }
+        .tagline { font-size: 1rem; color: #e0e0e0; font-style: italic; margin: 0; }
+        .description {
+            font-size: 0.85rem; color: #ccc; line-height: 1.5;
+            max-width: 300px; margin: 5px 0;
+        }
+        .email-link {
+            color: #D4BCA9; text-decoration: none; font-size: 0.9rem;
+            margin-top: 5px; border-bottom: 1px solid transparent; transition: all 0.3s ease;
+        }
+        .email-link:hover { color: #fff; border-bottom-color: #fff; }
+
+        /* Links */
+        .footer-links {
+            flex: 0 1 auto; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+        }
+        .footer-col { display: flex; flex-direction: column; gap: 10px; min-width: 140px; }
+        .footer-col h4 {
+            font-family: 'Roboto', sans-serif; font-size: 0.8rem; text-transform: uppercase; 
+            letter-spacing: 0.15em; color: #ffffff; margin: 0 0 8px 0; font-weight: 600;
+        }
+        .footer-col a {
+            color: #bbbbbb; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;
+        }
+        .footer-col a:hover { color: #ffffff; }
+
+        /* Legal */
+        .footer-legal-row {
+            width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 20px; display: flex; flex-direction: column;
+            align-items: center; text-align: center; gap: 10px;
+        }
+        .copyright { font-size: 0.85rem; color: #bbb; margin: 0; }
+        .disclaimer {
+            font-size: 0.7rem; color: #999; line-height: 1.5;
+            max-width: 900px; opacity: 0.7; margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 990px) {
+            .footer-main-row { flex-direction: column; gap: 50px; align-items: center; }
+            .footer-links { width: 100%; justify-content: center; gap: 50px; flex: auto; }
+        }
+        @media (max-width: 600px) {
+            .header-container { justify-content: center; flex-direction: column; gap: 15px; align-items: center; }
+            .header nav { order: 1; display: flex; justify-content: center; gap: 20px; width: 100%; padding-top: 10px; }
+            .header nav a { margin-left: 0; font-size: 0.9rem; }
+            .header .logo { order: 2; display: block; margin: 10px 0; }
+            .header .logo img { height: 150px; width: auto; }
+            .hero-content { padding-top: 220px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .tool-title { font-size: 1.35rem; }
+            .tool-desc { font-size: 0.9rem; }
+            .footer-links { flex-direction: column; gap: 40px; align-items: center; }
+            .footer-col { width: 100%; align-items: center; text-align: center; }
+            .footer-content { padding: 40px 5vw 30px 5vw; }
+            .banner-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo" aria-label="Solveria Home">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32">
+            </a>
+            <nav>
+                <a href="../calculators/">Calculators</a>
+                <a href="../about/">About</a>
+                <a href="../support/">Help Center</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. THE HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>The Solveria Index</h1>
+            <p class="sub-headline">
+                The complete directory of our zero-trust financial and legal decision engines.
+            </p>
+        </div>
+    </section>
+
+    <main class="content-section">
+        <div class="content-container">
+
+            <!-- 2. FINANCE INTRO -->
+            <div class="section-intro">
+                <h2>Sovereign Finance Suite</h2>
+                <p>Model your wealth, protect your liquidity, and optimize your assets with banking-grade algorithms. Select an engine below to begin your analysis.</p>
+            </div>
+
+            <!-- 3. FINANCE GRID (6 Cards) -->
+            <div class="tools-grid">
+                
+                <!-- Card 1: Mortgage -->
+                <a href="mortgage-calculator/" class="tool-card group">
+                    <!-- Performance Note: Removed loading="lazy" for top row to improve LCP -->
+                    <img src="../img/A.jpg" class="card-bg-img" alt="Mortgage Analytics" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Mortgage & Amortization</h3>
+                        <p class="tool-desc">Analyze the true cost of borrowing. Model principal pay-down speeds and liquidity scenarios.</p>
+                        <span class="tool-link-text">OPEN DECISION ENGINE ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 2: Affordability -->
+                <a href="home-affordability-calculator/" class="tool-card group">
+                    <img src="../img/B.jpg" class="card-bg-img" alt="Affordability" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Affordability Stress Test</h3>
+                        <p class="tool-desc">Determine your maximum safe purchase price based on banking-grade DTI constraints.</p>
+                        <span class="tool-link-text">RUN STRESS TEST ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 3: Rent vs Buy -->
+                <a href="rent-vs-buy-calculator/" class="tool-card group">
+                    <img src="../img/C.jpg" class="card-bg-img" alt="Rent vs Buy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Rent vs. Buy Projection</h3>
+                        <p class="tool-desc">A 30-year equity simulation comparing unrecoverable costs of ownership.</p>
+                        <span class="tool-link-text">START SIMULATION ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 4: BRRRR -->
+                <a href="real-estate-investor-suite-BRRRR/" class="tool-card group">
+                    <!-- Performance Note: loading="lazy" reinstated for below-the-fold items -->
+                    <img src="../img/D.jpg" class="card-bg-img" alt="BRRRR Strategy" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">BRRRR Strategy</h3>
+                        <p class="tool-desc">Calculate Cash-on-Cash Return and velocity of money for investment properties.</p>
+                        <span class="tool-link-text">ANALYZE INVESTMENT ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 5: Tax -->
+                <a href="income-tax-calculator/" class="tool-card group">
+                    <img src="../img/E.webp" class="card-bg-img" alt="Tax Liability" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Federal & State Tax</h3>
+                        <p class="tool-desc">Estimate net take-home pay after FICA, brackets, and state-specific levies.</p>
+                        <span class="tool-link-text">CALCULATE LIABILITY ↗</span>
+                    </div>
+                </a>
+                
+                <!-- Card 6: Debt Avalanche -->
+                <a href="credit-card-payoff-calculator/" class="tool-card group">
+                    <img src="../img/F.webp" class="card-bg-img" alt="Debt Strategy" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Debt Avalanche Solver</h3>
+                        <p class="tool-desc">Optimize repayment strategies. Visualize interest savings via Avalanche vs. Snowball.</p>
+                        <span class="tool-link-text">OPTIMIZE REPAYMENT ↗</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 4. JUSTICE INTRO -->
+            <div class="section-intro" style="margin-top: 100px;">
+                <h2>Civil Justice & Settlements</h2>
+                <p>When damages occur, precision is your leverage. Counter the insurance algorithms with actuarial-grade liability models to estimate your fair recovery value.</p>
+            </div>
+
+            <!-- 5. JUSTICE GRID (6 Cards) -->
+            <div class="tools-grid">
+                
+                <!-- Card 1: Auto Injury -->
+                <a href="../claims-and-settlements/car-accident-settlement-calculator/" class="tool-card group">
+                    <img src="../img/G.webp" class="card-bg-img" alt="Auto Injury" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Auto Injury</h3>
+                        <p class="tool-desc">Estimate settlement values for car accidents based on medical multiplier models.</p>
+                        <span class="tool-link-text">VALUATE CLAIM ↗</span>
+                    </div>
+                </a>
+
+                <!-- Card 2: Diminished Value -->
+                <a href="../claims-and-settlements/diminished-value-calculator/" class="tool-card group">
+                    <img src="../img/H.jpg" class="card-bg-img" alt="Diminished Value" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Diminished Value</h3>
+                        <p class="tool-desc">Calculate the lost resale value of your vehicle after an accident history report.</p>
+                        <span class="tool-link-text">CALCULATE LOSS ↗</span>
+                    </div>
+                </a>
+
+                <!-- Card 3: Lemon Law -->
+                <a href="../claims-and-settlements/lemon-law-refund-calculator/" class="tool-card group">
+                    <img src="../img/I.jpg" class="card-bg-img" alt="Lemon Law" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Lemon Law Refund</h3>
+                        <p class="tool-desc">Determine your potential refund or replacement value for defective vehicles.</p>
+                        <span class="tool-link-text">CHECK ELIGIBILITY ↗</span>
+                    </div>
+                </a>
+
+                <!-- Card 4: Dog Bite -->
+                <a href="../claims-and-settlements/dog-bite-settlement-calculator/" class="tool-card group">
+                    <img src="../img/J.jpg" class="card-bg-img" alt="Dog Bite" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Dog Bite Liability</h3>
+                        <p class="tool-desc">Assess strict liability damages and pain and suffering multipliers for animal attacks.</p>
+                        <span class="tool-link-text">ASSESS DAMAGES ↗</span>
+                    </div>
+                </a>
+
+                <!-- Card 5: Motorcycle -->
+                <a href="../claims-and-settlements/motorcycle-accident-settlement-calculator/" class="tool-card group">
+                    <img src="../img/K.jpg" class="card-bg-img" alt="Motorcycle Accident" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Motorcycle Injury</h3>
+                        <p class="tool-desc">Specialized calculation for high-impact injuries and long-term care needs.</p>
+                        <span class="tool-link-text">RUN ANALYSIS ↗</span>
+                    </div>
+                </a>
+
+                <!-- Card 6: Unpaid Wages -->
+                <a href="../claims-and-settlements/unpaid-wages-and-overtime-calculator/" class="tool-card group">
+                    <img src="../img/L.jpg" class="card-bg-img" alt="Unpaid Wages" loading="lazy" width="600" height="400">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3 class="tool-title">Unpaid Wages</h3>
+                        <p class="tool-desc">Recover stolen earnings from overtime violations and off-the-clock work.</p>
+                        <span class="tool-link-text">AUDIT PAYCHECK ↗</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- NEW TEXT ADDITION BELOW JUSTICE CARDS -->
+            <div class="section-intro" style="margin-top: 50px; text-align: center; width: 100%;">
+                <p style="margin: 0 auto; color: #777; font-size: 0.95rem; max-width: 800px;">
+                    <em>System Advisory: All settlement calculations utilize the Multiplier Method consistent with 2025-2026 insurance adjuster protocols. 
+                    Results do not constitute a guarantee of payment but serve as a mathematical baseline for negotiation.</em>
+                </p>
+            </div>
+
+            <!-- 6. BOTTOM BANNER (DOCUMENTATION) -->
+            <!-- Performance: Added rel="noopener" for security and performance on blank target -->
+            <a href="../docs/PDF.pdf" class="bottom-banner" target="_blank" rel="noopener">
+                <img src="../img/support.webp" alt="Background" class="banner-bg" loading="lazy" width="1200" height="400">
+                <div class="banner-content">
+                    <h3 class="banner-title">Official System Documentation</h3>
+                    <p class="banner-desc">Access the complete technical ledger, algorithmic methodologies, and citations for the Solveria Index. Review our verified calculation protocols and data sourcing standards in the master documentation file.</p>
+                    <span class="tool-link-text" style="font-size: 1.1rem; margin-top: 1rem; display: inline-block;">VIEW OFFICIAL DOCUMENTATION ↗</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- 7. FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            
+            <!-- Main Footer Row: Identity + Links -->
+            <div class="footer-main-row">
+                
+                <!-- Column 1: Identity -->
+                <div class="footer-left">
+                    <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <!-- EMAIL LINK WITH SUBJECT LINE -->
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Index" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <!-- Right Columns: Navigation -->
+                <div class="footer-links">
+                    
+                    <!-- Column 2: Platform -->
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../about/">About Solveria</a>
+                        <a href="../contact-us/">Contact Engineering</a>
+                        <a href="../support/">System Status</a>
+                    </div>
+                    
+                    <!-- Column 3: Suites -->
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../finance/">Sovereign Finance</a>
+                        <a href="../claims-and-settlements/">Civil Justice</a>
+                        <a href="../calculators/">Full Tool Library</a>
+                    </div>
+                    
+                    <!-- Column 4: Governance -->
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../privacy-policy/">Privacy Policy</a>
+                        <a href="../terms-of-use/">Terms of Use</a>
+                        <a href="../editorial-standards/">Editorial Standards</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Row: Disclaimer -->
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1680 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700&display=swap');
+
+/* ============================ */
+/* New Roboto Fonts for Footer  */
+/* ============================ */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Existing Fonts */
+@font-face {
+    font-family: 'ProductSans-Light';
+    src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProductSans-Thin';
+    src: url('../../fonts/ProductSans-Thin.ttf') format('truetype');
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Background Color */
+body {
+    background-color: #F4F4F4;
+    font-family: 'ProductSans-Light', sans-serif;
+    /* Added for Sticky Footer */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================ */
+/* Hero Section                 */
+/* ============================ */
+.hero-section {
+    width: 100%;
+    height: 40vh; /* Reduced height to pull content up */
+    background-image: url('../../img/Refinance_Hero.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh; /* Reduced gap */
+    overflow: hidden; 
+}
+
+.hero-nav { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 3vh; /* Reduced gap */
+    z-index: 10; 
+    margin-top: 1vh;
+}
+
+.hero-nav a { 
+    color: #cacaca; 
+    text-decoration: none; 
+    font-size: 1.8vh;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300; 
+    transition: color .3s ease; 
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap; 
+}
+
+.hero-nav a:hover { 
+    color: #fff; 
+}
+
+.hero-logo {
+    height: 15vh; /* Slightly smaller logo */
+    width: auto;
+    display: block;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+.hero-section h1 {
+    color: #ffffff;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    font-size: 7vmin;
+    /* ENABLE WRAPPING for Hero Title */
+    white-space: normal;
+    text-align: center;
+    line-height: 1.1;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    max-width: 95%;
+    overflow-wrap: break-word;
+}
+
+.breathing-text {
+    color: #e0e0e0;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 2vmin;
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    min-height: 1.5em;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.breathing-text.fade-out {
+    opacity: 0;
+}
+
+/* ============================ */
+/* Breadcrumb Navigation        */
+/* ============================ */
+.breadcrumb-nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 2vh; /* Reduced margin */
+    padding: 0 8vw; /* Matches calculator container padding */
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    font-size: 1.8vh; 
+}
+
+.breadcrumb-nav a, 
+.breadcrumb-nav .current-page,
+.breadcrumb-nav .separator {
+    text-decoration: none;
+    color: #7a7a7a; 
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #000000;
+}
+
+.breadcrumb-nav .separator {
+    opacity: 0.5;
+}
+
+.breadcrumb-nav .current-page {
+    cursor: default;
+}
+
+/* ============================ */
+/* TOOL INTRO & SEO CONTENT     */
+/* ============================ */
+
+/* Top Intro (Seamlessly integrated) */
+.tool-intro-container {
+    width: 100%;
+    padding: 0 8vw;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.tool-intro-container h2 {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.tool-intro-container p {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+/* Bottom SEO Content (Big Section) */
+.seo-content-section {
+    width: 100%;
+    padding: 50px 8vw;
+    background-color: #F4F4F4; /* Same as body, seamless */
+    border-top: 1px solid rgba(0,0,0,0.05); /* Very faint separator line if needed, or remove */
+    margin-bottom: 0;
+}
+
+.seo-container {
+    max-width: 900px; /* Readable line length */
+    margin: 0; /* Left aligned content effectively */
+}
+
+.seo-container h3 {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.seo-container h4 {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.5rem;
+    color: #000;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.seo-container p {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.faq-item {
+    margin-bottom: 25px;
+}
+
+.faq-item h5 {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* ============================ */
+/* Calculator Main Layout       */
+/* ============================ */
+.calculator-container {
+    width: 100%;
+    padding: 0 8vw; /* Reduced from 15vw to use more screen width */
+    margin-top: 2vh; /* Reduced top margin */
+    margin-bottom: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; 
+    gap: 80px; /* Massively reduced from 250px */
+}
+
+.calc-section {
+    min-width: 300px;
+}
+
+/* Left Section (Inputs) - Wider */
+.left-section {
+    flex: 1.8; 
+}
+
+/* Right Section (Results) - Sticky Sidebar */
+.right-section {
+    flex: 1;
+    /* Default sticky behavior */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 30px;
+    z-index: 100;
+}
+
+/* Scrollable Logic for Desktop/Tablet (Side-by-Side View) */
+@media (min-width: 991px) {
+    .right-section {
+        /* Constraint height to trigger scroll within viewport */
+        max-height: calc(100vh - 60px); 
+        overflow-y: auto;
+        
+        /* Scrollbar hiding */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+        
+        /* Fade Effect (Masking) */
+        /* Mask fades the top and bottom 30px */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30px, black calc(100% - 30px), transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 30px, black calc(100% - 30px), transparent 100%);
+        
+        /* Padding adjustment: 
+           - 30px Top/Bottom for mask fading space 
+           - 40px Left/Right to prevent shadow clipping 
+        */
+        padding: 30px 40px; 
+        
+        /* Negative margin to maintain alignment with inputs header */
+        margin-top: -30px;
+    }
+    
+    .right-section::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Header Row for Inputs & Toggle */
+.header-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 2vh; /* Reduced margin */
+}
+
+/* 
+   MASSIVE HEADINGS: Main Section Titles (Inputs / Results)
+   Kept large as main page dividers, but wrapped.
+*/
+.calc-section h2 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300;
+    /* Scales between 4rem (64px) and 9rem (144px) based on width */
+    font-size: clamp(4rem, 6vw, 9rem);
+    line-height: 1.1;
+    color: #333;
+    margin: 0;
+    
+    /* ENABLE WRAPPING for Section Headings */
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.text-link-btn {
+    background: none;
+    border: none;
+    color: #7a7a7a;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.8vh;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+}
+
+.text-link-btn:hover {
+    color: #000;
+}
+
+/* Left Section Specifics */
+.left-section h2 {
+    text-align: left;
+}
+
+/* Right Section Specifics */
+.right-section h2 {
+    text-align: left; 
+}
+
+/* ============================ */
+/* Input Mode Cards             */
+/* ============================ */
+.mode-cards-container {
+    display: flex; /* Changed to Flex for left alignment */
+    justify-content: flex-start; /* Align left */
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 40px; 
+}
+
+.mode-card {
+    appearance: none;
+    position: relative;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px; 
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    overflow: hidden;
+    height: 12vh; 
+    width: 240px; /* Fixed width to prevent stretching */
+    flex-shrink: 0; /* Ensures they don't squish */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, outline 0.1s;
+    padding: 0;
+}
+
+.mode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.mode-card.active-mode {
+    box-shadow: 0px 0px 0px 3px #B5855E; 
+}
+
+.mode-card img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.65); 
+    transition: filter 0.3s ease;
+}
+
+.mode-card:hover img {
+    filter: brightness(0.75); 
+}
+
+.mode-card span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%; 
+    white-space: normal; 
+    line-height: 1.1;
+    font-family: 'ProductSans-Light', sans-serif; 
+    font-size: 1.5vh; 
+    color: #ffffff; 
+    background: none; 
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 1); 
+    pointer-events: none; 
+}
+
+/* ============================ */
+/* Inputs Styling (GRID)        */
+/* ============================ */
+
+/* Grid System for Inputs */
+.global-settings,
+.mode-inputs,
+.advanced-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns Side-by-Side */
+    column-gap: 40px; /* Space between columns */
+    row-gap: 30px; /* Space between rows */
+    width: 100%;
+}
+
+/* Added Spacing to separate Location from the inputs below */
+.global-settings {
+    margin-bottom: 50px; 
+}
+
+/* 
+   INPUT SUB-HEADING (UPDATED SPACING)
+   - Margin Bottom -15px negates half of the 30px grid row-gap
+   - Result: 15px visual space between heading and input (Matching Results Section)
+*/
+.input-sub-heading {
+    grid-column: 1 / -1; /* Spans full width */
+    
+    font-family: 'ProductSans-Light', sans-serif; 
+    font-size: 1.2rem; 
+    
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300; 
+    letter-spacing: 0.08em;
+    
+    margin-top: 25px;
+    /* FIX: Negative margin pulls inputs closer to match Result spacing */
+    margin-bottom: -15px; 
+    
+    padding-left: 2px;
+    line-height: 1;
+    
+    white-space: normal;
+    overflow-wrap: break-word; 
+}
+
+/* 
+   FIXED: Uses class instead of :first-child to avoid breaking when heading is added 
+   Ensures the Location bar spans 2 columns.
+*/
+.full-width-span {
+    grid-column: 1 / -1;
+}
+
+/* Advanced Content Wrapper should span full width of the parent grid */
+.advanced-content {
+    grid-column: 1 / -1; 
+    margin-top: 0;
+}
+
+.input-wrapper {
+    margin-bottom: 0; /* Handled by grid-gap now */
+    width: 100%;
+}
+
+/* 
+   FIXED ALIGNMENT: 
+   Enforce min-height for Label so inputs always align perfectly 
+   even if one label wraps to a second line.
+*/
+.input-wrapper label {
+    display: flex;          /* Use flex to control text position */
+    align-items: flex-end;  /* Bottom align text so single lines sit close to input */
+    min-height: 2.5em;      /* Reserve vertical space for 2 lines */
+    line-height: 1.2;       /* Tight line height for better spacing */
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.6vh;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Number Input - BORDER REMOVED */
+.input-group input[type=number],
+.input-group input[type=month] {
+    width: 100%;
+    border: none; 
+    background: transparent;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 2.2vh;
+    color: #333;
+    padding: 2px 0 0 0;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.input-group input[type=number]::-webkit-outer-spin-button,
+.input-group input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Slider Styling */
+.input-group input[type=range] {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 100%; 
+    height: 20px; 
+    border: 9px solid transparent; 
+    border-left: 0; border-right: 0; 
+    background-clip: content-box; 
+    background-color: transparent;
+    border-radius: 0px; 
+    outline: none; 
+    opacity: 0.5; 
+    transition: border-width .2s ease, opacity .2s ease; 
+    cursor: pointer;
+    margin-top: 2px; 
+    display: block;
+    position: relative;
+    z-index: 5;
+}
+
+/* Track */
+.input-group input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: transparent; 
+    border: none;
+    border-radius: 0px;
+}
+
+/* Interaction States */
+.input-group input[type=range]:hover, 
+.input-group input[type=range]:focus, 
+.input-group input[type=range]:active,
+.input-group input[type=range].active-slider { 
+    border-width: 7px;
+    opacity: 1; 
+}
+
+/* Thumb (Hidden but Interactable) - CRITICAL FIX FOR SLIDER OF HOPE */
+.input-group input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 30px; /* Large touch target */
+    height: 30px; 
+    background: transparent; 
+    cursor: pointer; 
+    opacity: 0; /* INVISIBLE */
+    margin-top: -15px; /* Pull it up to center */
+    transform: translateY(10px); /* Adjust based on track center */
+    z-index: 20;
+}
+
+.input-group input[type=range]::-moz-range-thumb {
+    width: 30px; 
+    height: 30px; 
+    border: none; 
+    background: transparent; 
+    cursor: pointer; 
+    opacity: 0; /* INVISIBLE */
+    z-index: 20;
+}
+
+/* ============================ */
+/* Custom Dropdown BOXED        */
+/* ============================ */
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box; 
+    margin-top: 3px; /* Spacing from label */
+}
+
+.hidden-select {
+    display: none;
+}
+
+/* The Trigger Box */
+.custom-dropdown-trigger {
+    width: 100%;
+    
+    /* Box Styling */
+    border: 2px solid #e0e0e0; /* Empty track color when inactive */
+    border-radius: 8px;        /* Rectangular square-ish box */
+    
+    /* UPDATED: Right padding increased to 40px to prevent text hitting the arrow */
+    padding: 10px 40px 10px 12px;        
+    
+    font-size: 2.2vh; 
+    color: #333;
+    background-color: transparent;
+    outline: none;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: left;
+    
+    /* Truncation Rules (The "...") */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Arrow moved inside the box */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; 
+    
+    transition: border-color 0.3s ease;
+}
+
+/* Hover State */
+.custom-dropdown-trigger:hover {
+    border-color: #D4BCA9;
+}
+
+/* Selected / Active State (When menu is open or focus) */
+.custom-dropdown-container:focus-within .custom-dropdown-trigger {
+    border-color: #B5855E; /* Slider color */
+}
+
+/* Dropdown Menu Position */
+.custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    padding: 6px 2px 6px 6px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.custom-dropdown-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.dropdown-options-wrapper {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 4px;
+}
+
+.dropdown-options-wrapper::-webkit-scrollbar { width: 8px; }
+.dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
+
+.dropdown-option {
+    padding: 10px 15px; 
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+    border-radius: 8px; 
+    margin-bottom: 2px; 
+    transition: background 0.15s ease, color 0.15s ease;
+    
+    /* UPDATED: Ensure options truncate nicely with "..." */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-option:hover { background: #eae5df; color: #000; }
+.dropdown-option.selected { font-weight: 500; color: #000; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* ============================ */
+/* NEW: Custom Date Picker      */
+/* ============================ */
+.custom-date-wrapper {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box; 
+    margin-top: 3px; 
+}
+
+.custom-date-trigger {
+    width: 100%;
+    
+    /* Box Styling to match Location Input */
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    
+    background: transparent;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 2.2vh;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: border-color 0.3s ease;
+}
+
+.custom-date-trigger span#date-text {
+    flex-grow: 1;
+    
+    /* UPDATED: Ensure date text truncates if space is tight */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.custom-date-trigger .calendar-icon {
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+    margin-left: 10px;
+    flex-shrink: 0; /* Prevent icon from squishing */
+}
+
+/* Hover State */
+.custom-date-trigger:hover {
+    border-color: #D4BCA9;
+}
+
+/* Active State (Toggled via JS) */
+.custom-date-trigger.active-state {
+    border-color: #B5855E;
+}
+
+/* The Popup */
+.custom-date-picker {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 280px; /* Fixed width for calendar */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* Faint blurry shadow */
+    z-index: 200;
+    padding: 15px;
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.custom-date-picker.active {
+    display: block;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.picker-header .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 5px;
+    transition: color 0.2s;
+}
+.picker-header .nav-btn:hover { color: #000; }
+
+.picker-header .current-year-display {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #333;
+}
+
+.picker-months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.picker-month-item {
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #555;
+    transition: background 0.2s, color 0.2s;
+}
+
+.picker-month-item:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
+.picker-month-item.selected {
+    background: #B5855E;
+    color: white;
+}
+
+
+/* ============================ */
+/* Results Styling              */
+/* ============================ */
+
+/* 
+   Two-Column Grid Layout for Results 
+*/
+.mode-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    column-gap: 20px; /* Space between columns */
+    row-gap: 0; /* Vertical gap handled by margins */
+    width: 100%;
+}
+
+/* 
+   Allow Advanced Content to flow into the Grid
+*/
+.right-section .advanced-content {
+    display: contents;
+}
+
+.result-box {
+    margin-bottom: 15px; /* UPDATED: Reduced from 20px to tighten grid */
+    text-align: left; 
+    min-width: 0; /* Allows text resizing to work in Grid */
+}
+
+/* Full Width span for specific result items */
+.result-box.full-width {
+    grid-column: 1 / -1;
+}
+
+.left-section .result-box {
+    text-align: left;
+}
+
+.result-label {
+    display: block;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.6vh;
+    color: #666;
+    margin-bottom: 3px;
+    
+    /* ENABLE WRAPPING for Labels */
+    white-space: normal;
+}
+
+/* 
+   Result Value Resizing & Layout - FIXED
+   - Uniform sizing via Clamp
+   - ENABLE WRAPPING (Removed whitespace:nowrap, overflow:hidden)
+   - Prevents Truncation ("...")
+   - No Overlap (Grid height adjusts automatically)
+*/
+.result-value {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    
+    /* 
+       Dynamic Uniform Sizing:
+       Scales safely between 1.5rem (24px) and 2.5rem (40px).
+       Prevents text from becoming excessively large.
+    */
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    
+    color: #333;
+    line-height: 1.2;
+    
+    /* ALLOW WRAPPING to show full text */
+    white-space: normal; 
+    overflow: visible;
+    overflow-wrap: break-word; /* Ensure long single words don't overflow */
+    width: 100%;
+}
+
+.result-value.good { color: #2ecc71; }
+.result-value.warn { color: #e67e22; }
+.result-value.bad { color: #e74c3c; }
+
+/* 
+   RESULT SUB-HEADING (UPDATED SIZE & SPACING)
+   Spans both columns in the grid.
+*/
+.result-sub-heading {
+    grid-column: 1 / -1; /* Full width */
+    
+    /* UPDATED FONT & SIZE */
+    font-family: 'ProductSans-Light', sans-serif; /* Light is better for small size */
+    font-size: 1.2rem; /* Clean, small label size (~19px) */
+    
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.08em; /* Slightly increased */
+    
+    /* UPDATED: COMPRESSED SPACING to bring bottom content into view */
+    margin-top: 25px; /* Reduced from 45px */
+    margin-bottom: 10px; /* Reduced from 15px */
+    
+    padding-left: 2px;
+    line-height: 1;
+    
+    /* ENABLE WRAPPING for Sub Headings */
+    white-space: normal;
+    overflow-wrap: break-word; /* Safety */
+}
+
+/* Remove top margin for the very first heading in results to align with top */
+.mode-results > .result-sub-heading:first-child {
+    margin-top: 25px; /* Reduced from 45px */
+}
+
+/* 
+   FIXED: Specific spacing rule for the new Benchmark Heading 
+   ensures it sits tightly under the main "Results" heading
+   without huge gaps, even if warning banner is hidden.
+*/
+#global-results .result-sub-heading {
+    margin-top: 0;
+}
+
+/* 
+   Disclosure Text / Subtitle 
+   Enforce min-height here too so the grid rows remain equal height
+*/
+.disclosure-text {
+    font-size: 1.5vh; 
+    color: #999;
+    margin-top: 5px;
+    min-height: 2.5em; /* Reserve space for 2 lines */
+    line-height: 1.2;
+}
+
+.divider {
+    display: none; 
+    border: none;
+    margin: 0;
+}
+
+/* ============================ */
+/* New Result Visuals           */
+/* ============================ */
+
+/* Global Warning Banner - UPDATED: Darker Red & White Text */
+.warning-banner {
+    width: 100%;
+    background-color: #D32F2F; /* Darker Red for better visibility */
+    color: #ffffff; /* White text for contrast */
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px; /* UPDATED: Reduced from 30px */
+    font-size: 1.5vh;
+    font-weight: 500;
+    text-align: center;
+    border: none; 
+    box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3); /* Colored shadow for depth */
+}
+
+/* Traffic Light Container */
+.traffic-light-wrapper {
+    margin-top: 5px; /* Reduced from 10px to sit closer */
+}
+.traffic-light-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.light.red.active { background-color: #e74c3c; box-shadow: 0 0 8px #e74c3c; }
+.light.red.blinking { animation: blinkRed 1s infinite; background-color: #e74c3c; }
+.light.yellow.active { background-color: #f1c40f; box-shadow: 0 0 8px #f1c40f; }
+.light.green.active { background-color: #2ecc71; box-shadow: 0 0 8px #2ecc71; }
+
+@keyframes blinkRed {
+    0% { opacity: 1; box-shadow: 0 0 8px #e74c3c; }
+    50% { opacity: 0.4; box-shadow: none; }
+    100% { opacity: 1; box-shadow: 0 0 8px #e74c3c; }
+}
+
+.status-text {
+    font-size: 1.4vh;
+    font-weight: 500;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+.status-text.bad { color: #e74c3c; }
+.status-text.ok { color: #f1c40f; }
+.status-text.good { color: #2ecc71; }
+
+/* Feasibility Gauge */
+.feasibility-gauge {
+    height: 6px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+}
+.feasibility-gauge::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 70%; /* Dynamic in reality */
+    background: #e74c3c;
+    border-radius: 3px;
+}
+.feasibility-gauge.warn-bg::after { background: #e74c3c; width: 85%; }
+.feasibility-gauge.good-bg::after { background: #2ecc71; width: 40%; }
+
+
+/* NEW: Dynamic Summary Box (CLEAN TEXT) */
+.dynamic-summary-box {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    padding: 0; /* Removed padding */
+    margin-bottom: 20px; /* UPDATED: Reduced from 30px to save space */
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #666; /* Slightly softer text color */
+}
+
+/* Highlight Classes for Summary Text */
+.summary-highlight-good {
+    font-weight: bold;
+    color: #2ecc71; /* Green */
+}
+
+.summary-highlight-bad {
+    font-weight: bold;
+    color: #e74c3c; /* Red */
+}
+
+.summary-highlight-neutral {
+    font-weight: bold;
+    color: #333; /* Dark/Black */
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+
+/* TABLET & INTERMEDIATE: (1214px and below) */
+@media (max-width: 1214px) {
+    .calc-section h2 {
+        /* FIXED: Tablet specific massive sizing (approx 7vw) */
+        font-size: clamp(3.5rem, 7vw, 6rem);
+    }
+}
+
+/* MOBILE STACKING */
+/* CHANGED: Breakpoint moved from 1024px to 990px */
+@media (max-width: 990px) {
+    .calculator-container {
+        padding: 0 5vw;
+        flex-direction: column; 
+        gap: 60px; /* Spaced out sections */
+        align-items: center; /* FIX: Centers the column */
+    }
+    
+    .tool-intro-container {
+        padding: 0 5vw;
+        text-align: left;
+    }
+    
+    .seo-content-section {
+        padding: 40px 5vw;
+    }
+
+    .calc-section {
+        width: 100%;
+        max-width: 600px; /* FIX: constraints width so it looks centered */
+    }
+
+    .right-section {
+        position: static; /* Disable sticky on mobile so it sits naturally at bottom */
+    }
+
+    /* MASSIVE on Mobile */
+    .calc-section h2 {
+        font-size: 15vw; /* Fills width comfortably */
+        padding-bottom: 10px;
+    }
+
+    .right-section h2 {
+        text-align: left; 
+    }
+    
+    .result-box {
+        text-align: left; 
+    }
+    
+    /* Ensure cards are big enough on mobile to tap comfortably */
+    .mode-cards-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .mode-card {
+        width: 100%;
+    }
+}
+
+/* 
+   SMALL MOBILE RESULT FIX: 
+   Switch to 1 column to prevent overlapping of long text (e.g. "158 Months saved")
+   while maintaining readable font size.
+*/
+@media (max-width: 600px) {
+    .mode-results {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Revert Inputs to Single Column on Mobile */
+    .global-settings,
+    .mode-inputs {
+        grid-template-columns: 1fr; 
+    }
+    
+    .advanced-content {
+        grid-column: span 1;
+    }
+}
+
+/* ============================ */
+/* FOOTER STYLES (Solveria)     */
+/* ============================ */
+.site-footer {
+    position: relative; 
+    width: 100%;
+    /* Ensure this path points to your image correctly */
+    background-image: url('../../img/footer.webp');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    color: #ffffff; 
+    font-family: 'Roboto', sans-serif; 
+    margin-top: auto;
+}
+
+.footer-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(30, 25, 20, 0.85); 
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative; 
+    z-index: 2; 
+    padding: 50px 8vw 30px 8vw;
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 100px; 
+    width: 100%; 
+    align-items: center;
+}
+
+/* Branding */
+.footer-left {
+    flex: 0 1 auto; 
+    min-width: 280px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+}
+
+.footer-logo { 
+    height: 80px; 
+    width: auto; 
+    opacity: 1; 
+}
+
+.footer-info { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    align-items: center; 
+}
+
+.brand-name {
+    font-family: 'Roboto', sans-serif; 
+    font-size: 3rem; 
+    font-weight: 100;
+    color: #fff; 
+    letter-spacing: 0.05em; 
+    margin-top: 8px;
+}
+
+.tagline { 
+    font-size: 1rem; 
+    color: #e0e0e0; 
+    font-style: italic; 
+    margin: 0; 
+}
+
+.description {
+    font-size: 0.85rem; 
+    color: #ccc; 
+    line-height: 1.5;
+    max-width: 300px; 
+    margin: 5px 0;
+}
+
+.email-link {
+    color: #D4BCA9; 
+    text-decoration: none; 
+    font-size: 0.9rem;
+    margin-top: 5px; 
+    border-bottom: 1px solid transparent; 
+    transition: all 0.3s ease;
+}
+
+.email-link:hover { 
+    color: #fff; 
+    border-bottom-color: #fff; 
+}
+
+/* Links */
+.footer-links {
+    flex: 0 1 auto; 
+    display: flex; 
+    justify-content: center; 
+    gap: 60px; 
+    flex-wrap: wrap;
+}
+
+.footer-col { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    min-width: 140px; 
+}
+
+.footer-col h4 {
+    font-family: 'Roboto', sans-serif; 
+    font-size: 0.8rem; 
+    text-transform: uppercase;
+    letter-spacing: 0.15em; 
+    color: #ffffff; 
+    margin: 0 0 8px 0; 
+    font-weight: 600;
+}
+
+.footer-col a {
+    color: #bbbbbb; 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover { 
+    color: #ffffff; 
+}
+
+/* Legal */
+.footer-legal-row {
+    width: 100%; 
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    text-align: center; 
+    gap: 10px;
+}
+
+.copyright { 
+    font-size: 0.85rem; 
+    color: #bbb; 
+    margin: 0; 
+}
+
+.disclaimer {
+    font-size: 0.7rem; 
+    color: #999; 
+    line-height: 1.5;
+    max-width: 900px; 
+    opacity: 0.7; 
+    margin: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 990px) {
+    .footer-main-row { 
+        flex-direction: column; 
+        gap: 50px; 
+        align-items: center; 
+    }
+    .footer-links { 
+        width: 100%; 
+        justify-content: center; 
+        gap: 50px; 
+        flex: auto; 
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-links { 
+        flex-direction: column; 
+        gap: 40px; 
+        align-items: center; 
+    }
+    .footer-col { 
+        width: 100%; 
+        align-items: center; 
+        text-align: center; 
+    }
+    .footer-content { 
+        padding: 40px 5vw 30px 5vw; 
+    }
+}
+
+/* --- BUTTONS --- */
+.action-buttons-row { 
+    display: flex; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+    margin-bottom: 0; /* Changed to match alignment logic */
+    margin-top: 0;    /* Managed by parent .header-row gap */
+}
+
+.action-btn {
+    background: none; border: none; padding: 0;
+    font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
+    color: #7a7a7a; cursor: pointer; transition: color 0.3s ease;
+}
+.action-btn:hover { color: #000000; }
+@media (max-width: 600px) {
+    #btn-save-pdf { font-size: 0; }
+    #btn-save-pdf::after { content: 'PDF'; font-size: 1.15rem; }
+}
+
+/* --- MODAL --- */
+.tutorial-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 10%, rgba(0,0,0,0.15) 100%);
+    backdrop-filter: blur(8px); z-index: 9999; 
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+}
+.tutorial-overlay.active { opacity: 1; visibility: visible; }
+
+.tutorial-card {
+    background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.15); 
+    width: 90%; max-width: 800px; padding: 40px; border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    
+    /* ADDED: Scrollable logic for mobile */
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+@keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+
+.tutorial-images-row { 
+    display: flex; 
+    justify-content: center; 
+    gap: 30px; 
+    width: 100%; 
+    margin-bottom: 20px; 
+    flex-wrap: wrap; /* Allows stacking on mobile */
+}
+
+.tut-img-wrapper { 
+    flex: 1; 
+    min-width: 150px; /* Prevents squishing */
+    aspect-ratio: 1 / 1; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    overflow: hidden; 
+}
+
+/* Ensure images take full width when stacked on mobile */
+@media (max-width: 600px) {
+    .tut-img-wrapper {
+        min-width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+.tut-img-wrapper img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* Prevents cropping */
+}
+
+.proceed-btn {
+    border: none; background-color: #f4f4f4; border-radius: 50px;
+    font-family: 'ProductSans-Thin', sans-serif; font-size: 1.1rem;
+    padding: 10px 50px; color: #ccc; transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevents button squishing */
+}
+.proceed-btn:not(:disabled) { color: #000; cursor: pointer; font-weight: 600; }
+.proceed-btn:not(:disabled):hover { color: #ffffff; background-color: #333333; }
+
+/* --- PRINT VIEW MAGIC --- */
+.print-view { display: none; }
+
+@media print {
+    @page { 
+        size: letter; 
+        margin: 0.5in; 
+    }
+    
+    /* Enforce Roboto Font */
+    body { 
+        background-color: #fff; 
+        font-family: 'Roboto', sans-serif !important; 
+        color: #000;
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
+    }
+    
+    /* HIDE APP UI */
+    body > *:not(#print-view-container) { display: none !important; }
+
+    /* SHOW PRINT UI */
+    #print-view-container { 
+        display: block; 
+        width: 100%; 
+    }
+
+    /* THE REPORT CONTAINER */
+    .print-report-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* HEADER */
+    .report-header {
+        border-top: 4px solid #000;
+        border-bottom: 4px solid #000;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .print-logo-img {
+        height: 60px;
+        width: auto;
+    }
+
+    .header-text h1 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        font-size: 18pt;
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .header-text h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 11pt;
+        text-transform: uppercase;
+        color: #000000; /* CHANGED TO BLACK AS REQUESTED */
+        margin: 5px 0 0 0;
+        letter-spacing: 0.5px;
+    }
+
+    /* META ROW */
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        font-size: 10pt;
+    }
+
+    .meta-col {
+        display: flex;
+        gap: 30px;
+    }
+
+    .meta-item strong {
+        font-weight: 700;
+        margin-right: 5px;
+    }
+
+    .meta-item span {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        color: #333;
+    }
+
+    /* SECTIONS */
+    .report-section {
+        margin-bottom: 35px;
+    }
+
+    .section-heading {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        font-size: 11pt;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    /* DATA GRID */
+    .data-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 40px;
+        row-gap: 8px;
+        margin-bottom: 15px;
+        font-size: 10pt;
+    }
+
+    .data-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; /* Align baseline */
+    }
+
+    .d-label {
+        color: #444;
+        font-weight: 300;
+    }
+
+    .d-value {
+        font-weight: 500;
+        text-align: right;
+    }
+    
+    .total-cost-row {
+        margin-top: 10px;
+        font-weight: 700;
+        font-size: 11pt;
+    }
+
+    /* ANALYST NOTE */
+    .analyst-note {
+        border-left: 4px solid #333;
+        padding-left: 15px;
+        margin-top: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        color: #000;
+        font-style: italic;
+    }
+
+    .analyst-note strong {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 9pt;
+        margin-right: 5px;
+    }
+
+    /* DISCLAIMER */
+    .note-disclaimer {
+        font-size: 9pt;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    /* SIGNATURES */
+    .signature-area {
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+
+    .sig-block {
+        width: 40%;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        text-align: center;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #666;
+    }
+
+    /* FOOTER DISCLAIMER */
+    .footer-legal {
+        font-size: 7pt;
+        text-align: justify;
+        color: #666;
+        line-height: 1.3;
+    }
+}

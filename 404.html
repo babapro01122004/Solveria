@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
+     crossorigin="anonymous"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="/">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-image-container {
+            /* NOTE: This path is correct because img/ is in the same directory as 404.html */
+            background-image: url('img/Dark.webp'); 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #374151;
+        }
+        
+        .blur-button {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "404 Page Not Found",
+      "description": "The requested page could not be found.",
+      "about": {
+        "@type": "ErrorPage"
+      }
+    }
+    </script>
+
+    <div class="bg-image-container min-h-screen flex flex-col text-white">
+        
+        <div class="flex-grow flex flex-col">
+
+            <header class="p-6 flex justify-start items-center opacity-90">
+                <picture>
+                    <source srcset="img/Logo_White.webp" type="image/webp">
+                    <source srcset="img/Logo_White.png" type="image/png">
+                    <img src="img/Logo_White.png" 
+                         alt="Solveria Logo" 
+                         class="h-8 sm:h-10 w-auto">
+                </picture>
+            </header>
+
+            <main class="flex-grow flex items-center justify-center p-4">
+                <div class="max-w-xl mx-auto text-center space-y-10 mt-[-8rem]">
+                    
+                    <h1 class="text-9xl md:text-[12rem] font-light tracking-normal opacity-90">
+                        404
+                    </h1>
+
+                    <p class="text-4xl md:text-5xl font-normal tracking-wide">
+                        Page not found
+                    </p>
+
+                    <a href="/" class="inline-block px-10 py-3 mt-8 text-base font-medium leading-5 text-white uppercase transition-colors duration-300 transform rounded-lg hover:bg-white/20 focus:outline-none focus:bg-white/20 shadow-xl hover:shadow-2xl blur-button">
+                        Go home
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Diminished Value Calculator (2026 Edition). Instantly calculate inherent diminished value using the 17c Formula vs. Market Value. Generate a PDF claim report.">
+    <meta name="keywords" content="diminished value calculator, inherent diminished value, 17c formula calculator, georgia 17c, car accident depreciation, insurance claim calculator, bad carfax value, third party claim, auto loss recovery, DV appraisal">
+    <meta name="author" content="Solveria">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/calculators/diminished-value/">
+    <meta property="og:title" content="Diminished Value Calculator | Recover Your Car's Lost Value">
+    <meta property="og:description" content="Don't lose thousands. Calculate the real value your car lost after an accident. Compare Insurance vs. Market Reality.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Diminished Value Calculator | 17c vs Market">
+    <meta property="twitter:description" content="Calculate your car's depreciation after an accident instantly.">
+    <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
+
+    <title>Diminished Value Calculator | 17c Formula & Market Realities</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- JSON-LD Schema Markup (Aggressive SEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Diminished Value Calculator",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "description": "A professional tool to calculate Inherent Diminished Value using the 17c Formula and Market Value comparison."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Inherent Diminished Value?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Inherent Diminished Value (IDV) is the loss in market value a vehicle suffers after an accident, even after being repaired. It reflects the 'stigma' damage associated with a bad CarFax or accident history."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is Diminished Value calculated?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is typically calculated using either the '17c Formula' (common in insurance offers) or a 'Market Value Comparison' (common in legal claims). Our tool compares both to show the gap."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is the 17c Formula fair?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Generally, no. The 17c formula applies a 10% cap on the vehicle's value and heavily penalizes mileage, often resulting in payouts far lower than the actual market depreciation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I claim Diminished Value against my own insurance?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In most states, First-Party claims (your own insurance) are excluded. However, Georgia is a notable exception where First-Party DV is mandated by law (State Farm v. Mabry)."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to Calculate Diminished Value",
+          "step": [
+            { "@type": "HowToStep", "text": "Enter your vehicle's current NADA or KBB market value." },
+            { "@type": "HowToStep", "text": "Input the current mileage and damage severity." },
+            { "@type": "HowToStep", "text": "Switch to 'Market View' to input trade-in offers." },
+            { "@type": "HowToStep", "text": "Compare the 17c formula result against the true market loss." }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Financial Logo" class="hero-logo" width="150" height="150">
+
+        <h1>Diminished Value Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Recover what your car lost in the accident.</p>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Auto Claims</a>
+        <span class="separator">/</span>
+        <span class="current-page">Diminished Value</span>
+    </nav>
+
+    <!-- KEY INTRO QUESTION (Before Tool) -->
+    <section class="intro-explainer">
+        <h2>What is Diminished Value?</h2>
+        <p>
+            When your car is damaged in an accident, it loses value immediately—even if it is repaired perfectly. 
+            This loss is called <strong>Inherent Diminished Value</strong>. Dealerships and private buyers will pay 
+            significantly less for a vehicle with an accident history (often flagged on CarFax) compared to an identical 
+            vehicle with a clean title. This calculator quantifies that loss.
+        </p>
+    </section>
+
+    <!-- Main Calculator Content -->
+    <main class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="section-header-stack">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn" aria-label="Toggle Advanced Input Options">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a" 
+                        data-title="The Insurer's View" 
+                        data-desc="The standard 17c formula used by insurance algorithms.">
+                    <img src="../../img/1.jpg" alt="Insurer Formula Calculation" loading="lazy">
+                    <span>The Insurer's View (17c)</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" 
+                        data-title="The Market View" 
+                        data-desc="Calculate the true financial loss based on market reality.">
+                    <img src="../../img/2.jpg" alt="Market Value Dealership Deal" loading="lazy">
+                    <span>The Market View</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS (Prerequisite) -->
+            <div class="global-settings">
+                <h3 class="input-sub-heading">Global Context</h3>
+                <div class="input-wrapper full-width-span">
+                    <label for="stateSelector">State / Jurisdiction</label>
+                    <div class="custom-dropdown-container">
+                        <select id="stateSelector" class="hidden-select">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA" selected>Georgia (17c Standard)</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Georgia (17c Standard)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <!-- Options populated by JS for performance -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Determines if the "Georgia 17c" or Common Law rules apply.</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: The Insurer's View (17c) -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                <h3 class="input-sub-heading">Insurer's View Inputs</h3>
+                
+                <!-- Basic Inputs -->
+                <div class="input-wrapper">
+                    <label for="input_carValueA">Vehicle Market Value ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_carValueA" value="35000">
+                        <input type="range" id="slider_carValueA" min="0" max="100" aria-label="Vehicle Value Slider">
+                    </div>
+                    <div class="disclosure-text">NADA or KBB private party value.</div>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label for="input_mileageA">Mileage</label>
+                    <div class="input-group">
+                        <input type="number" id="input_mileageA" value="45000">
+                        <input type="range" id="slider_mileageA" min="0" max="100" aria-label="Mileage Slider">
+                    </div>
+                    <div class="disclosure-text">Vehicle odometer reading.</div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label for="severityA">Damage Severity</label>
+                    <div class="custom-dropdown-container">
+                        <select id="severityA" class="hidden-select">
+                            <option value="0.25">Minor Damage (0.25)</option>
+                            <option value="0.50" selected>Moderate Damage (0.50)</option>
+                            <option value="1.00">Major Damage (1.00)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Moderate Damage (0.50)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="0.25">Minor Damage (0.25)</div>
+                                <div class="dropdown-option selected" data-value="0.50">Moderate Damage (0.50)</div>
+                                <div class="dropdown-option" data-value="1.00">Major Damage (1.00)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Subjective modifier used by adjusters.</div>
+                </div>
+
+                <!-- Advanced Inputs -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Formula Modifiers</h3>
+                    <div class="input-wrapper">
+                        <label for="input_capA">Formula Cap Limit (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_capA" value="10" step="1">
+                            <input type="range" id="slider_capA" min="0" max="100" aria-label="Formula Cap Slider">
+                        </div>
+                        <div class="disclosure-text">The hard cap applied to the base loss.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE B: The Market View -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Market Reality Inputs</h3>
+                
+                <!-- Basic -->
+                <div class="input-wrapper">
+                    <label for="input_preValB">
+                        Pre-Accident Value ($)
+                        <button type="button" id="btn_copy_a_to_b" class="copy-action-btn" title="Copy from Mode A">Copy Mode A</button>
+                    </label>
+                    <div class="input-group">
+                        <input type="number" id="input_preValB" value="35000">
+                        <input type="range" id="slider_preValB" min="0" max="100" aria-label="Pre-Accident Value Slider">
+                    </div>
+                    <div class="disclosure-text">Value before accident occurred.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="input_postValB">Post-Repair Trade-In ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_postValB" value="28000">
+                        <input type="range" id="slider_postValB" min="0" max="100" aria-label="Post-Repair Value Slider">
+                    </div>
+                    <div class="disclosure-text">Trade-in offer with "accident history".</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="input_insuranceOfferB">Insurance Offer ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_insuranceOfferB" value="1000">
+                        <input type="range" id="slider_insuranceOfferB" min="0" max="100" aria-label="Insurance Offer Slider">
+                    </div>
+                    <div class="disclosure-text">What the insurance company offered you.</div>
+                </div>
+
+                <!-- Advanced -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Market Adjustments</h3>
+                    <div class="input-wrapper">
+                        <label for="input_taxRateB">Sales Tax Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_taxRateB" value="0" step="0.1">
+                            <input type="range" id="slider_taxRateB" min="0" max="100" aria-label="Tax Rate Slider">
+                        </div>
+                        <div class="disclosure-text">Tax lost on the diminished value amount.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <!-- RESULTS CONTAINER (Scrollable) -->
+            <div id="results-display-container">
+                
+                <!-- HEADER STACK IS NOW INSIDE THE SCROLLABLE AREA -->
+                <div class="section-header-stack">
+                    <h2>Results</h2>
+                    <div class="action-buttons-row">
+                        <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
+                        <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
+                        <button class="action-btn share-btn" id="btn-share" aria-label="Share Results">Share</button>
+                    </div>
+                </div>
+
+                <!-- Mode A Results (17c) -->
+                <div id="mode-a-results" class="mode-results">
+                    
+                    <!-- Mileage Trap Warning -->
+                    <div id="mileage-trap-warning" class="mileage-trap hidden">
+                        <span class="trap-title">The Mileage Trap</span>
+                        <span class="trap-desc">Mileage > 100k reduces the 17c multiplier to zero.</span>
+                    </div>
+
+                    <!-- NEW SUMMARY SECTION MODE A -->
+                    <div id="mode-a-summary" class="summary-section">
+                        <h3 class="result-sub-heading">Summary</h3>
+                        <p id="res_summaryTextA" class="summary-text"></p>
+                    </div>
+
+                    <h3 class="result-sub-heading">Formula Estimate</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Estimated 17c Payout</span>
+                            <span class="result-value" id="res_dvA">$1,050</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Base Loss Cap</span>
+                            <span class="result-value" id="res_baseLossA">$3,500</span>
+                        </div>
+                    </div>
+                    
+                    <div class="advanced-content hidden">
+                        <h3 class="result-sub-heading">Multipliers Used</h3>
+                        <div class="result-row">
+                            <div class="result-box alt">
+                                <span class="result-label">Mileage Factor</span>
+                                <span class="result-value" id="res_mileageFactorA">0.60</span>
+                            </div>
+                            <div class="result-box alt">
+                                <span class="result-label">Damage Factor</span>
+                                <span class="result-value" id="res_damageFactorA">0.50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode B Results (The Comparison Engine) -->
+                <div id="mode-b-results" class="mode-results hidden">
+                    
+                    <!-- NEW SUMMARY SECTION MODE B -->
+                    <div id="mode-b-summary" class="summary-section">
+                        <h3 class="result-sub-heading">Summary</h3>
+                        <p id="res_summaryTextB" class="summary-text"></p>
+                    </div>
+
+                    <h3 class="result-sub-heading">Market Reality</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">True Market Loss</span>
+                            <span class="result-value bad" id="res_trueLossB">$7,000</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">The Gap</span>
+                            <span class="result-value warn" id="res_gapB">$6,000</span>
+                        </div>
+                    </div>
+
+                    <!-- The Comparison Engine -->
+                    <div id="comparison-engine" class="comparison-container status-red">
+                        <div class="badge-container">
+                            <span id="comp-badge" class="comp-badge badge-red">Aggressive Lowball</span>
+                        </div>
+
+                        <!-- Gap Visualization Bar Chart -->
+                        <div class="gap-visualization">
+                            <div class="chart-track">
+                                <div id="bar-offer" class="chart-bar offer-bar"></div>
+                                <div id="bar-gap" class="chart-bar gap-bar"></div>
+                            </div>
+                            <div class="chart-labels">
+                                <span class="chart-legend-item"><span class="dot white"></span>Offer</span>
+                                <span class="chart-legend-item"><span class="dot dark"></span>Gap (Your Loss)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="math-stack">
+                            <div class="stack-row">
+                                <span class="stack-label">Formula Says:</span>
+                                <span class="stack-val" id="stack_formula">$1,050</span>
+                            </div>
+                            <div class="stack-row">
+                                <span class="stack-label">Market Says:</span>
+                                <span class="stack-val" id="stack_market">$7,000</span>
+                            </div>
+                            <div class="stack-row highlight">
+                                <span class="stack-label">YOUR GAP:</span>
+                                <span class="stack-val" id="stack_gap">$5,950</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- TOOLTIP ELEMENT -->
+        <div id="cursor-tooltip" class="cursor-tooltip"></div>
+
+    </main>
+
+    <!-- AGGRESSIVE SEO & EDUCATIONAL CONTENT (UNIFIED DESIGN) -->
+    <section class="deep-dive-content">
+        <div class="content-wrapper">
+            
+            <!-- Article Block -->
+            <article class="content-article">
+                <h2>The Hidden Cost of Accidents: Diminished Value Explained</h2>
+                <p>
+                    When a vehicle is involved in a collision, repairs are only half the battle. Even after the body shop restores the paint and aligns the frame, the vehicle now carries a permanent "scar" on its history report (CarFax or AutoCheck). This is known as <strong>Inherent Diminished Value (IDV)</strong>.
+                </p>
+                <p>
+                    Statistics show that a vehicle with a reported accident history can lose <strong>15% to 35%</strong> of its resale value compared to a pristine vehicle. Dealerships cannot certify these cars, and private buyers demand steep discounts. Insurance companies are aware of this loss but often refuse to pay it unless legally compelled, frequently relying on the "17c Formula" to minimize their liability.
+                </p>
+
+                <h2 class="mt-large">The 17c Formula vs. Market Reality</h2>
+                <div class="comparison-grid">
+                    <div class="comp-col">
+                        <h3>The 17c Formula (Insurance)</h3>
+                        <p>
+                            Derived from the Georgia case <em>State Farm v. Mabry</em>, this formula is a standardized algorithm designed to limit payouts. It applies a <strong>hard cap of 10%</strong> on the vehicle's base value and severely penalizes vehicles for mileage.
+                        </p>
+                        <ul class="bullet-list">
+                            <li><strong>Arbitrary Cap:</strong> Max payout is 10% of NADA value.</li>
+                            <li><strong>Mileage Penalty:</strong> 100k+ miles = $0 payout.</li>
+                            <li><strong>Subjective Modifiers:</strong> Adjusters downgrade damage severity.</li>
+                        </ul>
+                    </div>
+                    <div class="comp-col">
+                        <h3>Market Value Comparison (Reality)</h3>
+                        <p>
+                            This is the empirical method used in legal settings and valid appraisals. It measures the <strong>actual difference</strong> in what a willing buyer would pay for your car immediately before and after the accident.
+                        </p>
+                        <ul class="bullet-list">
+                            <li><strong>No Caps:</strong> Based on real market data.</li>
+                            <li><strong>Real Depreciation:</strong> Accounts for trade-in stigma.</li>
+                            <li><strong>Tax Equity:</strong> Includes lost sales tax value.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="mt-large">State-by-State Recovery Guide</h2>
+                <p>
+                    Your ability to recover diminished value depends heavily on your jurisdiction and whether you are filing a <strong>First-Party Claim</strong> (against your own insurer) or a <strong>Third-Party Claim</strong> (against the at-fault driver).
+                </p>
+                
+                <div class="state-guide-grid">
+                    <div class="sg-item">
+                        <h4>Georgia (17c State)</h4>
+                        <p>The only state where First-Party DV is mandated by law. Insurers must pay, but they usually default to the 17c formula.</p>
+                    </div>
+                    <div class="sg-item">
+                        <h4>Washington & Kansas</h4>
+                        <p>Case law (e.g., <em>Moeller v. Farmers</em>) has created favorable precedents for First-Party recovery, though policies may vary.</p>
+                    </div>
+                    <div class="sg-item">
+                        <h4>Common Law States</h4>
+                        <p>In most other states (CA, TX, FL, NY, etc.), you can claim DV against the <strong>at-fault driver</strong> (Third-Party). You have the burden of proof to show the loss.</p>
+                    </div>
+                    <div class="sg-item">
+                        <h4>No-Fault States</h4>
+                        <p>States like Michigan typically bar DV claims unless the damage falls under specific "Mini-Tort" provisions.</p>
+                    </div>
+                </div>
+
+                <h2 class="mt-large">Frequently Asked Questions (FAQ)</h2>
+                <div class="faq-section">
+                    <div class="faq-block">
+                        <h3>How do I negotiate a higher Diminished Value payout?</h3>
+                        <p>
+                            Don't accept the first offer. Generate a report using the "Market View" of this calculator. Save it as a PDF. Send a demand letter attaching this report along with active listings of comparable vehicles (accident-free) vs. trade-in quotes for your repaired vehicle.
+                        </p>
+                    </div>
+                    <div class="faq-block">
+                        <h3>What is the Statute of Limitations?</h3>
+                        <p>
+                            This varies by state, typically ranging from 2 to 6 years for property damage claims. You do not have to settle immediately after repairs; you can file a DV claim even months later.
+                        </p>
+                    </div>
+                    <div class="faq-block">
+                        <h3>Does a "Certified Repair" restore value?</h3>
+                        <p>
+                            No. While a quality repair restores the vehicle's function and appearance, it does not erase the history report. The "stigma" of the accident remains the primary driver of financial loss.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 class="mt-large">Glossary of Terms</h2>
+                <p class="glossary-text">
+                    <strong>17c Formula:</strong> An insurance industry calculation limiting DV to 10% of vehicle value.<br>
+                    <strong>First-Party Claim:</strong> A claim filed against your own insurance policy.<br>
+                    <strong>Third-Party Claim:</strong> A claim filed against the at-fault driver's insurance.<br>
+                    <strong>NADA / KBB:</strong> Guides used to determine pre-accident market value.<br>
+                    <strong>Stigma Damage:</strong> The psychological reluctance of buyers to purchase a wrecked car.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Print Destination Selection" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Save as PDF Option" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Final PDF Save" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- INVISIBLE PRINT CONTAINER -->
+    <div id="print-view-container" class="print-view">
+        <!-- JS INJECTS CONTENT HERE -->
+    </div>
+
+    <script src="script.js"></script>
+
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

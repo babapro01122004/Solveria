@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Mortgage Calculator 2026 | PITI, Amortization & DTI Analysis</title>
+    <meta name="description" content="The industry-standard Mortgage Liability Assessment tool. Calculate PITI, analyze 17c formula vs market value, determine Refinance Breakeven, and optimize DSCR for investment properties.">
+    
+    <!-- SEO: Canonical & Social Tags -->
+    <link rel="canonical" href="https://www.yourwebsite.com/calculators/mortgage/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Advanced Mortgage Liability & Risk Assessment Engine">
+    <meta property="og:description" content="Professional-grade financial modeling for home ownership, refinancing, and real estate investing.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#B5855E">
+
+    <!-- PERFORMANCE: Critical Preloads -->
+    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../../fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    
+    <!-- FIX: Preload the Print Logo so it appears on 1st Attempt -->
+    <link rel="preload" href="../../img/Logo_Gold.webp" as="image">
+    
+    <!-- Preloading LCP Image (Hero) -->
+    <link rel="preload" href="../../img/Refinance_Hero_Mobile.webp" as="image" media="(max-width: 768px)">
+    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image" media="(min-width: 769px)">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PERFORMANCE: JS Defer -->
+    <script src="script.js" defer></script>
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- COMPREHENSIVE SCHEMA MARKUP (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Advanced Mortgage Calculator & Financial Decision Engine",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Any",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "A multi-mode financial calculator for Home Ownership Readiness, Refinance Breakeven Analysis, DSCR Rental Cash Flow, and VA/FHA Program Eligibility.",
+          "featureList": [
+            "Ownership Readiness Calculator",
+            "Refinance Equity Optimizer",
+            "DSCR Cash Flow Analyzer",
+            "VA/FHA Loan Eligibility Checker"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is PITI in mortgage calculations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "PITI stands for Principal, Interest, Taxes, and Insurance. These four components make up your total monthly mortgage liability. Many calculators only show Principal and Interest, which can be misleading."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is DSCR calculated for rental properties?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DSCR (Debt Service Coverage Ratio) is calculated by dividing the Gross Monthly Rental Income by the Total Monthly Debt Service (PITI + HOA). A ratio above 1.25 is typically required by lenders."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "../../index.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Finance",
+              "item": "../../calculators/index.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Mortgage Calculator"
+            }
+          ]
+        },
+        {
+          "@type": "Organization",
+          "name": "Golden Financial Tools",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "../../img/Logo_Golden.webp"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        
+        <!-- RESPONSIVE IMAGE SWITCHER -->
+        <picture class="hero-bg-wrapper">
+            <source media="(max-width: 768px)" srcset="../../img/Refinance_Hero_Mobile.webp">
+            <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" decoding="sync" width="1920" height="1080">
+        </picture>
+        
+        <nav class="hero-nav" aria-label="Main Navigation">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <!-- Logo -->
+        <img src="../../img/Logo_Golden.webp" alt="Golden Financial Tools Logo" class="hero-logo" loading="eager" width="200" height="85">
+
+        <h1>Mortgage Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">See the full cost — not just the payment.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
+        <a href="../../index.html">Home</a>
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator" aria-hidden="true">/</span>
+        <span class="current-page" aria-current="page">Decision Engine</span>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container" id="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn" aria-label="Toggle Advanced Options">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container" role="radiogroup" aria-label="Calculator Modes">
+                <button class="mode-card active-mode" data-mode="mode-a" role="radio" aria-checked="true"
+                    data-tooltip-title="True Affordability Check" 
+                    data-tooltip-desc="Goes beyond the monthly payment. This mode compares your liquid assets against the total cash-to-close (Down Payment + Closing Costs) to ensure you won't be house poor.">
+                    <img src="../../img/1.jpg" alt="Person holding a model house representing ownership" width="400" height="250" loading="lazy" decoding="async">
+                    <span>Ownership Readiness</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" role="radio" aria-checked="false"
+                    data-tooltip-title="Refinance Breakeven Analysis" 
+                    data-tooltip-desc="A mathematical approach to refinancing. It calculates the exact Breakeven Horizon—the number of months it takes for your monthly interest savings to fully recover the upfront closing costs.">
+                    <img src="../../img/2.jpg" alt="Floating money symbols representing equity" width="400" height="250" loading="lazy" decoding="async">
+                    <span>Equity Optimization</span>
+                </button>
+                <button class="mode-card" data-mode="mode-c" role="radio" aria-checked="false"
+                    data-tooltip-title="Investment & DSCR Analyzer" 
+                    data-tooltip-desc="Designed for investors. This mode calculates the Debt Service Coverage Ratio (DSCR) to see if rental income covers the debt.">
+                    <img src="../../img/3.jpg" alt="Bank vault representing cash flow" width="400" height="250" loading="lazy" decoding="async">
+                    <span>Cash Flow Strategy</span>
+                </button>
+                <button class="mode-card" data-mode="mode-d" role="radio" aria-checked="false"
+                    data-tooltip-title="FHA & VA Loan Assessment" 
+                    data-tooltip-desc="Evaluates the trade-off between low down payments and higher long-term costs.">
+                    <img src="../../img/4.jpg" alt="US Flag representing government programs" width="400" height="250" loading="lazy" decoding="async">
+                    <span>Program Advantage</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS -->
+            <div class="input-category-block">
+                <h3 class="input-category-header">Property & Market Data</h3>
+                <div class="input-grid">
+                    
+                    <!-- Location -->
+                    <div class="input-wrapper full-width-col">
+                        <label for="stateSelector">Location (State)</label>
+                        <div class="custom-dropdown-container" id="state-dropdown-container">
+                            <select id="stateSelector" class="hidden-select" aria-label="Select State"></select>
+                            <button class="custom-dropdown-trigger" aria-haspopup="listbox">Loading...</button>
+                            <div class="custom-dropdown-menu" role="listbox">
+                                <div class="dropdown-options-wrapper"></div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Uses state averages — county-level may vary.</div>
+                    </div>
+
+                    <!-- Property Tax -->
+                    <div class="input-wrapper advanced-content hidden">
+                        <label for="input_propTaxGlobal">Property Tax (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_propTaxGlobal" value="1.2" step="0.1" aria-label="Property Tax Percentage">
+                            <span id="badge_propTaxGlobal" class="auto-badge visible">Auto</span>
+                            <input type="range" id="slider_propTaxGlobal" min="0" max="5" step="0.1" aria-hidden="true">
+                        </div>
+                    </div>
+
+                    <!-- Home Insurance -->
+                    <div class="input-wrapper advanced-content hidden">
+                        <label for="input_insuranceGlobal">Home Insurance ($/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_insuranceGlobal" value="1200" aria-label="Annual Home Insurance Cost">
+                            <span id="badge_insuranceGlobal" class="auto-badge visible">Auto</span>
+                            <input type="range" id="slider_insuranceGlobal" min="0" max="6000" aria-hidden="true">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: Ownership Readiness -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Financial Context</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_incomeUserA">Annual Household Income ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_incomeUserA" value="95000" aria-label="Annual Income">
+                                <input type="range" id="slider_incomeUserA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_cashUserA">Liquid Assets / Cash ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_cashUserA" value="50000" aria-label="Liquid Assets">
+                                <input type="range" id="slider_cashUserA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Purchase Details</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_homePriceA">Home Price ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_homePriceA" value="450000" aria-label="Home Price">
+                                <input type="range" id="slider_homePriceA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_downPaymentA">Down Payment ($ vs %)</label>
+                            <div class="input-group">
+                                <div class="input-split-group">
+                                    <input type="number" id="input_downPaymentA" value="90000" class="input-split-primary" aria-label="Down Payment Amount">
+                                    <div class="input-split-secondary">
+                                        <input type="number" id="input_downPaymentPercentA" value="20" step="1" max="100" class="percent-input" aria-label="Down Payment Percentage">
+                                        <span class="percent-symbol">%</span>
+                                    </div>
+                                </div>
+                                <input type="range" id="slider_downPaymentA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Loan Terms</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_rateA">Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_rateA" value="6.5" step="0.125" aria-label="Interest Rate">
+                                <input type="range" id="slider_rateA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="termA">Loan Term</label>
+                            <div class="custom-dropdown-container">
+                                <select id="termA" class="hidden-select" aria-label="Loan Term">
+                                    <option value="30" selected>30 Years</option>
+                                    <option value="15">15 Years</option>
+                                </select>
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">30 Years</button>
+                                <div class="custom-dropdown-menu" role="listbox">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="30" role="option" aria-selected="true">30 Years</div>
+                                        <div class="dropdown-option" data-value="15" role="option">15 Years</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-wrapper advanced-content hidden">
+                            <label for="input_pointsA">Points / Credits (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_pointsA" value="0" step="0.125" aria-label="Points or Credits">
+                                <input type="range" id="slider_pointsA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block advanced-content hidden">
+                    <h3 class="input-category-header">Recurring Expenses</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_hoaA">HOA Fees ($/mo)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_hoaA" value="0" aria-label="HOA Fees">
+                                <input type="range" id="slider_hoaA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_pmiA">PMI Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_pmiA" value="0.5" step="0.1" aria-label="PMI Rate">
+                                <input type="range" id="slider_pmiA" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE B: Equity Optimization -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Current Situation</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_homeValueB">Current Home Value ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_homeValueB" value="450000" aria-label="Current Home Value">
+                                <input type="range" id="slider_homeValueB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_currentPaymentB">Current Monthly P&I ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_currentPaymentB" value="2800" aria-label="Current Payment">
+                                <input type="range" id="slider_currentPaymentB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">New Loan Structure</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_newLoanB">New Loan Amount ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newLoanB" value="400000" aria-label="New Loan Amount">
+                                <input type="range" id="slider_newLoanB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_rateB">New Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_rateB" value="5.5" step="0.125" aria-label="New Interest Rate">
+                                <input type="range" id="slider_rateB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper advanced-content hidden">
+                            <label for="input_cashOutB">Cash Out Amount ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_cashOutB" value="0" aria-label="Cash Out Amount">
+                                <input type="range" id="slider_cashOutB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block advanced-content hidden">
+                    <h3 class="input-category-header">Cost Benefit Analysis</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_costsB">Refinance Costs ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_costsB" value="5000" aria-label="Refinance Costs">
+                                <input type="range" id="slider_costsB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_yearsStayB">Years You'll Stay</label>
+                            <div class="input-group">
+                                <input type="number" id="input_yearsStayB" value="7" aria-label="Years Remaining">
+                                <input type="range" id="slider_yearsStayB" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE C: Cash Flow Strategy -->
+            <div id="mode-c-inputs" class="mode-inputs hidden">
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Asset Performance</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_homePriceC">Home Price ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_homePriceC" value="450000" aria-label="Investment Home Price">
+                                <input type="range" id="slider_homePriceC" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_rentC">Estimated Monthly Rent ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_rentC" value="3500" aria-label="Estimated Rent">
+                                <input type="range" id="slider_rentC" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Financing Strategy</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_loanC">Loan Amount ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_loanC" value="360000" aria-label="Loan Amount">
+                                <input type="range" id="slider_loanC" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_rateC">Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_rateC" value="6.5" step="0.125" aria-label="Interest Rate">
+                                <input type="range" id="slider_rateC" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block advanced-content hidden">
+                    <h3 class="input-category-header">Term Configuration</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="ioPeriodC">IO Period (Years)</label>
+                            <div class="custom-dropdown-container">
+                                <select id="ioPeriodC" class="hidden-select" aria-label="Interest Only Period">
+                                    <option value="5">5 Years</option>
+                                    <option value="7">7 Years</option>
+                                    <option value="10" selected>10 Years</option>
+                                </select>
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">10 Years</button>
+                                <div class="custom-dropdown-menu" role="listbox">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option" data-value="5" role="option">5 Years</div>
+                                        <div class="dropdown-option" data-value="7" role="option">7 Years</div>
+                                        <div class="dropdown-option selected" data-value="10" role="option" aria-selected="true">10 Years</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_amortC">Amortization Term (Years)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_amortC" value="30" aria-label="Amortization Term">
+                                <input type="range" id="slider_amortC" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE D: Program Advantage -->
+            <div id="mode-d-inputs" class="mode-inputs hidden">
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Eligibility Profile</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="loanTypeD">Loan Type</label>
+                            <div class="custom-dropdown-container">
+                                <select id="loanTypeD" class="hidden-select" aria-label="Loan Type">
+                                    <option value="VA" selected>VA Loan</option>
+                                    <option value="FHA">FHA Loan</option>
+                                </select>
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">VA Loan</button>
+                                <div class="custom-dropdown-menu" role="listbox">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="VA" role="option" aria-selected="true">VA Loan</div>
+                                        <div class="dropdown-option" data-value="FHA" role="option">FHA Loan</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-wrapper advanced-content hidden">
+                            <label for="creditScoreD">Credit Score</label>
+                            <div class="custom-dropdown-container">
+                                <select id="creditScoreD" class="hidden-select" aria-label="Credit Score Range">
+                                    <option value="720" selected>720+ (Excellent)</option>
+                                    <option value="680">680 - 719 (Good)</option>
+                                    <option value="620">620 - 679 (Fair)</option>
+                                    <option value="580">580 - 619 (Minimum)</option>
+                                </select>
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">720+ (Excellent)</button>
+                                <div class="custom-dropdown-menu" role="listbox">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="720" role="option" aria-selected="true">720+ (Excellent)</div>
+                                        <div class="dropdown-option" data-value="680" role="option">680 - 719 (Good)</div>
+                                        <div class="dropdown-option" data-value="620" role="option">620 - 679 (Fair)</div>
+                                        <div class="dropdown-option" data-value="580" role="option">580 - 619 (Minimum)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-wrapper advanced-content hidden">
+                            <label for="vaDisabilityD">VA Disability (Exempt from Fee)?</label>
+                            <div class="custom-dropdown-container">
+                                <select id="vaDisabilityD" class="hidden-select" aria-label="VA Disability Status">
+                                    <option value="No" selected>No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                                <button class="custom-dropdown-trigger" aria-haspopup="listbox">No</button>
+                                <div class="custom-dropdown-menu" role="listbox">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="No" role="option" aria-selected="true">No</div>
+                                        <div class="dropdown-option" data-value="Yes" role="option">Yes</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Transaction Specifics</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_homePriceD">Home Price ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_homePriceD" value="400000" aria-label="Home Price">
+                                <input type="range" id="slider_homePriceD" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="input_downPaymentD">Down Payment ($ vs %)</label>
+                            <div class="input-group">
+                                <div class="input-split-group">
+                                    <input type="number" id="input_downPaymentD" value="0" class="input-split-primary" aria-label="Down Payment Amount">
+                                    <div class="input-split-secondary">
+                                        <input type="number" id="input_downPaymentPercentD" value="0" step="1" max="100" class="percent-input" aria-label="Down Payment Percentage">
+                                        <span class="percent-symbol">%</span>
+                                    </div>
+                                </div>
+                                <input type="range" id="slider_downPaymentD" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-category-block">
+                    <h3 class="input-category-header">Rate Calculation</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper">
+                            <label for="input_rateD">Base Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_rateD" value="6.5" step="0.125" aria-label="Base Rate">
+                                <input type="range" id="slider_rateD" min="0" max="100" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <!-- Added Scroll Wrapper with ID and Class for Sticky/Fade Logic -->
+            <div class="results-scroll-wrapper" id="results-scroll-wrapper">
+                <h2>Results</h2> 
+                
+                <!-- NEW ACTION BUTTONS -->
+                <div class="action-buttons-row">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
+                    <button class="action-btn share-btn" id="btn-share" aria-label="Share Results">Share</button>
+                </div>
+                
+                <div id="results-display-container">
+                    <!-- Mode A Results -->
+                    <div id="mode-a-results" class="mode-results">
+                        <div class="metrics-grid">
+                            <div class="result-box">
+                                <span class="result-label">Monthly Payment</span>
+                                <span class="result-value" id="res_monthlyA">...</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Cash to Close</span>
+                                <span class="result-value" id="res_cashCloseA">...</span>
+                            </div>
+                            
+                            <div class="advanced-content hidden">
+                                <div class="result-box alt">
+                                    <span class="result-label">Interest Paid (Mo. 1)</span>
+                                    <span class="result-value text-warning" id="res_burnA">...</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Rec. Annual Income (28% DTI)</span>
+                                    <span class="result-value" id="res_incomeA">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-container">
+                            <h3 class="input-category-header">Summary</h3>
+                            <p id="summaryA" class="advisor-text">Loading...</p>
+                        </div>
+
+                        <div class="chart-row-wrapper">
+                            <div class="visual-card">
+                                <h3 class="chart-card-header">Monthly Cost Breakdown</h3>
+                                <!-- Fixed height container prevents reflow -->
+                                <div class="chart-container" style="height: 250px; width: 100%;">
+                                    <canvas id="chartA" aria-label="Chart showing monthly payment breakdown" role="img"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mode B Results -->
+                    <div id="mode-b-results" class="mode-results hidden">
+                        <div class="metrics-grid">
+                            <div class="result-box">
+                                <span class="result-label">New Monthly Payment</span>
+                                <span class="result-value" id="res_newPayB">...</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Monthly P&I Savings</span>
+                                <span class="result-value" id="res_saveB">...</span>
+                            </div>
+                            
+                            <div class="advanced-content hidden">
+                                <div class="result-box alt">
+                                    <span class="result-label">7-Year Net Profit</span>
+                                    <span class="result-value" id="res_netGainB">...</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Breakeven Timeline</span>
+                                    <span class="result-value" id="res_breakTimeB">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-container">
+                            <h3 class="input-category-header">Summary</h3>
+                            <p id="summaryB" class="advisor-text">Loading...</p>
+                        </div>
+
+                        <div class="chart-row-wrapper">
+                            <div class="visual-card">
+                                <h3 class="chart-card-header">Savings Projection</h3>
+                                <div class="chart-container" style="height: 250px; width: 100%;">
+                                    <canvas id="chartB" aria-label="Chart showing savings over time" role="img"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mode C Results -->
+                    <div id="mode-c-results" class="mode-results hidden">
+                        <div class="metrics-grid">
+                            <div class="result-box">
+                                <span class="result-label">Interest-Only Payment</span>
+                                <span class="result-value text-success" id="res_ioPayC">...</span>
+                            </div>
+                            
+                            <div class="advanced-content hidden">
+                                <div class="result-box alt">
+                                    <span class="result-label">Future Payment Shock (Year 11)</span>
+                                    <span class="result-value text-warning" id="res_shockC">...</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Est. Monthly Cash Flow</span>
+                                    <span class="result-value" id="res_cashFlowC">...</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">DSCR (Safety Ratio)</span>
+                                    <span class="result-value" id="res_dscrC">...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-container">
+                            <h3 class="input-category-header">Summary</h3>
+                            <p id="summaryC" class="advisor-text">Loading...</p>
+                        </div>
+                    </div>
+
+                    <!-- Mode D Results -->
+                    <div id="mode-d-results" class="mode-results hidden">
+                        <div class="metrics-grid">
+                            <div class="result-box">
+                                <span class="result-label">Total Monthly Payment</span>
+                                <span class="result-value" id="res_totalPayD">...</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">VA Funding Fee (Financed)</span>
+                                <span class="result-value text-neutral" id="res_feeD">...</span>
+                            </div>
+                            
+                            <div class="advanced-content hidden">
+                                <div class="result-box alt">
+                                    <span class="result-label">APR (Includes Fee)</span>
+                                    <span class="result-value" id="res_aprD">...</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">5-Year Sunk Cost (Interest+Fees)</span>
+                                    <span class="result-value" id="res_sunkD">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-container">
+                            <h3 class="input-category-header">Summary</h3>
+                            <p id="summaryD" class="advisor-text">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SEO & FINANCIAL AUTHORITY CONTENT BLOCK -->
+    <!-- Added content-visibility to auto to speed up initial load -->
+    <div class="seo-content-container" style="content-visibility: auto; contain-intrinsic-size: 1000px;">
+        
+        <header class="seo-header">
+            <h2>The Financial Blueprint & US Mortgage Guide</h2>
+            <p class="seo-intro">Real estate is not just about a monthly payment. It is the intersection of debt, liquidity, and asset performance. Most calculators only show you the "price." This tool shows you the "cost"—bridging the gap between affordability and wealth modeling in the American housing market.</p>
+        </header>
+
+        <div class="seo-columns">
+            <article class="seo-topic">
+                <h3>Financial Solvency & Readiness</h3>
+                <p>Buying a home is often the largest leveraged transaction of your life. The question isn't just "Can I make the payment?" but "Can I survive the shock?"</p>
+                <ul class="seo-list">
+                    <li><strong>Liquidity vs. Income:</strong> Banks lend based on income (DTI), but you pay bills with cash. Prioritize your <span class="text-gold">Cash to Close</span> to avoid being "house poor."</li>
+                    <li><strong>The Burn Rate:</strong> In the early years of a 30-year fixed loan, nearly 70% of your payment is interest, property taxes, and insurance. This is money you never get back.</li>
+                    <li><strong>Stress Testing:</strong> Financial advisors recommend maintaining a post-closing liquidity buffer of at least 6 months of reserves.</li>
+                </ul>
+            </article>
+
+            <article class="seo-topic">
+                <h3>Strategic Mortgage Insights</h3>
+                <p>Understanding the mechanism of debt allows you to manipulate it. Here are advanced strategies used by savvy borrowers.</p>
+                <ul class="seo-list">
+                    <li><strong>Recasting vs. Refinancing:</strong> If you come into a lump sum of cash, "recasting" allows you to lower your monthly payment without changing your interest rate or paying closing costs.</li>
+                    <li><strong>Bi-Weekly Payments:</strong> Making half-payments every two weeks results in 13 full payments per year, shaving years off your amortization schedule.</li>
+                    <li><strong>Points Analysis:</strong> Buying "points" to lower your rate only makes sense if you keep the loan past the breakeven period (usually 5-7 years).</li>
+                </ul>
+            </article>
+
+            <article class="seo-topic">
+                <h3>The Mathematics of Refinancing</h3>
+                <p>Refinancing is an arbitrage play. You are trading one debt instrument for another to lower your "Cost of Capital" without overpaying in fees.</p>
+                <ul class="seo-list">
+                    <li><strong>The Breakeven Horizon:</strong> A lower rate is meaningless if you move before recovering closing costs. Calculate the exact date your savings turn into profit.</li>
+                    <li><strong>Opportunity Cost:</strong> Every dollar spent on closing costs is a dollar not invested in the market. Weigh guaranteed savings against potential market returns.</li>
+                    <li><strong>Cash-Out Strategy:</strong> Extracting equity to pay off high-interest debt leverages the spread between mortgage rates and unsecured debt.</li>
+                </ul>
+            </article>
+
+            <article class="seo-topic">
+                <h3>Asset Performance & Cash Flow</h3>
+                <p>When you buy a rental property, you are buying a business. The metrics for a home (emotion) are different from the metrics for an asset (math).</p>
+                <ul class="seo-list">
+                    <li><strong>DSCR (Debt Service Coverage Ratio):</strong> Measures if the property's income covers its debt. A DSCR under 1.0 is insolvent; over 1.25 is healthy.</li>
+                    <li><strong>The Leverage Multiplier:</strong> Real estate allows you to control a large asset with a small down payment. This magnifies returns—and risks.</li>
+                    <li><strong>Payment Shock:</strong> Interest-Only loans maximize cash flow initially, but when the IO period ends, payments can spike 40-60%.</li>
+                </ul>
+            </article>
+
+            <article class="seo-topic">
+                <h3>Government Programs & Liquidity</h3>
+                <p>Access to capital is the biggest barrier. Government-backed loans (FHA/VA) lower this barrier, often at the cost of higher fees.</p>
+                <ul class="seo-list">
+                    <li><strong>Liquidity Preservation:</strong> VA/FHA loans allow 0-3.5% down. While APR is higher due to Mortgage Insurance, keeping cash for emergencies is a strategic advantage.</li>
+                    <li><strong>The Sunk Cost of Leverage:</strong> Funding Fees are often financed, increasing your LTV. Understanding this trade-off is key to smart leverage.</li>
+                    <li><strong>FHA vs Conventional:</strong> FHA loans are more lenient on credit scores but require permanent mortgage insurance (MIP) if you put less than 10% down.</li>
+                </ul>
+            </article>
+
+            <article class="seo-topic">
+                <h3>Banking & Credit Secrets</h3>
+                <p>Understanding how US banks view your profile is key to securing the best mortgage rates.</p>
+                <ul class="seo-list">
+                    <li><strong>Credit Utilization:</strong> Keep credit card balances under 30% of the limit to boost your FICO score before applying.</li>
+                    <li><strong>Debt-to-Income (DTI):</strong> This is the ratio of your monthly debt payments to your gross income. A lower DTI unlocks better interest rates.</li>
+                    <li><strong>Seasoning of Funds:</strong> Banks want to see that your down payment has been in your account for at least 60 days to prevent money laundering.</li>
+                </ul>
+            </article>
+        </div>
+
+        <!-- NEW GLOSSARY GRID -->
+        <div class="seo-glossary-section">
+            <h3 class="input-category-header" style="margin-bottom: 30px;">Advanced Mortgage Terminology</h3>
+            <div class="seo-glossary">
+                <div class="glossary-item">
+                    <h4>APR (Annual Percentage Rate)</h4>
+                    <p>The true annual cost of borrowing, including the interest rate plus fees and closing costs.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Amortization</h4>
+                    <p>The process of paying off a debt over time through regular payments of principal and interest.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Escrow</h4>
+                    <p>A third-party account that holds funds for property taxes and insurance to ensure they are paid on time.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>LTV (Loan-to-Value)</h4>
+                    <p>A ratio comparing the amount of your loan to the appraised value of the home.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>PMI (Private Mortgage Insurance)</h4>
+                    <p>Insurance required by lenders if your down payment is less than 20% on a conventional loan.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Closing Costs</h4>
+                    <p>Fees due at the signing of the loan, typically 2-5% of the loan amount, covering title, appraisal, and origination.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Jumbo Loan</h4>
+                    <p>A mortgage that exceeds the conforming loan limits set by FHFA, typically requiring higher credit scores.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>HELOC</h4>
+                    <p>Home Equity Line of Credit. A revolving credit line secured by the equity in your home.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="faq-section">
+            <h3>Technical Questions & Answers</h3>
+            
+            <div class="faq-item">
+                <h4>What is a safe Debt-to-Income (DTI) ratio?</h4>
+                <p>While lenders approve up to 50% in some cases, financial prudence suggests keeping total housing expense under 28% of gross income and total debt under 36% to leave room for savings and emergencies.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is it better to put 20% down or pay PMI?</h4>
+                <p>It depends on ROI. If your cash earns a higher return in the market (e.g., 8%) than the cost of PMI (e.g., 0.5-1%), putting less down may be mathematically superior, keeping your liquidity high.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>When does refinancing make sense?</h4>
+                <p>Only when your cumulative monthly savings exceed the upfront closing costs within the time you plan to stay in the home. Use the "Equity Optimization" mode above to calculate your specific breakeven date.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What is the difference between Pre-qualification and Pre-approval?</h4>
+                <p>Pre-qualification is an estimate based on self-reported data. Pre-approval is a verified commitment from a lender based on credit and income documentation, making you a stronger buyer in competitive markets.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Does shopping for mortgage rates hurt my credit score?</h4>
+                <p>FICO scoring models treat multiple mortgage inquiries within a 14 to 45-day window as a single inquiry. This allows you to shop for the best rate without tanking your score.</p>
+            </div>
+        </div>
+        
+        <div class="seo-footer">
+            <p><strong>Disclaimer:</strong> This tool provides estimates for educational purposes only. It does not constitute a loan offer or financial advice. All figures are based on US standard mortgage practices.</p>
+        </div>
+
+    </div>
+
+    <!-- GLOBAL SITE FOOTER (UPDATED) -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Tooltip Container -->
+    <div id="custom-tooltip" aria-hidden="true"></div>
+
+    <!-- PDF Tutorial Overlay -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Print Destination Selection" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Save as PDF Option" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Final PDF Save" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- Invisible Print Container -->
+    <div id="print-view-container" class="print-view"></div>
+    
+    <!-- FIX: Hidden Image to Force Preload of the specific print logo -->
+    <img src="../../img/Logo_Gold.webp" style="display:none;" aria-hidden="true" alt="">
+
+</body>
+</html>

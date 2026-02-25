@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Data -->
+    <title>Unpaid Wages Calculator | Calculate Overtime, Penalties & FLSA Damages</title>
+    <meta name="description" content="Free Unpaid Wages Calculator (2025 Updated). Estimate owed overtime, off-the-clock work, and waiting time penalties under FLSA, California, NY, and Federal Labor Laws.">
+    <meta name="keywords" content="unpaid wages calculator, overtime calculator, wage theft, flsa penalty calculator, california waiting time penalties, unpaid wages lawsuit, labor law violations, off the clock work, misclassification calculator">
+    <meta name="author" content="Solveria">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Unpaid Wages Calculator | Reclaim Your Pay">
+    <meta property="og:description" content="Did your employer underpay you? Calculate owed back wages, overtime, and penalties instantly with this professional legal engine.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/calculators/unpaid-wages">
+
+    <!-- Schema Markup (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Unpaid Wages Calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A professional tool to estimate unpaid wages, overtime violations, and statutory penalties under US Federal and State Labor Codes.",
+      "featureList": "Overtime Calculation, Penalty Assessment, State-Specific Logic, FLSA Damages",
+      "screenshot": "../../img/Refinance_Hero.webp"
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How is unpaid overtime calculated under FLSA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under the Fair Labor Standards Act (FLSA), non-exempt employees must be paid 1.5 times their regular rate of pay for all hours worked over 40 in a workweek. This calculator uses your base rate and total hours to determine the gap between what you were paid and what you legally earned."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What are waiting time penalties in California?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under California Labor Code Section 203, if an employer willfully withholds final pay after termination, they may owe a 'waiting time penalty' equal to your daily wage for every day the pay is late, up to a maximum of 30 days. This applies even if you quit (with notice) or were fired."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Does off-the-clock work count as wage theft?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Compensable work includes tasks like donning protective gear, security screenings, booting up computers, or mandatory prep time before clocking in. Even 10 minutes a day adds up to over 40 hours of unpaid wages per year."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the difference between Federal Base and High Protection states?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Federal Base follows the minimum FLSA standards ($7.25 min wage, 1.5x OT > 40hrs). High Protection states like California, New York, and Massachusetts have higher minimum wages, daily overtime rules (OT after 8 hours in a day), and stricter penalty structures for non-compliance."
+        }
+      }]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" loading="lazy">
+
+        <h1>Unpaid Wages Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Understand your rights. Reclaim your time.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Unpaid Wages Calculator</span>
+    </nav>
+
+    <!-- CORE QUESTION (Integrated Flow) -->
+    <div class="core-question-wrapper">
+        <h2 class="core-question-heading">The math behind your missing money.</h2>
+        <p class="core-question-text">
+            Wage theft isn't always obvious. It often hides in the decimals—uncounted minutes, miscalculated overtime rates, and misclassified statuses. Whether you are dealing with unpaid overtime under the <strong>FLSA</strong> or waiting time penalties in <strong>California</strong> or <strong>New York</strong>, precise calculation is your first line of defense. Use this engine to audit your hours and reveal the recoverable gap.
+        </p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a" 
+                        data-title="The Overtime Tracker" 
+                        data-desc="Calculate unpaid base wages for overtime violations.">
+                    <img src="../../img/1.jpg" alt="Clock on desk" width="300" height="150" loading="lazy">
+                    <span>Overtime Tracker</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" 
+                        data-title="The Penalty Check" 
+                        data-desc="Apply multipliers and state-specific fines.">
+                    <img src="../../img/2.jpg" alt="Gavel and books" width="300" height="150" loading="lazy">
+                    <span>Penalty Check</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS -->
+            <div class="global-settings">
+                <h3 class="input-sub-heading">Jurisdiction</h3>
+                <div class="input-wrapper full-width-span">
+                    <label>Work Location</label>
+                    <div class="custom-dropdown-container">
+                        <select id="workLocation" class="hidden-select">
+                            <option value="CA" selected>California</option>
+                            <option value="NY">New York</option>
+                            <option value="TX">Texas</option>
+                            <option value="FL">Florida</option>
+                            <option value="IL">Illinois</option>
+                            <option value="WA">Washington</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="PA">Pennsylvania</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">California</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <!-- Options populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Labor laws vary by state. Select where the work was performed.</div>
+                </div>
+
+                <!-- Global Advanced -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Settings</h3>
+                     <div class="input-wrapper full-width-span">
+                        <label>Employer Size</label>
+                        <div class="custom-dropdown-container">
+                            <select id="employerSize" class="hidden-select">
+                                <option value="large" selected>26+ Employees</option>
+                                <option value="small">1-25 Employees</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">26+ Employees</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="large">26+ Employees</div>
+                                    <div class="dropdown-option" data-value="small">1-25 Employees</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Affects minimum wage rates in some states.</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: The Overtime Tracker -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                <h3 class="input-sub-heading">Employment Details</h3>
+                
+                <!-- 1. Pay Structure -->
+                <div class="input-wrapper">
+                    <label>Pay Structure</label>
+                    <div class="custom-dropdown-container">
+                        <select id="payStructureA" class="hidden-select">
+                            <option value="hourly" selected>Hourly</option>
+                            <option value="salary">Salary</option>
+                        </select>
+                        <button class="custom-dropdown-trigger" id="payStructureTriggerA">Hourly</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="hourly">Hourly</div>
+                                <div class="dropdown-option" data-value="salary">Salary</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">How were you classified on your pay stub?</div>
+                </div>
+
+                <!-- 2. Compensation Amount -->
+                <div class="input-wrapper">
+                    <label id="label_compA">Hourly Rate ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_compA" value="20.00" step="0.50">
+                        <input type="range" id="slider_compA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Gross amount before taxes.</div>
+                </div>
+
+                <!-- 3. Average Hours Worked -->
+                <div class="input-wrapper">
+                    <label>Average Hours / Week</label>
+                    <div class="input-group">
+                        <input type="number" id="input_hoursA" value="45" step="1">
+                        <input type="range" id="slider_hoursA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total physical hours worked per week.</div>
+                </div>
+
+                <!-- 4. Claim Duration -->
+                <div class="input-wrapper">
+                    <label>Claim Duration</label>
+                    <div class="input-group-dates">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="date_startA" class="date-input custom-date-trigger" readonly>
+                        </div>
+                        <span style="align-self:center; color:#999;">to</span>
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="date_endA" class="date-input custom-date-trigger" readonly>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">The period this violation occurred.</div>
+                </div>
+                
+                <!-- 5. Mitigation Check -->
+                <div class="input-wrapper full-width-span">
+                    <label>Were you paid for these hours?</label>
+                    <div class="custom-dropdown-container">
+                        <select id="mitigationA" class="hidden-select">
+                            <option value="none" selected>No, I was unpaid entirely</option>
+                            <option value="straight">No, I was paid straight time only</option>
+                            <option value="partial">Yes, but miscalculated</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">No, I was unpaid entirely</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="none">No, I was unpaid entirely</div>
+                                <div class="dropdown-option" data-value="straight">No, I was paid straight time only</div>
+                                <div class="dropdown-option" data-value="partial">Yes, but miscalculated</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Did you receive any payment at all for the overtime hours?</div>
+                </div>
+
+                <!-- Advanced Inputs Mode A -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Hidden Hours</h3>
+                    <div class="input-wrapper">
+                        <label>Off-the-Clock (Mins/Day)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_offClockA" value="0">
+                            <input type="range" id="slider_offClockA" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Prep time, security checks, booting up, etc.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Unpaid Lunch Deducted?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="lunchA" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Did you work through lunch but lose pay for it?</div>
+                    </div>
+                    <div class="input-wrapper full-width-span">
+                        <label>Fluctuating Pay Rates?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="fluctuatingA" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Select Yes if your hourly rate changed by task.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE B: The Penalty Check -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Penalty Configuration</h3>
+                
+                <!-- 1. Total Unpaid Wages -->
+                <div class="input-wrapper">
+                    <label>Total Unpaid Wages ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_wagesB" value="5000">
+                        <input type="range" id="slider_wagesB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Enter the total amount of wages you are owed.</div>
+                </div>
+
+                <!-- NEW: Hourly Rate for Mode B (Required for Waiting Penalties) -->
+                <div class="input-wrapper">
+                    <label>Hourly Rate ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rateB" value="20.00" step="0.50">
+                        <input type="range" id="slider_rateB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Required to calculate daily waiting penalties.</div>
+                </div>
+
+                <!-- 2. Employer Intent -->
+                <div class="input-wrapper">
+                    <label>Employer Intent</label>
+                    <div class="custom-dropdown-container">
+                        <select id="intentB" class="hidden-select">
+                            <option value="honest">Honest Mistake</option>
+                            <option value="willful" selected>Willful Violation</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Willful Violation</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="honest">Honest Mistake</div>
+                                <div class="dropdown-option selected" data-value="willful">Willful Violation</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Did they know, or had you complained before?</div>
+                </div>
+
+                <!-- NEW: Date of Violation for Mode B -->
+                <div class="input-wrapper">
+                    <label>Date of Violation</label>
+                    <div class="input-group">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="date_endB" class="date-input custom-date-trigger" readonly>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">When did the unpaid work occur?</div>
+                </div>
+
+                <!-- Advanced Inputs Mode B -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Deep Dive</h3>
+                    
+                    <!-- Employment Status -->
+                    <div class="input-wrapper">
+                        <label>Employment Status</label>
+                        <div class="custom-dropdown-container">
+                            <select id="empStatusB" class="hidden-select">
+                                <option value="employed">Still Employed</option>
+                                <option value="terminated" selected>Fired or Quit</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">Fired or Quit</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option" data-value="employed">Still Employed</div>
+                                    <div class="dropdown-option selected" data-value="terminated">Fired or Quit</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Determines if waiting time penalties apply.</div>
+                    </div>
+
+                    <!-- Final Paycheck Timing -->
+                    <div class="input-wrapper">
+                        <label>Final Pay: Days Late</label>
+                        <div class="input-group">
+                            <input type="number" id="input_lateDaysB" value="9">
+                            <input type="range" id="slider_lateDaysB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Days elapsed before receiving full final pay.</div>
+                    </div>
+
+                    <!-- Violation Checklist -->
+                    <div class="input-wrapper full-width-span">
+                        <label style="margin-bottom:10px;">Violation Checklist</label>
+                        <div class="checkbox-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" id="check_records">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">My time records were missing or altered.</span>
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" id="check_misclass">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">I was misclassified as a Contractor (1099).</span>
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" id="check_deduct">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Illegal deductions (uniforms, mistakes).</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <!-- HEADER ALIGNMENT CONTAINER -->
+            <div class="header-row">
+                <h2>Estimates</h2>
+                <div class="action-buttons-row">
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+            </div>
+
+            <!-- RESULTS WRAPPER FOR FADE EFFECT -->
+            <div class="results-scroll-wrapper">
+                <div id="results-display-container">
+                    
+                    <!-- Mode A Results -->
+                    <div id="mode-a-results" class="mode-results">
+                        <!-- Smart Badge -->
+                        <div class="result-row" style="margin-bottom: 20px;">
+                             <div class="result-box">
+                                <span class="result-label">Protection Level</span>
+                                <span class="result-value good">High</span>
+                                <div class="disclosure-text">Based on State Labor Code.</div>
+                            </div>
+                        </div>
+
+                        <h3 class="result-sub-heading">Wage Theft Estimate</h3>
+                        
+                        <div class="result-row">
+                            <div class="result-box">
+                                <!-- BUG 3 FIX: Changed Label -->
+                                <span class="result-label">Total Unpaid Wages</span>
+                                <span class="result-value bad" id="res_baseDebtA">$0.00</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Donated Hours</span>
+                                <span class="result-value warn" id="res_donatedHoursA">0 hrs</span>
+                            </div>
+                        </div>
+
+                        <!-- Theft Thermometer -->
+                        <div style="margin-bottom: 40px;">
+                            <span class="result-label">Theft Thermometer (Weekly Load)</span>
+                            <div class="theft-thermometer">
+                                <div class="theft-fill" style="width: 50%;"></div>
+                            </div>
+                            <div class="disclosure-text">Visualizing your workload intensity.</div>
+                        </div>
+                        
+                        <div class="advanced-content hidden">
+                            <h3 class="result-sub-heading">Hourly Reality Check</h3>
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Real Hourly Rate</span>
+                                    <span class="result-value" id="res_realRateA">$0.00</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Confidence</span>
+                                    <span class="result-value" id="res_confidenceA">Estimate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mode B Results -->
+                    <div id="mode-b-results" class="mode-results hidden">
+                        <!-- Double Down Badge -->
+                        <div class="result-row" style="margin-bottom: 20px;">
+                            <div class="result-box full-box">
+                                <span class="result-label">FLSA Status</span>
+                                <span class="result-value warn">Liquidated Damages Check</span>
+                                <div class="disclosure-text">Double damages typically apply for willful violations.</div>
+                            </div>
+                        </div>
+
+                        <h3 class="result-sub-heading">Recoverable Exposure</h3>
+
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Waiting Penalties</span>
+                                <span class="result-value" id="res_penaltyB">$0.00</span>
+                                <!-- MODE 2 DISCLAIMER FIX -->
+                                <div style="font-size: 0.86rem; color: #999; margin-top: 8px; line-height: 1.2;">Assumes standard 8-hour workday. Part-time penalties may vary.</div>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Total Claim</span>
+                                <span class="result-value good" id="res_totalClaimB">$0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Money on the Table Graph -->
+                        <div style="margin-bottom: 30px;">
+                            <span class="result-label">Money on the Table (Breakdown)</span>
+                            <div class="stacked-bar-graph">
+                                <div class="sb-segment blue" style="width: 40%;"></div>
+                                <div class="sb-segment red" style="width: 30%;"></div>
+                                <div class="sb-segment yellow" style="width: 30%;"></div>
+                            </div>
+                            <div class="legend-row">
+                                <span class="legend-item"><span class="dot blue"></span> Base</span>
+                                <span class="legend-item"><span class="dot red"></span> Federal</span>
+                                <span class="legend-item"><span class="dot yellow"></span> State</span>
+                            </div>
+                        </div>
+
+                        <!-- Statute of Limitations Timeline -->
+                        <div class="advanced-content hidden">
+                             <h3 class="result-sub-heading">Urgency Meter</h3>
+                             <div style="margin-top:10px;">
+                                 <div class="timeline-bar">
+                                     <div class="timeline-zone green"></div>
+                                     <div class="timeline-zone yellow"></div>
+                                     <div class="timeline-zone red"></div>
+                                     <div id="timeline_markerB" class="timeline-marker" style="left: 0%;"></div>
+                                 </div>
+                                 <div class="legend-row" style="justify-content: space-between;">
+                                     <span class="legend-item">0 Yrs</span>
+                                     <span class="legend-item">2 Yrs</span>
+                                     <span class="legend-item">3 Yrs+</span>
+                                 </div>
+                                 <div class="disclosure-text">Claims expire. Federal limit is typically 2 years (3 for willful).</div>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- End results-scroll-wrapper -->
+        </div>
+        
+        <!-- TOOLTIP ELEMENT -->
+        <div id="cursor-tooltip" class="cursor-tooltip"></div>
+
+    </div>
+
+    <!-- SEO & CONTENT SECTION -->
+    <div class="seo-content-section">
+        
+        <!-- Block 1: FLSA Overview -->
+        <div class="seo-content-block">
+            <h3>The Comprehensive Guide to Recovering Unpaid Wages</h3>
+            <p>
+                Wage theft is a systemic issue affecting millions of workers annually. It occurs whenever an employer fails to pay the full compensation earned by an employee. 
+                This is not limited to missing paychecks; it frequently manifests as miscalculated <strong>overtime rates</strong>, unpaid "off-the-clock" tasks, 
+                illegal deductions, or misclassification as an independent contractor (1099) to avoid paying benefits.
+            </p>
+            <p>
+                The primary federal law governing this is the <strong>Fair Labor Standards Act (FLSA)</strong>. Under the FLSA, non-exempt employees are entitled to 
+                <strong>1.5 times</strong> their regular rate of pay for all hours worked in excess of 40 in a single workweek. States like <strong>California</strong> 
+                and <strong>New York</strong> offer even stronger protections, such as daily overtime (time-and-a-half after 8 hours in a day) and double-time provisions.
+            </p>
+        </div>
+
+        <!-- Block 2: Penalties -->
+        <div class="seo-content-block">
+            <h3>Understanding Liquidated Damages & Waiting Penalties</h3>
+            <p>
+                The legal system recognizes that unpaid wages cause financial hardship. Therefore, damages often exceed the base amount owed.
+            </p>
+            <ul class="seo-list">
+                <li><strong>Liquidated Damages (Federal):</strong> Under the FLSA, if an employer cannot prove they acted in good faith, they may be liable for "double damages"—meaning if you are owed $5,000, the court may award you $10,000.</li>
+                <li><strong>Waiting Time Penalties (State):</strong> In states like California (Labor Code § 203), if an employer willfully fails to pay a terminated employee immediately, they owe a penalty equal to the employee's daily wage for up to 30 days.</li>
+                <li><strong>Statutory Interest:</strong> Most claims also accrue interest, calculated from the date the wages were due.</li>
+            </ul>
+        </div>
+
+        <!-- Block 3: FAQs -->
+        <div class="faq-section">
+            <h3>Frequently Asked Questions (FAQ)</h3>
+            
+            <div class="faq-item">
+                <button class="faq-toggle">How far back can I claim unpaid wages?</button>
+                <div class="faq-answer">
+                    <p>Under federal law (FLSA), the statute of limitations is generally <strong>2 years</strong>. However, if the violation is deemed "willful"—meaning the employer knew their conduct was prohibited or showed reckless disregard—the period extends to <strong>3 years</strong>. State laws vary; for example, New York allows claims going back <strong>6 years</strong>, providing a significantly larger window for recovery.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-toggle">Does "off-the-clock" work count?</button>
+                <div class="faq-answer">
+                    <p>Absolutely. Compensable work time is not defined strictly by when you "punch in." It includes any time you are suffered or permitted to work. Common examples include putting on safety gear (donning and doffing), security screenings, booting up computers, travel between work sites, or mandatory training sessions. If your employer requires it, you must be paid for it.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-toggle">I am salaried. Am I exempt from overtime?</button>
+                <div class="faq-answer">
+                    <p>Not necessarily. Being paid a "salary" does not automatically make you exempt. To be exempt from overtime, you must meet specific duties tests (Executive, Administrative, or Professional) <strong>AND</strong> earn above a specific salary threshold. Many employers misclassify workers as "Managers" to avoid overtime, even when their primary duties are manual or routine. This is a common form of wage theft.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-toggle">What if I was an Independent Contractor (1099)?</button>
+                <div class="faq-answer">
+                    <p>Misclassification is rampant in the gig economy. If your employer controls your hours, provides your tools, and directs how you do your work, you may legally be an <strong>employee</strong> regardless of any contract you signed. If found to be misclassified, you could be entitled to years of back overtime, minimum wage adjustments, and reimbursement for taxes and expenses.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Include State Data -->
+    <script type="module" src="us-state-data.js"></script>
+    
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a free financial and legal modeling publisher, not a law firm, bank, or lender. We do not provide legal counsel, binding financial appraisals, or create attorney-client relationships. All calculations are mathematical estimations based on standard laws and user inputs, and do not guarantee specific outcomes. This site operates as an advertisement for participating attorneys and financial partners who have paid for advertising space. We are not a lawyer referral service. Please consult a qualified attorney or CPA before making major legal or financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

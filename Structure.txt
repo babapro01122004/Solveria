@@ -1,0 +1,103 @@
+
+main/
+|-widgets/
+|   |-unpaid-wages-calculator/
+|   |   |-index.html
+|   |   |-style.css
+|   |   |-script.js
+|-docs/
+|   |-PDF.pdf
+|-404.html
+|-android-chrome-192x192
+|-android-chrome-512x512
+|-apple-touch-icon
+|-CNAME
+|-favicon.ico
+|-favicon-16x16
+|-favicon-32x32
+|-index.html
+|-robots.txt
+|-site.webmanifest
+|-sitemap.xml
+|-about/
+|     |-index.html
+|-calculators/
+|     |-index.html
+|-coming-soon/
+|     |-index.html
+|-finance/
+|     |-index.html
+|     |-credit-card-payoff-calculator
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-real-estate-investor-suite-BRRRR/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-home-affordability-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-mortgage-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-rent-vs-buy-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-income-tax-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|-claims-and-settlements/
+|     |-index.html
+|     |-car-accident-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-diminished-value-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-dog-bite-impact-checker/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-lemon-law-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-motorcycle-accident-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|     |-unpaid-wages-calculator/
+|     |       |-index.html
+|     |       |-script.js
+|     |       |-style.css
+|     |       |-us-state-data.js
+|-img/
+|     |- {all the images}
+|-fonts/
+|     |- {fonts}
+|-privacy-policy/
+|     |-index.html
+|-support/
+|     |-index.html
+|-terms-of-use/
+|     |-index.html
+|-contact-us/
+|     |-index.html

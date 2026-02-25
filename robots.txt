@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Prevent the error page itself from being indexed as a search result
+Disallow: /404.html
+
+# Block unfinished content so users don't land on dead ends
+Disallow: /coming-soon/
+
+# Direct link to your new sitemap
+Sitemap: https://solveria.org/sitemap.xml

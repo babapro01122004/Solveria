@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The definitive 2026 Rent vs. Buy Calculator. Analyze unrecoverable costs, opportunity cost, and break-even horizons. Is buying a house worth it in this economy?">
+    <meta name="keywords" content="rent vs buy calculator, is buying a house worth it, opportunity cost real estate, price to rent ratio 2026, 5% rule housing, mortgage vs rent analysis, home equity vs stock market, housing market crash protection">
+    <meta name="author" content="Solveria Financial Engines">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Rent vs. Buy: The Sovereign Financial Analysis Tool">
+    <meta property="og:description" content="Don't just compare payments. Compare wealth. Calculates burn rates, opportunity costs, and true inflation-adjusted returns.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/calculators/rent-vs-buy">
+    
+    <title>Rent vs. Buy Calculator | 2026 Financial Sovereignty Engine</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../../fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../../img/Logo_Golden.webp" as="image">
+    <!-- Explicitly preload the print logo so it's ready in cache -->
+    <link rel="preload" href="../../img/Logo_Golden.webp" as="image"> 
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Solveria Rent vs. Buy Engine",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "description": "Advanced financial modeling tool comparing net wealth outcomes of renting versus homeownership.",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is it better to rent or buy in 2026?",
+              "acceptedAnswer": { "@type": "Answer", "text": "It depends on your 'Burn Rate'. If your unrecoverable costs of owning (Interest + Tax + Insurance + Maintenance) exceed your rent, renting often builds more wealth if the surplus is invested." }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the 5% Rule?",
+              "acceptedAnswer": { "@type": "Answer", "text": "A heuristic stating that unrecoverable ownership costs roughly equal 5% of the home's value annually. If annual rent is less than 5% of the home price, renting is mathematically superior." }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo">
+
+        <h1>Rent vs. Buy Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">See the full cost — not just the payment.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Rent vs. Buy</span>
+    </nav>
+
+    <!-- CORE QUESTION (Integrated & Left Aligned) -->
+    <div class="core-question-section">
+        <h2>Should you buy a house or keep renting in this economy?</h2>
+        <p>
+            The conventional wisdom says "renting is throwing money away." <strong>The math says otherwise.</strong> Buying a home involves massive unrecoverable costs: mortgage interest, property taxes, insurance, HOA fees, and maintenance. Often, these costs exceed the price of rent. This engine separates emotional decisions from mathematical reality by calculating your specific <strong>"Burn Rate"</strong> and <strong>Opportunity Cost</strong>.
+        </p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a" 
+                        data-title="Rent vs. Buy" 
+                        data-desc="Analyze burn rates and lifestyle impact.">
+                    <img src="../../img/1.jpg" alt="House on hand" loading="lazy">
+                    <span>Rent vs. Buy</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" 
+                        data-title="Tenure Horizon" 
+                        data-desc="Calculate the cost of selling early vs. staying put.">
+                    <img src="../../img/2.jpg" alt="Floating money" loading="lazy">
+                    <span>Tenure Horizon</span>
+                </button>
+                <button class="mode-card" data-mode="mode-c" 
+                        data-title="Opportunity Cost" 
+                        data-desc="Compare home equity vs. stock market investing.">
+                    <img src="../../img/3.jpg" alt="Bank Vault" loading="lazy">
+                    <span>Opportunity Cost</span>
+                </button>
+                <button class="mode-card" data-mode="mode-d" 
+                        data-title="Closing Readiness" 
+                        data-desc="Analyze upfront cash, closing costs, and emergency buffers.">
+                    <img src="../../img/4.jpg" alt="US Flag" loading="lazy">
+                    <span>Closing Readiness</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS (Always Visible) -->
+            <div class="global-settings">
+                <h3 class="input-sub-heading">Location & Defaults</h3>
+                <div class="input-wrapper full-width-span">
+                    <label>Location (State)</label>
+                    <div class="custom-dropdown-container">
+                        <!-- Hidden Select for Logic -->
+                        <select id="stateSelector" class="hidden-select">
+                            <option value="AVG" selected>National Average</option>
+                            <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option>
+                            <option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option>
+                            <option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option>
+                            <option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+                        </select>
+                        
+                        <!-- Visual Trigger -->
+                        <button class="custom-dropdown-trigger">National Average</button>
+                        
+                        <!-- Visual Options List -->
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="AVG">National Average</div>
+                                <div class="dropdown-option" data-value="AL">Alabama</div><div class="dropdown-option" data-value="AK">Alaska</div>
+                                <div class="dropdown-option" data-value="AZ">Arizona</div><div class="dropdown-option" data-value="AR">Arkansas</div>
+                                <div class="dropdown-option" data-value="CA">California</div><div class="dropdown-option" data-value="CO">Colorado</div>
+                                <div class="dropdown-option" data-value="CT">Connecticut</div><div class="dropdown-option" data-value="DE">Delaware</div>
+                                <div class="dropdown-option" data-value="DC">District of Columbia</div><div class="dropdown-option" data-value="FL">Florida</div>
+                                <div class="dropdown-option" data-value="GA">Georgia</div><div class="dropdown-option" data-value="HI">Hawaii</div>
+                                <div class="dropdown-option" data-value="ID">Idaho</div><div class="dropdown-option" data-value="IL">Illinois</div>
+                                <div class="dropdown-option" data-value="IN">Indiana</div><div class="dropdown-option" data-value="IA">Iowa</div>
+                                <div class="dropdown-option" data-value="KS">Kansas</div><div class="dropdown-option" data-value="KY">Kentucky</div>
+                                <div class="dropdown-option" data-value="LA">Louisiana</div><div class="dropdown-option" data-value="ME">Maine</div>
+                                <div class="dropdown-option" data-value="MD">Maryland</div><div class="dropdown-option" data-value="MA">Massachusetts</div>
+                                <div class="dropdown-option" data-value="MI">Michigan</div><div class="dropdown-option" data-value="MN">Minnesota</div>
+                                <div class="dropdown-option" data-value="MS">Mississippi</div><div class="dropdown-option" data-value="MO">Missouri</div>
+                                <div class="dropdown-option" data-value="MT">Montana</div><div class="dropdown-option" data-value="NE">Nebraska</div>
+                                <div class="dropdown-option" data-value="NV">Nevada</div><div class="dropdown-option" data-value="NH">New Hampshire</div>
+                                <div class="dropdown-option" data-value="NJ">New Jersey</div><div class="dropdown-option" data-value="NM">New Mexico</div>
+                                <div class="dropdown-option" data-value="NY">New York</div><div class="dropdown-option" data-value="NC">North Carolina</div>
+                                <div class="dropdown-option" data-value="ND">North Dakota</div><div class="dropdown-option" data-value="OH">Ohio</div>
+                                <div class="dropdown-option" data-value="OK">Oklahoma</div><div class="dropdown-option" data-value="OR">Oregon</div>
+                                <div class="dropdown-option" data-value="PA">Pennsylvania</div><div class="dropdown-option" data-value="RI">Rhode Island</div>
+                                <div class="dropdown-option" data-value="SC">South Carolina</div><div class="dropdown-option" data-value="SD">South Dakota</div>
+                                <div class="dropdown-option" data-value="TN">Tennessee</div><div class="dropdown-option" data-value="TX">Texas</div>
+                                <div class="dropdown-option" data-value="UT">Utah</div><div class="dropdown-option" data-value="VT">Vermont</div>
+                                <div class="dropdown-option" data-value="VA">Virginia</div><div class="dropdown-option" data-value="WA">Washington</div>
+                                <div class="dropdown-option" data-value="WV">West Virginia</div><div class="dropdown-option" data-value="WI">Wisconsin</div>
+                                <div class="dropdown-option" data-value="WY">Wyoming</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Smart Defaults: Updates Tax, Insurance & Closing Costs.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Property Tax (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_propTaxGlobal" value="1.1" step="0.1">
+                        <input type="range" id="slider_propTaxGlobal" min="0" max="5" step="0.1">
+                    </div>
+                    <div class="disclosure-text">Annual tax rate based on home value.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Home Insurance ($/yr)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_insuranceGlobal" value="1200">
+                        <input type="range" id="slider_insuranceGlobal" min="0" max="10000">
+                    </div>
+                    <div class="disclosure-text">Annual premium for property coverage.</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: Rent vs. Buy Inputs -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                <h3 class="input-sub-heading">Income & Rent</h3>
+                <div class="input-wrapper">
+                    <label>Gross Monthly Income ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_incomeA" value="12500">
+                        <input type="range" id="slider_incomeA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Note: DTI uses gross income, but your lifestyle is funded by take-home. Interpret conservatively.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Current Monthly Rent ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_currentRentA" value="3200">
+                        <input type="range" id="slider_currentRentA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">The anchor. 100% "Burned" money.</div>
+                </div>
+
+                <h3 class="input-sub-heading">Purchase Target</h3>
+                <div class="input-wrapper">
+                    <label>Target Home Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_homePriceA" value="550000">
+                        <input type="range" id="slider_homePriceA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total purchase price of the property.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Down Payment ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_downPaymentA" value="110000">
+                        <input type="range" id="slider_downPaymentA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Cash paid upfront (Affects PMI & Rate).</div>
+                </div>
+
+                <h3 class="input-sub-heading">Honest Costs</h3>
+                <div class="input-wrapper">
+                    <label>The "Ramen" Threshold ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_debtA" value="600">
+                        <input type="range" id="slider_debtA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Other monthly debts (Cars, Student Loans, Cards).</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>The "Silent Killers" ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_utilA" value="350">
+                        <input type="range" id="slider_utilA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">HOA Fees + Utilities Gap (House cost minus Apt cost).</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Inflation Mindset</label>
+                    <div class="custom-dropdown-container">
+                        <select id="inflationA" class="hidden-select">
+                            <option value="normal" selected>Normal</option>
+                            <option value="high">Weaker Dollar</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Normal</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="normal">Normal</div>
+                                <div class="dropdown-option" data-value="high">Weaker Dollar</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Adjusts future value assumptions.</div>
+                </div>
+                 <div class="input-wrapper">
+                    <label>Interest Rate (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rateA" value="6.5" step="0.125">
+                        <input type="range" id="slider_rateA" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Annual percentage rate (APR).</div>
+                </div>
+            </div>
+
+            <!-- MODE B: Tenure Horizon Inputs -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Time & Value</h3>
+                <div class="input-wrapper">
+                    <label>Target Home Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_homePriceB" value="550000">
+                        <input type="range" id="slider_homePriceB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Purchase price of the asset.</div>
+                </div>
+                
+                <!-- TENURE SLIDER WITH MARKER & GLOW -->
+                <div class="input-wrapper">
+                    <label>Expected Tenure (Years)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_tenureB" value="3" min="1" max="30" step="0.1">
+                        <input type="range" id="slider_tenureB" min="0" max="100" step="0.01" value="0">
+                        <!-- Marker Element -->
+                        <div id="tenureMarker" class="timeline-marker" data-label="Short Term"></div>
+                        <div class="tenure-glow"></div>
+                    </div>
+                    <div class="disclosure-text tenure-input-spacer">Red (0-3), Yellow (4-5), Green (6+).</div>
+                </div>
+
+                <h3 class="input-sub-heading">Honest Toggles</h3>
+                <div class="input-wrapper">
+                    <label>Selling Friction (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_frictionB" value="7" step="0.5">
+                        <input type="range" id="slider_frictionB" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Agent commissions, staging, transfer tax (Avg ~7%).</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Appreciation Optimism</label>
+                    <div class="custom-dropdown-container">
+                        <select id="optimismB" class="hidden-select">
+                            <option value="low">Low (Historical)</option>
+                            <option value="med" selected>Medium (Trend)</option>
+                            <option value="high">High (Hot Market)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Medium (Trend)</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="low">Low (Historical)</div>
+                                <div class="dropdown-option selected" data-value="med">Medium (Trend)</div>
+                                <div class="dropdown-option" data-value="high">High (Hot Market)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Projected growth of home value.</div>
+                </div>
+            </div>
+
+            <!-- MODE C: Opportunity Cost Inputs -->
+            <div id="mode-c-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Capital at Risk</h3>
+                <div class="input-wrapper">
+                    <label>Down Payment ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_downPaymentC" value="110000">
+                        <input type="range" id="slider_downPaymentC" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Initial capital locked into the property.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Years to Stay</label>
+                    <div class="input-group">
+                        <input type="number" id="input_yearsC" value="7">
+                        <input type="range" id="slider_yearsC" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Long-term investment horizon.</div>
+                </div>
+                <h3 class="input-sub-heading">The Comparison</h3>
+                <div class="input-wrapper">
+                    <label>Rent vs. Buy Difference ($/mo)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_savingsC" value="1200">
+                        <input type="range" id="slider_savingsC" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Monthly savings if you rent instead of buy.</div>
+                </div>
+                <h3 class="input-sub-heading">Honest Toggles</h3>
+                <div class="input-wrapper">
+                    <label>Investment Discipline</label>
+                    <div class="custom-dropdown-container">
+                        <select id="disciplineC" class="hidden-select">
+                            <option value="invest" selected>I will invest it.</option>
+                            <option value="spend">I might spend it.</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">I will invest it.</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="invest">I will invest it.</div>
+                                <div class="dropdown-option" data-value="spend">I might spend it.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">The most important variable. Be honest.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Leverage Awareness</label>
+                    <div class="custom-dropdown-container">
+                        <select id="leverageC" class="hidden-select">
+                            <option value="off" selected>Off</option>
+                            <option value="on">On (Show Impact)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Off</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="off">Off</div>
+                                <div class="dropdown-option" data-value="on">On (Show Impact)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Leverage amplifies gains AND losses.</div>
+                </div>
+            </div>
+
+            <!-- MODE D: Closing Readiness Inputs -->
+            <div id="mode-d-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-heading">Financial Position</h3>
+                
+                <div class="input-wrapper">
+                    <label>Cash on Hand ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_cashHandD" value="150000">
+                        <input type="range" id="slider_cashHandD" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total liquid assets available.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Target Home Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_homePriceD" value="500000">
+                        <input type="range" id="slider_homePriceD" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Purchase price affects closing costs.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Down Payment ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_downPaymentD" value="100000">
+                        <input type="range" id="slider_downPaymentD" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Equity portion of the purchase.</div>
+                </div>
+
+                <div class="input-wrapper"></div>
+
+                <h3 class="input-sub-heading">Honest Toggles</h3>
+
+                <div class="input-wrapper">
+                    <label>Emergency Buffer (Months)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_bufferD" value="3" min="0" max="24">
+                        <input type="range" id="slider_bufferD" min="0" max="24">
+                    </div>
+                    <div class="disclosure-text">Expenses kept safe after closing.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Immediate Repair Fund ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_repairD" value="5000">
+                        <input type="range" id="slider_repairD" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Funds for immediate work/surprises.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <div id="results-display-container">
+                <h2>Results</h2>
+
+                <!-- ACTION BUTTONS ADDED HERE -->
+                <div class="action-buttons-row">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print">Print</button>
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+                
+                <!-- Mode A Results -->
+                <div id="mode-a-results" class="mode-results">
+                    <h3 class="result-sub-heading">The "Burn Rate"</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Rent "Burned"</span>
+                            <span class="result-value bad">100%</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Buy "Burned"</span>
+                            <span class="result-value warn" id="res_buyBurnA">42%</span>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">
+                        Buying locks in +$<span id="res_diffA">1,200</span>/mo in unrecoverable costs (Interest, Tax, Ins, HOA) compared to renting.
+                    </div>
+                    <h3 class="result-sub-heading">Writing the Check</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Total Monthly Outflow</span>
+                            <span class="result-value" id="res_totalOutflowA">$4,150</span>
+                        </div>
+                        <div class="result-box"></div>
+                    </div>
+                    <h3 class="result-sub-heading">Verdict</h3>
+                    <div class="result-row">
+                        <div class="result-box full-width-span" style="width: 100%;">
+                            <span class="result-label">DTI & Lifestyle</span>
+                            <span class="result-value yellow" id="res_verdictA">Tight</span>
+                            <div class="disclosure-text" id="res_verdictTextA">
+                                DTI is <span class="dynamic-number">35%</span>. Budgeting Required. You are trading flexibility for stability.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode B Results -->
+                <div id="mode-b-results" class="mode-results hidden">
+                    <h3 class="result-sub-heading">The Freedom Penalty</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Cost to Sell Early</span>
+                            <span class="result-value bad" id="res_penaltyB">$1,283/mo</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Breakeven Year</span>
+                            <span class="result-value" id="res_breakevenB">Year 5</span>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">
+                        If you sell at Year <span id="res_targetYearB">3</span>, you essentially paid extra just to call yourself an owner.
+                    </div>
+                    <h3 class="result-sub-heading">Equity Realization</h3>
+                    <div class="result-row">
+                        <div class="result-box full-width-span" style="width: 100%;">
+                            <span class="result-label">Down Payment Access</span>
+                            <div class="equity-bar-container">
+                                <div class="equity-bar-fill" id="res_equityBarB" style="width: 25%;"></div>
+                            </div>
+                            <div class="disclosure-text equity-result-spacer">
+                                <span id="res_equityTextB">25%</span> of your upfront cash is currently trapped by transaction costs.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode C Results -->
+                <div id="mode-c-results" class="mode-results hidden">
+                    <h3 class="result-sub-heading">The "Two Buckets"</h3>
+                    <div class="result-row mode-c-container">
+                        <div class="bucket-container">
+                            <div class="bucket-row">
+                                <span class="bucket-label">Bucket A: Home Equity (Illiquid)</span>
+                                <span class="bucket-value" id="res_equityC">$185,000</span>
+                            </div>
+                            <div class="bucket-bar-track">
+                                <div class="bucket-bar-fill bucket-fill-equity" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        <div class="bucket-container">
+                            <div class="bucket-row">
+                                <span class="bucket-label">Bucket B: Portfolio (Liquid)</span>
+                                <span class="bucket-value" id="res_portfolioC">$210,000</span>
+                            </div>
+                            <div class="bucket-bar-track">
+                                <div class="bucket-bar-fill bucket-fill-portfolio" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="result-sub-heading">Behavioral Verdict</h3>
+                    <div class="result-row">
+                        <div class="result-box full-width-span" style="width: 100%;">
+                            <span class="result-label" id="res_verdictTitleC">Renting Wins</span>
+                            <div class="disclosure-text" id="res_verdictTextC" style="font-size: 1rem; color: #333; margin-top: 10px;">
+                                Renting makes you richer, BUT only if you actually invest the difference. If you spend the savings, buying wins by default because it forces you to save.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode D Results: Closing Readiness -->
+                <div id="mode-d-results" class="mode-results hidden">
+                    <h3 class="result-sub-heading">Cash-to-Close Reality</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Total Cash Needed</span>
+                            <span class="result-value" id="res_totalCashD">$122,500</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Buffer Included</span>
+                            <span class="result-value" id="res_bufferIncludedD">$22,500</span>
+                        </div>
+                    </div>
+
+                    <h3 class="result-sub-heading">Funding Status</h3>
+                    <div class="result-row">
+                        <div class="result-box full-width-span" style="width: 100%;">
+                            <span class="result-label">Verdict</span>
+                            <span class="result-value good" id="res_statusD">Surplus of $27,500</span>
+                            <div class="disclosure-text" id="res_statusTextD">
+                                Buying with no buffer turns small surprises (broken water heater) into financial emergencies.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- TOOLTIP ELEMENT -->
+        <div id="cursor-tooltip" class="cursor-tooltip"></div>
+
+    </div>
+
+    <!-- SEO CONTENT & FAQ SECTION (EXPANDED & LEFT ALIGNED) -->
+    <div class="content-section">
+        <div class="content-wrapper">
+            <h2>The Ultimate Rent vs. Buy Analysis: 2026 Financial Guide</h2>
+            <p>
+                In 2026, the housing market presents a complex equation. The old adage that "renting is throwing money away" has been debunked by financial analysts who understand the nuance of <strong>unrecoverable costs</strong> and <strong>opportunity cost</strong>. This calculator is designed to strip away the emotional narrative of homeownership and present the raw mathematical reality.
+            </p>
+
+            <h3>1. The Math of Unrecoverable Costs ("The Burn Rate")</h3>
+            <p>
+                Every housing decision involves money you never see again.
+            </p>
+            <ul class="seo-list">
+                <li><strong>Renters:</strong> 100% of the rent payment is unrecoverable. In exchange, you get shelter, flexibility, and zero maintenance liability.</li>
+                <li><strong>Buyers:</strong> A significant portion of the monthly mortgage payment is interest (which is unrecoverable). Additionally, property taxes, homeowner's insurance, HOA fees, and maintenance costs (approx. 1-2% of the home's value annually) are all unrecoverable.</li>
+            </ul>
+            <p>
+                If the unrecoverable costs of buying exceed the cost of renting a similar property, renting is mathematically superior for wealth accumulation—provided you invest the surplus.
+            </p>
+
+            <h3>2. Comparison: Renting vs. Buying Pros & Cons</h3>
+            <div class="seo-table-container">
+                <table class="seo-table">
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Renting</th>
+                            <th>Buying</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Upfront Costs</strong></td>
+                            <td>Low (Security Deposit)</td>
+                            <td>High (Down Payment + Closing Costs)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Monthly Payments</strong></td>
+                            <td>Subject to annual increases</td>
+                            <td>Fixed (Principal & Interest only)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Maintenance</strong></td>
+                            <td>Landlord's responsibility</td>
+                            <td>Owner's responsibility (1-2% value/yr)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liquidity</strong></td>
+                            <td>High (Cash remains in portfolio)</td>
+                            <td>Low (Equity is trapped until sale)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wealth Builder</strong></td>
+                            <td>Investment Portfolio (Stocks/Bonds)</td>
+                            <td>Home Equity + Appreciation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3. Opportunity Cost: The Stock Market Factor</h3>
+            <p>
+                When you buy a home, you lock a massive amount of capital into a single, illiquid asset. A $100,000 down payment tied up in a house cannot earn stock market returns (historically 7-10%). This is the <strong>opportunity cost</strong> of buying. Our calculator's "Opportunity Cost" mode allows you to simulate this trade-off. If the stock market outperforms real estate appreciation (which historically hovers around inflation rates), renters who invest aggressively often end up with a higher net worth than homeowners.
+            </p>
+
+            <div class="faq-container">
+                <h3>Frequently Asked Questions (2026 Edition)</h3>
+                <div class="faq-item">
+                    <h4>Is real estate a good hedge against inflation?</h4>
+                    <p>Yes, fixed-rate debt is an excellent hedge against inflation because your payment stays the same while the value of the dollar drops. However, maintenance costs, taxes, and insurance tend to rise <em>with</em> inflation, offsetting some of this benefit.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What is the Price-to-Rent Ratio?</h4>
+                    <p>The Price-to-Rent ratio is calculated by dividing the home price by the annual rent of a comparable unit. A ratio above 20 usually indicates it is much better to rent. A ratio below 15 suggests buying is the better deal.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Does buying a house lower my taxes?</h4>
+                    <p>Not necessarily. Since the increase in the Standard Deduction, fewer Americans itemize their deductions. Unless your mortgage interest and property taxes exceed the standard deduction threshold, you get zero tax benefit from owning a home.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- INVISIBLE PRINT CONTAINER -->
+    <div id="print-view-container">
+        <!-- JS INJECTS STRUCTURE HERE -->
+    </div>
+
+    <!-- Hidden Preload Image for Print Logic -->
+    <img id="preload-print-logo" src="../../img/Logo_Golden.webp" style="display:none;" alt="preload">
+
+    <script src="script.js"></script>
+<footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

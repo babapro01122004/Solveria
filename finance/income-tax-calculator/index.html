@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Meta Data (Domination Strategy) -->
+    <!-- UPDATED: Changed 2025 to 2026 -->
+    <title>2026 Income Tax Calculator, W-4 Optimizer & Debt Velocity Engine | Solveria</title>
+    <meta name="description" content="Free 2026 Paycheck & Tax Calculator. Calculate Federal, State, and FICA taxes. Optimize W-4 withholdings, analyze bonus taxation, and model debt velocity strategies to maximize monthly liquidity.">
+    <meta name="keywords" content="Income Tax Calculator 2026, W4 Calculator, Bonus Tax Rate 2026, 401k Contribution Limits 2026, HSA Limit 2026, Debt Velocity Calculator, Snowball vs Avalanche, FICA Wage Base 2026, Supplemental Wage Tax, Effective Tax Rate Calculator">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Solveria">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="2026 Tax & Cash Flow Optimization Engine">
+    <meta property="og:description" content="Stop giving the IRS an interest-free loan. Calculate your true 2026 liability, bonus taxes, and reclaim liquidity today.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta property="og:url" content="https://solveria.org/calculators/income-tax/">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- Schema Markup (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Fiscal Efficiency & Liquidity Analysis Tool",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A professional-grade engine to calculate 2026 federal/state income tax liability, bonus taxes, optimize W-4 withholdings, and simulate debt payoff strategies.",
+      "featureList": "2026 Tax Brackets, Bonus Tax Calculator, W-4 Optimization, Debt Payoff Visualizer, Refinance Analysis"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Why is my take-home pay lower than expected?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your take-home pay is reduced by progressive Federal Income Tax, State Income Tax, and FICA taxes (7.65%). Additionally, over-withholding on your W-4 can trap monthly liquidity."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How are bonuses taxed in 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Bonuses are considered 'supplemental wages' and are typically withheld at a flat federal rate of 22% for amounts under $1 million, regardless of your standard tax bracket."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the 2026 401(k) contribution limit?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The projected 401(k) contribution limit for 2026 is expected to increase to roughly $23,500 (estimates pending final IRS release), with catch-up contributions for those over 50 increasing further."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Does this tool calculate self-employment tax?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "This tool focuses on W-2 wage earners. Self-employed individuals (1099) must pay both the employer and employee portions of FICA (15.3% total), which requires a different calculation model."
+            }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo" width="300" height="150" loading="eager">
+
+        <h1>Income Tax Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Focus on liquidity. Optimize the now.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Income Tax Calculator</span>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- CORE QUESTION (Aligned, Balanced Spacing) -->
+        <div class="core-question-block full-width-span">
+            <h2 class="core-question-heading">
+                Why is my take-home pay lower than expected, and how can I legally restructure my withholdings and debts to reclaim monthly liquidity immediately?
+            </h2>
+            <p class="core-question-answer">
+                Your net pay is often suppressed by three forces: <strong>Progressive Federal Tax</strong>, <strong>State Liability</strong>, and <strong>FICA</strong> (Social Security & Medicare). However, the hidden culprit is often <strong>Over-Withholding</strong>—an interest-free loan you unknowingly give to the government. Use the inputs below to calculate your true liability and unlock trapped cash flow.
+            </p>
+        </div>
+
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a" 
+                        data-title="Cash Flow Optimizer" 
+                        data-desc="Fix withholding or lower bills to increase monthly liquidity.">
+                    <img src="../../img/1.jpg" alt="Cash flow" loading="lazy" width="200" height="100">
+                    <span>Cash Flow Optimizer</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b" 
+                        data-title="Wealth & Velocity" 
+                        data-desc="Optimize debt payoff speed vs. refinancing for net worth.">
+                    <img src="../../img/2.jpg" alt="Floating money" loading="lazy" width="200" height="100">
+                    <span>Wealth & Velocity</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS (Always Visible) -->
+            <div class="global-settings">
+                <div class="global-header-wrapper full-width-span">
+                    <h3 class="input-sub-heading">Global Settings</h3>
+                    <div class="privacy-badge">
+                        <svg class="privacy-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z" fill="currentColor"/>
+                        </svg>
+                        Client-Side Only. Data never leaves this browser.
+                    </div>
+                </div>
+
+                <div class="input-wrapper full-width-span">
+                    <label>Master State Selector</label>
+                    <div class="custom-dropdown-container">
+                        <select id="stateSelector" class="hidden-select">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA" selected>California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">California</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option" data-value="AL">Alabama</div>
+                                <div class="dropdown-option" data-value="AK">Alaska</div>
+                                <div class="dropdown-option" data-value="AZ">Arizona</div>
+                                <div class="dropdown-option" data-value="AR">Arkansas</div>
+                                <div class="dropdown-option selected" data-value="CA">California</div>
+                                <div class="dropdown-option" data-value="CO">Colorado</div>
+                                <div class="dropdown-option" data-value="CT">Connecticut</div>
+                                <div class="dropdown-option" data-value="DE">Delaware</div>
+                                <div class="dropdown-option" data-value="DC">District of Columbia</div>
+                                <div class="dropdown-option" data-value="FL">Florida</div>
+                                <div class="dropdown-option" data-value="GA">Georgia</div>
+                                <div class="dropdown-option" data-value="HI">Hawaii</div>
+                                <div class="dropdown-option" data-value="ID">Idaho</div>
+                                <div class="dropdown-option" data-value="IL">Illinois</div>
+                                <div class="dropdown-option" data-value="IN">Indiana</div>
+                                <div class="dropdown-option" data-value="IA">Iowa</div>
+                                <div class="dropdown-option" data-value="KS">Kansas</div>
+                                <div class="dropdown-option" data-value="KY">Kentucky</div>
+                                <div class="dropdown-option" data-value="LA">Louisiana</div>
+                                <div class="dropdown-option" data-value="ME">Maine</div>
+                                <div class="dropdown-option" data-value="MD">Maryland</div>
+                                <div class="dropdown-option" data-value="MA">Massachusetts</div>
+                                <div class="dropdown-option" data-value="MI">Michigan</div>
+                                <div class="dropdown-option" data-value="MN">Minnesota</div>
+                                <div class="dropdown-option" data-value="MS">Mississippi</div>
+                                <div class="dropdown-option" data-value="MO">Missouri</div>
+                                <div class="dropdown-option" data-value="MT">Montana</div>
+                                <div class="dropdown-option" data-value="NE">Nebraska</div>
+                                <div class="dropdown-option" data-value="NV">Nevada</div>
+                                <div class="dropdown-option" data-value="NH">New Hampshire</div>
+                                <div class="dropdown-option" data-value="NJ">New Jersey</div>
+                                <div class="dropdown-option" data-value="NM">New Mexico</div>
+                                <div class="dropdown-option" data-value="NY">New York</div>
+                                <div class="dropdown-option" data-value="NC">North Carolina</div>
+                                <div class="dropdown-option" data-value="ND">North Dakota</div>
+                                <div class="dropdown-option" data-value="OH">Ohio</div>
+                                <div class="dropdown-option" data-value="OK">Oklahoma</div>
+                                <div class="dropdown-option" data-value="OR">Oregon</div>
+                                <div class="dropdown-option" data-value="PA">Pennsylvania</div>
+                                <div class="dropdown-option" data-value="RI">Rhode Island</div>
+                                <div class="dropdown-option" data-value="SC">South Carolina</div>
+                                <div class="dropdown-option" data-value="SD">South Dakota</div>
+                                <div class="dropdown-option" data-value="TN">Tennessee</div>
+                                <div class="dropdown-option" data-value="TX">Texas</div>
+                                <div class="dropdown-option" data-value="UT">Utah</div>
+                                <div class="dropdown-option" data-value="VT">Vermont</div>
+                                <div class="dropdown-option" data-value="VA">Virginia</div>
+                                <div class="dropdown-option" data-value="WA">Washington</div>
+                                <div class="dropdown-option" data-value="WV">West Virginia</div>
+                                <div class="dropdown-option" data-value="WI">Wisconsin</div>
+                                <div class="dropdown-option" data-value="WY">Wyoming</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Used for tax assumptions and averages only.</div>
+                </div>
+
+                <!-- Global Tax Awareness Toggle -->
+                <div class="input-wrapper full-width-span checkbox-group">
+                    <label class="custom-checkbox-container">
+                        <input type="checkbox" id="input_itemizeGlobal">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Do you itemize deductions?</span>
+                    </label>
+                    <div class="disclosure-text">Applies mainly to mortgage interest. Consult a tax pro.</div>
+                </div>
+
+                <!-- Global Advanced (Hidden by default) -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-heading">Assumptions</h3>
+                    <div class="input-wrapper">
+                        <!-- AUTO LABEL ADDED -->
+                        <label>Property Tax (%) <span id="badge_propTaxGlobal" class="auto-badge hidden">Auto</span></label>
+                        <div class="input-group">
+                            <input type="number" id="input_propTaxGlobal" value="1.2" step="0.01">
+                            <input type="range" id="slider_propTaxGlobal" min="0" max="100" step="0.01">
+                        </div>
+                        <div class="disclosure-text">Relevant for itemized deductions.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <!-- AUTO LABEL ADDED -->
+                        <label>Home Insurance ($/yr) <span id="badge_insuranceGlobal" class="auto-badge hidden">Auto</span></label>
+                        <div class="input-group">
+                            <input type="number" id="input_insuranceGlobal" value="1200">
+                            <input type="range" id="slider_insuranceGlobal" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Annual premium estimate.</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: Cash Flow Optimizer -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                
+                <!-- Main Strategy Toggle -->
+                <div class="input-wrapper full-width-span">
+                    <label>Optimization Strategy</label>
+                    <div class="strategy-toggle-container">
+                        <button class="strategy-btn active" data-target="scenario-fix">Fix Withholding</button>
+                        <button class="strategy-btn" data-target="scenario-lower">Lower Monthly Bills</button>
+                    </div>
+                    <div class="disclosure-text">Choose between adjusting W-4 or refinancing debt.</div>
+                </div>
+
+                <!-- SCENARIO A: Fix Withholding -->
+                <div id="scenario-fix-container" class="scenario-container active">
+                    <h3 class="input-sub-heading">W-4 Logic</h3>
+                    
+                    <div class="grid-2-col">
+                        <div class="input-wrapper">
+                            <label>Filing Status</label>
+                            <div class="custom-dropdown-container">
+                                <select id="filingStatusA" class="hidden-select">
+                                    <option value="Single" selected>Single</option>
+                                    <option value="MFJ">Married Filing Jointly</option>
+                                    <option value="HOH">Head of Household</option>
+                                </select>
+                                <button class="custom-dropdown-trigger">Single</button>
+                                <div class="custom-dropdown-menu">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="Single">Single</div>
+                                        <div class="dropdown-option" data-value="MFJ">Married Filing Jointly</div>
+                                        <div class="dropdown-option" data-value="HOH">Head of Household</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label>Pay Frequency</label>
+                            <div class="custom-dropdown-container">
+                                <select id="payFreqA" class="hidden-select">
+                                    <option value="Bi-weekly" selected>Bi-weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Semi-monthly">Semi-monthly</option>
+                                    <option value="Weekly">Weekly</option>
+                                </select>
+                                <button class="custom-dropdown-trigger">Bi-weekly</button>
+                                <div class="custom-dropdown-menu">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="Bi-weekly">Bi-weekly</div>
+                                        <div class="dropdown-option" data-value="Monthly">Monthly</div>
+                                        <div class="dropdown-option" data-value="Semi-monthly">Semi-monthly</div>
+                                        <div class="dropdown-option" data-value="Weekly">Weekly</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label>Gross Annual Salary ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_grossSalaryA" value="85000">
+                                <input type="range" id="slider_grossSalaryA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Total income before taxes.</div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label>Current Net Pay ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_netPayA" value="2400">
+                                <input type="range" id="slider_netPayA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">What actually hits your bank (per paycheck).</div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Fix Withholding -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Deductions & Credits</h3>
+                        <div class="grid-2-col">
+                            <div class="input-wrapper">
+                                <label>Pre-Tax Contributions ($/mo)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_preTaxA" value="500">
+                                    <input type="range" id="slider_preTaxA" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">401k, HSA, Medical.</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Dependents (Count)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_dependentsA" value="0">
+                                    <input type="range" id="slider_dependentsA" min="0" max="10">
+                                </div>
+                                <div class="disclosure-text">Children or other qualifying dependents.</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Deduction Type</label>
+                                <div class="custom-dropdown-container">
+                                    <select id="deductionA" class="hidden-select">
+                                        <option value="Standard" selected>Standard</option>
+                                        <option value="Itemized">Itemized</option>
+                                    </select>
+                                    <button class="custom-dropdown-trigger">Standard</button>
+                                    <div class="custom-dropdown-menu">
+                                        <div class="dropdown-options-wrapper">
+                                            <div class="dropdown-option selected" data-value="Standard">Standard</div>
+                                            <div class="dropdown-option" data-value="Itemized">Itemized</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Monthly Buffer ($)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_bufferA" value="200">
+                                    <input type="range" id="slider_bufferA" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">Safety margin to prevent owing tax.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCENARIO B: Lower Monthly Bills -->
+                <div id="scenario-lower-container" class="scenario-container hidden">
+                    <h3 class="input-sub-heading">Refinance Logic</h3>
+                    
+                    <div class="grid-2-col">
+                        <div class="input-wrapper">
+                            <label>Current Monthly Payment ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_currentBillA" value="2800">
+                                <input type="range" id="slider_currentBillA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Mortgage or high-interest debt payment.</div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>New Loan Amount ($)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newLoanA" value="400000">
+                                <input type="range" id="slider_newLoanA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Principal amount to refinance.</div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>New Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newRateA" value="5.5" step="0.125">
+                                <input type="range" id="slider_newRateA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Proposed rate.</div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>New Term (Years)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newTermA" value="30">
+                                <input type="range" id="slider_newTermA" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Duration of the new loan.</div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Lower Bills -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Costs & Fees</h3>
+                        <div class="grid-2-col">
+                            <div class="input-wrapper">
+                                <label>Closing Costs ($)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_closingCostsA" value="4000">
+                                    <input type="range" id="slider_closingCostsA" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">Flat fee estimation.</div>
+                            </div>
+                            <!-- Empty slot for grid balance -->
+                            <div class="input-wrapper"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODE B: Wealth & Velocity -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                
+                <!-- Main Toggle -->
+                <div class="input-wrapper full-width-span">
+                    <label>Wealth Strategy</label>
+                    <div class="strategy-toggle-container">
+                        <button class="strategy-btn active" data-target="scenario-pay">Pay Debt Faster</button>
+                        <button class="strategy-btn" data-target="scenario-refi">Refinance Structure</button>
+                    </div>
+                    <div class="disclosure-text">Acceleration vs. Restructuring.</div>
+                </div>
+
+                <!-- Universal Inputs (Always Visible) -->
+                <h3 class="input-sub-heading">Current Loan Snapshot</h3>
+                <div class="grid-2-col">
+                    <div class="input-wrapper full-width-span">
+                        <label>Current Loan Balance ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_loanBalanceB" value="450000">
+                            <input type="range" id="slider_loanBalanceB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Remaining principal on the loan.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Current Interest Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_rateB" value="6.5" step="0.125">
+                            <input type="range" id="slider_rateB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Existing APR.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Remaining Term (Years)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_remainingTermB" value="28">
+                            <input type="range" id="slider_remainingTermB" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Time left on your current mortgage.</div>
+                    </div>
+                </div>
+
+                <!-- SCENARIO A: Pay Debt Faster -->
+                <div id="scenario-pay-container" class="scenario-container active">
+                    <h3 class="input-sub-heading">Snowball / Avalanche</h3>
+                    
+                    <div class="grid-2-col">
+                        <div class="input-wrapper">
+                            <label>"Boost" Contribution ($/mo)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_boostB" value="250">
+                                <input type="range" id="slider_boostB" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Extra monthly payment toward principal.</div>
+                        </div>
+                        <div class="input-wrapper">
+                             <!-- Spacer for grid alignment -->
+                        </div>
+                    </div>
+
+                    <!-- Advanced Pay Debt -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Lump Sum & Cost</h3>
+                        <div class="grid-2-col">
+                            <div class="input-wrapper">
+                                <label>One-Time Lump Sum ($)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_lumpSumB" value="0">
+                                    <input type="range" id="slider_lumpSumB" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">Immediate principal reduction.</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Safe Investment Rate (%)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_oppCostB" value="5.0" step="0.1">
+                                    <input type="range" id="slider_oppCostB" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">Conservative investment return benchmark.</div>
+                                <!-- Nudge Container -->
+                                <div id="nudge-opp-cost" class="nudge-pill yellow" style="margin-top:5px;">
+                                    Balanced Decision
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCENARIO B: Refinance Structure -->
+                <div id="scenario-refi-container" class="scenario-container hidden">
+                    <h3 class="input-sub-heading">New Loan Terms</h3>
+                    
+                    <div class="grid-2-col">
+                        <div class="input-wrapper">
+                            <label>New Interest Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newRateB" value="5.5" step="0.125">
+                                <input type="range" id="slider_newRateB" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Proposed rate.</div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>New Term (Years)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_newTermB" value="30">
+                                <input type="range" id="slider_newTermB" min="0" max="100">
+                            </div>
+                            <div class="disclosure-text">Duration of the new loan.</div>
+                            <!-- Nudge Container -->
+                            <div id="nudge-reset-clock" class="nudge-pill red hidden" style="margin-top:5px;">
+                                Warning: Extending debt timeline.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Refi -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Refinance Costs</h3>
+                        <div class="grid-2-col">
+                            <div class="input-wrapper">
+                                <label>Closing Costs ($)</label>
+                                <div class="input-group">
+                                    <input type="number" id="input_closingCostsB" value="4500">
+                                    <input type="range" id="slider_closingCostsB" min="0" max="100">
+                                </div>
+                                <div class="disclosure-text">Flat fee for the new loan.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            
+            <div id="results-display-container">
+                <h2>Results</h2>
+                
+                <!-- NEW ACTION BUTTONS -->
+                <div class="action-buttons-row">
+                    <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
+                    <button class="action-btn print-btn" id="btn-print">Print</button>
+                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                </div>
+
+                <div class="disclaimer-small">Estimates for planning. Not IRS/Financial advice.</div>
+                
+                <!-- Mode A Results: Cash Flow Optimizer -->
+                <div id="mode-a-results" class="mode-results">
+                    <h3 class="result-sub-heading">Cash Flow Impact</h3>
+                    <div class="result-row">
+                        <div class="result-box">
+                            <span class="result-label">Monthly Cash Freed Up</span>
+                            <span class="result-value good" id="res_cashFreedA">$340</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Paycheck Status</span>
+                            <!-- Clean text status -->
+                            <span class="result-value status-text-green" id="res_trafficLightA">Significant Boost</span>
+                        </div>
+                    </div>
+                    
+                    <div class="advanced-content hidden">
+                        <h3 class="result-sub-heading">Lifestyle Translation</h3>
+                        <div class="result-row">
+                            <div class="result-box alt full-width-result">
+                                <span class="result-label">This savings covers:</span>
+                                <span class="result-value" id="res_lifestyleA">Approx. 4 Tanks of Gas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode B Results: Wealth & Velocity -->
+                <div id="mode-b-results" class="mode-results hidden">
+                    <h3 class="result-sub-heading">Velocity Impact</h3>
+                    
+                    <!-- Added helper class tight-bottom to reduce gap below this row -->
+                    <div class="result-row tight-bottom">
+                        <div class="result-box">
+                            <span class="result-label">Time Reclaimed</span>
+                            <span class="result-value good" id="res_timeReclaimedB">4 Years, 2 Mos</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Total Interest Saved</span>
+                            <span class="result-value good" id="res_interestSavedB">$42,300</span>
+                        </div>
+                    </div>
+
+                    <!-- Added helper class extra-bottom to increase gap below this row -->
+                    <div class="result-row extra-bottom">
+                         <div class="result-box full-width-result">
+                            <span class="result-label">New Payoff Date</span>
+                            <span class="result-value" id="res_payoffDateB">Aug 2045 (vs Oct 2049)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="advanced-content hidden">
+                        <h3 class="result-sub-heading">Net Worth Visual</h3>
+                        <div class="result-row">
+                            <!-- Visual Metaphor: The Two Piles -->
+                            <div class="result-box full-width-result">
+                                <span class="result-label">The Two Piles (Principal + Interest)</span>
+                                <div class="visual-piles-container">
+                                    <div class="pile pile-gray" style="height: 100%;"><span>Current</span></div>
+                                    <div class="pile pile-solid" style="height: 80%;"><span>Optimized</span></div>
+                                </div>
+                                <div class="disclosure-text">Lower pile means wealth kept.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- TOOLTIP ELEMENT -->
+        <div id="cursor-tooltip" class="cursor-tooltip"></div>
+
+    </div>
+
+    <!-- SEO & CONTENT SECTION (DOMINATION STRATEGY) -->
+    <article class="content-section">
+        <div class="content-wrapper">
+            <h2 class="content-heading">Beyond the Tax Refund: The Science of Cash Flow Efficiency</h2>
+            <p class="content-text">
+                For millions of Americans, a large tax refund is celebrated as a windfall. Financial efficiency models, however, view it as a liquidity error. A refund essentially represents an interest-free loan you extended to the government for 12 months. In an environment of inflation or high-interest debt, that trapped liquidity has an opportunity cost.
+            </p>
+            <p class="content-text">
+                By optimizing your <strong>W-4 withholdings</strong>, you can shift that capital from an annual lump sum into your monthly paycheck. This "Cash Flow Optimization" strategy provides immediate liquidity to service high-interest consumer debt, creating a velocity effect that mathematically outperforms the forced savings of a refund.
+            </p>
+
+            <h2 class="content-heading">Strategic Debt Repayment: Velocity Banking & Amortization</h2>
+            <p class="content-text">
+                Once liquidity is reclaimed, the question becomes allocation. The <span class="highlight-text">Debt Snowball</span> method (paying smallest balances first) yields psychological momentum, while the <span class="highlight-text">Debt Avalanche</span> (paying highest interest rates first) yields mathematical savings.
+            </p>
+            <p class="content-text">
+                This tool incorporates <strong>amortization velocity logic</strong>, allowing you to model how small "boost" payments—funded by your optimized tax withholdings—can shave years off a mortgage or student loan. By applying extra principal payments early in a loan's term, you eliminate future interest accrual, effectively earning a guaranteed return on investment equal to your loan's interest rate.
+            </p>
+
+            <!-- Expanded SEO Content: Bonus Tax Rates -->
+            <h2 class="content-heading">How Bonuses Are Taxed in 2026 (Supplemental Wages)</h2>
+            <p class="content-text">
+                Many employees are shocked when their bonus check is smaller than expected. The IRS categorizes bonuses as <strong>supplemental wages</strong>. If your bonus is under $1 million, employers typically use the <strong>flat percentage method</strong>, withholding 22% for federal taxes automatically. This is distinct from your regular progressive tax bracket.
+            </p>
+            <p class="content-text">
+                If your regular marginal tax rate is lower than 22% (e.g., the 10% or 12% bracket), you may receive a refund of this withheld amount when you file. Conversely, if you are in the 24%, 32%, or higher brackets, the 22% withholding may not be enough, leading to a tax bill.
+            </p>
+
+            <!-- Expanded SEO Content: Tax Brackets & Technicals -->
+            <h2 class="content-heading">Understanding 2026 Federal Tax Brackets & Effective Rates</h2>
+            <p class="content-text">
+                The U.S. uses a progressive tax system, meaning your income is taxed in "chunks" at different rates. Your top rate (marginal rate) only applies to the last dollar you earn. Understanding this distinction is critical for accurate financial modeling.
+            </p>
+            
+            <h3 class="faq-question">2026 Standard Deduction Limits</h3>
+            <ul class="content-list">
+                <li><strong>Single Filers:</strong> $15,000</li>
+                <li><strong>Married Filing Jointly:</strong> $30,000</li>
+                <li><strong>Head of Household:</strong> $22,500</li>
+            </ul>
+            <p class="content-text">
+                Note: These figures are estimates based on inflation adjustments. The calculator updates automatically as IRS guidelines are finalized for the 2026-2027 tax year.
+            </p>
+
+            <!-- Expanded SEO Content: Pre-Tax Shields -->
+            <h2 class="content-heading">Pre-Tax Levers: 401(k) and HSA Limits</h2>
+            <p class="content-text">
+                One of the most effective ways to lower your taxable income is through pre-tax contributions. For 2026, the 401(k) contribution limit is projected to rise (est. $23,500), and HSA limits are also adjusting for inflation. Every dollar contributed reduces your taxable income at your <em>marginal</em> tax rate, providing instant savings.
+            </p>
+
+            <h3 class="faq-question">FICA Taxes: Social Security & Medicare</h3>
+            <p class="content-text">
+                FICA taxes are flat rates deducted from your gross pay. For 2026, the Social Security tax rate is 6.2% on income up to the wage base limit (projected around $176,100), and Medicare tax is 1.45% on all income. High earners may be subject to an Additional Medicare Tax of 0.9%. This calculator automatically caps Social Security deductions at the wage base limit to ensure accuracy for high-income earners.
+            </p>
+
+            <h2 class="content-heading">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">How often should I adjust my W-4?</h3>
+                <p class="faq-answer">It is recommended to check your withholdings at the start of every year, or whenever a major life event occurs (marriage, birth of a child, purchase of a home). The goal is to break even at tax time—neither owing money nor receiving a large refund.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">Does refinancing always save money?</h3>
+                <p class="faq-answer">Not always. While a lower interest rate is attractive, extending the term (e.g., from 20 remaining years back to 30) can result in paying more total interest over the life of the loan. Use the "Wealth & Velocity" mode to compare the total interest cost of your current loan versus a proposed refinance.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">What is "Velocity Banking"?</h3>
+                <p class="faq-answer">Velocity banking is a strategy that uses credit lines or optimized cash flow to make lump-sum payments on amortized debt (like mortgages). By reducing the principal balance rapidly, you reduce the portion of your monthly payment that goes toward interest, accelerating the payoff timeline significantly.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">How do state income taxes affect my take-home pay?</h3>
+                <p class="faq-answer">State taxes vary wildly. States like Florida, Texas, and Nevada have 0% income tax, while California and New York have progressive rates topping 10-13%. This tool includes a "Master State Selector" that adjusts your estimated liability based on the effective tax rates of your selected jurisdiction.</p>
+            </div>
+        </div>
+    </article>
+
+
+    <!-- NON-NEGOTIABLE TUTORIAL OVERLAY -->
+    <!-- Removed 'hidden' class here so CSS default visibility takes over for animation -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy" width="200" height="200"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy" width="200" height="200"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy" width="200" height="200"></div>
+            </div>
+            
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+
+            <!-- BUTTON IS NOW A PILL WITH COUNTDOWN LOGIC -->
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- RESTRUCTURED PRINT VIEW CONTAINER (DIMINISHED VALUE STYLE) -->
+    <div id="print-view-container" class="print-view">
+        
+        <!-- Main Header with Thick Lines -->
+        <div class="print-header-thick">
+            <div class="header-left">
+                <!-- Kept Logo Top-Left as requested -->
+                <img src="../../img/Logo_Gold.webp" class="print-logo" alt="Solveria" loading="eager">
+            </div>
+            <div class="header-right">
+                <h1 class="report-title">CASH FLOW & VELOCITY OPTIMIZATION REPORT</h1>
+                <h2 class="report-subtitle">PERSONAL FINANCIAL RESTRUCTURING & AMORTIZATION ANALYSIS</h2>
+            </div>
+        </div>
+
+        <!-- Meta Data Row -->
+        <div class="meta-row">
+            <div class="meta-col">
+                <span class="meta-label">PREPARED FOR:</span>
+                <span class="meta-value underline">__________________________</span>
+            </div>
+            <div class="meta-col">
+                <span class="meta-label">DATE:</span>
+                <span class="meta-value" id="print-date">2/22/2026</span>
+            </div>
+            <div class="meta-col">
+                <span class="meta-label">STATE:</span>
+                <span class="meta-value" id="print-state-meta">California</span>
+            </div>
+            <div class="meta-col">
+                <span class="meta-label">STATUS:</span>
+                <span class="meta-value" id="print-status-meta">Single</span>
+            </div>
+        </div>
+
+        <!-- Section I: Context -->
+        <div class="print-section">
+            <h3 class="section-title">I. JURISDICTIONAL CONTEXT & ASSUMPTIONS</h3>
+            <div class="print-content-block">
+                <p><strong>STATE SELECTOR:</strong> <span id="print-state-full">California</span>.</p>
+                <p class="note-text"><strong>NOTE:</strong> Used for tax assumptions and averages only. Itemized deductions primarily apply to mortgage interest. Consult a tax professional.</p>
+            </div>
+        </div>
+
+        <!-- Section II: Cash Flow -->
+        <div class="print-section">
+            <h3 class="section-title">II. WITHHOLDING & CASH FLOW DIAGNOSTICS (W-4 LOGIC)</h3>
+            
+            <div class="data-grid">
+                <div class="data-pair">
+                    <span class="data-label">Gross Annual Salary</span>
+                    <span class="data-value" id="print-gross">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Pay Frequency</span>
+                    <span class="data-value" id="print-payFreq">Bi-weekly</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Pre-Tax Contributions (Mo)</span>
+                    <span class="data-value" id="print-pretax">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Current Net Pay</span>
+                    <span class="data-value" id="print-net-current">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Deduction Type</span>
+                    <span class="data-value" id="print-deduction-type">Standard</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Monthly Buffer</span>
+                    <span class="data-value" id="print-buffer">$200.00</span>
+                </div>
+            </div>
+
+            <div class="analyst-note-box">
+                <p><strong>ANALYST NOTE:</strong> <span id="print-analyst-note-1">Optimization strategy applied: Fix Withholding. The monthly buffer acts as a safety margin to prevent owing tax at year-end.</span></p>
+            </div>
+
+            <div class="highlight-grid">
+                <div class="data-pair highlight">
+                    <span class="data-label">MONTHLY CASH FREED UP</span>
+                    <span class="data-value bold" id="print-cash-freed">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">PAYCHECK STATUS</span>
+                    <span class="data-value" id="print-status-text">--</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">LIFESTYLE TRANSLATION</span>
+                    <span class="data-value" id="print-lifestyle">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section III: Liability Profile -->
+        <div class="print-section">
+            <h3 class="section-title">III. LIABILITY & AMORTIZATION PROFILE (CURRENT SNAPSHOT)</h3>
+            
+            <div class="data-grid">
+                <div class="data-pair">
+                    <span class="data-label">Current Loan Balance</span>
+                    <span class="data-value" id="print-loan-balance">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Property Tax (Est.)</span>
+                    <span class="data-value" id="print-prop-tax">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Current Interest Rate (APR)</span>
+                    <span class="data-value" id="print-rate-current">0.00%</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Home Insurance</span>
+                    <span class="data-value" id="print-insurance">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Remaining Term</span>
+                    <span class="data-value" id="print-term-current">0 Years</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Base Holding Costs (Yr)</span>
+                    <span class="data-value" id="print-holding-cost">$0.00</span>
+                </div>
+            </div>
+            
+            <div class="strategy-row">
+                <span class="strategy-label">WEALTH STRATEGY DEFINED</span>
+                <span class="strategy-value" id="print-strategy-name">Pay Debt Faster (Acceleration vs. Refi)</span>
+            </div>
+        </div>
+
+        <!-- Section IV: Optimization Strategy -->
+        <div class="print-section">
+            <h3 class="section-title">IV. OPTIMIZATION STRATEGY (SNOWBALL / AVALANCHE)</h3>
+            
+            <div class="data-grid">
+                <div class="data-pair">
+                    <span class="data-label">"Boost" Contribution (Mo)</span>
+                    <span class="data-value" id="print-boost">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">One-Time Lump Sum</span>
+                    <span class="data-value" id="print-lump">$0.00</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Safe Investment Benchmark</span>
+                    <span class="data-value" id="print-benchmark">5.00%</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">Guaranteed Return</span>
+                    <span class="data-value" id="print-opp-cost-text">Pay the debt</span>
+                </div>
+            </div>
+
+            <div class="analyst-note-box">
+                <p><strong>ANALYST NOTE:</strong> <span id="print-analyst-note-2">Applying a boost contribution toward the principal outperforms the conservative investment return benchmark, significantly altering the amortization trajectory.</span></p>
+            </div>
+        </div>
+
+        <!-- Section V: Summary -->
+        <div class="print-section">
+            <h3 class="section-title">V. RESTRUCTURING YIELD SUMMARY</h3>
+            
+            <div class="summary-grid">
+                <div class="data-pair">
+                    <span class="data-label">ORIGINAL PAYOFF DATE</span>
+                    <span class="data-value" id="print-date-old">--</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">OPTIMIZED PAYOFF DATE</span>
+                    <span class="data-value" id="print-date-new">--</span>
+                </div>
+                <div class="data-pair">
+                    <span class="data-label">TIME RECLAIMED</span>
+                    <span class="data-value" id="print-time-saved">0 Years</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Savings Footer -->
+        <div class="total-savings-container">
+            <div class="savings-row">
+                <span>TOTAL INTEREST SAVED (WEALTH KEPT)</span>
+                <span id="print-total-saved">$0.00</span>
+            </div>
+        </div>
+
+        <!-- Signatures & Disclaimer -->
+        <div class="print-footer-legal">
+            <div class="signatures-row">
+                <div class="sig-block">
+                    <div class="line"></div>
+                    <div class="label">SIGNATURE OF CLIENT / OWNER</div>
+                </div>
+                <div class="sig-block">
+                    <div class="line"></div>
+                    <div class="label">DATE</div>
+                </div>
+            </div>
+
+            <div class="legal-text">
+                <strong>LEGAL & METHODOLOGY DISCLAIMER:</strong> This Cash Flow & Velocity Optimization Report is generated automatically for informational and planning purposes only. The figures presented are estimates derived from standard amortization mathematics and stated tax logic. This document does not constitute legal, tax, or professional financial advice. Do not file with the IRS. Clients assume all responsibility for verifying withholdings with their employer or tax professional.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+<footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

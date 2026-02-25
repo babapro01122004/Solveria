@@ -1,0 +1,1786 @@
+/* ============================ */
+/* US STATE DATA ENGINE         */
+/* ============================ */
+/* ... (This comment belongs to JS, but confirming this is the CSS block) */
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font Definitions */
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProductSans-Light';
+    src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProductSans-Thin';
+    src: url('../../fonts/ProductSans-Thin.ttf') format('truetype');
+}
+
+/* Page Background Color */
+body {
+    background-color: #F4F4F4;
+    font-family: 'ProductSans-Light', sans-serif;
+}
+
+/* ============================ */
+/* Hero Section                 */
+/* ============================ */
+.hero-section {
+    width: 100%;
+    height: 40vh; /* Reduced height to pull content up */
+    background-image: url('../../img/Refinance_Hero.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh; /* Reduced gap */
+    overflow: hidden; 
+}
+
+.hero-nav { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 3vh; /* Reduced gap */
+    z-index: 10; 
+    margin-top: 1vh;
+}
+
+.hero-nav a { 
+    color: #cacaca; 
+    text-decoration: none; 
+    /* CHANGED to rem for stability */
+    font-size: 0.95rem;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300; 
+    transition: color .3s ease; 
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap; 
+}
+
+.hero-nav a:hover { 
+    color: #fff; 
+}
+
+.hero-logo {
+    height: 15vh; /* Slightly smaller logo */
+    width: auto;
+    display: block;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+.hero-section h1 {
+    color: #ffffff;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    font-size: 7vmin;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.1;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    max-width: 95%;
+}
+
+.breathing-text {
+    color: #e0e0e0;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 2vmin;
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    min-height: 1.5em;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.breathing-text.fade-out {
+    opacity: 0;
+}
+
+/* ============================ */
+/* Breadcrumb Navigation        */
+/* ============================ */
+.breadcrumb-nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 2vh; /* Reduced margin */
+    padding: 0 8vw; /* Matches calculator container padding */
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    /* CHANGED to rem for stability */
+    font-size: 0.9rem; 
+}
+
+.breadcrumb-nav a, 
+.breadcrumb-nav .current-page,
+.breadcrumb-nav .separator {
+    text-decoration: none;
+    color: #7a7a7a; 
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-nav a:hover {
+    color: #000000;
+}
+
+.breadcrumb-nav .separator {
+    opacity: 0.5;
+}
+
+.breadcrumb-nav .current-page {
+    cursor: default;
+}
+
+/* ============================ */
+/* Core Question Section        */
+/* ============================ */
+.core-question-section {
+    width: 100%;
+    padding: 0 8vw;
+    margin-top: 4vh;
+    margin-bottom: -1vh; /* Pull closer to tool */
+    text-align: left;
+}
+
+.core-question-section h2 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #222;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.core-question-section p {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+.core-question-section strong {
+    color: #000;
+    font-weight: 600;
+}
+
+/* ============================ */
+/* Calculator Main Layout       */
+/* ============================ */
+.calculator-container {
+    width: 100%;
+    padding: 0 8vw; /* Reduced from 15vw to use more screen width */
+    margin-top: 5vh; /* Standard gap */
+    margin-bottom: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; 
+    gap: 80px; /* Massively reduced from 250px */
+}
+
+.calc-section {
+    min-width: 300px;
+}
+
+/* Left Section (Inputs) - Wider */
+.left-section {
+    flex: 1.8; 
+}
+
+/* Right Section (Results) - Sticky Sidebar */
+.right-section {
+    flex: 1;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 30px; /* Offset from the top of the viewport */
+    height: fit-content; /* Ensure height adjusts to content for sticky to work */
+    z-index: 100;
+}
+
+/* Header Row for Inputs & Toggle */
+.header-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 2vh; /* Reduced margin */
+}
+
+/* 
+   MASSIVE HEADINGS: Inputs & Results 
+   Independent from H1. Using clamp for massive responsiveness.
+*/
+.calc-section h2 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300;
+    /* Scales between 4rem (64px) and 9rem (144px) based on width */
+    font-size: clamp(4rem, 6vw, 9rem);
+    line-height: 1.1;
+    color: #333;
+    margin: 0;
+    white-space: nowrap; 
+}
+
+/* "Switch to Advanced" Button */
+.text-link-btn {
+    background: none;
+    border: none;
+    color: #7a7a7a;
+    font-family: 'ProductSans-Light', sans-serif;
+    /* UPDATED: Increased size for better visibility */
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+}
+
+.text-link-btn:hover {
+    color: #000;
+}
+
+/* Left Section Specifics */
+.left-section h2 {
+    text-align: left;
+}
+
+/* Right Section Specifics */
+.right-section h2 {
+    text-align: left; 
+    margin-bottom: 30px; /* Reduced spacing */
+}
+
+/* ============================ */
+/* Input Mode Cards             */
+/* ============================ */
+.mode-cards-container {
+    display: grid;
+    /* CHANGED: 4 Columns by default (Side-by-Side) */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 40px; /* Reduced from 70px */
+}
+
+.mode-card {
+    appearance: none;
+    position: relative;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px; 
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    overflow: hidden;
+    height: 12vh; /* Reduced height */
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, outline 0.1s;
+    padding: 0;
+}
+
+.mode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.mode-card.active-mode {
+    box-shadow: 0px 0px 0px 3px #B5855E; 
+}
+
+.mode-card img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.65); 
+    transition: filter 0.3s ease;
+}
+
+.mode-card:hover img {
+    filter: brightness(0.75); 
+}
+
+.mode-card span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%; 
+    white-space: normal; 
+    line-height: 1.1;
+    font-family: 'ProductSans-Light', sans-serif; 
+    /* CHANGED to rem for consistent reading size */
+    font-size: 0.85rem; 
+    color: #ffffff; 
+    background: none; 
+    text-align: center;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 1); 
+    pointer-events: none; 
+}
+
+/* ============================ */
+/* Inputs Styling (GRID)        */
+/* ============================ */
+
+/* Grid System for Inputs */
+.global-settings,
+.mode-inputs,
+.advanced-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns Side-by-Side */
+    column-gap: 40px; /* Space between columns */
+    row-gap: 30px; /* Space between rows */
+    width: 100%;
+}
+
+/* Added Spacing to separate Location from the inputs below */
+.global-settings {
+    margin-bottom: 50px; 
+}
+
+/* 
+   INPUT SUB-HEADING 
+   FIXED LOGIC: Adjusted clamp to ensure minimum size is always readable
+   and larger than the labels, but doesn't blow up.
+   Min: 1.5rem (24px) | Max: 2.2rem
+*/
+.input-sub-heading {
+    grid-column: 1 / -1; /* Spans full width */
+    font-family: 'ProductSans-Thin', sans-serif; /* Thinner font */
+    
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300; 
+    letter-spacing: 0.05em;
+    margin-top: 25px;
+    margin-bottom: -25px; /* Pulls closer to inputs */
+    padding-left: 2px;
+    line-height: 1;
+    overflow-wrap: break-word; /* Safety */
+}
+
+/* 
+   FIXED: Uses class instead of :first-child to avoid breaking when heading is added 
+   Ensures the Location bar spans 2 columns.
+*/
+.full-width-span {
+    grid-column: 1 / -1;
+}
+
+/* Advanced Content Wrapper should span full width of the parent grid */
+.advanced-content {
+    grid-column: 1 / -1; 
+    margin-top: 0;
+}
+
+.input-wrapper {
+    margin-bottom: 0; /* Handled by grid-gap now */
+    width: 100%;
+}
+
+/* 
+   FIXED ALIGNMENT: 
+   Switched from vh to rem to prevent labels from outgrowing headings on tall screens.
+   Fixed size ensures headings (which use clamp/rem) stay visually dominant.
+*/
+.input-wrapper label {
+    display: flex;          /* Use flex to control text position */
+    align-items: flex-end;  /* Bottom align text so single lines sit close to input */
+    min-height: 2.5em;      /* Reserve vertical space for 2 lines */
+    line-height: 1.2;       /* Tight line height for better spacing */
+    font-family: 'ProductSans-Light', sans-serif;
+    
+    /* STABILIZED FONT SIZE */
+    font-size: 0.9rem;
+    
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Number Input - BORDER REMOVED & FIXES */
+.input-group input[type=number] {
+    width: 100%;
+    border: none; 
+    background: transparent;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 2px 0 0 0;
+    outline: none;
+    -moz-appearance: textfield;
+    
+    /* UPDATED: Z-index priority so clicks work */
+    position: relative; 
+    z-index: 50; 
+}
+
+.input-group input[type=number]::-webkit-outer-spin-button,
+.input-group input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Slider Styling */
+.input-group input[type=range] {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 100%; 
+    height: 20px; 
+    border: 9px solid transparent; 
+    border-left: 0; border-right: 0; 
+    background-clip: content-box; 
+    background-color: transparent;
+    border-radius: 0px; 
+    outline: none; 
+    opacity: 0.5; 
+    transition: border-width .2s ease, opacity .2s ease; 
+    cursor: pointer;
+    margin-top: 2px; 
+    display: block;
+    position: relative;
+    z-index: 5;
+}
+
+/* Track */
+.input-group input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: transparent; 
+    border: none;
+    border-radius: 0px;
+}
+
+/* SPECIAL SLIDER: Tenure Gradient (Red -> Yellow -> Green) */
+#slider_tenureB {
+    position: relative;
+    z-index: 2; /* Above the glow, below the number input */
+    
+    /* 
+       Gradient logic: 
+       0-10% (0-3 years) -> Red
+       10-16% (3-5 years) -> Yellow
+       16-100% (6+ years) -> Green
+    */
+    background: linear-gradient(90deg, 
+        #e74c3c 0%, 
+        #e74c3c 10%, 
+        #f1c40f 10%, 
+        #f1c40f 18%, 
+        #2ecc71 18%, 
+        #2ecc71 100%);
+    opacity: 0.8;
+    
+    /* Rounded corners, but no shadow (shadow handled by .tenure-glow) */
+    border-radius: 12px;
+}
+
+/* Interaction States */
+.input-group input[type=range]:hover, 
+.input-group input[type=range]:focus, 
+.input-group input[type=range]:active,
+.input-group input[type=range].active-slider { 
+    border-width: 7px;
+    opacity: 1; 
+}
+
+/* Thumb (Hidden) */
+.input-group input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 0; height: 0; background: transparent; cursor: pointer; opacity: 0;
+}
+.input-group input[type=range]::-moz-range-thumb {
+    width: 0; height: 0; border: none; background: transparent; cursor: pointer; opacity: 0;
+}
+
+/* ============================ */
+/* TIMELINE MARKER (Mode B)     */
+/* ============================ */
+.timeline-marker {
+    position: absolute;
+    width: 16px; 
+    height: 16px; 
+    border-radius: 50%; /* Makes it a perfect circle */
+    background-color: #e74c3c; /* Default, overridden by JS */
+    border: 2px solid #fff; /* White ring around the dot */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Drop shadow for depth */
+    
+    /* Positioning logic */
+    top: 100%; /* Pushes it just below the bar */
+    left: 0%; /* Dynamic via JS */
+    margin-top: 10px; /* Spacing between bar and dot */
+    transform: translateX(-50%); /* Centers the dot on its specific % coordinate */
+    /* REMOVED LEFT TRANSITION for Sync Feel */
+    transition: background-color 0.3s ease; 
+    z-index: 10;
+    pointer-events: none; /* Let clicks pass through to slider */
+}
+
+/* The Label Text ("File Claim") */
+.timeline-marker::after {
+    content: attr(data-label); /* Grabs text from the HTML data-label attribute */
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%); /* Centers text relative to the dot */
+    
+    font-size: 0.75rem;
+    color: #666;
+    white-space: nowrap;
+    margin-top: 5px;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 600;
+}
+
+/* ============================ */
+/* TENURE GLOW (Mode B)         */
+/* ============================ */
+.tenure-glow {
+    position: absolute;
+    /* UPDATED: Pushed down significantly to separate from bar */
+    top: 48px; 
+    left: 0;
+    width: 100%;
+    height: 20px; /* Matches slider height */
+    z-index: 0; /* Behind the slider */
+    
+    /* Same gradient as the bar */
+    background: linear-gradient(90deg, 
+        #e74c3c 0%, 
+        #e74c3c 10%, 
+        #f1c40f 10%, 
+        #f1c40f 18%, 
+        #2ecc71 18%, 
+        #2ecc71 100%);
+        
+    border-radius: 12px;
+    filter: blur(15px); /* Creates the specific colored shadow effect */
+    
+    /* UPDATED: Reduced opacity to make shadow less intense */
+    opacity: 0.4;
+    
+    pointer-events: none;
+}
+
+/* ============================ */
+/* Custom Dropdown BOXED        */
+/* ============================ */
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box; 
+    margin-top: 3px; /* Spacing from label */
+}
+
+.hidden-select {
+    display: none;
+}
+
+/* The Trigger Box */
+.custom-dropdown-trigger {
+    width: 100%;
+    
+    /* Box Styling */
+    border: 2px solid #e0e0e0; /* Empty track color when inactive */
+    border-radius: 8px;        /* Rectangular square-ish box */
+    padding: 10px 12px;        /* Volume for the box */
+    
+    /* STABILIZED FONT SIZE */
+    font-size: 1.1rem; 
+    
+    color: #333;
+    background-color: transparent;
+    outline: none;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Arrow moved inside the box */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; 
+    
+    transition: border-color 0.3s ease;
+}
+
+/* Hover State */
+.custom-dropdown-trigger:hover {
+    border-color: #D4BCA9;
+}
+
+/* Selected / Active State (When menu is open or focus) */
+.custom-dropdown-container:focus-within .custom-dropdown-trigger {
+    border-color: #B5855E; /* Slider color */
+}
+
+/* Dropdown Menu Position */
+.custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    padding: 6px 2px 6px 6px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.custom-dropdown-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.dropdown-options-wrapper {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 4px;
+}
+
+.dropdown-options-wrapper::-webkit-scrollbar { width: 8px; }
+.dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
+
+.dropdown-option {
+    padding: 10px 15px; 
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+    border-radius: 8px; 
+    margin-bottom: 2px; 
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-option:hover { background: #eae5df; color: #000; }
+.dropdown-option.selected { font-weight: 500; color: #000; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* ============================ */
+/* Results Styling              */
+/* ============================ */
+
+/* 
+   Results Layout
+   FIX: Changed from single Grid to Block layout with internal Rows 
+   to prevent Heading overlap.
+*/
+.mode-results {
+    display: block;
+    width: 100%;
+    /* No top padding here; handled by container */
+    padding-bottom: 15px;
+}
+
+/* 
+   NEW: Scrollable Container with Fade Mask
+   Matches reference style (Fade into page color)
+   Hides Sliders (Scrollbars)
+*/
+#results-display-container {
+    /* Height Constraint for Scrolling */
+    /* CHANGED: Increased from 55vh to 88vh to ensure no cutoff */
+    max-height: 88vh; 
+    overflow-y: auto;
+    
+    /* Scrollbar Hiding (Invisible Sliders) */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    
+    /* Fade Effect (Top & Bottom) using Mask */
+    /* Lowered spread: 5% (sharp fade) */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    
+    /* Layout correction */
+    width: 100%;
+    /* 
+       UPDATED: Increased side padding to 20px to prevent shadow clipping 
+       padding: Top Right Bottom Left 
+    */
+    padding: 25px 20px 40px 20px; 
+}
+
+/* Chrome/Safari/Webkit Scrollbar Hide */
+#results-display-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+   New Wrapper for result box pairs
+   Separates grid logic from headings
+*/
+.result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    column-gap: 20px; /* Space between columns */
+    row-gap: 20px;
+    width: 100%;
+    /* UPDATED: Decreased margin drastically to pull subtitle text closer (was 50px) */
+    margin-bottom: 15px; 
+}
+
+/* 
+   Allow Advanced Content to be a standard block container
+*/
+.right-section .advanced-content {
+    display: block;
+}
+
+.result-box {
+    margin-bottom: 0; /* Spacing handled by result-row gap now */
+    text-align: left; 
+    min-width: 0; /* Allows text truncation/resizing to work in Grid */
+}
+
+.left-section .result-box {
+    text-align: left;
+}
+
+.result-label {
+    display: block;
+    font-family: 'ProductSans-Light', sans-serif;
+    
+    /* STABILIZED FONT SIZE */
+    font-size: 0.9rem;
+    
+    color: #666;
+    margin-bottom: 3px;
+    
+    /* AGGRESSIVE WRAPPING ENABLED HERE */
+    white-space: normal; 
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+/* 
+   Result Value Resizing & Layout
+*/
+.result-value {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    
+    /* 
+       Dynamic Sizing for Two Columns:
+       Shrinks significantly on smaller screens to fit side-by-side without wrapping.
+    */
+    font-size: clamp(1.8rem, 2.8vw, 3.2rem);
+    
+    color: #333;
+    line-height: 1.1;
+    
+    /* AGGRESSIVE WRAPPING ENABLED HERE */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word; 
+}
+
+.result-value.good, .result-value.green { color: #2ecc71; }
+.result-value.warn, .result-value.yellow { color: #e67e22; }
+.result-value.bad, .result-value.red { color: #e74c3c; }
+
+/* 
+   RESULT SUB-HEADING (Updated)
+   FIXED LOGIC: Adjusted clamp min value to 1.3rem (~21px) 
+   so it never falls below the 0.9rem (~14px) label size.
+*/
+.result-sub-heading {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif; /* Reverted to Thin */
+    
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 300;
+    
+    /* Increased letter-spacing for "heading" feel */
+    letter-spacing: 0.08em; 
+    
+    /* UPDATED: Increased top margin to compensate for reduced result-row margin (was 30px) */
+    margin-top: 50px; 
+    margin-bottom: 15px; 
+    padding-left: 2px;
+    line-height: 1;
+    
+    /* AGGRESSIVE WRAPPING ENABLED HERE */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Remove top margin for the very first heading in results to align with top */
+.mode-results > .result-sub-heading:first-child {
+    margin-top: 0;
+}
+
+/* 
+   Disclosure Text / Subtitle 
+   Enforce min-height here too so the grid rows remain equal height
+*/
+.disclosure-text {
+    /* UPDATED: Increased font size for readability */
+    font-size: 0.86rem; 
+    color: #999;
+    margin-top: 5px;
+    min-height: 2.5em; /* Reserve space for 2 lines */
+    line-height: 1.2;
+}
+
+/* UPDATED: Specific Extra Spacing for Mode B Input to fix overlap */
+.tenure-input-spacer {
+    /* 
+       HUGE MARGIN: Clears the "Short Term" marker dot (16px) + Label (~20px) + Gap
+    */
+    margin-top: 65px !important;
+}
+
+/* UPDATED: Specific Small Spacing for Mode B Result (Equity Bar) */
+.equity-result-spacer {
+    /* 
+       SMALL MARGIN: Brings text close to bar, but clears the shadow (15px)
+       25px is enough to look tight but safe.
+    */
+    margin-top: 25px !important;
+}
+
+/* 
+   UPDATED: New style for dynamic numbers within disclosure text.
+   Makes them bold and dark grey (subtle but visible).
+*/
+.disclosure-text .dynamic-number,
+#res_diffA,
+#res_targetYearB,
+#res_equityTextB {
+    font-weight: 600;
+    color: #555;
+}
+
+.divider {
+    display: none; 
+    border: none;
+    margin: 0;
+}
+
+/* 
+   EQUITY BAR VISUAL (Mode B)
+*/
+.equity-bar-container {
+    width: 100%;
+    height: 16px;
+    background-color: #e0e0e0; /* Gray "Trapped" background */
+    border-radius: 8px;
+    /* REMOVED overflow:hidden to allow glow */
+    overflow: visible; 
+    margin-top: 5px;
+    position: relative;
+}
+
+.equity-bar-fill {
+    height: 100%;
+    background-color: #2ecc71; /* Green "Yours" */
+    width: 0%; /* JS updates this */
+    transition: width 0.5s ease-out;
+    border-radius: 8px; /* Match container */
+    /* Shadow applied via JS for color switching */
+}
+
+/* 
+   TWO BUCKETS VISUAL (Mode C)
+*/
+.bucket-container {
+    width: 100%;
+}
+
+.bucket-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5px;
+}
+
+.bucket-label {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* UPDATED: Made smaller (1rem) and unbolded (300) */
+.bucket-value {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 300;
+}
+
+.bucket-bar-track {
+    width: 100%;
+    height: 16px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    /* REMOVED overflow:hidden to allow glow */
+    overflow: visible;
+}
+
+.bucket-bar-fill {
+    height: 100%;
+    transition: width 0.5s ease-out;
+    border-radius: 8px;
+}
+
+.bucket-fill-equity {
+    background-color: #3498db; /* Blue for Equity */
+    /* UPDATED: Reduced Shadow Distance (Closer) */
+    box-shadow: 0 8px 12px -5px rgba(52, 152, 219, 1);
+}
+
+.bucket-fill-portfolio {
+    background-color: #f1c40f; /* Gold for Portfolio */
+    /* UPDATED: Reduced Shadow Distance (Closer) */
+    box-shadow: 0 8px 12px -5px rgba(241, 196, 15, 1);
+}
+
+/* UPDATED: Helper class for Mode C gap */
+.mode-c-container {
+    display: flex; 
+    flex-direction: column; 
+    gap: 60px; /* Strong separation */
+}
+
+/* ============================ */
+/* TOOLTIP STYLING              */
+/* ============================ */
+.cursor-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    max-width: 250px;
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 4px; /* Blocky but slight radius */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Faint blurry shadow */
+    pointer-events: none; /* Ignore mouse events so it doesn't flicker */
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.1s linear; /* Smooth fade & move */
+    text-align: center;
+    transform: translate(15px, 15px); /* Offset from cursor */
+}
+
+.cursor-tooltip.active {
+    opacity: 1;
+}
+
+.tooltip-title {
+    display: block;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 1.1rem;
+    color: #000;
+    margin-bottom: 4px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tooltip-desc {
+    display: block;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.3;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* ============================ */
+/* SEO CONTENT & FAQ (Left Aligned) */
+/* ============================ */
+.content-section {
+    width: 100%;
+    padding: 60px 8vw 100px 8vw;
+    background-color: #F4F4F4; /* Native match */
+    text-align: left; /* Strict Left Align */
+}
+
+.content-wrapper {
+    max-width: 900px;
+    margin: 0; /* Remove auto centering, keep strict left */
+    font-family: 'ProductSans-Light', sans-serif;
+    color: #333;
+}
+
+.content-wrapper h2 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 2.5rem;
+    color: #222;
+    margin-bottom: 25px;
+    margin-top: 0;
+    text-align: left;
+}
+
+.content-wrapper h3 {
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 1.8rem;
+    color: #444;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.content-wrapper p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #555;
+    text-align: left;
+}
+
+/* SEO LIST Styling */
+.seo-list {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.seo-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.seo-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #B5855E; /* Brand Color */
+    font-weight: bold;
+}
+
+/* SEO TABLE Styling */
+.seo-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.seo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    min-width: 600px; /* Ensure readability on mobile */
+}
+
+.seo-table th, .seo-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.seo-table th {
+    background-color: #f9f9f9;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.seo-table td {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.seo-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* FAQ Styling */
+.faq-container {
+    margin-top: 50px;
+    border-top: 1px solid #ddd;
+    padding-top: 40px;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}
+
+.faq-item h4 {
+    font-family: 'ProductSans-Light', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Responsive */
+
+/* TABLET & INTERMEDIATE: (1214px and below) */
+@media (max-width: 1214px) {
+    .calc-section h2 {
+        /* FIXED: Tablet specific massive sizing (approx 7vw) */
+        font-size: clamp(3.5rem, 7vw, 6rem);
+    }
+
+    /* ADDED: Switch Mode Cards back to 2x2 grid when space is limited */
+    .mode-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* MODE 3: SMALL TABLET (Results Below Inputs, but Wide Inputs) */
+/* CHANGED: Breakpoint moved from 1024px to 990px */
+@media (max-width: 990px) {
+    .calculator-container {
+        padding: 0 5vw;
+        flex-direction: column; 
+        gap: 60px; /* Spaced out sections */
+        align-items: center; /* FIX: Centers the column */
+    }
+
+    .calc-section {
+        width: 100%;
+        max-width: 600px; /* FIX: constraints width so it looks centered */
+    }
+
+    .right-section {
+        position: static; /* Disable sticky on mobile so it sits naturally at bottom */
+    }
+
+    /* MASSIVE on Mobile */
+    .calc-section h2 {
+        font-size: 15vw; /* Fills width comfortably */
+        padding-bottom: 10px;
+    }
+
+    .right-section h2 {
+        text-align: left; 
+    }
+    
+    .result-box {
+        text-align: left; 
+    }
+    
+    /* --- NEW UPDATES FOR MODE 3 ONLY --- */
+    /* Increased font size for sub-headings only in this mode */
+    .input-sub-heading {
+        font-size: 3rem; 
+    }
+
+    .result-sub-heading {
+        font-size: 2.2rem;
+    }
+
+    /* 
+       LOCALIZED RESULT SIZING FOR MOBILE & TABLET (2 Column)
+       Adjusted scaling to fit 2 columns on mobile screens.
+       Larger vw factor (5vw) because the container is wider relative to screen.
+    */
+    #mode-a-results .result-value,
+    #mode-b-results .result-value,
+    #mode-c-results .result-value,
+    #mode-d-results .result-value {
+        font-size: clamp(1.2rem, 5vw, 2.5rem);
+    }
+
+    /* Hide Tooltip on Mobile (optional but recommended as hover doesn't exist) */
+    .cursor-tooltip {
+        display: none;
+    }
+
+    /* Content adjustments */
+    .core-question-section { padding: 0 5vw; }
+    .content-section { padding: 40px 5vw; }
+}
+
+/* MODE 4: PHONE (Single Column Inputs) */
+@media (max-width: 768px) {
+    /* Revert Inputs to Single Column on Mobile */
+    .global-settings,
+    .mode-inputs {
+        grid-template-columns: 1fr; 
+    }
+    
+    /* 
+       RESET FONT SIZES FOR PHONE (Undo Mode 3 Increases) 
+       FIXED: Set to slightly higher fixed values (2.0rem/1.6rem)
+       instead of 1.8rem/1.4rem, ensuring they stay larger than I/O labels.
+    */
+    .input-sub-heading {
+        font-size: 2.0rem; 
+    }
+    .result-sub-heading {
+        font-size: 1.6rem; 
+    }
+    
+    /* BUT KEEP RESULTS 2 COLUMNS (as requested "layout") */
+    /* This is handled by .result-row grid now */
+    
+    .advanced-content {
+        grid-column: span 1;
+    }
+}
+/* ============================ */
+/* NEW ROBOTO FONTS FOR FOOTER  */
+/* ============================ */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 600; /* Matching footer bold weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* ============================ */
+/* FOOTER STYLES                */
+/* ============================ */
+.site-footer {
+    position: relative;
+    width: 100%;
+    /* Ensure this path points to your image correctly */
+    background-image: url('../../img/footer.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto;
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 25, 20, 0.85);
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 100px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Branding */
+.footer-left {
+    flex: 0 1 auto;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-logo {
+    height: 80px;
+    width: auto;
+    opacity: 1;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.brand-name {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-top: 8px;
+}
+
+.tagline {
+    font-size: 1rem;
+    color: #e0e0e0;
+    font-style: italic;
+    margin: 0;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 5px 0;
+}
+
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.email-link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/* Links */
+.footer-links {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 140px;
+}
+
+.footer-col h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+/* Legal */
+.footer-legal-row {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    line-height: 1.5;
+    max-width: 900px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 990px) {
+    .footer-main-row {
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+    }
+    
+    .footer-links {
+        width: 100%;
+        justify-content: center;
+        gap: 50px;
+        flex: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+    
+    .footer-col {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-content {
+        padding: 40px 5vw 30px 5vw;
+    }
+}
+
+/* --- BUTTONS --- */
+.action-buttons-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; margin-top: -10px;}
+.action-btn {
+    background: none; border: none; padding: 0;
+    font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
+    color: #7a7a7a; cursor: pointer; transition: color 0.3s ease;
+}
+.action-btn:hover { color: #000000; }
+@media (max-width: 600px) {
+    #btn-save-pdf { font-size: 0; }
+    #btn-save-pdf::after { content: 'PDF'; font-size: 1.15rem; }
+}
+
+/* --- UPDATED MODAL STYLES (DESKTOP DEFAULT / MOBILE OVERRIDE) --- */
+.tutorial-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 10%, rgba(0,0,0,0.15) 100%);
+    backdrop-filter: blur(8px); z-index: 9999; 
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+}
+.tutorial-overlay.active { opacity: 1; visibility: visible; }
+
+.tutorial-card {
+    background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.15); 
+    width: 90%; 
+    max-width: 800px; /* Wide Desktop Default */
+    padding: 40px; 
+    border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    /* Default: No Scroll */
+    max-height: none;
+    overflow-y: visible;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+
+/* Default: Horizontal Side-by-Side */
+.tutorial-images-row { 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    gap: 30px; 
+    width: 100%; 
+    margin-bottom: 20px; 
+}
+
+/* Square Frames & No Crop */
+.tut-img-wrapper { 
+    flex: 1; /* Equal Width */
+    aspect-ratio: 1 / 1; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    overflow: hidden; 
+    background-color: #f9f9f9;
+}
+
+.tut-img-wrapper img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* Don't crop, fit inside */
+    display: block;
+}
+
+.proceed-btn {
+    border: none; background-color: #f4f4f4; border-radius: 50px;
+    font-family: 'ProductSans-Thin', sans-serif; font-size: 1.1rem;
+    padding: 10px 50px; color: #ccc; transition: all 0.3s ease;
+}
+.proceed-btn:not(:disabled) { color: #000; cursor: pointer; font-weight: 600; }
+.proceed-btn:not(:disabled):hover { color: #ffffff; background-color: #333333; }
+
+/* PHONE OVERRIDES for Modal */
+@media (max-width: 600px) {
+    .tutorial-card {
+        /* Vertical Scroll on Phone */
+        max-height: 80vh;
+        overflow-y: auto;
+        padding: 30px 20px;
+        gap: 30px;
+    }
+
+    .tutorial-images-row {
+        /* Vertical Stack on Phone */
+        flex-direction: column; 
+    }
+
+    .tut-img-wrapper {
+        flex: none; /* Disable flex-grow */
+        width: 100%;
+        max-width: 300px; /* Limit max size */
+    }
+}
+
+/* --- UPDATED PRINT VIEW MAGIC (LEGAL DOC STYLE) --- */
+#print-view-container { display: none; }
+@media print {
+    @page { size: letter; margin: 0.5in; }
+    
+    /* Global Print Font Override */
+    body { 
+        background-color: #fff; 
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
+        font-family: 'Roboto', sans-serif !important; 
+    }
+    
+    /* HIDE APP UI */
+    body > *:not(#print-view-container) { display: none !important; }
+
+    /* SHOW PRINT UI */
+    #print-view-container { 
+        display: block !important;
+        width: 100%; 
+        color: #000; 
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    /* HEADER */
+    .print-header-top-border {
+        border-top: 4px solid #000;
+        padding-top: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .print-logo-box {
+        flex: 0 0 60px;
+    }
+    .print-logo-box img {
+        width: 60px;
+        height: auto;
+        /* Ensure image displays */
+        display: block;
+    }
+
+    .print-title-box {
+        flex: 1;
+        text-align: left;
+    }
+
+    .print-doc-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+    .print-doc-subtitle {
+        font-size: 0.9rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: #666;
+        letter-spacing: 0.1em;
+    }
+
+    .print-header-bottom-border {
+        border-bottom: 4px solid #000;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* META DATA ROW */
+    .print-meta-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .meta-group { display: flex; gap: 5px; }
+    .meta-val { font-weight: 400; font-family: 'Roboto', monospace; }
+
+    /* SECTION HEADERS */
+    .print-section-header {
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000; /* Thin Line */
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        margin-top: 25px;
+    }
+
+    /* DATA GRIDS */
+    .print-grid-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 40px;
+        row-gap: 5px;
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    .print-data-row {
+        display: flex;
+        justify-content: space-between;
+    }
+    .print-data-label { color: #444; }
+    .print-data-value { font-weight: 600; }
+
+    /* VERDICTS & TOTALS */
+    .print-total-row {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #ccc;
+        padding-top: 5px;
+        margin-top: 5px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .print-verdict-row {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    .print-verdict-val { text-transform: uppercase; }
+
+    /* ANALYST NOTES (SIDE BORDER) */
+    .print-note {
+        border-left: 4px solid #333;
+        padding-left: 15px;
+        margin: 10px 0 20px 0;
+        font-size: 0.8rem;
+        font-style: italic;
+        color: #555;
+        line-height: 1.4;
+    }
+    .print-note strong {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.75rem;
+        display: block;
+        margin-bottom: 3px;
+        color: #000;
+    }
+
+    /* FINAL VERDICT BOX */
+    .print-final-verdict-box {
+        border-top: 2px solid #000; /* Double line effect simulated */
+        border-bottom: 2px solid #000;
+        padding: 10px 0;
+        margin-top: 30px;
+        margin-bottom: 50px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+    }
+
+    /* SIGNATURES */
+    .print-signature-area {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 60px;
+        margin-bottom: 40px;
+    }
+    .sig-line {
+        border-top: 1px solid #000;
+        width: 40%;
+        padding-top: 5px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+
+    /* FOOTER DISCLAIMER */
+    .print-footer-legal {
+        font-size: 0.65rem;
+        color: #777;
+        text-align: justify;
+        line-height: 1.3;
+        margin-top: auto;
+    }
+}

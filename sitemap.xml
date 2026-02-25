@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://solveria.org/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>1.00</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/about/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.60</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/support/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.50</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/contact-us/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.50</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/privacy-policy/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.30</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/terms-of-use/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.30</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+  <!-- Hub Page -->
+  <url>
+    <loc>https://solveria.org/calculators/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.90</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Financial Calculators -->
+  <url>
+    <loc>https://solveria.org/financial-calculators/car-accident-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/real-estate-investor-suite-BRRRR/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.90</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/home-affordability-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/mortgage-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/rent-vs-buy-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solveria.org/financial-calculators/refinance-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Insurance Calculators -->
+  <url>
+    <loc>https://solveria.org/insurance-calculators/life-insurance-calculator/</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.80</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+</urlset>

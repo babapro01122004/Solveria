@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRRRR Calculator: Real Estate, Rehab & Rental Analysis Tool (2025)</title>
+    <meta name="description" content="The ultimate Real Estate Investment Calculator. Analyze BRRRR strategy, Fix and Flip (70% Rule), and Rental Property Cash Flow. Calculate ARV, rehab costs, and DSCR loans instantly.">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- ========================================== -->
+    <!-- SCHEMA MARKUP (JSON-LD) FOR GOOGLE SEO     -->
+    <!-- ========================================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yourwebsite.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://yourwebsite.com/calculators/" },
+            { "@type": "ListItem", "position": 3, "name": "BRRRR Investment Calculator" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "BRRRR & Real Estate Investment Calculator",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "featureList": "Rental Cash Flow Analysis, Fix and Flip 70% Rule Calculator, BRRRR Refinance Math, DSCR Loan Estimator"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the 70% rule in house flipping?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The 70% rule states that an investor should pay no more than 70% of the After Repair Value (ARV) of a property minus the repairs needed. Formula: (ARV * 0.70) - Rehab Costs = Max Allowable Offer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the BRRRR strategy create infinite returns?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If you can refinance a property for an amount greater than or equal to your total investment (Purchase Price + Rehab + Closing Costs), you have $0 left in the deal. Any positive cash flow divided by $0 invested results in a mathematically infinite return on investment (ROI)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a good DSCR ratio for investment property?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most lenders require a Debt Service Coverage Ratio (DSCR) of at least 1.20 to 1.25. This means the property's Net Operating Income is 20-25% higher than the annual debt obligation."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+
+        <h1>Real Estate Investment Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Analyze Deals. Build Wealth.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">BRRRR Calculator</span>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+                <button id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
+            </div>
+
+            <!-- Input Mode Cards -->
+            <div class="mode-cards-container">
+                <button class="mode-card active-mode" data-mode="mode-a"
+                    data-tooltip-title="Long-Term Buy & Hold"
+                    data-tooltip-text="Analyze the true performance of a rental property. This engine calculates your Net Operating Income (NOI), Cash-on-Cash Return, and projected 10-Year Wealth accumulation. We factor in 'silent killers' like vacancy and CapEx.">
+                    <img src="../../img/1.jpg" alt="House keys">
+                    <span>Rental Analysis</span>
+                </button>
+                <button class="mode-card" data-mode="mode-b"
+                    data-tooltip-title="The Flipper's Profit Engine"
+                    data-tooltip-text="Determine your Maximum Allowable Offer (MAO) instantly. Accounts for the cost of money (hard money points/interest), holding costs, buying/selling friction, and taxes. Ensure your profit margin is thick enough to survive.">
+                    <img src="../../img/2.jpg" alt="Construction">
+                    <span>Fix & Flip</span>
+                </button>
+                <button class="mode-card" data-mode="mode-c"
+                    data-tooltip-title="Buy. Rehab. Rent. Refinance. Repeat."
+                    data-tooltip-text="The ultimate velocity strategy. Find out if you can achieve the Infinite Return—where you pull 100% of your capital back out during the refinance. We calculate exactly how much cash is left 'trapped' in the deal.">
+                    <img src="../../img/3.jpg" alt="Graph">
+                    <span>BRRRR Strategy</span>
+                </button>
+            </div>
+
+            <!-- GLOBAL SETTINGS -->
+            <div class="global-settings">
+                <div class="input-wrapper">
+                    <label>Location (State)</label>
+                    <div class="custom-dropdown-container">
+                        <!-- JS populates these now to ensure all 50 states are present -->
+                        <select id="stateSelector" class="hidden-select">
+                            <option value="CA" selected>California</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">California</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <!-- JS will inject options here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- MODE A: Rental Analysis -->
+            <div id="mode-a-inputs" class="mode-inputs">
+                
+                <!-- Sub-Heading 1: Acquisition & Debt -->
+                <h3 class="input-sub-header">Acquisition & Debt</h3>
+                
+                <!-- Basic Inputs -->
+                <div class="input-wrapper">
+                    <label>Purchase Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_purchasePriceA" value="450000">
+                        <input type="range" id="slider_purchasePriceA" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Down Payment ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_downPaymentA" value="90000">
+                        <input type="range" id="slider_downPaymentA" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Interest Rate (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rateA" value="6.5" step="0.125">
+                        <input type="range" id="slider_rateA" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Loan Term</label>
+                    <div class="custom-dropdown-container">
+                        <select id="termA" class="hidden-select">
+                            <option value="30" selected>30 Years</option>
+                            <option value="15">15 Years</option>
+                            <option value="IO">Interest Only</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">30 Years</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="30">30 Years</div>
+                                <div class="dropdown-option" data-value="15">15 Years</div>
+                                <div class="dropdown-option" data-value="IO">Interest Only</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Inputs for Acquisition -->
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Closing Costs ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_closingCostsA" value="5000">
+                            <input type="range" id="slider_closingCostsA" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Heading 2: Property Operations -->
+                <h3 class="input-sub-header">Property Operations</h3>
+
+                <!-- Basic Inputs -->
+                <div class="input-wrapper">
+                    <label>Projected Monthly Rent ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rentA" value="3500">
+                        <input type="range" id="slider_rentA" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Operating Expense Ratio (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_opexRatioA" value="35">
+                        <input type="range" id="slider_opexRatioA" min="0" max="100">
+                    </div>
+                </div>
+
+                <!-- Advanced Inputs for Operations -->
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Property Taxes ($/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_propTaxA" value="5400">
+                            <input type="range" id="slider_propTaxA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Insurance ($/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_insuranceA" value="1200">
+                            <input type="range" id="slider_insuranceA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>HOA Fees ($/mo)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_hoaA" value="0">
+                            <input type="range" id="slider_hoaA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Management Fee (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_managementA" value="8" step="0.5">
+                            <input type="range" id="slider_managementA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Maintenance Reserve (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_maintenanceA" value="5">
+                            <input type="range" id="slider_maintenanceA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>CapEx Reserve (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_capexA" value="5">
+                            <input type="range" id="slider_capexA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Vacancy Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_vacancyA" value="5">
+                            <input type="range" id="slider_vacancyA" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Heading 3: Future Projections (Purely Advanced) -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-header">Future Projections</h3>
+                    
+                    <div class="input-wrapper">
+                        <label>Rent Growth (%/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_rentGrowthA" value="3">
+                            <input type="range" id="slider_rentGrowthA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Appreciation (%/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_appreciationA" value="4">
+                            <input type="range" id="slider_appreciationA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Expense Inflation (%/yr)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_expenseInfA" value="3">
+                            <input type="range" id="slider_expenseInfA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Income Tax Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_taxRateA" value="25">
+                            <input type="range" id="slider_taxRateA" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label>Years to Hold</label>
+                        <div class="input-group">
+                            <input type="number" id="input_holdYearsA" value="10">
+                            <input type="range" id="slider_holdYearsA" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Exit Costs (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_sellCostA" value="6">
+                            <input type="range" id="slider_sellCostA" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODE B: Fix & Flip -->
+            <div id="mode-b-inputs" class="mode-inputs hidden">
+                <!-- Sub-Heading 1: Deal Overview -->
+                <h3 class="input-sub-header">Deal Overview</h3>
+                <div class="input-wrapper">
+                    <label>Purchase Price ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_purchasePriceB" value="300000">
+                        <input type="range" id="slider_purchasePriceB" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Rehab Budget ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rehabB" value="60000">
+                        <input type="range" id="slider_rehabB" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>ARV (After Repair Value)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_arvB" value="500000">
+                        <input type="range" id="slider_arvB" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Timeline (Months)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_timelineB" value="6">
+                        <input type="range" id="slider_timelineB" min="0" max="100">
+                    </div>
+                </div>
+                <!-- Advanced Inputs -->
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-header">Project Costs & Taxes</h3>
+                    <div class="input-wrapper">
+                        <label>Buying Costs ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_closingCostsB" value="4000">
+                            <input type="range" id="slider_closingCostsB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Holding Costs ($/mo)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_holdingCostsB" value="800">
+                            <input type="range" id="slider_holdingCostsB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Cap Gains Tax (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_taxRateB" value="30">
+                            <input type="range" id="slider_taxRateB" min="0" max="100">
+                        </div>
+                    </div>
+                    <h3 class="input-sub-header">Financing Details</h3>
+                    <div class="input-wrapper">
+                        <label>Interest Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_interestRateB" value="10">
+                            <input type="range" id="slider_interestRateB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Points (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_pointsB" value="2">
+                            <input type="range" id="slider_pointsB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Draw Fees ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_drawFeesB" value="1500">
+                            <input type="range" id="slider_drawFeesB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Payment Structure</label>
+                        <div class="custom-dropdown-container">
+                            <select id="interestTypeB" class="hidden-select">
+                                <option value="Monthly" selected>Monthly Only</option>
+                                <option value="Balloon">Balloon at Exit</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">Monthly Only</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="Monthly">Monthly Only</div>
+                                    <div class="dropdown-option" data-value="Balloon">Balloon at Exit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="input-sub-header">Risk Analysis</h3>
+                    <div class="input-wrapper">
+                        <label>Rehab Contingency (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_contingencyB" value="10">
+                            <input type="range" id="slider_contingencyB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Timeline Overrun Risk (Mo)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_overrunRiskB" value="2">
+                            <input type="range" id="slider_overrunRiskB" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Market Slide Stress (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_marketSlideB" value="5">
+                            <input type="range" id="slider_marketSlideB" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE C: BRRRR Strategy -->
+            <div id="mode-c-inputs" class="mode-inputs hidden">
+                <h3 class="input-sub-header">Buy & Rehab Phase</h3>
+                <div class="input-wrapper">
+                    <label>Purchase Price (Distressed)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_purchasePriceC" value="200000">
+                        <input type="range" id="slider_purchasePriceC" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Rehab Budget ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rehabC" value="50000">
+                        <input type="range" id="slider_rehabC" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>ARV (New Value)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_arvC" value="350000">
+                        <input type="range" id="slider_arvC" min="0" max="100">
+                    </div>
+                </div>
+                <h3 class="input-sub-header">Refinance Strategy</h3>
+                <div class="input-wrapper">
+                    <label>Post-Rehab Rent ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_rentC" value="2800">
+                        <input type="range" id="slider_rentC" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Refinance LTV (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_refiLtvC" value="75">
+                        <input type="range" id="slider_refiLtvC" min="0" max="100">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Refi Interest Rate (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_refiRateC" value="7.0" step="0.125">
+                        <input type="range" id="slider_refiRateC" min="0" max="100">
+                    </div>
+                </div>
+                <div class="advanced-content hidden">
+                    <h3 class="input-sub-header">Short-Term Financing</h3>
+                    <div class="input-wrapper">
+                        <label>Initial Points (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_initialPointsC" value="2">
+                            <input type="range" id="slider_initialPointsC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Initial Interest Carry ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_initialInterestC" value="8000">
+                            <input type="range" id="slider_initialInterestC" min="0" max="100">
+                        </div>
+                    </div>
+                    <h3 class="input-sub-header">Refinance Details</h3>
+                    <div class="input-wrapper">
+                        <label>Seasoning Period (Mos)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_seasoningC" value="6">
+                            <input type="range" id="slider_seasoningC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Appraisal Haircut Risk (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_appraisalHaircutC" value="5">
+                            <input type="range" id="slider_appraisalHaircutC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Refi Closing Costs ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_refiCostsC" value="5000">
+                            <input type="range" id="slider_refiCostsC" min="0" max="100">
+                        </div>
+                    </div>
+                    <h3 class="input-sub-header">Long-Term Expenses</h3>
+                    <div class="input-wrapper">
+                        <label>Vacancy Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_vacancyC" value="5">
+                            <input type="range" id="slider_vacancyC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Maintenance (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_maintenanceC" value="5">
+                            <input type="range" id="slider_maintenanceC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>CapEx Reserve (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_capexC" value="5">
+                            <input type="range" id="slider_capexC" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Management (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_managementC" value="8">
+                            <input type="range" id="slider_managementC" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            <h2>Results</h2>
+            
+            <!-- NEW: Action Buttons Row -->
+            <div class="action-buttons-row">
+                <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
+                <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
+                <button class="action-btn share-btn" id="btn-share" aria-label="Share Results">Share</button>
+            </div>
+
+            <div id="results-display-container">
+                
+                <!-- Mode A Results: Rental Analysis -->
+                <div id="mode-a-results" class="mode-results">
+                    <!-- MENTOR SUMMARY A (Moved to TOP) -->
+                    <h3 class="input-sub-header">SUMMARY</h3>
+                    <p id="mentor-summary-A" class="mentor-text"></p>
+
+                    <!-- BASIC 2x2 GRID (Moved Below Summary) -->
+                    <div class="results-basic-grid">
+                        <div class="result-box">
+                            <span class="result-label">Net Monthly Cash Flow</span>
+                            <span class="result-value good" id="res_netMonthlyA">$450</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Annual Cash Flow</span>
+                            <span class="result-value" id="res_annualCFA">$5,400</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Cash-on-Cash Return</span>
+                            <span class="result-value" id="res_cocA">6.0%</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Verdict</span>
+                            <span class="result-value good" id="res_verdictA">Borderline 🟡</span>
+                        </div>
+                    </div>
+                    
+                    <!-- ADVANCED GROUPED -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-header">Lender & Risk Metrics</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">Debt Coverage Ratio (DCR)</span>
+                            <span class="result-value" id="res_dcrA">1.15</span>
+                        </div>
+                        
+                        <h3 class="input-sub-header">Long-Term Wealth</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">10-Year Wealth Snapshot</span>
+                            <span class="result-value good" id="res_wealthA">$210,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode B Results: Fix & Flip -->
+                <div id="mode-b-results" class="mode-results hidden">
+                    <!-- MENTOR SUMMARY B (Moved to TOP) -->
+                    <h3 class="input-sub-header">SUMMARY</h3>
+                    <p id="mentor-summary-B" class="mentor-text"></p>
+
+                    <!-- BASIC 2x2 GRID (Moved Below Summary) -->
+                    <div class="results-basic-grid">
+                        <div class="result-box">
+                            <span class="result-label">Net Profit</span>
+                            <span class="result-value good" id="res_netProfitB">$85,000</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Profit Margin</span>
+                            <span class="result-value" id="res_marginB">17.0%</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">70% Rule Verdict</span>
+                            <span class="result-value" id="res_rule70B">Pass 🟢</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Max Allowable Offer (MAO)</span>
+                            <span class="result-value" id="res_maoB">$290,000</span>
+                        </div>
+                    </div>
+
+                    <!-- ADVANCED GROUPED -->
+                    <div class="advanced-content hidden">
+                         <h3 class="input-sub-header">Time Value of Money</h3>
+                         <div class="result-box alt">
+                            <span class="result-label">Annualized ROI</span>
+                            <span class="result-value" id="res_annRoiB">41%</span>
+                        </div>
+
+                         <h3 class="input-sub-header">Holding Pressure</h3>
+                         <div class="result-box alt">
+                            <span class="result-label">Cost of Delay</span>
+                            <span class="result-value bad" id="res_costDelayB">-$110/day</span>
+                        </div>
+
+                        <h3 class="input-sub-header">Safety Floor</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">Break-Even Price</span>
+                            <span class="result-value" id="res_breakEvenB">$415,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode C Results: BRRRR Strategy -->
+                <div id="mode-c-results" class="mode-results hidden">
+                    <!-- MENTOR SUMMARY C (Moved to TOP) -->
+                    <h3 class="input-sub-header">SUMMARY</h3>
+                    <p id="mentor-summary-C" class="mentor-text"></p>
+
+                    <!-- BASIC 2x2 GRID (Moved Below Summary) -->
+                    <div class="results-basic-grid">
+                        <div class="result-box">
+                            <span class="result-label">Cash Pulled Out</span>
+                            <span class="result-value good" id="res_cashPulledC">$262,500</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Cash Left in Deal</span>
+                            <span class="result-value" id="res_cashLeftC">$0</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Infinite Return?</span>
+                            <span class="result-value good" id="res_infiniteC">YES 🚀</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Post-Refi Cash Flow</span>
+                            <span class="result-value" id="res_cashFlowC">$650/mo</span>
+                        </div>
+                    </div>
+
+                    <!-- ADVANCED GROUPED -->
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-header">Debt Obligations</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">Post-Refi Mortgage</span>
+                            <span class="result-value" id="res_mortgageC">$1,746</span>
+                        </div>
+
+                        <h3 class="input-sub-header">Appraisal Targets</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">Min Appraisal Required</span>
+                            <span class="result-value" id="res_minAppraisalC">$333,000</span>
+                        </div>
+
+                        <h3 class="input-sub-header">Velocity Metrics</h3>
+                        <div class="result-box alt">
+                            <span class="result-label">Capital Velocity</span>
+                            <span class="result-value" id="res_capVelocityC">100% Recaptured</span>
+                        </div>
+                        <div class="result-box alt">
+                            <span class="result-label">Trapped Equity</span>
+                            <span class="result-value" id="res_trappedEquityC">25%</span>
+                        </div>
+                        <div class="result-box alt">
+                            <span class="result-label">Scaling Power</span>
+                            <span class="result-value" id="res_scalingC">High (Redeploy in 6mo)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- STRESS TEST REPORT BLOCK (MOVED DOWN) -->
+            <div class="stress-test-container">
+                <h3>Stress Test Report 🔎</h3>
+                <div class="scenarios-grid">
+                    <div class="scenario-col optimistic">
+                        <span class="scen-label">Optimistic</span>
+                        <span class="scen-val" id="st_opt_val">--</span>
+                    </div>
+                    <div class="scenario-col base">
+                        <span class="scen-label">Base Case</span>
+                        <span class="scen-val" id="st_base_val">--</span>
+                    </div>
+                    <div class="scenario-col bear">
+                        <span class="scen-label">Bear Case</span>
+                        <span class="scen-val" id="st_bear_val">--</span>
+                    </div>
+                </div>
+                <div class="stress-summary">
+                    <div class="verdict-row">
+                        <span class="verdict-badge" id="st_verdict">🟢 Green Light</span>
+                    </div>
+                    <p class="action-logic" id="st_action">Verify rehab budget, then make offer.</p>
+                    <div class="kill-var">
+                        <span class="label">Kill Variable:</span>
+                        <span class="val" id="st_kill_var">None</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- ============================================== -->
+    <!-- NEW AGGRESSIVE SEO CONTENT SECTION             -->
+    <!-- ============================================== -->
+    <div class="seo-content-wrapper">
+        <div class="seo-content">
+            
+            <section class="seo-block">
+                <h2>Real Estate Investing: The Science of Wealth Building</h2>
+                <p>
+                    Real estate investing is not a game of chance; it is a game of calculated risk and precision mathematics. Whether you are a seasoned investor analyzing a 50-unit multifamily complex, a flipper estimating rehab costs for a distressed property, or a first-time homebuyer looking to "house hack" a duplex, the fundamental equation remains the same: <strong>Income - Expenses = Cash Flow</strong>.
+                </p>
+                <p>
+                    This comprehensive investment calculator suite is engineered to be more than just a mortgage estimator. It is a full-cycle deal analyzer designed to handle the complexities of <strong>BRRRR investing</strong> (Buy, Rehab, Rent, Refinance, Repeat), <strong>Fix and Flip projects</strong> (70% Rule), and <strong>Long-Term Rental portfolios</strong>. By accounting for variable interest rates, holding costs, vacancy rates, insurance, and capital expenditures (CapEx), we provide the clarity you need to make multi-million dollar decisions with confidence.
+                </p>
+            </section>
+
+            <hr class="seo-divider">
+
+            <section class="seo-block">
+                <h3>Mastering the BRRRR Strategy for Infinite Returns</h3>
+                <p>
+                    The <strong>BRRRR method</strong> has revolutionized real estate investing by allowing investors to scale their portfolios without running out of capital. It is a velocity-of-money strategy that prioritizes equity capture over initial cash flow. The goal is the "Infinite Return"—where you pull 100% of your invested capital out during the refinance.
+                </p>
+                <ul class="seo-list">
+                    <li><strong>Buy Right (Acquisition):</strong> The profit is made at the purchase. You must acquire distressed assets significantly below market value, often using short-term bridge debt or hard money loans. Our calculator helps you determine the maximum purchase price based on your target LTV.</li>
+                    <li><strong>Rehab for Value (Forced Appreciation):</strong> Strategic renovations should force appreciation. Every dollar spent on rehab should yield $1.50 to $2.00 in appraisal value (ARV). Avoid over-improving; stick to neighborhood comps.</li>
+                    <li><strong>Refinance to Recapture (Liquidity Event):</strong> The magic happens here. By refinancing into a long-term DSCR or conventional loan, you pay off the high-interest bridge debt and pull your original down payment back out. This is a tax-free liquidity event.</li>
+                    <li><strong>Repeat (Scaling):</strong> If you have $0 left in the deal, your ROI is mathematically infinite. You effectively own a cash-flowing asset for free, and you can use the same capital to buy the next property immediately.</li>
+                </ul>
+            </section>
+
+            <section class="seo-block">
+                <h3>The Art of the Fix & Flip: 70% Rule & MAO</h3>
+                <p>
+                    Flipping houses is a high-stakes operation that demands speed and budget discipline. The <strong>Maximum Allowable Offer (MAO)</strong> is the most critical number for a flipper. It determines the ceiling price you can pay for a property while still guaranteeing a profit.
+                </p>
+                <p class="formula-box">
+                    <strong>The 70% Rule Formula:</strong><br>
+                    (After Repair Value x 0.70) - Estimated Repair Costs = Max Offer Price
+                </p>
+                <p>
+                    While the 70% rule is a great rule of thumb, modern flipping requires a deeper analysis. You must account for <strong>hard money points</strong> (often 2-4% of the loan amount), <strong>monthly interest carry costs</strong>, <strong>contractor draw fees</strong>, and <strong>short-term capital gains taxes</strong>. Our calculator breaks down these "soft costs" to show you the true net profit, protecting you from deals that look good on paper but bleed money in reality.
+                </p>
+            </section>
+
+            <section class="seo-block">
+                <h3>Rental Property Analysis: Cash Flow vs. Appreciation</h3>
+                <p>
+                    For buy-and-hold investors, <strong>Cash Flow</strong> is the lifeblood of the business. However, looking at "Rent minus Mortgage" is a recipe for bankruptcy. A professional analysis must include the "Silent Killers" of rental income:
+                </p>
+                <ul class="seo-list">
+                    <li><strong>Vacancy Rate:</strong> No property is occupied 365 days a year. A 5-8% vacancy allowance is standard for single-family homes, while multifamily may require higher reserves.</li>
+                    <li><strong>CapEx (Capital Expenditures):</strong> Roofs, HVAC systems, and water heaters eventually die. You must set aside 5-10% of monthly rent to pay for these future big-ticket items.</li>
+                    <li><strong>Property Management:</strong> Even if you self-manage, you should budget 8-10% for management. This ensures the deal still works if you eventually decide to hire a pro.</li>
+                </ul>
+                <p>
+                    <strong>Debt Service Coverage Ratio (DSCR):</strong> Lenders use this metric to qualify loans. It is the Net Operating Income (NOI) divided by the annual debt service. A DSCR above 1.25 is typically required for commercial and portfolio loans.
+                </p>
+            </section>
+
+            <section class="seo-block">
+                <h3>Advanced Financing: DSCR, Hard Money & House Hacking</h3>
+                <p>
+                    Leverage is the tool that accelerates wealth building, but not all debt is created equal. Understanding your financing options is crucial for strategy execution.
+                </p>
+                <dl class="seo-glossary">
+                    <dt>Hard Money Loans</dt>
+                    <dd>Short-term, asset-based loans used for flips and BRRRR acquisitions. They have higher interest rates (10-14%) but close quickly and cover rehab costs. They are not based on personal income.</dd>
+                    
+                    <dt>DSCR Loans (Debt Service Coverage Ratio)</dt>
+                    <dd>Loans based on the property's income potential rather than your personal tax returns. Ideal for investors with many properties who max out conventional DTI limits. As long as the rent covers the mortgage, you qualify.</dd>
+
+                    <dt>House Hacking (FHA / VA)</dt>
+                    <dd>Buying a multifamily property (2-4 units) with a low down payment (3.5% FHA or 0% VA), living in one unit, and renting out the others. This often allows you to live for free while building equity.</dd>
+
+                    <dt>Seller Financing</dt>
+                    <dd>When the seller acts as the bank. This can offer flexible terms, low down payments, and no credit checks, making it a powerful tool for creative acquisitions in high-interest rate environments.</dd>
+                </dl>
+            </section>
+            
+            <section class="seo-block">
+                <h3>Tax Benefits of Real Estate: Depreciation & 1031 Exchange</h3>
+                <p>
+                    Real estate is one of the most tax-advantaged asset classes in the United States. Through <strong>depreciation</strong> (phantom expenses), investors can often show a paper loss while generating positive cash flow, significantly reducing their taxable income. Advanced strategies like <strong>Cost Segregation</strong> can accelerate this depreciation. Furthermore, the <strong>1031 Exchange</strong> allows investors to defer capital gains taxes indefinitely by rolling profits into a new, like-kind property.
+                </p>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- NEW "PEOPLE ALSO ASK" (FAQ) SECTION            -->
+            <!-- ============================================== -->
+            <div class="faq-container">
+                <h3>People Also Ask (FAQ)</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is the 70% rule in house flipping?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The 70% rule is a guideline for flippers. It states you should pay no more than 70% of the After Repair Value (ARV) of a property minus the repairs needed. For example, if a home's ARV is $200,000 and it needs $40,000 in repairs, your max offer is ($200k * 0.70) - $40k = $100,000.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I calculate ARV (After Repair Value)?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>ARV is calculated by looking at "comps" (comparable sales). Find 3-5 properties similar to yours (size, age, style) that have sold in the last 6 months within a 1-mile radius AND have been fully renovated. Average their sold prices to estimate your property's potential value after rehab.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is BRRRR dead in high interest rate environments?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No, but it is harder. When rates are high, your refinance loan will have a higher monthly payment, which reduces cash flow. To make BRRRR work today, you must buy deeper discounts (better equity capture) or focus on markets with higher rent-to-price ratios.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is a DSCR loan?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A DSCR (Debt Service Coverage Ratio) loan is a mortgage for investment properties that qualifies based on the property's cash flow, not your personal income. If the rent covers the mortgage payment (DSCR > 1.0), lenders will often fund the deal regardless of your job status.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How much cash reserves should I have for a rental?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A conservative rule of thumb is to keep 6 months of mortgage payments (PITI) plus estimated expenses in a separate account. This covers you during extended vacancies or major repairs like a roof or HVAC failure.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NEW FOOTER START -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- NEW FOOTER END -->
+
+    <!-- ADDED TOOLTIP CONTAINER -->
+    <div id="global-tooltip" class="global-tooltip">
+        <h4 id="tooltip-title"></h4>
+        <p id="tooltip-text"></p>
+    </div>
+
+    <!-- NEW TUTORIAL MODAL -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Print Destination Selection" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Save as PDF Option" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Final PDF Save" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- NEW PRINT CONTAINER (INVISIBLE) -->
+    <div id="print-view-container" class="print-view"></div>
+
+    <!-- Script src points to the new merged file with DEFER attribute -->
+    <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Accident Calculator 2026: Estimate Injury Settlement Payouts</title>
+    <meta name="description" content="Free Car Accident Settlement Calculator. Estimate pain and suffering, medical liens, and lost wages. 2026 Edition updated for all 50 US States. Instant PDF Report.">
+    <meta name="keywords" content="car accident calculator, injury settlement calculator, pain and suffering multiplier, car crash claim value, settlement payout guide 2026">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/calculators/car-accident/">
+    <meta property="og:title" content="Car Accident Settlement Calculator (2026 Edition)">
+    <meta property="og:description" content="Calculate the true value of your injury claim. Includes Pain & Suffering multipliers and state-specific fault rules.">
+    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Car Accident Settlement Calculator">
+    <meta property="twitter:description" content="Instant injury claim estimation. Download your free PDF report.">
+    <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+
+    <!-- Schema Markup (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Car Accident Settlement Calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A comprehensive tool to estimate car accident injury settlements, calculating economic damages, pain and suffering multipliers, and accounting for comparative fault rules in all 50 states."
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How is pain and suffering calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Insurance adjusters typically use a multiplier method (1.5x to 5x of medical bills) or a per diem method. Our calculator uses a dynamic multiplier based on injury severity and life impact factors."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the average car accident settlement in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While minor whiplash cases settle between $5,000 and $20,000, severe injury cases involving surgery or fractures often range from $50,000 to over $200,000, depending on policy limits."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do I have to pay taxes on my settlement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generally, proceeds for physical bodily injury are non-taxable. However, punitive damages and interest accrued on the settlement are taxable by the IRS."
+        }
+      }]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo" loading="lazy">
+
+        <h1>Car Accident Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Understand your claim value.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Finance</a>
+        <span class="separator">/</span>
+        <span class="current-page">Car Accident Calculator</span>
+    </nav>
+
+    <!-- CORE QUESTION (Native Integration) -->
+    <div class="core-question-wrapper">
+        <h2>How much is your claim really worth?</h2>
+        <p>Don't rely on the adjuster's first offer. Use the actuarial standards below to calculate the fair market value of your injury case.</p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+            </div>
+
+            <!-- MAIN GRID CONTAINER FOR ALL INPUT SECTIONS -->
+            <div class="input-grid-container">
+
+                <!-- SECTION 1 -->
+                <div class="section-header">
+                    <h3>Accident Details</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Where did it happen?</label>
+                    <div class="custom-dropdown-container" id="stateDropdownWrapper">
+                        <!-- JS Will Populate Options Here -->
+                        <select id="stateSelector" class="hidden-select">
+                            <!-- Populated via script.js -->
+                        </select>
+                        <button class="custom-dropdown-trigger">Select State</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <!-- Populated via script.js -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Your location determines fault rules and liability caps.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Date of Accident</label>
+                    <div class="custom-dropdown-container" id="datePickerContainer">
+                        <!-- Custom Date Display (Trigger) -->
+                        <button type="button" class="custom-date-trigger" id="dateTrigger">Select Date</button>
+                        
+                        <!-- Hidden Real Input -->
+                        <input type="hidden" id="accidentDateHidden">
+
+                        <!-- Custom Calendar Popup (White Borderless Block) -->
+                        <div class="custom-calendar-popup" id="customCalendar">
+                            <div class="calendar-header">
+                                <button type="button" id="prevMonth">&lt;</button>
+                                <span id="currentMonthYear">January 2026</span>
+                                <button type="button" id="nextMonth">&gt;</button>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-name">Su</div>
+                                <div class="calendar-day-name">Mo</div>
+                                <div class="calendar-day-name">Tu</div>
+                                <div class="calendar-day-name">We</div>
+                                <div class="calendar-day-name">Th</div>
+                                <div class="calendar-day-name">Fr</div>
+                                <div class="calendar-day-name">Sa</div>
+                                <!-- Days injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Essential for determining if the Statute of Limitations has expired.</div>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Other Driver's Insurance</label>
+                    <div class="custom-dropdown-container">
+                        <select id="driverInsurance" class="hidden-select">
+                            <option value="state_min" selected>State Minimum</option>
+                            <option value="25k">$25,000 Limit</option>
+                            <option value="50k">$50,000 Limit</option>
+                            <option value="100k">$100,000 Limit</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">State Minimum</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="state_min">State Minimum</div>
+                                <div class="dropdown-option" data-value="25k">$25,000 Limit</div>
+                                <div class="dropdown-option" data-value="50k">$50,000 Limit</div>
+                                <div class="dropdown-option" data-value="100k">$100,000 Limit</div>
+                                <div class="dropdown-option" data-value="unknown">Unknown</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">If unknown, we assume State Minimum for safety.</div>
+                </div>
+
+                <!-- SECTION 2 -->
+                <div class="section-header">
+                    <h3>Economic Damages</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Medical Bills ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_medicalBills" value="5000">
+                        <input type="range" id="slider_medicalBills" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Enter full billed amount, not just co-pay.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Did Insurance Pay?</label>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label" id="insurancePaidLabel">No</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="insurancePaidToggle">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <!-- FAKE SLIDER (Empty Track) -->
+                    <div class="fake-slider"></div>
+                    <div class="disclosure-text">If yes, your health insurer may claim a lien (repayment) from your settlement.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Lost Wages ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_lostWages" value="0">
+                        <input type="range" id="slider_lostWages" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Includes past missed hours and loss of future earning capacity.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Property Damage ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_propDamage" value="2000">
+                        <input type="range" id="slider_propDamage" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Repair costs or the fair market value of your vehicle if totaled.</div>
+                </div>
+
+                <!-- SECTION 3 -->
+                <div class="section-header">
+                    <h3>Injury Assessment</h3>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Injury Severity</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="soft" checked> Soft Tissue
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="fracture"> Fracture
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="severity" value="surgery"> Surgery
+                        </label>
+                    </div>
+                    <div class="disclosure-text">Objective medical evidence (like MRI/X-Ray) significantly increases value.</div>
+                </div>
+
+                <div class="input-wrapper full-width">
+                    <label>Life Impact Audit (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="meds"> Daily Pain Meds
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="work"> Missed Work > 1 Mo
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="anxiety"> Anxiety / PTSD
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="impact" value="scarring"> Visible Scarring
+                        </label>
+                    </div>
+                    
+                    <!-- Visual Severity Meter -->
+                    <div class="severity-bar-container">
+                        <div class="severity-bar-fill" id="severityBar" style="width: 25%;"></div>
+                    </div>
+                    <div class="disclosure-text">This intensity score adjusts the multiplier for your Pain & Suffering damages.</div>
+                </div>
+
+                <!-- SECTION 4 -->
+                <div class="section-header">
+                    <h3>Case Factors</h3>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Your Fault %</label>
+                    <div class="input-group">
+                        <input type="number" id="input_faultShare" value="0" max="100">
+                        <input type="range" id="slider_faultShare" min="0" max="100" value="0">
+                    </div>
+                    <div class="disclosure-text">Be realistic; adjusters will aggressively assign blame to reduce payouts.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Hiring Attorney?</label>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label" id="attorneyLabel">Yes</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="attorneyToggle" checked>
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <!-- FAKE SLIDER (Empty Track) -->
+                    <div class="fake-slider"></div>
+                    <div class="disclosure-text">Calculates the standard 33.3% contingency fee deduction.</div>
+                </div>
+
+            </div> <!-- End Input Grid -->
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            <h2>Results</h2>
+            
+            <!-- NEW ACTION BUTTONS -->
+            <div class="action-buttons-row">
+                <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
+                <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
+                <button class="action-btn share-btn" id="btn-share" aria-label="Share Results">Share</button>
+            </div>
+
+            <div id="results-display-container">
+                
+                <!-- SECTION 5: THE WATERFALL -->
+                <div class="gross-value-container">
+                    <div class="gross-value-label">Estimated Case Value</div>
+                    <div class="gross-value-number" id="grossValue">$45,000 - $52,000</div>
+                    
+                    <!-- Hidden by default, shown via JS logic later -->
+                    <div class="policy-limit-warning hidden" id="policyLimitWarning">
+                        <span class="warning-text">Uncollectible (Exceeds Policy Limits)</span>
+                    </div>
+                </div>
+
+                <div class="waterfall-container">
+                    <div class="chart-title">Where the money goes:</div>
+                    <div class="stacked-bar-chart">
+                        <!-- Placeholder Widths -->
+                        <div class="bar-segment attorney" style="width: 33%;">
+                            <span>Attorney</span>
+                        </div>
+                        <div class="bar-segment liens" style="width: 20%;">
+                            <span>Liens</span>
+                        </div>
+                        <div class="bar-segment net" style="width: 47%;">
+                            <span>Your Net</span>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item"><span class="dot attorney"></span>Attorney</div>
+                        <div class="legend-item"><span class="dot liens"></span>Liens</div>
+                        <div class="legend-item"><span class="dot net"></span><strong>You</strong></div>
+                    </div>
+                </div>
+
+                <!-- SECTION 6: THE VERDICT -->
+                <div class="verdict-container" id="verdictCard">
+                    <div class="verdict-icon">⚖️</div>
+                    <div class="verdict-text">
+                        Serious Injury detected. Insurance adjusters will try to minimize this. Professional representation is recommended.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SEO & CONTENT SECTION -->
+    <div class="seo-section-wrapper">
+        <div class="seo-container">
+            
+            <div class="seo-header">
+                <h2>Comprehensive Guide to Accident Settlements</h2>
+                <p class="seo-intro-text">Navigating the complexities of insurance claims, liability laws, and maximizing your financial recovery in 2026.</p>
+            </div>
+
+            <div class="seo-content-block">
+                
+                <div class="seo-article">
+                    <h3>Understanding the "Multiplier Method"</h3>
+                    <p>
+                        Insurance adjusters and attorneys often use the "Multiplier Method" to estimate the value of non-economic damages, commonly known as "Pain and Suffering." This method multiplies your total economic damages (medical bills, lost wages) by a number typically between <strong>1.5 and 5</strong>.
+                    </p>
+                    <p>
+                        A 1.5x multiplier is usually applied to minor injuries with brief treatment periods (e.g., mild whiplash). A 5x multiplier is reserved for catastrophic, life-altering injuries such as permanent scarring, broken bones, or traumatic brain injuries (TBI). Our calculator automatically adjusts this multiplier based on the specific "Life Impact" factors you select.
+                    </p>
+
+                    <h3>The Critical Role of Medical Documentation</h3>
+                    <p>
+                        The most common reason for a devalued settlement is a "Gap in Treatment." Insurance companies view any delay in seeking medical attention as evidence that the injury was not serious. To maximize your claim:
+                    </p>
+                    <ul class="seo-list">
+                        <li><strong>Seek Immediate Care:</strong> Go to an ER or Urgent Care within 72 hours of the accident.</li>
+                        <li><strong>Follow Orders:</strong> Do not miss physical therapy appointments or follow-up visits.</li>
+                        <li><strong>Objective Evidence:</strong> Request diagnostic imaging (X-Ray, MRI, CT Scan) to provide objective proof of injury beyond subjective pain complaints.</li>
+                    </ul>
+
+                    <h3>State-Specific Fault Rules (Comparative vs. Contributory)</h3>
+                    <p>
+                        Your settlement value is heavily influenced by the laws of the state where the accident occurred.
+                    </p>
+                    <div class="info-card">
+                        <h4>Fault Systems Explained</h4>
+                        <ul class="plain-list">
+                            <li><strong>Pure Comparative Fault (e.g., CA, NY, FL):</strong> You can recover damages even if you are 99% at fault, but your payout is reduced by your percentage of fault.</li>
+                            <li><strong>Modified Comparative Fault (e.g., TX, GA):</strong> You can only recover if you are less than 50% or 51% at fault. If you cross this threshold, you get $0.</li>
+                            <li><strong>Contributory Negligence (e.g., AL, VA, NC):</strong> A strict rule where being even 1% at fault can completely bar you from receiving any compensation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FAQ SECTION (Schema Optimized) -->
+                <div class="seo-faq-section">
+                    <h3>Frequently Asked Questions</h3>
+                    
+                    <div class="faq-grid">
+                        
+                        <div class="faq-item">
+                            <h4>How long does a settlement take?</h4>
+                            <p>Most straightforward injury claims settle within <strong>3 to 9 months</strong> after you have completed your medical treatment. However, cases involving severe injuries, disputed liability, or litigation can take 1 to 3 years to resolve.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>What is a structured settlement?</h4>
+                            <p>Instead of a lump sum, a structured settlement pays out money over a set period of years. This is common in cases involving minors or catastrophic injuries to ensure long-term financial stability and tax benefits.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Will my insurance rates go up?</h4>
+                            <p>If you were not at fault, your rates typically should not increase, though some states allow "not-at-fault" surcharges. If you were at fault, expect a rate increase upon renewal.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Can I negotiate the adjuster's first offer?</h4>
+                            <p>Yes. The first offer is almost always a "lowball" tactic. You should counter-offer with a higher amount, supported by your medical records and this valuation report.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>What if the driver is uninsured?</h4>
+                            <p>If you have <strong>Uninsured Motorist (UM/UIM)</strong> coverage on your own policy, you can file a claim against your own insurance company. They will step into the shoes of the at-fault driver to pay your claim.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h4>Do I need a lawyer for a fender bender?</h4>
+                            <p>For minor property damage with no injuries, you likely don't need an attorney. However, if you have any injury requiring medical treatment, an attorney typically increases the net settlement amount even after their fees.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- SEO CONTENT SECTION END -->
+
+    <!-- PDF Tutorial Overlay -->
+    <div id="pdf-tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-card">
+            <h3 class="tutorial-title">Generating Document...</h3>
+            <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
+            <div class="tutorial-images-row">
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Print Destination Selection" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Save as PDF Option" loading="lazy"></div>
+                <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Final PDF Save" loading="lazy"></div>
+            </div>
+            <p class="tutorial-caption">Follow the steps above to save your results.</p>
+            <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
+        </div>
+    </div>
+
+    <!-- Hidden Print View -->
+    <div id="print-view-container" class="print-view">
+        <!-- Content Injected via JS -->
+    </div>
+
+    <script src="script.js"></script>
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row">
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
