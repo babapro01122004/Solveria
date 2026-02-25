@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help Center | Solveria</title>
+    <meta name="description" content="Access Solveria's documentation, calculation methodologies, and troubleshooting protocols. Understand the data logic behind our financial and legal tools.">
+    <link rel="canonical" href="https://solveria.org/support/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793" crossorigin="anonymous"></script>    
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://solveria.org/support/#webpage",
+          "url": "https://solveria.org/support/",
+          "name": "Help Center & Resources | Solveria",
+          "isPartOf": { "@id": "https://solveria.org/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
+            { "@type": "ListItem", "position": 2, "name": "Help Center" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Critical CSS */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            background-color: #f5f5f7;
+            color: #333;
+        }
+
+        .hero-section {
+    height: 50vh;
+    /* Removed linear-gradient overlay */
+    background-image: url('../img/privacy policy.webp'); 
+    background-color: #333; /* Fallback */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: white;
+    padding: 0 20px;
+}
+        .hero-section h1 {
+            font-size: clamp(2.0rem, 6vw, 3.5rem);
+            font-weight: 100;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            margin: 0;
+        }
+
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo img {
+            height: 35px;
+            width: auto;
+            aspect-ratio: auto; 
+        }
+        .header nav a {
+            color: #e0e0e0; text-decoration: none; font-size: 0.9rem;
+            font-weight: 300; transition: color 0.3s ease;
+            margin-left: 30px;
+        }
+        .header nav a:hover { color: #ffffff; }
+        
+        .content-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+        }
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
+        .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { margin: 0 8px; color: #ccc; }
+        .breadcrumb .current-page { color: #333; font-weight: 400; }
+        
+        /* --- UPDATED TYPOGRAPHY FOR THE "POP" LOOK --- */
+        .article-body h2 {
+            /* Much larger size to match the screenshot */
+            font-size: 3.0rem; 
+            
+            /* Keep it thin */
+            font-weight: 100; 
+            
+            /* Darker color for contrast */
+            color: #222; 
+            
+            /* Adjust spacing to match the airy feel */
+            margin-top: 60px; 
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee; 
+            padding-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        /* Mobile adjustment to prevent overflow on small screens */
+        @media (max-width: 768px) {
+            .article-body h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        .article-body h2:first-of-type { margin-top: 0; }
+        
+        .article-body h3 {
+            font-size: 1.5rem; 
+            font-weight: 100; /* Roboto Thin */
+            color: #333; 
+            margin-top: 35px; 
+            margin-bottom: 15px;
+        }
+
+        .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #444; }
+        .article-body ul { padding-left: 20px; margin-bottom: 30px; }
+        .article-body li { margin-bottom: 10px; }
+        
+        .article-body a { color: #2ca86a; text-decoration: none; font-weight: 400; }
+        .article-body a:hover { text-decoration: underline; }
+
+        footer {
+            background-color: #f5f5f7;
+            padding: 2.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: #6e6e73;
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .footer-nav a {
+            color: #777777;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-nav a:hover {
+            color: #000000;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .footer-nav {
+                margin-top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="../" class="logo">
+            <picture>
+                <source srcset="../img/Logo_White.webp" type="image/webp">
+                <source srcset="../img/Logo_White.png" type="image/png">
+                <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35">
+            </picture>
+        </a>
+        <nav>
+            <a href="../calculators/">Calculators</a>
+            <a href="../about/">About</a>
+            </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>Platform Resources & Documentation</h1>
+        </section>
+
+        <section class="content-section">
+            <div class="content-container">
+                <nav class="breadcrumb">
+                    <a href="../">Home</a>
+                    <span>/</span>
+                    <span class="current-page">Help Center</span>
+                </nav>
+
+                <article class="article-body">
+                    <h2>Core Architecture & Standards</h2>
+                    <p>
+                        Solveria is engineered to be intuitive, but complex financial modeling requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols.
+                    </p>
+
+                    <h2>Transparency & Methodology</h2>
+                    <p>
+                        Our Decision Engine utilizes the <strong>us-state-data protocol</strong> to reference local statutes, tax codes, and actuarial tables. While we strive for 100% accuracy, results should be viewed as high-fidelity estimates rather than binding appraisals.
+                    </p>
+                    
+                    <h3>Data Source Logic</h3>
+                    <ul>
+                        <li><strong>Financial Tools:</strong> Updated monthly with Federal Reserve interest rate benchmarks and CPI inflation data to ensure forward-looking accuracy.</li>
+                        <li><strong>Legal Tools:</strong> Indexed against average settlement multipliers and tort reform caps specific to your state jurisdiction.</li>
+                        <li><strong>Tax Considerations:</strong> Algorithms account for standard deductions and progressive tax brackets based on the most recent IRS publications.</li>
+                    </ul>
+
+                    <h2>Technical Troubleshooting</h2>
+                    <p>
+                        Because Solveria operates on a <strong>Client-Side Architecture</strong>, performance relies on your browser's capabilities. This ensures your financial data is processed locally on your device and is never transmitted to external servers for calculation.
+                    </p>
+                    <ul>
+                        <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (Chart.js or D3.js libraries).</li>
+                        <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience. Clearing your browser cache or using Incognito Mode will reset your scenarios.</li>
+                    </ul>
+
+                    <h2>Report an Issue</h2>
+                    <p>
+                        <strong>Found a Data Discrepancy?</strong><br>
+                        If you notice a calculation that conflicts with local regulations in your state, please file a report with our engineering team via the <a href="../contact/">Contact page</a>. We prioritize data integrity updates within 48 hours.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2026 Solveria. All rights reserved.</p>
+            <div class="footer-nav">
+                <a href="../privacy-policy/">Privacy Policy</a>
+                <a href="../about/">About Us</a>
+                <a href="../contact/">Contact Us</a>
+                <a href="../terms-of-use/">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

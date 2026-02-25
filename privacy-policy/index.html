@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+
+    <title>Privacy Policy | Solveria</title>
+    <meta name="description" content="Solveria operates on a Zero-Knowledge Architecture. All financial and legal calculations are processed locally in your browser and are never transmitted to our servers.">
+    <meta name="keywords" content="Solveria privacy policy, zero knowledge financial calculator, client side legal tools, data sovereignty">
+    <meta name="author" content="Solveria">
+    <link rel="canonical" href="https://solveria.org/privacy-policy/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solveria.org/privacy-policy/">
+    <meta property="og:title" content="Privacy Policy | Solveria">
+    <meta property="og:description" content="Your data never leaves your device. Solveria uses a Zero-Knowledge Architecture.">
+    <meta property="og:image" content="https://solveria.org/img/social-share.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://solveria.org/privacy-policy/">
+    <meta property="twitter:title" content="Privacy Policy | Solveria">
+    <meta property="twitter:description" content="Your data never leaves your device. Solveria uses a Zero-Knowledge Architecture.">
+    <meta property="twitter:image" content="https://solveria.org/img/social-share.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793" crossorigin="anonymous"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="msapplication-TileColor" content="#000000">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://solveria.org/#organization",
+          "name": "Solveria",
+          "url": "https://solveria.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://solveria.org/img/Logo_White.webp",
+            "width": 600,
+            "height": 60
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@solveria.org",
+            "contactType": "customer support"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://solveria.org/privacy-policy/#webpage",
+          "url": "https://solveria.org/privacy-policy/",
+          "name": "Privacy Policy",
+          "description": "Privacy Policy for Solveria. We operate on a Zero-Knowledge Architecture.",
+          "isPartOf": { "@id": "https://solveria.org/#website" },
+          "datePublished": "2023-01-01",
+          "dateModified": "2026-02-08",
+          "publisher": { "@id": "https://solveria.org/#organization" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
+            { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://solveria.org/privacy-policy/" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* Base Resets */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            background-color: #f5f5f7;
+            color: #333;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Accessibility: Skip to Content */
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: #000; color: white; padding: 8px; z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* HEADER STYLING - TRANSPARENT OVERLAY */
+        .header {
+            position: absolute; /* Overlays the Hero */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10; /* Sits above the image */
+            background-color: transparent; /* Top bar removed */
+            border-bottom: none;
+            padding: 1.5rem 1rem;
+        }
+        .header-container {
+            /* Pushed to edges: 98% width */
+            max-width: 98%; 
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo img {
+            height: 32px;
+            width: auto;
+            /* CHANGED: Heavy Double Shadow for "Pop" */
+            /* Layer 1: Sharp, dark shadow close to image */
+            /* Layer 2: Softer, larger shadow for lift */
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)) drop-shadow(0 8px 12px rgba(0,0,0,0.7));
+        }
+        .header nav a {
+            color: #ffffff;
+            text-decoration: none; font-size: 0.9rem;
+            font-weight: 400; 
+            transition: opacity 0.3s ease;
+            margin-left: 30px;
+            /* Faint blurry shadow for text visibility */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+        .header nav a:hover { opacity: 0.8; }
+
+        /* HERO SECTION */
+        .hero-section {
+            position: relative;
+            height: 45vh; /* 45% viewport height */
+            min-height: 300px;
+            background-image: url('../img/privacy policy.webp');
+            background-size: cover;
+            /* Image always anchored to center */
+            background-position: center center; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+        }
+        /* Dark Overlay Removed */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: transparent; /* Changed to 100% transparent */
+}
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 20px;
+            margin-top: 40px; /* Offset for the absolute header */
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 100;
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Content Areas */
+        .content-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+        }
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
+        .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { margin: 0 8px; color: #ccc; }
+        .breadcrumb .current-page { color: #333; font-weight: 400; }
+        
+        /* Article Typography */
+        .article-body h2 {
+            font-size: 1.8rem; font-weight: 300;
+            color: #333; margin-top: 50px; margin-bottom: 20px;
+            border-bottom: 1px solid #eee; padding-bottom: 10px;
+        }
+        .article-body h3 {
+            font-size: 1.3rem; font-weight: 400;
+            color: #444; margin-top: 30px; margin-bottom: 15px;
+        }
+        .article-body h2:first-of-type { margin-top: 30px; }
+        .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 1em; }
+        .article-body ul { padding-left: 20px; list-style-type: disc; margin-bottom: 20px; }
+        .article-body li { margin-bottom: 0.5em; }
+        .article-body a { color: #047857; text-decoration: none; font-weight: 400; }
+        .article-body a:hover { text-decoration: underline; }
+        .article-body .last-updated { font-style: italic; color: #888; font-size: 0.9rem; margin-bottom: 30px; display: block; }
+        .article-body strong { font-weight: 500; color: #222; }
+
+        /* FOOTER STYLING */
+        footer {
+            background-color: #f5f5f7; /* Light Grey Default */
+            padding: 2.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: #6e6e73; /* Grey Text Default */
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        /* Footer Links - Specific Interaction */
+        .footer-nav a {
+            color: #6e6e73; /* Default Grey */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-nav a:hover {
+            color: #000000; /* Black on Hover */
+        }
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .footer-nav {
+                margin-top: 0;
+            }
+        }
+        @media (max-width: 768px) {
+             .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo">
+                <img src="../img/logo_white.webp" alt="Solveria Logo" width="150" height="32">
+            </a>
+            <nav role="navigation">
+                <a href="../calculators/">Calculators</a>
+                <a href="../about/">About</a>
+                <a href="../support/">Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Privacy Policy</h1>
+        </div>
+    </section>
+
+    <main id="main-content">
+        <section class="content-section">
+            <div class="content-container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../">Home</a>
+                    <span aria-hidden="true">/</span>
+                    <span class="current-page" aria-current="page">Privacy Policy</span>
+                </nav>
+
+                <article class="article-body">
+                    <span class="last-updated">Last updated: <span id="policy-date">February 8, 2026</span></span>
+
+                    <h2>Data Sovereignty Statement</h2>
+                    <p>At Solveria, we adhere to a <strong>Zero-Knowledge Architecture</strong>. Unlike traditional financial or legal tools that upload your data to a central cloud, Solveria acts as a "Client-Side Only" platform. This means that the sensitive inputs you type into our calculators are processed exclusively in your browser's volatile memory (RAM) and are technically incapable of being intercepted, read, or stored by our servers.</p>
+                    <p>When you use Solveria, your data remains on your device. We do not have a database of your income, debts, or case details because we designed the system to function without one.</p>
+
+                    <h2>Treatment of Sensitive User Inputs</h2>
+                    <p>Our tools are designed to handle highly sensitive personal information. To ensure your safety, we strictly limit the scope of data processing to your local device. This policy applies to two distinct categories of inputs:</p>
+                    <ul>
+                        <li><strong>Financial Inputs:</strong> Information regarding your income, debts, credit score estimations, mortgage details, and assets entered into our financial calculators.</li>
+                        <li><strong>Legal & Case Inputs:</strong> Details regarding incident dates, settlement demands, injury specifics, medical costs, and liability scenarios entered into our legal settlement tools.</li>
+                    </ul>
+                    <p><strong>The Promise:</strong> None of this data is transmitted to Solveria. If you close your browser tab, this data is instantly wiped from memory unless you have enabled local persistence (see "Browser-Based Persistence" below).</p>
+
+                    <h2>Browser-Based Persistence</h2>
+                    <p>To improve your user experience, some of our calculators may utilize standard web technologies such as <code>localStorage</code> or <code>sessionStorage</code>. This allows your browser to "remember" your inputs if you accidentally refresh the page or return to the calculator later.</p>
+                    <p>It is important to understand that this data resides <strong>solely in your specific browser cache</strong>, not on our servers. You maintain full control over this data. You can wipe it at any time by clearing your browser's cache or cookies.</p>
+
+                    <h2>Aggregate Telemetry vs. Identity</h2>
+                    <p>We utilize third-party analytics services (such as Google Analytics) to collect <strong>Aggregate Telemetry</strong>. This data helps us understand how our site is performing regionally, but it is strictly separated from your calculator inputs.</p>
+                    <p>For example, we may track that "500 users visited from California" to ensure our California-specific legal modules are loading correctly. However, we cannot link this aggregate data to your specific financial situation or legal case details. We track the health of the application, not the identity of the user.</p>
+
+                    <h2>Affiliate & Lead Generation Disclosure</h2>
+                    <p>Solveria operates on a transparency-first business model. While our calculators are free to use, we may partner with financial institutions, legal networks, or service providers.</p>
+                    <p><strong>Solveria acts as a bridge, not a broker.</strong> On certain pages, you may see options to "Check Rates," "Get a Case Review," or "Find a Lawyer." If you choose to click these links, you are virtually leaving our premises and entering the partner's site.</p>
+                    <p>Once you navigate to our partners (e.g., lending institutions or legal networks), your interaction is governed by <strong>their</strong> separate privacy protocols. We encourage you to review the privacy policies of any third-party service you engage with via our platform.</p>
+
+                    <h2>Third-Party Advertising</h2>
+                    <p>Our site may display advertisements from third-party networks, such as Google AdSense. These advertisers may use cookies to collect non-personally identifiable information about your activities on this and other websites to provide you with targeted advertising based on your interests.</p>
+
+                    <h2 id="do-not-sell">Do Not Sell or Share My Personal Information</h2>
+                    <p>
+                        Solveria.org does not sell your personal financial or legal data to any third party. As stated above, the data you enter into our calculators is processed locally and is not stored on our servers.
+                    </p>
+                    <p>
+                        However, under privacy laws like the California Consumer Privacy Act (CCPA/CPRA), the use of third-party advertising cookies (such as Google Ads) may be considered a "sale" or "share" of personal information (e.g., your IP address or browsing behavior) for the purpose of targeted advertising.
+                    </p>
+                    <p>
+                        <strong>Your Opt-Out Rights:</strong>
+                        You have the right to opt-out of this automated sharing. Since we do not track you by name or email, the way to exercise this right is by managing your browser's cookie settings or your Google Ad preferences directly.
+                    </p>
+                    <ul>
+                        <li><a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Manage your Google Ad Privacy Settings</a></li>
+                        <li><a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer">WebChoices Tool (Digital Advertising Alliance)</a></li>
+                    </ul>
+
+                    <h2>Changes to This Privacy Policy</h2>
+                    <p>We may update our Privacy Policy from time to time to reflect changes in our technology or legal obligations. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions about this Privacy Policy or our Zero-Knowledge Architecture, please feel free to contact us at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; <span id="copyright-year">2026</span> Solveria. All rights reserved.</p>
+            <div class="footer-nav">
+                <a href="../privacy-policy/">Privacy Policy</a>
+                <a href="../about/">About Us</a>
+                <a href="../support/">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('policy-date').textContent = new Date().toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
