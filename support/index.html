@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Help Center | Solveria</title>
-    <meta name="description" content="Access Solveria's documentation, calculation methodologies, and troubleshooting protocols. Understand the data logic behind our financial and legal tools.">
+    <!-- Updated Meta Description for B2B/Labor Law Narrative -->
+    <meta name="description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
     <link rel="canonical" href="https://solveria.org/support/">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,6 +17,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Updated Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -24,7 +26,8 @@
           "@type": "WebPage",
           "@id": "https://solveria.org/support/#webpage",
           "url": "https://solveria.org/support/",
-          "name": "Help Center & Resources | Solveria",
+          "name": "Help Center & Documentation | Solveria",
+          "description": "Statutory Compliance & Labor Logic documentation, methodologies, and enterprise integration guides.",
           "isPartOf": { "@id": "https://solveria.org/#website" }
         },
         {
@@ -78,12 +81,11 @@
             font-weight: 300;
             overflow-x: hidden;
             background-color: #f5f5f7;
-            color: #333;
+            color: #333; /* High contrast body text */
         }
 
         .hero-section {
             height: 50vh;
-            /* Removed linear-gradient overlay */
             background-image: url('../img/privacy policy.webp'); 
             background-color: #333; /* Fallback */
             background-size: cover;
@@ -121,11 +123,14 @@
             aspect-ratio: auto; 
         }
         .header nav a {
-            color: #e0e0e0; text-decoration: none; font-size: 0.9rem;
-            font-weight: 300; transition: color 0.3s ease;
+            color: #e0e0e0; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            font-weight: 400; /* Increased weight for legibility */
+            transition: color 0.3s ease;
             margin-left: 30px;
         }
-        .header nav a:hover { color: #ffffff; }
+        .header nav a:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 4px; }
         
         .content-section {
             padding: 60px 20px;
@@ -136,24 +141,17 @@
             margin: 0 auto;
         }
 
+        /* ACCESSIBILITY FIXES: Darkened text colors & added underlines for contrast compliance */
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
-        .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
-        .breadcrumb a:hover { color: #000; }
-        .breadcrumb span { margin: 0 8px; color: #ccc; }
-        .breadcrumb .current-page { color: #333; font-weight: 400; }
+        .breadcrumb a { color: #555555; text-decoration: underline; text-underline-offset: 3px; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #000000; text-decoration: none; }
+        .breadcrumb span { margin: 0 8px; color: #777777; } 
+        .breadcrumb .current-page { color: #222222; font-weight: 500; }
         
-        /* --- UPDATED TYPOGRAPHY FOR THE "POP" LOOK --- */
         .article-body h2 {
-            /* Much larger size to match the screenshot */
             font-size: 3.0rem; 
-            
-            /* Keep it thin */
             font-weight: 100; 
-            
-            /* Darker color for contrast */
             color: #222; 
-            
-            /* Adjust spacing to match the airy feel */
             margin-top: 60px; 
             margin-bottom: 25px;
             border-bottom: 1px solid #eee; 
@@ -161,7 +159,6 @@
             line-height: 1.2;
         }
         
-        /* Mobile adjustment to prevent overflow on small screens */
         @media (max-width: 768px) {
             .article-body h2 {
                 font-size: 2.2rem;
@@ -172,25 +169,26 @@
         
         .article-body h3 {
             font-size: 1.5rem; 
-            font-weight: 100; /* Roboto Thin */
-            color: #333; 
+            font-weight: 300; 
+            color: #222; 
             margin-top: 35px; 
             margin-bottom: 15px;
         }
 
-        .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #444; }
+        .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #333333; }
         .article-body ul { padding-left: 20px; margin-bottom: 30px; }
         .article-body li { margin-bottom: 10px; }
         
-        .article-body a { color: #2ca86a; text-decoration: none; font-weight: 400; }
-        .article-body a:hover { text-decoration: underline; }
+        /* ACCESSIBILITY FIX: Darker green for sufficient contrast + visible underline */
+        .article-body a { color: #1e7b4b; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+        .article-body a:hover { text-decoration: none; color: #145232; }
 
         footer {
             background-color: #f5f5f7;
             padding: 2.5rem 1rem;
             font-size: 0.875rem;
-            font-weight: 300;
-            color: #6e6e73;
+            font-weight: 400; /* Bumped weight for better contrast */
+            color: #555555; /* Darkened for better contrast */
         }
         .footer-container {
             max-width: 1400px;
@@ -204,14 +202,18 @@
             gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 15px;
         }
+        /* ACCESSIBILITY FIX: Explicit underlines on footer links */
         .footer-nav a {
-            color: #777777;
-            text-decoration: none;
+            color: #444444; /* Darkened for accessibility */
+            text-decoration: underline;
+            text-underline-offset: 3px;
             transition: color 0.3s ease;
         }
         .footer-nav a:hover {
             color: #000000;
+            text-decoration: none;
         }
         
         @media (min-width: 768px) {
@@ -224,9 +226,14 @@
             }
         }
         
+        /* MOBILE VIEW FIXES */
         @media (max-width: 768px) {
-            .header { padding: 20px; }
-            .header nav { display: none; }
+            /* Keep header visible, stack links below logo cleanly */
+            .header { padding: 15px 20px; flex-direction: column; gap: 12px; justify-content: center; }
+            .header nav { display: flex; gap: 20px; justify-content: center; } 
+            .header nav a { margin-left: 0; font-size: 0.95rem; }
+            .header .logo img { height: 30px; }
+            
             /* Phone-specific Hero Image */
             .hero-section {
                 background-image: url('../img/privacy policy_Phone.webp'); 
@@ -248,7 +255,7 @@
         <nav>
             <a href="../calculators/">Calculators</a>
             <a href="../about/">About</a>
-            </nav>
+        </nav>
     </header>
 
     <main>
@@ -265,36 +272,36 @@
                 </nav>
 
                 <article class="article-body">
-                    <h2>Core Architecture & Standards</h2>
+                    <h2>Statutory Compliance & Labor Logic</h2>
                     <p>
-                        Solveria is engineered to be intuitive, but complex financial modeling requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols.
+                        Solveria is engineered to be intuitive, but robust employment analysis requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols.
                     </p>
 
                     <h2>Transparency & Methodology</h2>
                     <p>
-                        Our Decision Engine utilizes the <strong>us-state-data protocol</strong> to reference local statutes, tax codes, and actuarial tables. While we strive for 100% accuracy, results should be viewed as high-fidelity estimates rather than binding appraisals.
+                        Our Decision Engine utilizes state-specific labor codes and FLSA (Fair Labor Standards Act) federal baselines. While we strive for 100% accuracy, results should be viewed as high-fidelity statutory estimates rather than binding legal counsel.
                     </p>
                     
                     <h3>Data Source Logic</h3>
                     <ul>
-                        <li><strong>Financial Tools:</strong> Updated monthly with Federal Reserve interest rate benchmarks and CPI inflation data to ensure forward-looking accuracy.</li>
-                        <li><strong>Legal Tools:</strong> Indexed against average settlement multipliers and tort reform caps specific to your state jurisdiction.</li>
-                        <li><strong>Tax Considerations:</strong> Algorithms account for standard deductions and progressive tax brackets based on the most recent IRS publications.</li>
+                        <li><strong>State-Specific Labor Codes:</strong> Algorithms account for local minimum wage variances, overtime thresholds, and state-specific premium penalties (e.g., California DLSE meal break rules).</li>
+                        <li><strong>Federal FLSA Baselines:</strong> National-level tools are indexed against the most current Fair Labor Standards Act guidelines for baseline compliance.</li>
+                        <li><strong>Enterprise Deployment:</strong> For B2B Licensees: All our frontend applications are built on vanilla HTML5/JS for conflict-free integration into your firm's existing CMS or web architecture.</li>
                     </ul>
 
                     <h2>Technical Troubleshooting</h2>
                     <p>
-                        Because Solveria operates on a <strong>Client-Side Architecture</strong>, performance relies on your browser's capabilities. This ensures your financial data is processed locally on your device and is never transmitted to external servers for calculation.
+                        Because Solveria operates on a <strong>Client-Side Architecture</strong>, performance relies on your browser's capabilities. This ensures your data is processed locally on your device and is never transmitted to external servers for calculation.
                     </p>
                     <ul>
                         <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (Chart.js or D3.js libraries).</li>
                         <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience. Clearing your browser cache or using Incognito Mode will reset your scenarios.</li>
+                        <li><strong>Licensee Integration:</strong> Firms who purchased a tool via the Lemon Squeezy portal should refer to the included README.md file for CSS customization and iframe deployment guidelines before contacting support.</li>
                     </ul>
 
-                    <h2>Report an Issue</h2>
+                    <h2>Statutory Updates & Edge Cases</h2>
                     <p>
-                        <strong>Found a Data Discrepancy?</strong><br>
-                        If you notice a calculation that conflicts with local regulations in your state, please file a report with our engineering team via the <a href="../contact/">Contact page</a>. We prioritize data integrity updates within 48 hours.
+                        Labor laws evolve rapidly. If your firm notices a recent amendment to state labor codes or a municipal wage ordinance that conflicts with our logic, please file a report via the <a href="../contact/">Contact page</a>. We prioritize statutory updates within 48 hours.
                     </p>
                 </article>
             </div>
