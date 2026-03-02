@@ -9,14 +9,13 @@
     
     <link rel="canonical" href="https://solveria.org/about/">
 
-    <!-- PERFORMANCE FIX: Preload the LCP Hero Image immediately with exact %20 encoding -->
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image" fetchpriority="high">
+    <!-- PERFORMANCE FIX: Responsive Preloading. Mobile gets the Phone variant, Desktop gets the standard variant -->
+    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
 
-    <!-- Preload critical fonts. Removed Regular to save mobile bandwidth (it will load seamlessly in background) -->
+    <!-- Preload critical fonts -->
     <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-
-    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/about/">
@@ -166,11 +165,11 @@
         }
         .header nav a:hover { color: #ffffff; }
 
+        /* PERFORMANCE FIX: Default to Mobile Image */
         .hero-section {
             height: 50vh;
             min-height: 300px;
-            /* PERFORMANCE FIX: Ensure CSS URL exactly matches the preload %20 encoding */
-            background-image: url('../img/privacy%20policy.webp'); 
+            background-image: url('../img/privacy%20policy_Phone.webp'); 
             background-color: #333; 
             background-size: cover;
             background-position: center;
@@ -182,11 +181,19 @@
             color: white;
             will-change: transform, opacity; 
         }
+        
+        /* PERFORMANCE FIX: Swap to Desktop Image automatically on larger screens */
+        @media (min-width: 768px) {
+            .hero-section {
+                background-image: url('../img/privacy%20policy.webp');
+            }
+        }
+
         .hero-section h1 {
             font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 100;
             text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
-            margin: 0; /* Prevents layout shift */
+            margin: 0; 
         }
 
         .content-section {
@@ -267,9 +274,10 @@
         <div class="header-container">
             <a href="../" class="logo">
                 <picture>
-                    <source srcset="../img/Logo_White.webp" type="image/webp">
+                    <!-- PERFORMANCE FIX: Explicitly serve the Phone logo for smaller screens -->
+                    <source media="(max-width: 767px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
+                    <source media="(min-width: 768px)" srcset="../img/Logo_White.webp" type="image/webp">
                     <source srcset="../img/Logo_White.png" type="image/png">
-                    <!-- PERFORMANCE FIX: Removed fetchpriority="high" so it doesn't compete with the hero image on slow mobile connections -->
                     <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" decoding="async">
                 </picture>
             </a>
@@ -336,7 +344,6 @@
         </div>
     </footer>
 
-    <!-- JS Functionality & Performance Scripts -->
     <script>
         // Set dynamic copyright year
         document.addEventListener("DOMContentLoaded", function() {
@@ -345,32 +352,6 @@
                 yearSpan.textContent = new Date().getFullYear();
             }
         });
-
-        // PERFORMANCE FIX: Increased timeout to 8.5s so Lighthouse has plenty of time to finish grading mobile LCP before ads load!
-        let adLoaded = false;
-        function loadGoogleAds() {
-            if (adLoaded) return;
-            adLoaded = true;
-            
-            const adScript = document.createElement('script');
-            adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793";
-            adScript.async = true;
-            adScript.crossOrigin = "anonymous";
-            document.body.appendChild(adScript);
-
-            // Clean up event listeners once loaded
-            window.removeEventListener('scroll', loadGoogleAds);
-            window.removeEventListener('mousemove', loadGoogleAds);
-            window.removeEventListener('touchstart', loadGoogleAds);
-        }
-
-        // Real users will still load ads instantly on touch/scroll
-        window.addEventListener('scroll', loadGoogleAds, {passive: true, once: true});
-        window.addEventListener('mousemove', loadGoogleAds, {passive: true, once: true});
-        window.addEventListener('touchstart', loadGoogleAds, {passive: true, once: true});
-        
-        // Failsafe timer increased to bypass the entire Lighthouse audit window
-        setTimeout(loadGoogleAds, 8500);
     </script>
 
 </body>
