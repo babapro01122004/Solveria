@@ -23,12 +23,15 @@
     <meta property="twitter:description" content="Your data never leaves your device. Solveria uses a Zero-Knowledge Architecture.">
     <meta property="twitter:image" content="https://solveria.org/img/social-share.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <!-- Preload Hero Images for 100 LCP Score -->
     <link rel="preload" as="image" href="../img/privacy%20policy_Phone.webp" media="(max-width: 768px)">
     <link rel="preload" as="image" href="../img/privacy%20policy.webp" media="(min-width: 769px)">
+
+    <!-- Preload Local Fonts for Performance -->
+    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../fonts/Roboto-Medium.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -36,8 +39,6 @@
     <link rel="manifest" href="../site.webmanifest">
     <link rel="shortcut icon" href="../favicon.ico">
     <meta name="msapplication-TileColor" content="#000000">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -83,6 +84,43 @@
     </script>
 
     <style>
+        /* Local Fonts */
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Thin.ttf') format('truetype');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Italic.ttf') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
         /* Base Resets */
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
