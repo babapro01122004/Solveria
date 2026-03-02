@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Use | Solveria</title>
 
-    <meta name="description" content="Read the Terms of Use for Solveria. detailed information on our SaaS platform, limitation of liability, and algorithmic calculation disclaimers.">
+    <meta name="description" content="Read the Terms of Use for Solveria. detailed information on our platform, limitation of liability, and algorithmic calculation disclaimers.">
     <meta name="keywords" content="Solveria Terms of Use, Legal Disclaimer, Settlement Calculator Terms, SaaS Agreement">
     <meta name="author" content="Solveria">
     <meta name="robots" content="index, follow">
@@ -14,13 +14,13 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/terms-of-use/">
     <meta property="og:title" content="Terms of Use | Solveria">
-    <meta property="og:description" content="Legal terms and conditions for using Solveria's automated calculation tools and SaaS platform.">
+    <meta property="og:description" content="Legal terms and conditions for using Solveria's automated calculation tools and software platform.">
     <meta property="og:image" content="https://solveria.org/img/privacy%20policy.webp">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/terms-of-use/">
     <meta property="twitter:title" content="Terms of Use | Solveria">
-    <meta property="twitter:description" content="Legal terms and conditions for using Solveria's automated calculation tools and SaaS platform.">
+    <meta property="twitter:description" content="Legal terms and conditions for using Solveria's automated calculation tools and software platform.">
     <meta property="twitter:image" content="https://solveria.org/img/privacy%20policy.webp">
     
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -31,11 +31,48 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Responsive Image Preloads for Performance -->
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 769px)">
+    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 768px)">
+    
+    <!-- Local Fonts Added for Performance (Replaced Google Fonts) -->
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+            src: url('../fonts/Roboto-Thin.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+            src: url('../fonts/Roboto-Light.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+            src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+            src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+            src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+        }
+    </style>
     
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -49,7 +86,7 @@
           "url": "https://solveria.org/terms-of-use/",
           "name": "Terms of Use",
           "headline": "Terms of Use for Solveria",
-          "description": "Legal terms regarding the use of Solveria's SaaS calculation tools.",
+          "description": "Legal terms regarding the use of Solveria's calculation tools.",
           "datePublished": "2024-01-01",
           "dateModified": "2026-02-08",
           "inLanguage": "en-US",
@@ -60,7 +97,7 @@
             "url": "https://solveria.org/",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://solveria.org/img/Logo_Golden.png",
+              "url": "https://solveria.org/img/Logo_White.webp",
               "width": 600,
               "height": 60
             }
@@ -93,7 +130,6 @@
         .hero-header {
             width: 100%;
             height: 450px;
-            /* Updated to use the requested privacy policy image */
             background-image: url('../img/privacy%20policy.webp');
             background-size: cover;
             background-position: center center;
@@ -239,6 +275,9 @@
         }
         
         @media (max-width: 768px) {
+            .hero-header {
+                background-image: url('../img/privacy%20policy_Phone.webp');
+            }
             .hero-content h1 { font-size: 3rem; }
             .nav-container { padding: 1rem; }
             .hero-header nav a { margin-left: 15px; font-size: 0.75rem; }
@@ -251,8 +290,8 @@
         <div class="nav-container">
             <a href="../" class="logo">
                 <picture>
-                    <source srcset="../img/Logo_White.webp" type="image/webp">
-                    <source srcset="../img/Logo_White.png" type="image/png">
+                    <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
+                    <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
                     <img src="../img/Logo_White.png" alt="Solveria Logo" width="160" height="38">
                 </picture>
             </a>
@@ -284,41 +323,42 @@
                     <p>By accessing and using the website Solveria (the "Site"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this site.</p>
 
                     <h2>2. Nature of Services & No Professional Relationship</h2>
-                    <p>Solveria operates as a <strong>SaaS (Software as a Service) Platform</strong> providing automated calculation tools. We are <strong>not</strong> a law firm, financial institution, or insurance provider.</p>
+                    <p>Solveria operates as a <strong>Digital Software License & Legal Matchmaking Platform</strong> providing automated calculation tools. We provide both B2C educational estimates and B2B software licenses. We are <strong>not</strong> a law firm, financial institution, or insurance provider.</p>
                     <p>The results generated by our Site are derived from <strong>static algorithmic models</strong> based on user inputs and aggregated state data. These outputs are mathematical estimates for informational purposes only and do not constitute legal opinions or financial advice.</p>
                     <p><strong>No Attorney-Client Privilege:</strong> Using our Legal Settlement Tools or submitting data through our forms does not create an attorney-client relationship. Information entered into this site is not privileged or confidential in a legal sense. You should always consult with a qualified professional for advice tailored to your specific situation.</p>
 
                     <h2>3. Specific Disclaimers for Calculation Tools</h2>
                     <p>To ensure clarity regarding the limitations of our technology, we provide the following specific disclaimers:</p>
                     
-                    <h3>A. Legal Tools</h3>
-                    <p>The "Settlement Estimators" (including but not limited to Dog Bite, Diminished Value, and Pain & Suffering calculators) provide hypothetical ranges based on generalized state statutes and historical data patterns. Case law evolves daily. Solveria does not guarantee that these estimates will be accepted by insurance adjusters, opposing counsel, or courts of law.</p>
-
-                    <h3>B. Financial Tools</h3>
-                    <p>The "Liquidity Bottleneck," "Affordability," and other financial indicators are stress-test simulations designed to visualize potential economic scenarios. They do not constitute a loan approval, credit counseling session, or a guarantee of financial health.</p>
+                    <h3>Employment Law & Wage Calculators</h3>
+                    <p>Our tools estimate potential back pay, overtime, and meal break violations based on baseline FLSA and state codes. Please be aware that local ordinances or specific employment contracts may alter these numbers drastically. These outputs are hypothetical ranges based on generalized state statutes and historical data patterns. Solveria does not guarantee that these estimates will be accepted by employers, opposing counsel, or courts of law.</p>
 
                     <h2>4. Intellectual Property Rights</h2>
                     <p>The Site and its original content, features, and functionality are owned by Solveria and are protected by international copyright, trademark, and other intellectual property laws.</p>
                     <p>This protection explicitly extends to our <strong>Calculation Logic, Source Code, and Visual Interfaces</strong> (including the proprietary "Gold/Dark" UI themes and "us-state-data" methodology). You may not reproduce, reverse-engineer, or distribute any part of our proprietary code or algorithms without express written permission.</p>
+                    <p><strong>Enterprise License Exception:</strong> Users who purchase a B2B license via our Lemon Squeezy portal are granted a non-exclusive right to embed, host, and visually modify (CSS) the specific application they purchased on their own firm's domain.</p>
                     
-                    <h2>5. User Data and Privacy</h2>
+                    <h2>5. B2B Software Purchases & Refunds</h2>
+                    <p>Due to the non-returnable nature of downloadable digital code, all B2B software license purchases are completely final. We do not offer refunds once the software package has been delivered.</p>
+
+                    <h2>6. User Data and Privacy</h2>
                     <p>We are committed to your privacy. As stated in our <a href="../privacy-policy/">Privacy Policy</a>, **we do not collect, save, or store any personal financial data you enter into our calculators.** All calculations are performed entirely within your web browser. The data you input is never sent to our servers.</p>
 
-                    <h2>6. Affiliate & Lead Generation Disclosure</h2>
-                    <p>Solveria acts as a connector between users and potential service providers. The Site may contain links or "Get Case Review" buttons that connect you to third-party professionals (such as attorneys or lenders).</p>
-                    <p>If you choose to engage with a third-party service provider linked through our Site, your relationship is strictly between you and that provider. <strong>Solveria is not a party to any agreement you sign with them.</strong> We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
+                    <h2>7. Affiliate & Lead Generation Disclosure</h2>
+                    <p>Solveria acts as a telephony routing bridge and connector between users and potential service providers. The Site may contain links or "Get Case Review" buttons that connect you to third-party professionals (such as attorneys).</p>
+                    <p>If you choose to engage with a third-party service provider linked through our Site, your relationship is strictly between you and that provider. <strong>Solveria is not a party to any agreement you sign with them.</strong> If a user utilizes the direct-call features to contact a third-party legal network, Solveria may receive compensation for facilitating that connection. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
 
-                    <h2>7. Disclaimer of Warranties & Data Accuracy</h2>
+                    <h2>8. Disclaimer of Warranties & Data Accuracy</h2>
                     <p>The Site is provided on an "AS IS" and "AS AVAILABLE" basis. Your use of the Site is at your sole risk. The Site is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
                     <p><strong>Data Accuracy:</strong> While we utilize <code>us-state-data</code> protocols to mirror local regulations, statutes of limitations and tax codes change frequently. We do not warrant that the data used in our calculations is real-time, error-free, or reflective of the most current legislative updates.</p>
                     
-                    <h2>8. Limitation of Liability</h2>
+                    <h2>9. Limitation of Liability</h2>
                     <p>In no event shall Solveria, nor its directors, employees, or agents, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, or other intangible losses, resulting from your access to or use of or inability to access or use the Site.</p>
 
-                    <h2>9. Modifications</h2>
+                    <h2>10. Modifications</h2>
                     <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide notice of any changes by posting the new Terms of Use on this page and updating the "Last updated" date.</p>
                     
-                    <h2>10. Contact Us</h2>
+                    <h2>11. Contact Us</h2>
                     <p>For notices of copyright infringement, legal grievances, or technical bug reports, please contact our Legal Compliance team at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.</p>
                 </article>
             </div>
