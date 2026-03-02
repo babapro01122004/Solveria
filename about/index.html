@@ -9,12 +9,9 @@
     
     <link rel="canonical" href="https://solveria.org/about/">
 
-    <!-- Optimized: Added fetchpriority="high" to load the Largest Contentful Paint image instantly -->
     <link rel="preload" href="../img/privacy%20policy.webp" as="image" fetchpriority="high">
 
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/about/">
@@ -38,12 +35,6 @@
     <link rel="shortcut icon" href="../favicon.ico">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    
-    <!-- Optimized: Loading Google Fonts asynchronously to prevent render-blocking -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
-
-    <!-- REMOVED: https://cdn.tailwindcss.com script. It was unused and causing the massive 7.6s load delay on mobile. -->
 
     <script type="application/ld+json">
     {
@@ -101,6 +92,37 @@
     </script>
 
     <style>
+        /* Local Font Loading */
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 100;
+            font-display: swap;
+            src: local('Roboto Thin'), local('Roboto-Thin'), url('../fonts/Roboto-Thin.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 300;
+            font-display: swap;
+            src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Roboto-Light.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: local('Roboto Regular'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/Roboto-Medium.ttf') format('truetype');
+        }
+
+        /* Base Styles */
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body, html {
@@ -121,11 +143,10 @@
             z-index: 10;
         }
         
-        /* UPDATED: Changed max-width to 100% and adjusted padding to push elements to edges */
         .header-container {
             max-width: 100%;
             margin: 0;
-            padding: 20px 40px; /* Narrower internal margins closer to edge */
+            padding: 20px 40px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -146,8 +167,6 @@
         .hero-section {
             height: 50vh;
             min-height: 300px;
-            /* UPDATED: Changed background image to 'privacy policy.webp' */
-            /* Note: Quotes are required for filenames containing spaces */
             background-image: url('../img/privacy policy.webp'); 
             background-color: #333; 
             background-size: cover;
@@ -190,14 +209,13 @@
         .article-body h3 { font-size: 1.5rem; font-weight: 400; color: #444; margin-top: 30px; margin-bottom: 15px; }
         .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #555; }
         
-        /* UPDATED: List Styling for A, B, C numbering */
         .article-body ul { padding-left: 20px; list-style-type: disc; }
         .article-body ol { 
             padding-left: 20px; 
-            list-style-type: upper-alpha; /* A, B, C... */
+            list-style-type: upper-alpha; 
         }
         .article-body li {
-            margin-bottom: 10px; /* spacing between list items */
+            margin-bottom: 10px; 
         }
 
         .article-body a { color: #047857; text-decoration: none; font-weight: 400; } 
@@ -247,7 +265,6 @@
                 <picture>
                     <source srcset="../img/Logo_White.webp" type="image/webp">
                     <source srcset="../img/Logo_White.png" type="image/png">
-                    <!-- Added decoding="async" to prevent image processing from blocking page render -->
                     <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" decoding="async">
                 </picture>
             </a>
