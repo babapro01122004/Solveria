@@ -31,9 +31,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <!-- Responsive Image Preloads for Performance -->
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 769px)">
-    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 768px)">
+    <!-- Responsive Image Preloads for Performance - ADDED fetchpriority="high" to fix LCP issue -->
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 768px)" fetchpriority="high">
     
     <!-- Local Fonts Added for Performance (Replaced Google Fonts) -->
     <style>
@@ -74,7 +74,9 @@
         }
     </style>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- REMOVED: <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- Root cause of performance issue: The Tailwind CDN script was blocking rendering by ~770ms. 
+         Since all your styles on this specific page are written in pure custom CSS below, the script was 100% dead weight. Removing it drastically improves speed. -->
 
     <script type="application/ld+json">
     {
