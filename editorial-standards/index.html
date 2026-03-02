@@ -28,11 +28,13 @@
     <meta property="twitter:description" content="We do not rely on industry estimates. Our decision engines are indexed against primary government and actuarial sources.">
     <meta property="twitter:image" content="https://solveria.org/img/social-share.png">
 
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image">
+    <!-- PERFORMANCE FIX: Preload correct hero image based on device width to fix LCP score -->
+    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 767px)">
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 768px)">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <!-- PERFORMANCE FIX: Preload the critical local fonts to fix FCP score -->
+    <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -97,6 +99,36 @@
     </script>
 
     <style>
+        /* PERFORMANCE FIX: Local Font Declarations (Replaced Render-Blocking Google Fonts) */
+        @font-face {
+            font-family: 'Roboto';
+            src: local('Roboto Thin'), local('Roboto-Thin'), url('../fonts/Roboto-Thin.ttf') format('truetype');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Roboto-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: local('Roboto Regular'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/Roboto-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
         /* Base Resets */
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -139,7 +171,6 @@
             align-items: center;
         }
         .header .logo img {
-            /* FIXED: Auto width prevents stretching */
             height: 32px;
             width: auto; 
             filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)) drop-shadow(0 8px 12px rgba(0,0,0,0.7));
@@ -159,7 +190,8 @@
             position: relative;
             height: 45vh;
             min-height: 300px;
-            background-image: url('../img/privacy%20policy.webp');
+            /* PERFORMANCE FIX: Mobile-First Hero Image */
+            background-image: url('../img/privacy%20policy_Phone.webp');
             background-size: cover;
             background-position: center center; 
             display: flex;
@@ -169,7 +201,13 @@
             color: #ffffff;
             background-color: #333; /* Fallback color */
         }
-        /* Overlay removed (Transparent) */
+        /* PERFORMANCE FIX: Swap to Desktop Hero Image on larger screens */
+        @media (min-width: 768px) {
+            .hero-section {
+                background-image: url('../img/privacy%20policy.webp');
+            }
+        }
+        
         .hero-section::before {
             content: '';
             position: absolute;
@@ -184,8 +222,6 @@
             margin-top: 40px;
         }
         .hero-content h1 {
-            /* RESPONSIVE FONT SIZE: Fluid Typography */
-            /* Scales between 2rem (mobile) and 3.5rem (desktop) based on width */
             font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
             font-weight: 100;
             margin: 0;
@@ -269,7 +305,7 @@
         .footer-nav a:hover {
             color: #000000;
         }
-        /* Mobile Breakpoint - H1 scaling handled by clamp(), no override needed */
+        
         @media (min-width: 768px) {
             .footer-container {
                 flex-direction: row;
@@ -278,10 +314,6 @@
             .footer-nav {
                 margin-top: 0;
             }
-        }
-        /* Only remaining mobile tweaks if any */
-        @media (max-width: 768px) {
-             /* H1 is fluid now, no need for manual override */
         }
     </style>
 </head>
@@ -292,7 +324,11 @@
     <header class="header">
         <div class="header-container">
             <a href="../" class="logo" aria-label="Solveria Home">
-                <img src="../img/logo_white.webp" alt="Solveria Logo" width="150" height="32">
+                <!-- PERFORMANCE FIX: Responsive Logo serving Phone Webp on mobile -->
+                <picture>
+                    <source media="(max-width: 767px)" srcset="../img/Logo_White_Phone.webp">
+                    <img src="../img/Logo_White.webp" alt="Solveria Logo" width="150" height="32">
+                </picture>
             </a>
             <nav role="navigation" aria-label="Main Navigation">
                 <a href="../calculators/">Calculators</a>
