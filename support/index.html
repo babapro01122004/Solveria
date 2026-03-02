@@ -8,6 +8,13 @@
     <meta name="description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
     <link rel="canonical" href="https://solveria.org/support/">
 
+    <!-- PERFORMANCE FIX: Preload Hero Background Images for instant LCP -->
+    <link rel="preload" as="image" href="../img/privacy policy_Phone.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="../img/privacy policy.webp" media="(min-width: 769px)" fetchpriority="high">
+    
+    <!-- PERFORMANCE FIX: Preload critical heading font to prevent Flash of Invisible Text (FOIT) -->
+    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
+
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -16,7 +23,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Updated Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -80,7 +86,7 @@
             font-weight: 300;
             overflow-x: hidden;
             background-color: #f5f5f7;
-            color: #333; /* High contrast body text */
+            color: #333; 
         }
 
         .hero-section {
@@ -125,7 +131,7 @@
             color: #e0e0e0; 
             text-decoration: none; 
             font-size: 0.9rem;
-            font-weight: 400; /* Increased weight for legibility */
+            font-weight: 400; 
             transition: color 0.3s ease;
             margin-left: 30px;
         }
@@ -140,7 +146,6 @@
             margin: 0 auto;
         }
 
-        /* ACCESSIBILITY FIXES: Darkened text colors & removed permanent underlines on structural links */
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
         .breadcrumb a { color: #555555; text-decoration: none; transition: color 0.3s ease; }
         .breadcrumb a:hover { color: #000000; text-decoration: underline; text-underline-offset: 3px; }
@@ -178,7 +183,6 @@
         .article-body ul { padding-left: 20px; margin-bottom: 30px; }
         .article-body li { margin-bottom: 10px; }
         
-        /* Inline links strictly need underline for accessibility compliance */
         .article-body a { color: #1e7b4b; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
         .article-body a:hover { text-decoration: none; color: #145232; }
 
@@ -186,8 +190,8 @@
             background-color: #f5f5f7;
             padding: 2.5rem 1rem;
             font-size: 0.875rem;
-            font-weight: 400; /* Bumped weight for better contrast */
-            color: #555555; /* Darkened for better contrast */
+            font-weight: 400; 
+            color: #555555; 
         }
         .footer-container {
             max-width: 1400px;
@@ -204,8 +208,8 @@
             margin-top: 15px;
         }
         .footer-nav a {
-            color: #444444; /* Darkened for accessibility */
-            text-decoration: none; /* Removed permanent underline */
+            color: #444444; 
+            text-decoration: none; 
             transition: color 0.3s ease;
         }
         .footer-nav a:hover {
@@ -224,9 +228,7 @@
             }
         }
         
-        /* MOBILE VIEW FIXES */
         @media (max-width: 768px) {
-            /* Keep header left/right layout on mobile */
             .header { 
                 padding: 15px 20px; 
                 flex-direction: row; 
@@ -244,7 +246,6 @@
             }
             .header .logo img { height: 30px; }
             
-            /* Phone-specific Hero Image */
             .hero-section {
                 background-image: url('../img/privacy policy_Phone.webp'); 
             }
@@ -254,15 +255,17 @@
 <body>
 
     <header class="header">
-        <a href="../" class="logo">
+        <a href="../" class="logo" aria-label="Solveria Home">
             <picture>
                 <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                 <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
                 <source srcset="../img/Logo_White.png" type="image/png">
-                <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35">
+                <!-- Added decoding="sync" and high fetchpriority to ensure logo paints instantly -->
+                <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35" decoding="sync" fetchpriority="high">
             </picture>
         </a>
-        <nav>
+        <!-- Accessibility FIX: Added aria-label to main nav -->
+        <nav aria-label="Primary Navigation">
             <a href="../calculators/">Calculators</a>
             <a href="../about/">About</a>
         </nav>
@@ -275,10 +278,11 @@
 
         <section class="content-section">
             <div class="content-container">
-                <nav class="breadcrumb">
+                <!-- Accessibility FIX: Added aria-label to breadcrumb nav -->
+                <nav class="breadcrumb" aria-label="Breadcrumb">
                     <a href="../">Home</a>
-                    <span>/</span>
-                    <span class="current-page">Help Center</span>
+                    <span aria-hidden="true">/</span>
+                    <span class="current-page" aria-current="page">Help Center</span>
                 </nav>
 
                 <article class="article-body">
@@ -321,12 +325,13 @@
     <footer>
         <div class="footer-container">
             <p>&copy; 2026 Solveria. All rights reserved.</p>
-            <div class="footer-nav">
+            <!-- Accessibility FIX: Changed div to nav and added aria-label -->
+            <nav class="footer-nav" aria-label="Footer Navigation">
                 <a href="../privacy-policy/">Privacy Policy</a>
                 <a href="../about/">About Us</a>
                 <a href="../contact/">Contact Us</a>
                 <a href="../terms-of-use/">Terms of Use</a>
-            </div>
+            </nav>
         </div>
     </footer>
 
