@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Help Center | Solveria</title>
-    <!-- Updated Meta Description for B2B/Labor Law Narrative -->
     <meta name="description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
     <link rel="canonical" href="https://solveria.org/support/">
 
@@ -141,10 +140,10 @@
             margin: 0 auto;
         }
 
-        /* ACCESSIBILITY FIXES: Darkened text colors & added underlines for contrast compliance */
+        /* ACCESSIBILITY FIXES: Darkened text colors & removed permanent underlines on structural links */
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
-        .breadcrumb a { color: #555555; text-decoration: underline; text-underline-offset: 3px; transition: color 0.3s ease; }
-        .breadcrumb a:hover { color: #000000; text-decoration: none; }
+        .breadcrumb a { color: #555555; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #000000; text-decoration: underline; text-underline-offset: 3px; }
         .breadcrumb span { margin: 0 8px; color: #777777; } 
         .breadcrumb .current-page { color: #222222; font-weight: 500; }
         
@@ -179,7 +178,7 @@
         .article-body ul { padding-left: 20px; margin-bottom: 30px; }
         .article-body li { margin-bottom: 10px; }
         
-        /* ACCESSIBILITY FIX: Darker green for sufficient contrast + visible underline */
+        /* Inline links strictly need underline for accessibility compliance */
         .article-body a { color: #1e7b4b; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
         .article-body a:hover { text-decoration: none; color: #145232; }
 
@@ -204,16 +203,15 @@
             justify-content: center;
             margin-top: 15px;
         }
-        /* ACCESSIBILITY FIX: Explicit underlines on footer links */
         .footer-nav a {
             color: #444444; /* Darkened for accessibility */
-            text-decoration: underline;
-            text-underline-offset: 3px;
+            text-decoration: none; /* Removed permanent underline */
             transition: color 0.3s ease;
         }
         .footer-nav a:hover {
             color: #000000;
-            text-decoration: none;
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
         
         @media (min-width: 768px) {
@@ -228,10 +226,22 @@
         
         /* MOBILE VIEW FIXES */
         @media (max-width: 768px) {
-            /* Keep header visible, stack links below logo cleanly */
-            .header { padding: 15px 20px; flex-direction: column; gap: 12px; justify-content: center; }
-            .header nav { display: flex; gap: 20px; justify-content: center; } 
-            .header nav a { margin-left: 0; font-size: 0.95rem; }
+            /* Keep header left/right layout on mobile */
+            .header { 
+                padding: 15px 20px; 
+                flex-direction: row; 
+                justify-content: space-between; 
+                align-items: center; 
+            }
+            .header nav { 
+                display: flex; 
+                gap: 15px; 
+                align-items: center; 
+            } 
+            .header nav a { 
+                margin-left: 0; 
+                font-size: 0.9rem; 
+            }
             .header .logo img { height: 30px; }
             
             /* Phone-specific Hero Image */
