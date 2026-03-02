@@ -8,12 +8,6 @@
     <meta name="description" content="Access Solveria's documentation, calculation methodologies, and troubleshooting protocols. Understand the data logic behind our financial and legal tools.">
     <link rel="canonical" href="https://solveria.org/support/">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793" crossorigin="anonymous"></script>    
-
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,6 +39,36 @@
     </script>
 
     <style>
+        /* Local Fonts */
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Thin.ttf') format('truetype');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
         /* Critical CSS */
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -58,20 +82,20 @@
         }
 
         .hero-section {
-    height: 50vh;
-    /* Removed linear-gradient overlay */
-    background-image: url('../img/privacy policy.webp'); 
-    background-color: #333; /* Fallback */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    color: white;
-    padding: 0 20px;
-}
+            height: 50vh;
+            /* Removed linear-gradient overlay */
+            background-image: url('../img/privacy policy.webp'); 
+            background-color: #333; /* Fallback */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: white;
+            padding: 0 20px;
+        }
         .hero-section h1 {
             font-size: clamp(2.0rem, 6vw, 3.5rem);
             font-weight: 100;
@@ -203,6 +227,10 @@
         @media (max-width: 768px) {
             .header { padding: 20px; }
             .header nav { display: none; }
+            /* Phone-specific Hero Image */
+            .hero-section {
+                background-image: url('../img/privacy policy_Phone.webp'); 
+            }
         }
     </style>
 </head>
@@ -211,7 +239,8 @@
     <header class="header">
         <a href="../" class="logo">
             <picture>
-                <source srcset="../img/Logo_White.webp" type="image/webp">
+                <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
+                <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
                 <source srcset="../img/Logo_White.png" type="image/png">
                 <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35">
             </picture>
