@@ -25,9 +25,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793" crossorigin="anonymous"></script>
+    <!-- Preload Hero Images for 100 LCP Score -->
+    <link rel="preload" as="image" href="../img/privacy%20policy_Phone.webp" media="(max-width: 768px)">
+    <link rel="preload" as="image" href="../img/privacy%20policy.webp" media="(min-width: 769px)">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -37,7 +38,6 @@
     <meta name="msapplication-TileColor" content="#000000">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
 
     <script type="application/ld+json">
     {
@@ -146,7 +146,6 @@
             position: relative;
             height: 45vh; /* 45% viewport height */
             min-height: 300px;
-            background-image: url('../img/privacy policy.webp');
             background-size: cover;
             /* Image always anchored to center */
             background-position: center center; 
@@ -156,13 +155,26 @@
             text-align: center;
             color: #ffffff;
         }
+        
+        /* Responsive Hero Background Images */
+        @media (max-width: 768px) {
+            .hero-section {
+                background-image: url('../img/privacy%20policy_Phone.webp');
+            }
+        }
+        @media (min-width: 769px) {
+            .hero-section {
+                background-image: url('../img/privacy%20policy.webp');
+            }
+        }
+
         /* Dark Overlay Removed */
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: transparent; /* Changed to 100% transparent */
-}
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent; /* Changed to 100% transparent */
+        }
         .hero-content {
             position: relative;
             z-index: 1;
@@ -264,8 +276,11 @@
 
     <header class="header">
         <div class="header-container">
-            <a href="../" class="logo">
-                <img src="../img/logo_white.webp" alt="Solveria Logo" width="150" height="32">
+            <a href="../" class="logo" aria-label="Solveria Home">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp">
+                    <img src="../img/Logo_White.webp" alt="Solveria Logo" width="150" height="32">
+                </picture>
             </a>
             <nav role="navigation">
                 <a href="../calculators/">Calculators</a>
