@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
 
-    <title>Privacy Policy | Solveria</title>
-    <meta name="description" content="Solveria operates on a Zero-Knowledge Architecture. All financial and legal calculations are processed locally in your browser and are never transmitted to our servers.">
-    <meta name="keywords" content="Solveria privacy policy, zero knowledge financial calculator, client side legal tools, data sovereignty">
+    <title>Privacy Policy | Solveria B2B Enterprise & Consumer Routing</title>
+    <meta name="description" content="Solveria's Privacy Policy. We operate a Zero-Knowledge Architecture for consumer legal estimates and provide proprietary B2B software licensing & pay-per-call routing for enterprise law firms.">
+    <meta name="keywords" content="Solveria privacy policy, zero knowledge calculator, enterprise legal software, B2B law firm licensing, legal network routing, pay per call, client side tools, data sovereignty">
     <meta name="author" content="Solveria">
     <link rel="canonical" href="https://solveria.org/privacy-policy/">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/privacy-policy/">
     <meta property="og:title" content="Privacy Policy | Solveria">
-    <meta property="og:description" content="Your data never leaves your device. Solveria uses a Zero-Knowledge Architecture.">
+    <meta property="og:description" content="Solveria's Privacy Policy. We operate a Zero-Knowledge Architecture for consumer estimates and provide B2B routing software for enterprise law firms.">
     <meta property="og:image" content="https://solveria.org/img/social-share.png">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/privacy-policy/">
     <meta property="twitter:title" content="Privacy Policy | Solveria">
-    <meta property="twitter:description" content="Your data never leaves your device. Solveria uses a Zero-Knowledge Architecture.">
+    <meta property="twitter:description" content="Solveria's Privacy Policy. We operate a Zero-Knowledge Architecture for consumer estimates and provide B2B routing software for enterprise law firms.">
     <meta property="twitter:image" content="https://solveria.org/img/social-share.png">
 
     <!-- Preload Hero Images with HIGH priority for 100 LCP Score -->
@@ -46,6 +46,7 @@
           "@id": "https://solveria.org/#organization",
           "name": "Solveria",
           "url": "https://solveria.org/",
+          "description": "Solveria provides free, client-side legal/financial estimation tools for consumers and licenses proprietary B2B frontend architecture and pay-per-call routing software to enterprise law firms.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://solveria.org/img/Logo_White.webp",
@@ -62,8 +63,8 @@
           "@type": "WebPage",
           "@id": "https://solveria.org/privacy-policy/#webpage",
           "url": "https://solveria.org/privacy-policy/",
-          "name": "Privacy Policy",
-          "description": "Privacy Policy for Solveria. We operate on a Zero-Knowledge Architecture.",
+          "name": "Privacy Policy | Enterprise Software & Routing Disclosures",
+          "description": "Privacy Policy detailing Solveria's Zero-Knowledge Architecture, B2B enterprise software licensing protocols, and pay-per-call legal network routing.",
           "isPartOf": { "@id": "https://solveria.org/#website" },
           "datePublished": "2023-01-01",
           "dateModified": "2026-02-08",
@@ -218,7 +219,11 @@
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* Content Areas */
+        /* Content Areas - content-visibility added for performance boost */
+        #main-content {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 1000px;
+        }
         .content-section {
             padding: 60px 20px;
             background-color: #ffffff;
@@ -256,6 +261,8 @@
 
         /* FOOTER STYLING */
         footer {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 100px;
             background-color: #f5f5f7;
             padding: 2.5rem 1rem;
             font-size: 0.875rem;
@@ -306,7 +313,7 @@
             <a href="../" class="logo" aria-label="Solveria Home">
                 <picture>
                     <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp">
-                    <img src="../img/Logo_White.webp" alt="Solveria Logo" width="150" height="32">
+                    <img src="../img/Logo_White.webp" alt="Solveria Logo" width="150" height="32" loading="eager" decoding="async">
                 </picture>
             </a>
             <nav role="navigation">
