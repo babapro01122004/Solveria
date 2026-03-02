@@ -9,10 +9,10 @@
     
     <link rel="canonical" href="https://solveria.org/about/">
 
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image">
+    <!-- Optimized: Added fetchpriority="high" to load the Largest Contentful Paint image instantly -->
+    <link rel="preload" href="../img/privacy%20policy.webp" as="image" fetchpriority="high">
 
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -39,8 +39,11 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Optimized: Loading Google Fonts asynchronously to prevent render-blocking -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
+
+    <!-- REMOVED: https://cdn.tailwindcss.com script. It was unused and causing the massive 7.6s load delay on mobile. -->
 
     <script type="application/ld+json">
     {
@@ -244,7 +247,8 @@
                 <picture>
                     <source srcset="../img/Logo_White.webp" type="image/webp">
                     <source srcset="../img/Logo_White.png" type="image/png">
-                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;">
+                    <!-- Added decoding="async" to prevent image processing from blocking page render -->
+                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" decoding="async">
                 </picture>
             </a>
             <nav>
