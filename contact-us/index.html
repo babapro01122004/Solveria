@@ -9,7 +9,13 @@
     
     <link rel="canonical" href="https://solveria.org/contact/">
 
-    <link rel="preload" href="../img/contact-us.webp" as="image">
+    <!-- PERFORMANCE CRITICAL: Preload the LCP background images so they load instantly -->
+    <link rel="preload" href="../img/privacy policy_Phone.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" href="../img/privacy policy.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
+    
+    <!-- Preload critical local fonts to prevent text flashing -->
+    <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/contact/">
@@ -31,7 +37,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- (The Tailwind CDN script has been removed here to instantly fix the 4.5s loading delay) -->
 
     <script type="application/ld+json">
     {
