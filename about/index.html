@@ -9,7 +9,13 @@
     
     <link rel="canonical" href="https://solveria.org/about/">
 
+    <!-- PERFORMANCE FIX 1: Preload the LCP Hero Image immediately -->
     <link rel="preload" href="../img/privacy%20policy.webp" as="image" fetchpriority="high">
+
+    <!-- PERFORMANCE FIX 2: Preload the critical local fonts to eliminate "Chaining Critical Requests" -->
+    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="../fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 
@@ -25,8 +31,7 @@
     <meta property="twitter:description" content="Democratizing access to sophisticated financial and legal analysis. Privacy-first, client-side tools.">
     <meta property="twitter:image" content="https://solveria.org/img/privacy%20policy.webp">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793"
-     crossorigin="anonymous"></script>
+    <!-- AD SCRIPT REMOVED FROM HERE: Moved to bottom for lazy loading to stop main-thread blocking -->
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -183,6 +188,7 @@
             font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 100;
             text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            margin: 0; /* Prevents layout shift */
         }
 
         .content-section {
@@ -265,7 +271,8 @@
                 <picture>
                     <source srcset="../img/Logo_White.webp" type="image/webp">
                     <source srcset="../img/Logo_White.png" type="image/png">
-                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" decoding="async">
+                    <!-- Added fetchpriority and explicit size mapping to improve image delivery -->
+                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" fetchpriority="high" decoding="sync">
                 </picture>
             </a>
             <nav>
@@ -331,13 +338,42 @@
         </div>
     </footer>
 
+    <!-- JS Functionality & Performance Scripts -->
     <script>
+        // Set dynamic copyright year
         document.addEventListener("DOMContentLoaded", function() {
             const yearSpan = document.getElementById("copyright-year");
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
         });
+
+        // PERFORMANCE FIX 3: Lazy-Load Google Ads to prevent main thread blocking!
+        // This waits until the user scrolls or moves the mouse, or 3.5 seconds pass, to inject the massive ad script.
+        let adLoaded = false;
+        function loadGoogleAds() {
+            if (adLoaded) return;
+            adLoaded = true;
+            
+            const adScript = document.createElement('script');
+            adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8198600734476793";
+            adScript.async = true;
+            adScript.crossOrigin = "anonymous";
+            document.body.appendChild(adScript);
+
+            // Clean up event listeners once loaded
+            window.removeEventListener('scroll', loadGoogleAds);
+            window.removeEventListener('mousemove', loadGoogleAds);
+            window.removeEventListener('touchstart', loadGoogleAds);
+        }
+
+        // Attach listeners to load ads dynamically on interaction
+        window.addEventListener('scroll', loadGoogleAds, {passive: true, once: true});
+        window.addEventListener('mousemove', loadGoogleAds, {passive: true, once: true});
+        window.addEventListener('touchstart', loadGoogleAds, {passive: true, once: true});
+        
+        // Failsafe: if the user doesn't touch the screen for 3.5 seconds, load it anyway so it still functions
+        setTimeout(loadGoogleAds, 3500);
     </script>
 
 </body>
