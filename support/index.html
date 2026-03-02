@@ -8,13 +8,6 @@
     <meta name="description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
     <link rel="canonical" href="https://solveria.org/support/">
 
-    <!-- PERFORMANCE FIX: Preload Hero Background Images for instant LCP -->
-    <link rel="preload" as="image" href="../img/privacy policy_Phone.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="../img/privacy policy.webp" media="(min-width: 769px)" fetchpriority="high">
-    
-    <!-- PERFORMANCE FIX: Preload critical heading font to prevent Flash of Invisible Text (FOIT) -->
-    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
-
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,7 +40,7 @@
     </script>
 
     <style>
-        /* Local Fonts */
+        /* Local Fonts - Relying strictly on font-display: swap for instant FCP */
         @font-face {
             font-family: 'Roboto';
             src: url('../fonts/Roboto-Thin.ttf') format('truetype');
@@ -89,12 +82,10 @@
             color: #333; 
         }
 
+        /* HERO SECTION OPTIMIZATION: Removed CSS Background Image */
         .hero-section {
             height: 50vh;
-            background-image: url('../img/privacy policy.webp'); 
-            background-color: #333; /* Fallback */
-            background-size: cover;
-            background-position: center;
+            background-color: #333; /* Instant fallback color */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -102,8 +93,23 @@
             position: relative;
             color: white;
             padding: 0 20px;
+            overflow: hidden; /* Contains the absolute picture tag */
         }
+        
+        /* The new structural image that fixes LCP discovery */
+        .hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
         .hero-section h1 {
+            position: relative;
+            z-index: 2; /* Keeps text above the image */
             font-size: clamp(2.0rem, 6vw, 3.5rem);
             font-weight: 100;
             text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
@@ -144,6 +150,8 @@
         .content-container {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 5;
         }
 
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
@@ -245,10 +253,6 @@
                 font-size: 0.9rem; 
             }
             .header .logo img { height: 30px; }
-            
-            .hero-section {
-                background-image: url('../img/privacy policy_Phone.webp'); 
-            }
         }
     </style>
 </head>
@@ -259,12 +263,10 @@
             <picture>
                 <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                 <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
-                <source srcset="../img/Logo_White.png" type="image/png">
-                <!-- Added decoding="sync" and high fetchpriority to ensure logo paints instantly -->
-                <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35" decoding="sync" fetchpriority="high">
+                <!-- Removed decoding="sync" to prevent main thread blocking -->
+                <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35" fetchpriority="high">
             </picture>
         </a>
-        <!-- Accessibility FIX: Added aria-label to main nav -->
         <nav aria-label="Primary Navigation">
             <a href="../calculators/">Calculators</a>
             <a href="../about/">About</a>
@@ -273,12 +275,19 @@
 
     <main>
         <section class="hero-section">
+            <!-- HTML Picture Tag replaces CSS Background to trigger instant parser discovery (LCP Fix) -->
+            <picture>
+                <!-- Using %20 to properly encode spaces in the file name for strict browsers -->
+                <source media="(max-width: 768px)" srcset="../img/privacy%20policy_Phone.webp" type="image/webp">
+                <source media="(min-width: 769px)" srcset="../img/privacy%20policy.webp" type="image/webp">
+                <img class="hero-bg-img" src="../img/privacy%20policy.webp" alt="Law Library Background" fetchpriority="high">
+            </picture>
+            
             <h1>Platform Resources & Documentation</h1>
         </section>
 
         <section class="content-section">
             <div class="content-container">
-                <!-- Accessibility FIX: Added aria-label to breadcrumb nav -->
                 <nav class="breadcrumb" aria-label="Breadcrumb">
                     <a href="../">Home</a>
                     <span aria-hidden="true">/</span>
@@ -325,7 +334,6 @@
     <footer>
         <div class="footer-container">
             <p>&copy; 2026 Solveria. All rights reserved.</p>
-            <!-- Accessibility FIX: Changed div to nav and added aria-label -->
             <nav class="footer-nav" aria-label="Footer Navigation">
                 <a href="../privacy-policy/">Privacy Policy</a>
                 <a href="../about/">About Us</a>
