@@ -31,6 +31,10 @@
     <!-- Preload Primary Fonts for Performance -->
     <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
 
+    <!-- PERFORMANCE FIX: Preload LCP Background Images for Immediate Discovery -->
+    <link rel="preload" href="../../img/Refinance_Hero_Mobile.webp" as="image" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image" media="(min-width: 769px)" fetchpriority="high">
+
     <!-- Schema Markup: Application & Feature Info -->
     <script type="application/ld+json">
     {
@@ -134,7 +138,11 @@
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" loading="lazy">
+        <!-- PERFORMANCE FIX: High Priority Device-Specific Picture Element -->
+        <picture>
+            <source media="(max-width: 768px)" srcset="../../img/Logo_Golden_Phone.webp">
+            <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" fetchpriority="high">
+        </picture>
 
         <h1>Unpaid Wages Calculator</h1>
         
@@ -681,8 +689,8 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <!-- Include State Data -->
+    <!-- PERFORMANCE FIX: Adding defer removes render-blocking penalty -->
+    <script src="script.js" defer></script>
     <script type="module" src="us-state-data.js"></script>
     
     <footer class="site-footer">

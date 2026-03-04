@@ -1180,7 +1180,8 @@ function updateUI(data) {
     }
     
     if (typeof window.updateScrollIndicator === 'function') {
-        setTimeout(window.updateScrollIndicator, 50);
+        // Allow the browser to paint before recalculating scroll geometry
+        requestAnimationFrame(() => window.updateScrollIndicator());
     }
 }
 
@@ -1266,8 +1267,27 @@ function initializeScrollIndicator() {
         }
     };
 
-    container.addEventListener('scroll', window.updateScrollIndicator);
-    window.addEventListener('resize', window.updateScrollIndicator);
+    // PERFORMANCE FIX: Throttle the scroll event to prevent Forced Reflows
+    let ticking = false;
+    container.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                window.updateScrollIndicator();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                window.updateScrollIndicator();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
 }
 
 /* ==========================================

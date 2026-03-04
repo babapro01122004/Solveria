@@ -57,6 +57,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     overflow: hidden; 
 }
 
+/* PERFORMANCE FIX: Use lightweight specific hero background on mobile */
+@media (max-width: 768px) {
+    .hero-section {
+        background-image: url('../../img/Refinance_Hero_Mobile.webp');
+    }
+}
+
 .hero-nav { 
     width: 100%; 
     display: flex; 
@@ -1515,7 +1522,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     justify-content: center;
     gap: 100px;
     width: 100%;
-    align-items: center;
+    align-items: flex-start; /* Ensures columns start from the top alignment */
 }
 
 /* Branding */
@@ -1600,6 +1607,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-direction: column;
     gap: 0; /* Let min-height manage spacing naturally */
     min-width: 140px;
+    /* JAGGED ALIGNMENT FIX: Force true left-alignment */
+    align-items: flex-start; 
+    text-align: left;
 }
 
 .footer-col h4 {
@@ -1610,14 +1620,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     color: #ffffff;
     margin: 0 0 5px 0;
     font-weight: 600;
+    /* ALIGNMENT FIX */
+    text-align: left;
+    width: 100%;
 }
 
 .footer-col a {
     /* TAP TARGET FIX: Block formatted */
     display: inline-flex;
     align-items: center;
+    /* ALIGNMENT FIX: Removed left padding, added right padding for tap target size */
+    justify-content: flex-start;
     min-height: 48px;
-    padding: 0 5px;
+    padding: 0 15px 0 0; 
     color: #bbbbbb;
     text-decoration: none; /* Modern, NO Underline */
     font-size: 0.95rem;
@@ -1680,9 +1695,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     
     .footer-col {
         width: 100%;
+        /* Mobile fallback alignment if needed, but left-aligned is cleaner */
         align-items: center;
         text-align: center;
         margin-bottom: 20px;
+    }
+    
+    .footer-col h4 {
+        text-align: center;
+    }
+    
+    .footer-col a {
+        justify-content: center;
+        padding: 0 10px;
     }
     
     .footer-content {
