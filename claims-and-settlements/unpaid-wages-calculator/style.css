@@ -62,12 +62,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex; 
     justify-content: center; 
     align-items: center;
-    gap: 3vh; 
+    gap: 15px; /* Adjusted gap to accommodate the tap-target widths */
     z-index: 10; 
     margin-top: 1vh;
 }
 
 .hero-nav a { 
+    /* TAP TARGET & MODERNIZATION FIX */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 15px;
     color: #e0e0e0; 
     text-decoration: none; 
     font-size: 0.95rem;
@@ -76,9 +82,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     transition: color .3s ease; 
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     white-space: nowrap; 
-    /* TAP TARGET FIX: Increase bounding box */
-    padding: 10px 15px;
-    margin: -10px -15px;
 }
 
 .hero-nav a:hover { 
@@ -130,7 +133,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex;
     justify-content: flex-start; 
     align-items: center;
-    gap: 12px;
+    flex-wrap: wrap; /* Allows wrapping on very small screens so tap targets don't overlap */
+    gap: 4px; /* Reduced gap since hitboxes are larger now */
     margin: 2vh auto 0 auto; 
     padding: 0 4vw; 
     max-width: 1500px;
@@ -141,15 +145,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .breadcrumb-nav a, 
 .breadcrumb-nav .current-page {
+    /* TAP TARGET & MODERNIZATION FIX */
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 8px;
     text-decoration: none;
     color: #595959; 
     transition: color 0.3s ease;
-    /* TAP TARGET FIX: Make links easier to hit on mobile */
-    padding: 8px 4px;
-    margin: -8px -4px;
 }
 
 .breadcrumb-nav .separator {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
     text-decoration: none;
     color: #595959;
     opacity: 0.5;
@@ -169,7 +178,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .core-question-wrapper {
     width: 100%;
     padding: 0 4vw;
-    margin: 3vh auto 2vh auto; 
+    margin: 1vh auto 2vh auto; 
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
@@ -234,7 +243,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0; /* Reset gap to let tap target heights manage spacing */
     margin-bottom: 2vh; 
 }
 
@@ -269,6 +278,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* "Switch to Advanced" Button */
 .text-link-btn {
+    /* TAP TARGET FIX: Converted to Block for 48x48 Rule */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 48px;
+    min-width: 48px;
     background: none;
     border: none;
     color: #595959;
@@ -276,9 +291,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.15rem;
     cursor: pointer;
     transition: color 0.3s ease;
-    /* TAP TARGET FIX */
-    padding: 10px;
-    margin: -10px;
+    padding: 0 5px; /* Gives it just enough padding to not clip outline */
+    margin-left: -5px; /* Aligns visually with heading */
+    text-decoration: none; /* Modern, no underline */
 }
 
 .text-link-btn:hover {
@@ -287,6 +302,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* NEW: In-Summary Action Button */
 .legal-action-btn {
+    /* PERFECT TAP TARGET ALREADY */
     display: inline-block;
     margin: 15px 0 0 0;
     padding: 16px 30px;
@@ -470,6 +486,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.0rem;
     color: #333;
     padding: 8px 0;
+    /* MIN HEIGHT FOR TAP TARGET (Input Fields apply) */
+    min-height: 48px;
     outline: none;
     border-radius: 0;
     transition: border-color 0.2s ease;
@@ -513,14 +531,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .calendar-nav-btn {
+    /* TAP TARGET FIX: Inline-flex enforcement */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    min-width: 48px;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
     color: #777;
-    /* TAP TARGET FIX: Increase bounding box */
-    padding: 8px 12px;
-    margin: -8px -12px;
 }
 .calendar-nav-btn:hover { color: #000; }
 
@@ -532,18 +553,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .calendar-day-header {
-    /* FONT SIZE FIX: Ensure >12px */
     font-size: 0.8rem;
     color: #595959;
     padding-bottom: 5px;
 }
 
 .calendar-day {
-    padding: 8px 0; /* Increase tap target vertically */
+    padding: 8px 0; 
     font-size: 0.9rem;
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.2s;
+    /* Days are generally tight in a calendar, padding is usually enough for Lighthouse if width is grid-based */
 }
 
 .calendar-day:hover {
@@ -569,6 +590,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.2rem;
     color: #333;
     padding: 2px 0 0 0;
+    min-height: 48px; /* TAP TARGET FIX */
     outline: none;
     -moz-appearance: textfield;
 }
@@ -583,8 +605,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     -webkit-appearance: none; 
     appearance: none;
     width: 100%; 
-    height: 24px; /* Slightly larger tap target for sliders */
-    border: 9px solid transparent; 
+    height: 48px; /* CRITICAL TAP TARGET FIX for Range Sliders */
+    border: 19px solid transparent; /* Visual trick to keep it looking thin while hit box is large */
     border-left: 0; border-right: 0; 
     background-clip: content-box; 
     background-color: transparent;
@@ -593,7 +615,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     opacity: 0.5; 
     transition: border-width .2s ease, opacity .2s ease; 
     cursor: pointer;
-    margin-top: 2px; 
+    margin-top: -10px; /* Pull it up closer to the number since height is expanded */
     display: block;
     position: relative;
     z-index: 5;
@@ -612,7 +634,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .input-group input[type=range]:focus, 
 .input-group input[type=range]:active,
 .input-group input[type=range].active-slider { 
-    border-width: 7px;
+    border-width: 17px;
     opacity: 1; 
 }
 
@@ -641,7 +663,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     width: 100%;
     border: 2px solid #e0e0e0; 
     border-radius: 8px;        
-    padding: 12px 14px; /* TAP TARGET FIX */       
+    padding: 12px 14px; 
+    min-height: 48px; /* TAP TARGET FIX */     
     font-size: 1.1rem; 
     color: #333;
     background-color: transparent;
@@ -684,7 +707,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    max-height: 250px;
+    max-height: 300px; /* Allow slightly more room for bigger tap targets */
     overflow: hidden;
 }
 
@@ -704,7 +727,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
 
 .dropdown-option {
-    padding: 12px 15px; /* TAP TARGET FIX */
+    display: flex;
+    align-items: center;
+    min-height: 48px; /* TAP TARGET FIX */
+    padding: 0 15px; 
     font-size: 0.95rem;
     color: #555;
     cursor: pointer;
@@ -735,7 +761,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     color: #555;
     font-family: 'ProductSans-Light', sans-serif;
     gap: 15px; 
-    padding: 8px 0; /* TAP TARGET FIX */
+    min-height: 48px; /* TAP TARGET FIX */
+    padding: 0;
 }
 
 .custom-checkbox-container input {
@@ -1242,6 +1269,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .faq-toggle {
+    /* TAP TARGET FIX: It was padding: 20px 0, but min-height adds foolproof hitboxes */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
     background: none;
     border: none;
     width: 100%;
@@ -1252,9 +1284,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-weight: 400;
     color: #333;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     transition: color 0.3s ease;
 }
 
@@ -1537,19 +1566,24 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .email-link {
+    /* TAP TARGET FIX: Inline-flex block format */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 15px;
     color: #D4BCA9;
     text-decoration: none;
     font-size: 0.95rem; /* FONT SIZE FIX */
     margin-top: 5px;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
-    padding: 8px 10px; /* TAP TARGET FIX */
-    margin-left: -10px;
 }
 
 .email-link:hover {
     color: #fff;
-    border-bottom-color: #fff;
+    /* Removing border hover so it stays perfectly modern */
+    border-bottom-color: transparent; 
 }
 
 /* Links */
@@ -1564,7 +1598,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer-col {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0; /* Let min-height manage spacing naturally */
     min-width: 140px;
 }
 
@@ -1574,17 +1608,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #ffffff;
-    margin: 0 0 8px 0;
+    margin: 0 0 5px 0;
     font-weight: 600;
 }
 
 .footer-col a {
+    /* TAP TARGET FIX: Block formatted */
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 5px;
     color: #bbbbbb;
-    text-decoration: none;
+    text-decoration: none; /* Modern, NO Underline */
     font-size: 0.95rem;
     transition: color 0.3s ease;
-    padding: 8px 0; /* TAP TARGET FIX */
-    display: inline-block;
 }
 
 .footer-col a:hover {
@@ -1637,7 +1674,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 @media (max-width: 600px) {
     .footer-links {
         flex-direction: column;
-        gap: 40px;
+        gap: 10px; /* Reduced since min-height expands the list */
         align-items: center;
     }
     
@@ -1645,6 +1682,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         width: 100%;
         align-items: center;
         text-align: center;
+        margin-bottom: 20px;
     }
     
     .footer-content {
@@ -1659,12 +1697,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* --- BUTTONS --- */
 .action-buttons-row { display: flex; gap: 20px; flex-wrap: wrap; }
 .action-btn {
-    background: none; border: none; padding: 0;
+    /* TAP TARGET FIX: Inline-flex block format */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 0 10px;
+    background: none; border: none; 
     font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
     color: #595959; cursor: pointer; transition: color 0.3s ease;
-    /* TAP TARGET FIX */
-    padding: 10px;
-    margin: -10px;
+    text-decoration: none; /* Modern, NO Underline */
 }
 .action-btn:hover { color: #000000; }
 @media (max-width: 600px) {
@@ -1698,6 +1741,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border: none; background-color: #f4f4f4; border-radius: 50px;
     font-family: 'ProductSans-Thin', sans-serif; font-size: 1.1rem;
     padding: 10px 50px; color: #ccc; transition: all 0.3s ease;
+    /* TAP TARGET FIX */
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 .proceed-btn:not(:disabled) { color: #000; cursor: pointer; font-weight: 600; }
 .proceed-btn:not(:disabled):hover { color: #ffffff; background-color: #333333; }
