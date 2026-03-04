@@ -27,9 +27,9 @@
     <meta name="twitter:description" content="Zero-trust financial and legal modeling engines. No tracking. Pure leverage.">
     <meta name="twitter:image" content="https://solveria.org/img/support.webp">
 
-    <!-- Performance: Preload Critical Assets -->
-    <!-- LCP Image: Hero Background -->
-    <link rel="preload" as="image" href="img/Her_Dark.jpg" fetchpriority="high">
+    <!-- Performance: Preload Critical Assets with Responsive Support -->
+    <link rel="preload" as="image" href="img/Her_Dark.jpg" media="(min-width: 901px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Her_Dark_Phone.jpg" media="(max-width: 900px)" fetchpriority="high">
     <link rel="preload" as="image" href="img/L.jpg" fetchpriority="high">
     
     <!-- Fonts -->
@@ -213,7 +213,7 @@
             overflow: hidden;
         }
 
-        /* HERO BACKGROUND IMAGE - NOT DARKENED ANYMORE */
+        /* HERO BACKGROUND IMAGE - FULL OPACITY */
         .hero-bg-img {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
@@ -234,8 +234,8 @@
         .hero-bottom-fade {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
-            height: 250px; 
-            background: linear-gradient(to bottom, transparent 0%, #050404 100%);
+            height: 350px; 
+            background: linear-gradient(to bottom, transparent 0%, rgba(5,4,4,0.6) 50%, #050404 100%);
             z-index: 3;
             pointer-events: none;
         }
@@ -286,16 +286,29 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* SHADOW OVERLAY FOR INDICATOR (Darkens text passing under) */
+        .indicator-shadow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            /* Thick dark center fading radially out to transparent */
+            background: radial-gradient(ellipse at bottom center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0) 55%);
+            z-index: 25; /* Above marquee text */
+            pointer-events: none;
+        }
+
         /* SCROLL INDICATOR */
         .scroll-indicator {
             position: absolute;
-            bottom: 25px;
+            bottom: 15px; /* Brought down closer to edge */
             left: 50%;
             transform: translateX(-50%);
             width: 1px;
             height: 70px; 
             background: rgba(255, 255, 255, 0.1); 
-            z-index: 20;
+            z-index: 30; /* Above shadow overlay */
             overflow: hidden;
             border-radius: 2px;
         }
@@ -323,15 +336,12 @@
         .corner-text-wrapper {
             position: absolute;
             bottom: 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px; /* Space between each line */
-            z-index: 20;
-            pointer-events: none; /* Ignore clicks */
+            z-index: 15; /* MUST be behind the indicator-shadow (25) */
+            pointer-events: none; 
             
             /* Apply Progressive Opacity from top to bottom */
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,1) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,1) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,1) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,1) 100%);
             
             /* Init animation */
             opacity: 0;
@@ -340,31 +350,45 @@
             animation-delay: 1.8s;
         }
 
-        .corner-text-wrapper.left { left: 40px; align-items: flex-start; }
-        .corner-text-wrapper.right { right: 40px; align-items: flex-end; }
+        .corner-text-wrapper.left { left: 40px; }
+        .corner-text-wrapper.right { right: 40px; text-align: right; }
+
+        .marquee-track {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .corner-text-wrapper.left .marquee-track { align-items: flex-start; }
+        .corner-text-wrapper.right .marquee-track { align-items: flex-end; }
 
         .quote-slot {
             position: relative;
             height: 12px;
-            width: 320px;
+            width: 380px;
         }
 
         .corner-line {
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 4px;
-            color: #e0e0e0;
+            color: #d0d0d0;
             font-weight: 300;
             white-space: nowrap;
             position: absolute;
             top: 0;
             will-change: opacity, transform;
         }
+        
+        .marquee-track .quote-slot:last-child .corner-line { 
+            color: #ffffff; 
+            text-shadow: 0 0 10px rgba(255,255,255,0.3); 
+        }
 
         .corner-text-wrapper.left .corner-line { left: 0; text-align: left; }
         .corner-text-wrapper.right .corner-line { right: 0; text-align: right; }
 
-        /* The Wave Swap Animations */
+        /* The Vertical Wave Swap Animations (Desktop only) */
         @keyframes waveFadeA {
             0%, 35% { opacity: 1; transform: translateY(0); }
             45%, 85% { opacity: 0; transform: translateY(-3px); }
@@ -391,6 +415,23 @@
         /* ============================ */
         /* TOP TOOLS OVERLAPPING CSS    */
         /* ============================ */
+        .top-tools-indicator {
+            font-size: 0.90rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #b0b0b0;
+            margin-top: 1.5rem;
+            margin-bottom: -1rem; 
+            opacity: 0;
+            transform: translateY(20px);
+            animation: popUpWord 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+            animation-delay: 1.35s;
+            font-weight: 400;
+            z-index: 10;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
         .top-tools-wrapper {
             position: relative;
             width: 100%;
@@ -895,8 +936,67 @@
         }
 
         /* ============================ */
-        /* RESPONSIVE & MOBILE CENTER   */
+        /* RESPONSIVE CSS & OVERLAPPING */
         /* ============================ */
+        
+        /* Handling iPad/Square Overlaps - Turns vertical wave into horizontal marquee */
+        @media (max-width: 1550px) {
+            .corner-text-wrapper {
+                width: 100vw;
+                left: 0 !important;
+                right: 0 !important;
+                mask-image: none !important;
+                -webkit-mask-image: none !important;
+                padding: 0;
+                overflow: hidden;
+            }
+            .corner-text-wrapper.left { bottom: 75px; }
+            .corner-text-wrapper.right { bottom: 35px; text-align: left; }
+            
+            .marquee-track {
+                display: flex;
+                flex-direction: row;
+                width: max-content;
+                gap: 50px;
+                padding: 0 25px;
+            }
+            
+            .corner-text-wrapper.left .marquee-track { animation: marqueeLeft 60s linear infinite !important; }
+            .corner-text-wrapper.right .marquee-track { animation: marqueeRight 60s linear infinite !important; }
+
+            .quote-slot { 
+                display: inline-flex; 
+                flex-direction: row; 
+                gap: 50px; 
+                width: auto; 
+                height: auto; 
+            }
+            
+            .corner-line { 
+                position: relative; 
+                display: inline-block; 
+                opacity: 0.5 !important; 
+                color: #ccc !important; 
+                text-shadow: none !important;
+            }
+            
+            .quote-a, .quote-b { 
+                animation: none !important; 
+                transform: none !important; 
+                opacity: 0.5 !important; 
+            }
+            
+            @keyframes marqueeLeft {
+                0% { transform: translateX(100vw); }
+                100% { transform: translateX(-100%); }
+            }
+
+            @keyframes marqueeRight {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100vw); }
+            }
+        }
+
         @media (max-width: 1200px) {
             .tools-grid { grid-template-columns: repeat(2, 1fr); }
             .hero-title { font-size: 3.5rem; }
@@ -915,41 +1015,61 @@
             .header-container { justify-content: space-between; width: 100%; }
             
             /* DRASTICALLY REDUCED LOGO SIZE ON PHONE */
-            .logo-img { height: 32px; width: 32px; } /* Explicit sizing for CLS prevention */
+            .logo-img { height: 32px; width: 32px; } 
             .logo-text { font-size: 1.2rem; } 
             
             /* Adjust Index Button Size proportionally */
             .header nav { display: block; } 
             .header nav a { margin-left: 0; font-size: 0.75rem; }
             
-            /* Hide non-critical bottom elements on mobile to save space */
-            .scroll-indicator, .corner-text-wrapper { display: none; }
-
             /* Hero */
             .hero-title { font-size: 2.5rem; margin-bottom: 1rem; }
-            .hero-subtitle { font-size: 0.95rem; margin-bottom: 2rem; padding: 0 20px; }
+            .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; padding: 0 20px; }
 
-            /* Top Tools Wrapper Mobile Stack */
+            .top-tools-indicator { font-size: 0.70rem; margin-top: 1rem; margin-bottom: -1rem; }
+
+            /* Marquee adjusting to fit under cards on mobile */
+            .corner-text-wrapper.left { bottom: 65px; } 
+            .corner-text-wrapper.right { bottom: 25px; }
+            .corner-line { font-size: 0.55rem !important; }
+
+            /* Overlapping Top Tools specifically sized for mobile width */
             .top-tools-wrapper {
-                height: auto;
-                flex-direction: column;
-                gap: 25px;
+                height: 280px;
+                flex-direction: row;
+                gap: 0;
                 margin-top: 1rem;
                 margin-bottom: 2rem;
-                perspective: none;
+                perspective: 800px;
             }
             .tool-card-stacked {
-                position: relative;
-                width: 100%;
-                max-width: 360px; /* keep responsive */
-                height: 420px;
-                transform: none !important;
-                filter: brightness(1) !important;
+                position: absolute !important;
+                max-width: none;
+                width: 180px !important;
+                height: 240px !important;
+                border-radius: 12px !important;
             }
-            /* Reorder mobile flow: Center card first, then left, then right */
-            .tcs-center { order: 1; }
-            .tcs-left { order: 2; }
-            .tcs-right { order: 3; }
+            .tcs-left { transform: translateX(-50%) scale(0.85) !important; filter: brightness(0.4) !important; z-index: 1 !important; }
+            .tcs-right { transform: translateX(50%) scale(0.85) !important; filter: brightness(0.4) !important; z-index: 1 !important; }
+            .tcs-center { transform: translateX(0) scale(1) !important; filter: brightness(1) !important; z-index: 3 !important; }
+
+            /* Hover fixes for tap events on mobile */
+            .top-tools-wrapper:hover .tcs-left { transform: translateX(-70%) scale(0.85) !important; filter: brightness(0.6) !important; }
+            .top-tools-wrapper:hover .tcs-right { transform: translateX(70%) scale(0.85) !important; filter: brightness(0.6) !important; }
+            .top-tools-wrapper:hover .tcs-center { transform: translateX(0) scale(1.05) !important; filter: brightness(1) !important; }
+
+            .tcs-content { padding: 15px 10px !important; justify-content: flex-end; }
+            .tcs-title { font-size: 1rem !important; margin-bottom: 5px !important; }
+            .tcs-desc { 
+                font-size: 0.65rem !important; 
+                margin-bottom: 10px !important; 
+                line-height: 1.3 !important; 
+                display: -webkit-box; 
+                -webkit-line-clamp: 3; 
+                -webkit-box-orient: vertical; 
+                overflow: hidden; 
+            }
+            .tcs-link { font-size: 0.6rem !important; }
 
             /* Mission */
             .section-mission { padding: 100px 20px; }
@@ -965,7 +1085,6 @@
             .split-image-container { 
                 flex: none; width: 100%; height: 350px; 
                 order: 1; 
-                /* Maintain radius on mobile too */
                 border-radius: 20px;
             }
             .image-overlay-metrics { 
@@ -1009,6 +1128,28 @@
             .footer-col { align-items: center; }
             .footer-legal-row { align-items: center; text-align: center; }
         }
+
+        /* Tablet Specific Sizing for Cards */
+        @media (min-width: 601px) and (max-width: 900px) {
+            .top-tools-indicator { font-size: 0.80rem; margin-top: 1.5rem; margin-bottom: -1rem; }
+            .top-tools-wrapper {
+                height: 380px;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+            .tool-card-stacked {
+                width: 260px !important;
+                height: 340px !important;
+                border-radius: 14px !important;
+            }
+            .tcs-content { padding: 20px 15px !important; }
+            .tcs-title { font-size: 1.25rem !important; margin-bottom: 8px !important; }
+            .tcs-desc { font-size: 0.85rem !important; margin-bottom: 12px !important; line-height: 1.4 !important; }
+            .tcs-link { font-size: 0.75rem !important; }
+            
+            .top-tools-wrapper:hover .tcs-left { transform: translateX(-65%) scale(0.85) !important; }
+            .top-tools-wrapper:hover .tcs-right { transform: translateX(65%) scale(0.85) !important; }
+        }
     </style>
 </head>
 <body>
@@ -1017,7 +1158,10 @@
     <header class="header">
         <div class="header-container">
             <a href="./" class="logo-container">
-                <img src="img/Logo_Golden.webp" class="logo-img" alt="Solveria Logo" width="55" height="55">
+                <picture>
+                    <source media="(max-width: 900px)" srcset="img/Logo_Golden_Phone.webp">
+                    <img src="img/Logo_Golden.webp" class="logo-img" alt="Solveria Logo" width="55" height="55">
+                </picture>
                 <span class="logo-text">Solveria.</span>
             </a>
             <nav>
@@ -1029,8 +1173,11 @@
     <!-- 1. HERO SECTION -->
     <section class="hero-section">
         
-        <!-- Hero Background Image (Opacity returned to 1) -->
-        <img src="img/Her_Dark.jpg" alt="Solveria Architecture" class="hero-bg-img" fetchpriority="high">
+        <!-- Hero Background Image (Responsive) -->
+        <picture>
+            <source media="(max-width: 900px)" srcset="img/Her_Dark_Phone.jpg">
+            <img src="img/Her_Dark.jpg" alt="Solveria Architecture" class="hero-bg-img" fetchpriority="high">
+        </picture>
 
         <div class="hero-bottom-fade"></div>
         <div class="hero-content">
@@ -1054,6 +1201,8 @@
                 <span class="word" style="animation-delay: 1.25s">your</span>
                 <span class="word" style="animation-delay: 1.3s">browser.</span>
             </p>
+
+            <p class="top-tools-indicator">Index Snapshot ✦ Top Decision Engines</p>
 
             <!-- TOP TOOLS OVERLAPPING SECTION -->
             <div class="top-tools-wrapper">
@@ -1095,45 +1244,52 @@
             
         </div>
 
-        <!-- NEW SCROLL INDICATOR (Brought DOWN) -->
+        <!-- SHADOW OVERLAY FOR INDICATOR (Darkens text passing under) -->
+        <div class="indicator-shadow"></div>
+
+        <!-- NEW SCROLL INDICATOR -->
         <div class="scroll-indicator"></div>
 
         <!-- CASCADING WAVE CORNER TEXTS (LEFT) -->
         <div class="corner-text-wrapper left">
-            <div class="quote-slot" style="--d: 0.0s"><span class="corner-line quote-a">ZERO-TRUST ARCHITECTURE</span><span class="corner-line quote-b">ANONYMOUS SESSIONS</span></div>
-            <div class="quote-slot" style="--d: 0.1s"><span class="corner-line quote-a">CRYPTOGRAPHIC ISOLATION</span><span class="corner-line quote-b">ABSOLUTE DATA SOVEREIGNTY</span></div>
-            <div class="quote-slot" style="--d: 0.2s"><span class="corner-line quote-a">CLIENT-SIDE COMPUTE</span><span class="corner-line quote-b">NO SERVER ROUND-TRIPS</span></div>
-            <div class="quote-slot" style="--d: 0.3s"><span class="corner-line quote-a">NO TRACKING COOKIES</span><span class="corner-line quote-b">ZERO DATA HARVESTING</span></div>
-            <div class="quote-slot" style="--d: 0.4s"><span class="corner-line quote-a">MATHEMATICAL LEVERAGE</span><span class="corner-line quote-b">ALGORITHMIC PARITY</span></div>
-            <div class="quote-slot" style="--d: 0.5s"><span class="corner-line quote-a">FINANCIAL ENGINES</span><span class="corner-line quote-b">OPEN-SOURCE LOGIC</span></div>
-            <div class="quote-slot" style="--d: 0.6s"><span class="corner-line quote-a">LOCAL BROWSER EXECUTION</span><span class="corner-line quote-b">MILLISECOND LATENCY</span></div>
-            <div class="quote-slot" style="--d: 0.7s"><span class="corner-line quote-a">DETERMINISTIC OUTCOMES</span><span class="corner-line quote-b">IMMUTABLE CALCULATIONS</span></div>
-            <div class="quote-slot" style="--d: 0.8s"><span class="corner-line quote-a">ACTUARIAL PRECISION</span><span class="corner-line quote-b">INSTITUTIONAL GRADE</span></div>
-            <div class="quote-slot" style="--d: 0.9s"><span class="corner-line quote-a">SYMMETRIC WARFARE</span><span class="corner-line quote-b">INFORMATION EQUILIBRIUM</span></div>
-            <div class="quote-slot" style="--d: 1.0s"><span class="corner-line quote-a">DECENTRALIZED COMPUTE</span><span class="corner-line quote-b">PEER-TO-PEER VERIFICATION</span></div>
-            <div class="quote-slot" style="--d: 1.1s"><span class="corner-line quote-a">PRIVACY BY DESIGN</span><span class="corner-line quote-b">NO HIDDEN VARIABLES</span></div>
-            <div class="quote-slot" style="--d: 1.2s"><span class="corner-line quote-a">AUDITABLE CODEBASE</span><span class="corner-line quote-b">TRANSPARENT MECHANICS</span></div>
-            <div class="quote-slot" style="--d: 1.3s"><span class="corner-line quote-a">NON-CUSTODIAL MODELING</span><span class="corner-line quote-b">YOUR KEYS YOUR DATA</span></div>
-            <div class="quote-slot" style="--d: 1.4s"><span class="corner-line quote-a">UNCOMPROMISING SECURITY</span><span class="corner-line quote-b">IRONCLAD PRIVACY</span></div>
+            <div class="marquee-track track-left">
+                <div class="quote-slot" style="--d: 0.0s"><span class="corner-line quote-a">ZERO-TRUST ARCHITECTURE</span><span class="corner-line quote-b">ANONYMOUS SESSIONS</span></div>
+                <div class="quote-slot" style="--d: 0.1s"><span class="corner-line quote-a">CRYPTOGRAPHIC ISOLATION</span><span class="corner-line quote-b">ABSOLUTE DATA SOVEREIGNTY</span></div>
+                <div class="quote-slot" style="--d: 0.2s"><span class="corner-line quote-a">CLIENT-SIDE COMPUTE</span><span class="corner-line quote-b">NO SERVER ROUND-TRIPS</span></div>
+                <div class="quote-slot" style="--d: 0.3s"><span class="corner-line quote-a">NO TRACKING COOKIES</span><span class="corner-line quote-b">ZERO DATA HARVESTING</span></div>
+                <div class="quote-slot" style="--d: 0.4s"><span class="corner-line quote-a">MATHEMATICAL LEVERAGE</span><span class="corner-line quote-b">ALGORITHMIC PARITY</span></div>
+                <div class="quote-slot" style="--d: 0.5s"><span class="corner-line quote-a">FINANCIAL ENGINES</span><span class="corner-line quote-b">OPEN-SOURCE LOGIC</span></div>
+                <div class="quote-slot" style="--d: 0.6s"><span class="corner-line quote-a">LOCAL BROWSER EXECUTION</span><span class="corner-line quote-b">MILLISECOND LATENCY</span></div>
+                <div class="quote-slot" style="--d: 0.7s"><span class="corner-line quote-a">DETERMINISTIC OUTCOMES</span><span class="corner-line quote-b">IMMUTABLE CALCULATIONS</span></div>
+                <div class="quote-slot" style="--d: 0.8s"><span class="corner-line quote-a">ACTUARIAL PRECISION</span><span class="corner-line quote-b">INSTITUTIONAL GRADE</span></div>
+                <div class="quote-slot" style="--d: 0.9s"><span class="corner-line quote-a">SYMMETRIC WARFARE</span><span class="corner-line quote-b">INFORMATION EQUILIBRIUM</span></div>
+                <div class="quote-slot" style="--d: 1.0s"><span class="corner-line quote-a">DECENTRALIZED COMPUTE</span><span class="corner-line quote-b">PEER-TO-PEER VERIFICATION</span></div>
+                <div class="quote-slot" style="--d: 1.1s"><span class="corner-line quote-a">PRIVACY BY DESIGN</span><span class="corner-line quote-b">NO HIDDEN VARIABLES</span></div>
+                <div class="quote-slot" style="--d: 1.2s"><span class="corner-line quote-a">AUDITABLE CODEBASE</span><span class="corner-line quote-b">TRANSPARENT MECHANICS</span></div>
+                <div class="quote-slot" style="--d: 1.3s"><span class="corner-line quote-a">NON-CUSTODIAL MODELING</span><span class="corner-line quote-b">YOUR KEYS YOUR DATA</span></div>
+                <div class="quote-slot" style="--d: 1.4s"><span class="corner-line quote-a">UNCOMPROMISING SECURITY</span><span class="corner-line quote-b">IRONCLAD PRIVACY</span></div>
+            </div>
         </div>
         
         <!-- CASCADING WAVE CORNER TEXTS (RIGHT) -->
         <div class="corner-text-wrapper right">
-            <div class="quote-slot" style="--d: 0.0s"><span class="corner-line quote-a">UNCOMPROMISING PRECISION</span><span class="corner-line quote-b">EXACTING STANDARDS</span></div>
-            <div class="quote-slot" style="--d: 0.1s"><span class="corner-line quote-a">ACTUARIAL MODELING</span><span class="corner-line quote-b">RISK QUANTIFICATION</span></div>
-            <div class="quote-slot" style="--d: 0.2s"><span class="corner-line quote-a">INSTITUTIONAL LEVERAGE</span><span class="corner-line quote-b">RETAIL EMPOWERMENT</span></div>
-            <div class="quote-slot" style="--d: 0.3s"><span class="corner-line quote-a">ASYMMETRIC ADVANTAGE</span><span class="corner-line quote-b">TACTICAL SUPERIORITY</span></div>
-            <div class="quote-slot" style="--d: 0.4s"><span class="corner-line quote-a">MAXIMUM LOAN YIELD</span><span class="corner-line quote-b">DEBT OPTIMIZATION</span></div>
-            <div class="quote-slot" style="--d: 0.5s"><span class="corner-line quote-a">DAMAGE MULTIPLIERS</span><span class="corner-line quote-b">SETTLEMENT MAXIMIZATION</span></div>
-            <div class="quote-slot" style="--d: 0.6s"><span class="corner-line quote-a">WAGE THEFT RECOVERY</span><span class="corner-line quote-b">PAYCHECK AUDITING</span></div>
-            <div class="quote-slot" style="--d: 0.7s"><span class="corner-line quote-a">AMORTIZATION VELOCITY</span><span class="corner-line quote-b">PRINCIPAL REDUCTION</span></div>
-            <div class="quote-slot" style="--d: 0.8s"><span class="corner-line quote-a">STATUTORY REFUNDS</span><span class="corner-line quote-b">CIVIL CODE ENFORCEMENT</span></div>
-            <div class="quote-slot" style="--d: 0.9s"><span class="corner-line quote-a">DTI STRESS TESTING</span><span class="corner-line quote-b">BANKING GRADE LIMITS</span></div>
-            <div class="quote-slot" style="--d: 1.0s"><span class="corner-line quote-a">FAIR MARKET VALUATION</span><span class="corner-line quote-b">ASSET DEPRECIATION</span></div>
-            <div class="quote-slot" style="--d: 1.1s"><span class="corner-line quote-a">CONSUMER PROTECTION</span><span class="corner-line quote-b">LEGAL ARBITRAGE</span></div>
-            <div class="quote-slot" style="--d: 1.2s"><span class="corner-line quote-a">DIMINISHED VALUE</span><span class="corner-line quote-b">POST-ACCIDENT AUDIT</span></div>
-            <div class="quote-slot" style="--d: 1.3s"><span class="corner-line quote-a">FIDUCIARY LOGIC</span><span class="corner-line quote-b">UNBIASED ESTIMATION</span></div>
-            <div class="quote-slot" style="--d: 1.4s"><span class="corner-line quote-a">DECISION SOVEREIGNTY</span><span class="corner-line quote-b">ABSOLUTE OWNERSHIP</span></div>
+            <div class="marquee-track track-right">
+                <div class="quote-slot" style="--d: 0.0s"><span class="corner-line quote-a">UNCOMPROMISING PRECISION</span><span class="corner-line quote-b">EXACTING STANDARDS</span></div>
+                <div class="quote-slot" style="--d: 0.1s"><span class="corner-line quote-a">ACTUARIAL MODELING</span><span class="corner-line quote-b">RISK QUANTIFICATION</span></div>
+                <div class="quote-slot" style="--d: 0.2s"><span class="corner-line quote-a">INSTITUTIONAL LEVERAGE</span><span class="corner-line quote-b">RETAIL EMPOWERMENT</span></div>
+                <div class="quote-slot" style="--d: 0.3s"><span class="corner-line quote-a">ASYMMETRIC ADVANTAGE</span><span class="corner-line quote-b">TACTICAL SUPERIORITY</span></div>
+                <div class="quote-slot" style="--d: 0.4s"><span class="corner-line quote-a">MAXIMUM LOAN YIELD</span><span class="corner-line quote-b">DEBT OPTIMIZATION</span></div>
+                <div class="quote-slot" style="--d: 0.5s"><span class="corner-line quote-a">DAMAGE MULTIPLIERS</span><span class="corner-line quote-b">SETTLEMENT MAXIMIZATION</span></div>
+                <div class="quote-slot" style="--d: 0.6s"><span class="corner-line quote-a">WAGE THEFT RECOVERY</span><span class="corner-line quote-b">PAYCHECK AUDITING</span></div>
+                <div class="quote-slot" style="--d: 0.7s"><span class="corner-line quote-a">AMORTIZATION VELOCITY</span><span class="corner-line quote-b">PRINCIPAL REDUCTION</span></div>
+                <div class="quote-slot" style="--d: 0.8s"><span class="corner-line quote-a">STATUTORY REFUNDS</span><span class="corner-line quote-b">CIVIL CODE ENFORCEMENT</span></div>
+                <div class="quote-slot" style="--d: 0.9s"><span class="corner-line quote-a">DTI STRESS TESTING</span><span class="corner-line quote-b">BANKING GRADE LIMITS</span></div>
+                <div class="quote-slot" style="--d: 1.0s"><span class="corner-line quote-a">FAIR MARKET VALUATION</span><span class="corner-line quote-b">ASSET DEPRECIATION</span></div>
+                <div class="quote-slot" style="--d: 1.1s"><span class="corner-line quote-a">CONSUMER PROTECTION</span><span class="corner-line quote-b">LEGAL ARBITRAGE</span></div>
+                <div class="quote-slot" style="--d: 1.2s"><span class="corner-line quote-a">DIMINISHED VALUE</span><span class="corner-line quote-b">POST-ACCIDENT AUDIT</span></div>
+                <div class="quote-slot" style="--d: 1.3s"><span class="corner-line quote-a">FIDUCIARY LOGIC</span><span class="corner-line quote-b">UNBIASED ESTIMATION</span></div>
+                <div class="quote-slot" style="--d: 1.4s"><span class="corner-line quote-a">DECISION SOVEREIGNTY</span><span class="corner-line quote-b">ABSOLUTE OWNERSHIP</span></div>
+            </div>
         </div>
 
     </section>
@@ -1351,7 +1507,10 @@
             
             <div class="footer-main-row">
                 <div class="footer-left">
-                    <img src="img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="50" height="50">
+                    <picture>
+                        <source media="(max-width: 900px)" srcset="img/Logo_Golden_Phone.webp">
+                        <img src="img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="50" height="50">
+                    </picture>
                     <span class="brand-name">Solveria.</span>
                     <p class="tagline">Engineered for Decision Sovereignty.</p>
                     <a href="mailto:contact@solveria.org" class="email-link">contact@solveria.org</a>
