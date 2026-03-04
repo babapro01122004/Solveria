@@ -149,8 +149,14 @@
             text-decoration: none;
         }
         
+        .logo-container picture {
+            display: flex;
+            align-items: center;
+        }
+        
         /* LOGO ICON ANIMATION */
         .logo-img { 
+            display: block;
             height: 55px; 
             width: auto; 
             filter: none;
@@ -168,6 +174,10 @@
         .logo-text {
             font-size: 1.8rem;
             color: #ffffff; /* WHITE */
+            
+            line-height: 1; 
+            position: relative;
+            top: 3px; /* Shifted down to counter font descenders for perfect center alignment */
             
             /* ULTRA THIN FONT */
             font-weight: 100; 
@@ -1016,7 +1026,7 @@
             
             /* DRASTICALLY REDUCED LOGO SIZE ON PHONE */
             .logo-img { height: 32px; width: 32px; } 
-            .logo-text { font-size: 1.2rem; } 
+            .logo-text { font-size: 1.2rem; top: -1px; } 
             
             /* Adjust Index Button Size proportionally */
             .header nav { display: block; } 
