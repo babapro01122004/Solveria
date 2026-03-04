@@ -76,6 +76,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     transition: color .3s ease; 
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     white-space: nowrap; 
+    /* TAP TARGET FIX: Increase bounding box */
+    padding: 10px 15px;
+    margin: -10px -15px;
 }
 
 .hero-nav a:hover { 
@@ -127,29 +130,33 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex;
     justify-content: flex-start; 
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin: 2vh auto 0 auto; 
     padding: 0 4vw; 
     max-width: 1500px;
     font-family: 'ProductSans-Light', sans-serif;
     font-weight: 300;
-    font-size: 0.9rem; 
+    font-size: 0.95rem; 
 }
 
 .breadcrumb-nav a, 
-.breadcrumb-nav .current-page,
-.breadcrumb-nav .separator {
+.breadcrumb-nav .current-page {
     text-decoration: none;
     color: #595959; 
     transition: color 0.3s ease;
+    /* TAP TARGET FIX: Make links easier to hit on mobile */
+    padding: 8px 4px;
+    margin: -8px -4px;
+}
+
+.breadcrumb-nav .separator {
+    text-decoration: none;
+    color: #595959;
+    opacity: 0.5;
 }
 
 .breadcrumb-nav a:hover {
     color: #000000;
-}
-
-.breadcrumb-nav .separator {
-    opacity: 0.5;
 }
 
 .breadcrumb-nav .current-page {
@@ -269,7 +276,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.15rem;
     cursor: pointer;
     transition: color 0.3s ease;
-    padding: 0;
+    /* TAP TARGET FIX */
+    padding: 10px;
+    margin: -10px;
 }
 
 .text-link-btn:hover {
@@ -509,7 +518,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     cursor: pointer;
     font-size: 1.2rem;
     color: #777;
-    padding: 0 5px;
+    /* TAP TARGET FIX: Increase bounding box */
+    padding: 8px 12px;
+    margin: -8px -12px;
 }
 .calendar-nav-btn:hover { color: #000; }
 
@@ -521,13 +532,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .calendar-day-header {
-    font-size: 0.75rem;
+    /* FONT SIZE FIX: Ensure >12px */
+    font-size: 0.8rem;
     color: #595959;
     padding-bottom: 5px;
 }
 
 .calendar-day {
-    padding: 6px 0;
+    padding: 8px 0; /* Increase tap target vertically */
     font-size: 0.9rem;
     cursor: pointer;
     border-radius: 4px;
@@ -571,7 +583,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     -webkit-appearance: none; 
     appearance: none;
     width: 100%; 
-    height: 20px; 
+    height: 24px; /* Slightly larger tap target for sliders */
     border: 9px solid transparent; 
     border-left: 0; border-right: 0; 
     background-clip: content-box; 
@@ -629,7 +641,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     width: 100%;
     border: 2px solid #e0e0e0; 
     border-radius: 8px;        
-    padding: 10px 12px;        
+    padding: 12px 14px; /* TAP TARGET FIX */       
     font-size: 1.1rem; 
     color: #333;
     background-color: transparent;
@@ -692,7 +704,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
 
 .dropdown-option {
-    padding: 10px 15px; 
+    padding: 12px 15px; /* TAP TARGET FIX */
     font-size: 0.95rem;
     color: #555;
     cursor: pointer;
@@ -723,6 +735,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     color: #555;
     font-family: 'ProductSans-Light', sans-serif;
     gap: 15px; 
+    padding: 8px 0; /* TAP TARGET FIX */
 }
 
 .custom-checkbox-container input {
@@ -924,6 +937,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .disclosure-text {
+    /* FONT SIZE FIX: Ensure legible on mobile */
     font-size: 0.86rem; 
     color: #595959;
     /* MOVED CLOSER to result text as requested */
@@ -1515,7 +1529,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .description {
-    font-size: 0.85rem;
+    font-size: 0.9rem; /* FONT SIZE FIX */
     color: #ccc;
     line-height: 1.5;
     max-width: 300px;
@@ -1525,10 +1539,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .email-link {
     color: #D4BCA9;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* FONT SIZE FIX */
     margin-top: 5px;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
+    padding: 8px 10px; /* TAP TARGET FIX */
+    margin-left: -10px;
 }
 
 .email-link:hover {
@@ -1554,7 +1570,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .footer-col h4 {
     font-family: 'Roboto', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem; /* FONT SIZE FIX */
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #ffffff;
@@ -1565,8 +1581,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer-col a {
     color: #bbbbbb;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: color 0.3s ease;
+    padding: 8px 0; /* TAP TARGET FIX */
+    display: inline-block;
 }
 
 .footer-col a:hover {
@@ -1586,13 +1604,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .copyright {
-    font-size: 0.85rem;
+    font-size: 0.9rem; /* FONT SIZE FIX */
     color: #bbb;
     margin: 0;
 }
 
 .disclaimer {
-    font-size: 0.7rem;
+    font-size: 0.8rem; /* CRITICAL FONT SIZE FIX: Keeps it readable and stops mobile-usability penalties */
     color: #aaaaaa;
     line-height: 1.5;
     max-width: 900px;
@@ -1644,6 +1662,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     background: none; border: none; padding: 0;
     font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
     color: #595959; cursor: pointer; transition: color 0.3s ease;
+    /* TAP TARGET FIX */
+    padding: 10px;
+    margin: -10px;
 }
 .action-btn:hover { color: #000000; }
 @media (max-width: 600px) {
@@ -1702,7 +1723,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         color: #000;
     }
 
-    body { background-color: #fff; font-size: 11px; }
+    body { background-color: #fff; font-size: 12px; } /* CRITICAL FONT SIZE FIX for print rendering engines */
     
     body > *:not(#print-view-container) { display: none !important; }
 
@@ -1741,7 +1762,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
     .pm-label { font-weight: 600; font-size: 0.75rem; margin-bottom: 0; }
     .pm-line { font-weight: 300; letter-spacing: -1px; font-size: 0.9rem; }
-    .pm-sub { font-size: 0.65rem; color: #666; font-style: italic; }
+    .pm-sub { font-size: 0.75rem; color: #666; font-style: italic; } /* FONT SIZE FIX */
     .pm-value { font-weight: 300; }
 
     .print-section { margin-bottom: 20px; }
@@ -1782,9 +1803,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
     .sig-line-container { display: flex; flex-direction: column; gap: 3px; }
     .sig-line { font-weight: 300; font-size: 0.9rem; }
-    .sig-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; }
+    .sig-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; } /* FONT SIZE FIX */
 
     .print-disclaimer {
-        font-size: 0.65rem; color: #666; text-align: justify; line-height: 1.2; border-top: 1px solid #ccc; padding-top: 8px; margin-bottom: 0;
+        font-size: 0.75rem; color: #666; text-align: justify; line-height: 1.2; border-top: 1px solid #ccc; padding-top: 8px; margin-bottom: 0; /* FONT SIZE FIX */
     }
 }
