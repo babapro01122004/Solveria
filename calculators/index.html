@@ -247,44 +247,6 @@
             letter-spacing: 1px; text-shadow: 0 2px 5px rgba(0,0,0,0.9);
         }
 
-        /* BOTTOM BANNER (Ledger) */
-        .bottom-banner {
-            position: relative; 
-            margin-top: 80px;
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            min-height: 300px;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            text-decoration: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            background-color: #1a1a1a;
-        }
-        .banner-bg {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.4;
-        }
-        .banner-content {
-            position: relative; z-index: 2;
-            text-align: center; color: #fff;
-            padding: 3rem;
-            max-width: 800px;
-        }
-        .banner-title {
-            font-size: 2.5rem; font-weight: 100; margin: 0 0 1rem 0;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .banner-desc {
-            font-size: 1.1rem; color: #e5e5e5; margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-        .bottom-banner:hover .tool-link-text {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
         /* ============================ */
         /* FOOTER                       */
         /* ============================ */
@@ -373,7 +335,6 @@
             .footer-links { flex-direction: column; gap: 40px; align-items: center; }
             .footer-col { width: 100%; align-items: center; text-align: center; }
             .footer-content { padding: 40px 5vw 30px 5vw; }
-            .banner-title { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -567,17 +528,6 @@
                     Results do not constitute a guarantee of payment but serve as a mathematical baseline for negotiation.</em>
                 </p>
             </div>
-
-            <!-- 6. BOTTOM BANNER (DOCUMENTATION) -->
-            <!-- Performance: Added rel="noopener" for security and performance on blank target -->
-            <a href="../docs/PDF.pdf" class="bottom-banner" target="_blank" rel="noopener">
-                <img src="../img/support.webp" alt="Background" class="banner-bg" loading="lazy" width="1200" height="400">
-                <div class="banner-content">
-                    <h3 class="banner-title">Official System Documentation</h3>
-                    <p class="banner-desc">Access the complete technical ledger, algorithmic methodologies, and citations for the Solveria Index. Review our verified calculation protocols and data sourcing standards in the master documentation file.</p>
-                    <span class="tool-link-text" style="font-size: 1.1rem; margin-top: 1rem; display: inline-block;">VIEW OFFICIAL DOCUMENTATION ↗</span>
-                </div>
-            </a>
 
         </div>
     </main>
