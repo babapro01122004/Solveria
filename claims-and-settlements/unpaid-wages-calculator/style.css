@@ -32,6 +32,12 @@ body {
     font-family: 'ProductSans-Light', sans-serif;
 }
 
+/* Accessibility Focus States */
+a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid #B5855E;
+    outline-offset: 2px;
+}
+
 /* ============================ */
 /* Hero Section                 */
 /* ============================ */
@@ -62,7 +68,7 @@ body {
 }
 
 .hero-nav a { 
-    color: #cacaca; 
+    color: #e0e0e0; 
     text-decoration: none; 
     font-size: 0.95rem;
     font-family: 'ProductSans-Light', sans-serif;
@@ -134,7 +140,7 @@ body {
 .breadcrumb-nav .current-page,
 .breadcrumb-nav .separator {
     text-decoration: none;
-    color: #7a7a7a; 
+    color: #595959; 
     transition: color 0.3s ease;
 }
 
@@ -258,7 +264,7 @@ body {
 .text-link-btn {
     background: none;
     border: none;
-    color: #7a7a7a;
+    color: #595959;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.15rem;
     cursor: pointer;
@@ -275,7 +281,7 @@ body {
     display: inline-block;
     margin: 15px 0 0 0;
     padding: 16px 30px;
-    background-color: #2ecc71;
+    background-color: #1E8449;
     color: #ffffff;
     text-align: center;
     font-family: 'ProductSans-Light', sans-serif;
@@ -283,15 +289,15 @@ body {
     font-weight: 600;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.25);
+    box-shadow: 0 8px 20px rgba(30, 132, 73, 0.25);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     box-sizing: border-box;
 }
 
 .legal-action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(46, 204, 113, 0.4);
-    background-color: #27ae60;
+    box-shadow: 0 12px 25px rgba(30, 132, 73, 0.4);
+    background-color: #145A32;
     color: #ffffff;
 }
 
@@ -417,14 +423,15 @@ body {
     width: 100%;
 }
 
-.input-wrapper label {
+.input-wrapper label,
+.input-wrapper .pseudo-label {
     display: flex;          
     align-items: flex-end;  
     min-height: 2.5em;      
     line-height: 1.2;       
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 0.9rem;
-    color: #666;
+    color: #595959;
     margin-bottom: 3px;
 }
 
@@ -515,7 +522,7 @@ body {
 
 .calendar-day-header {
     font-size: 0.75rem;
-    color: #999;
+    color: #595959;
     padding-bottom: 5px;
 }
 
@@ -890,9 +897,9 @@ body {
     letter-spacing: -0.5px;
 }
 
-.result-value.good { color: #2ecc71; }
-.result-value.warn { color: #e67e22; }
-.result-value.bad { color: #e74c3c; }
+.result-value.good { color: #1E8449; }
+.result-value.warn { color: #D35400; }
+.result-value.bad { color: #C0392B; }
 
 .result-sub-heading {
     display: block;
@@ -918,7 +925,7 @@ body {
 
 .disclosure-text {
     font-size: 0.86rem; 
-    color: #999;
+    color: #595959;
     /* MOVED CLOSER to result text as requested */
     margin-top: 5px; 
     min-height: 2.5em; 
@@ -1086,7 +1093,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.75rem;
-    color: #666;
+    color: #595959;
     white-space: nowrap;
     margin-top: 5px;
 }
@@ -1586,7 +1593,7 @@ body {
 
 .disclaimer {
     font-size: 0.7rem;
-    color: #999;
+    color: #aaaaaa;
     line-height: 1.5;
     max-width: 900px;
     opacity: 0.7;
@@ -1636,7 +1643,7 @@ body {
 .action-btn {
     background: none; border: none; padding: 0;
     font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
-    color: #7a7a7a; cursor: pointer; transition: color 0.3s ease;
+    color: #595959; cursor: pointer; transition: color 0.3s ease;
 }
 .action-btn:hover { color: #000000; }
 @media (max-width: 600px) {

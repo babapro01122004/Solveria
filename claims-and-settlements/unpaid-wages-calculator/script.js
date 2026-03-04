@@ -238,7 +238,13 @@ function populateStateDropdown() {
 
         const div = document.createElement('div');
         div.className = 'dropdown-option';
-        if(code === 'CA') div.classList.add('selected');
+        if(code === 'CA') {
+            div.classList.add('selected');
+            div.setAttribute('aria-selected', 'true');
+        } else {
+            div.setAttribute('aria-selected', 'false');
+        }
+        div.setAttribute('role', 'option');
         div.setAttribute('data-value', code);
         div.textContent = stateName;
         optionsWrapper.appendChild(div);
@@ -258,10 +264,22 @@ function initializeCustomDropdowns() {
 
         trigger.onclick = (e) => {
             e.stopPropagation();
+            const isExpanded = menu.classList.contains('active');
+            
             document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
-                if (m !== menu) m.classList.remove('active');
+                if (m !== menu) {
+                    m.classList.remove('active');
+                    if (m.previousElementSibling) m.previousElementSibling.setAttribute('aria-expanded', 'false');
+                }
             });
-            menu.classList.toggle('active');
+            
+            if (!isExpanded) {
+                menu.classList.add('active');
+                trigger.setAttribute('aria-expanded', 'true');
+            } else {
+                menu.classList.remove('active');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
         };
 
         options.forEach(option => {
@@ -269,9 +287,14 @@ function initializeCustomDropdowns() {
                 e.stopPropagation();
                 const value = option.getAttribute('data-value');
                 trigger.textContent = option.textContent;
-                options.forEach(opt => opt.classList.remove('selected'));
+                options.forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.setAttribute('aria-selected', 'false');
+                });
                 option.classList.add('selected');
+                option.setAttribute('aria-selected', 'true');
                 menu.classList.remove('active');
+                trigger.setAttribute('aria-expanded', 'false');
                 if(select) {
                     select.value = value;
                     select.dispatchEvent(new Event('change', { bubbles: true }));
@@ -285,6 +308,7 @@ function initializeCustomDropdowns() {
         document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
             if (!menu.parentElement.contains(e.target)) {
                 menu.classList.remove('active');
+                if(menu.previousElementSibling) menu.previousElementSibling.setAttribute('aria-expanded', 'false');
             }
         });
     };
@@ -337,10 +361,14 @@ function initializeCustomCalendars() {
             const prevBtn = document.createElement('button');
             prevBtn.innerHTML = '&larr;';
             prevBtn.className = 'calendar-nav-btn';
+            prevBtn.type = 'button';
+            prevBtn.setAttribute('aria-label', 'Previous');
             
             const nextBtn = document.createElement('button');
             nextBtn.innerHTML = '&rarr;';
             nextBtn.className = 'calendar-nav-btn';
+            nextBtn.type = 'button';
+            nextBtn.setAttribute('aria-label', 'Next');
 
             const titleContainer = document.createElement('div');
             titleContainer.className = 'calendar-title-container';
@@ -399,7 +427,7 @@ function initializeCustomCalendars() {
                 grid.style.textAlign = 'center';
                 grid.style.gap = '2px';['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
                     const dh = document.createElement('div');
-                    dh.style.fontSize = '0.75rem'; dh.style.color = '#999'; dh.style.padding = '5px 0';
+                    dh.style.fontSize = '0.75rem'; dh.style.color = '#595959'; dh.style.padding = '5px 0';
                     dh.textContent = d;
                     grid.appendChild(dh);
                 });
@@ -845,17 +873,17 @@ function updateUI(data) {
             
             let fomoHTML = '';
             if (data.state === 'CA') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>California Overtime Note:</strong> This tool currently estimates weekly overtime. Because California also requires daily overtime (for shifts over 8 hours), you might be owed additional compensation. A professional review can help calculate your exact daily overtime.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>California Overtime Note:</strong> This tool currently estimates weekly overtime. Because California also requires daily overtime (for shifts over 8 hours), you might be owed additional compensation. A professional review can help calculate your exact daily overtime.</div>`;
             } 
             else if (data.state === 'FL') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Florida Claim Requirement:</strong> Before pursuing a minimum wage claim in Florida, the law asks that you provide your employer with a 15-day written notice. A professional can help draft this notice properly. <br><br><strong>Note:</strong> Florida uses the standard 40-hour federal workweek for overtime.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Florida Claim Requirement:</strong> Before pursuing a minimum wage claim in Florida, the law asks that you provide your employer with a 15-day written notice. A professional can help draft this notice properly. <br><br><strong>Note:</strong> Florida uses the standard 40-hour federal workweek for overtime.</div>`;
                 fomoHTML += `<div style="margin-top: 10px; padding: 15px; background-color: #880E4F; box-shadow: 0 4px 15px rgba(136, 14, 79, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Local County Ordinances:</strong> If you worked in Miami-Dade or Pinellas counties, local rules might entitle you to up to three times your missing wages. These local processes can sometimes be faster than state-level claims. A legal professional can help check if your location qualifies.</div>`;
             }
             else if (data.state === 'NY') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>New York 'Spread of Hours' Rule:</strong> If your workday spanned more than 10 hours from start to finish (including breaks), New York law generally requires your employer to pay an extra hour of minimum wage for that day. A legal professional can help you add this to your calculation.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>New York 'Spread of Hours' Rule:</strong> If your workday spanned more than 10 hours from start to finish (including breaks), New York law generally requires your employer to pay an extra hour of minimum wage for that day. A legal professional can help you add this to your calculation.</div>`;
             }
             else if (data.state !== 'TX') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Federal FLSA Baseline & State Adjustments:</strong> This estimate is built using standard federal FLSA regulations. However, your specific state may have stronger labor laws—such as daily overtime rules, missed meal break compensations, or unique statutory penalties. Because of these additional protections, your actual missing pay could be significantly higher than the federal baseline shown here. A professional review can apply your exact state codes to uncover your full compensation.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Federal FLSA Baseline & State Adjustments:</strong> This estimate is built using standard federal FLSA regulations. However, your specific state may have stronger labor laws—such as daily overtime rules, missed meal break compensations, or unique statutory penalties. Because of these additional protections, your actual missing pay could be significantly higher than the federal baseline shown here. A professional review can apply your exact state codes to uncover your full compensation.</div>`;
             }
             
             stateFomo.innerHTML = fomoHTML;
@@ -863,9 +891,9 @@ function updateUI(data) {
     }
 
     // --- DYNAMIC MASTER SUMMARY GENERATION ---
-    const red = (txt) => `<span style="color:#e74c3c; font-weight:600;">${txt}</span>`;
-    const yellow = (txt) => `<span style="color:#e67e22; font-weight:600;">${txt}</span>`;
-    const green = (txt) => `<span style="color:#2ecc71; font-weight:600;">${txt}</span>`;
+    const red = (txt) => `<span style="color:#C0392B; font-weight:600;">${txt}</span>`;
+    const yellow = (txt) => `<span style="color:#D35400; font-weight:600;">${txt}</span>`;
+    const green = (txt) => `<span style="color:#1E8449; font-weight:600;">${txt}</span>`;
     const bold = (txt) => `<strong>${txt}</strong>`;
 
     // UPDATED: Increased the font-size of "(Combined Overtime & Penalty Analysis)" from 0.9rem to 1.05rem.
@@ -975,9 +1003,9 @@ function updateUI(data) {
         // 5. Records
         if (data.checkRecords) {
             if (data.state === 'NY') {
-                addAlert("<strong>New York Recordkeeping Guidelines:</strong> Under the NY Wage Theft Prevention Act, missing paystubs or a lack of a written wage notice at hire can entitle you to up to $10,000 in statutory damages ($5,000 for each). A New York employment professional can help you add this to your claim.", "#E65100", "rgba(230, 81, 0, 0.4)");
+                addAlert("<strong>New York Recordkeeping Guidelines:</strong> Under the NY Wage Theft Prevention Act, missing paystubs or a lack of a written wage notice at hire can entitle you to up to $10,000 in statutory damages ($5,000 for each). A New York employment professional can help you add this to your claim.", "#BF360C", "rgba(191, 54, 12, 0.4)");
             } else {
-                addAlert("<strong>Recordkeeping Allowances:</strong> If your time records were missing or inaccurate, several state labor codes provide up to $4,000.00 in additional statutory compensation. This calculator focuses on hourly wages and doesn't include these paperwork-related amounts. A specialist can check your eligibility.", "#E65100", "rgba(230, 81, 0, 0.4)");
+                addAlert("<strong>Recordkeeping Allowances:</strong> If your time records were missing or inaccurate, several state labor codes provide up to $4,000.00 in additional statutory compensation. This calculator focuses on hourly wages and doesn't include these paperwork-related amounts. A specialist can check your eligibility.", "#BF360C", "rgba(191, 54, 12, 0.4)");
             }
         }
 
@@ -1128,7 +1156,7 @@ function updateUI(data) {
 
         if(captionEl) {
             captionEl.innerHTML = captionHTML;
-            captionEl.style.color = (state === 'TX') ? '#C62828' : '#999';
+            captionEl.style.color = (state === 'TX') ? '#C62828' : '#595959';
         }
 
         let pct = (data.yearsPassed / maxYears) * 100;
@@ -1338,8 +1366,10 @@ const ToolFeatures = {
                     options.forEach(opt => {
                         if (opt.getAttribute('data-value') === el.value) {
                             opt.classList.add('selected');
+                            opt.setAttribute('aria-selected', 'true');
                         } else {
                             opt.classList.remove('selected');
+                            opt.setAttribute('aria-selected', 'false');
                         }
                     });
                 }
@@ -1364,7 +1394,7 @@ const ToolFeatures = {
         const params = new URLSearchParams(window.location.search);
 
         // 1. Restore Inputs
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
+        for (const[key, config] of Object.entries(this.PERSIST_MAP)) {
             if (params.has(key)) {
                 const el = document.getElementById(config.id);
                 if (el) {

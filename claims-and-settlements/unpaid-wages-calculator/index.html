@@ -6,17 +6,23 @@
     
     <!-- SEO Meta Data -->
     <title>Unpaid Wages Calculator | Calculate Overtime, Penalties & FLSA Damages</title>
-    <meta name="description" content="Free Unpaid Wages Calculator (2025 Updated). Estimate owed overtime, off-the-clock work, and waiting time penalties under FLSA, California, NY, and Federal Labor Laws.">
+    <meta name="description" content="Free Unpaid Wages Calculator (2026 Updated). Estimate owed overtime, off-the-clock work, and waiting time penalties under FLSA, California, NY, and Federal Labor Laws.">
     <meta name="keywords" content="unpaid wages calculator, overtime calculator, wage theft, flsa penalty calculator, california waiting time penalties, unpaid wages lawsuit, labor law violations, off the clock work, misclassification calculator">
     <meta name="author" content="Solveria">
     <meta name="robots" content="index, follow">
     
+    <!-- Canonical Link (CRITICAL FOR SEO SCORE) -->
+    <link rel="canonical" href="https://www.solveria.org/claims-and-settlements/unpaid-wages-calculator/">
+    
     <!-- Open Graph / Social -->
     <meta property="og:title" content="Unpaid Wages Calculator | Reclaim Your Pay">
     <meta property="og:description" content="Did your employer underpay you? Calculate owed back wages, overtime, and penalties instantly with this professional legal engine.">
-    <meta property="og:image" content="../../img/Refinance_Hero.webp">
+    <meta property="og:image" content="https://www.solveria.org/img/Refinance_Hero.webp">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://solveria.org/calculators/unpaid-wages">
+    <meta property="og:url" content="https://www.solveria.org/claims-and-settlements/unpaid-wages-calculator/">
+
+    <!-- Preload Primary Fonts for Performance -->
+    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
 
     <!-- Schema Markup (JSON-LD) -->
     <script type="application/ld+json">
@@ -33,7 +39,7 @@
       },
       "description": "A professional tool to estimate unpaid wages, overtime violations, and statutory penalties under US Federal and State Labor Codes.",
       "featureList": "Overtime Calculation, Penalty Assessment, State-Specific Logic, FLSA Damages",
-      "screenshot": "../../img/Refinance_Hero.webp"
+      "screenshot": "https://www.solveria.org/img/Refinance_Hero.webp"
     }
     </script>
     
@@ -124,18 +130,18 @@
             
             <div class="header-row">
                 <h2>Inputs</h2>
-                <button id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
+                <button type="button" id="advanced-toggle" class="text-link-btn">Switch to Advanced</button>
             </div>
 
             <!-- Input Mode Cards -->
             <div class="mode-cards-container">
-                <button class="mode-card active-mode" data-mode="mode-a" 
+                <button type="button" class="mode-card active-mode" data-mode="mode-a" 
                         data-title="The Overtime Tracker" 
                         data-desc="Calculate unpaid base wages for overtime violations.">
                     <img src="../../img/1.jpg" alt="Clock on desk" width="300" height="150" loading="lazy">
                     <span>Overtime Tracker</span>
                 </button>
-                <button class="mode-card" data-mode="mode-b" 
+                <button type="button" class="mode-card" data-mode="mode-b" 
                         data-title="The Penalty Check" 
                         data-desc="Apply multipliers and state-specific fines.">
                     <img src="../../img/2.jpg" alt="Gavel and books" width="300" height="150" loading="lazy">
@@ -147,9 +153,9 @@
             <div class="global-settings">
                 <h3 class="input-sub-heading">Jurisdiction</h3>
                 <div class="input-wrapper full-width-span">
-                    <label>Work Location</label>
+                    <label id="lbl-workLocation" for="workLocation">Work Location</label>
                     <div class="custom-dropdown-container">
-                        <select id="workLocation" class="hidden-select">
+                        <select id="workLocation" class="hidden-select" tabindex="-1" aria-hidden="true">
                             <option value="CA" selected>California</option>
                             <option value="NY">New York</option>
                             <option value="TX">Texas</option>
@@ -159,8 +165,8 @@
                             <option value="MA">Massachusetts</option>
                             <option value="PA">Pennsylvania</option>
                         </select>
-                        <button class="custom-dropdown-trigger">California</button>
-                        <div class="custom-dropdown-menu">
+                        <button type="button" class="custom-dropdown-trigger" id="btn-workLocation" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-workLocation btn-workLocation">California</button>
+                        <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-workLocation">
                             <div class="dropdown-options-wrapper">
                                 <!-- Options populated by JS -->
                             </div>
@@ -173,17 +179,17 @@
                 <div class="advanced-content hidden">
                     <h3 class="input-sub-heading">Settings</h3>
                      <div class="input-wrapper full-width-span">
-                        <label>Employer Size</label>
+                        <label id="lbl-employerSize" for="employerSize">Employer Size</label>
                         <div class="custom-dropdown-container">
-                            <select id="employerSize" class="hidden-select">
+                            <select id="employerSize" class="hidden-select" tabindex="-1" aria-hidden="true">
                                 <option value="large" selected>26+ Employees</option>
                                 <option value="small">1-25 Employees</option>
                             </select>
-                            <button class="custom-dropdown-trigger">26+ Employees</button>
-                            <div class="custom-dropdown-menu">
+                            <button type="button" class="custom-dropdown-trigger" id="btn-employerSize" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-employerSize btn-employerSize">26+ Employees</button>
+                            <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-employerSize">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option selected" data-value="large">26+ Employees</div>
-                                    <div class="dropdown-option" data-value="small">1-25 Employees</div>
+                                    <div class="dropdown-option selected" data-value="large" role="option" aria-selected="true">26+ Employees</div>
+                                    <div class="dropdown-option" data-value="small" role="option" aria-selected="false">1-25 Employees</div>
                                 </div>
                             </div>
                         </div>
@@ -200,17 +206,17 @@
                 
                 <!-- 1. Pay Structure -->
                 <div class="input-wrapper">
-                    <label>Pay Structure</label>
+                    <label id="lbl-payStructureA" for="payStructureA">Pay Structure</label>
                     <div class="custom-dropdown-container">
-                        <select id="payStructureA" class="hidden-select">
+                        <select id="payStructureA" class="hidden-select" tabindex="-1" aria-hidden="true">
                             <option value="hourly" selected>Hourly</option>
                             <option value="salary">Salary</option>
                         </select>
-                        <button class="custom-dropdown-trigger" id="payStructureTriggerA">Hourly</button>
-                        <div class="custom-dropdown-menu">
+                        <button type="button" class="custom-dropdown-trigger" id="btn-payStructureA" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-payStructureA btn-payStructureA">Hourly</button>
+                        <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-payStructureA">
                             <div class="dropdown-options-wrapper">
-                                <div class="dropdown-option selected" data-value="hourly">Hourly</div>
-                                <div class="dropdown-option" data-value="salary">Salary</div>
+                                <div class="dropdown-option selected" data-value="hourly" role="option" aria-selected="true">Hourly</div>
+                                <div class="dropdown-option" data-value="salary" role="option" aria-selected="false">Salary</div>
                             </div>
                         </div>
                     </div>
@@ -219,34 +225,34 @@
 
                 <!-- 2. Compensation Amount -->
                 <div class="input-wrapper">
-                    <label id="label_compA">Hourly Rate ($)</label>
+                    <label id="label_compA" for="input_compA">Hourly Rate ($)</label>
                     <div class="input-group">
                         <input type="number" id="input_compA" value="20.00" step="0.50">
-                        <input type="range" id="slider_compA" min="0" max="100">
+                        <input type="range" id="slider_compA" min="0" max="100" aria-label="Hourly Rate Slider">
                     </div>
                     <div class="disclosure-text">Gross amount before taxes.</div>
                 </div>
 
                 <!-- 3. Average Hours Worked -->
                 <div class="input-wrapper">
-                    <label>Average Hours / Week</label>
+                    <label for="input_hoursA">Average Hours / Week</label>
                     <div class="input-group">
                         <input type="number" id="input_hoursA" value="45" step="1">
-                        <input type="range" id="slider_hoursA" min="0" max="100">
+                        <input type="range" id="slider_hoursA" min="0" max="100" aria-label="Hours per Week Slider">
                     </div>
                     <div class="disclosure-text">Total physical hours worked per week.</div>
                 </div>
 
                 <!-- 4. Claim Duration -->
                 <div class="input-wrapper">
-                    <label>Claim Duration</label>
+                    <div class="pseudo-label" id="lbl-claimDurationA">Claim Duration</div>
                     <div class="input-group-dates">
                         <div class="custom-date-wrapper">
-                            <input type="text" id="date_startA" class="date-input custom-date-trigger" readonly>
+                            <input type="text" id="date_startA" class="date-input custom-date-trigger" readonly aria-labelledby="lbl-claimDurationA" aria-label="Start Date">
                         </div>
-                        <span style="align-self:center; color:#999;">to</span>
+                        <span style="align-self:center; color:#595959;">to</span>
                         <div class="custom-date-wrapper">
-                            <input type="text" id="date_endA" class="date-input custom-date-trigger" readonly>
+                            <input type="text" id="date_endA" class="date-input custom-date-trigger" readonly aria-labelledby="lbl-claimDurationA" aria-label="End Date">
                         </div>
                     </div>
                     <div class="disclosure-text">The period this violation occurred.</div>
@@ -254,19 +260,19 @@
                 
                 <!-- 5. Mitigation Check -->
                 <div class="input-wrapper full-width-span">
-                    <label>Were you paid for these hours?</label>
+                    <label id="lbl-mitigationA" for="mitigationA">Were you paid for these hours?</label>
                     <div class="custom-dropdown-container">
-                        <select id="mitigationA" class="hidden-select">
+                        <select id="mitigationA" class="hidden-select" tabindex="-1" aria-hidden="true">
                             <option value="none" selected>No, I was unpaid entirely</option>
                             <option value="straight">No, I was paid straight time only</option>
                             <option value="partial">Yes, but miscalculated</option>
                         </select>
-                        <button class="custom-dropdown-trigger">No, I was unpaid entirely</button>
-                        <div class="custom-dropdown-menu">
+                        <button type="button" class="custom-dropdown-trigger" id="btn-mitigationA" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-mitigationA btn-mitigationA">No, I was unpaid entirely</button>
+                        <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-mitigationA">
                             <div class="dropdown-options-wrapper">
-                                <div class="dropdown-option selected" data-value="none">No, I was unpaid entirely</div>
-                                <div class="dropdown-option" data-value="straight">No, I was paid straight time only</div>
-                                <div class="dropdown-option" data-value="partial">Yes, but miscalculated</div>
+                                <div class="dropdown-option selected" data-value="none" role="option" aria-selected="true">No, I was unpaid entirely</div>
+                                <div class="dropdown-option" data-value="straight" role="option" aria-selected="false">No, I was paid straight time only</div>
+                                <div class="dropdown-option" data-value="partial" role="option" aria-selected="false">Yes, but miscalculated</div>
                             </div>
                         </div>
                     </div>
@@ -277,42 +283,42 @@
                 <div class="advanced-content hidden">
                     <h3 class="input-sub-heading">Hidden Hours</h3>
                     <div class="input-wrapper">
-                        <label>Off-the-Clock (Mins/Day)</label>
+                        <label for="input_offClockA">Off-the-Clock (Mins/Day)</label>
                         <div class="input-group">
                             <input type="number" id="input_offClockA" value="0">
-                            <input type="range" id="slider_offClockA" min="0" max="100">
+                            <input type="range" id="slider_offClockA" min="0" max="100" aria-label="Off the Clock Minutes Slider">
                         </div>
                         <div class="disclosure-text">Prep time, security checks, booting up, etc.</div>
                     </div>
                     <div class="input-wrapper">
-                        <label>Unpaid Lunch Deducted?</label>
+                        <label id="lbl-lunchA" for="lunchA">Unpaid Lunch Deducted?</label>
                         <div class="custom-dropdown-container">
-                            <select id="lunchA" class="hidden-select">
+                            <select id="lunchA" class="hidden-select" tabindex="-1" aria-hidden="true">
                                 <option value="no" selected>No</option>
                                 <option value="yes">Yes</option>
                             </select>
-                            <button class="custom-dropdown-trigger">No</button>
-                            <div class="custom-dropdown-menu">
+                            <button type="button" class="custom-dropdown-trigger" id="btn-lunchA" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-lunchA btn-lunchA">No</button>
+                            <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-lunchA">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option selected" data-value="no">No</div>
-                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                    <div class="dropdown-option selected" data-value="no" role="option" aria-selected="true">No</div>
+                                    <div class="dropdown-option" data-value="yes" role="option" aria-selected="false">Yes</div>
                                 </div>
                             </div>
                         </div>
                         <div class="disclosure-text">Did you work through lunch but lose pay for it?</div>
                     </div>
                     <div class="input-wrapper full-width-span">
-                        <label>Fluctuating Pay Rates?</label>
+                        <label id="lbl-fluctuatingA" for="fluctuatingA">Fluctuating Pay Rates?</label>
                         <div class="custom-dropdown-container">
-                            <select id="fluctuatingA" class="hidden-select">
+                            <select id="fluctuatingA" class="hidden-select" tabindex="-1" aria-hidden="true">
                                 <option value="no" selected>No</option>
                                 <option value="yes">Yes</option>
                             </select>
-                            <button class="custom-dropdown-trigger">No</button>
-                            <div class="custom-dropdown-menu">
+                            <button type="button" class="custom-dropdown-trigger" id="btn-fluctuatingA" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-fluctuatingA btn-fluctuatingA">No</button>
+                            <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-fluctuatingA">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option selected" data-value="no">No</div>
-                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                    <div class="dropdown-option selected" data-value="no" role="option" aria-selected="true">No</div>
+                                    <div class="dropdown-option" data-value="yes" role="option" aria-selected="false">Yes</div>
                                 </div>
                             </div>
                         </div>
@@ -327,37 +333,37 @@
                 
                 <!-- 1. Total Unpaid Wages -->
                 <div class="input-wrapper">
-                    <label>Total Unpaid Wages ($)</label>
+                    <label for="input_wagesB">Total Unpaid Wages ($)</label>
                     <div class="input-group">
                         <input type="number" id="input_wagesB" value="5000">
-                        <input type="range" id="slider_wagesB" min="0" max="100">
+                        <input type="range" id="slider_wagesB" min="0" max="100" aria-label="Total Unpaid Wages Slider">
                     </div>
                     <div class="disclosure-text">Enter the total amount of wages you are owed.</div>
                 </div>
 
                 <!-- NEW: Hourly Rate for Mode B (Required for Waiting Penalties) -->
                 <div class="input-wrapper">
-                    <label>Hourly Rate ($)</label>
+                    <label for="input_rateB">Hourly Rate ($)</label>
                     <div class="input-group">
                         <input type="number" id="input_rateB" value="20.00" step="0.50">
-                        <input type="range" id="slider_rateB" min="0" max="100">
+                        <input type="range" id="slider_rateB" min="0" max="100" aria-label="Penalty Hourly Rate Slider">
                     </div>
                     <div class="disclosure-text">Required to calculate daily waiting penalties.</div>
                 </div>
 
                 <!-- 2. Employer Intent -->
                 <div class="input-wrapper">
-                    <label>Employer Intent</label>
+                    <label id="lbl-intentB" for="intentB">Employer Intent</label>
                     <div class="custom-dropdown-container">
-                        <select id="intentB" class="hidden-select">
+                        <select id="intentB" class="hidden-select" tabindex="-1" aria-hidden="true">
                             <option value="honest">Honest Mistake</option>
                             <option value="willful" selected>Willful Violation</option>
                         </select>
-                        <button class="custom-dropdown-trigger">Willful Violation</button>
-                        <div class="custom-dropdown-menu">
+                        <button type="button" class="custom-dropdown-trigger" id="btn-intentB" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-intentB btn-intentB">Willful Violation</button>
+                        <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-intentB">
                             <div class="dropdown-options-wrapper">
-                                <div class="dropdown-option" data-value="honest">Honest Mistake</div>
-                                <div class="dropdown-option selected" data-value="willful">Willful Violation</div>
+                                <div class="dropdown-option" data-value="honest" role="option" aria-selected="false">Honest Mistake</div>
+                                <div class="dropdown-option selected" data-value="willful" role="option" aria-selected="true">Willful Violation</div>
                             </div>
                         </div>
                     </div>
@@ -366,10 +372,10 @@
 
                 <!-- NEW: Date of Violation for Mode B -->
                 <div class="input-wrapper">
-                    <label>Date of Violation</label>
+                    <label for="date_endB">Date of Violation</label>
                     <div class="input-group">
                         <div class="custom-date-wrapper">
-                            <input type="text" id="date_endB" class="date-input custom-date-trigger" readonly>
+                            <input type="text" id="date_endB" class="date-input custom-date-trigger" readonly aria-label="Date of Violation">
                         </div>
                     </div>
                     <div class="disclosure-text">When did the unpaid work occur?</div>
@@ -381,17 +387,17 @@
                     
                     <!-- Employment Status -->
                     <div class="input-wrapper">
-                        <label>Employment Status</label>
+                        <label id="lbl-empStatusB" for="empStatusB">Employment Status</label>
                         <div class="custom-dropdown-container">
-                            <select id="empStatusB" class="hidden-select">
+                            <select id="empStatusB" class="hidden-select" tabindex="-1" aria-hidden="true">
                                 <option value="employed">Still Employed</option>
                                 <option value="terminated" selected>Fired or Quit</option>
                             </select>
-                            <button class="custom-dropdown-trigger">Fired or Quit</button>
-                            <div class="custom-dropdown-menu">
+                            <button type="button" class="custom-dropdown-trigger" id="btn-empStatusB" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="lbl-empStatusB btn-empStatusB">Fired or Quit</button>
+                            <div class="custom-dropdown-menu" role="listbox" aria-labelledby="btn-empStatusB">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="employed">Still Employed</div>
-                                    <div class="dropdown-option selected" data-value="terminated">Fired or Quit</div>
+                                    <div class="dropdown-option" data-value="employed" role="option" aria-selected="false">Still Employed</div>
+                                    <div class="dropdown-option selected" data-value="terminated" role="option" aria-selected="true">Fired or Quit</div>
                                 </div>
                             </div>
                         </div>
@@ -400,17 +406,17 @@
 
                     <!-- Final Paycheck Timing -->
                     <div class="input-wrapper">
-                        <label>Final Pay: Days Late</label>
+                        <label for="input_lateDaysB">Final Pay: Days Late</label>
                         <div class="input-group">
                             <input type="number" id="input_lateDaysB" value="9">
-                            <input type="range" id="slider_lateDaysB" min="0" max="100">
+                            <input type="range" id="slider_lateDaysB" min="0" max="100" aria-label="Days Late Slider">
                         </div>
                         <div class="disclosure-text">Days elapsed before receiving full final pay.</div>
                     </div>
 
                     <!-- Violation Checklist -->
                     <div class="input-wrapper full-width-span">
-                        <label style="margin-bottom:10px;">Violation Checklist</label>
+                        <div class="pseudo-label" style="margin-bottom:10px;">Violation Checklist</div>
                         <div class="checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" id="check_records">
@@ -441,7 +447,7 @@
             <div class="header-row right-header-row">
                 <h2>Estimates</h2>
                 <div class="action-buttons-row">
-                    <button class="action-btn share-btn" id="btn-share">Share</button>
+                    <button type="button" class="action-btn share-btn" id="btn-share">Share</button>
                 </div>
             </div>
 
@@ -516,7 +522,7 @@
                                 <span class="result-label">Waiting Penalties</span>
                                 <span class="result-value" id="res_penaltyB">$0.00</span>
                                 <!-- MODE 2 DISCLAIMER FIX -->
-                                <div style="font-size: 0.86rem; color: #999; margin-top: 8px; line-height: 1.2;">Assumes standard 8-hour workday. Part-time penalties may vary.</div>
+                                <div style="font-size: 0.86rem; color: #595959; margin-top: 8px; line-height: 1.2;">Assumes standard 8-hour workday. Part-time penalties may vary.</div>
                             </div>
                             <div class="result-box">
                                 <span class="result-label">Total Claim</span>
@@ -608,28 +614,28 @@
             <h3>Frequently Asked Questions (FAQ)</h3>
             
             <div class="faq-item">
-                <button class="faq-toggle">How far back can I claim unpaid wages?</button>
+                <button type="button" class="faq-toggle">How far back can I claim unpaid wages?</button>
                 <div class="faq-answer">
                     <p>Under federal law (FLSA), the statute of limitations is generally <strong>2 years</strong>. However, if the violation is deemed "willful"—meaning the employer knew their conduct was prohibited or showed reckless disregard—the period extends to <strong>3 years</strong>. State laws vary; for example, New York allows claims going back <strong>6 years</strong>, providing a significantly larger window for recovery.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-toggle">Does "off-the-clock" work count?</button>
+                <button type="button" class="faq-toggle">Does "off-the-clock" work count?</button>
                 <div class="faq-answer">
                     <p>Absolutely. Compensable work time is not defined strictly by when you "punch in." It includes any time you are suffered or permitted to work. Common examples include putting on safety gear (donning and doffing), security screenings, booting up computers, travel between work sites, or mandatory training sessions. If your employer requires it, you must be paid for it.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-toggle">I am salaried. Am I exempt from overtime?</button>
+                <button type="button" class="faq-toggle">I am salaried. Am I exempt from overtime?</button>
                 <div class="faq-answer">
                     <p>Not necessarily. Being paid a "salary" does not automatically make you exempt. To be exempt from overtime, you must meet specific duties tests (Executive, Administrative, or Professional) <strong>AND</strong> earn above a specific salary threshold. Many employers misclassify workers as "Managers" to avoid overtime, even when their primary duties are manual or routine. This is a common form of wage theft.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-toggle">What if I was an Independent Contractor (1099)?</button>
+                <button type="button" class="faq-toggle">What if I was an Independent Contractor (1099)?</button>
                 <div class="faq-answer">
                     <p>Misclassification is rampant in the gig economy. If your employer controls your hours, provides your tools, and directs how you do your work, you may legally be an <strong>employee</strong> regardless of any contract you signed. If found to be misclassified, you could be entitled to years of back overtime, minimum wage adjustments, and reimbursement for taxes and expenses.</p>
                 </div>
