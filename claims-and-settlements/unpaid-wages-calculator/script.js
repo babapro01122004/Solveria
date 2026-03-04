@@ -116,7 +116,7 @@ function getStateData(stateCode) {
 /* ============================ */
 /* Breathing Text Logic         */
 /* ============================ */
-const phrases = [
+const phrases =[
     "Unpaid hours are donated hours.",
     "Understand your rights. Reclaim your time.",
     "Know the value of your time.",
@@ -296,17 +296,16 @@ function initializeCustomDropdowns() {
 /* ============================ */
 function initializeCustomCalendars() {
     const dateInputs = document.querySelectorAll('.custom-date-trigger');
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthNames =["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
     dateInputs.forEach(input => {
+        // FIX: Ensure default Start Date is 1 Year Ago, and End Date is Today
         if (!input.value) {
-            if (input.id === 'date_endB') {
-                const d = new Date();
+            const d = new Date();
+            if (input.id === 'date_endB' || input.id === 'date_startA') {
                 d.setFullYear(d.getFullYear() - 1);
-                input.value = d.toISOString().split('T')[0];
-            } else {
-                input.value = new Date().toISOString().split('T')[0];
             }
+            input.value = d.toISOString().split('T')[0];
         }
     });
 
@@ -398,9 +397,7 @@ function initializeCustomCalendars() {
                 grid.style.display = 'grid';
                 grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
                 grid.style.textAlign = 'center';
-                grid.style.gap = '2px';
-
-                ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
+                grid.style.gap = '2px';['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
                     const dh = document.createElement('div');
                     dh.style.fontSize = '0.75rem'; dh.style.color = '#999'; dh.style.padding = '5px 0';
                     dh.textContent = d;
@@ -587,6 +584,8 @@ function initializeAdvancedToggle() {
         document.querySelectorAll('.advanced-content').forEach(el => {
             el.classList.toggle('hidden', !isAdvanced);
         });
+        // Trigger recalc to update dynamic summary text
+        calculateResults();
     });
 }
 
@@ -674,92 +673,98 @@ function calculateResults() {
         }
     }
 
-    // Total Weekly Hours (Including hidden hours)
-    let totalWeeklyHours = inputs.hours + (inputs.offClock / 60 * 5);
-    if (inputs.lunch) totalWeeklyHours += 2.5; 
+    // --- NEW MATH ENGINE: "EARNED VS PAID" RECONCILIATION ---
+    // Total Weekly Hours (Including recorded hours + entirely hidden hours)
+    let hiddenHours = (inputs.offClock / 60 * 5) + (inputs.lunch ? 2.5 : 0);
+    let totalWeeklyHours = inputs.hours + hiddenHours;
 
-    // Calculate OT/DT Hours
-    let otHours = 0;
-    let doubleTimeHours = 0;
+    // Apportion actual hours worked into Straight, OT, DT based on legal constraints
+    let actualStraight = 0;
+    let actualOT = 0;
+    let actualDT = 0;
 
     if (stateData.otType === 'daily') {
-        const dailyAvg = totalWeeklyHours / 5;
-        const dailyThreshold = stateData.dailyThreshold || 8;
+        const dailyHrs = totalWeeklyHours / 5;
+        const dThresh = stateData.dailyThreshold || 8;
         
-        if (dailyAvg > dailyThreshold) {
-            let dailyOt = dailyAvg - dailyThreshold;
-            if (inputs.state === 'CA' && dailyAvg > 12) {
-                const dailyDouble = dailyAvg - 12;
-                dailyOt = 4; 
-                doubleTimeHours += (dailyDouble * 5);
-            }
-            otHours += (dailyOt * 5);
-        }
-        
-        const straightTime = (Math.min(dailyAvg, dailyThreshold) * 5);
-        if (straightTime > 40) {
-             otHours += (straightTime - 40);
+        let dStraight = Math.min(dailyHrs, dThresh);
+        let dOt = Math.max(0, dailyHrs - dThresh);
+        let dDt = 0;
+
+        // California Double Time Rule
+        if (inputs.state === 'CA' && dailyHrs > 12) {
+            dDt = dailyHrs - 12;
+            dOt = 4; // Max daily OT before DT is 4 hours (12 - 8)
         }
 
-    } else {
-        const threshold = stateData.weeklyThreshold || 40;
-        if (totalWeeklyHours > threshold) {
-            otHours = totalWeeklyHours - threshold;
+        actualStraight = dStraight * 5;
+        actualOT = dOt * 5;
+        actualDT = dDt * 5;
+
+        // FLSA Weekly Base Check: Straight time can NEVER exceed 40 hours per week legally
+        if (actualStraight > 40) {
+            actualOT += (actualStraight - 40);
+            actualStraight = 40;
         }
+    } else {
+        const wThresh = stateData.weeklyThreshold || 40;
+        actualStraight = Math.min(totalWeeklyHours, wThresh);
+        actualOT = Math.max(0, totalWeeklyHours - wThresh);
+        actualDT = 0;
     }
 
-    // --- MATH ENGINE UPDATE ---
+    let earnedWages = 0;
+    let paidWages = 0;
     let regularRate = 0;
-    let otMultiplier = 1.5;
-    let dtMultiplier = 2.0;
 
     if (inputs.payType === 'hourly') {
-        // Condition 1: HOURLY
         regularRate = inputs.rate;
         
-        if (inputs.mitigation === 'straight') {
-            otMultiplier = 0.5;
-            dtMultiplier = 1.0;
+        // 1. Calculate Legally Earned Wages (Based on ALL actual hours)
+        earnedWages = (actualStraight * regularRate) + (actualOT * regularRate * 1.5) + (actualDT * regularRate * 2.0);
+
+        // 2. Calculate Employer's Actual Pay (Based ONLY on recorded hours & mitigation input)
+        const recStraight = Math.min(inputs.hours, 40);
+        const recOT = Math.max(0, inputs.hours - 40); 
+
+        if (inputs.mitigation === 'none') {
+            // Employer paid ZERO for any overtime. Paid straight time for recorded base hours only.
+            paidWages = recStraight * inputs.rate;
+        } else if (inputs.mitigation === 'straight') {
+            // Employer paid straight time (1.0x) for ALL recorded hours, but robbed the 0.5x premium
+            paidWages = inputs.hours * inputs.rate;
         } else if (inputs.mitigation === 'partial') {
-            otMultiplier = 0.75; 
+            // Employer tried to pay OT, but miscalculated it (assumes paid 1.25x instead of 1.5x for recorded OT)
+            paidWages = (recStraight * inputs.rate) + (recOT * inputs.rate * 1.25);
         }
-        // If mitigation is 'none', multipliers remain 1.5 and 2.0
+
     } else {
-        // Condition 2: SALARY
-        // Regular Rate = Weekly Salary / Total Hours Worked
-        // If total hours is 0, avoid division by zero
-        regularRate = (totalWeeklyHours > 0) ? (inputs.rate / totalWeeklyHours) : 0;
-        
-        // Overtime Premium = Regular Rate * 0.5 (Half-Time)
-        // Since salary covers straight time for all hours, we only owe the premium.
-        otMultiplier = 0.5;
-        
-        // For Double Time (e.g. CA > 12h), the salary covered 1.0x, so we owe 1.0x to reach 2.0x total.
-        dtMultiplier = 1.0;
+        // Condition: SALARY MISCLASSIFICATION
+        if (stateData.protectionLevel === 'High') {
+            // High protection states (e.g. CA) strictly void FWW methods for misclassified workers. 
+            // The weekly salary only compensates for the first 40 hours.
+            regularRate = inputs.rate / 40;
+            earnedWages = inputs.rate + (actualOT * regularRate * 1.5) + (actualDT * regularRate * 2.0);
+        } else {
+            // Federal FLSA standard Fluctuating Workweek (FWW) assumption for misclassified salaries.
+            // The salary legally covered ALL straight time and the straight portion of OT.
+            regularRate = totalWeeklyHours > 0 ? (inputs.rate / totalWeeklyHours) : 0;
+            // Only the 0.5x half-time premium (or 1.0x for DT) is owed.
+            earnedWages = inputs.rate + (actualOT * regularRate * 0.5) + (actualDT * regularRate * 1.0);
+        }
+        // The employer paid exactly the flat salary
+        paidWages = inputs.rate;
     }
 
-    // Calculate Weekly Theft (Unpaid Wages)
-    let weeklyTheft = (otHours * regularRate * otMultiplier) + (doubleTimeHours * regularRate * dtMultiplier);
+    // 3. Final Reconciliation: Theft is simply what was legally earned minus what was paid
+    let weeklyTheft = Math.max(0, earnedWages - paidWages);
     
-    // Add "Hidden Hours" at Regular Rate ONLY IF it's Hourly and they are under 40 hours.
-    // If Salaried, the salary covers these hours implicitly until they hit overtime.
-    if (inputs.payType === 'hourly' && totalWeeklyHours <= 40) {
-        const hiddenHours = (inputs.offClock / 60 * 5) + (inputs.lunch ? 2.5 : 0);
-        weeklyTheft += (hiddenHours * regularRate);
-    }
-
     const totalBaseDebt = weeklyTheft * weeks;
-    const donatedHoursTotal = (otHours + doubleTimeHours) * weeks;
+    // Donated hours are all hours worked beyond straight time
+    const donatedHoursTotal = (actualOT + actualDT) * weeks;
 
-    // Real Hourly Rate Calculation
-    let actualWeeklyPay = 0;
-    if (inputs.payType === 'salary') {
-        actualWeeklyPay = inputs.rate; // Fixed Salary
-    } else {
-        // Hourly approximation
-        actualWeeklyPay = (Math.min(totalWeeklyHours, 40) * inputs.rate); 
-    }
-    const realHourlyRate = totalWeeklyHours > 0 ? (actualWeeklyPay / totalWeeklyHours) : 0;
+    // Real Hourly Rate Calculation (Based on actual pay vs actual physical hours)
+    const realHourlyRate = totalWeeklyHours > 0 ? (paidWages / totalWeeklyHours) : 0;
 
     // --- SUB-MINIMUM WAGE CHECK ---
     const stateMin = stateData.minWage || 7.25;
@@ -824,7 +829,170 @@ function updateUI(data) {
     const modeAResults = document.getElementById('mode-a-results');
     const modeBResults = document.getElementById('mode-b-results');
     
-    // Mode A Results
+    const isAdvanced = !document.querySelector('.advanced-content').classList.contains('hidden');
+
+    // --- STATE FOMO UNDER WORK LOCATION INPUT ---
+    const workLocInput = document.getElementById('workLocation');
+    if (workLocInput) {
+        const locWrapper = workLocInput.closest('.input-wrapper');
+        if (locWrapper) {
+            let stateFomo = document.getElementById('global-state-fomo');
+            if (!stateFomo) {
+                stateFomo = document.createElement('div');
+                stateFomo.id = 'global-state-fomo';
+                locWrapper.appendChild(stateFomo);
+            }
+            
+            let fomoHTML = '';
+            if (data.state === 'CA') {
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>California Overtime Note:</strong> This tool currently estimates weekly overtime. Because California also requires daily overtime (for shifts over 8 hours), you might be owed additional compensation. A professional review can help calculate your exact daily overtime.</div>`;
+            } 
+            else if (data.state === 'FL') {
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Florida Claim Requirement:</strong> Before pursuing a minimum wage claim in Florida, the law asks that you provide your employer with a 15-day written notice. A professional can help draft this notice properly. <br><br><strong>Note:</strong> Florida uses the standard 40-hour federal workweek for overtime.</div>`;
+                fomoHTML += `<div style="margin-top: 10px; padding: 15px; background-color: #880E4F; box-shadow: 0 4px 15px rgba(136, 14, 79, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Local County Ordinances:</strong> If you worked in Miami-Dade or Pinellas counties, local rules might entitle you to up to three times your missing wages. These local processes can sometimes be faster than state-level claims. A legal professional can help check if your location qualifies.</div>`;
+            }
+            else if (data.state === 'NY') {
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>New York 'Spread of Hours' Rule:</strong> If your workday spanned more than 10 hours from start to finish (including breaks), New York law generally requires your employer to pay an extra hour of minimum wage for that day. A legal professional can help you add this to your calculation.</div>`;
+            }
+            else if (data.state !== 'TX') {
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Federal FLSA Baseline & State Adjustments:</strong> This estimate is built using standard federal FLSA regulations. However, your specific state may have stronger labor laws—such as daily overtime rules, missed meal break compensations, or unique statutory penalties. Because of these additional protections, your actual missing pay could be significantly higher than the federal baseline shown here. A professional review can apply your exact state codes to uncover your full compensation.</div>`;
+            }
+            
+            stateFomo.innerHTML = fomoHTML;
+        }
+    }
+
+    // --- DYNAMIC MASTER SUMMARY GENERATION ---
+    const red = (txt) => `<span style="color:#e74c3c; font-weight:600;">${txt}</span>`;
+    const yellow = (txt) => `<span style="color:#e67e22; font-weight:600;">${txt}</span>`;
+    const green = (txt) => `<span style="color:#2ecc71; font-weight:600;">${txt}</span>`;
+    const bold = (txt) => `<strong>${txt}</strong>`;
+
+    // UPDATED: Increased the font-size of "(Combined Overtime & Penalty Analysis)" from 0.9rem to 1.05rem.
+    let summaryHTML = `<h3 class="result-sub-heading" style="margin-top:0; margin-bottom: 15px; font-size: 1.5rem; text-transform: none; letter-spacing: 0;">Your Complete Estimate <span style="font-size: 1.05rem; color: #7a7a7a; font-weight: 300;">(Combined Overtime & Penalty Analysis)</span></h3><p style="font-size: 1.05rem; line-height: 1.6; color: #444; font-family: 'ProductSans-Light', sans-serif; margin: 10px 5px 30px 5px; padding: 25px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 10px 35px -5px rgba(0,0,0,0.1); border: none; box-sizing: border-box; position: relative;">`;
+
+    let advText = "";
+    
+    if (data.state === 'CA') {
+        if (isAdvanced) advText = ` Because of your uncounted hours, your actual earnings effectively dropped to ${yellow(fmt(data.realRate))}. Furthermore, based on your termination date, California guidelines suggest you may be owed an additional ${red(fmt(data.statePenalty))} for late final pay. You are currently ${yellow(data.yearsPassed.toFixed(1))} years into your standard 3-year window to file a claim.`;
+        
+        summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in California, resulting in about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. Your estimated missing pay for standard overtime is around ${red(fmt(data.totalBaseDebt))}.${advText} However, when factoring in California’s strict protections and potential federal damages, your total estimated recovery could be up to ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">Please note this only calculates weekly overtime; California also requires daily overtime, meaning your actual estimate could be higher.</em>`;
+    } 
+    else if (data.state === 'NY') {
+        let nyExtra = data.checkRecords ? ` Furthermore, you noted missing paperwork, which can carry statutory penalties of up to $10,000 in NY.` : ``;
+        if (isAdvanced) advText = ` These unpaid hours effectively dropped your true hourly pay to ${yellow(fmt(data.realRate))}. Based on the dates provided, you are currently ${yellow(data.yearsPassed.toFixed(1))} years into New York's generous 6-year window to recover missing compensation.${nyExtra}`;
+        
+        summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in New York, leaving about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. Your estimated base missing pay is around ${red(fmt(data.totalBaseDebt))}.${advText} Because New York law generally allows workers to claim 'double damages' (liquidated damages), your total estimated recovery could reach ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">This is an estimate, not a guarantee. Connect with a professional to verify your exact eligibility under New York law.</em>`;
+    }
+    else if (data.state === 'TX') {
+        if (isAdvanced) advText = ` Your uncompensated time effectively dropped your actual pay to ${yellow(fmt(data.realRate))}. <strong style="color:#e67e22;">Urgent Timeline Note:</strong> While federal claims allow 2 to 3 years, Texas state-level claims through the TWC have a strict 180-day deadline. Furthermore, under Texas Payday Law, your final check was due within 6 days of your departure, which may trigger additional compliance reviews.`;
+        
+        summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in Texas, resulting in about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. While Texas follows federal overtime rules, your estimated missing pay is still around ${red(fmt(data.totalBaseDebt))}.${advText} Factoring in potential federal protections, your total estimated recovery could reach up to ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">Texas operates under federal wage guidelines but has strict local deadlines, so a professional review is highly recommended.</em>`;
+    }
+    else if (data.state === 'FL') {
+        if (isAdvanced) advText = ` Because of your uncounted time, your true hourly earnings dropped to ${yellow(fmt(data.realRate))}. Based on the dates provided, you are ${yellow(data.yearsPassed.toFixed(1))} years into Florida’s 4-to-5 year constitutional window to recover missing funds.`;
+        
+        summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in Florida, resulting in about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. Your estimated missing pay is around ${red(fmt(data.totalBaseDebt))}.${advText} Florida’s constitution offers strong wage protections, meaning your total potential recovery could be up to ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">Florida requires a specific 15-day legal notice before taking action, so it is highly recommended to have a professional verify your estimate.</em>`;
+    }
+    else {
+        if (isAdvanced) advText = ` These unpaid hours effectively dropped your true hourly pay to ${yellow(fmt(data.realRate))}. Based on your timeline, you are ${yellow(data.yearsPassed.toFixed(1))} years into the standard 2-to-3 year federal window to claim missing compensation.`;
+        
+        summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week, resulting in about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. Under standard federal guidelines, your estimated missing pay is around ${red(fmt(data.totalBaseDebt))}.${advText} If specific federal protections apply to your situation, your total potential recovery could reach up to ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">Your specific state may offer even more protections than the federal baseline, so consider having a professional verify your exact eligibility.</em>`;
+    }
+    
+    // Add the Action Button perfectly styled inside the bottom-left of the card
+    summaryHTML += `<br><br><a href="../../contact-us/" class="legal-action-btn">Explore Your Legal Options</a>`;
+    summaryHTML += `</p>`;
+
+    let summaryBox = document.getElementById('dynamic-master-summary');
+    if (!summaryBox) {
+        summaryBox = document.createElement('div');
+        summaryBox.id = 'dynamic-master-summary';
+        const displayContainer = document.getElementById('results-display-container');
+        if (displayContainer) {
+            displayContainer.insertBefore(summaryBox, displayContainer.firstChild);
+        }
+    }
+    if (summaryBox) {
+        summaryBox.innerHTML = summaryHTML;
+    }
+
+    // --- CONDITION SPECIFIC ALERTS UNDER SUMMARY ---
+    let alertStack = document.getElementById('global-alert-stack');
+    if (!alertStack) {
+        alertStack = document.createElement('div');
+        alertStack.id = 'global-alert-stack';
+        alertStack.style.cssText = 'display: flex; flex-direction: column; gap: 15px; margin: 0 5px 30px 5px;';
+        const displayContainer = document.getElementById('results-display-container');
+        if (displayContainer && summaryBox) {
+            if (summaryBox.nextSibling) {
+                displayContainer.insertBefore(alertStack, summaryBox.nextSibling);
+            } else {
+                displayContainer.appendChild(alertStack);
+            }
+        }
+    }
+
+    if (alertStack) {
+        alertStack.innerHTML = ''; // Clear previous alerts
+        
+        const addAlert = (html, bgColor, shadowColor) => {
+            const div = document.createElement('div');
+            div.style.cssText = `padding: 20px; background-color: ${bgColor}; box-shadow: 0 4px 15px ${shadowColor}; border-radius: 8px; color: #ffffff; font-size: 0.95rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; font-weight: 500;`;
+            div.innerHTML = html;
+            alertStack.appendChild(div);
+        };
+
+        // 1. NY Liquidated Damages
+        if (data.state === 'NY' && data.totalBaseDebt > 0) {
+            addAlert("<strong>New York Damages Provision:</strong> Under New York Labor Law, workers with unpaid wage claims are often entitled to 'liquidated damages,' which can double the amount owed to you. Your total compensation may be twice the base amount shown here.", "#34495e", "rgba(52, 73, 94, 0.4)");
+        }
+        
+        // 2. FLSA Complex Claim / Fluctuating
+        if (data.state === 'TX' && data.inputs.payType === 'salary' && data.weeklyHours > 40) {
+            addAlert("<strong>Day-Rate & Salary Overtime:</strong> Under federal law, paying a flat daily rate or salary without a 1.5x overtime premium for hours over 40 is generally non-compliant. Workers in Texas oilfields and construction frequently have substantial uncounted overtime due to this pay structure. A legal professional can help review your case.", "#C62828", "rgba(198, 40, 40, 0.4)");
+        } else if (data.fluctuating) {
+            addAlert("<strong>Multiple Pay Rates:</strong> Because you worked at different pay rates, federal guidelines require a 'weighted average' to find your exact overtime rate. This tool offers a baseline estimate using your main rate, but a custom calculation is needed to be completely accurate. A professional can help review your blended rate.", "#C62828", "rgba(198, 40, 40, 0.4)");
+        }
+
+        // 3. Sub-Minimum Wage
+        const isFlTippedTrap = (data.state === 'FL' && data.inputs.rate < 14.00 && data.inputs.rate >= 10.98);
+        if (data.isSubMinWage || data.isSubMinWageB) {
+             if (data.state === 'FL') {
+                addAlert("<strong>Florida Minimum Wage Note:</strong> The hourly rate entered is below Florida's Constitutional minimum wage of $14.00/hr. You may be entitled to recover the difference, along with potential matching damages. A Florida employment professional can review your total compensation accurately.", "#B71C1C", "rgba(183, 28, 28, 0.5)");
+            } else {
+                addAlert("<strong>Minimum Wage Adjustment:</strong> The hourly rate entered is currently below your state's minimum wage. This means your calculation should likely include compensation for both the minimum wage difference and your overtime hours. An employment advocate can help combine these figures for a complete estimate.", "#B71C1C", "rgba(183, 28, 28, 0.5)");
+            }
+        } else if (isFlTippedTrap) {
+            addAlert("<strong>Tipped Employee Guidelines:</strong> Your rate indicates a tipped wage. Please note that if a manager or owner participates in your tip pool, the business may be required to pay the full $14.00/hr standard minimum wage for all hours worked, rather than the tipped rate. A legal professional can help review your working relationship.", "#D84315", "rgba(216, 67, 21, 0.5)");
+        }
+
+        // 4. Texas Final Pay Timing
+        if (data.state === 'TX' && data.inputs.empStatus === 'terminated' && data.inputs.lateDays > 6) {
+            addAlert("<strong>Texas Final Pay Timing:</strong> Under the Texas Payday Law, an employee who is let go should generally receive their final paycheck within 6 calendar days. Since this time has passed, you may be entitled to additional compensation. An employment advocate can help review your next steps.", "#C62828", "rgba(198, 40, 40, 0.4)");
+        }
+
+        // 5. Records
+        if (data.checkRecords) {
+            if (data.state === 'NY') {
+                addAlert("<strong>New York Recordkeeping Guidelines:</strong> Under the NY Wage Theft Prevention Act, missing paystubs or a lack of a written wage notice at hire can entitle you to up to $10,000 in statutory damages ($5,000 for each). A New York employment professional can help you add this to your claim.", "#E65100", "rgba(230, 81, 0, 0.4)");
+            } else {
+                addAlert("<strong>Recordkeeping Allowances:</strong> If your time records were missing or inaccurate, several state labor codes provide up to $4,000.00 in additional statutory compensation. This calculator focuses on hourly wages and doesn't include these paperwork-related amounts. A specialist can check your eligibility.", "#E65100", "rgba(230, 81, 0, 0.4)");
+            }
+        }
+
+        // 6. Misclassification
+        if (data.checkMisclass) {
+            addAlert("<strong>Contractor Status Review:</strong> Being incorrectly classified as an independent contractor (1099) instead of a W-2 employee can shift employer tax burdens onto you. If misclassified, you may be eligible to recover those taxes and receive state compliance compensations. A legal expert can help review your working relationship.", "#B71C1C", "rgba(183, 28, 28, 0.4)");
+        }
+
+        // 7. Deductions
+        if (data.checkDeduct) {
+            addAlert("<strong>Paycheck Deductions:</strong> Standard business expenses, uniform costs, or register shortages generally cannot be deducted from your paycheck. You have the right to request a full reimbursement for these costs. A legal professional can help determine how to include these expenses in your overall estimate.", "#880E4F", "rgba(136, 14, 79, 0.4)");
+        }
+    }
+
+    // --- Mode A Results Mapping ---
     const protectionEl = document.querySelector('.result-value.good');
     if(protectionEl) protectionEl.textContent = data.protection; 
 
@@ -854,256 +1022,6 @@ function updateUI(data) {
         }
     }
 
-    // --- UNIVERSAL FOMO BLOCKS (Triggered by State Selection) ---
-    // Helper function to create/update State Specific Alerts in BOTH modes
-    const updateStateFOMO = (container, idSuffix) => {
-        if (!container) return;
-        
-        // 1. AMBER BOX (CA/FL/NY Main Warnings)
-        let alertBox = document.getElementById(`state-fomo-${idSuffix}`);
-        if (!alertBox) {
-            alertBox = document.createElement('div');
-            alertBox.id = `state-fomo-${idSuffix}`;
-            alertBox.style.cssText = `margin-top: 30px; padding: 20px; background-color: #F57F17; box-shadow: 0 4px 15px rgba(245, 127, 23, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none;`;
-            
-            const advContent = container.querySelector('.advanced-content');
-            if(advContent) container.insertBefore(alertBox, advContent);
-            else container.appendChild(alertBox);
-        }
-
-        let amberVisible = false;
-        if (data.state === 'CA') {
-            alertBox.innerHTML = "<strong>NOTE:</strong> This estimate only calculates weekly overtime. California also enforces daily overtime rules. If you worked more than 8 hours in a single day, your actual unpaid wages could be significantly higher. <br><br>Get a free professional review to calculate the exact daily overtime you are legally owed. <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-            alertBox.style.display = 'block';
-            amberVisible = true;
-        } 
-        else if (data.state === 'FL') {
-            alertBox.innerHTML = "<strong>[WARNING] FLORIDA NOTICE REQUIRED:</strong> You are legally barred from filing a minimum wage lawsuit until you provide a 15-day written notice. Our partners can draft this legal notice to ensure your claim isn't dismissed. <br><br><strong>Note:</strong> Florida does not enforce daily overtime; estimates are based on the 40-hour federal workweek. <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            alertBox.style.display = 'block';
-            amberVisible = true;
-        }
-        else if (data.state === 'NY') {
-            alertBox.innerHTML = "<strong>[WARNING] NEW YORK 'SPREAD OF HOURS' ALERT:</strong> Did your shifts ever span more than 10 hours from start to finish (even with a long break)? NY law requires employers to pay an extra hour of minimum wage for those days. <br><br>Connect with a lawyer to uncover these hidden wages! <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-            alertBox.style.display = 'block';
-            amberVisible = true;
-        }
-        else {
-            alertBox.style.display = 'none';
-        }
-
-        // 2. MIAMI/PINELLAS BOX (FL Only)
-        let countyBox = document.getElementById(`county-fomo-${idSuffix}`);
-        if (!countyBox) {
-            countyBox = document.createElement('div');
-            countyBox.id = `county-fomo-${idSuffix}`;
-            countyBox.style.cssText = `margin-top: 20px; padding: 20px; background-color: #880E4F; box-shadow: 0 4px 15px rgba(136, 14, 79, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none;`;
-            // Insert after amber box
-            if (alertBox.nextSibling) container.insertBefore(countyBox, alertBox.nextSibling);
-            else container.appendChild(countyBox);
-        }
-
-        if (data.state === 'FL') {
-            countyBox.innerHTML = "<strong>[INFO] COUNTY WAGE THEFT:</strong> Residents in Miami-Dade and Pinellas may be entitled to 3x (triple) back wages under local ordinances. These local laws often provide faster recovery than a state lawsuit. <br><br>Check if your workplace location qualifies for triple damages. <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            countyBox.style.display = 'block';
-        } else {
-            countyBox.style.display = 'none';
-        }
-    };
-
-    // EXECUTE FOR BOTH MODES
-    updateStateFOMO(modeAResults, 'a');
-    updateStateFOMO(modeBResults, 'b');
-
-    // --- OTHER MODE A DYNAMIC ALERTS (Condition Specific) --- //
-    // 1b. NEW YORK LIQUIDATED DAMAGES ALERT (Mode A)
-    let nyLiqAlert = document.getElementById('ny-liq-alert');
-    if (!nyLiqAlert && modeAResults) {
-        nyLiqAlert = document.createElement('div');
-        nyLiqAlert.id = 'ny-liq-alert';
-        nyLiqAlert.style.cssText = `margin-top: 20px; padding: 20px; background-color: #34495e; box-shadow: 0 4px 15px rgba(52, 73, 94, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none;`;
-        
-        // Find reference node (after State FOMO A)
-        const refNode = document.getElementById('state-fomo-a');
-        if (refNode && refNode.nextSibling) modeAResults.insertBefore(nyLiqAlert, refNode.nextSibling);
-        else {
-             const advContent = modeAResults.querySelector('.advanced-content');
-             if(advContent) modeAResults.insertBefore(nyLiqAlert, advContent);
-        }
-    }
-
-    if (nyLiqAlert) {
-        if (data.state === 'NY' && data.totalBaseDebt > 0) {
-            nyLiqAlert.innerHTML = "<strong>[INFO] 100% LIQUIDATED DAMAGES:</strong> New York Labor Law strictly entitles workers to DOUBLE their unpaid wages as liquidated damages. Your actual legal claim is likely 2x the base amount shown below!";
-            nyLiqAlert.style.display = 'block';
-        } else {
-            nyLiqAlert.style.display = 'none';
-        }
-    }
-
-    // 2. FLSA COMPLEX CLAIM DISCLAIMER
-    let flsaDisclaimer = document.getElementById('dynamic-flsa-disclaimer');
-    if (!flsaDisclaimer && modeAResults) {
-        flsaDisclaimer = document.createElement('div');
-        flsaDisclaimer.id = 'dynamic-flsa-disclaimer';
-        flsaDisclaimer.style.cssText = `margin-top: 20px; padding: 20px; background-color: #C62828; box-shadow: 0 4px 15px rgba(198, 40, 40, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none;`;
-        
-        // Insert after NY Liq or State FOMO
-        const refNode = nyLiqAlert || document.getElementById('state-fomo-a');
-        if (refNode && refNode.nextSibling) modeAResults.insertBefore(flsaDisclaimer, refNode.nextSibling);
-        else {
-             const advContent = modeAResults.querySelector('.advanced-content');
-             if(advContent) modeAResults.insertBefore(flsaDisclaimer, advContent);
-             else modeAResults.appendChild(flsaDisclaimer);
-        }
-    }
-
-    if (flsaDisclaimer) {
-        // TEXAS Edge Case C: Oilfield / Day Rate Trap
-        if (data.state === 'TX' && data.inputs.payType === 'salary' && data.weeklyHours > 40) {
-            flsaDisclaimer.innerHTML = "<strong>[WARNING] ILLEGAL DAY-RATE DETECTED:</strong> Paying a flat daily rate or salary without 1.5x overtime for hours over 40 is illegal under federal law. Texas oilfield and construction workers are regularly owed tens of thousands in back pay for this exact violation. <br><br>Review your case for free! <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            flsaDisclaimer.style.display = 'block';
-        }
-        else if (data.fluctuating) {
-            flsaDisclaimer.innerHTML = "<strong>COMPLEX FEDERAL CLAIM DETECTED:</strong> Because you worked at multiple pay rates, the Fair Labor Standards Act (FLSA) requires a strict 'weighted average' to calculate your exact overtime. This tool provides a baseline estimate using your primary rate, but your actual unpaid wages require a custom legal calculation. Contact our legal network immediately to calculate your exact blended-rate damages!";
-            flsaDisclaimer.style.display = 'block';
-        } else {
-            flsaDisclaimer.style.display = 'none';
-        }
-    }
-
-    // 3. SUB-MINIMUM WAGE ALERT (MODE A)
-    let minWageDisclaimer = document.getElementById('dynamic-minwage-disclaimer');
-    if (!minWageDisclaimer && modeAResults) {
-        minWageDisclaimer = document.createElement('div');
-        minWageDisclaimer.id = 'dynamic-minwage-disclaimer';
-        minWageDisclaimer.style.cssText = `margin-top: 20px; padding: 20px; background-color: #B71C1C; box-shadow: 0 4px 15px rgba(183, 28, 28, 0.5); border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none; font-weight: 500;`;
-
-        const refNode = flsaDisclaimer || nyLiqAlert || document.getElementById('state-fomo-a');
-        if (refNode && refNode.nextSibling) modeAResults.insertBefore(minWageDisclaimer, refNode.nextSibling);
-        else {
-             const advContent = modeAResults.querySelector('.advanced-content');
-             if(advContent) modeAResults.insertBefore(minWageDisclaimer, advContent);
-             else modeAResults.appendChild(minWageDisclaimer);
-        }
-    }
-
-    if (minWageDisclaimer) {
-        const isFlTippedTrap = (data.state === 'FL' && data.inputs.rate < 14.00 && data.inputs.rate >= 10.98);
-
-        if (data.isSubMinWage) {
-             if (data.state === 'FL') {
-                minWageDisclaimer.innerHTML = "<strong>[CRITICAL] SEVERE WAGE THEFT:</strong> Your rate is below the Florida Constitutional minimum wage of $14.00/hr! You are legally entitled to recover your stolen wages PLUS 100% liquidated double damages. <br><br>Have a Florida attorney review your total combined damages immediately! <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            } else {
-                minWageDisclaimer.innerHTML = "<strong>SEVERE WAGE THEFT DETECTED:</strong> The hourly rate you entered is below the legal state minimum wage! This means you are legally owed massive damages for BOTH minimum wage violations AND overtime violations. This calculator only estimates your overtime using the rate you provided, meaning your actual legal claim is significantly higher. <br><br>Have an employment advocate review your numbers to uncover your total combined compensation. <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-            }
-            minWageDisclaimer.style.display = 'block';
-        } 
-        else if (isFlTippedTrap) {
-            minWageDisclaimer.innerHTML = "<strong>[WARNING] TIP CREDIT ALERT:</strong> Your rate suggests your employer is taking a tip credit. If a manager or owner participates in a tip pool, the employer loses the credit and must pay the full $14.00 for every hour worked. <br><br><strong>Note:</strong> If your employer took a cut of your tips, they may owe you the full $14.00/hr, not just the tipped rate. <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            minWageDisclaimer.style.backgroundColor = '#D84315'; 
-            minWageDisclaimer.style.display = 'block';
-        }
-        else {
-            minWageDisclaimer.style.display = 'none';
-        }
-    }
-
-    // --- OTHER MODE B DYNAMIC ALERTS (Condition Specific) --- //
-    
-    const createAlertBlock = (id, color, shadowColor) => {
-        const div = document.createElement('div');
-        div.id = id;
-        div.style.cssText = `margin-top: 20px; padding: 20px; background-color: ${color}; box-shadow: 0 4px 15px ${shadowColor}; border-radius: 8px; color: #ffffff; font-size: 0.9rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif; display: none;`;
-        return div;
-    };
-
-    const bAdvContent = modeBResults ? modeBResults.querySelector('.advanced-content') : null;
-
-    // TEXAS EDGE CASE B: 6-Day Firing Rule
-    let txPayAlert = document.getElementById('alert-tx-pay');
-    if (!txPayAlert && modeBResults && bAdvContent) {
-        txPayAlert = createAlertBlock('alert-tx-pay', '#C62828', 'rgba(198, 40, 40, 0.4)'); 
-        modeBResults.insertBefore(txPayAlert, bAdvContent);
-    }
-    if (txPayAlert) {
-        if (data.state === 'TX' && data.inputs.empStatus === 'terminated' && data.inputs.lateDays > 6) {
-             txPayAlert.innerHTML = "<strong>[CRITICAL] TEXAS PAYDAY LAW VIOLATION:</strong> Because you were fired, Texas law dictates your final check was legally due within 6 calendar days. Your employer is actively violating state law. <br><br>Have an employment advocate review this immediately to demand your pay plus liquidated damages! <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-             txPayAlert.style.display = 'block';
-        } else {
-             txPayAlert.style.display = 'none';
-        }
-    }
-
-    // Alert 1: Records
-    let recAlert = document.getElementById('alert-records');
-    if (!recAlert && modeBResults && bAdvContent) {
-        recAlert = createAlertBlock('alert-records', '#E65100', 'rgba(230, 81, 0, 0.4)'); 
-        modeBResults.insertBefore(recAlert, bAdvContent);
-    }
-    if (recAlert) {
-        if (data.checkRecords) {
-            if (data.state === 'NY') {
-                recAlert.innerHTML = "<strong>[CRITICAL] $10,000 PAPERWORK PENALTY DETECTED:</strong> Under the NY Wage Theft Prevention Act, employers can be fined up to $5,000 for missing paystubs and another $5,000 for failing to provide a written wage notice at hire. <br><br>Contact a NY employment attorney to claim these statutory damages! <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            } else {
-                recAlert.innerHTML = "<strong>HIDDEN PENALTIES DETECTED:</strong> Because your time records were missing or altered, you may be owed up to $4,000.00 in additional statutory penalties under State Labor Codes. This calculator does not include these pay-period penalties. <br><br>Connect with a specialist to see if you qualify to claim these specific state record penalties. <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            }
-            recAlert.style.display = 'block';
-        } else {
-            recAlert.style.display = 'none';
-        }
-    }
-
-    // Alert 2: Misclassification
-    let misAlert = document.getElementById('alert-misclass');
-    if (!misAlert && modeBResults && bAdvContent) {
-        misAlert = createAlertBlock('alert-misclass', '#B71C1C', 'rgba(183, 28, 28, 0.4)');
-        modeBResults.insertBefore(misAlert, bAdvContent);
-    }
-    if (misAlert) {
-        if (data.checkMisclass) {
-            misAlert.innerHTML = "<strong>SEVERE MISCLASSIFICATION:</strong> Misclassifying an employee as an independent contractor is illegal tax fraud. You may be entitled to massive state penalties (up to $25,000 in some states) and full reimbursement of the employer taxes you were forced to pay. <br><br>Speak confidentially with a legal expert to explore your options for penalty and tax recovery. <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-            misAlert.style.display = 'block';
-        } else {
-            misAlert.style.display = 'none';
-        }
-    }
-
-    // Alert 3: Deductions
-    let dedAlert = document.getElementById('alert-deduct');
-    if (!dedAlert && modeBResults && bAdvContent) {
-        dedAlert = createAlertBlock('alert-deduct', '#880E4F', 'rgba(136, 14, 79, 0.4)');
-        modeBResults.insertBefore(dedAlert, bAdvContent);
-    }
-    if (dedAlert) {
-        if (data.checkDeduct) {
-            dedAlert.innerHTML = "<strong>ILLEGAL WAGE DEDUCTIONS:</strong> Employers cannot legally deduct standard business expenses, uniform costs, or till shortages from your paycheck. You are legally entitled to a 100% reimbursement of these stolen wages. <br><br>Find out how to legally demand a full reimbursement for these stolen expenses on top of your current estimate. <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            dedAlert.style.display = 'block';
-        } else {
-            dedAlert.style.display = 'none';
-        }
-    }
-
-    // 3b. SUB-MINIMUM WAGE ALERT (MODE B)
-    let minWageDisclaimerB = document.getElementById('dynamic-minwage-disclaimer-b');
-    if (!minWageDisclaimerB && modeBResults && bAdvContent) {
-        minWageDisclaimerB = createAlertBlock('dynamic-minwage-disclaimer-b', '#B71C1C', 'rgba(183, 28, 28, 0.5)'); 
-        minWageDisclaimerB.style.fontWeight = '500';
-        modeBResults.insertBefore(minWageDisclaimerB, bAdvContent);
-    }
-
-    if (minWageDisclaimerB) {
-        if (data.isSubMinWageB) {
-             if (data.state === 'FL') {
-                minWageDisclaimerB.innerHTML = "<strong>[CRITICAL] SEVERE WAGE THEFT:</strong> Your rate is below the Florida Constitutional minimum wage of $14.00/hr! You are legally entitled to recover your stolen wages PLUS 100% liquidated double damages. <br><br>Have a Florida attorney review your total combined damages immediately! <br><a href='../../contact-us/' class='alert-cta-btn'>Explore Your Legal Options</a>";
-            } else {
-                minWageDisclaimerB.innerHTML = "<strong>SEVERE WAGE THEFT DETECTED:</strong> The hourly rate you entered is below the legal state minimum wage! This means you are legally owed massive damages for BOTH minimum wage violations AND overtime violations. This calculator only estimates your overtime using the rate you provided, meaning your actual legal claim is significantly higher. <br><br>Have an employment advocate review your numbers to uncover your total combined compensation. <br><a href='../../contact-us/' class='alert-cta-btn'>Verify Your Estimate with a Professional</a>";
-            }
-            minWageDisclaimerB.style.display = 'block';
-        } else {
-            minWageDisclaimerB.style.display = 'none';
-        }
-    }
-
     // Mode B Standard Results
     const penEl = document.getElementById('res_penaltyB');
     if(penEl) penEl.textContent = fmt(data.statePenalty);
@@ -1129,20 +1047,14 @@ function updateUI(data) {
     if(sbYellow) sbYellow.style.width = `${pState}%`;
 
     // --- DYNAMIC CORNER ROUNDING FOR STACKED BAR ---
-    // Reset to CSS defaults (Blue: Round Left, Red: Square, Yellow: Round Right)
     if(sbBlue) sbBlue.style.borderRadius = ''; 
     if(sbRed) sbRed.style.borderRadius = '';
 
     if (pState > 0) {
-        // Yellow is visible (End). Red is Middle (Square). Blue is Start (Left Round).
-        // Standard CSS classes handle this perfectly.
+        // Yellow is visible. No change needed.
     } else if (pFed > 0) {
-        // Yellow Hidden. Red is End.
-        // Red needs Right Radius. Blue stays square right.
         if(sbRed) sbRed.style.borderRadius = "0 6px 6px 0";
     } else {
-        // Yellow Hidden, Red Hidden. Blue is End (and Start).
-        // Blue needs Right Radius (keeping Left Radius).
         if(sbBlue) sbBlue.style.borderRadius = "6px";
     }
 
@@ -1156,7 +1068,6 @@ function updateUI(data) {
         const legendItems = urgencyContainer.querySelectorAll('.legend-item');
         const captionEl = urgencyContainer.querySelector('.disclosure-text');
         
-        // Hide previous dynamic warnings if they exist in this container
         const oldFlMsg = document.getElementById('fl-expire-msg');
         if(oldFlMsg) oldFlMsg.style.display = 'none';
 
@@ -1165,54 +1076,46 @@ function updateUI(data) {
         let limitGreen = 66, limitYellow = 83;
         let labelEnd = "3 Yrs+";
         let labelMid = "2 Yrs";
-        let captionHTML = "Claims expire. Federal limit is typically 2 years (3 for willful).";
+        let captionHTML = "Time Limits: Federal limits to claim missing pay are typically 2 years (up to 3 years for specific cases).";
         
         const state = data.state;
 
-        // Reset Green Radius (Default from CSS is 5px 0 0 5px)
         if(zoneGreen) zoneGreen.style.borderRadius = '';
 
         if (state === 'NY') {
-            // New York (The 6-Year Giant)
             maxYears = 6;
             flexG = 100; flexY = 0; flexR = 0;
             limitGreen = 100; limitYellow = 100;
             labelEnd = "6 Yrs";
             labelMid = "3 Yrs";
-            captionHTML = "Claims expire. New York allows you to recover stolen wages going back 6 full years.";
-            
-            // NY Special: Green is 100% so it needs rounded right corners
+            captionHTML = "Time Limits: New York allows you to recover missing compensation going back up to 6 full years.";
             if(zoneGreen) zoneGreen.style.borderRadius = '5px';
         }
         else if (state === 'FL') {
-            // Florida (The Constitutional Extension)
             maxYears = 5;
             flexG = 80; flexY = 0; flexR = 20;
             limitGreen = 80; limitYellow = 80;
             labelEnd = "5 Yrs";
             labelMid = "4 Yrs";
-            captionHTML = "Claims expire. The Florida Constitution allows you to recover stolen wages going back 4 to 5 years.";
+            captionHTML = "Time Limits: The Florida Constitution allows you to recover missing compensation going back 4 to 5 years.";
         }
         else if (state === 'TX') {
-            // Texas (The 180-Day Trap)
             maxYears = 3;
             flexG = 15; flexY = 55; flexR = 30;
             limitGreen = 15; limitYellow = 70;
             labelEnd = "3 Yrs+";
             labelMid = "180 Days";
-            captionHTML = "<strong>[WARNING] URGENT DEADLINE:</strong> Texas law gives you only 180 days to file a fast-track TWC claim. Federal limits are 2-3 years.";
+            captionHTML = "<strong>Texas Timing Note:</strong> Texas provides a 180-day window to file a fast-track state claim, while federal limits are generally 2 to 3 years.";
         }
         else if (state === 'CA') {
-            // California (The Standard Baseline)
             maxYears = 4;
             flexG = 75; flexY = 0; flexR = 25;
             limitGreen = 75; limitYellow = 75;
             labelEnd = "4 Yrs";
             labelMid = "3 Yrs";
-            captionHTML = "Claims expire. California limit is typically 3 years (up to 4 for written contracts).";
+            captionHTML = "Time Limits: California's window to claim missing pay is typically 3 years (up to 4 for written contracts).";
         }
 
-        // Apply Flex
         if(zoneGreen) zoneGreen.style.flex = flexG;
         if(zoneYellow) zoneYellow.style.flex = flexY;
         if(zoneRed) zoneRed.style.flex = flexR;
@@ -1228,26 +1131,28 @@ function updateUI(data) {
             captionEl.style.color = (state === 'TX') ? '#C62828' : '#999';
         }
 
-        // Marker Position
         let pct = (data.yearsPassed / maxYears) * 100;
         pct = Math.max(0, Math.min(100, pct));
         marker.style.left = `${pct}%`;
 
-        // Color & Label
-        let mColor = '#2ecc71'; // Green
+        let mColor = '#2ecc71'; 
         let mLabel = "Safe";
         
         if(pct > limitYellow) {
-            mColor = '#e74c3c'; // Red
+            mColor = '#e74c3c'; 
             mLabel = "Expired";
         } else if(pct > limitGreen) {
-            mColor = '#f1c40f'; // Yellow
+            mColor = '#f1c40f'; 
             mLabel = "Risk";
             if(state === 'TX') mLabel = "Fed Only";
         }
 
         marker.style.backgroundColor = mColor;
         marker.setAttribute('data-label', mLabel);
+    }
+    
+    if (typeof window.updateScrollIndicator === 'function') {
+        setTimeout(window.updateScrollIndicator, 50);
     }
 }
 
@@ -1314,6 +1219,29 @@ function initializeFAQ() {
     });
 }
 
+function initializeScrollIndicator() {
+    const container = document.getElementById('results-display-container');
+    const indicator = document.getElementById('scroll-indicator');
+    if (!container || !indicator) return;
+
+    window.updateScrollIndicator = () => {
+        if (window.innerWidth <= 990) {
+            indicator.style.opacity = '0';
+            return;
+        }
+        
+        if (container.scrollHeight > container.clientHeight + 15 && 
+            container.scrollTop + container.clientHeight < container.scrollHeight - 15) {
+            indicator.style.opacity = '1';
+        } else {
+            indicator.style.opacity = '0';
+        }
+    };
+
+    container.addEventListener('scroll', window.updateScrollIndicator);
+    window.addEventListener('resize', window.updateScrollIndicator);
+}
+
 /* ==========================================
    UNIVERSAL PRINT, PDF & SHARE ENGINE
    ========================================== */
@@ -1356,7 +1284,7 @@ const ToolFeatures = {
         const params = new URLSearchParams();
         
         // Inputs
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
+        for (const[key, config] of Object.entries(this.PERSIST_MAP)) {
             const el = document.getElementById(config.id);
             if (el) {
                 if (config.type === 'checkbox') {
@@ -1489,23 +1417,23 @@ const ToolFeatures = {
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize Components in STRICT order
     populateStateDropdown(); 
-    initializeSliders();        // Loads HTML values into Sliders
-    initializeCustomCalendars(); // Loads default dates into inputs
+    initializeCustomCalendars(); // MUST load dates before anything else to avoid 1-day bugs
+    initializeSliders();        
     initializeModes();
     initializeAdvancedToggle();
     initializeTooltips();
     initializeGlobalListeners();
     initializeFAQ();
+    initializeScrollIndicator();
     
     // 2. Restore User State from URL (Share Feature)
     ToolFeatures.init();
 
-    // 3. FORCE calculation immediately after restoration to fix "Garbage Output"
-    // We dispatch events to ensure all logic hooks fire
-    const allInputs = document.querySelectorAll('input, select');
-    allInputs.forEach(input => {
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-    
+    // 3. STRICT Synchronous Calculation to Fix Startup Garbage Values
     calculateResults();
+    
+    // 4. Failsafe Frame Check for Custom Visuals Sync
+    requestAnimationFrame(() => {
+        calculateResults();
+    });
 });

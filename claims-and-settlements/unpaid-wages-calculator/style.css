@@ -122,8 +122,9 @@ body {
     justify-content: flex-start; 
     align-items: center;
     gap: 10px;
-    margin-top: 2vh; 
-    padding: 0 8vw; 
+    margin: 2vh auto 0 auto; 
+    padding: 0 4vw; 
+    max-width: 1500px;
     font-family: 'ProductSans-Light', sans-serif;
     font-weight: 300;
     font-size: 0.9rem; 
@@ -154,13 +155,12 @@ body {
 /* ============================ */
 .core-question-wrapper {
     width: 100%;
-    padding: 0 8vw;
-    margin-top: 3vh;
-    margin-bottom: 2vh; 
+    padding: 0 4vw;
+    margin: 3vh auto 2vh auto; 
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
-    max-width: 1100px;
+    max-width: 1500px;
 }
 
 .core-question-heading {
@@ -186,14 +186,14 @@ body {
 /* ============================ */
 .calculator-container {
     width: 100%;
-    padding: 0 8vw; 
-    margin-top: 2vh; 
-    margin-bottom: 8vh;
+    padding: 0 4vw; 
+    margin: 2vh auto 8vh auto;
+    max-width: 1500px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap; 
-    gap: 40px; 
+    gap: 50px; 
 }
 
 .calc-section {
@@ -202,12 +202,12 @@ body {
 
 /* Left Section (Inputs) */
 .left-section {
-    flex: 1.5; 
+    flex: 1.35; 
 }
 
 /* Right Section (Results) */
 .right-section {
-    flex: 1.25;
+    flex: 1.5;
     position: -webkit-sticky; 
     position: sticky;
     top: 30px; 
@@ -225,9 +225,22 @@ body {
     margin-bottom: 2vh; 
 }
 
+/* Updated Right Header Row */
+.right-header-row {
+    width: 100%;
+    padding-right: 25px; 
+}
+
+.header-top-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 /* ALIGNMENT FIX: Indent the 'Estimates' header to match the results container padding */
 .right-section .header-row {
-    padding-left: 15px;
+    padding-left: 25px;
 }
 
 /* MASSIVE HEADINGS: Inputs & Estimates */
@@ -255,6 +268,31 @@ body {
 
 .text-link-btn:hover {
     color: #000;
+}
+
+/* NEW: In-Summary Action Button */
+.legal-action-btn {
+    display: inline-block;
+    margin: 15px 0 0 0;
+    padding: 16px 30px;
+    background-color: #2ecc71;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.legal-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(46, 204, 113, 0.4);
+    background-color: #27ae60;
+    color: #ffffff;
 }
 
 /* Left Section Specifics */
@@ -782,7 +820,7 @@ body {
 }
 
 #results-display-container {
-    max-height: 85vh; 
+    max-height: 82vh; /* Increased to give slightly more vertical breathing room */
     overflow-y: auto;
     scrollbar-width: none; 
     -ms-overflow-style: none;
@@ -791,9 +829,9 @@ body {
        Left padding matches the .header-row padding so text aligns perfectly.
        Padding is necessary for shadows to not get clipped.
     */
-    padding: 25px 15px 40px 15px; 
+    padding: 20px 25px 40px 25px; 
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow-x: visible; /* Prevents shadow/text clipping */
 }
 
 #results-display-container::-webkit-scrollbar {
@@ -891,33 +929,6 @@ body {
     display: none; 
     border: none;
     margin: 0;
-}
-
-/* ============================ */
-/* NEW: DYNAMIC ALERT BUTTONS   */
-/* ============================ */
-.alert-cta-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #ffffff;
-    color: #333; 
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    font-family: 'ProductSans-Light', sans-serif;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-}
-
-.alert-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    background-color: #f4f4f4;
 }
 
 /* ============================ */
@@ -1080,7 +1091,6 @@ body {
     margin-top: 5px;
 }
 
-
 /* ============================ */
 /* TOOLTIP STYLING              */
 /* ============================ */
@@ -1126,16 +1136,39 @@ body {
 }
 
 /* ============================ */
+/* SCROLL INDICATOR (Desktop)   */
+/* ============================ */
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 10px; 
+    left: 30px; /* Aligns with padding (25px) + box margin (5px) */
+    width: calc(100% - 60px); /* Exact pixel width of the internal summary card */
+    background-color: #ffffff; 
+    padding: 22px 0; 
+    border-radius: 12px; 
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.15rem; 
+    color: #333;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.06); 
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ============================ */
 /* SEO & FAQ Content Section    */
 /* ============================ */
 .seo-content-section {
     width: 100%;
-    padding: 0 8vw;
-    margin-bottom: 80px;
+    padding: 0 4vw;
+    margin: 0 auto 80px auto;
     display: flex;
     flex-direction: column;
     gap: 50px;
-    max-width: 1200px;
+    max-width: 1500px;
 }
 
 .seo-content-block h3, 
@@ -1248,8 +1281,7 @@ body {
 
 @media (max-width: 990px) {
     .calculator-container {
-        /* FIXED: Increased padding to 6vw to keep inputs safe from edges */
-        padding: 0 6vw; 
+        padding: 0 5vw; 
         flex-direction: column; 
         gap: 60px; 
         align-items: center; 
@@ -1281,6 +1313,10 @@ body {
         display: none;
     }
     
+    .scroll-down-indicator {
+        display: none !important;
+    }
+    
     /* MOBILE SCROLL/SHADOW FIX */
     #results-display-container {
         max-height: none; 
@@ -1288,17 +1324,23 @@ body {
         height: auto;
         /* Negative Margin Trick: Expands width to allow shadows, 
            then pads internally to align text with the header above */
-        margin: 0 -20px;
-        padding: 20px;
-        width: calc(100% + 40px);
+        margin: 0 -15px;
+        padding: 20px 15px;
+        width: calc(100% + 30px);
     }
     
     /* ALIGNMENT FIX MOBILE: Remove extra padding from header 
        since results now have negative margins */
     .right-section .header-row {
         padding-left: 0;
+        padding-right: 0;
     }
     
+    .legal-action-btn {
+        width: 100%;
+        margin: 15px 0 10px 0;
+    }
+
     /* Hide scroll fades on mobile */
     .results-scroll-wrapper::before,
     .results-scroll-wrapper::after {
@@ -1313,7 +1355,7 @@ body {
     
     .core-question-wrapper,
     .seo-content-section {
-        padding: 0 6vw;
+        padding: 0 5vw;
     }
 }
 
