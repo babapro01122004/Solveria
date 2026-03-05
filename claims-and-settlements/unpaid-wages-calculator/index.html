@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#F4F4F4">
-    
-    <!-- SEO Meta Data -->
     <title>Unpaid Wages Calculator | Calculate Overtime, Penalties & FLSA Damages</title>
+
+    <!-- PERFORMANCE FIX: Preload Critical Assets instantly before parsing massive Schema scripts -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../../fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    
+    <!-- PERFORMANCE FIX: Preload LCP Images by Device Type -->
+    <link rel="preload" as="image" href="../../img/Refinance_Hero_Mobile.webp" media="(max-width: 768px)">
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="../../img/Logo_Golden_Phone.webp" media="(max-width: 768px)">
+    <link rel="preload" as="image" href="../../img/Logo_Golden.webp" media="(min-width: 769px)">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Theme & SEO Meta Data -->
+    <meta name="theme-color" content="#F4F4F4">
     <meta name="description" content="Free Unpaid Wages Calculator (2026 Updated). Estimate owed overtime, off-the-clock work, and waiting time penalties under FLSA, California, NY, and Federal Labor Laws.">
     <meta name="keywords" content="unpaid wages calculator, overtime calculator, wage theft, flsa penalty calculator, california waiting time penalties, unpaid wages lawsuit, labor law violations, off the clock work, misclassification calculator">
     <meta name="author" content="Solveria">
@@ -27,9 +41,6 @@
     <meta name="twitter:title" content="Unpaid Wages Calculator | Reclaim Your Pay">
     <meta name="twitter:description" content="Did your employer underpay you? Calculate owed back wages, overtime, and penalties instantly with this professional legal engine.">
     <meta name="twitter:image" content="https://www.solveria.org/img/Refinance_Hero.webp">
-
-    <!-- Preload Primary Fonts for Performance -->
-    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
 
     <!-- Schema Markup: Application & Feature Info -->
     <script type="application/ld+json">
@@ -115,8 +126,6 @@
     }
     </script>
 
-    <link rel="stylesheet" href="style.css">
-
     <!-- Favicon & Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -132,19 +141,20 @@
         <!-- PERFORMANCE FIX: Zero-Delay LCP Background Setup -->
         <picture class="hero-bg-picture">
             <source media="(max-width: 768px)" srcset="../../img/Refinance_Hero_Mobile.webp">
-            <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" loading="eager">
+            <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" loading="eager" decoding="sync">
         </picture>
 
         <nav class="hero-nav">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
-            <a href="../../calculators/index.html">More</a>
+            <!-- SEO FIX: Added aria-label for descriptive link test -->
+            <a href="../../calculators/index.html" aria-label="Explore More Calculators">More</a>
         </nav>
 
         <!-- PERFORMANCE FIX: High Priority Device-Specific Picture Element -->
         <picture class="hero-logo-wrapper">
-            <source media="(max-width: 768px)" srcset="../../img/Logo_Golden_Phone.webp">
-            <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" fetchpriority="high" loading="eager">
+            <source media="(max-width: 768px)" srcset="../../img/Logo_Golden_Phone.webp" width="120" height="120">
+            <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" fetchpriority="high" loading="eager" decoding="sync">
         </picture>
 
         <h1>Unpaid Wages Calculator</h1>
