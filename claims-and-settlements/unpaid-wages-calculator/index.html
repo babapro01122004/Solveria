@@ -31,10 +31,6 @@
     <!-- Preload Primary Fonts for Performance -->
     <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
 
-    <!-- PERFORMANCE FIX: Preload LCP Background Images for Immediate Discovery -->
-    <link rel="preload" href="../../img/Refinance_Hero_Mobile.webp" as="image" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image" media="(min-width: 769px)" fetchpriority="high">
-
     <!-- Schema Markup: Application & Feature Info -->
     <script type="application/ld+json">
     {
@@ -132,6 +128,13 @@
 
     <!-- Hero Section -->
     <div class="hero-section">
+        
+        <!-- PERFORMANCE FIX: Zero-Delay LCP Background Setup -->
+        <picture class="hero-bg-picture">
+            <source media="(max-width: 768px)" srcset="../../img/Refinance_Hero_Mobile.webp">
+            <img src="../../img/Refinance_Hero.webp" alt="" class="hero-bg-img" fetchpriority="high" loading="eager">
+        </picture>
+
         <nav class="hero-nav">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
@@ -139,9 +142,9 @@
         </nav>
 
         <!-- PERFORMANCE FIX: High Priority Device-Specific Picture Element -->
-        <picture>
+        <picture class="hero-logo-wrapper">
             <source media="(max-width: 768px)" srcset="../../img/Logo_Golden_Phone.webp">
-            <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" fetchpriority="high">
+            <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="120" height="120" fetchpriority="high" loading="eager">
         </picture>
 
         <h1>Unpaid Wages Calculator</h1>
@@ -182,13 +185,13 @@
                 <button type="button" class="mode-card active-mode" data-mode="mode-a" 
                         data-title="The Overtime Tracker" 
                         data-desc="Calculate unpaid base wages for overtime violations.">
-                    <img src="../../img/1.jpg" alt="Clock on desk" width="300" height="150" loading="lazy">
+                    <img src="../../img/1.jpg" alt="Clock on desk" width="300" height="150" loading="lazy" decoding="async">
                     <span>Overtime Tracker</span>
                 </button>
                 <button type="button" class="mode-card" data-mode="mode-b" 
                         data-title="The Penalty Check" 
                         data-desc="Apply multipliers and state-specific fines.">
-                    <img src="../../img/2.jpg" alt="Gavel and books" width="300" height="150" loading="lazy">
+                    <img src="../../img/2.jpg" alt="Gavel and books" width="300" height="150" loading="lazy" decoding="async">
                     <span>Penalty Check</span>
                 </button>
             </div>
@@ -491,7 +494,6 @@
             <div class="header-row right-header-row">
                 <h2>Estimates</h2>
                 <div class="action-buttons-row">
-                    <!-- Added title attr for Screen Readers / SEO interaction -->
                     <button type="button" class="action-btn share-btn" id="btn-share" title="Share your calculation">Share</button>
                 </div>
             </div>
@@ -698,7 +700,7 @@
         <div class="footer-content">
             <div class="footer-main-row">
                 <div class="footer-left">
-                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80" decoding="async">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
                         <p class="tagline">Engineered for Decision Sovereignty.</p>

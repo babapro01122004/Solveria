@@ -44,10 +44,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .hero-section {
     width: 100%;
     height: 40vh; 
-    background-image: url('../../img/Refinance_Hero.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -57,11 +53,22 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     overflow: hidden; 
 }
 
-/* PERFORMANCE FIX: Use lightweight specific hero background on mobile */
-@media (max-width: 768px) {
-    .hero-section {
-        background-image: url('../../img/Refinance_Hero_Mobile.webp');
-    }
+/* PERFORMANCE FIX: LCP Hero Image Engine */
+.hero-bg-picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .hero-nav { 
@@ -69,13 +76,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex; 
     justify-content: center; 
     align-items: center;
-    gap: 15px; /* Adjusted gap to accommodate the tap-target widths */
-    z-index: 10; 
+    gap: 15px; 
+    z-index: 2; 
+    position: relative;
     margin-top: 1vh;
 }
 
 .hero-nav a { 
-    /* TAP TARGET & MODERNIZATION FIX */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -93,6 +100,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .hero-nav a:hover { 
     color: #fff; 
+}
+
+.hero-logo-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-logo {
@@ -113,6 +128,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     margin: 0;
     max-width: 95%;
+    position: relative;
+    z-index: 2;
 }
 
 .breathing-text {
@@ -126,6 +143,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     transition: opacity 1s ease-in-out;
     margin: 0;
     padding: 0 10px;
+    position: relative;
+    z-index: 2;
 }
 
 .breathing-text.fade-out {
@@ -140,8 +159,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex;
     justify-content: flex-start; 
     align-items: center;
-    flex-wrap: wrap; /* Allows wrapping on very small screens so tap targets don't overlap */
-    gap: 4px; /* Reduced gap since hitboxes are larger now */
+    flex-wrap: wrap; 
+    gap: 4px; 
     margin: 2vh auto 0 auto; 
     padding: 0 4vw; 
     max-width: 1500px;
@@ -152,7 +171,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .breadcrumb-nav a, 
 .breadcrumb-nav .current-page {
-    /* TAP TARGET & MODERNIZATION FIX */
     display: inline-flex;
     align-items: center;
     min-height: 48px;
@@ -250,7 +268,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0; /* Reset gap to let tap target heights manage spacing */
+    gap: 0; 
     margin-bottom: 2vh; 
 }
 
@@ -285,7 +303,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* "Switch to Advanced" Button */
 .text-link-btn {
-    /* TAP TARGET FIX: Converted to Block for 48x48 Rule */
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
@@ -298,9 +315,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.15rem;
     cursor: pointer;
     transition: color 0.3s ease;
-    padding: 0 5px; /* Gives it just enough padding to not clip outline */
-    margin-left: -5px; /* Aligns visually with heading */
-    text-decoration: none; /* Modern, no underline */
+    padding: 0 5px; 
+    margin-left: -5px; 
+    text-decoration: none; 
 }
 
 .text-link-btn:hover {
@@ -309,7 +326,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* NEW: In-Summary Action Button */
 .legal-action-btn {
-    /* PERFECT TAP TARGET ALREADY */
     display: inline-block;
     margin: 15px 0 0 0;
     padding: 16px 30px;
@@ -493,7 +509,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.0rem;
     color: #333;
     padding: 8px 0;
-    /* MIN HEIGHT FOR TAP TARGET (Input Fields apply) */
     min-height: 48px;
     outline: none;
     border-radius: 0;
@@ -538,7 +553,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .calendar-nav-btn {
-    /* TAP TARGET FIX: Inline-flex enforcement */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -571,7 +585,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.2s;
-    /* Days are generally tight in a calendar, padding is usually enough for Lighthouse if width is grid-based */
 }
 
 .calendar-day:hover {
@@ -597,7 +610,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-size: 1.2rem;
     color: #333;
     padding: 2px 0 0 0;
-    min-height: 48px; /* TAP TARGET FIX */
+    min-height: 48px; 
     outline: none;
     -moz-appearance: textfield;
 }
@@ -608,12 +621,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     margin: 0;
 }
 
+/* REVERTED TO ORIGINAL THIN SLIDER LOOK */
 .input-group input[type=range] {
     -webkit-appearance: none; 
     appearance: none;
     width: 100%; 
-    height: 48px; /* CRITICAL TAP TARGET FIX for Range Sliders */
-    border: 19px solid transparent; /* Visual trick to keep it looking thin while hit box is large */
+    height: 20px; 
+    border: 9px solid transparent; 
     border-left: 0; border-right: 0; 
     background-clip: content-box; 
     background-color: transparent;
@@ -622,7 +636,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     opacity: 0.5; 
     transition: border-width .2s ease, opacity .2s ease; 
     cursor: pointer;
-    margin-top: -10px; /* Pull it up closer to the number since height is expanded */
+    margin-top: 2px; 
     display: block;
     position: relative;
     z-index: 5;
@@ -641,7 +655,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .input-group input[type=range]:focus, 
 .input-group input[type=range]:active,
 .input-group input[type=range].active-slider { 
-    border-width: 17px;
+    border-width: 7px;
     opacity: 1; 
 }
 
@@ -671,7 +685,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border: 2px solid #e0e0e0; 
     border-radius: 8px;        
     padding: 12px 14px; 
-    min-height: 48px; /* TAP TARGET FIX */     
+    min-height: 48px;     
     font-size: 1.1rem; 
     color: #333;
     background-color: transparent;
@@ -714,7 +728,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    max-height: 300px; /* Allow slightly more room for bigger tap targets */
+    max-height: 300px; 
     overflow: hidden;
 }
 
@@ -736,7 +750,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .dropdown-option {
     display: flex;
     align-items: center;
-    min-height: 48px; /* TAP TARGET FIX */
+    min-height: 48px; 
     padding: 0 15px; 
     font-size: 0.95rem;
     color: #555;
@@ -768,7 +782,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     color: #555;
     font-family: 'ProductSans-Light', sans-serif;
     gap: 15px; 
-    min-height: 48px; /* TAP TARGET FIX */
+    min-height: 48px; 
     padding: 0;
 }
 
@@ -971,7 +985,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .disclosure-text {
-    /* FONT SIZE FIX: Ensure legible on mobile */
     font-size: 0.86rem; 
     color: #595959;
     /* MOVED CLOSER to result text as requested */
@@ -1276,7 +1289,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .faq-toggle {
-    /* TAP TARGET FIX: It was padding: 20px 0, but min-height adds foolproof hitboxes */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1345,7 +1357,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     }
     .calc-section {
         width: 100%;
-        max-width: 100%; /* Removed specific width constraint to use full screen */
+        max-width: 100%; 
     }
     .right-section {
         position: static; 
@@ -1377,17 +1389,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     /* MOBILE SCROLL/SHADOW FIX */
     #results-display-container {
         max-height: none; 
-        overflow: visible; /* Allows shadows to bleed outside box */
+        overflow: visible; 
         height: auto;
-        /* Negative Margin Trick: Expands width to allow shadows, 
-           then pads internally to align text with the header above */
         margin: 0 -15px;
         padding: 20px 15px;
         width: calc(100% + 30px);
     }
     
-    /* ALIGNMENT FIX MOBILE: Remove extra padding from header 
-       since results now have negative margins */
+    /* ALIGNMENT FIX MOBILE: Remove extra padding from header */
     .right-section .header-row {
         padding-left: 0;
         padding-right: 0;
@@ -1565,7 +1574,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .description {
-    font-size: 0.9rem; /* FONT SIZE FIX */
+    font-size: 0.9rem; 
     color: #ccc;
     line-height: 1.5;
     max-width: 300px;
@@ -1573,7 +1582,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .email-link {
-    /* TAP TARGET FIX: Inline-flex block format */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1581,7 +1589,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     padding: 0 15px;
     color: #D4BCA9;
     text-decoration: none;
-    font-size: 0.95rem; /* FONT SIZE FIX */
+    font-size: 0.95rem; 
     margin-top: 5px;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
@@ -1589,7 +1597,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .email-link:hover {
     color: #fff;
-    /* Removing border hover so it stays perfectly modern */
     border-bottom-color: transparent; 
 }
 
@@ -1605,36 +1612,32 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer-col {
     display: flex;
     flex-direction: column;
-    gap: 0; /* Let min-height manage spacing naturally */
+    gap: 0; 
     min-width: 140px;
-    /* JAGGED ALIGNMENT FIX: Force true left-alignment */
     align-items: flex-start; 
     text-align: left;
 }
 
 .footer-col h4 {
     font-family: 'Roboto', sans-serif;
-    font-size: 0.85rem; /* FONT SIZE FIX */
+    font-size: 0.85rem; 
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #ffffff;
     margin: 0 0 5px 0;
     font-weight: 600;
-    /* ALIGNMENT FIX */
     text-align: left;
     width: 100%;
 }
 
 .footer-col a {
-    /* TAP TARGET FIX: Block formatted */
     display: inline-flex;
     align-items: center;
-    /* ALIGNMENT FIX: Removed left padding, added right padding for tap target size */
     justify-content: flex-start;
     min-height: 48px;
     padding: 0 15px 0 0; 
     color: #bbbbbb;
-    text-decoration: none; /* Modern, NO Underline */
+    text-decoration: none; 
     font-size: 0.95rem;
     transition: color 0.3s ease;
 }
@@ -1656,13 +1659,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .copyright {
-    font-size: 0.9rem; /* FONT SIZE FIX */
+    font-size: 0.9rem; 
     color: #bbb;
     margin: 0;
 }
 
 .disclaimer {
-    font-size: 0.8rem; /* CRITICAL FONT SIZE FIX: Keeps it readable and stops mobile-usability penalties */
+    font-size: 0.8rem; 
     color: #aaaaaa;
     line-height: 1.5;
     max-width: 900px;
@@ -1689,13 +1692,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 @media (max-width: 600px) {
     .footer-links {
         flex-direction: column;
-        gap: 10px; /* Reduced since min-height expands the list */
+        gap: 10px; 
         align-items: center;
     }
     
     .footer-col {
         width: 100%;
-        /* Mobile fallback alignment if needed, but left-aligned is cleaner */
         align-items: center;
         text-align: center;
         margin-bottom: 20px;
@@ -1722,7 +1724,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* --- BUTTONS --- */
 .action-buttons-row { display: flex; gap: 20px; flex-wrap: wrap; }
 .action-btn {
-    /* TAP TARGET FIX: Inline-flex block format */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1732,7 +1733,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     background: none; border: none; 
     font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
     color: #595959; cursor: pointer; transition: color 0.3s ease;
-    text-decoration: none; /* Modern, NO Underline */
+    text-decoration: none; 
 }
 .action-btn:hover { color: #000000; }
 @media (max-width: 600px) {
@@ -1766,7 +1767,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border: none; background-color: #f4f4f4; border-radius: 50px;
     font-family: 'ProductSans-Thin', sans-serif; font-size: 1.1rem;
     padding: 10px 50px; color: #ccc; transition: all 0.3s ease;
-    /* TAP TARGET FIX */
     min-height: 48px;
     display: inline-flex;
     align-items: center;
@@ -1796,7 +1796,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         color: #000;
     }
 
-    body { background-color: #fff; font-size: 12px; } /* CRITICAL FONT SIZE FIX for print rendering engines */
+    body { background-color: #fff; font-size: 12px; } 
     
     body > *:not(#print-view-container) { display: none !important; }
 
@@ -1835,7 +1835,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
     .pm-label { font-weight: 600; font-size: 0.75rem; margin-bottom: 0; }
     .pm-line { font-weight: 300; letter-spacing: -1px; font-size: 0.9rem; }
-    .pm-sub { font-size: 0.75rem; color: #666; font-style: italic; } /* FONT SIZE FIX */
+    .pm-sub { font-size: 0.75rem; color: #666; font-style: italic; } 
     .pm-value { font-weight: 300; }
 
     .print-section { margin-bottom: 20px; }
@@ -1876,9 +1876,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
     .sig-line-container { display: flex; flex-direction: column; gap: 3px; }
     .sig-line { font-weight: 300; font-size: 0.9rem; }
-    .sig-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; } /* FONT SIZE FIX */
+    .sig-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; } 
 
     .print-disclaimer {
-        font-size: 0.75rem; color: #666; text-align: justify; line-height: 1.2; border-top: 1px solid #ccc; padding-top: 8px; margin-bottom: 0; /* FONT SIZE FIX */
+        font-size: 0.75rem; color: #666; text-align: justify; line-height: 1.2; border-top: 1px solid #ccc; padding-top: 8px; margin-bottom: 0; 
     }
 }

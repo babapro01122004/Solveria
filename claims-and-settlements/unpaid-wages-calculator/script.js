@@ -1180,7 +1180,7 @@ function updateUI(data) {
     }
     
     if (typeof window.updateScrollIndicator === 'function') {
-        // Allow the browser to paint before recalculating scroll geometry
+        // Allow the browser to paint before recalculating manual indicator
         requestAnimationFrame(() => window.updateScrollIndicator());
     }
 }
@@ -1251,42 +1251,57 @@ function initializeFAQ() {
 function initializeScrollIndicator() {
     const container = document.getElementById('results-display-container');
     const indicator = document.getElementById('scroll-indicator');
+    
     if (!container || !indicator) return;
 
+    // Create an invisible anchor at the bottom of the container
+    const anchor = document.createElement('div');
+    anchor.id = "scroll-bottom-anchor";
+    anchor.style.height = "1px";
+    anchor.style.width = "100%";
+    anchor.style.flexShrink = "0";
+    container.appendChild(anchor);
+
+    // PERFORMANCE FIX: Intersection Observer handles scrolling WITHOUT Reflows
+    const observer = new IntersectionObserver((entries) => {
+        if (window.innerWidth <= 990) {
+            indicator.style.opacity = '0';
+            return;
+        }
+        if (entries[0].isIntersecting) {
+            indicator.style.opacity = '0'; // Bottom reached
+        } else {
+            // Check if scrollable at all
+            if (container.scrollHeight > container.clientHeight + 10) {
+                indicator.style.opacity = '1';
+            }
+        }
+    }, {
+        root: container,
+        threshold: 0
+    });
+
+    observer.observe(anchor);
+
+    // Manual update function strictly for resize events and UI changes
     window.updateScrollIndicator = () => {
         if (window.innerWidth <= 990) {
             indicator.style.opacity = '0';
             return;
         }
-        
-        if (container.scrollHeight > container.clientHeight + 15 && 
-            container.scrollTop + container.clientHeight < container.scrollHeight - 15) {
-            indicator.style.opacity = '1';
-        } else {
+        if (container.scrollHeight <= container.clientHeight + 10) {
             indicator.style.opacity = '0';
+        } else {
+            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 15) {
+                indicator.style.opacity = '0';
+            } else {
+                indicator.style.opacity = '1';
+            }
         }
     };
 
-    // PERFORMANCE FIX: Throttle the scroll event to prevent Forced Reflows
-    let ticking = false;
-    container.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                window.updateScrollIndicator();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-
     window.addEventListener('resize', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                window.updateScrollIndicator();
-                ticking = false;
-            });
-            ticking = true;
-        }
+        requestAnimationFrame(window.updateScrollIndicator);
     });
 }
 
