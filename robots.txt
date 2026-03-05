@@ -1,11 +1,15 @@
 User-agent: *
 Allow: /
 
-# Prevent the error page itself from being indexed as a search result
+# Block dead ends and error pages
 Disallow: /404.html
-
-# Block unfinished content so users don't land on dead ends
 Disallow: /coming-soon/
 
-# Direct link to your new sitemap
+# Block backend configurations and raw utility files
+Disallow: /CNAME
+Disallow: /site.webmanifest
+Disallow: /robots.txt
+Disallow: /*.md$
+
+# Direct link to the new prioritized sitemap
 Sitemap: https://solveria.org/sitemap.xml
