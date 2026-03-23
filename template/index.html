@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
+    
+    <!-- Added Meta Description for Maximum SEO Score -->
+    <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
 
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- Core Assets: Preloading LCP Image -->
-    <link rel="preload" as="image" href="image/support.webp">
+    <!-- Preloading Critical Fonts for Instant Text Rendering (Prevents FOIT/CLS) -->
+    <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
+
+    <!-- Core Assets: Preloading LCP Image with High Priority -->
+    <link rel="preload" as="image" href="image/support.webp" fetchpriority="high">
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
@@ -69,7 +76,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Inquiry Category</label>
+                        <!-- Fixed Accessibility Label 'for' attribute -->
+                        <label for="inquiry_category">Inquiry Category</label>
                         <div class="custom-dropdown-container">
                             <select id="inquiry_category" name="Inquiry_Category" class="hidden-select" required>
                                 <option value="" disabled selected>Select routing department...</option>
@@ -139,11 +147,11 @@
                         </div>
                     </div>
 
-                    <!-- Right Side Logos -->
+                    <!-- Right Side Logos (Now properly lazy-loaded) -->
                     <div class="trust-logos">
-                        <img src="image/Longi.png" alt="LONGi Solar">
-                        <img src="image/Huawei.png" alt="HUAWEI">
-                        <img src="image/Zaptec.png" alt="Zaptec">
+                        <img src="image/Longi.png" alt="LONGi Solar" loading="lazy">
+                        <img src="image/Huawei.png" alt="HUAWEI" loading="lazy">
+                        <img src="image/Zaptec.png" alt="Zaptec" loading="lazy">
                     </div>
 
                 </div>
@@ -183,36 +191,36 @@
             </div>
         </div>
 
-        <!-- Part 2: Edge-to-Edge Image Cards (6 in a row) -->
+        <!-- Part 2: Edge-to-Edge Image Cards (6 in a row - Switched to JS lazy-bg data attributes) -->
         <div class="excellence-section">
             <div class="excellence-cards-container">
                 
-                <div class="excellence-card" style="background-image: url('image/A.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/A.png">
                     <h3 class="card-title">BLOOMBERG TIER 1 BANKABILITY</h3>
                     <p class="card-desc">Earning the absolute highest benchmark of global financial trust, chosen by the biggest institutions to power the world's most massive energy projects.</p>
                 </div>
                 
-                <div class="excellence-card" style="background-image: url('image/B.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/B.png">
                     <h3 class="card-title">PVEL TOP PERFORMER</h3>
                     <p class="card-desc">Rigorously tortured in extreme conditions—from blistering heat to devastating hail—to prove uncompromising, decades-long durability.</p>
                 </div>
                 
-                <div class="excellence-card" style="background-image: url('image/C.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/C.png">
                     <h3 class="card-title">PEAK POWER EFFICIENCY</h3>
                     <p class="card-desc">Pushing the absolute limits of physics to capture every single photon, delivering unrivaled, grid-dominating power density directly to your roof.</p>
                 </div>
                 
-                <div class="excellence-card" style="background-image: url('image/D.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/D.png">
                     <h3 class="card-title">INTERSOLAR AWARD</h3>
                     <p class="card-desc">Recognized globally for pioneering cutting-edge solar innovation and redefining energy architecture.</p>
                 </div>
                 
-                <div class="excellence-card" style="background-image: url('image/E.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/E.png">
                     <h3 class="card-title">EUPD RESEARCH TOP BRAND</h3>
                     <p class="card-desc">Consistently voted as a top industry brand by trusted installers and industry experts worldwide.</p>
                 </div>
                 
-                <div class="excellence-card" style="background-image: url('image/F.png');">
+                <div class="excellence-card lazy-bg" data-bg="image/F.png">
                     <h3 class="card-title">CSLB LICENSED & FULLY INSURED</h3>
                     <p class="card-desc">Grounding our global awards with reliable local legal trust, ensuring safe and compliant installations.</p>
                 </div>
@@ -245,8 +253,8 @@
 
     </section>
 
-    <!-- 3. INSTALLATION / BUY SCROLL SECTION -->
-    <section class="installation-section">
+    <!-- 3. INSTALLATION / BUY SCROLL SECTION (Switched to JS lazy-bg data attributes) -->
+    <section class="installation-section lazy-bg" data-bg="image/G.png">
         <div class="installation-header-wrapper">
             <h2 class="installation-heading">Built to Outlast the Elements</h2>
             <p class="installation-header-subline">Engineered for absolute resilience in any environment, ensuring decades of uninterrupted power generation.</p>
@@ -273,7 +281,7 @@
                 
                 <!-- Card 1 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/1.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/1.png"></div>
                     <div class="gallery-content">
                         <h4>Precision Mounting</h4>
                         <p class="gallery-subline">Heavy-duty weather-resistant structural racking.</p>
@@ -286,7 +294,7 @@
 
                 <!-- Card 2 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/2.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/2.png"></div>
                     <div class="gallery-content">
                         <h4>Elite Grid Integration</h4>
                         <p class="gallery-subline">Seamless zero-downtime electrical connection.</p>
@@ -299,7 +307,7 @@
 
                 <!-- Card 3 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/3.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/3.png"></div>
                     <div class="gallery-content">
                         <h4>Master Craftsmanship</h4>
                         <p class="gallery-subline">Specialized fabrication built to last decades.</p>
@@ -312,7 +320,7 @@
 
                 <!-- Card 4 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/4.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/4.png"></div>
                     <div class="gallery-content">
                         <h4>Strategic Logistics</h4>
                         <p class="gallery-subline">Tier-one hardware managed with strict precision.</p>
@@ -325,7 +333,7 @@
 
                 <!-- Card 5 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/5.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/5.png"></div>
                     <div class="gallery-content">
                         <h4>Heavy-Duty Operations</h4>
                         <p class="gallery-subline">Industrial manpower for massive energy shifts.</p>
@@ -338,7 +346,7 @@
 
                 <!-- Card 6 -->
                 <div class="gallery-card">
-                    <div class="gallery-image" style="background-image: url('image/6.png');"></div>
+                    <div class="gallery-image lazy-bg" data-bg="image/6.png"></div>
                     <div class="gallery-content">
                         <h4>Industrial Fabrication</h4>
                         <p class="gallery-subline">Custom structural supports engineered in-house.</p>
@@ -446,8 +454,8 @@
         </div>
     </section>
 
-    <!-- 7. FOOTER SECTION -->
-    <footer class="site-footer">
+    <!-- 7. FOOTER SECTION (Switched to JS lazy-bg data attributes) -->
+    <footer class="site-footer lazy-bg" data-bg="image/footer.webp">
         <div class="footer-overlay"></div>
         <div class="footer-content">
             
@@ -503,7 +511,7 @@
         </div>
     </footer>
 
-    <!-- Linked External JavaScript File -->
-    <script src="script.js"></script>
+    <!-- Linked External JavaScript File (Now Deferred for absolute non-blocking HTML rendering) -->
+    <script src="script.js" defer></script>
 </body>
 </html>

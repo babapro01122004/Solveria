@@ -5,6 +5,39 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     /* ==============================================================
+       LAZY LOAD BACKGROUND IMAGES (Massive Lighthouse Score Boost)
+       ============================================================== */
+    const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
+    if ('IntersectionObserver' in window) {
+        const bgObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const bgElement = entry.target;
+                    const bgUrl = bgElement.getAttribute('data-bg');
+                    if (bgUrl) {
+                        bgElement.style.backgroundImage = `url('${bgUrl}')`;
+                    }
+                    bgElement.classList.remove('lazy-bg');
+                    observer.unobserve(bgElement);
+                }
+            });
+        }, { rootMargin: "200px 0px" }); // Start downloading 200px before reaching the viewport
+
+        lazyBackgrounds.forEach((bg) => {
+            bgObserver.observe(bg);
+        });
+    } else {
+        // Fallback execution for non-supported browsers
+        lazyBackgrounds.forEach((bg) => {
+            const bgUrl = bg.getAttribute('data-bg');
+            if (bgUrl) {
+                bg.style.backgroundImage = `url('${bgUrl}')`;
+            }
+            bg.classList.remove('lazy-bg');
+        });
+    }
+
+    /* ==============================================================
        CUSTOM DROPDOWN LOGIC
        ============================================================== */
     const dropdownTrigger = document.querySelector('.custom-dropdown-trigger');

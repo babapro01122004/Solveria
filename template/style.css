@@ -159,6 +159,7 @@ body, html {
     position: relative; 
     min-height: 100vh;
     width: 100%;
+    /* Keep Hero image eager for immediate LCP loading */
     background-image: url('image/support.webp'); 
     background-size: cover; 
     background-position: center;
@@ -548,6 +549,7 @@ body, html {
 
 .excellence-card {
     position: relative; 
+    background-color: #222; /* Solid fallback block color preventing visual glitch while lazy-loading */
     border-radius: 0; 
     padding: 50px 25px 50px 25px; 
     display: flex;
@@ -668,7 +670,7 @@ body, html {
     position: relative;
     width: 100%;
     min-height: 600px; 
-    background-image: url('image/G.png'); 
+    background-color: #1a1a1a; /* Adjusted fallback for lazy-load phase */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -827,6 +829,7 @@ body, html {
 .gallery-image {
     width: 100%;
     height: 340px; 
+    background-color: #333; /* Fallback rendering space holder */
     background-size: cover;
     background-position: center;
     border-radius: 18px; 
@@ -1021,13 +1024,13 @@ body, html {
 /* ============================ */
 .site-footer {
     position: relative; width: 100%;
-    background-image: url('image/footer.webp');
+    background-color: #111; /* Fast rendering fallback while lazy-loading */
     background-size: cover; background-position: center; background-repeat: no-repeat;
     color: #ffffff; font-family: 'Roboto', sans-serif; margin-top: auto; 
 }
 .footer-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    /* NEW: Bottom-to-Top fade overlay */
+    /* Bottom-to-Top fade overlay */
     background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 55%); 
     z-index: 1;
 }
@@ -1086,7 +1089,7 @@ body, html {
     filter: grayscale(20%) invert(90%) hue-rotate(180deg) contrast(0.9);
 }
 
-/* NEW: Right Column Links - Forced to single line */
+/* Right Column Links - Forced to single line */
 .footer-links {
     flex: 1; 
     display: flex; justify-content: center; gap: 35px; 
@@ -1180,10 +1183,10 @@ body, html {
         flex: auto;
         max-width: 100%;
         padding: 0 5vw; /* Uniform side padding */
-        text-align: center; /* NEW: Centered Text */
+        text-align: center; /* Centered Text */
     }
     .installation-text p {
-        text-align: center; /* NEW: Centered Text */
+        text-align: center; /* Centered Text */
     }
     .installation-gallery {
         width: 100%;
@@ -1218,7 +1221,7 @@ body, html {
     .footer-left { align-items: center; text-align: center; flex: auto; }
     .footer-info { align-items: center; }
     .footer-map { width: 100%; max-width: 600px; height: 300px; margin: 0 auto; flex: auto;}
-    /* NEW: Allow links to wrap gracefully on smaller tablet screens */
+    /* Allow links to wrap gracefully on smaller tablet screens */
     .footer-links { width: 100%; justify-content: center; gap: 50px; flex: auto; flex-wrap: wrap; }
     .footer-col { align-items: center; text-align: center; }
 }
@@ -1275,7 +1278,7 @@ body, html {
     .form-row { flex-direction: column; gap: 0; }
 
     /* ========================================= */
-    /* NEW: PHONE UI FORM TWEAKS                 */
+    /* PHONE UI FORM TWEAKS                      */
     /* ========================================= */
     .form-header { text-align: center; }
     .form-footer-subline { text-align: center; }
@@ -1283,7 +1286,7 @@ body, html {
     /* ========================================= */
     
     /* ========================================= */
-    /* NEW: PHONE UI REVIEWS & DYNAMIC LOGOS     */
+    /* PHONE UI REVIEWS & DYNAMIC LOGOS          */
     /* ========================================= */
     .hero-bottom-container {
         flex-direction: row; 
@@ -1365,7 +1368,7 @@ body, html {
     }
 
     /* ========================================= */
-    /* NEW: PHONE UI FOOTER COLUMNS ADJUSTMENTS  */
+    /* PHONE UI FOOTER COLUMNS ADJUSTMENTS       */
     /* ========================================= */
     .footer-content { padding: 40px 5vw 30px 5vw; }
     .footer-map { height: 220px; }
