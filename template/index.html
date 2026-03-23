@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     
-    <!-- Added Meta Description for Maximum SEO Score -->
+    <!-- Meta Description for Maximum SEO Score -->
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
 
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- Preloading Critical Fonts for Instant Text Rendering (Prevents FOIT/CLS) -->
+    <!-- Preloading specifically requested fonts to eliminate render-blocking delay -->
+    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
-
-    <!-- Core Assets: Preloading LCP Image with High Priority -->
-    <link rel="preload" as="image" href="image/support.webp" fetchpriority="high">
+    <link rel="preload" href="fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
@@ -30,8 +28,9 @@
 
     <header class="header">
         <div class="header-container">
+            <!-- Priority Low + Async forces the browser to paint text before worrying about the 282kb logo -->
             <a href="index.html" class="logo" aria-label="Solveria Home">
-                <img src="image/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32">
+                <img src="image/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32" fetchpriority="low" decoding="async">
                 <span class="logo-text">Solveria.</span>
             </a>
             <nav>
@@ -44,6 +43,8 @@
 
     <!-- 1. THE HERO SECTION -->
     <section class="hero-section">
+        <!-- The heavy background image is deferred to this hidden layer via JS -->
+        <div class="hero-bg-layer"></div>
         
         <div class="hero-content">
             <div class="hero-text">
@@ -76,7 +77,6 @@
                     </div>
                     
                     <div class="form-group">
-                        <!-- Fixed Accessibility Label 'for' attribute -->
                         <label for="inquiry_category">Inquiry Category</label>
                         <div class="custom-dropdown-container">
                             <select id="inquiry_category" name="Inquiry_Category" class="hidden-select" required>
@@ -147,11 +147,11 @@
                         </div>
                     </div>
 
-                    <!-- Right Side Logos (Now properly lazy-loaded) -->
+                    <!-- Right Side Logos -->
                     <div class="trust-logos">
-                        <img src="image/Longi.png" alt="LONGi Solar" loading="lazy">
-                        <img src="image/Huawei.png" alt="HUAWEI" loading="lazy">
-                        <img src="image/Zaptec.png" alt="Zaptec" loading="lazy">
+                        <img src="image/Longi.png" alt="LONGi Solar" loading="lazy" decoding="async">
+                        <img src="image/Huawei.png" alt="HUAWEI" loading="lazy" decoding="async">
+                        <img src="image/Zaptec.png" alt="Zaptec" loading="lazy" decoding="async">
                     </div>
 
                 </div>
@@ -191,7 +191,7 @@
             </div>
         </div>
 
-        <!-- Part 2: Edge-to-Edge Image Cards (6 in a row - Switched to JS lazy-bg data attributes) -->
+        <!-- Part 2: Edge-to-Edge Image Cards (JS lazy-bg data attributes) -->
         <div class="excellence-section">
             <div class="excellence-cards-container">
                 
@@ -253,7 +253,7 @@
 
     </section>
 
-    <!-- 3. INSTALLATION / BUY SCROLL SECTION (Switched to JS lazy-bg data attributes) -->
+    <!-- 3. INSTALLATION / BUY SCROLL SECTION -->
     <section class="installation-section lazy-bg" data-bg="image/G.png">
         <div class="installation-header-wrapper">
             <h2 class="installation-heading">Built to Outlast the Elements</h2>
@@ -454,7 +454,7 @@
         </div>
     </section>
 
-    <!-- 7. FOOTER SECTION (Switched to JS lazy-bg data attributes) -->
+    <!-- 7. FOOTER SECTION -->
     <footer class="site-footer lazy-bg" data-bg="image/footer.webp">
         <div class="footer-overlay"></div>
         <div class="footer-content">
@@ -463,7 +463,7 @@
                 
                 <!-- Left Column: Branding -->
                 <div class="footer-left">
-                    <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" decoding="async" width="80" height="80">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
                         <p class="tagline">Engineered for Energy Sovereignty.</p>
@@ -511,7 +511,7 @@
         </div>
     </footer>
 
-    <!-- Linked External JavaScript File (Now Deferred for absolute non-blocking HTML rendering) -->
+    <!-- JS explicitly deferred so parsing never stops -->
     <script src="script.js" defer></script>
 </body>
 </html>

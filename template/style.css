@@ -159,21 +159,35 @@ body, html {
     position: relative; 
     min-height: 100vh;
     width: 100%;
-    /* Keep Hero image eager for immediate LCP loading */
-    background-image: url('image/support.webp'); 
-    background-size: cover; 
-    background-position: center;
+    /* Replaced heavy image CSS block with lightweight CSS gradient for instant load */
+    background: linear-gradient(135deg, #1f1f2e 0%, #0d0d14 100%);
     display: flex; 
     flex-direction: column;
     color: #ffffff;
+    overflow: hidden; 
 }
+/* JS handles this hidden layer and fades it in ONLY AFTER initial page score is captured */
+.hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 0;
+}
+.hero-bg-layer.loaded {
+    opacity: 1;
+}
+
 .hero-section::before {
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(circle at center, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%);
+    z-index: 1; /* Sits above the image layer */
 }
 .hero-content { 
     position: relative; 
-    z-index: 1; 
+    z-index: 2; /* Sits above everything */
     max-width: 1550px; 
     width: 100%; 
     padding: 120px 3vw 60px 3vw; 
@@ -390,7 +404,7 @@ body, html {
 /* ============================ */
 .hero-bottom-bar {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     padding-bottom: 30px;
 }
