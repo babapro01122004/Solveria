@@ -7,9 +7,18 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- Preloading STRICTLY the fonts needed for the Hero text to eliminate render blocking -->
+    <!-- 1. Preload the CSS FIRST to eliminate render blocking delays -->
+    <link rel="preload" href="style.css" as="style">
+    
+    <!-- 2. Preloading ALL critical fonts to break the network chain flagged by Lighthouse -->
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+    <!-- 3. Preconnect to external dependencies -->
+    <link rel="preconnect" href="https://www.google.com" crossorigin>
+    <link rel="preconnect" href="https://formspree.io" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
@@ -179,7 +188,6 @@
 
         <div class="excellence-section">
             <div class="excellence-cards-container">
-                <!-- Added "stagger-item" to all cards for the cascading pop-in -->
                 <div class="excellence-card lazy-bg stagger-item" data-bg="image/A.png">
                     <h3 class="card-title">BLOOMBERG TIER 1 BANKABILITY</h3>
                     <p class="card-desc">Earning the absolute highest benchmark of global financial trust, chosen by the biggest institutions to power the world's most massive energy projects.</p>
@@ -247,7 +255,6 @@
                 <p>Premium hardware demands premium execution. Our certified installation teams are trained to handle complex rooflines, extreme weatherproofing, and flawless electrical integration. What you see is a crew that treats your property with total respect, ensuring that your system isn't just generating maximum power on day one, but for decades to come.</p>
             </div>
             <div class="installation-gallery">
-                <!-- Added "stagger-item" to all gallery cards -->
                 <div class="gallery-card stagger-item">
                     <div class="gallery-image lazy-bg" data-bg="image/1.png"></div>
                     <div class="gallery-content">
@@ -370,7 +377,7 @@
                     </div>
                 </div>
                 <div class="footer-map stagger-item">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423284.5905135281!2d-118.41173249999999!3d34.0204915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1711100000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423284.5905135281!2d-118.41173249999999!3d34.0204915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1711100000000!5m2!1sen!2sus" title="Google Maps Location" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="footer-links stagger-item">
                     <div class="footer-col">
