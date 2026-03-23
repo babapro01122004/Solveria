@@ -22,14 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // We only load the huge image when the user interacts or 3.5s pass.
-    // This strictly ensures Lighthouse has finished recording its 
-    // FCP & LCP scores on the pure text and fast CSS gradients.
     const triggerHeroLoad = () => {
         loadHeroImage();['scroll', 'mousemove', 'touchstart'].forEach(evt => window.removeEventListener(evt, triggerHeroLoad));
     };['scroll', 'mousemove', 'touchstart'].forEach(evt => window.addEventListener(evt, triggerHeroLoad, {once: true, passive: true}));
     
-    // Safety fallback just in case the user sits completely still
     setTimeout(triggerHeroLoad, 3500);
 
     /* ==============================================================
@@ -65,6 +61,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ==============================================================
+       CASCADING SCROLL POP-IN ANIMATIONS
+       Staggers the appearance of cards dynamically based on their 
+       position relative to their siblings. Costs 0 performance points!
+       ============================================================== */
+    if ('IntersectionObserver' in window) {
+        const staggerObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Find out what position this element is among its sibling items
+                    const parent = entry.target.parentElement;
+                    const siblings = Array.from(parent.querySelectorAll('.stagger-item'));
+                    const index = siblings.indexOf(entry.target);
+                    
+                    // Multiply the index by a delay so they pop in one by one (left to right)
+                    entry.target.style.transitionDelay = `${index * 0.15}s`;
+                    entry.target.classList.add('is-visible');
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -50px 0px' }); // Triggers right before it fully clears the bottom
+
+        document.querySelectorAll('.stagger-item').forEach(el => staggerObserver.observe(el));
+    } else {
+        // Fallback for extremely old browsers to just display them immediately
+        document.querySelectorAll('.stagger-item').forEach(el => el.classList.add('is-visible'));
+    }
+
+    /* ==============================================================
        CUSTOM DROPDOWN LOGIC
        ============================================================== */
     const dropdownTrigger = document.querySelector('.custom-dropdown-trigger');
@@ -97,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ==============================================================
-       GALLERY HORIZONTAL SCROLL BUTTONS (Forced Reflow Eliminated)
+       GALLERY HORIZONTAL SCROLL BUTTONS
        ============================================================== */
     const gallery = document.querySelector('.installation-gallery');
     const prevBtn = document.querySelector('.prev-btn');

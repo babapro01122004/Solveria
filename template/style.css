@@ -7,11 +7,15 @@
 html { scroll-behavior: smooth; }
 body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-weight: 300; background-color: #f5f5f7; color: #333; display: flex; flex-direction: column; min-height: 100vh; line-height: 1.5; }
 
-/* ANIMATIONS TO MASK LOADING */
+/* ANIMATIONS TO MASK INITIAL LOADING */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
 .animate-fade-in-up { opacity: 0; animation: fadeInUp 0.8s ease-out 0.2s forwards; }
+
+/* CSS FOR CASCADING SCROLL POP-INS (Hardware Accelerated) */
+.stagger-item { opacity: 0; transform: translateY(40px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.stagger-item.is-visible { opacity: 1; transform: translateY(0); }
 
 .header { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 1.5rem 1rem; }
 .header-container { max-width: 98%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
