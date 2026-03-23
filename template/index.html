@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +8,12 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- 1. Preload the CSS FIRST to eliminate render blocking delays -->
     <link rel="preload" href="style.css" as="style">
-    
-    <!-- 2. Preloading ALL critical fonts to break the network chain flagged by Lighthouse -->
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin>
-
-    <!-- 3. Preconnect to external dependencies -->
     <link rel="preconnect" href="https://www.google.com" crossorigin>
-    <link rel="preconnect" href="https://formspree.io" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
@@ -26,7 +21,6 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" href="image/favicon.ico">
 
-    <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -45,12 +39,9 @@
         </div>
     </header>
 
-    <!-- 1. THE HERO SECTION -->
     <section class="hero-section">
-        <!-- Heavy image deferred securely to interaction events via JS -->
         <div class="hero-bg-layer"></div>
         
-        <!-- REMOVED animation class from the main content wrapper so the LCP text renders instantly! -->
         <div class="hero-content">
             <div class="hero-text">
                 <h1>We help you put the sun to work</h1>
@@ -60,54 +51,33 @@
                 <a href="#learn-more" class="hero-btn">Know More</a>
             </div>
 
-            <!-- APPLIED animation exclusively to the form so we keep the aesthetic without harming the LCP score -->
             <div class="hero-form-container animate-fade-in-up">
                 <div class="form-header">
                     <h2>Book an Appointment</h2>
                     <p>Schedule a free consultation with our solar experts to analyze your property.</p>
                 </div>
 
-                <form id="solveria-contact-form" action="https://formspree.io/f/xwvrpljb" method="POST">
-                    <input type="text" name="_gotcha" style="display:none">
-
+                <form id="solveria-contact-form" name="submit-to-google-sheet">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="Name" placeholder="Name" required>
                         </div>
                         <div class="form-group">
-                            <label for="professional_email">Email Address</label>
-                            <input type="email" id="professional_email" name="Professional_Email" placeholder="Email Address" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="inquiry_category">Inquiry Category</label>
-                        <div class="custom-dropdown-container">
-                            <select id="inquiry_category" name="Inquiry_Category" class="hidden-select" required>
-                                <option value="" disabled selected>Select routing department...</option>
-                                <option value="Residential Solar Installation">Residential Solar Installation</option>
-                                <option value="Commercial Deployment">Commercial Deployment</option>
-                                <option value="Battery & Storage Solutions">Battery & Storage Solutions</option>
-                                <option value="Technical Support / Maintenance">Technical Support / Maintenance</option>
-                            </select>
-                            
-                            <button type="button" class="custom-dropdown-trigger">Select routing department...</button>
-                            
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="Residential Solar Installation">Residential Solar Installation</div>
-                                    <div class="dropdown-option" data-value="Commercial Deployment">Commercial Deployment</div>
-                                    <div class="dropdown-option" data-value="Battery & Storage Solutions">Battery & Storage Solutions</div>
-                                    <div class="dropdown-option" data-value="Technical Support / Maintenance">Technical Support / Maintenance</div>
-                                </div>
-                            </div>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="Email" placeholder="Email Address" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="message">Property Details / Message</label>
                         <textarea id="message" name="Message" placeholder="Property Details / Message" required></textarea>
+                    </div>
+
+                    <!-- Honeypot spam prevention field -->
+                    <div class="honeypot-field" aria-hidden="true">
+                        <label for="website-url">Website URL (Leave this blank)</label>
+                        <input type="text" id="website-url" name="website-url" tabindex="-1" autocomplete="off">
                     </div>
                     
                     <p class="form-footer-subline">No commitment required. We strictly protect your privacy and personal data.</p>
@@ -158,7 +128,6 @@
         </div>
     </section>
 
-    <!-- 2. ACHIEVEMENTS SECTION -->
     <section class="achievements-section" id="achievements">
         <div class="achievements-header">
             <h2><span class="highlight-engineered">Engineered for the</span> <span class="highlight-extraordinary">Extraordinary.</span></h2>
@@ -234,7 +203,6 @@
         </div>
     </section>
 
-    <!-- 3. INSTALLATION / BUY SCROLL SECTION -->
     <section class="installation-section lazy-bg" data-bg="image/G.png">
         <div class="installation-header-wrapper stagger-item">
             <h2 class="installation-heading">Built to Outlast the Elements</h2>
@@ -307,7 +275,6 @@
         </div>
     </section>
 
-    <!-- 4. FAQ SECTION -->
     <section class="faq-section" id="faq">
         <div class="faq-header stagger-item">
             <h2>Frequently Asked Questions</h2>
@@ -362,7 +329,6 @@
         </div>
     </section>
 
-    <!-- 7. FOOTER SECTION -->
     <footer class="site-footer lazy-bg" data-bg="image/footer.webp">
         <div class="footer-overlay"></div>
         <div class="footer-content">
@@ -398,7 +364,6 @@
         </div>
     </footer>
 
-    <!-- Deferred JS -->
     <script src="script.js" defer></script>
 </body>
 </html>

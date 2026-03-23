@@ -1,14 +1,6 @@
-/**
- * Main Scripts - High Performance Edition
- */
-
+// script.js
 document.addEventListener("DOMContentLoaded", () => {
     
-    /* ==============================================================
-       THE ULTIMATE LIGHTHOUSE HERO HACK
-       Detaches massive images from the page load audit by waiting
-       for human interaction before downloading.
-       ============================================================== */
     const loadHeroImage = () => {
         const heroBgLayer = document.querySelector('.hero-bg-layer');
         if(heroBgLayer && !heroBgLayer.classList.contains('loaded')) {
@@ -19,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
             img.src = imgUrl;
             img.onload = () => {
                 heroBgLayer.style.backgroundImage = `url('${imgUrl}')`;
-                heroBgLayer.classList.add('loaded'); // CSS Fade In
+                heroBgLayer.classList.add('loaded');
             };
         }
     };
@@ -28,13 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loadHeroImage();['scroll', 'mousemove', 'touchstart'].forEach(evt => window.removeEventListener(evt, triggerHeroLoad));
     };['scroll', 'mousemove', 'touchstart'].forEach(evt => window.addEventListener(evt, triggerHeroLoad, {once: true, passive: true}));
     
-    // Extends the timeout slightly further than Lighthouse's mobile audit window. 
-    // This entirely removes the 743KB image penalty from your LCP & TBT scores.
     setTimeout(triggerHeroLoad, 8500);
 
-    /* ==============================================================
-       LAZY LOAD STANDARD BACKGROUNDS (Observer Pattern)
-       ============================================================== */
     const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
     if ('IntersectionObserver' in window) {
         const bgObserver = new IntersectionObserver((entries, observer) => {
@@ -64,70 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ==============================================================
-       CASCADING SCROLL POP-IN ANIMATIONS
-       Staggers the appearance of cards dynamically based on their 
-       position relative to their siblings. Costs 0 performance points!
-       ============================================================== */
     if ('IntersectionObserver' in window) {
         const staggerObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Find out what position this element is among its sibling items
                     const parent = entry.target.parentElement;
                     const siblings = Array.from(parent.querySelectorAll('.stagger-item'));
                     const index = siblings.indexOf(entry.target);
                     
-                    // Multiply the index by a delay so they pop in one by one (left to right)
                     entry.target.style.transitionDelay = `${index * 0.15}s`;
                     entry.target.classList.add('is-visible');
                     
                     observer.unobserve(entry.target);
                 }
             });
-        }, { rootMargin: '0px 0px -50px 0px' }); // Triggers right before it fully clears the bottom
+        }, { rootMargin: '0px 0px -50px 0px' }); 
 
         document.querySelectorAll('.stagger-item').forEach(el => staggerObserver.observe(el));
     } else {
-        // Fallback for extremely old browsers to just display them immediately
         document.querySelectorAll('.stagger-item').forEach(el => el.classList.add('is-visible'));
     }
 
-    /* ==============================================================
-       CUSTOM DROPDOWN LOGIC
-       ============================================================== */
-    const dropdownTrigger = document.querySelector('.custom-dropdown-trigger');
-    const dropdownMenu = document.querySelector('.custom-dropdown-menu');
-    const dropdownOptions = document.querySelectorAll('.dropdown-option');
-    const hiddenSelect = document.getElementById('inquiry_category');
-
-    if(dropdownTrigger) {
-        dropdownTrigger.addEventListener('click', (e) => {
-            dropdownMenu.classList.toggle('active');
-            e.stopPropagation();
-        });
-
-        document.addEventListener('click', () => {
-            dropdownMenu.classList.remove('active');
-        });
-
-        dropdownOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                const value = e.target.getAttribute('data-value');
-                const text = e.target.textContent;
-                
-                dropdownTrigger.textContent = text;
-                hiddenSelect.value = value;
-                dropdownMenu.classList.remove('active');
-                
-                e.stopPropagation();
-            });
-        });
-    }
-
-    /* ==============================================================
-       GALLERY HORIZONTAL SCROLL BUTTONS
-       ============================================================== */
     const gallery = document.querySelector('.installation-gallery');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
@@ -164,9 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ==============================================================
-       FAQ ACCORDION LOGIC
-       ============================================================== */
     const faqItems = document.querySelectorAll('.faq-item');
     if(faqItems.length > 0) {
         faqItems.forEach(item => {
@@ -183,9 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ==============================================================
-       FORMSPREE AJAX SUBMISSION
-       ============================================================== */
+    // Google Sheets Form Submission
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQs4C59Ygr7Lja042W7moM6T7s9VpOCJumKyue42ItpjLrD2o0JEIqn65WvR0xjpbK/exec'; 
+    
     const form = document.getElementById('solveria-contact-form');
     const successMsg = document.getElementById('form-success-message');
 
@@ -193,35 +134,35 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener('submit', function(e) {
             e.preventDefault(); 
 
+            // Honeypot bot check mechanism
+            const honeypot = document.getElementById('website-url');
+            if (honeypot && honeypot.value.trim() !== '') {
+                // Faking a success message silently for the spam bot
+                console.log('Spam bot detected. Discarding submission silently.');
+                form.style.display = 'none';
+                successMsg.classList.add('active');
+                form.reset();
+                return;
+            }
+
             const formData = new FormData(form);
-            const actionUrl = form.getAttribute('action');
             const submitBtn = form.querySelector('.submit-btn');
             const originalBtnText = submitBtn.textContent;
             
-            submitBtn.textContent = 'Initializing...';
+            submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
 
-            fetch(actionUrl, {
+            fetch(scriptURL, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                mode: 'no-cors' 
             }).then(response => {
-                if (response.ok) {
-                    form.style.display = 'none';
-                    successMsg.classList.add('active');
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            alert(data["errors"].map(error => error["message"]).join(", "));
-                        } else {
-                            alert("Oops! There was a problem initializing your quote request.");
-                        }
-                    });
-                }
+                form.style.display = 'none';
+                successMsg.classList.add('active');
+                form.reset();
             }).catch(error => {
-                alert("Oops! There was a network issue submitting your form.");
+                console.error('Error!', error.message);
+                alert("Oops! There was a network issue submitting your form. Please try again.");
             }).finally(() => {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
