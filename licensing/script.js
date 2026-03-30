@@ -88,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const zoomLevelText = document.getElementById('zoom-level');
 
         if (previewContainer && previewImage) {
-            let scale = 0.5;
+            // Check screen width to determine default zoom scale (Desktop: 50%, Mobile: 75%)
+            let scale = window.innerWidth <= 990 ? 0.75 : 0.5;
             let isDragging = false;
             let startX, startY;
             let translateX = 0, translateY = 0;
@@ -166,7 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if(zoomOutBtn) zoomOutBtn.addEventListener('click', () => adjustZoom(-0.25));
             
             if(zoomResetBtn) zoomResetBtn.addEventListener('click', () => {
-                scale = 0.5; 
+                // Ensure reset logic respects the device viewport
+                scale = window.innerWidth <= 990 ? 0.75 : 0.5; 
                 translateX = (previewContainer.clientWidth - previewImage.clientWidth * scale) / 2; 
                 translateY = 60; 
                 updateTransform();

@@ -780,33 +780,35 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     /* Hide all buildings EXCEPT 1 (Left) and 6 (Right) on mobile */
     .city-building:not(.c-bg-deep-1):not(.c-fg-6) { display: none !important; }
 
+    /* We moved the filter reset BEFORE the specific image styling to prevent the reset from winning */
+    .lyr-bg-deep, .lyr-bg, .lyr-mg, .lyr-fg, .lyr-fg-top { filter: none !important; }
+
     /* FLANKING THE INTERACTIVE CANVAS: Perfectly framing the main image on mobile */
-    .c-bg-deep-1, .c-fg-6 { 
+    /* Increased CSS Specificity by attaching img. class */
+    img.c-bg-deep-1, img.c-fg-6 { 
         display: block !important; 
-        filter: blur(20px) brightness(0.4) !important; /* Aggressively blurred and darker */
-        opacity: 0.55 !important; /* Lowered opacity */
+        filter: blur(4px) brightness(0.4) !important; /* Proper 12px blur that GPU handles perfectly */
+        opacity: 0.6 !important; 
         will-change: auto !important;
-        bottom: -15% !important; /* Pushed deep down so the bottom edge is hidden */
-        height: clamp(180px, 35vh, 320px) !important; /* Lowered size */
-        width: 32vw !important; /* Lowered width */
+        bottom: -15% !important; 
+        height: clamp(180px, 35vh, 320px) !important; 
+        width: 32vw !important; 
         z-index: 1 !important; 
     }
     
-    .c-bg-deep-1 {
-        left: -8vw !important; /* Cut off 1/4th of 32vw */
+    img.c-bg-deep-1 {
+        left: -8vw !important; 
         right: auto !important;
         transform: translateX(0) !important;
     }
-    .c-fg-6 {
-        right: -8vw !important; /* Cut off 1/4th of 32vw */
+    img.c-fg-6 {
+        right: -8vw !important; 
         left: auto !important;
         transform: translateX(0) !important;
     }
 
-    .lyr-bg-deep, .lyr-bg, .lyr-mg, .lyr-fg, .lyr-fg-top { filter: none !important; }
-
     /* MOBILE GPU FIX */
-    .hero-outline-btn, .preview-controls, .card.premium .card-bottom, .card.premium .premium-btn {
+    .hero-outline-btn, .card.premium .card-bottom, .card.premium .premium-btn {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
@@ -837,6 +839,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .criss-cross-row .comparison-text p { text-align: center !important; }
     
     .preview-container { height: 45vh; min-height: 350px; width: 100%; }
+    .preview-canvas { transform: scale(0.75); } 
+    .preview-controls { bottom: 25px !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } 
     
     .pricing-cards { flex-direction: column; align-items: center; gap: 40px; }
     .card.standard, .card.premium { max-width: 500px; transform: scale(1); }
@@ -892,7 +896,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .metrics-row { gap: 10px; }
     
     .preview-container { height: 40vh; min-height: 300px; border-radius: 8px; width: 100%; }
-    .preview-controls { gap: 10px; padding: 6px 12px; }
+    .preview-controls { gap: 10px; padding: 6px 12px; bottom: 15px !important; }
     .deployment-status { font-size: 0.85rem; }
     
     .pricing-section { padding: 40px 5vw 80px 5vw; }
