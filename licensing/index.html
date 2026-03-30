@@ -8,17 +8,9 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
+    <!-- STRICT MOBILE OPTIMIZATION: Only preloading the critical CSS and Main Heading Font to keep the FCP pipeline instantly clear -->
     <link rel="preload" href="style.css" as="style">
-    
-    <!-- Only preloading critical Above-The-Fold fonts to save bandwidth -->
-    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
-    
-    <!-- Forcing highest priority bandwidth directly to LCP candidates -->
-    <link rel="preload" href="image/Hero.png" as="image" fetchpriority="high">
-    <link rel="preload" href="image/Logo_Golden.webp" as="image" fetchpriority="high">
     
     <link rel="preconnect" href="https://www.google.com" crossorigin>
 
@@ -49,19 +41,20 @@
     </header>
 
     <section class="hero-section">
-        <div class="hero-bg-layer"></div>
+        <!-- NATIVE ASYNC DECODING: This prevents heavy client images from locking the mobile CPU -->
+        <img src="image/Hero.png" alt="" class="hero-bg-layer" fetchpriority="high" decoding="async">
 
         <div class="hero-content">
             <div class="hero-text">
                 
                 <div class="collab-wrapper animate-fade-in-up">
                     <div class="collab-brand left">
-                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" fetchpriority="high">
+                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" fetchpriority="high" decoding="async">
                         <span class="collab-logo-text">Solveria.</span>
                     </div>
                     <div class="collab-x" aria-hidden="true"></div>
                     <div class="collab-brand right">
-                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo" fetchpriority="high">
+                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo" fetchpriority="high" decoding="async">
                     </div>
                 </div>
 

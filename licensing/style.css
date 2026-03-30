@@ -38,7 +38,6 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     color: transparent;
 }
 
-/* UPDATED REFUND HIGHLIGHT TEXT (Unbold, Roboto, Larger) */
 .highlight-refund {
     background: linear-gradient(90deg, #4F95E7, #917CCB, #BC6D93);
     -webkit-background-clip: text;
@@ -74,16 +73,21 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* Hero Section Base */
 .hero-section { position: relative; min-height: 100vh; width: 100%; background: linear-gradient(135deg, #1f1f2e 0%, #0d0d14 100%); display: flex; flex-direction: column; color: #ffffff; overflow: hidden; }
 
-/* INSTANT LCP CSS RENDER FIX */
+/* UPDATED NATIVE IMG RENDERING: FCP triggers instantly while this heavy image loads */
 .hero-bg-layer { 
     position: absolute; 
     inset: 0; 
-    background-image: url('image/Hero.png'); 
-    background-size: cover; 
-    background-position: center; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     z-index: 0; 
+    pointer-events: none;
+    animation: imageFade 1s ease-out forwards;
 }
-.hero-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%); z-index: 1; }
+@keyframes imageFade { from { opacity: 0; } to { opacity: 1; } }
+
+.hero-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%); z-index: 1; pointer-events: none; }
 
 /* Hero Content */
 .hero-content { position: relative; z-index: 2; max-width: 1550px; width: 100%; padding: 120px 3vw 120px 3vw; margin: auto; display: flex; align-items: center; justify-content: center; gap: 60px; }
@@ -330,11 +334,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .comparison-img { width: 100%; height: auto; display: block; }
 
 /* PREVENT LAYOUT SHIFT (CLS) FROM DEFERRED VIDEOS */
-.video-box {
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    background-color: #000;
-}
+.video-box { aspect-ratio: 16 / 9; width: 100%; background-color: #000; }
 
 /* Preview Workspace Section */
 .preview-section { position: relative; width: 100%; background-color: #000; padding: 60px 3vw 80px 3vw; margin: 0; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 800px; display: flex; flex-direction: column; }
@@ -351,7 +351,6 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .lyr-bg-deep { z-index: 0; opacity: 0.55; filter: blur(4px) brightness(0.65); }
 .lyr-bg { z-index: 2; opacity: 0.65; filter: blur(3px) brightness(0.7); }
 .lyr-mg { z-index: 4; opacity: 0.8; filter: blur(2px) brightness(0.85); }
-/* UPDATED BLUR: The 3 foreground images per side are now gently blurred to frame the interactive center */
 .lyr-fg { z-index: 6; opacity: 0.85; filter: blur(4px) brightness(0.8); }
 .lyr-fg-top { z-index: 8; opacity: 0.9; filter: blur(3px) brightness(0.85); }
 
