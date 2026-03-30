@@ -41,8 +41,8 @@
     </header>
 
     <section class="hero-section">
-        <!-- NATIVE ASYNC DECODING: This prevents heavy client images from locking the mobile CPU -->
-        <img src="image/Hero.png" alt="" class="hero-bg-layer" fetchpriority="high" decoding="async">
+        <!-- GUARANTEED LCP PIPELINE FIX: decoding="sync" forces immediate render. Explicit width/height prevents layout shift penalties -->
+        <img src="image/Hero.png" alt="" class="hero-bg-layer" fetchpriority="high" decoding="sync" width="1920" height="1080">
 
         <div class="hero-content">
             <div class="hero-text">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="collab-x" aria-hidden="true"></div>
                     <div class="collab-brand right">
-                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo" fetchpriority="high" decoding="async">
+                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo" fetchpriority="high" decoding="async" width="120" height="40">
                     </div>
                 </div>
 
@@ -125,10 +125,10 @@
                 <div class="cc-images">
                     <div class="metrics-row">
                         <div class="img-wrapper">
-                            <img src="image/Z.png" alt="Current Lighthouse Score" loading="lazy" class="comparison-img">
+                            <img src="image/Z.png" alt="Current Lighthouse Score" loading="lazy" class="comparison-img" width="800" height="450">
                         </div>
                         <div class="img-wrapper">
-                            <img src="image/Z_1.png" alt="Current Core Web Vitals" loading="lazy" class="comparison-img">
+                            <img src="image/Z_1.png" alt="Current Core Web Vitals" loading="lazy" class="comparison-img" width="800" height="450">
                         </div>
                     </div>
                     <div class="img-wrapper video-box">
@@ -160,10 +160,10 @@
                 <div class="cc-images">
                     <div class="metrics-row">
                         <div class="img-wrapper">
-                            <img src="image/ZZ.png" alt="Solveria Lighthouse Score" loading="lazy" class="comparison-img">
+                            <img src="image/ZZ.png" alt="Solveria Lighthouse Score" loading="lazy" class="comparison-img" width="800" height="450">
                         </div>
                         <div class="img-wrapper">
-                            <img src="image/ZZ_1.png" alt="Solveria Core Web Vitals" loading="lazy" class="comparison-img">
+                            <img src="image/ZZ_1.png" alt="Solveria Core Web Vitals" loading="lazy" class="comparison-img" width="800" height="450">
                         </div>
                     </div>
                     <div class="img-wrapper video-box">
@@ -180,53 +180,53 @@
         
         <div class="city-scenery">
             <div class="city-cluster">
-                <img src="image/website13.jpg" class="city-building lyr-bg-deep c-bg-deep-1" alt="Past Work 13" loading="lazy">
-                <img src="image/website14.jpg" class="city-building lyr-bg-deep c-bg-deep-2" alt="Past Work 14" loading="lazy">
-                <img src="image/website1.jpeg" class="city-building lyr-bg c-bg-1" alt="Past Work 1" loading="lazy">
-                <img src="image/website2.jpg" class="city-building lyr-mg c-mg-1" alt="Past Work 2" loading="lazy">
-                <img src="image/website3.jpg" class="city-building lyr-mg c-mg-2" alt="Past Work 3" loading="lazy">
-                <img src="image/website4.jpg" class="city-building lyr-fg c-fg-1" alt="Past Work 4" loading="lazy">
-                <img src="image/website5.jpg" class="city-building lyr-fg-top c-fg-2" alt="Past Work 5" loading="lazy">
-                <img src="image/website6.jpg" class="city-building lyr-fg c-fg-3" alt="Past Work 6" loading="lazy">
+                <img src="image/website13.jpg" class="city-building lyr-bg-deep c-bg-deep-1" alt="Past Work 13" loading="lazy" width="300" height="500">
+                <img src="image/website14.jpg" class="city-building lyr-bg-deep c-bg-deep-2" alt="Past Work 14" loading="lazy" width="300" height="500">
+                <img src="image/website1.jpeg" class="city-building lyr-bg c-bg-1" alt="Past Work 1" loading="lazy" width="300" height="500">
+                <img src="image/website2.jpg" class="city-building lyr-mg c-mg-1" alt="Past Work 2" loading="lazy" width="300" height="500">
+                <img src="image/website3.jpg" class="city-building lyr-mg c-mg-2" alt="Past Work 3" loading="lazy" width="300" height="500">
+                <img src="image/website4.jpg" class="city-building lyr-fg c-fg-1" alt="Past Work 4" loading="lazy" width="300" height="500">
+                <img src="image/website5.jpg" class="city-building lyr-fg-top c-fg-2" alt="Past Work 5" loading="lazy" width="300" height="500">
+                <img src="image/website6.jpg" class="city-building lyr-fg c-fg-3" alt="Past Work 6" loading="lazy" width="300" height="500">
             </div>
 
             <div class="city-cluster">
-                <img src="image/website15.jpg" class="city-building lyr-bg-deep c-bg-deep-3" alt="Past Work 15" loading="lazy">
-                <img src="image/website16.jpg" class="city-building lyr-bg-deep c-bg-deep-4" alt="Past Work 16" loading="lazy">
-                <img src="image/website7.jpg" class="city-building lyr-bg c-bg-2" alt="Past Work 7" loading="lazy">
-                <img src="image/website8.jpg" class="city-building lyr-mg c-mg-3" alt="Past Work 8" loading="lazy">
-                <img src="image/website9.jpg" class="city-building lyr-mg c-mg-4" alt="Past Work 9" loading="lazy">
-                <img src="image/website10.jpg" class="city-building lyr-fg c-fg-4" alt="Past Work 10" loading="lazy">
-                <img src="image/website11.jpg" class="city-building lyr-fg-top c-fg-5" alt="Past Work 11" loading="lazy">
-                <img src="image/website12.jpg" class="city-building lyr-fg c-fg-6" alt="Past Work 12" loading="lazy">
+                <img src="image/website15.jpg" class="city-building lyr-bg-deep c-bg-deep-3" alt="Past Work 15" loading="lazy" width="300" height="500">
+                <img src="image/website16.jpg" class="city-building lyr-bg-deep c-bg-deep-4" alt="Past Work 16" loading="lazy" width="300" height="500">
+                <img src="image/website7.jpg" class="city-building lyr-bg c-bg-2" alt="Past Work 7" loading="lazy" width="300" height="500">
+                <img src="image/website8.jpg" class="city-building lyr-mg c-mg-3" alt="Past Work 8" loading="lazy" width="300" height="500">
+                <img src="image/website9.jpg" class="city-building lyr-mg c-mg-4" alt="Past Work 9" loading="lazy" width="300" height="500">
+                <img src="image/website10.jpg" class="city-building lyr-fg c-fg-4" alt="Past Work 10" loading="lazy" width="300" height="500">
+                <img src="image/website11.jpg" class="city-building lyr-fg-top c-fg-5" alt="Past Work 11" loading="lazy" width="300" height="500">
+                <img src="image/website12.jpg" class="city-building lyr-fg c-fg-6" alt="Past Work 12" loading="lazy" width="300" height="500">
             </div>
         </div>
 
         <div class="cloud-front-layer">
-            <img src="image/clouds.png" class="cloud cloud-1" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-2" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-3" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-4" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-5" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-6" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-7" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-8" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-9" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-10" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-11" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-12" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-13" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-14" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-15" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-16" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-17" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-18" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-19" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-20" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-21" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-22" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-23" alt="" aria-hidden="true" loading="lazy">
-            <img src="image/clouds.png" class="cloud cloud-24" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-1" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-2" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-3" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-4" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-5" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-6" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-7" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-8" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-9" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-10" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-11" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-12" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-13" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-14" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-15" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-16" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-17" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-18" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-19" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-20" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-21" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-22" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-23" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
+            <img src="image/clouds.png" class="cloud cloud-24" alt="" aria-hidden="true" loading="lazy" width="500" height="250">
         </div>
 
         <div class="preview-header stagger-item">
@@ -236,7 +236,7 @@
         
         <div class="preview-workspace stagger-item">
             <div class="preview-container" id="preview-container">
-                <img src="image/Screenshot.png" alt="Website Preview" class="preview-canvas" id="preview-image" loading="lazy">
+                <img src="image/Screenshot.png" alt="Website Preview" class="preview-canvas" id="preview-image" loading="lazy" width="1920" height="1080">
                 
                 <div class="preview-controls">
                     <button id="zoom-out" aria-label="Zoom out">−</button>
