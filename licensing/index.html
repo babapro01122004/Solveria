@@ -114,7 +114,8 @@
             
             <div class="video-wrapper stagger-item">
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/_fuimO6ErKI?si=m9sIvg2seA_jmtS6" title="Executive Briefing Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <!-- YOUTUBE FACADE FIX: This natively stops the iframe from downloading 1MB of scripts until clicked, fixing the 57 Mobile Score! -->
+                    <iframe src="https://www.youtube.com/embed/_fuimO6ErKI?si=m9sIvg2seA_jmtS6" title="Executive Briefing Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img{position:absolute;width:100%;top:0;bottom:0;margin:auto;object-fit:cover;height:100%}.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;background-color:rgba(33,33,33,0.85);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:background-color 0.3s}.play-btn:hover{background-color:#ff0000}.play-triangle{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid white;margin-left:4px}</style><a href='https://www.youtube.com/embed/_fuimO6ErKI?autoplay=1'><img src='https://img.youtube.com/vi/_fuimO6ErKI/maxresdefault.jpg' alt='Executive Briefing Video'><div class='play-btn'><div class='play-triangle'></div></div></a>"></iframe>
                 </div>
             </div>
         </div>
