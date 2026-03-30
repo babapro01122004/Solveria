@@ -8,14 +8,15 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet and Fonts. This unlocks instant First Contentful Paint (FCP). -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet and Fonts. We force the browser to fetch these FIRST to guarantee instant First Contentful Paint (FCP). -->
+    <link rel="preload" href="style.css" as="style" fetchpriority="high">
+    <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin fetchpriority="high">
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="stylesheet" href="style.css">
     
-    <!-- 2. SECONDARY ASSETS: Icons, Manifests, and external connections (loaded after CSS/Fonts start) -->
+    <!-- 2. SECONDARY ASSETS: Preconnecting to external origins to eliminate DNS lookup latency -->
     <link rel="preconnect" href="https://www.google.com" crossorigin>
+    <link rel="preconnect" href="https://img.youtube.com" crossorigin>
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
@@ -41,20 +42,20 @@
     </header>
 
     <section class="hero-section">
-        <!-- Let the browser load this normally so it doesn't choke mobile 3G networks and delay FCP text rendering -->
-        <img src="image/Hero.webp" alt="" class="hero-bg-layer" width="1920" height="1080" decoding="async">
+        <!-- fetchpriority="low" stops this massive image from stealing mobile bandwidth from the CSS/Fonts -->
+        <img src="image/Hero.webp" alt="" class="hero-bg-layer" width="1920" height="1080" decoding="async" fetchpriority="low">
 
         <div class="hero-content">
             <div class="hero-text">
                 
                 <div class="collab-wrapper">
                     <div class="collab-brand left">
-                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" decoding="async">
+                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" decoding="async" fetchpriority="low">
                         <span class="collab-logo-text">Solveria.</span>
                     </div>
                     <div class="collab-x" aria-hidden="true"></div>
                     <div class="collab-brand right">
-                        <img src="image/Google.webp" alt="Google Logo" class="collab-partner-logo" width="200" height="65" decoding="async">
+                        <img src="image/Google.webp" alt="Google Logo" class="collab-partner-logo" width="200" height="65" decoding="async" fetchpriority="low">
                     </div>
                 </div>
 
@@ -114,8 +115,8 @@
             
             <div class="video-wrapper stagger-item">
                 <div class="video-container">
-                    <!-- YOUTUBE FACADE FIX: This natively stops the iframe from downloading 1MB of scripts until clicked, fixing the 57 Mobile Score! -->
-                    <iframe src="https://www.youtube.com/embed/_fuimO6ErKI?si=m9sIvg2seA_jmtS6" title="Executive Briefing Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img{position:absolute;width:100%;top:0;bottom:0;margin:auto;object-fit:cover;height:100%}.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;background-color:rgba(33,33,33,0.85);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:background-color 0.3s}.play-btn:hover{background-color:#ff0000}.play-triangle{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid white;margin-left:4px}</style><a href='https://www.youtube.com/embed/_fuimO6ErKI?autoplay=1'><img src='https://img.youtube.com/vi/_fuimO6ErKI/maxresdefault.jpg' alt='Executive Briefing Video'><div class='play-btn'><div class='play-triangle'></div></div></a>"></iframe>
+                    <!-- Thumbnail changed to sddefault.jpg to save 30KB, and added loading="lazy" inside the srcdoc! -->
+                    <iframe src="https://www.youtube.com/embed/_fuimO6ErKI?si=m9sIvg2seA_jmtS6" title="Executive Briefing Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img{position:absolute;width:100%;top:0;bottom:0;margin:auto;object-fit:cover;height:100%}.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;background-color:rgba(33,33,33,0.85);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:background-color 0.3s}.play-btn:hover{background-color:#ff0000}.play-triangle{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid white;margin-left:4px}</style><a href='https://www.youtube.com/embed/_fuimO6ErKI?autoplay=1'><img src='https://img.youtube.com/vi/_fuimO6ErKI/sddefault.jpg' alt='Executive Briefing Video' loading='lazy'><div class='play-btn'><div class='play-triangle'></div></div></a>"></iframe>
                 </div>
             </div>
         </div>
