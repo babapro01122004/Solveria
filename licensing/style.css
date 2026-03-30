@@ -432,7 +432,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* MASSIVE FULL-WIDTH CONTAINER ACTING AS BOUNDARY */
 .preview-container { width: 100%; max-width: none; margin: 0 auto; height: 55vh; min-height: 400px; max-height: 750px; background: transparent; border-radius: 0; overflow: visible; position: relative; box-shadow: none; border: none; }
 
-/* INTERACTIVE TARGET - Starts completely hidden at exactly 50% scale */
+/* INTERACTIVE TARGET - GLITCH FIX: Starts completely hidden at exactly 50% scale */
 .preview-canvas { 
     position: absolute; top: 0; left: 0; width: 100%; height: auto; 
     transform-origin: 0 0; pointer-events: auto; 
@@ -769,53 +769,43 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .copyright { font-size: 0.85rem; color: #bbb; margin: 0; }
 .disclaimer { font-size: 0.7rem; color: #999; line-height: 1.5; max-width: 900px; opacity: 0.7; margin: 0; }
 
-/* --- RESPONSIVE MEDIA QUERIES --- */
+/* --- RESPONSIVE MEDIA QUERIES (Fixing GPU/CPU Pipeline For Mobile) --- */
 @media (max-width: 990px) {
-    /* REMOVES LAG & SAVES DOM RESOURCES */
+    /* CSS-LEVEL REMOVAL: Hide desktop videos entirely */
+    .desktop-video-wrapper { display: none !important; }
+
+    /* MASSIVE BANDWIDTH SAVINGS */
     .cloud { display: none !important; }
     
     /* Hide all buildings EXCEPT 15 and 12 on mobile */
     .city-building:not(.c-bg-deep-3):not(.c-fg-6) { display: none !important; }
 
-    /* The fix you asked for: Center them behind the main image on either side */
-    .city-scenery {
-        -webkit-mask-image: none !important;
-        mask-image: none !important;
-        align-items: center !important;
-        z-index: 5 !important; /* Forces them exactly behind the main preview image (z-index: 10) */
-        height: 100% !important;
-        top: 0 !important;
-    }
-
+    /* FLANKING THE INTERACTIVE CANVAS: Perfectly framing the main image on mobile */
     .c-bg-deep-3, .c-fg-6 { 
         display: block !important; 
-        position: absolute !important;
-        top: 50% !important;
-        bottom: auto !important;
-        transform: translateY(-50%) !important;
-        height: clamp(200px, 40vh, 400px) !important;
-        width: clamp(100px, 30vw, 250px) !important; 
-        object-fit: cover !important;
-        border-radius: 12px !important;
-        filter: blur(6px) brightness(0.55) !important;
+        filter: blur(6px) brightness(0.55) !important; 
         opacity: 0.65 !important;
         will-change: auto !important;
+        bottom: 10% !important;
+        height: clamp(200px, 45vh, 400px) !important;
+        width: clamp(100px, 25vw, 180px) !important;
+        z-index: 1 !important; /* Safely tucked behind the canvas */
     }
     
-    /* Perfect left/right flanking positioning */
     .c-bg-deep-3 {
-        left: 3% !important;
+        left: 2% !important;
         right: auto !important;
+        transform: translateX(0) !important;
     }
     .c-fg-6 {
-        right: 3% !important;
+        right: 2% !important;
         left: auto !important;
+        transform: translateX(0) !important;
     }
 
-    /* Ensure stacking context lets the preview canvas float above */
-    .preview-workspace { position: relative; z-index: 10; }
+    .lyr-bg-deep, .lyr-bg, .lyr-mg, .lyr-fg, .lyr-fg-top { filter: none !important; }
 
-    /* MOBILE GPU FIX: Backdrop filters crush mobile CPUs. Removed entirely. */
+    /* MOBILE GPU FIX */
     .hero-outline-btn, .preview-controls, .card.premium .card-bottom, .card.premium .premium-btn {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;

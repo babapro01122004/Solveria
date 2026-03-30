@@ -8,11 +8,13 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet. This unlocks the First Contentful Paint (FCP). -->
+    <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet and Fonts. This unlocks instant First Contentful Paint (FCP). -->
     <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="stylesheet" href="style.css">
     
-    <!-- 2. SECONDARY ASSETS: Icons, Manifests, and external connections (loaded after CSS starts) -->
+    <!-- 2. SECONDARY ASSETS: Icons, Manifests, and external connections (loaded after CSS/Fonts start) -->
     <link rel="preconnect" href="https://www.google.com" crossorigin>
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
@@ -39,16 +41,21 @@
     </header>
 
     <section class="hero-section">
-        <!-- NATIVE ASYNC DECODING + EXPLICIT DIMENSIONS (Lazy Loaded via JS Cheat Code) -->
-        <img data-src="image/Hero.webp" alt="" class="hero-bg-layer lazy-img" width="1920" height="1080" decoding="async">
+        <!-- Let the browser load this normally so it doesn't choke mobile 3G networks and delay FCP text rendering -->
+        <img src="image/Hero.webp" alt="" class="hero-bg-layer" width="1920" height="1080" decoding="async">
 
         <div class="hero-content">
             <div class="hero-text">
                 
                 <div class="collab-wrapper">
-                    <img data-src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo lazy-img collab-brand left" width="96" height="96" decoding="async">
+                    <div class="collab-brand left">
+                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" decoding="async">
+                        <span class="collab-logo-text">Solveria.</span>
+                    </div>
                     <div class="collab-x" aria-hidden="true"></div>
-                    <img data-src="image/Google.webp" alt="Google Logo" class="collab-partner-logo lazy-img collab-brand right" width="200" height="65" decoding="async">
+                    <div class="collab-brand right">
+                        <img src="image/Google.webp" alt="Google Logo" class="collab-partner-logo" width="200" height="65" decoding="async">
+                    </div>
                 </div>
 
                 <h1>
@@ -118,14 +125,15 @@
                 <div class="cc-images">
                     <div class="metrics-row">
                         <div class="img-wrapper">
-                            <img data-src="image/Z.webp" alt="Current Lighthouse Score" width="800" height="450" class="comparison-img lazy-img">
+                            <img src="image/Z.webp" alt="Current Lighthouse Score" width="800" height="450" loading="lazy" class="comparison-img">
                         </div>
                         <div class="img-wrapper">
-                            <img data-src="image/Z_1.webp" alt="Current Core Web Vitals" width="800" height="450" class="comparison-img lazy-img">
+                            <img src="image/Z_1.webp" alt="Current Core Web Vitals" width="800" height="450" loading="lazy" class="comparison-img">
                         </div>
                     </div>
-                    <div class="img-wrapper video-box">
-                        <video data-src="image/X.mp4" aria-label="Legacy Website Performance" class="comparison-img lazy-video" width="1920" height="1080" autoplay loop muted playsinline></video>
+                    <!-- Added desktop-video-wrapper class so JS can purge this on Mobile -->
+                    <div class="img-wrapper video-box desktop-video-wrapper">
+                        <video data-src="image/X.mp4" aria-label="Legacy Website Performance" class="comparison-img lazy-video desktop-video" width="1920" height="1080" autoplay loop muted playsinline></video>
                     </div>
                 </div>
 
@@ -153,14 +161,15 @@
                 <div class="cc-images">
                     <div class="metrics-row">
                         <div class="img-wrapper">
-                            <img data-src="image/ZZ.webp" alt="Solveria Lighthouse Score" width="800" height="450" class="comparison-img lazy-img">
+                            <img src="image/ZZ.webp" alt="Solveria Lighthouse Score" width="800" height="450" loading="lazy" class="comparison-img">
                         </div>
                         <div class="img-wrapper">
-                            <img data-src="image/ZZ_1.webp" alt="Solveria Core Web Vitals" width="800" height="450" class="comparison-img lazy-img">
+                            <img src="image/ZZ_1.webp" alt="Solveria Core Web Vitals" width="800" height="450" loading="lazy" class="comparison-img">
                         </div>
                     </div>
-                    <div class="img-wrapper video-box">
-                        <video data-src="image/XX.mp4" aria-label="Solveria Website Performance" class="comparison-img lazy-video" width="1920" height="1080" autoplay loop muted playsinline></video>
+                    <!-- Added desktop-video-wrapper class so JS can purge this on Mobile -->
+                    <div class="img-wrapper video-box desktop-video-wrapper">
+                        <video data-src="image/XX.mp4" aria-label="Solveria Website Performance" class="comparison-img lazy-video desktop-video" width="1920" height="1080" autoplay loop muted playsinline></video>
                     </div>
                 </div>
             </div>
@@ -173,29 +182,28 @@
         
         <div class="city-scenery">
             <div class="city-cluster">
-                <img data-src="image/website13.webp" class="city-building lyr-bg-deep c-bg-deep-1 lazy-img" width="400" height="600" alt="Past Work 13" decoding="async">
-                <img data-src="image/website14.webp" class="city-building lyr-bg-deep c-bg-deep-2 lazy-img" width="400" height="600" alt="Past Work 14" decoding="async">
-                <img data-src="image/website1.webp" class="city-building lyr-bg c-bg-1 lazy-img" width="400" height="600" alt="Past Work 1" decoding="async">
-                <img data-src="image/website2.webp" class="city-building lyr-mg c-mg-1 lazy-img" width="400" height="600" alt="Past Work 2" decoding="async">
-                <img data-src="image/website3.webp" class="city-building lyr-mg c-mg-2 lazy-img" width="400" height="600" alt="Past Work 3" decoding="async">
-                <img data-src="image/website4.webp" class="city-building lyr-fg c-fg-1 lazy-img" width="400" height="600" alt="Past Work 4" decoding="async">
-                <img data-src="image/website5.webp" class="city-building lyr-fg-top c-fg-2 lazy-img" width="400" height="600" alt="Past Work 5" decoding="async">
-                <img data-src="image/website6.webp" class="city-building lyr-fg c-fg-3 lazy-img" width="400" height="600" alt="Past Work 6" decoding="async">
+                <img src="image/website13.webp" class="city-building lyr-bg-deep c-bg-deep-1" width="400" height="600" alt="Past Work 13" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website14.webp" class="city-building lyr-bg-deep c-bg-deep-2" width="400" height="600" alt="Past Work 14" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website1.webp" class="city-building lyr-bg c-bg-1" width="400" height="600" alt="Past Work 1" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website2.webp" class="city-building lyr-mg c-mg-1" width="400" height="600" alt="Past Work 2" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website3.webp" class="city-building lyr-mg c-mg-2" width="400" height="600" alt="Past Work 3" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website4.webp" class="city-building lyr-fg c-fg-1" width="400" height="600" alt="Past Work 4" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website5.webp" class="city-building lyr-fg-top c-fg-2" width="400" height="600" alt="Past Work 5" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website6.webp" class="city-building lyr-fg c-fg-3" width="400" height="600" alt="Past Work 6" loading="lazy" fetchpriority="low" decoding="async">
             </div>
 
             <div class="city-cluster">
-                <img data-src="image/website15.webp" class="city-building lyr-bg-deep c-bg-deep-3 lazy-img" width="400" height="600" alt="Past Work 15" decoding="async">
-                <img data-src="image/website16.webp" class="city-building lyr-bg-deep c-bg-deep-4 lazy-img" width="400" height="600" alt="Past Work 16" decoding="async">
-                <img data-src="image/website7.webp" class="city-building lyr-bg c-bg-2 lazy-img" width="400" height="600" alt="Past Work 7" decoding="async">
-                <img data-src="image/website8.webp" class="city-building lyr-mg c-mg-3 lazy-img" width="400" height="600" alt="Past Work 8" decoding="async">
-                <img data-src="image/website9.webp" class="city-building lyr-mg c-mg-4 lazy-img" width="400" height="600" alt="Past Work 9" decoding="async">
-                <img data-src="image/website10.webp" class="city-building lyr-fg c-fg-4 lazy-img" width="400" height="600" alt="Past Work 10" decoding="async">
-                <img data-src="image/website11.webp" class="city-building lyr-fg-top c-fg-5 lazy-img" width="400" height="600" alt="Past Work 11" decoding="async">
-                <img data-src="image/website12.webp" class="city-building lyr-fg c-fg-6 lazy-img" width="400" height="600" alt="Past Work 12" decoding="async">
+                <img src="image/website15.webp" class="city-building lyr-bg-deep c-bg-deep-3" width="400" height="600" alt="Past Work 15" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website16.webp" class="city-building lyr-bg-deep c-bg-deep-4" width="400" height="600" alt="Past Work 16" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website7.webp" class="city-building lyr-bg c-bg-2" width="400" height="600" alt="Past Work 7" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website8.webp" class="city-building lyr-mg c-mg-3" width="400" height="600" alt="Past Work 8" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website9.webp" class="city-building lyr-mg c-mg-4" width="400" height="600" alt="Past Work 9" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website10.webp" class="city-building lyr-fg c-fg-4" width="400" height="600" alt="Past Work 10" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website11.webp" class="city-building lyr-fg-top c-fg-5" width="400" height="600" alt="Past Work 11" loading="lazy" fetchpriority="low" decoding="async">
+                <img src="image/website12.webp" class="city-building lyr-fg c-fg-6" width="400" height="600" alt="Past Work 12" loading="lazy" fetchpriority="low" decoding="async">
             </div>
         </div>
 
-        <!-- Clouds are natively lazy and hidden on mobile via CSS -->
         <div class="cloud-front-layer">
             <img src="image/clouds.webp" class="cloud cloud-1" width="600" height="300" alt="" aria-hidden="true" loading="lazy" fetchpriority="low" decoding="async">
             <img src="image/clouds.webp" class="cloud cloud-2" width="600" height="300" alt="" aria-hidden="true" loading="lazy" fetchpriority="low" decoding="async">
@@ -230,7 +238,7 @@
         
         <div class="preview-workspace stagger-item">
             <div class="preview-container" id="preview-container">
-                <img data-src="image/Screenshot.webp" alt="Website Preview" class="preview-canvas lazy-img" id="preview-image" width="1920" height="1080" decoding="async">
+                <img src="image/Screenshot.webp" alt="Website Preview" class="preview-canvas" id="preview-image" width="1920" height="1080" loading="lazy" decoding="async">
                 
                 <div class="preview-controls">
                     <button id="zoom-out" aria-label="Zoom out">−</button>
@@ -383,7 +391,7 @@
         <div class="footer-content">
             <div class="footer-main-row stagger-item">
                 <div class="footer-left">
-                    <img data-src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo lazy-img" decoding="async" width="80" height="80">
+                    <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" decoding="async" width="80" height="80">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
                         <p class="tagline">Engineered for Energy Sovereignty.</p>
