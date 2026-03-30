@@ -1,14 +1,17 @@
 // script.js
 document.addEventListener("DOMContentLoaded", () => {
     
-    // THE ULTIMATE MOBILE TBT FIX: 
-    // We wrap all observer logic inside requestIdleCallback.
+    // FIX FOR DELAYED LCP ON MOBILE: 
+    // We strictly wait until ALL critical page rendering is complete (window.onload) 
+    // before we throw heavy JavaScript at the browser. This ensures the main thread 
+    // focuses entirely on printing the text and hero image first.
     const initializePerformanceEngine = () => {
 
-        // --- Lazy Load High-Bandwidth Videos (Saves LCP Pipeline) ---
-        // INCREASED ROOT MARGIN: 1500px means the video begins downloading and decoding 
-        // well before the user ever scrolls to it. This prevents the browser from 
-        // freezing to decode the MP4 mid-scroll.
+        // --- Lazy Load High-Bandwidth Videos ---
+        // Dynamically adjust root margin. Mobile downloads slower, so we want it to 
+        // start fetching slightly closer to view, but large enough not to stutter.
+        const videoRootMargin = window.innerWidth < 768 ? "600px 0px" : "1500px 0px";
+        
         const lazyVideos = document.querySelectorAll('video.lazy-video');
         if ('IntersectionObserver' in window) {
             const videoObserver = new IntersectionObserver((entries, observer) => {
@@ -25,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         observer.unobserve(video);
                     }
                 });
-            }, { rootMargin: "1500px 0px" });
+            }, { rootMargin: videoRootMargin });
             lazyVideos.forEach(v => videoObserver.observe(v));
         } else {
             lazyVideos.forEach(v => {
@@ -129,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     translateX = (previewContainer.clientWidth - (previewImage.clientWidth * scale)) / 2;
                     translateY = 60; 
                     updateTransform();
+                    
+                    // GLITCH FIX: Now that the precise math is applied, we add the class
+                    // that triggers the CSS fade-in. This makes the snap completely invisible.
+                    previewImage.classList.add('initialized');
                 }
             };
 
@@ -290,10 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // EXECUTE PERFORMANCE ENGINE ONLY WHEN IDLE
-    if (window.requestIdleCallback) {
-        requestIdleCallback(initializePerformanceEngine, { timeout: 1000 });
-    } else {
-        setTimeout(initializePerformanceEngine, 50);
-    }
+    // EXECUTE PERFORMANCE ENGINE ONLY AFTER THE ENTIRE PAGE IS MATHEMATICALLY LOADED
+    window.addEventListener('load', () => {
+        // We wait an extra 150ms just to let the browser breathe before setting up the observers.
+        setTimeout(initializePerformanceEngine, 150);
+    });
+
 });

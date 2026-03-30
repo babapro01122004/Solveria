@@ -8,12 +8,12 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- STRICT MOBILE OPTIMIZATION: Only preloading the critical CSS and Main Heading Font to keep the FCP pipeline instantly clear -->
+    <!-- STRICT MOBILE OPTIMIZATION: Prioritize the absolute critical FCP & LCP assets -->
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
     
-    <!-- Preloading the large screenshot with low priority so it's ready for the preview section without blocking initial load -->
-    <link rel="preload" href="image/Screenshot.webp" as="image" fetchpriority="low">
+    <!-- FIX FOR 11 SECOND MOBILE LCP: Force the browser to grab the hero background immediately -->
+    <link rel="preload" as="image" href="image/Hero.webp" fetchpriority="high">
     
     <link rel="preconnect" href="https://www.google.com" crossorigin>
 
