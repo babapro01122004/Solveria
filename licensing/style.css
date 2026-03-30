@@ -326,24 +326,6 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .preview-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%); z-index: 1; pointer-events: none; }
 
 /* ========================================= */
-/* FLYING ATMOSPHERE LAYER (Logos / Cars)    */
-/* ========================================= */
-.atmosphere-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
-.flying-logo { position: absolute; object-fit: contain; will-change: transform; }
-
-@keyframes fly-right { from { transform: translateX(-15vw); } to { transform: translateX(115vw); } }
-@keyframes fly-left { from { transform: translateX(115vw); } to { transform: translateX(-15vw); } }
-
-.logo-1 { top: 15%; width: 50px; animation: fly-right 35s linear infinite -5s; opacity: 0.6; filter: blur(1px) grayscale(50%); }
-.logo-2 { top: 22%; width: 40px; animation: fly-left 45s linear infinite -15s; opacity: 0.4; filter: blur(2px) grayscale(50%); }
-.logo-3 { top: 8%; width: 60px; animation: fly-right 28s linear infinite -22s; opacity: 0.8; filter: grayscale(50%); }
-.logo-4 { top: 12%; width: 45px; animation: fly-left 40s linear infinite -8s; opacity: 0.5; filter: blur(1.5px) grayscale(50%); }
-.logo-5 { top: 25%; width: 55px; animation: fly-right 42s linear infinite -30s; opacity: 0.7; filter: blur(0.5px) grayscale(50%); }
-.logo-6 { top: 5%; width: 35px; animation: fly-left 50s linear infinite -2s; opacity: 0.3; filter: blur(2.5px) grayscale(50%); }
-.logo-7 { top: 18%; width: 65px; animation: fly-right 38s linear infinite -18s; opacity: 0.9; filter: grayscale(50%); }
-.logo-8 { top: 28%; width: 40px; animation: fly-left 33s linear infinite -25s; opacity: 0.5; filter: blur(1px) grayscale(50%); }
-
-/* ========================================= */
 /* 16-IMAGE ARCHITECTURAL SKYLINE CLUSTER    */
 /* ========================================= */
 .city-scenery { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; justify-content: space-between; align-items: flex-end; padding: 0; z-index: 3; -webkit-mask-image: linear-gradient(to top, black 0%, black 65%, transparent 100%); mask-image: linear-gradient(to top, black 0%, black 65%, transparent 100%); }
@@ -353,8 +335,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .lyr-bg-deep { z-index: 0; opacity: 0.55; filter: blur(4px) brightness(0.65); }
 .lyr-bg { z-index: 2; opacity: 0.65; filter: blur(3px) brightness(0.7); }
 .lyr-mg { z-index: 4; opacity: 0.8; filter: blur(2px) brightness(0.85); }
-.lyr-fg { z-index: 6; opacity: 0.95; filter: blur(0px) brightness(0.95); }
-.lyr-fg-top { z-index: 8; opacity: 1.0; filter: blur(0px) brightness(1.0); }
+/* UPDATED BLUR: The 3 foreground images per side are now gently blurred to frame the interactive center */
+.lyr-fg { z-index: 6; opacity: 0.85; filter: blur(4px) brightness(0.8); }
+.lyr-fg-top { z-index: 8; opacity: 0.9; filter: blur(3px) brightness(0.85); }
 
 .c-bg-deep-1 { left: 5%; transform: translateX(-50%); height: clamp(300px, 60vh, 580px); width: clamp(140px, 16vw, 250px); }
 .c-bg-deep-2 { left: 15%; transform: translateX(-50%); height: clamp(280px, 55vh, 520px); width: clamp(130px, 15vw, 230px); }
@@ -616,22 +599,38 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     z-index: 1;
 }
 
+/* UPDATED SINGLE-STEP LAYOUT (Text Left, Video Right) */
 .dns-visual-container {
     display: flex;
+    align-items: center;
     gap: 50px;
     width: 100%;
     max-width: 1300px;
     margin-bottom: 60px;
 }
 
-.dns-step {
+.dns-text-block {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
 }
 
-.dns-media {
+.dns-text-block h4 {
+    font-size: 1.6rem;
+    color: #111;
+    margin: 0;
+}
+
+.dns-text-block p {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.dns-media.video-box {
+    flex: 1.2;
     margin: 0; 
     border-radius: 12px;
     overflow: hidden;
@@ -647,19 +646,6 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     width: 100%;
     height: auto;
     display: block;
-}
-
-.dns-text h4 {
-    font-size: 1.4rem;
-    color: #111;
-    margin: 0 0 10px 0;
-}
-
-.dns-text p {
-    color: #555;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin: 0;
 }
 
 /* UPDATED PDF NOTICE - Cool Dark Gradient & Glass Edge */
@@ -766,7 +752,10 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .card-top, .card-bottom { padding-left: 35px; padding-right: 35px; }
 
     .phases-container { flex-direction: column; gap: 25px; }
+    
     .dns-visual-container { flex-direction: column; gap: 40px; }
+    .dns-text-block { text-align: center; }
+
     .pdf-notice { flex-direction: column; text-align: center; gap: 20px; padding: 30px 25px; }
     
     .footer-main-row { flex-direction: column; gap: 50px; align-items: center; }
