@@ -306,10 +306,12 @@
                     <div class="input-group-dates">
                         <div class="custom-date-wrapper">
                             <input type="text" id="date_startA" class="date-input custom-date-trigger" readonly aria-labelledby="lbl-claimDurationA" aria-label="Start Date">
+                            <div class="date-underline"></div>
                         </div>
-                        <span style="align-self:center; color:#595959;">to</span>
+                        <span class="date-separator">to</span>
                         <div class="custom-date-wrapper">
                             <input type="text" id="date_endA" class="date-input custom-date-trigger" readonly aria-labelledby="lbl-claimDurationA" aria-label="End Date">
+                            <div class="date-underline"></div>
                         </div>
                     </div>
                     <div class="disclosure-text">The period this violation occurred.</div>
@@ -430,10 +432,9 @@
                 <!-- NEW: Date of Violation for Mode B -->
                 <div class="input-wrapper">
                     <label for="date_endB">Date of Violation</label>
-                    <div class="input-group">
-                        <div class="custom-date-wrapper">
-                            <input type="text" id="date_endB" class="date-input custom-date-trigger" readonly aria-label="Date of Violation">
-                        </div>
+                    <div class="custom-date-wrapper">
+                        <input type="text" id="date_endB" class="date-input custom-date-trigger" readonly aria-label="Date of Violation">
+                        <div class="date-underline"></div>
                     </div>
                     <div class="disclosure-text">When did the unpaid work occur?</div>
                 </div>
@@ -705,16 +706,16 @@
     <script src="script.js" defer></script>
     <script type="module" src="us-state-data.js"></script>
     
+    <!-- GLOBAL SITE FOOTER (UPDATED) -->
     <footer class="site-footer">
         <div class="footer-overlay"></div>
         <div class="footer-content">
             <div class="footer-main-row">
                 <div class="footer-left">
-                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80" decoding="async">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
-                        <p class="tagline">Engineered for Decision Sovereignty.</p>
-                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
                         <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
                     </div>
                 </div>
@@ -742,8 +743,8 @@
             </div>
 
             <div class="footer-legal-row">
-                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
-                <p class="disclaimer">Disclaimer: Solveria is a free financial and legal modeling publisher, not a law firm, bank, or lender. We do not provide legal counsel, binding financial appraisals, or create attorney-client relationships. All calculations are mathematical estimations based on standard laws and user inputs, and do not guarantee specific outcomes. This site operates as an advertisement for participating attorneys and financial partners who have paid for advertising space. We are not a lawyer referral service. Please consult a qualified attorney or CPA before making major legal or financial decisions.</p>
+                <p class="copyright">© 2026 Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
             </div>
         </div>
     </footer>

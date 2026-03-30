@@ -873,17 +873,17 @@ function updateUI(data) {
             
             let fomoHTML = '';
             if (data.state === 'CA') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>California Overtime Note:</strong> This tool currently estimates weekly overtime. Because California also requires daily overtime (for shifts over 8 hours), you might be owed additional compensation. A professional review can help calculate your exact daily overtime.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F47F16; box-shadow: 0 4px 15px rgba(244, 127, 22, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>California Overtime Note:</strong> This tool currently estimates weekly overtime. Because California also requires daily overtime (for shifts over 8 hours), you might be owed additional compensation. A professional review can help calculate your exact daily overtime.</div>`;
             } 
             else if (data.state === 'FL') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Florida Claim Requirement:</strong> Before pursuing a minimum wage claim in Florida, the law asks that you provide your employer with a 15-day written notice. A professional can help draft this notice properly. <br><br><strong>Note:</strong> Florida uses the standard 40-hour federal workweek for overtime.</div>`;
-                fomoHTML += `<div style="margin-top: 10px; padding: 15px; background-color: #880E4F; box-shadow: 0 4px 15px rgba(136, 14, 79, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Local County Ordinances:</strong> If you worked in Miami-Dade or Pinellas counties, local rules might entitle you to up to three times your missing wages. These local processes can sometimes be faster than state-level claims. A legal professional can help check if your location qualifies.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F47F16; box-shadow: 0 4px 15px rgba(244, 127, 22, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Florida Claim Requirement:</strong> Before pursuing a minimum wage claim in Florida, the law asks that you provide your employer with a 15-day written notice. A professional can help draft this notice properly. <br><br><strong>Note:</strong> Florida uses the standard 40-hour federal workweek for overtime.</div>`;
+                fomoHTML += `<div style="margin-top: 10px; padding: 15px; background-color: #890E4F; box-shadow: 0 4px 15px rgba(137, 14, 79, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Local County Ordinances:</strong> If you worked in Miami-Dade or Pinellas counties, local rules might entitle you to up to three times your missing wages. These local processes can sometimes be faster than state-level claims. A legal professional can help check if your location qualifies.</div>`;
             }
             else if (data.state === 'NY') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>New York 'Spread of Hours' Rule:</strong> If your workday spanned more than 10 hours from start to finish (including breaks), New York law generally requires your employer to pay an extra hour of minimum wage for that day. A legal professional can help you add this to your calculation.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F47F16; box-shadow: 0 4px 15px rgba(244, 127, 22, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>New York 'Spread of Hours' Rule:</strong> If your workday spanned more than 10 hours from start to finish (including breaks), New York law generally requires your employer to pay an extra hour of minimum wage for that day. A legal professional can help you add this to your calculation.</div>`;
             }
             else if (data.state !== 'TX') {
-                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #BF360C; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Federal FLSA Baseline & State Adjustments:</strong> This estimate is built using standard federal FLSA regulations. However, your specific state may have stronger labor laws—such as daily overtime rules, missed meal break compensations, or unique statutory penalties. Because of these additional protections, your actual missing pay could be significantly higher than the federal baseline shown here. A professional review can apply your exact state codes to uncover your full compensation.</div>`;
+                fomoHTML += `<div style="margin-top: 15px; padding: 15px; background-color: #F47F16; box-shadow: 0 4px 15px rgba(244, 127, 22, 0.4); border-radius: 8px; color: #ffffff; font-size: 0.85rem; line-height: 1.5; font-family: 'ProductSans-Light', sans-serif;"><strong>Federal FLSA Baseline & State Adjustments:</strong> This estimate is built using standard federal FLSA regulations. However, your specific state may have stronger labor laws—such as daily overtime rules, missed meal break compensations, or unique statutory penalties. Because of these additional protections, your actual missing pay could be significantly higher than the federal baseline shown here. A professional review can apply your exact state codes to uncover your full compensation.</div>`;
             }
             
             stateFomo.innerHTML = fomoHTML;
@@ -891,12 +891,11 @@ function updateUI(data) {
     }
 
     // --- DYNAMIC MASTER SUMMARY GENERATION ---
-    const red = (txt) => `<span style="color:#C0392B; font-weight:600;">${txt}</span>`;
-    const yellow = (txt) => `<span style="color:#D35400; font-weight:600;">${txt}</span>`;
-    const green = (txt) => `<span style="color:#1E8449; font-weight:600;">${txt}</span>`;
+    const red = (txt) => `<span style="color:#B61C1C; font-weight:600;">${txt}</span>`;
+    const yellow = (txt) => `<span style="color:#E65100; font-weight:600;">${txt}</span>`;
+    const green = (txt) => `<span style="color:#2DCC70; font-weight:600;">${txt}</span>`;
     const bold = (txt) => `<strong>${txt}</strong>`;
 
-    // UPDATED: Increased the font-size of "(Combined Overtime & Penalty Analysis)" from 0.9rem to 1.05rem.
     let summaryHTML = `<h3 class="result-sub-heading" style="margin-top:0; margin-bottom: 15px; font-size: 1.5rem; text-transform: none; letter-spacing: 0;">Your Complete Estimate <span style="font-size: 1.05rem; color: #7a7a7a; font-weight: 300;">(Combined Overtime & Penalty Analysis)</span></h3><p style="font-size: 1.05rem; line-height: 1.6; color: #444; font-family: 'ProductSans-Light', sans-serif; margin: 10px 5px 30px 5px; padding: 25px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 10px 35px -5px rgba(0,0,0,0.1); border: none; box-sizing: border-box; position: relative;">`;
 
     let advText = "";
@@ -913,7 +912,7 @@ function updateUI(data) {
         summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in New York, leaving about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. Your estimated base missing pay is around ${red(fmt(data.totalBaseDebt))}.${advText} Because New York law generally allows workers to claim 'double damages' (liquidated damages), your total estimated recovery could reach ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">This is an estimate, not a guarantee. Connect with a professional to verify your exact eligibility under New York law.</em>`;
     }
     else if (data.state === 'TX') {
-        if (isAdvanced) advText = ` Your uncompensated time effectively dropped your actual pay to ${yellow(fmt(data.realRate))}. <strong style="color:#e67e22;">Urgent Timeline Note:</strong> While federal claims allow 2 to 3 years, Texas state-level claims through the TWC have a strict 180-day deadline. Furthermore, under Texas Payday Law, your final check was due within 6 days of your departure, which may trigger additional compliance reviews.`;
+        if (isAdvanced) advText = ` Your uncompensated time effectively dropped your actual pay to ${yellow(fmt(data.realRate))}. <strong style="color:#E65100;">Urgent Timeline Note:</strong> While federal claims allow 2 to 3 years, Texas state-level claims through the TWC have a strict 180-day deadline. Furthermore, under Texas Payday Law, your final check was due within 6 days of your departure, which may trigger additional compliance reviews.`;
         
         summaryHTML += `Based on your inputs, you worked an average of ${bold(data.weeklyHours.toFixed(1))} hours a week in Texas, resulting in about ${red(data.donatedHoursTotal.toFixed(1) + ' hrs')} of uncompensated time. While Texas follows federal overtime rules, your estimated missing pay is still around ${red(fmt(data.totalBaseDebt))}.${advText} Factoring in potential federal protections, your total estimated recovery could reach up to ${green(fmt(data.totalClaimB))}. <br><br><em style="font-size:0.9rem; color:#777;">Texas operates under federal wage guidelines but has strict local deadlines, so a professional review is highly recommended.</em>`;
     }
@@ -973,50 +972,50 @@ function updateUI(data) {
 
         // 1. NY Liquidated Damages
         if (data.state === 'NY' && data.totalBaseDebt > 0) {
-            addAlert("<strong>New York Damages Provision:</strong> Under New York Labor Law, workers with unpaid wage claims are often entitled to 'liquidated damages,' which can double the amount owed to you. Your total compensation may be twice the base amount shown here.", "#34495e", "rgba(52, 73, 94, 0.4)");
+            addAlert("<strong>New York Damages Provision:</strong> Under New York Labor Law, workers with unpaid wage claims are often entitled to 'liquidated damages,' which can double the amount owed to you. Your total compensation may be twice the base amount shown here.", "#3598D9", "rgba(53, 152, 217, 0.4)");
         }
         
         // 2. FLSA Complex Claim / Fluctuating
         if (data.state === 'TX' && data.inputs.payType === 'salary' && data.weeklyHours > 40) {
-            addAlert("<strong>Day-Rate & Salary Overtime:</strong> Under federal law, paying a flat daily rate or salary without a 1.5x overtime premium for hours over 40 is generally non-compliant. Workers in Texas oilfields and construction frequently have substantial uncounted overtime due to this pay structure. A legal professional can help review your case.", "#C62828", "rgba(198, 40, 40, 0.4)");
+            addAlert("<strong>Day-Rate & Salary Overtime:</strong> Under federal law, paying a flat daily rate or salary without a 1.5x overtime premium for hours over 40 is generally non-compliant. Workers in Texas oilfields and construction frequently have substantial uncounted overtime due to this pay structure. A legal professional can help review your case.", "#B61C1C", "rgba(182, 28, 28, 0.4)");
         } else if (data.fluctuating) {
-            addAlert("<strong>Multiple Pay Rates:</strong> Because you worked at different pay rates, federal guidelines require a 'weighted average' to find your exact overtime rate. This tool offers a baseline estimate using your main rate, but a custom calculation is needed to be completely accurate. A professional can help review your blended rate.", "#C62828", "rgba(198, 40, 40, 0.4)");
+            addAlert("<strong>Multiple Pay Rates:</strong> Because you worked at different pay rates, federal guidelines require a 'weighted average' to find your exact overtime rate. This tool offers a baseline estimate using your main rate, but a custom calculation is needed to be completely accurate. A professional can help review your blended rate.", "#B61C1C", "rgba(182, 28, 28, 0.4)");
         }
 
         // 3. Sub-Minimum Wage
         const isFlTippedTrap = (data.state === 'FL' && data.inputs.rate < 14.00 && data.inputs.rate >= 10.98);
         if (data.isSubMinWage || data.isSubMinWageB) {
              if (data.state === 'FL') {
-                addAlert("<strong>Florida Minimum Wage Note:</strong> The hourly rate entered is below Florida's Constitutional minimum wage of $14.00/hr. You may be entitled to recover the difference, along with potential matching damages. A Florida employment professional can review your total compensation accurately.", "#B71C1C", "rgba(183, 28, 28, 0.5)");
+                addAlert("<strong>Florida Minimum Wage Note:</strong> The hourly rate entered is below Florida's Constitutional minimum wage of $14.00/hr. You may be entitled to recover the difference, along with potential matching damages. A Florida employment professional can review your total compensation accurately.", "#B61C1C", "rgba(182, 28, 28, 0.5)");
             } else {
-                addAlert("<strong>Minimum Wage Adjustment:</strong> The hourly rate entered is currently below your state's minimum wage. This means your calculation should likely include compensation for both the minimum wage difference and your overtime hours. An employment advocate can help combine these figures for a complete estimate.", "#B71C1C", "rgba(183, 28, 28, 0.5)");
+                addAlert("<strong>Minimum Wage Adjustment:</strong> The hourly rate entered is currently below your state's minimum wage. This means your calculation should likely include compensation for both the minimum wage difference and your overtime hours. An employment advocate can help combine these figures for a complete estimate.", "#B61C1C", "rgba(182, 28, 28, 0.5)");
             }
         } else if (isFlTippedTrap) {
-            addAlert("<strong>Tipped Employee Guidelines:</strong> Your rate indicates a tipped wage. Please note that if a manager or owner participates in your tip pool, the business may be required to pay the full $14.00/hr standard minimum wage for all hours worked, rather than the tipped rate. A legal professional can help review your working relationship.", "#D84315", "rgba(216, 67, 21, 0.5)");
+            addAlert("<strong>Tipped Employee Guidelines:</strong> Your rate indicates a tipped wage. Please note that if a manager or owner participates in your tip pool, the business may be required to pay the full $14.00/hr standard minimum wage for all hours worked, rather than the tipped rate. A legal professional can help review your working relationship.", "#E65100", "rgba(230, 81, 0, 0.5)");
         }
 
         // 4. Texas Final Pay Timing
         if (data.state === 'TX' && data.inputs.empStatus === 'terminated' && data.inputs.lateDays > 6) {
-            addAlert("<strong>Texas Final Pay Timing:</strong> Under the Texas Payday Law, an employee who is let go should generally receive their final paycheck within 6 calendar days. Since this time has passed, you may be entitled to additional compensation. An employment advocate can help review your next steps.", "#C62828", "rgba(198, 40, 40, 0.4)");
+            addAlert("<strong>Texas Final Pay Timing:</strong> Under the Texas Payday Law, an employee who is let go should generally receive their final paycheck within 6 calendar days. Since this time has passed, you may be entitled to additional compensation. An employment advocate can help review your next steps.", "#B61C1C", "rgba(182, 28, 28, 0.4)");
         }
 
         // 5. Records
         if (data.checkRecords) {
             if (data.state === 'NY') {
-                addAlert("<strong>New York Recordkeeping Guidelines:</strong> Under the NY Wage Theft Prevention Act, missing paystubs or a lack of a written wage notice at hire can entitle you to up to $10,000 in statutory damages ($5,000 for each). A New York employment professional can help you add this to your claim.", "#BF360C", "rgba(191, 54, 12, 0.4)");
+                addAlert("<strong>New York Recordkeeping Guidelines:</strong> Under the NY Wage Theft Prevention Act, missing paystubs or a lack of a written wage notice at hire can entitle you to up to $10,000 in statutory damages ($5,000 for each). A New York employment professional can help you add this to your claim.", "#F47F16", "rgba(244, 127, 22, 0.4)");
             } else {
-                addAlert("<strong>Recordkeeping Allowances:</strong> If your time records were missing or inaccurate, several state labor codes provide up to $4,000.00 in additional statutory compensation. This calculator focuses on hourly wages and doesn't include these paperwork-related amounts. A specialist can check your eligibility.", "#BF360C", "rgba(191, 54, 12, 0.4)");
+                addAlert("<strong>Recordkeeping Allowances:</strong> If your time records were missing or inaccurate, several state labor codes provide up to $4,000.00 in additional statutory compensation. This calculator focuses on hourly wages and doesn't include these paperwork-related amounts. A specialist can check your eligibility.", "#F47F16", "rgba(244, 127, 22, 0.4)");
             }
         }
 
         // 6. Misclassification
         if (data.checkMisclass) {
-            addAlert("<strong>Contractor Status Review:</strong> Being incorrectly classified as an independent contractor (1099) instead of a W-2 employee can shift employer tax burdens onto you. If misclassified, you may be eligible to recover those taxes and receive state compliance compensations. A legal expert can help review your working relationship.", "#B71C1C", "rgba(183, 28, 28, 0.4)");
+            addAlert("<strong>Contractor Status Review:</strong> Being incorrectly classified as an independent contractor (1099) instead of a W-2 employee can shift employer tax burdens onto you. If misclassified, you may be eligible to recover those taxes and receive state compliance compensations. A legal expert can help review your working relationship.", "#B61C1C", "rgba(182, 28, 28, 0.4)");
         }
 
         // 7. Deductions
         if (data.checkDeduct) {
-            addAlert("<strong>Paycheck Deductions:</strong> Standard business expenses, uniform costs, or register shortages generally cannot be deducted from your paycheck. You have the right to request a full reimbursement for these costs. A legal professional can help determine how to include these expenses in your overall estimate.", "#880E4F", "rgba(136, 14, 79, 0.4)");
+            addAlert("<strong>Paycheck Deductions:</strong> Standard business expenses, uniform costs, or register shortages generally cannot be deducted from your paycheck. You have the right to request a full reimbursement for these costs. A legal professional can help determine how to include these expenses in your overall estimate.", "#890E4F", "rgba(137, 14, 79, 0.4)");
         }
     }
 
@@ -1039,14 +1038,14 @@ function updateUI(data) {
         const pct = Math.max(0, Math.min(100, (data.weeklyHours - 40) * 2.5));
         thermoFill.style.width = `${pct}%`;
         if (pct < 30) {
-            thermoFill.style.backgroundColor = '#2ecc71'; 
-            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(46, 204, 113, 0.7)';
+            thermoFill.style.backgroundColor = '#2DCC70'; 
+            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(45, 204, 112, 0.7)';
         } else if (pct < 70) {
-            thermoFill.style.backgroundColor = '#f1c40f'; 
-            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(241, 196, 15, 0.7)';
+            thermoFill.style.backgroundColor = '#EFC50E'; 
+            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(239, 197, 14, 0.7)';
         } else {
-            thermoFill.style.backgroundColor = '#e74c3c'; 
-            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(231, 76, 60, 0.7)';
+            thermoFill.style.backgroundColor = '#E84C3D'; 
+            thermoFill.style.boxShadow = '0 10px 20px -2px rgba(232, 76, 61, 0.7)';
         }
     }
 
@@ -1156,21 +1155,21 @@ function updateUI(data) {
 
         if(captionEl) {
             captionEl.innerHTML = captionHTML;
-            captionEl.style.color = (state === 'TX') ? '#C62828' : '#595959';
+            captionEl.style.color = (state === 'TX') ? '#B61C1C' : '#595959';
         }
 
         let pct = (data.yearsPassed / maxYears) * 100;
         pct = Math.max(0, Math.min(100, pct));
         marker.style.left = `${pct}%`;
 
-        let mColor = '#2ecc71'; 
+        let mColor = '#2DCC70'; 
         let mLabel = "Safe";
         
         if(pct > limitYellow) {
-            mColor = '#e74c3c'; 
+            mColor = '#E84C3D'; 
             mLabel = "Expired";
         } else if(pct > limitGreen) {
-            mColor = '#f1c40f'; 
+            mColor = '#EFC50E'; 
             mLabel = "Risk";
             if(state === 'TX') mLabel = "Fed Only";
         }

@@ -329,7 +329,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     display: inline-block;
     margin: 15px 0 0 0;
     padding: 16px 30px;
-    background-color: #1E8449;
+    background-color: #2DCC70;
     color: #ffffff;
     text-align: center;
     font-family: 'ProductSans-Light', sans-serif;
@@ -337,15 +337,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     font-weight: 600;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: 0 8px 20px rgba(30, 132, 73, 0.25);
+    box-shadow: 0 8px 20px rgba(45, 204, 112, 0.25);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     box-sizing: border-box;
 }
 
 .legal-action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(30, 132, 73, 0.4);
-    background-color: #145A32;
+    box-shadow: 0 12px 25px rgba(45, 204, 112, 0.4);
+    background-color: #27AE60;
     color: #ffffff;
 }
 
@@ -483,42 +483,133 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     margin-bottom: 3px;
 }
 
-.input-group {
-    position: relative;
-    width: 100%;
-}
+
+/* ============================ */
+/* PERFECT HORIZONTAL ALIGNMENT */
+/* SLIDERS & DATES              */
+/* ============================ */
 
 .input-group-dates {
     display: flex;
     justify-content: space-between;
+    align-items: center; 
     gap: 10px;
     width: 100%;
 }
 
+.date-separator {
+    color: #595959;
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.0rem;
+    margin-top: -15px; /* Aligns text cleanly with inputs above the underlines */
+}
+
+/* Both containers guarantee absolute alignment mathematically */
+.input-group,
 .custom-date-wrapper {
     position: relative;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 15px; /* Creates mandatory space for the slider/underline */
 }
 
+/* The actual text/number inputs */
+.input-group input[type=number],
 .date-input {
     width: 100%;
     border: none;
-    border-bottom: 2px solid #e0e0e0;
-    background: transparent;
+    background: transparent !important;
     font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.0rem;
+    font-size: 1.2rem;
     color: #333;
-    padding: 8px 0;
-    min-height: 48px;
-    outline: none;
-    border-radius: 0;
-    transition: border-color 0.2s ease;
+    padding: 4px 0 0 0;
+    margin: 0;
+    height: 38px;
+    line-height: 1.2;
+    outline: none !important;
+    box-shadow: none !important;
+    -moz-appearance: textfield;
+}
+
+.input-group input[type=number]::-webkit-outer-spin-button,
+.input-group input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.date-input {
     cursor: pointer;
 }
 
-.date-input:focus,
-.custom-date-wrapper.active .date-input {
-    border-bottom-color: #B5855E;
+/* THE SLIDER (Acts as perfect underline for number) */
+.input-group input[type=range] {
+    position: absolute;
+    bottom: -2px; /* Pins it to the bottom space created by padding-bottom */
+    left: 0;
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    -webkit-appearance: none; 
+    appearance: none;
+    border: 9px solid transparent; 
+    border-left: 0; border-right: 0; 
+    background-clip: content-box; 
+    background-color: transparent;
+    border-radius: 0px; 
+    outline: none; 
+    opacity: 0.5; 
+    transition: border-width .2s ease, opacity .2s ease; 
+    cursor: pointer;
+    z-index: 5;
+}
+
+.input-group input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: transparent; 
+    border: none;
+    border-radius: 0px;
+}
+
+.input-group input[type=range]:hover, 
+.input-group input[type=range]:focus, 
+.input-group input[type=range]:active,
+.input-group input[type=range].active-slider { 
+    border-width: 7px;
+    opacity: 1; 
+}
+
+.input-group input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 0; height: 0; background: transparent; cursor: pointer; opacity: 0;
+}
+.input-group input[type=range]::-moz-range-thumb {
+    width: 0; height: 0; border: none; background: transparent; cursor: pointer; opacity: 0;
+}
+
+/* THE DATE UNDERLINE (Mimics slider track geometry perfectly) */
+.date-underline {
+    position: absolute;
+    bottom: 7px; /* Mathematically identical to slider's 2px track location */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e0e0e0;
+    opacity: 0.5;
+    transition: height 0.2s ease, bottom 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.custom-date-wrapper:hover .date-underline,
+.custom-date-wrapper:focus-within .date-underline,
+.custom-date-wrapper.active .date-underline {
+    height: 6px;
+    bottom: 5px; /* Expands symmetrically just like the native slider borders */
+    background-color: #B5855E;
+    opacity: 1;
 }
 
 /* CUSTOM CALENDAR POPUP */
@@ -601,70 +692,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     background: transparent;
 }
 
-
-.input-group input[type=number] {
-    width: 100%;
-    border: none; 
-    background: transparent;
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.2rem;
-    color: #333;
-    padding: 2px 0 0 0;
-    min-height: 48px; 
-    outline: none;
-    -moz-appearance: textfield;
-}
-
-.input-group input[type=number]::-webkit-outer-spin-button,
-.input-group input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* REVERTED TO ORIGINAL THIN SLIDER LOOK */
-.input-group input[type=range] {
-    -webkit-appearance: none; 
-    appearance: none;
-    width: 100%; 
-    height: 20px; 
-    border: 9px solid transparent; 
-    border-left: 0; border-right: 0; 
-    background-clip: content-box; 
-    background-color: transparent;
-    border-radius: 0px; 
-    outline: none; 
-    opacity: 0.5; 
-    transition: border-width .2s ease, opacity .2s ease; 
-    cursor: pointer;
-    margin-top: 2px; 
-    display: block;
-    position: relative;
-    z-index: 5;
-}
-
-.input-group input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    background: transparent; 
-    border: none;
-    border-radius: 0px;
-}
-
-.input-group input[type=range]:hover, 
-.input-group input[type=range]:focus, 
-.input-group input[type=range]:active,
-.input-group input[type=range].active-slider { 
-    border-width: 7px;
-    opacity: 1; 
-}
-
-.input-group input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none; width: 0; height: 0; background: transparent; cursor: pointer; opacity: 0;
-}
-.input-group input[type=range]::-moz-range-thumb {
-    width: 0; height: 0; border: none; background: transparent; cursor: pointer; opacity: 0;
-}
 
 /* ============================ */
 /* Custom Dropdown BOXED        */
@@ -958,9 +985,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     letter-spacing: -0.5px;
 }
 
-.result-value.good { color: #1E8449; }
-.result-value.warn { color: #D35400; }
-.result-value.bad { color: #C0392B; }
+.result-value.good { color: #2DCC70; }
+.result-value.warn { color: #E65100; }
+.result-value.bad { color: #E84C3D; }
 
 .result-sub-heading {
     display: block;
@@ -1016,7 +1043,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .theft-fill {
     height: 100%;
     width: 0%; 
-    background-color: #2ecc71; 
+    background-color: #2DCC70; 
     transition: width 0.5s ease, background-color 0.5s ease;
     border-radius: 6px; 
     position: relative;
@@ -1042,22 +1069,22 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .sb-segment.blue { 
-    background-color: #3498db; 
+    background-color: #3598D9; 
     border-top-left-radius: 6px; 
     border-bottom-left-radius: 6px;
-    box-shadow: 0 16px 28px -5px rgba(52, 152, 219, 0.7);
+    box-shadow: 0 16px 28px -5px rgba(53, 152, 217, 0.7);
     z-index: 3;
 }
 .sb-segment.red { 
-    background-color: #e74c3c; 
-    box-shadow: 0 16px 28px -5px rgba(231, 76, 60, 0.7);
+    background-color: #E84C3D; 
+    box-shadow: 0 16px 28px -5px rgba(232, 76, 61, 0.7);
     z-index: 2;
 }
 .sb-segment.yellow { 
-    background-color: #f1c40f; 
+    background-color: #EFC50E; 
     border-top-right-radius: 6px; 
     border-bottom-right-radius: 6px;
-    box-shadow: 0 16px 28px -5px rgba(241, 196, 15, 0.7);
+    box-shadow: 0 16px 28px -5px rgba(239, 197, 14, 0.7);
     z-index: 1;
 }
 
@@ -1085,9 +1112,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border-radius: 50%;
     display: block;
 }
-.dot.blue { background-color: #3498db; }
-.dot.red { background-color: #e74c3c; }
-.dot.yellow { background-color: #f1c40f; }
+.dot.blue { background-color: #3598D9; }
+.dot.red { background-color: #E84C3D; }
+.dot.yellow { background-color: #EFC50E; }
 
 /* ============================ */
 /* TIMELINE BAR (Mode B)        */
@@ -1110,25 +1137,25 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .timeline-zone { height: 100%; flex: 1; position: relative; }
 
 .timeline-zone.green { 
-    background: #2ecc71; 
+    background: #2DCC70; 
     flex: 2; 
     border-top-left-radius: 5px; 
     border-bottom-left-radius: 5px;
-    box-shadow: 0 16px 28px -5px rgba(46, 204, 113, 0.7);
+    box-shadow: 0 16px 28px -5px rgba(45, 204, 112, 0.7);
     z-index: 3;
 } 
 .timeline-zone.yellow { 
-    background: #f1c40f; 
+    background: #EFC50E; 
     flex: 1; 
-    box-shadow: 0 16px 28px -5px rgba(241, 196, 15, 0.7);
+    box-shadow: 0 16px 28px -5px rgba(239, 197, 14, 0.7);
     z-index: 2;
 } 
 .timeline-zone.red { 
-    background: #e74c3c; 
+    background: #E84C3D; 
     flex: 1; 
     border-top-right-radius: 5px; 
     border-bottom-right-radius: 5px;
-    box-shadow: 0 16px 28px -5px rgba(231, 76, 60, 0.7);
+    box-shadow: 0 16px 28px -5px rgba(232, 76, 61, 0.7);
     z-index: 1;
 } 
 
@@ -1531,7 +1558,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     justify-content: center;
     gap: 100px;
     width: 100%;
-    align-items: flex-start; /* Ensures columns start from the top alignment */
+    align-items: center; /* Vertically centers the column systems */
 }
 
 /* Branding */
@@ -1614,8 +1641,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-direction: column;
     gap: 0; 
     min-width: 140px;
-    align-items: flex-start; 
-    text-align: left;
+    align-items: center; /* Centered links */
+    text-align: center;
 }
 
 .footer-col h4 {
@@ -1624,18 +1651,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #ffffff;
-    margin: 0 0 5px 0;
+    margin: 0 0 20px 0; /* INCREASED GAP UNDER HEADING */
     font-weight: 600;
-    text-align: left;
+    text-align: center; /* Centered headings */
     width: 100%;
 }
 
 .footer-col a {
     display: inline-flex;
     align-items: center;
-    justify-content: flex-start;
-    min-height: 48px;
-    padding: 0 15px 0 0; 
+    justify-content: center; /* Centered links */
+    min-height: 32px; /* REDUCED FROM 48PX TO SHRINK LINK GAPS */
+    padding: 4px 10px; /* Symmetrical padding for true center */
     color: #bbbbbb;
     text-decoration: none; 
     font-size: 0.95rem;
