@@ -1,15 +1,9 @@
 // script.js
 document.addEventListener("DOMContentLoaded", () => {
     
-    // FIX FOR DELAYED LCP ON MOBILE: 
-    // We strictly wait until ALL critical page rendering is complete (window.onload) 
-    // before we throw heavy JavaScript at the browser. This ensures the main thread 
-    // focuses entirely on printing the text and hero image first.
     const initializePerformanceEngine = () => {
 
         // --- Lazy Load High-Bandwidth Videos ---
-        // Dynamically adjust root margin. Mobile downloads slower, so we want it to 
-        // start fetching slightly closer to view, but large enough not to stutter.
         const videoRootMargin = window.innerWidth < 768 ? "600px 0px" : "1500px 0px";
         
         const lazyVideos = document.querySelectorAll('video.lazy-video');
@@ -133,8 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     translateY = 60; 
                     updateTransform();
                     
-                    // GLITCH FIX: Now that the precise math is applied, we add the class
-                    // that triggers the CSS fade-in. This makes the snap completely invisible.
+                    // Fades in cleanly only after math is done
                     previewImage.classList.add('initialized');
                 }
             };
@@ -297,10 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // EXECUTE PERFORMANCE ENGINE ONLY AFTER THE ENTIRE PAGE IS MATHEMATICALLY LOADED
-    window.addEventListener('load', () => {
-        // We wait an extra 150ms just to let the browser breathe before setting up the observers.
-        setTimeout(initializePerformanceEngine, 150);
-    });
+    // Yield main thread execution to prevent FCP/LCP blocking
+    setTimeout(initializePerformanceEngine, 50);
 
 });

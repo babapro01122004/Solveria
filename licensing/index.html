@@ -8,22 +8,17 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <!-- STRICT MOBILE OPTIMIZATION: Prioritize the absolute critical FCP & LCP assets -->
+    <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet. This unlocks the First Contentful Paint (FCP). -->
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="style.css">
     
-    <!-- FIX FOR 11 SECOND MOBILE LCP: Force the browser to grab the hero background immediately -->
-    <link rel="preload" as="image" href="image/Hero.webp" fetchpriority="high">
-    
+    <!-- 2. SECONDARY ASSETS: Icons, Manifests, and external connections (loaded after CSS starts) -->
     <link rel="preconnect" href="https://www.google.com" crossorigin>
-
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" href="image/favicon.ico">
-
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 

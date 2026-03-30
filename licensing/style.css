@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* Hero Section Base */
 .hero-section { position: relative; min-height: 100vh; width: 100%; background: linear-gradient(135deg, #1f1f2e 0%, #0d0d14 100%); display: flex; flex-direction: column; color: #ffffff; overflow: hidden; }
 
-/* INSTANT LCP RENDERING: Removed fading animation from critical image */
+/* INSTANT LCP RENDERING */
 .hero-bg-layer { 
     position: absolute; 
     inset: 0; 
@@ -79,6 +79,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     z-index: 0; 
     pointer-events: none;
     opacity: 1; 
+    background-color: #111; /* Provides instant FCP paint while loading */
 }
 
 .hero-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%); z-index: 1; pointer-events: none; }
@@ -431,7 +432,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* MASSIVE FULL-WIDTH CONTAINER ACTING AS BOUNDARY */
 .preview-container { width: 100%; max-width: none; margin: 0 auto; height: 55vh; min-height: 400px; max-height: 750px; background: transparent; border-radius: 0; overflow: visible; position: relative; box-shadow: none; border: none; }
 
-/* INTERACTIVE TARGET - GLITCH FIX: Starts completely hidden at exactly 50% scale to prevent the massive FOUC glitch. */
+/* INTERACTIVE TARGET - GLITCH FIX: Starts completely hidden at exactly 50% scale */
 .preview-canvas { 
     position: absolute; top: 0; left: 0; width: 100%; height: auto; 
     transform-origin: 0 0; pointer-events: auto; 
@@ -776,6 +777,15 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     
     .cloud { filter: none !important; mix-blend-mode: normal !important; opacity: 0.15 !important; animation-duration: 120s !important; will-change: auto !important; }
     .lyr-bg-deep, .lyr-bg, .lyr-mg, .lyr-fg, .lyr-fg-top { filter: none !important; }
+
+    /* MOBILE GPU FIX: Backdrop filters completely crush mobile CPUs. We remove them and use a solid fallback */
+    .hero-outline-btn, .preview-controls, .card.premium .card-bottom, .card.premium .premium-btn {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    .card.premium .card-bottom {
+        background: rgba(255, 255, 255, 0.96) !important;
+    }
 
     .achievements-header h2,
     .preview-header h2,
