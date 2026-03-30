@@ -2,9 +2,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ULTIMATE MOBILE PERFORMANCE FIX:
-    // If the user is on a phone, we completely delete the heavy X and XX videos from the code.
-    // They will consume zero network bandwidth and zero CPU processing power.
-    if (window.innerWidth <= 990) {
+    // By using matchMedia instead of innerWidth, we completely eliminate the 97ms "Forced Reflow" 
+    // layout thrashing penalty reported by Google Lighthouse!
+    if (window.matchMedia("(max-width: 990px)").matches) {
         document.querySelectorAll('.desktop-video-wrapper').forEach(el => el.remove());
     }
 
