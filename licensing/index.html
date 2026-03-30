@@ -9,9 +9,17 @@
     <title>Solveria | Solar Energy Solutions</title>
     
     <!-- 1. ABSOLUTE HIGHEST PRIORITY: The Stylesheet and Fonts. This unlocks instant First Contentful Paint (FCP). -->
+    <meta http-equiv="Cache-Control" content="max-age=31536000, public">
     <link rel="preload" href="style.css" as="style" fetchpriority="high">
     <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin fetchpriority="high">
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
+    
+    <!-- CRITICAL FCP/LCP FIX: Instruct browser to instantly map fallback fonts before the CSS file even arrives -->
+    <style>
+        @font-face { font-family: 'Product Sans'; src: url('fonts/ProductSans-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+    </style>
+
     <link rel="stylesheet" href="style.css">
     
     <!-- 2. SECONDARY ASSETS: Icons, Manifests, and external connections -->

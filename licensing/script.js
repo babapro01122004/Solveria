@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // By using matchMedia instead of innerWidth, we completely eliminate the 97ms "Forced Reflow" 
     // layout thrashing penalty reported by Google Lighthouse!
     if (window.matchMedia("(max-width: 990px)").matches) {
-        document.querySelectorAll('.desktop-video-wrapper').forEach(el => el.remove());
+        // Purging ALL heavy video elements on mobile (including DNS video) to free up bandwidth and GPU
+        document.querySelectorAll('.video-box').forEach(el => el.remove());
     }
 
     const initializePerformanceEngine = () => {
