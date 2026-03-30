@@ -9,12 +9,16 @@
     <title>Solveria | Solar Energy Solutions</title>
     
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin>
     
+    <!-- Only preloading critical Above-The-Fold fonts to save bandwidth -->
+    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    
+    <!-- Forcing highest priority bandwidth directly to LCP candidates -->
+    <link rel="preload" href="image/Hero.png" as="image" fetchpriority="high">
+    <link rel="preload" href="image/Logo_Golden.webp" as="image" fetchpriority="high">
     
     <link rel="preconnect" href="https://www.google.com" crossorigin>
 
@@ -52,12 +56,12 @@
                 
                 <div class="collab-wrapper animate-fade-in-up">
                     <div class="collab-brand left">
-                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96">
+                        <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="solveria-collab-logo" width="96" height="96" fetchpriority="high">
                         <span class="collab-logo-text">Solveria.</span>
                     </div>
                     <div class="collab-x" aria-hidden="true"></div>
                     <div class="collab-brand right">
-                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo">
+                        <img src="image/Google.png" alt="Google Logo" class="collab-partner-logo" fetchpriority="high">
                     </div>
                 </div>
 
@@ -75,14 +79,12 @@
             </div>
         </div>
 
-        <!-- Minimal Quote anchored to bottom-left with dynamic wrap -->
         <div class="hero-bottom-left animate-fade-in-up">
             <p class="hero-quote long-quote">"The future of energy relies on absolute systemic efficiency. By obliterating legacy code latency, we architect a mathematically perfect conversion node for your high-intent pipeline. Every millisecond saved directly scales your acquisition model, effectively starving competitors of local market share while radically compounding your return on ad spend."</p>
             <p class="hero-quote short-quote">"The future of energy relies on absolute systemic efficiency. By obliterating legacy code latency, we architect a mathematically perfect conversion node for your high-intent pipeline."</p>
             <p class="hero-quote-sub">Advanced Infrastructure<br>Protocol — 2026</p>
         </div>
 
-        <!-- Performance Stats anchored to bottom-right -->
         <div class="hero-bottom-right animate-fade-in-up">
             <div class="stat-block">
                 <span class="stat-number">100/100</span>
@@ -107,7 +109,6 @@
             <p class="section-faint-subline">Diagnostic Performance Breakdown & Architectural Roadmap</p>
         </div>
 
-        <!-- SPLIT BRIEFING CONTAINER -->
         <div class="briefing-container">
             <div class="briefing-content stagger-item">
                 <h3 class="comparison-header">The Traffic <span class="highlight-extraordinary">Leak.</span></h3>
@@ -125,10 +126,8 @@
             </div>
         </div>
 
-        <!-- CRISS-CROSS PERFORMANCE COMPARISON SECTION -->
         <div class="performance-comparison-section">
             
-            <!-- Row 1: The Problem -->
             <div class="criss-cross-row stagger-item">
                 <div class="cc-images">
                     <div class="metrics-row">
@@ -140,7 +139,7 @@
                         </div>
                     </div>
                     <div class="img-wrapper video-box">
-                        <video src="image/X.mp4" aria-label="Legacy Website Performance" class="comparison-img" autoplay loop muted playsinline></video>
+                        <video data-src="image/X.mp4" aria-label="Legacy Website Performance" class="comparison-img lazy-video" autoplay loop muted playsinline></video>
                     </div>
                 </div>
 
@@ -154,7 +153,6 @@
                 </div>
             </div>
             
-            <!-- Row 2: The Solution -->
             <div class="criss-cross-row stagger-item">
                 <div class="cc-text text-right-desktop">
                     <h3 class="comparison-header">The Solveria <span class="highlight-green">Advantage.</span></h3>
@@ -176,7 +174,7 @@
                         </div>
                     </div>
                     <div class="img-wrapper video-box">
-                        <video src="image/XX.mp4" aria-label="Solveria Website Performance" class="comparison-img" autoplay loop muted playsinline></video>
+                        <video data-src="image/XX.mp4" aria-label="Solveria Website Performance" class="comparison-img lazy-video" autoplay loop muted playsinline></video>
                     </div>
                 </div>
             </div>
@@ -184,63 +182,58 @@
         </div>
     </section>
 
-    <!-- INTERACTIVE PREVIEW SECTION -->
     <section class="preview-section" id="preview">
         <div class="preview-bg-layer lazy-bg" data-bg="image/Preview.png"></div>
         
-        <!-- 16-IMAGE ARCHITECTURAL SKYLINE CLUSTER -->
         <div class="city-scenery">
-            <!-- LEFT CLUSTER (Flanking the left edge) -->
             <div class="city-cluster">
-                <img src="image/website13.jpg" class="city-building lyr-bg-deep c-bg-deep-1" alt="Past Work 13">
-                <img src="image/website14.jpg" class="city-building lyr-bg-deep c-bg-deep-2" alt="Past Work 14">
-                <img src="image/website1.jpeg" class="city-building lyr-bg c-bg-1" alt="Past Work 1">
-                <img src="image/website2.jpg" class="city-building lyr-mg c-mg-1" alt="Past Work 2">
-                <img src="image/website3.jpg" class="city-building lyr-mg c-mg-2" alt="Past Work 3">
-                <img src="image/website4.jpg" class="city-building lyr-fg c-fg-1" alt="Past Work 4">
-                <img src="image/website5.jpg" class="city-building lyr-fg-top c-fg-2" alt="Past Work 5">
-                <img src="image/website6.jpg" class="city-building lyr-fg c-fg-3" alt="Past Work 6">
+                <img src="image/website13.jpg" class="city-building lyr-bg-deep c-bg-deep-1" alt="Past Work 13" loading="lazy">
+                <img src="image/website14.jpg" class="city-building lyr-bg-deep c-bg-deep-2" alt="Past Work 14" loading="lazy">
+                <img src="image/website1.jpeg" class="city-building lyr-bg c-bg-1" alt="Past Work 1" loading="lazy">
+                <img src="image/website2.jpg" class="city-building lyr-mg c-mg-1" alt="Past Work 2" loading="lazy">
+                <img src="image/website3.jpg" class="city-building lyr-mg c-mg-2" alt="Past Work 3" loading="lazy">
+                <img src="image/website4.jpg" class="city-building lyr-fg c-fg-1" alt="Past Work 4" loading="lazy">
+                <img src="image/website5.jpg" class="city-building lyr-fg-top c-fg-2" alt="Past Work 5" loading="lazy">
+                <img src="image/website6.jpg" class="city-building lyr-fg c-fg-3" alt="Past Work 6" loading="lazy">
             </div>
 
-            <!-- RIGHT CLUSTER (Flanking the right edge) -->
             <div class="city-cluster">
-                <img src="image/website15.jpg" class="city-building lyr-bg-deep c-bg-deep-3" alt="Past Work 15">
-                <img src="image/website16.jpg" class="city-building lyr-bg-deep c-bg-deep-4" alt="Past Work 16">
-                <img src="image/website7.jpg" class="city-building lyr-bg c-bg-2" alt="Past Work 7">
-                <img src="image/website8.jpg" class="city-building lyr-mg c-mg-3" alt="Past Work 8">
-                <img src="image/website9.jpg" class="city-building lyr-mg c-mg-4" alt="Past Work 9">
-                <img src="image/website10.jpg" class="city-building lyr-fg c-fg-4" alt="Past Work 10">
-                <img src="image/website11.jpg" class="city-building lyr-fg-top c-fg-5" alt="Past Work 11">
-                <img src="image/website12.jpg" class="city-building lyr-fg c-fg-6" alt="Past Work 12">
+                <img src="image/website15.jpg" class="city-building lyr-bg-deep c-bg-deep-3" alt="Past Work 15" loading="lazy">
+                <img src="image/website16.jpg" class="city-building lyr-bg-deep c-bg-deep-4" alt="Past Work 16" loading="lazy">
+                <img src="image/website7.jpg" class="city-building lyr-bg c-bg-2" alt="Past Work 7" loading="lazy">
+                <img src="image/website8.jpg" class="city-building lyr-mg c-mg-3" alt="Past Work 8" loading="lazy">
+                <img src="image/website9.jpg" class="city-building lyr-mg c-mg-4" alt="Past Work 9" loading="lazy">
+                <img src="image/website10.jpg" class="city-building lyr-fg c-fg-4" alt="Past Work 10" loading="lazy">
+                <img src="image/website11.jpg" class="city-building lyr-fg-top c-fg-5" alt="Past Work 11" loading="lazy">
+                <img src="image/website12.jpg" class="city-building lyr-fg c-fg-6" alt="Past Work 12" loading="lazy">
             </div>
         </div>
 
-        <!-- DENSE CLOUD CLUSTER -->
         <div class="cloud-front-layer">
-            <img src="image/clouds.png" class="cloud cloud-1" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-2" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-3" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-4" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-5" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-6" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-7" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-8" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-9" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-10" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-11" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-12" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-13" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-14" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-15" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-16" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-17" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-18" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-19" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-20" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-21" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-22" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-23" alt="" aria-hidden="true">
-            <img src="image/clouds.png" class="cloud cloud-24" alt="" aria-hidden="true">
+            <img src="image/clouds.png" class="cloud cloud-1" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-2" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-3" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-4" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-5" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-6" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-7" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-8" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-9" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-10" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-11" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-12" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-13" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-14" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-15" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-16" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-17" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-18" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-19" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-20" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-21" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-22" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-23" alt="" aria-hidden="true" loading="lazy">
+            <img src="image/clouds.png" class="cloud cloud-24" alt="" aria-hidden="true" loading="lazy">
         </div>
 
         <div class="preview-header stagger-item">
@@ -250,7 +243,7 @@
         
         <div class="preview-workspace stagger-item">
             <div class="preview-container" id="preview-container">
-                <img src="image/Screenshot.png" alt="Website Preview" class="preview-canvas" id="preview-image">
+                <img src="image/Screenshot.png" alt="Website Preview" class="preview-canvas" id="preview-image" loading="lazy">
                 
                 <div class="preview-controls">
                     <button id="zoom-out" aria-label="Zoom out">−</button>
@@ -272,7 +265,6 @@
         </p>
     </div>
 
-    <!-- UNITED DEPLOYMENT & SLA GUARANTEE SECTION -->
     <section class="pricing-section stagger-item" id="deployment">
         
         <div class="pricing-header">
@@ -283,7 +275,6 @@
         
         <div class="pricing-cards" id="pricing-cards-container">
             
-            <!-- Standard Agency Build Card -->
             <div class="card standard">
                 <svg class="cancel-line-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
                     <path d="M 12 8 L 35 32 M 43 40 L 60 58 M 68 66 L 90 90" vector-effect="non-scaling-stroke" />
@@ -309,7 +300,6 @@
                 </div>
             </div>
 
-            <!-- Premium Lead Engine Deployment Card -->
             <div class="card premium">
                 <div class="premium-blobs">
                     <div class="blob-1"></div>
@@ -349,7 +339,6 @@
         </div>
     </section>
 
-    <!-- ONBOARDING & NEXT STEPS SECTION -->
     <section class="onboarding-section" id="onboarding">
         <div class="onboarding-header stagger-item">
             <h2><span class="highlight-deployment-main">What Happens</span> <span class="highlight-green">Next?</span></h2>
@@ -384,7 +373,7 @@
                 <p>Create a new CNAME record, paste the provided Vercel Edge Network link into the target field, and save. Propagation typically begins instantly.</p>
             </div>
             <div class="img-wrapper dns-media video-box">
-                <video src="image/DNS.mp4" aria-label="DNS Configuration Video" class="comparison-img" autoplay loop muted playsinline></video>
+                <video data-src="image/DNS.mp4" aria-label="DNS Configuration Video" class="comparison-img lazy-video" autoplay loop muted playsinline></video>
             </div>
         </div>
 

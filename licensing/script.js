@@ -1,26 +1,31 @@
 // script.js
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- Existing Hero Image Lazy Loader ---
-    const loadHeroImage = () => {
-        const heroBgLayer = document.querySelector('.hero-bg-layer');
-        if(heroBgLayer && !heroBgLayer.classList.contains('loaded')) {
-            const imgUrl = 'image/Hero.png';
-            const img = new Image();
-            img.decoding = 'async';
-            img.fetchPriority = 'low';
-            img.src = imgUrl;
-            img.onload = () => {
-                heroBgLayer.style.backgroundImage = `url('${imgUrl}')`;
-                heroBgLayer.classList.add('loaded');
-            };
-        }
-    };
-
-    const triggerHeroLoad = () => {
-        loadHeroImage();['scroll', 'mousemove', 'touchstart'].forEach(evt => window.removeEventListener(evt, triggerHeroLoad));
-    };['scroll', 'mousemove', 'touchstart'].forEach(evt => window.addEventListener(evt, triggerHeroLoad, {once: true, passive: true}));
-    setTimeout(triggerHeroLoad, 8500);
+    // --- Lazy Load High-Bandwidth Videos (Saves LCP Pipeline) ---
+    const lazyVideos = document.querySelectorAll('video.lazy-video');
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    video.src = video.getAttribute('data-src');
+                    video.load();
+                    // Catch promise cleanly incase browser stops autoplay out of view
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => { console.log("Video autoplay prevented:", error); });
+                    }
+                    video.classList.remove('lazy-video');
+                    observer.unobserve(video);
+                }
+            });
+        }, { rootMargin: "300px 0px" });
+        lazyVideos.forEach(v => videoObserver.observe(v));
+    } else {
+        lazyVideos.forEach(v => {
+            v.src = v.getAttribute('data-src');
+        });
+    }
 
     // --- Background & Stagger Intersection Observers ---
     const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
@@ -264,7 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const pricingCardsContainer = document.getElementById('pricing-cards-container');
     if (pricingCardsContainer && 'IntersectionObserver' in window) {
         
-        // Ensure it starts hidden but layout is reserved
         pricingCardsContainer.classList.add('seq-init');
         
         const setStage = (stage) => {
@@ -276,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     observer.unobserve(entry.target);
-                    // Master Orchestration Timeline
                     setTimeout(() => setStage('seq-step-1'), 200);   // Standard fades in at center
                     setTimeout(() => setStage('seq-step-2'), 1000);  // Red diagonal line violently crosses it out
                     setTimeout(() => setStage('seq-step-3'), 2000);  // Standard fades entirely out
