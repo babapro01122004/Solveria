@@ -2,12 +2,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // THE ULTIMATE MOBILE TBT FIX: 
-    // We wrap all observer logic inside requestIdleCallback. This ensures that the mobile 
-    // browser's throttled CPU only executes this javascript AFTER the initial First Contentful Paint 
-    // and Largest Contentful Paint are mathematically completed.
+    // We wrap all observer logic inside requestIdleCallback.
     const initializePerformanceEngine = () => {
 
         // --- Lazy Load High-Bandwidth Videos (Saves LCP Pipeline) ---
+        // INCREASED ROOT MARGIN: 1500px means the video begins downloading and decoding 
+        // well before the user ever scrolls to it. This prevents the browser from 
+        // freezing to decode the MP4 mid-scroll.
         const lazyVideos = document.querySelectorAll('video.lazy-video');
         if ('IntersectionObserver' in window) {
             const videoObserver = new IntersectionObserver((entries, observer) => {
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         observer.unobserve(video);
                     }
                 });
-            }, { rootMargin: "300px 0px" });
+            }, { rootMargin: "1500px 0px" });
             lazyVideos.forEach(v => videoObserver.observe(v));
         } else {
             lazyVideos.forEach(v => {
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         observer.unobserve(bgElement);
                     }
                 });
-            }, { rootMargin: "250px 0px" });
+            }, { rootMargin: "800px 0px" });
             lazyBackgrounds.forEach((bg) => bgObserver.observe(bg));
 
             const staggerObserver = new IntersectionObserver((entries, observer) => {
@@ -291,8 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // EXECUTE PERFORMANCE ENGINE ONLY WHEN IDLE
     if (window.requestIdleCallback) {
-        requestIdleCallback(initializePerformanceEngine, { timeout: 2000 });
+        requestIdleCallback(initializePerformanceEngine, { timeout: 1000 });
     } else {
-        setTimeout(initializePerformanceEngine, 100);
+        setTimeout(initializePerformanceEngine, 50);
     }
 });

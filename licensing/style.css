@@ -51,8 +51,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     margin-top: 15px;
 }
 
-/* Stagger Animation (Kept strictly below the fold) */
-.stagger-item { opacity: 0; transform: translateY(40px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
+/* Stagger Animation (Removed will-change completely to fix GPU memory exhaustion on Mobile) */
+.stagger-item { opacity: 0; transform: translateY(40px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .stagger-item.is-visible { opacity: 1; transform: translateY(0); }
 
 /* Header Layout Styles */
@@ -395,7 +395,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* CLOUD FRONT LAYER */
 /* ========================================= */
 .cloud-front-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
-.cloud { position: absolute; pointer-events: none; mix-blend-mode: screen; will-change: transform; }
+/* Removed will-change to save memory */
+.cloud { position: absolute; pointer-events: none; mix-blend-mode: screen; }
 @keyframes cloud-drift { from { transform: translateX(-40vw); } to { transform: translateX(120vw); } }
 
 .cloud-1 { bottom: -5%; opacity: 0.25; filter: blur(12px); animation: cloud-drift 80s linear infinite -10s; }
@@ -432,7 +433,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .preview-container { width: 100%; max-width: none; margin: 0 auto; height: 55vh; min-height: 400px; max-height: 750px; background: transparent; border-radius: 0; overflow: visible; position: relative; box-shadow: none; border: none; }
 
 /* INTERACTIVE TARGET */
-.preview-canvas { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform-origin: 0 0; pointer-events: auto; will-change: transform; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.6); z-index: 10; cursor: grab; touch-action: none; user-select: none; -webkit-user-drag: none; }
+.preview-canvas { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform-origin: 0 0; pointer-events: auto; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.6); z-index: 10; cursor: grab; touch-action: none; user-select: none; -webkit-user-drag: none; }
 .preview-canvas:active { cursor: grabbing; }
 
 /* Interactive Translucent Controls Pill */
@@ -501,7 +502,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .pricing-cards { --center-standard-x: 260px; --center-standard-y: 0px; --center-premium-x: -230px; --center-premium-y: 0px; }
 @media (max-width: 990px) { .pricing-cards { --center-standard-x: 0px; --center-standard-y: 300px; --center-premium-x: 0px; --center-premium-y: -270px; } }
 
-.card.standard, .card.premium { transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.8s ease; will-change: transform, opacity, filter; }
+.card.standard, .card.premium { transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.8s ease; will-change: auto; }
 
 .pricing-cards.seq-init .card.standard { opacity: 0; transform: translate(var(--center-standard-x), var(--center-standard-y)) scale(0.92); pointer-events: none; }
 .pricing-cards.seq-init .card.premium { opacity: 0; transform: translate(var(--center-premium-x), var(--center-premium-y)) scale(1.02); pointer-events: none; }
@@ -756,8 +757,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 /* --- RESPONSIVE MEDIA QUERIES (Fixing GPU/CPU Pipeline For Mobile) --- */
 @media (max-width: 990px) {
-    /* REMOVES LAG: Completely disable GPU intensive CSS rules on massive layers for mobile */
-    .cloud { filter: none !important; mix-blend-mode: normal !important; opacity: 0.15 !important; }
+    /* REMOVES LAG: Completely disable GPU intensive CSS rules on massive layers for mobile and delete 18 clouds from the pipeline */
+    .cloud:nth-child(n+7) { display: none !important; }
+    .cloud { filter: none !important; mix-blend-mode: normal !important; opacity: 0.15 !important; animation-duration: 120s !important; will-change: auto !important; }
     .lyr-bg-deep, .lyr-bg, .lyr-mg, .lyr-fg, .lyr-fg-top { filter: none !important; }
 
     .achievements-header h2,

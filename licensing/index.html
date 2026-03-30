@@ -12,6 +12,9 @@
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
     
+    <!-- Preloading the large screenshot with low priority so it's ready for the preview section without blocking initial load -->
+    <link rel="preload" href="image/Screenshot.webp" as="image" fetchpriority="low">
+    
     <link rel="preconnect" href="https://www.google.com" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
@@ -236,7 +239,7 @@
         
         <div class="preview-workspace stagger-item">
             <div class="preview-container" id="preview-container">
-                <img src="image/Screenshot.webp" alt="Website Preview" class="preview-canvas" id="preview-image" width="1920" height="1080" loading="lazy">
+                <img src="image/Screenshot.webp" alt="Website Preview" class="preview-canvas" id="preview-image" width="1920" height="1080" loading="lazy" decoding="async">
                 
                 <div class="preview-controls">
                     <button id="zoom-out" aria-label="Zoom out">−</button>
