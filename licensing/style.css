@@ -306,8 +306,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 /* Video Embed Styles */
 .video-wrapper { padding: 80px 20px 40px 20px; display: flex; justify-content: center; width: 100%; }
-.video-container { width: 100%; max-width: 900px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0, 0, 0, 0.05); background-color: #000; }
-.video-container iframe { width: 100%; height: 100%; border: none; display: block; object-fit: cover; }
+.video-container { width: 100%; max-width: 900px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0, 0, 0, 0.05); background-color: transparent; }
+.video-container iframe { width: 100%; height: 100%; border: none; display: block; }
 
 /* Performance Comparison Section - CRISS CROSS ROWS */
 .performance-comparison-section { max-width: 1550px; width: 100%; margin: 60px auto 80px auto; padding: 0 3vw; display: flex; flex-direction: column; gap: 100px; }
@@ -321,7 +321,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* THE SOLVERIA ADVANTAGE - DESKTOP RIGHT ALIGNMENT */
 .cc-text.text-right-desktop .comparison-header, .cc-text.text-right-desktop .comparison-text p { text-align: right; }
 
-/* UNIVERSAL MEDIA CONTAINER STYLING - REMOVES ALL BARS */
+/* UNIVERSAL MEDIA CONTAINER STYLING - SHRINK WRAP (REMOVES CROPPING & BARS) */
 .metrics-row { display: flex; flex-direction: row; gap: 15px; width: 100%; align-items: stretch; }
 .metrics-row .img-wrapper { flex: 1; min-width: 0; }
 .img-wrapper { 
@@ -331,33 +331,28 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     overflow: hidden; 
     box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
     border: 1px solid rgba(0,0,0,0.05); 
-    background-color: #f9f9f9; 
+    background-color: transparent; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    aspect-ratio: 16 / 9; /* Ensures structural integrity */
 }
 
-/* OBLITERATES WHITE/BLACK BARS BY FORCING FILL */
 .comparison-img { 
     width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    object-position: center; 
+    height: auto; 
     display: block; 
 }
 
 .video-box { 
-    aspect-ratio: 16 / 9; 
     width: 100%; 
-    background-color: #000; 
+    background-color: transparent; 
     border-radius: 12px; 
     overflow: hidden; 
 }
 .video-box video { 
     width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+    height: auto; 
+    display: block; 
 }
 
 /* Preview Workspace Section */
@@ -677,7 +672,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     border: 1px solid rgba(0,0,0,0.05);
     background-color: transparent;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
