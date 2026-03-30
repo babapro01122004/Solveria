@@ -777,28 +777,28 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     /* MASSIVE BANDWIDTH SAVINGS */
     .cloud { display: none !important; }
     
-    /* Hide all buildings EXCEPT 15 and 12 on mobile */
-    .city-building:not(.c-bg-deep-3):not(.c-fg-6) { display: none !important; }
+    /* Hide all buildings EXCEPT 1 (Left) and 6 (Right) on mobile */
+    .city-building:not(.c-bg-deep-1):not(.c-fg-6) { display: none !important; }
 
     /* FLANKING THE INTERACTIVE CANVAS: Perfectly framing the main image on mobile */
-    .c-bg-deep-3, .c-fg-6 { 
+    .c-bg-deep-1, .c-fg-6 { 
         display: block !important; 
-        filter: blur(6px) brightness(0.55) !important; 
-        opacity: 0.65 !important;
+        filter: blur(20px) brightness(0.4) !important; /* Aggressively blurred and darker */
+        opacity: 0.55 !important; /* Lowered opacity */
         will-change: auto !important;
-        bottom: 10% !important;
-        height: clamp(200px, 45vh, 400px) !important;
-        width: clamp(100px, 25vw, 180px) !important;
-        z-index: 1 !important; /* Safely tucked behind the canvas */
+        bottom: -15% !important; /* Pushed deep down so the bottom edge is hidden */
+        height: clamp(180px, 35vh, 320px) !important; /* Lowered size */
+        width: 32vw !important; /* Lowered width */
+        z-index: 1 !important; 
     }
     
-    .c-bg-deep-3 {
-        left: 2% !important;
+    .c-bg-deep-1 {
+        left: -8vw !important; /* Cut off 1/4th of 32vw */
         right: auto !important;
         transform: translateX(0) !important;
     }
     .c-fg-6 {
-        right: 2% !important;
+        right: -8vw !important; /* Cut off 1/4th of 32vw */
         left: auto !important;
         transform: translateX(0) !important;
     }
@@ -814,12 +814,17 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
         background: rgba(255, 255, 255, 0.96) !important;
     }
 
-    .achievements-header h2,
+    .achievements-header h2 { font-size: 3.6rem; }
     .preview-header h2,
     .pricing-header h2,
     .onboarding-header h2 { font-size: 3.2rem; }
 
-    .briefing-container { flex-direction: column; gap: 40px; margin: 40px auto; }
+    .briefing-container { flex-direction: column; gap: 25px; margin: 40px auto; }
+    .briefing-content { display: contents; }
+    .briefing-content .comparison-header { order: 1; margin: 0; text-align: center !important; }
+    .briefing-container .video-wrapper { order: 2; padding: 0; margin: 0; width: 100%; }
+    .briefing-content .comparison-text { order: 3; margin: 0; }
+    .briefing-content .comparison-text p { text-align: center !important; }
     
     .performance-comparison-section { gap: 80px; }
     .criss-cross-row { display: flex; flex-direction: column; gap: 25px; }
@@ -827,15 +832,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .cc-images, .cc-text { display: contents; }
     
     .criss-cross-row .comparison-header { order: 1; margin: 0; text-align: center !important; }
-    .criss-cross-row .video-box { order: 2; margin: 0; width: 100%; }
-    .criss-cross-row .comparison-text p { text-align: center !important; }
+    .criss-cross-row .metrics-row { order: 2; margin: 0; width: 100%; }
     .criss-cross-row .comparison-text { order: 3; margin: 0; }
-    .criss-cross-row .metrics-row { order: 4; margin: 0; width: 100%; }
-    
-    .briefing-content .comparison-header,
-    .briefing-content .comparison-text p {
-        text-align: center !important;
-    }
+    .criss-cross-row .comparison-text p { text-align: center !important; }
     
     .preview-container { height: 45vh; min-height: 350px; width: 100%; }
     
@@ -845,8 +844,11 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
     .phases-container { flex-direction: column; gap: 25px; }
     
-    .dns-visual-container { flex-direction: column; gap: 40px; }
-    .dns-text-block { text-align: center; }
+    .dns-visual-container { flex-direction: column; gap: 20px; }
+    .dns-text-block { display: contents; }
+    .dns-text-block h4 { order: 1; text-align: center; margin: 0; }
+    .dns-media.video-box { order: 2; margin: 0; width: 100%; }
+    .dns-text-block p { order: 3; text-align: center; margin: 0; }
 
     .pdf-notice { flex-direction: column; text-align: center; gap: 20px; padding: 30px 25px; }
     
@@ -862,7 +864,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 }
 
 @media (max-width: 850px) {
-    .achievements-header h2,
+    .achievements-header h2 { font-size: 3.2rem; }
     .preview-header h2,
     .pricing-header h2,
     .onboarding-header h2 { font-size: 2.8rem; }
@@ -873,7 +875,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 }
 
 @media (max-width: 600px) {
-    .achievements-header h2,
+    .achievements-header h2 { font-size: 2.8rem; line-height: 1.15; margin-bottom: 15px; }
     .preview-header h2,
     .pricing-header h2,
     .onboarding-header h2 { font-size: 2.2rem; }
