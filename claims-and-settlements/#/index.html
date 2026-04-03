@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Unpaid Wage Calculator</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="icon" href="../../favicon.ico">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+
+        <h1>California Unpaid Wage Calculator</h1>
+        
+        <p id="breathing-text" class="breathing-text">Calculate exactly what you are owed.</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <a href="../../index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="../../calculators/index.html">Legal & Employment</a>
+        <span class="separator">/</span>
+        <span class="current-page">CA Unpaid Wage Calculator</span>
+    </nav>
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <h2 class="intro-heading">Employment Assessment</h2>
+        <p class="content-text">
+            Configure your work profile to generate a detailed breakdown of potentially unpaid wages, overtime, and statutory penalties under California Labor Code. This helps map out your potential financial recovery.
+        </p>
+    </div>
+
+    <!-- Main Calculator Content -->
+    <div class="calculator-container">
+        
+        <!-- Left Side: Inputs -->
+        <div class="calc-section left-section">
+            
+            <div class="header-row">
+                <h2>Inputs</h2>
+            </div>
+
+            <!-- GLOBAL CORE INPUTS -->
+            <div id="global-inputs" class="mode-inputs">
+                
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Global Details</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="global-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Employment Status</label>
+                    <div class="custom-dropdown-container">
+                        <select id="empStatus" class="hidden-select">
+                            <option value="active" selected>Active</option>
+                            <option value="fired">Fired</option>
+                            <option value="quit72">Quit (72-hr notice)</option>
+                            <option value="quit0">Quit (Without notice)</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Active</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="active">Active</div>
+                                <div class="dropdown-option" data-value="fired">Fired</div>
+                                <div class="dropdown-option" data-value="quit72">Quit (72-hr notice)</div>
+                                <div class="dropdown-option" data-value="quit0">Quit (Without notice)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Affects waiting time penalty rights.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Pay Type</label>
+                    <div class="custom-dropdown-container">
+                        <select id="payType" class="hidden-select">
+                            <option value="hourly" selected>Hourly</option>
+                            <option value="salary">Salary</option>
+                            <option value="day">Day Rate</option>
+                            <option value="piece">Piece Rate</option>
+                            <option value="commission">Commission</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Hourly</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="hourly">Hourly</div>
+                                <div class="dropdown-option" data-value="salary">Salary</div>
+                                <div class="dropdown-option" data-value="day">Day Rate</div>
+                                <div class="dropdown-option" data-value="piece">Piece Rate</div>
+                                <div class="dropdown-option" data-value="commission">Commission</div>
+                                <div class="dropdown-option" data-value="mixed">Mixed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Method of normal compensation.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Employment Start Date</label>
+                    <div class="input-group">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="input_startDate" class="date-input custom-date-trigger" readonly placeholder="yyyy-mm-dd">
+                        </div>
+                        <input type="range" class="disabled-slider" disabled>
+                    </div>
+                    <div class="disclosure-text">When did you begin work?</div>
+                </div>
+
+                <div class="input-wrapper" id="wrapper_endDate">
+                    <label>Employment End Date</label>
+                    <div class="input-group">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="input_endDate" class="date-input custom-date-trigger" readonly placeholder="yyyy-mm-dd">
+                        </div>
+                        <input type="range" class="disabled-slider" disabled>
+                    </div>
+                    <div class="disclosure-text">When did your employment end?</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Current/Final Base Pay ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_basePay" value="20.00" step="0.5">
+                        <input type="range" id="slider_basePay" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Per hour, or base calculation rate.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Avg. Shifts per Week</label>
+                    <div class="input-group">
+                        <input type="number" id="input_shiftsPerWeek" value="5">
+                        <input type="range" id="slider_shiftsPerWeek" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Typical days worked weekly.</div>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Avg. Hours per Shift</label>
+                    <div class="input-group">
+                        <input type="number" id="input_hoursPerShift" value="8">
+                        <input type="range" id="slider_hoursPerShift" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Standard daily shift duration.</div>
+                </div>
+
+                <!-- Global Advanced -->
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Employee Classification</label>
+                        <div class="custom-dropdown-container">
+                            <select id="classification" class="hidden-select">
+                                <option value="nonexempt" selected>Non-Exempt</option>
+                                <option value="exempt">Exempt</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">Non-Exempt</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="nonexempt">Non-Exempt</div>
+                                    <div class="dropdown-option" data-value="exempt">Exempt</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Determines overtime eligibility.</div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label>Accurate Time Records?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="timeRecords" class="hidden-select">
+                                <option value="yes" selected>Yes</option>
+                                <option value="no">No</option>
+                                <option value="altered">Altered</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">Yes</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="yes">Yes</div>
+                                    <div class="dropdown-option" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="altered">Altered</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Do you have proof of hours worked?</div>
+                    </div>
+
+                    <div class="input-wrapper full-width-span">
+                        <label>Total Bonuses Earned</label>
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div class="input-group" style="flex: 2;">
+                                <input type="number" id="input_bonuses" value="500">
+                                <input type="range" id="slider_bonuses" min="0" max="100">
+                            </div>
+                            <div class="custom-dropdown-container" style="flex: 1; margin-top: 0;">
+                                <select id="bonusPeriod" class="hidden-select">
+                                    <option value="annual" selected>Annually</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="weekly">Weekly</option>
+                                </select>
+                                <button class="custom-dropdown-trigger">Annually</button>
+                                <div class="custom-dropdown-menu">
+                                    <div class="dropdown-options-wrapper">
+                                        <div class="dropdown-option selected" data-value="annual">Annually</div>
+                                        <div class="dropdown-option" data-value="monthly">Monthly</div>
+                                        <div class="dropdown-option" data-value="weekly">Weekly</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Non-discretionary bonuses/commissions only.</div>
+                    </div>
+
+                    <div class="input-wrapper full-width-span">
+                        <label>Multiple Pay Rates?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="multiRates" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Did you work at different hourly rates?</div>
+                        
+                        <!-- Dynamic Multi-Rate Rows container -->
+                        <div id="multi-rate-container" class="hidden" style="margin-top: 15px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <label style="margin-bottom: 10px; color: #000; font-weight: 500;">Additional Pay Rates & Periods</label>
+                            <div class="multi-rate-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="number" placeholder="Rate ($)" style="border-bottom: 2px solid #e0e0e0; padding: 5px; flex: 1; min-width: 0; outline: none;">
+                                <div class="custom-date-wrapper" style="flex: 1; min-width: 0;">
+                                    <input type="text" placeholder="Start Date" class="date-input custom-date-trigger" readonly style="border-bottom: 2px solid #e0e0e0; padding: 5px; width: 100%;">
+                                </div>
+                                <div class="custom-date-wrapper" style="flex: 1; min-width: 0;">
+                                    <input type="text" placeholder="End Date" class="date-input custom-date-trigger" readonly style="border-bottom: 2px solid #e0e0e0; padding: 5px; width: 100%;">
+                                </div>
+                            </div>
+                            <button class="text-link-btn" style="font-size: 0.9rem; margin-top: 5px;">+ Add Another Rate</button>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label>Employer Size</label>
+                        <div class="custom-dropdown-container">
+                            <select id="employerSize" class="hidden-select">
+                                <option value="26+" selected>26+ employees</option>
+                                <option value="1-25">1–25 employees</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">26+ employees</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="26+">26+ employees</div>
+                                    <div class="dropdown-option" data-value="1-25">1–25 employees</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Affects minimum wage rates in some years.</div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label>Union Member?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="unionMember" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">CBA rules may override standard laws.</div>
+                    </div>
+
+                    <div class="input-wrapper full-width-span">
+                        <label>Written Agreement?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="writtenAgreement" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Relevant for statute of limitations.</div>
+                    </div>
+                </div>
+
+                <!-- FOMO Global Banners -->
+                <div id="fomo-global-1" class="fomo-banner fomo-orange hidden full-width-span">
+                    <p>Warning: Multiple statutory violations detected. California wage laws allow penalties to stack. Your case may involve layered penalties. Legal review strongly recommended.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-orange">Discuss This With an Attorney</a>
+                </div>
+                <div id="fomo-global-2" class="fomo-banner fomo-red hidden full-width-span">
+                    <p>SEVERE MULTI-LAYER WAGE VIOLATION PATTERN DETECTED. Employers who alter records or misclassify employees often face severe multiplier penalties under California law. You may be entitled to significantly more than just your unpaid wages.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-red">Discuss This With an Attorney</a>
+                </div>
+
+            </div>
+
+            <!-- SECTION 1 -->
+            <div id="section-1-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Unpaid Regular Wages</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-1-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Total Hours Worked/Week</label>
+                    <div class="input-group">
+                        <input type="number" id="input_hoursWorkedWk" value="45">
+                        <input type="range" id="slider_hoursWorkedWk" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Actual hours spent working.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Total Hours Paid/Week</label>
+                    <div class="input-group">
+                        <input type="number" id="input_hoursPaidWk" value="40">
+                        <input type="range" id="slider_hoursPaidWk" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Hours recorded on your pay stub.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Unpaid Mins Per Shift</label>
+                        <div class="input-group">
+                            <input type="number" id="input_unpaidMinsShift" value="15">
+                            <input type="range" id="slider_unpaidMinsShift" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Time worked before/after clocking in.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Tasks Off-The-Clock</label>
+                        <div class="input-group">
+                            <input type="text" id="input_offClockTasks" placeholder="e.g., prep time, security...">
+                            <input type="range" class="disabled-slider" disabled>
+                        </div>
+                        <div class="disclosure-text">Describe unpaid duties performed.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Unreimbursed Expenses ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_expenses" value="75">
+                            <input type="range" id="slider_expenses" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Uniforms, tools, phone, mileage.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Time Rounding Policy</label>
+                        <div class="custom-dropdown-container">
+                            <select id="timeRounding" class="hidden-select">
+                                <option value="neutral" selected>Neutral</option>
+                                <option value="favors">Favors Employer</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">Neutral</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="neutral">Neutral</div>
+                                    <div class="dropdown-option" data-value="favors">Favors Employer</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Does the clock system round times?</div>
+                    </div>
+                    
+                    <div class="input-wrapper full-width-span">
+                        <label>Worked Split Shifts?</label>
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div class="custom-dropdown-container" style="flex: 1; margin-top: 0;">
+                                <select id="splitShift" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                                <button class="custom-dropdown-trigger">No</button>
+                                <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                            </div>
+                            <div class="input-group" style="flex: 1;" id="wrapper_splitGap">
+                                <input type="number" id="input_splitShiftGap" value="2" placeholder="Gap (Hrs)">
+                                <input type="range" id="slider_splitShiftGap" min="0" max="100">
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Gap in hours between divided shift segments.</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 1 -->
+                <div id="fomo-section-1" class="fomo-banner fomo-purple hidden full-width-span">
+                    <p>Critical: California strictly prohibits off-the-clock work and requires full reimbursement of business expenses. Even 10 unpaid minutes per shift compounds into thousands annually. If this drops your pay below minimum wage, courts may award 'Liquidated Damages'—legally doubling the unpaid amount you are owed.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-purple">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div id="section-2-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Overtime & Double Time</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-2-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Days/Wk Over 8 Hours</label>
+                    <div class="input-group">
+                        <input type="number" id="input_daysOver8" value="2">
+                        <input type="range" id="slider_daysOver8" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Days worked more than 8 hours.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Hours/Wk Over 40</label>
+                    <div class="input-group">
+                        <input type="number" id="input_hoursOver40" value="5">
+                        <input type="range" id="slider_hoursOver40" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Total weekly hours beyond 40.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Days/Wk Over 12 Hours</label>
+                        <div class="input-group">
+                            <input type="number" id="input_daysOver12" value="1">
+                            <input type="range" id="slider_daysOver12" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Days worked more than 12 hours.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>7 Consecutive Days Worked?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="sevenDays" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Did you work 7 days in one workweek?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Alt Workweek Schedule?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="altWorkweek" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                                <option value="unsure">Unsure</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                    <div class="dropdown-option" data-value="unsure">Unsure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">e.g., 4/10 schedule agreement.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Use Bonus-Adjusted Rate?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="bonusRate" class="hidden-select">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="no">No</div>
+                                    <div class="dropdown-option" data-value="yes">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Factoring bonuses into overtime rate.</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 2 -->
+                <div id="fomo-section-2" class="fomo-banner fomo-orange hidden full-width-span">
+                    <p>Caution: Bonuses legally increase your overtime rate in California. If your employer paid standard overtime without recalculating this 'Regular Rate', you are being underpaid. Furthermore, working beyond 12 hours triggers mandatory double time.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-orange">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 3 -->
+            <div id="section-3-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Meal & Rest Breaks</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-3-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Days/Wk Missed 30-min Meal</label>
+                    <div class="input-group">
+                        <input type="number" id="input_daysMissedMeal" value="2">
+                        <input type="range" id="slider_daysMissedMeal" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Interrupted, late, or missed lunches.</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Days/Wk Missed 10-min Rest</label>
+                    <div class="input-group">
+                        <input type="number" id="input_daysMissedRest" value="2">
+                        <input type="range" id="slider_daysMissedRest" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Interrupted or missed rest breaks.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Shifts Over 10 Hours?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="shiftOver10" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Triggers a second meal period.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Breaks Shorter Than 30m?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="breaksShort" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Were meal breaks cut short?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Confined to Premises?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="onPremises" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Were you forced to stay on-site?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Required Phone/Radio?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="carryRadio" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Did you have to remain on-call?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Auto Lunch Deduction?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="autoDeduct" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Is time deducted automatically?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Signed Meal Waiver?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="mealWaiver" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Did you agree to waive meals?</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 3 -->
+                <div id="fomo-section-3" class="fomo-banner fomo-purple hidden full-width-span">
+                    <p>Alert: An 'on-duty' break where you cannot freely leave (or must carry a radio) is not legally compliant. Even partial interference legally invalidates the entire break, owing you penalty hours. Automatic lunch deductions are a frequent class action trigger in California.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-purple">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 4 -->
+            <div id="section-4-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Pay Stub Violations</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-4-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Inaccurate Pay Stubs (# of Periods)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_inaccurateStubs" value="5">
+                        <input type="range" id="slider_inaccurateStubs" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Number of bad pay periods.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper full-width-span">
+                        <label>Select all missing data on your stubs:</label>
+                        <div class="checkbox-container">
+                            <label><input type="checkbox" id="chk_stub1"> Missing exact overtime breakdown</label>
+                            <label><input type="checkbox" id="chk_stub2"> Missing exact hourly rates</label>
+                            <label><input type="checkbox" id="chk_stub3"> Missing exact hours worked</label>
+                            <label><input type="checkbox" id="chk_stub4"> Missing net/gross breakdown</label>
+                            <label><input type="checkbox" id="chk_stub5"> Missing employer name/address</label>
+                        </div>
+                        <div class="disclosure-text">Check all that apply to your stubs.</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 4 -->
+                <div id="fomo-section-4" class="fomo-banner fomo-purple hidden full-width-span">
+                    <p>Did you know? Inaccurate wage statements alone can trigger up to $4,000 in statutory penalties per employee. Missing overtime or hourly rate data is almost always a deliberate tactic used to hide broader wage theft.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-purple">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 5 -->
+            <div id="section-5-inputs" class="mode-inputs hidden">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Final Paycheck</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-5-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper full-width-span">
+                    <label>Date Final Paycheck Received</label>
+                    <div class="input-group">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="input_finalPayDate" class="date-input custom-date-trigger" readonly placeholder="yyyy-mm-dd">
+                        </div>
+                        <input type="range" class="disabled-slider" disabled>
+                    </div>
+                    <div class="checkbox-container" style="margin-top: 10px;">
+                        <label><input type="checkbox" id="chk_notReceived"> Not Received Yet</label>
+                    </div>
+                    <div class="disclosure-text">When did you get your last check?</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>Unpaid PTO/Vacation (Hours)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_unpaidPTO" value="24">
+                            <input type="range" id="slider_unpaidPTO" min="0" max="100">
+                        </div>
+                        <div class="disclosure-text">Accrued but unpaid vacation hours.</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Date Funds Cleared</label>
+                        <div class="input-group">
+                            <div class="custom-date-wrapper">
+                                <input type="text" id="input_clearedDate" class="date-input custom-date-trigger" readonly placeholder="yyyy-mm-dd">
+                            </div>
+                            <input type="range" class="disabled-slider" disabled>
+                        </div>
+                        <div class="disclosure-text">When did the money actually clear?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Partial Final Payment?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="partialFinal" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Did they only pay a portion?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Conditional on Signing Release?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="conditionalRelease" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Was payment held hostage?</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 5 -->
+                <div id="fomo-section-5" class="fomo-banner fomo-red hidden full-width-span">
+                    <p>Warning: Earned vacation is legally considered wages in California. If it is withheld, or your check is late, it automatically triggers Waiting Time Penalties. These penalties can equal up to 30 days of your regular wages—often vastly exceeding the original unpaid amounts.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-red">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 6 -->
+            <div id="section-6-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Late Paycheck</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-6-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Late Paychecks (# of times)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_latePaychecks" value="2">
+                        <input type="range" id="slider_latePaychecks" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">How many times were you paid late?</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Amt Delayed per Occurrence ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="input_delayedAmount" value="300">
+                        <input type="range" id="slider_delayedAmount" min="0" max="100">
+                    </div>
+                    <div class="disclosure-text">Average amount withheld.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper">
+                        <label>First Time or Repeat?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="repeatViolation" class="hidden-select">
+                                <option value="first" selected>First Time</option>
+                                <option value="repeat">Repeat</option>
+                            </select>
+                            <button class="custom-dropdown-trigger">First Time</button>
+                            <div class="custom-dropdown-menu">
+                                <div class="dropdown-options-wrapper">
+                                    <div class="dropdown-option selected" data-value="first">First Time</div>
+                                    <div class="dropdown-option" data-value="repeat">Repeat</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disclosure-text">Is this a recurring issue?</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Willful/Intentional Delay?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="willfulDelay" class="hidden-select"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+                            <button class="custom-dropdown-trigger">No</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="no">No</div><div class="dropdown-option" data-value="yes">Yes</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Did they purposefully withhold pay?</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 6 -->
+                <div id="fomo-section-6" class="fomo-banner fomo-orange hidden full-width-span">
+                    <p>Alert: Repeated late payroll practices trigger severe statutory penalties beyond just the unpaid wage amount. Employers cannot legally string you along.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-orange">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+            <!-- SECTION 7 -->
+            <div id="section-7-inputs" class="mode-inputs">
+                <div class="sub-heading-wrapper">
+                    <h3 class="input-sub-heading">Claim Deadline</h3>
+                    <button class="section-toggle text-link-btn" data-section-id="section-7-inputs">Switch to Advanced</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Earliest Violation Date</label>
+                    <div class="input-group">
+                        <div class="custom-date-wrapper">
+                            <input type="text" id="input_earliestDate" class="date-input custom-date-trigger" readonly placeholder="yyyy-mm-dd">
+                        </div>
+                        <input type="range" class="disabled-slider" disabled>
+                    </div>
+                    <div class="disclosure-text">When did the issues start?</div>
+                </div>
+                <div class="input-wrapper">
+                    <label>Type of Claim</label>
+                    <div class="custom-dropdown-container">
+                        <select id="claimType" class="hidden-select">
+                            <option value="unpaid" selected>Unpaid Wages</option>
+                            <option value="penalties">Penalties Only</option>
+                            <option value="breach">Breach of Contract</option>
+                        </select>
+                        <button class="custom-dropdown-trigger">Unpaid Wages</button>
+                        <div class="custom-dropdown-menu">
+                            <div class="dropdown-options-wrapper">
+                                <div class="dropdown-option selected" data-value="unpaid">Unpaid Wages</div>
+                                <div class="dropdown-option" data-value="penalties">Penalties Only</div>
+                                <div class="dropdown-option" data-value="breach">Breach of Contract</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclosure-text">Determines the statute of limitations.</div>
+                </div>
+
+                <div class="advanced-content hidden">
+                    <div class="input-wrapper full-width-span">
+                        <label>Is Violation Ongoing?</label>
+                        <div class="custom-dropdown-container">
+                            <select id="violationOngoing" class="hidden-select"><option value="yes" selected>Yes</option><option value="no">No</option></select>
+                            <button class="custom-dropdown-trigger">Yes</button>
+                            <div class="custom-dropdown-menu"><div class="dropdown-options-wrapper"><div class="dropdown-option selected" data-value="yes">Yes</div><div class="dropdown-option" data-value="no">No</div></div></div>
+                        </div>
+                        <div class="disclosure-text">Are you still experiencing this?</div>
+                    </div>
+                </div>
+                
+                <!-- FOMO Section 7 -->
+                <div id="fomo-section-7" class="fomo-banner fomo-red hidden full-width-span">
+                    <p>URGENT: Wage claims are subject to strict legal time limits (Statute of Limitations). Missing a deadline permanently bars you from recovery. Act now before your legal right to these wages expires.</p>
+                    <a href="../../contact-us/" class="fomo-btn fomo-btn-red">Discuss This With an Attorney</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="calc-section right-section">
+            <div class="results-wrapper">
+                <div id="results-display-container">
+                    <h2>Summary</h2>
+                    
+                    <!-- Section 1 Results -->
+                    <div id="section-1-results" class="mode-results">
+                        <h3 class="result-sub-heading">Regular Wages</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Unpaid Straight-Time</span>
+                                <span class="result-value" id="res_unpaidStraight">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Effective Hourly Rate</span>
+                                <span class="result-value" id="res_effRate">$20.00</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Min. Wage Shortfall</span>
+                                <span class="result-value" id="res_minShortfall">$0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Off-The-Clock Wages</span>
+                                    <span class="result-value" id="res_otcTotal">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Split Shift Premium</span>
+                                    <span class="result-value" id="res_splitPrem">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Unreimbursed Expenses</span>
+                                    <span class="result-value" id="res_expTotal">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Liquidated Damages</span>
+                                    <span class="result-value" id="res_liquidated">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 Results -->
+                    <div id="section-2-results" class="mode-results">
+                        <h3 class="result-sub-heading">Overtime & Double Time</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Weekly OT Owed</span>
+                                <span class="result-value" id="res_weeklyOT">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Daily OT Owed</span>
+                                <span class="result-value" id="res_dailyOT">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Total Unpaid OT</span>
+                                <span class="result-value" id="res_totalOT">$0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Double Time Owed</span>
+                                    <span class="result-value" id="res_dtOwed">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">7th Day Premium</span>
+                                    <span class="result-value" id="res_7thPrem">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Recalculated Rate</span>
+                                    <span class="result-value" id="res_adjRate">$20.00</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Adjusted OT/DT Total</span>
+                                    <span class="result-value" id="res_adjTotal">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 Results -->
+                    <div id="section-3-results" class="mode-results">
+                        <h3 class="result-sub-heading">Meal & Rest Penalties</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Meal Premiums</span>
+                                <span class="result-value" id="res_mealPrem">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Rest Premiums</span>
+                                <span class="result-value" id="res_restPrem">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Combined Penalties</span>
+                                <span class="result-value" id="res_combinedBreak">$0</span>
+                            </div>
+                        </div>
+
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">2nd Meal Premium</span>
+                                    <span class="result-value" id="res_secondMeal">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Max Daily Exposure</span>
+                                    <span class="result-value" id="res_maxDailyBreak">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">On-Duty Invalidation</span>
+                                    <span class="result-value" id="res_onDutyFlag">Safe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 Results -->
+                    <div id="section-4-results" class="mode-results">
+                        <h3 class="result-sub-heading">Stub Violations</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Statutory Penalty Estimate</span>
+                                <span class="result-value" id="res_stubPenalty">$0</span>
+                            </div>
+                        </div>
+
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Statement Reliability</span>
+                                    <span class="result-value" id="res_stubFlag">Compliant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 Results -->
+                    <div id="section-5-results" class="mode-results hidden">
+                        <h3 class="result-sub-heading">Waiting Penalties</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Days Late</span>
+                                <span class="result-value" id="res_daysLate">0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Penalty Estimate</span>
+                                <span class="result-value" id="res_waitingPenalty">$0</span>
+                            </div>
+                        </div>
+
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">PTO Value Owed</span>
+                                    <span class="result-value" id="res_ptoOwed">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Updated Penalty</span>
+                                    <span class="result-value" id="res_updatedWaiting">$0</span>
+                                </div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Conditional Violation</span>
+                                    <span class="result-value" id="res_conditionalFlag">No</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 Results -->
+                    <div id="section-6-results" class="mode-results">
+                        <h3 class="result-sub-heading">Late Paychecks</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Statutory Penalty</span>
+                                <span class="result-value" id="res_lateStatPenalty">$0</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">25% Addl. Penalty</span>
+                                <span class="result-value" id="res_lateAddlPenalty">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 7 Results -->
+                    <div id="section-7-results" class="mode-results">
+                        <h3 class="result-sub-heading">Timelines</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Deadline Estimate</span>
+                                <span class="result-value" id="res_deadlineDate">N/A</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Days Remaining</span>
+                                <span class="result-value" id="res_daysRemaining">N/A</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Risk Score</span>
+                                <span class="result-value" id="res_riskScore">Low</span>
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-content hidden">
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Stacked Penalty Indicator</span>
+                                    <span class="result-value" id="res_stackedInd">None</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- The new frosted glass text pill indicator -->
+                <div class="scroll-indicator" id="scrollIndicator">
+                    <div id="scroll-breathing-content" class="scroll-content">"Scroll down to reveal your breakdown."</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Outro Section -->
+    <div class="outro-section">
+        <h3 class="outro-heading">Methodology & Assumptions</h3>
+        <p class="content-text">
+            Calculations assume standard California Labor Code protections. Outputs reflect mathematical frameworks for uncompensated wages, daily/weekly overtime premiums, and missed rest/meal penalties. Exact liabilities depend on verifiable employer records, statute of limitations windows, and specific industry exceptions.
+        </p>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            
+            <!-- Main Footer Row: Identity + Links -->
+            <div class="footer-main-row">
+                
+                <!-- Column 1: Identity -->
+                <div class="footer-left">
+                    <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Decision Sovereignty.</p>
+                        <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
+                        <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria" class="email-link">contact@solveria.org</a>
+                    </div>
+                </div>
+
+                <!-- Right Columns: Navigation -->
+                <div class="footer-links">
+                    
+                    <div class="footer-col">
+                        <h4>PLATFORM</h4>
+                        <a href="../../about/">About Solveria</a>
+                        <a href="../../contact-us/">Contact Engineering</a>
+                        <a href="../../support/">System Status</a>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h4>SUITES</h4>
+                        <a href="../../finance/">Sovereign Finance</a>
+                        <a href="../../claims-and-settlements/">Civil Justice</a>
+                        <a href="../../calculators/">Full Tool Library</a>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h4>GOVERNANCE</h4>
+                        <a href="../../privacy-policy/">Privacy Policy</a>
+                        <a href="../../terms-of-use/">Terms of Use</a>
+                        <a href="../../editorial-standards/">Editorial Standards</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Row: Disclaimer -->
+            <div class="footer-legal-row">
+                <p class="copyright">© 2026 Solveria. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

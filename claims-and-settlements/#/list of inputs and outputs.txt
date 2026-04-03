@@ -1,0 +1,529 @@
+GLOBAL CORE INPUTS (The Employment Baseline)
+Collected once at the top of the page. Feeds all sections below.
+
+Basic Inputs:
+
+Employment Status: (Active / Fired / Quit with 72-hour notice / Quit without notice)
+
+Employment Start Date: [Date Picker]
+
+Employment End Date: [Date Picker] (Hidden if Status = Active)
+
+Pay Type: (Hourly / Salary / Day Rate / Piece Rate / Commission / Mixed)
+
+Current or Final Base Pay Rate: [$ Amount]
+
+Average Shifts per Week: [Number]
+
+Average Hours per Shift: [Number]
+
+Advanced Toggle (Expands Global Inputs):
+
+Employee Classification: (Non-Exempt / Exempt / Unsure)
+
+Did the employer maintain accurate time records?: (Yes / No / Altered / Unsure)
+
+Multiple pay rates during employment?: (Yes / No — If Yes: adds rows for Rate + Date Ranges)
+
+Total non-discretionary bonuses/commissions earned: [$ Amount + Period Selector]
+
+Employer Size: (1–25 employees / 26+ employees / Unsure)
+
+Union Member?: (Yes / No)
+
+Written Employment Agreement?: (Yes / No / Unsure)
+
+
+
+
+Global Auto-Calculations (Runs silently in background):
+
+Minimum Wage Match: Compares entered wage vs. California State Minimum Wage.
+
+Effective Hourly Rate Conversion: Converts Salary/Day Rate/Piece Rate to an hourly figure.
+
+Regular Rate Recalculation: Automatically adjusts base rate if bonuses/commissions are entered.
+
+Daily Wage Auto-Calc: Pre-calculates daily rate for Waiting Time Penalties.
+
+Global Stacking Logic & Red Flag Engine (Persistent Banner):
+
+Triggers: Effective pay < state minimum wage, OR Time records marked "Altered", OR Classification = Exempt + overtime/breaks claimed, OR Total projected recovery > $5,000, OR 2+ violation sections triggered.
+
+Level 1 FOMO Banner (2+ violations): "Warning: Multiple statutory violations detected. California wage laws allow penalties to stack. Your case may involve layered penalties. Legal review strongly recommended."
+
+Level 2 FOMO Banner (3+ violations or Altered Records): "SEVERE MULTI-LAYER WAGE VIOLATION PATTERN DETECTED. Employers who alter records or misclassify employees often face severe multiplier penalties under California law. You may be entitled to significantly more than just your unpaid wages."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 1: UNPAID REGULAR WAGES & OFF-THE-CLOCK WORK
+Basic Toggle:
+
+Estimated total hours worked per week: [Number]
+
+Estimated total hours actually paid per week: [Number]
+
+Outputs: Total unpaid straight-time wages, Effective hourly rate, Minimum wage shortfall amount (if applicable).
+
+Advanced Toggle:
+
+Estimated unpaid minutes per shift: [Number]
+
+Tasks performed off-the-clock: [Short Text: e.g., prep time, security checks, booting systems]
+
+Total out-of-pocket business expenses (Uniforms, mileage, tools, cell phone): [$ Amount]
+
+Did you work "Split Shifts" with an unpaid gap?: (Yes / No + Gap in hours)
+
+Time rounding policy: (Favors employer / Neutral / Unsure)
+
+Outputs: Off-the-clock wage total, Split shift premium estimate (1 hr at state min wage/day), Unreimbursed expense total, Liquidated Damages (Double the minimum wage differential).
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: Hours worked > hours paid, OR Off-the-clock minutes > 0, OR Expenses > $0, OR Effective rate < state minimum wage.
+
+FOMO Disclaimer: "Critical: California strictly prohibits off-the-clock work and requires full reimbursement of business expenses. Even 10 unpaid minutes per shift compounds into thousands annually. If this drops your pay below minimum wage, courts may award 'Liquidated Damages'—legally doubling the unpaid amount you are owed."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 2: OVERTIME & DOUBLE TIME
+Basic Toggle:
+
+Average days per week working more than 8 hours: [Number]
+
+Average hours worked over 40 per week: [Number]
+
+Outputs: Weekly overtime owed (1.5x), Daily overtime owed (1.5x), Total estimated unpaid standard overtime.
+
+Advanced Toggle:
+
+Average days per week working more than 12 hours: [Number]
+
+Did you work 7 consecutive days in a single workweek?: (Yes / No)
+
+Alternative Workweek Schedule?: (Yes / No / Unsure)
+
+Use bonus-adjusted regular rate?: (Auto-toggles YES if bonuses were entered in Global Inputs).
+
+Outputs: Double time owed (2.0x), Seventh-day premium pay, Recalculated Regular Rate (Global Base + Bonus), Adjusted total OT/DT owed.
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: >12 hours entered, OR Bonuses entered globally, OR 7th day selected.
+
+FOMO Disclaimer: "Caution: Bonuses legally increase your overtime rate in California. If your employer paid standard overtime without recalculating this 'Regular Rate', you are being underpaid. Furthermore, working beyond 12 hours triggers mandatory double time."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 3: MEAL & REST BREAK PREMIUMS
+Basic Toggle:
+
+Average days per week you missed a full 30-minute meal break: [Number]
+
+Average days per week you missed a 10-minute rest break: [Number]
+
+Outputs: Meal premium owed, Rest premium owed, Combined total break penalties.
+
+Advanced Toggle:
+
+Did you work shifts over 10 hours?: (Yes / No — Triggers 2nd meal break calculations)
+
+Were your breaks shorter than 30 minutes?: (Yes / No)
+
+Were you required to remain on premises during breaks?: (Yes / No)
+
+Were you required to carry a phone/radio?: (Yes / No)
+
+Does your employer automatically deduct 30 minutes for lunch daily?: (Yes / No)
+
+Did you sign a meal waiver?: (Yes / No)
+
+Outputs: Second meal premium estimate, Maximum daily penalty exposure (up to 2 hours/day), On-duty break invalidation flag.
+
+
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: Automatic deductions selected, OR On-premises restriction, OR Phone/radio required, OR >10 hour shifts.
+
+FOMO Disclaimer: "Alert: An 'on-duty' break where you cannot freely leave (or must carry a radio) is not legally compliant. Even partial interference legally invalidates the entire break, owing you penalty hours. Automatic lunch deductions are a frequent class action trigger in California."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 4: WAGE STATEMENT (PAY STUB) VIOLATIONS
+Basic Toggle:
+
+Number of pay periods you received inaccurate or confusing pay stubs: [Number]
+
+Outputs: Statutory penalty estimate ($50 initial + $100 subsequent, capped at $4,000).
+
+Advanced Toggle (Checkboxes):
+
+Select all missing data on your stubs:
+
+[ ] Missing exact overtime breakdown.
+
+[ ] Missing exact hourly rates.
+
+[ ] Missing exact hours worked.
+
+[ ] Missing net/gross breakdown.
+
+[ ] Missing employer name/address.
+
+Outputs: Statement reliability flag.
+
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: 2+ inaccurate stubs, OR Missing hours/overtime data selected.
+
+FOMO Disclaimer: "Did you know? Inaccurate wage statements alone can trigger up to $4,000 in statutory penalties per employee. Missing overtime or hourly rate data is almost always a deliberate tactic used to hide broader wage theft."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 5: WAITING TIME PENALTIES (FINAL PAYCHECK)
+(Only expands if Global Input "Employment Status" is Fired or Quit).
+
+Basic Toggle:
+
+Date final paycheck actually received: [Date Picker] (Or toggle "Not Received Yet")
+
+Outputs: Days late (per CA rules), Waiting time penalty estimate (Daily wage x Days late, max 30 days).
+
+Advanced Toggle:
+
+Estimated hours of unpaid PTO/Vacation: [Number]
+
+Was this a partial final payment?: (Yes / No)
+
+Was your final check conditional on signing a release/severance?: (Yes / No)
+
+Date funds actually cleared the bank (Optional): [Date Picker]
+
+Outputs: PTO value owed, Updated waiting penalty, Conditional wage violation flag.
+
+
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: Days late > 0, OR PTO unpaid, OR Conditional paycheck = Yes.
+
+FOMO Disclaimer: "Warning: Earned vacation is legally considered wages in California. If it is withheld, or your check is late, it automatically triggers Waiting Time Penalties. These penalties can equal up to 30 days of your regular wages—often vastly exceeding the original unpaid amounts."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 6: LATE PAYCHECK & PAYDAY VIOLATIONS
+(For active or recent employees experiencing ongoing payroll delays).
+
+Basic Toggle:
+
+Number of late paychecks received during employment: [Number]
+
+Estimated amount unpaid or delayed per occurrence: [$ Amount]
+
+Outputs: Statutory penalty estimate, 25% additional penalty estimate.
+
+Advanced Toggle:
+
+Was this a first-time violation or repeat?: (First / Repeat)
+
+Do you believe the delay was willful or intentional?: (Yes / No)
+
+
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: Repeat violations selected, OR Willful delay indicated.
+
+FOMO Disclaimer: "Alert: Repeated late payroll practices trigger severe statutory penalties beyond just the unpaid wage amount. Employers cannot legally string you along."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECTION 7: CLAIM DEADLINE & RISK SCORE
+Basic Toggle:
+
+Date of the earliest wage violation you experienced: [Date Picker]
+
+Type of claim: (Unpaid Wages / Penalties Only / Breach of Contract)
+
+Outputs: Filing deadline estimate, Days remaining, Risk Score (Low / Moderate / High / Severe).
+
+Advanced Toggle:
+
+Is the violation still ongoing?: (Yes / No)
+
+Outputs: Stacked Penalty Indicator.
+
+
+
+
+
+
+
+
+Triggers & FOMO Disclaimer:
+
+Trigger: <90 days remaining, OR 3+ violation types detected across sections.
+
+FOMO Disclaimer: "URGENT: Wage claims are subject to strict legal time limits (Statute of Limitations). Missing a deadline permanently bars you from recovery. Act now before your legal right to these wages expires."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MASTER ATTORNEY CONTACT & CASE PREP BLOCK
+Appears immediately when any FOMO trigger fires, or when the "Talk to an Attorney" CTA is clicked anywhere.
+
+"To maximize your claim, please be ready to discuss the following points with the California Wage Attorney:"
+
+The Bottom Line Estimate: "My initial calculation shows roughly $[Total Unpaid Wages] in missing pay, plus an estimated $[Total Penalties] in California statutory penalties."
+
+Record Keeping: State how your employer tracked time (manual, app), and whether records were altered, rounded down, or subject to automatic lunch deductions.
+
+Hidden Rates: Mention if you received non-discretionary bonuses/commissions that were not used to recalculate your overtime pay rate.
+
+Off-The-Clock & Expenses: Detail the exact tasks you did before clocking in or after clocking out, and any uniforms, tools, or mileage you were forced to pay for out-of-pocket.
+
+Breaks: Explain any restrictions during your breaks (e.g., carrying a radio, not allowed to leave the building).
+
+Final Pay / Deadlines: Provide your exact termination date, the date your final check cleared, and whether your PTO was fully paid out.
+
+Class Action Potential: Ask the attorney: "Based on these systemic issues, does my case qualify for a broader representative or class-action claim under PAGA, and did other employees experience this?"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
