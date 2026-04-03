@@ -325,6 +325,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* UNIVERSAL MEDIA CONTAINER STYLING - SHRINK WRAP (REMOVES CROPPING & BARS) */
 .metrics-row { display: flex; flex-direction: row; gap: 15px; width: 100%; align-items: stretch; }
 .metrics-row .img-wrapper { flex: 1; min-width: 0; }
+
 .img-wrapper { 
     width: 100%; 
     position: relative; 
@@ -336,6 +337,10 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     display: flex; 
     align-items: center; 
     justify-content: center; 
+}
+
+.mockup-wrapper {
+    margin-top: 15px;
 }
 
 .comparison-img { 
@@ -774,6 +779,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     /* CSS-LEVEL REMOVAL: Hide desktop videos entirely */
     .desktop-video-wrapper { display: none !important; }
 
+    /* NEW: Hide mockups entirely on mobile to save bandwidth & space */
+    .mockup-wrapper { display: none !important; }
+
     /* MASSIVE BANDWIDTH SAVINGS */
     .cloud { display: none !important; }
     
@@ -833,8 +841,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     
     .cc-images, .cc-text { display: contents; }
     
+    /* Perfect Reordering for Mobile: Heading -> Lighthouse -> Paragraph Text */
     .criss-cross-row .comparison-header { order: 1; margin: 0; text-align: center !important; }
-    .criss-cross-row .metrics-row { order: 2; margin: 0; width: 100%; }
+    .criss-cross-row .lighthouse-wrapper { order: 2; margin: 0; width: 100%; }
     .criss-cross-row .comparison-text { order: 3; margin: 0; }
     .criss-cross-row .comparison-text p { text-align: center !important; }
     
