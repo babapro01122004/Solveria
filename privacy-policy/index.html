@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
 
-    <title>Privacy Policy | Solveria B2B Enterprise & Consumer Routing</title>
+    <title>Privacy Policy | Solveria</title>
+    
+    <!-- Updated Meta Data -->
     <meta name="description" content="Solveria's Privacy Policy. We operate a Zero-Knowledge Architecture for consumer legal estimates and provide proprietary B2B software licensing & pay-per-call routing for enterprise law firms.">
     <meta name="keywords" content="Solveria privacy policy, zero knowledge calculator, enterprise legal software, B2B law firm licensing, legal network routing, pay per call, client side tools, data sovereignty">
     <meta name="author" content="Solveria">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://solveria.org/privacy-policy/">
 
+    <!-- Updated Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Solveria">
     <meta property="og:url" content="https://solveria.org/privacy-policy/">
     <meta property="og:title" content="Privacy Policy | Solveria">
     <meta property="og:description" content="Solveria's Privacy Policy. We operate a Zero-Knowledge Architecture for consumer estimates and provide B2B routing software for enterprise law firms.">
     <meta property="og:image" content="https://solveria.org/img/social-share.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
+    <!-- Updated Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/privacy-policy/">
     <meta property="twitter:title" content="Privacy Policy | Solveria">
@@ -37,10 +45,11 @@
     <link rel="shortcut icon" href="../favicon.ico">
     <meta name="msapplication-TileColor" content="#000000">
 
+    <!-- Updated JSON-LD Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@graph": [
+      "@graph":[
         {
           "@type": "Organization",
           "@id": "https://solveria.org/#organization",
@@ -66,13 +75,14 @@
           "name": "Privacy Policy | Enterprise Software & Routing Disclosures",
           "description": "Privacy Policy detailing Solveria's Zero-Knowledge Architecture, B2B enterprise software licensing protocols, and pay-per-call legal network routing.",
           "isPartOf": { "@id": "https://solveria.org/#website" },
-          "datePublished": "2023-01-01",
-          "dateModified": "2026-02-08",
-          "publisher": { "@id": "https://solveria.org/#organization" }
+          "datePublished": "2023-01-01T08:00:00+00:00",
+          "dateModified": "2026-03-07T00:00:00+00:00",
+          "publisher": { "@id": "https://solveria.org/#organization" },
+          "inLanguage": "en-US"
         },
         {
           "@type": "BreadcrumbList",
-          "itemListElement": [
+          "itemListElement":[
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
             { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://solveria.org/privacy-policy/" }
           ]
@@ -82,6 +92,14 @@
     </script>
 
     <style>
+/* Local Font Face Configuration for Brand Name */
+@font-face {
+    font-family: 'Roboto Thin Local';
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype'),
+         url('../fonts/Roboto-Thin.tff') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
         /* Local Fonts */
         @font-face {
             font-family: 'Roboto';
@@ -302,6 +320,197 @@
         @media (max-width: 768px) {
              .hero-content h1 { font-size: 2.5rem; }
         }
+/* =========================================
+   NEW FOOTER STYLES 
+   ========================================= */
+.site-footer {
+    position: relative;
+    width: 100%;
+    background-image: url('../img/support.webp'); /* Updated background image */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto; 
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent; /* Removed dark overlay */
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 100px;
+    align-items: center; 
+}
+
+.footer-left {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-name {
+    font-family: 'Roboto Thin Local', 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+}
+
+.tagline {
+    font-style: italic;
+    color: #f5f5f7;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 350px;
+}
+
+/* Custom Email Link Styling */
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    display: inline-block;
+    width: fit-content;
+    align-self: center;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.email-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.email-link:hover {
+    color: #ffffff;
+}
+.email-link:hover::after {
+    opacity: 1;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 140px;
+    text-align: left;
+}
+
+.footer-col h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover { 
+    color: #ffffff; 
+    text-decoration: underline;
+}
+
+.footer-legal-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.7;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-main-row { gap: 60px; }
+    .footer-links { gap: 40px; }
+}
+
+@media (max-width: 600px) {
+    .footer-main-row { flex-direction: column; gap: 50px; }
+    .footer-links { flex-direction: column; align-items: center; gap: 30px; }
+    .footer-col { text-align: center; }
+    .brand-name { font-size: 2.2rem; }
+}
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px;
+    min-width: 140px;
+    text-align: center; 
+}
     </style>
 </head>
 <body>
@@ -317,9 +526,9 @@
                 </picture>
             </a>
             <nav role="navigation">
+                <!-- Calculators linking one level up and Support removed -->
                 <a href="../calculators/">Calculators</a>
                 <a href="../about/">About</a>
-                <a href="../support/">Support</a>
             </nav>
         </div>
     </header>
@@ -342,11 +551,11 @@
                 <article class="article-body">
                     <span class="last-updated">Last updated: <span id="policy-date">February 8, 2026</span></span>
 
-                    <h2>Scope of Policy: Consumers & Enterprise Licensees</h2>
-                    <p>Solveria operates two distinct divisions to serve different needs within the legal and financial technology sectors:</p>
+                    <h2>Scope of Policy: Consumer Platform & Enterprise Infrastructure</h2>
+                    <p>Solveria operates a dual-tier architecture to serve different needs within the legal and financial technology sectors:</p>
                     <ul>
-                        <li><strong>Division 1 (Consumers):</strong> Everyday users utilizing our free, client-side estimation tools directly on solveria.org.</li>
-                        <li><strong>Division 2 (Enterprise):</strong> Professional law firms and legal networks licensing our proprietary frontend architecture for their own practice.</li>
+                        <li><strong>Consumer Platform:</strong> Everyday users utilizing our free, client-side estimation tools directly on solveria.org.</li>
+                        <li><strong>Enterprise Infrastructure:</strong> Professional law firms, agencies, and financial networks licensing our proprietary frontend calculation engines (iframes/widgets) for deployment on their own domains.</li>
                     </ul>
 
                     <h2>Data Sovereignty Statement</h2>
@@ -361,6 +570,10 @@
                     </ul>
                     <p><strong>The Promise:</strong> None of this data is transmitted to Solveria. If you close your browser tab, this data is instantly wiped from memory unless you have enabled local persistence (see "Browser-Based Persistence" below).</p>
 
+                    <h2>Enterprise Iframe & Hosted Widget Deployments (B2B)</h2>
+                    <p>For law firms and enterprise clients utilizing our $499 National AIO Licenses or custom iframe deployments on their own domains, our Zero-Knowledge Architecture strictly applies.</p>
+                    <p>Solveria acts solely as the mathematical logic core. We do not inject tracking pixels, keyloggers, or data-harvesting scripts into our B2B deployed widgets. When a client interacts with a Solveria calculator hosted on a licensed partner’s website, the data processing remains entirely client-side. Any lead-capture forms integrated into the licensed tool route the data directly to the purchasing law firm. Solveria does not intercept, view, or store our B2B partners' proprietary lead flow.</p>
+
                     <h2>Browser-Based Persistence</h2>
                     <p>To improve your user experience, some of our calculators may utilize standard web technologies such as <code>localStorage</code> or <code>sessionStorage</code>. This allows your browser to "remember" your inputs if you accidentally refresh the page or return to the calculator later.</p>
                     <p>It is important to understand that this data resides <strong>solely in your specific browser cache</strong>, not on our servers. You maintain full control over this data. You can wipe it at any time by clearing your browser's cache or cookies.</p>
@@ -374,9 +587,9 @@
                     <p><strong>Solveria does not collect, store, or sell consumer contact forms, names, or email addresses.</strong> If a user wishes to act on their estimate, they may utilize our direct-call routing features to connect with certified third-party legal networks.</p>
                     <p>In this capacity, Solveria acts purely as a telephony bridge and routing service. We may receive affiliate compensation for successful connections made through our platform. Once you are routed to a third-party legal network, your interaction is governed by their separate privacy protocols.</p>
 
-                    <h2>Enterprise Software Purchasing (B2B Licensees)</h2>
-                    <p>For professional law firms purchasing licenses to our B2B software and calculators, payment processing is handled securely by our encrypted Merchant of Record (e.g., Lemon Squeezy). Solveria does not process or store your raw credit card data.</p>
-                    <p>We retain only the minimal billing and contact data necessary to issue your software license, provide technical support, and maintain your active enterprise subscription.</p>
+                    <h2>Enterprise Software Purchasing & B2B Licensing</h2>
+                    <p>For professional firms purchasing licenses for our B2B infrastructure, payment processing is handled entirely by our encrypted, PCI-compliant Merchant of Record (Lemon Squeezy). Solveria does not process, view, or store your raw credit card data or financial routing information.</p>
+                    <p>We retain only the minimal billing telemetry and contact data (such as the Firm's designated technical contact email and deployment URL) strictly necessary to issue your software license, generate your custom iframe, and provide ongoing infrastructure support.</p>
 
                     <h2 id="do-not-sell">Do Not Sell or Share My Personal Information</h2>
                     <p>Solveria.org does not sell your personal financial, legal, or case data to any third party. As stated above, the sensitive data you enter into our calculators is processed locally and is never stored on our servers.</p>
@@ -391,18 +604,51 @@
             </div>
         </section>
     </main>
+<footer class="site-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        
+        <div class="footer-main-row">
+            
+            <div class="footer-left">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                <div class="footer-info">
+                    <span class="brand-name">Solveria.</span>
+                    <p class="tagline">Engineered for Decision Sovereignty.</p>
+                    <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link">contact@solveria.org</a>
+                </div>
+            </div>
 
-    <footer>
-        <div class="footer-container">
-            <p>&copy; <span id="copyright-year">2026</span> Solveria. All rights reserved.</p>
-            <div class="footer-nav">
-                <a href="../privacy-policy/">Privacy Policy</a>
-                <a href="../about/">About Us</a>
-                <a href="../support/">Support</a>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>PLATFORM</h4>
+                    <a href="../about/">About Solveria</a>
+                    <a href="../contact-us/">Contact Engineering</a>
+                    <a href="../support/">System Status</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>SUITES</h4>
+                    <a href="../finance/">Sovereign Finance</a>
+                    <a href="../claims-and-settlements/">Civil Justice</a>
+                    <a href="../calculators/">Full Tool Library</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>GOVERNANCE</h4>
+                    <a href="../terms-of-use/">Terms of Use</a>
+                    <a href="../editorial-standards/">Editorial Standards</a>
+                </div>
             </div>
         </div>
-    </footer>
 
+        <div class="footer-legal-row">
+            <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
+            <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+        </div>
+    </div>
+</footer>
     <script>
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

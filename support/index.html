@@ -5,9 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Help Center | Solveria</title>
+    
+    <!-- Updated Meta-Data -->
     <meta name="description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
+    <meta name="author" content="Solveria">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://solveria.org/support/">
 
+    <!-- Open Graph (OG) Tags -->
+    <meta property="og:title" content="Help Center | Solveria">
+    <meta property="og:description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
+    <meta property="og:url" content="https://solveria.org/support/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Solveria">
+    <meta property="og:image" content="https://solveria.org/img/privacy%20policy.webp">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Help Center | Solveria">
+    <meta name="twitter:description" content="Access Solveria's documentation on Statutory Compliance & Labor Logic. Understand the state-specific labor codes, FLSA baselines, and enterprise deployment methodologies behind our tools.">
+    <meta name="twitter:image" content="https://solveria.org/img/privacy%20policy.webp">
+
+    <!-- Icons & Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -16,23 +35,31 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Updated JSON-LD Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@graph": [
+      "@graph":[
+        {
+          "@type": "WebSite",
+          "@id": "https://solveria.org/#website",
+          "url": "https://solveria.org/",
+          "name": "Solveria",
+          "description": "Engineered for Decision Sovereignty."
+        },
         {
           "@type": "WebPage",
           "@id": "https://solveria.org/support/#webpage",
           "url": "https://solveria.org/support/",
-          "name": "Help Center & Documentation | Solveria",
+          "name": "Help Center | Solveria",
           "description": "Statutory Compliance & Labor Logic documentation, methodologies, and enterprise integration guides.",
           "isPartOf": { "@id": "https://solveria.org/#website" }
         },
         {
           "@type": "BreadcrumbList",
-          "itemListElement": [
+          "itemListElement":[
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-            { "@type": "ListItem", "position": 2, "name": "Help Center" }
+            { "@type": "ListItem", "position": 2, "name": "Help Center", "item": "https://solveria.org/support/" }
           ]
         }
       ]
@@ -40,6 +67,14 @@
     </script>
 
     <style>
+/* Local Font Face Configuration for Brand Name */
+@font-face {
+    font-family: 'Roboto Thin Local';
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype'),
+         url('../fonts/Roboto-Thin.tff') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
         /* Local Fonts - Relying strictly on font-display: swap for instant FCP */
         @font-face {
             font-family: 'Roboto';
@@ -141,7 +176,8 @@
             transition: color 0.3s ease;
             margin-left: 30px;
         }
-        .header nav a:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 4px; }
+        /* Header hover effect - removed underline */
+        .header nav a:hover { color: #ffffff; text-decoration: none; }
         
         .content-section {
             padding: 60px 20px;
@@ -254,6 +290,191 @@
             }
             .header .logo img { height: 30px; }
         }
+/* =========================================
+   NEW FOOTER STYLES 
+   ========================================= */
+.site-footer {
+    position: relative;
+    width: 100%;
+    background-image: url('../img/support.webp'); /* Updated background image */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto; 
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent; /* Removed dark overlay */
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 100px;
+    align-items: center; 
+}
+
+.footer-left {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-name {
+    font-family: 'Roboto Thin Local', 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+}
+
+.tagline {
+    font-style: italic;
+    color: #f5f5f7;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 350px;
+}
+
+/* Custom Email Link Styling */
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    display: inline-block;
+    width: fit-content;
+    align-self: center;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.email-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.email-link:hover {
+    color: #ffffff;
+}
+.email-link:hover::after {
+    opacity: 1;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+/* Updated to center links and headings */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.footer-col h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+/* Retained hover underline effect in the footer */
+.footer-col a:hover { 
+    color: #ffffff; 
+    text-decoration: underline;
+}
+
+.footer-legal-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.7;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-main-row { gap: 60px; }
+    .footer-links { gap: 40px; }
+}
+
+@media (max-width: 600px) {
+    .footer-main-row { flex-direction: column; gap: 50px; }
+    .footer-links { flex-direction: column; align-items: center; gap: 30px; }
+    .brand-name { font-size: 2.2rem; }
+}
     </style>
 </head>
 <body>
@@ -263,7 +484,6 @@
             <picture>
                 <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                 <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
-                <!-- Removed decoding="sync" to prevent main thread blocking -->
                 <img src="../img/Logo_White.png" alt="Solveria Logo" width="150" height="35" fetchpriority="high">
             </picture>
         </a>
@@ -275,9 +495,7 @@
 
     <main>
         <section class="hero-section">
-            <!-- HTML Picture Tag replaces CSS Background to trigger instant parser discovery (LCP Fix) -->
             <picture>
-                <!-- Using %20 to properly encode spaces in the file name for strict browsers -->
                 <source media="(max-width: 768px)" srcset="../img/privacy%20policy_Phone.webp" type="image/webp">
                 <source media="(min-width: 769px)" srcset="../img/privacy%20policy.webp" type="image/webp">
                 <img class="hero-bg-img" src="../img/privacy%20policy.webp" alt="Law Library Background" fetchpriority="high">
@@ -295,53 +513,87 @@
                 </nav>
 
                 <article class="article-body">
-                    <h2>Statutory Compliance & Labor Logic</h2>
+                    <h2>Statutory Compliance & Logic Core Protocols</h2>
                     <p>
-                        Solveria is engineered to be intuitive, but robust employment analysis requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols.
+                        Solveria is engineered to be intuitive, but robust legal and financial analysis requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols for both our Civil Justice and Sovereign Finance suites.
                     </p>
 
                     <h2>Transparency & Methodology</h2>
                     <p>
-                        Our Decision Engine utilizes state-specific labor codes and FLSA (Fair Labor Standards Act) federal baselines. While we strive for 100% accuracy, results should be viewed as high-fidelity statutory estimates rather than binding legal counsel.
+                        Our decision engines utilize state-specific civil codes, federal regulatory guidelines (such as FLSA and HUD), and current actuarial data. While we strive for absolute accuracy, results should be viewed as high-fidelity statutory estimates rather than binding legal counsel or formal financial appraisals.
                     </p>
                     
                     <h3>Data Source Logic</h3>
                     <ul>
-                        <li><strong>State-Specific Labor Codes:</strong> Algorithms account for local minimum wage variances, overtime thresholds, and state-specific premium penalties (e.g., California DLSE meal break rules).</li>
-                        <li><strong>Federal FLSA Baselines:</strong> National-level tools are indexed against the most current Fair Labor Standards Act guidelines for baseline compliance.</li>
-                        <li><strong>Enterprise Deployment:</strong> For B2B Licensees: All our frontend applications are built on vanilla HTML5/JS for conflict-free integration into your firm's existing CMS or web architecture.</li>
+                        <li><strong>Civil Justice Cores (Wage & Tort):</strong> Algorithms account for local variances, such as state-specific premium penalties (e.g., California DLSE meal break rules), alongside federal Fair Labor Standards Act (FLSA) and Magnuson-Moss Warranty baselines.</li>
+                        <li><strong>Sovereign Finance Cores (Tax & Real Estate):</strong> National-level financial tools are indexed against current Internal Revenue Service (IRS) brackets, Federal Reserve (FRED) liquidity data, and FHFA conforming loan limits.</li>
+                        <li><strong>Enterprise Deployment (B2B Licensees):</strong> All frontend applications are built on secure, vanilla HTML5/JS for conflict-free integration into your firm's existing CMS or web architecture. Tools are engineered to maintain 90-100 Lighthouse performance scores across mobile and desktop environments, ensuring your deployment never harms your site's SEO.</li>
                     </ul>
 
                     <h2>Technical Troubleshooting</h2>
                     <p>
-                        Because Solveria operates on a <strong>Client-Side Architecture</strong>, performance relies on your browser's capabilities. This ensures your data is processed locally on your device and is never transmitted to external servers for calculation.
+                        Because Solveria operates on a strict <strong>Client-Side Architecture</strong>, performance relies on your browser's local capabilities. This ensures your data is processed locally on your device and is never transmitted to external servers.
                     </p>
                     <ul>
-                        <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (Chart.js or D3.js libraries).</li>
-                        <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience. Clearing your browser cache or using Incognito Mode will reset your scenarios.</li>
-                        <li><strong>Licensee Integration:</strong> Firms who purchased a tool via the Lemon Squeezy portal should refer to the included README.md file for CSS customization and iframe deployment guidelines before contacting support.</li>
+                        <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (e.g., Chart.js).</li>
+                        <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience during a session. Clearing your browser cache or using Incognito Mode will automatically reset your scenarios and wipe all local data.</li>
+                        <li><strong>Licensee Integration:</strong> Firms who have procured a custom iframe via the Lemon Squeezy portal will receive a dedicated README.md file alongside their deployment link. Please refer to this documentation for CSS customization and embedding guidelines before contacting engineering support.</li>
                     </ul>
 
                     <h2>Statutory Updates & Edge Cases</h2>
                     <p>
-                        Labor laws evolve rapidly. If your firm notices a recent amendment to state labor codes or a municipal wage ordinance that conflicts with our logic, please file a report via the <a href="../contact/">Contact page</a>. We prioritize statutory updates within 48 hours.
+                        Legal and economic variables evolve rapidly. If your firm notices a recent amendment to state labor codes, a municipal wage ordinance, or a shift in federal tax guidelines that conflicts with our logic, please file a report via our <a href="../contact-us/">Contact page</a>. We prioritize statutory updates and hotfixes within 48 hours of a confirmed ruling.
                     </p>
                 </article>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <p>&copy; 2026 Solveria. All rights reserved.</p>
-            <nav class="footer-nav" aria-label="Footer Navigation">
-                <a href="../privacy-policy/">Privacy Policy</a>
-                <a href="../about/">About Us</a>
-                <a href="../contact/">Contact Us</a>
-                <a href="../terms-of-use/">Terms of Use</a>
-            </nav>
+<footer class="site-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        
+        <div class="footer-main-row">
+            
+            <div class="footer-left">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                <div class="footer-info">
+                    <span class="brand-name">Solveria.</span>
+                    <p class="tagline">Engineered for Decision Sovereignty.</p>
+                    <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link">contact@solveria.org</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>PLATFORM</h4>
+                    <a href="../about/">About Solveria</a>
+                    <a href="../contact-us/">Contact Engineering</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>SUITES</h4>
+                    <a href="../finance/">Sovereign Finance</a>
+                    <a href="../claims-and-settlements/">Civil Justice</a>
+                    <a href="../calculators/">Full Tool Library</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>GOVERNANCE</h4>
+                    <a href="../privacy-policy/">Privacy Policy</a>
+                    <a href="../terms-of-use/">Terms of Use</a>
+                    <a href="../editorial-standards/">Editorial Standards</a>
+                </div>
+            </div>
         </div>
-    </footer>
+
+        <div class="footer-legal-row">
+            <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
+            <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
