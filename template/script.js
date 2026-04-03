@@ -79,9 +79,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if(gallery && prevBtn && nextBtn) {
         const updateButtons = () => {
             window.requestAnimationFrame(() => {
-                prevBtn.disabled = gallery.scrollLeft <= 5;
+                const currentScroll = gallery.scrollLeft;
+                
+                prevBtn.disabled = currentScroll <= 5;
                 const maxScrollLeft = gallery.scrollWidth - gallery.clientWidth;
-                nextBtn.disabled = gallery.scrollLeft >= maxScrollLeft - 5;
+                nextBtn.disabled = currentScroll >= maxScrollLeft - 5;
+                
+                // Toggle the fade mask based on scroll position
+                if (currentScroll > 15) {
+                    gallery.classList.add('is-scrolled-left');
+                } else {
+                    gallery.classList.remove('is-scrolled-left');
+                }
             });
         };
 
