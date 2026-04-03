@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Use | Solveria</title>
 
-    <meta name="description" content="Read the Terms of Use for Solveria. detailed information on our platform, limitation of liability, and algorithmic calculation disclaimers.">
-    <meta name="keywords" content="Solveria Terms of Use, Legal Disclaimer, Settlement Calculator Terms, SaaS Agreement">
+    <!-- Updated Meta Data -->
+    <meta name="description" content="Read the Terms of Use for Solveria. Detailed information on our platform, limitation of liability, and algorithmic calculation disclaimers.">
+    <meta name="keywords" content="Solveria Terms of Use, Legal Disclaimer, Settlement Calculator Terms, SaaS Agreement, B2B Infrastructure, Privacy">
     <meta name="author" content="Solveria">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://solveria.org/terms-of-use/">
 
+    <!-- Updated Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/terms-of-use/">
+    <meta property="og:site_name" content="Solveria">
     <meta property="og:title" content="Terms of Use | Solveria">
     <meta property="og:description" content="Legal terms and conditions for using Solveria's automated calculation tools and software platform.">
     <meta property="og:image" content="https://solveria.org/img/privacy%20policy.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
+    <!-- Updated Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/terms-of-use/">
     <meta property="twitter:title" content="Terms of Use | Solveria">
@@ -31,12 +37,20 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <!-- Responsive Image Preloads for Performance - ADDED fetchpriority="high" to fix LCP issue -->
+    <!-- Responsive Image Preloads for Performance -->
     <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 768px)" fetchpriority="high">
     
-    <!-- Local Fonts Added for Performance (Replaced Google Fonts) -->
+    <!-- Local Fonts Added for Performance -->
     <style>
+/* Local Font Face Configuration for Brand Name */
+@font-face {
+    font-family: 'Roboto Thin Local';
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype'),
+         url('../fonts/Roboto-Thin.tff') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
         @font-face {
             font-family: 'Roboto';
             font-weight: 100;
@@ -72,27 +86,221 @@
             font-display: swap;
             src: url('../fonts/Roboto-Bold.ttf') format('truetype');
         }
-    </style>
-    
-    <!-- REMOVED: <script src="https://cdn.tailwindcss.com"></script> -->
-    <!-- Root cause of performance issue: The Tailwind CDN script was blocking rendering by ~770ms. 
-         Since all your styles on this specific page are written in pure custom CSS below, the script was 100% dead weight. Removing it drastically improves speed. -->
+/* =========================================
+   NEW FOOTER STYLES 
+   ========================================= */
+.site-footer {
+    position: relative;
+    width: 100%;
+    background-image: url('../img/support.webp'); /* Updated background image */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto; 
+}
 
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent; /* Removed dark overlay */
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 100px;
+    align-items: center; 
+}
+
+.footer-left {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-name {
+    font-family: 'Roboto Thin Local', 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+}
+
+.tagline {
+    font-style: italic;
+    color: #f5f5f7;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 350px;
+}
+
+/* Custom Email Link Styling */
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    display: inline-block;
+    width: fit-content;
+    align-self: center;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.email-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.email-link:hover {
+    color: #ffffff;
+}
+.email-link:hover::after {
+    opacity: 1;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 140px;
+    text-align: left;
+}
+
+.footer-col h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover { 
+    color: #ffffff; 
+    text-decoration: underline;
+}
+
+.footer-legal-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.7;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-main-row { gap: 60px; }
+    .footer-links { gap: 40px; }
+}
+
+@media (max-width: 600px) {
+    .footer-main-row { flex-direction: column; gap: 50px; }
+    .footer-links { flex-direction: column; align-items: center; gap: 30px; }
+    .footer-col { text-align: center; }
+    .brand-name { font-size: 2.2rem; }
+}
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 140px;
+    text-align: center; 
+}
+    </style>
+
+    <!-- Updated Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@graph": [
+      "@graph":[
         {
           "@type": "WebPage",
           "@id": "https://solveria.org/terms-of-use/",
           "url": "https://solveria.org/terms-of-use/",
-          "name": "Terms of Use",
+          "name": "Terms of Use | Solveria",
           "headline": "Terms of Use for Solveria",
-          "description": "Legal terms regarding the use of Solveria's calculation tools.",
-          "datePublished": "2024-01-01",
-          "dateModified": "2026-02-08",
+          "description": "Read the Terms of Use for Solveria. Detailed information on our platform, limitation of liability, and algorithmic calculation disclaimers.",
+          "datePublished": "2024-01-01T08:00:00+00:00",
+          "dateModified": "2026-03-07T08:00:00+00:00",
           "inLanguage": "en-US",
-          "isPartOf": { "@id": "https://solveria.org/#website" },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://solveria.org/terms-of-use/"
+          },
+          "isPartOf": { 
+             "@id": "https://solveria.org/#website" 
+          },
           "publisher": {
             "@type": "Organization",
             "name": "Solveria",
@@ -107,9 +315,19 @@
         },
         {
           "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-            { "@type": "ListItem", "position": 2, "name": "Terms of Use" }
+          "itemListElement":[
+            { 
+              "@type": "ListItem", 
+              "position": 1, 
+              "name": "Home", 
+              "item": "https://solveria.org/" 
+            },
+            { 
+              "@type": "ListItem", 
+              "position": 2, 
+              "name": "Terms of Use",
+              "item": "https://solveria.org/terms-of-use/"
+            }
           ]
         }
       ]
@@ -300,7 +518,6 @@
             <nav>
                 <a href="../calculators/">Calculators</a>
                 <a href="../about/">About</a>
-                <a href="../support/">Support</a>
             </nav>
         </div>
 
@@ -319,64 +536,103 @@
                 </nav>
 
                 <article class="article-body">
-                    <p class="last-updated">Last updated: February 8, 2026</p>
+                    <p class="last-updated">Last updated: March 7, 2026</p>
 
                     <h2>1. Acceptance of Terms</h2>
-                    <p>By accessing and using the website Solveria (the "Site"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this site.</p>
+                    <p>By accessing and using the website Solveria (the "Site") or deploying our Enterprise widgets, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this site or our software.</p>
 
                     <h2>2. Nature of Services & No Professional Relationship</h2>
-                    <p>Solveria operates as a <strong>Digital Software License & Legal Matchmaking Platform</strong> providing automated calculation tools. We provide both B2C educational estimates and B2B software licenses. We are <strong>not</strong> a law firm, financial institution, or insurance provider.</p>
-                    <p>The results generated by our Site are derived from <strong>static algorithmic models</strong> based on user inputs and aggregated state data. These outputs are mathematical estimates for informational purposes only and do not constitute legal opinions or financial advice.</p>
-                    <p><strong>No Attorney-Client Privilege:</strong> Using our Legal Settlement Tools or submitting data through our forms does not create an attorney-client relationship. Information entered into this site is not privileged or confidential in a legal sense. You should always consult with a qualified professional for advice tailored to your specific situation.</p>
+                    <p>Solveria operates as a <strong>Mathematical Software Infrastructure & Lead Routing Platform</strong>. We provide both B2C educational estimation tools and B2B enterprise software licenses. We are <strong>not</strong> a law firm, financial institution, CPA firm, or insurance provider.</p>
+                    <p>The results generated by our Site are derived from <strong>static algorithmic models</strong> based on user inputs and aggregated state/federal data. These outputs are mathematical estimates for informational purposes only and do not constitute legal opinions or financial advice.</p>
+                    <p><strong>No Attorney-Client Privilege:</strong> Using our Civil Justice tools or submitting data through our B2C forms does not create an attorney-client relationship. Information entered into this site is not privileged or confidential in a legal sense. You should always consult with a qualified professional for advice tailored to your specific situation.</p>
 
-                    <h2>3. Specific Disclaimers for Calculation Tools</h2>
-                    <p>To ensure clarity regarding the limitations of our technology, we provide the following specific disclaimers:</p>
+                    <h2>3. Specific Disclaimers for Calculation Logic Suites</h2>
+                    <p>To ensure clarity regarding the limitations of our technology across our 12 logic cores, we provide the following specific disclaimers:</p>
                     
-                    <h3>Employment Law & Wage Calculators</h3>
-                    <p>Our tools estimate potential back pay, overtime, and meal break violations based on baseline FLSA and state codes. Please be aware that local ordinances or specific employment contracts may alter these numbers drastically. These outputs are hypothetical ranges based on generalized state statutes and historical data patterns. Solveria does not guarantee that these estimates will be accepted by employers, opposing counsel, or courts of law.</p>
+                    <h3>Civil Justice (Employment & Tort Law)</h3>
+                    <p>Our tools estimate potential back pay, tort multipliers, and statutory penalties based on federal guidelines and state codes. Local municipal ordinances or specific employment contracts may alter these numbers drastically. Solveria does not guarantee that these estimates will be accepted by employers, opposing counsel, or courts of law.</p>
+
+                    <h3>Sovereign Finance (Tax & Real Estate)</h3>
+                    <p>Our financial engines provide amortizations and tax estimates based on current IRS and HUD/FHFA benchmarks. These do not constitute binding loan estimates (LE) or certified tax appraisals.</p>
 
                     <h2>4. Intellectual Property Rights</h2>
                     <p>The Site and its original content, features, and functionality are owned by Solveria and are protected by international copyright, trademark, and other intellectual property laws.</p>
-                    <p>This protection explicitly extends to our <strong>Calculation Logic, Source Code, and Visual Interfaces</strong> (including the proprietary "Gold/Dark" UI themes and "us-state-data" methodology). You may not reproduce, reverse-engineer, or distribute any part of our proprietary code or algorithms without express written permission.</p>
-                    <p><strong>Enterprise License Exception:</strong> Users who purchase a B2B license via our Lemon Squeezy portal are granted a non-exclusive right to embed, host, and visually modify (CSS) the specific application they purchased on their own firm's domain.</p>
+                    <p>This protection explicitly extends to our <strong>Calculation Logic, Source Code, and Visual Interfaces</strong> (including our proprietary UI themes). You may not reproduce, reverse-engineer, or distribute any part of our proprietary code or algorithms without express written permission.</p>
+                    <p><strong>Enterprise License Exception:</strong> Law firms and agencies who purchase a B2B National or State License via our Lemon Squeezy portal are granted a non-exclusive, non-transferable right to embed, host, and visually modify (via CSS/Hex codes) the specific iframe application they purchased strictly on their own verified domain.</p>
                     
                     <h2>5. B2B Software Purchases & Refunds</h2>
-                    <p>Due to the non-returnable nature of downloadable digital code, all B2B software license purchases are completely final. We do not offer refunds once the software package has been delivered.</p>
+                    <p>Due to the non-returnable nature of deployed digital code and custom infrastructure routing, all B2B software license purchases and iframe deployments are completely final. We do not offer refunds once the software package has been delivered to your technical contact.</p>
 
                     <h2>6. User Data and Privacy</h2>
-                    <p>We are committed to your privacy. As stated in our <a href="../privacy-policy/">Privacy Policy</a>, **we do not collect, save, or store any personal financial data you enter into our calculators.** All calculations are performed entirely within your web browser. The data you input is never sent to our servers.</p>
+                    <p>We are committed to your privacy. As stated in our <a href="../privacy-policy/">Privacy Policy</a>, we do not collect, save, or store any personal financial or legal data you enter into our calculators. All calculations are performed entirely within your web browser.</p>
 
                     <h2>7. Affiliate & Lead Generation Disclosure</h2>
-                    <p>Solveria acts as a telephony routing bridge and connector between users and potential service providers. The Site may contain links or "Get Case Review" buttons that connect you to third-party professionals (such as attorneys).</p>
-                    <p>If you choose to engage with a third-party service provider linked through our Site, your relationship is strictly between you and that provider. <strong>Solveria is not a party to any agreement you sign with them.</strong> If a user utilizes the direct-call features to contact a third-party legal network, Solveria may receive compensation for facilitating that connection. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
+                    <p>Solveria acts as a telephony routing bridge and connector between B2C users and potential service providers.</p>
+                    <p><strong>B2C Platform:</strong> The Site may contain links or "Get Case Review" buttons connecting you to third-party professionals. Solveria is not a party to any agreement you sign with them. We may receive affiliate compensation for facilitating B2C connections.</p>
+                    <p><strong>B2B Enterprise Exception:</strong> For law firms hosting our tools via a paid B2B iframe license, Solveria does not intercept, route, or monetize the lead flow generated on the Licensee's domain. All data captured through a licensed B2B widget is routed exclusively to the purchasing firm.</p>
 
                     <h2>8. Disclaimer of Warranties & Data Accuracy</h2>
-                    <p>The Site is provided on an "AS IS" and "AS AVAILABLE" basis. Your use of the Site is at your sole risk. The Site is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-                    <p><strong>Data Accuracy:</strong> While we utilize <code>us-state-data</code> protocols to mirror local regulations, statutes of limitations and tax codes change frequently. We do not warrant that the data used in our calculations is real-time, error-free, or reflective of the most current legislative updates.</p>
+                    <p>The Site is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, whether express or implied.</p>
+                    <p><strong>Data Accuracy:</strong> While we utilize rigorous update protocols to mirror local regulations, statutes, and tax codes change frequently. We do not warrant that the data is universally real-time, error-free, or reflective of the most current municipal edge-cases.</p>
                     
                     <h2>9. Limitation of Liability</h2>
-                    <p>In no event shall Solveria, nor its directors, employees, or agents, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, or other intangible losses, resulting from your access to or use of or inability to access or use the Site.</p>
+                    <p>In no event shall Solveria, nor its directors, employees, or agents, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, or other intangible losses, resulting from your access to or use of the Site or our Enterprise iframes.</p>
 
                     <h2>10. Modifications</h2>
-                    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide notice of any changes by posting the new Terms of Use on this page and updating the "Last updated" date.</p>
+                    <p>We reserve the right to modify these Terms at any time. We will provide notice of any changes by posting the new Terms of Use on this page and updating the "Last updated" date.</p>
                     
                     <h2>11. Contact Us</h2>
-                    <p>For notices of copyright infringement, legal grievances, or technical bug reports, please contact our Legal Compliance team at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.</p>
+                    <p>For notices of copyright infringement, legal grievances, or B2B enterprise compliance, please contact our Legal Compliance team at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.</p>
                 </article>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <p>&copy; 2026 Solveria. All rights reserved.</p>
-            <div class="footer-nav">
-                <a href="../privacy-policy/">Privacy Policy</a>
-                <a href="../about/">About Us</a>
-                <a href="../support/">Support</a>
+<footer class="site-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        
+        <div class="footer-main-row">
+            
+            <div class="footer-left">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                <div class="footer-info">
+                    <span class="brand-name">Solveria.</span>
+                    <p class="tagline">Engineered for Decision Sovereignty.</p>
+                    <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link">contact@solveria.org</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>PLATFORM</h4>
+                    <a href="../about/">About Solveria</a>
+                    <a href="../contact-us/">Contact Engineering</a>
+                    <a href="../support/">System Status</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>SUITES</h4>
+                    <a href="../finance/">Sovereign Finance</a>
+                    <a href="../claims-and-settlements/">Civil Justice</a>
+                    <a href="../calculators/">Full Tool Library</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>GOVERNANCE</h4>
+                    <a href="../privacy-policy/">Privacy Policy</a>
+                    <a href="../editorial-standards/">Editorial Standards</a>
+                </div>
             </div>
         </div>
-    </footer>
+
+        <div class="footer-legal-row">
+            <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
+            <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
