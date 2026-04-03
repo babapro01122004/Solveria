@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Solveria</title>
     
-    <meta name="description" content="Solveria democratizes access to professional-grade financial and legal analysis. We provide privacy-focused, state-compliant tools for complex decision-making.">
+    <meta name="description" content="Solveria provides law firms, financial institutions, and marketing agencies with institutional-grade calculation engines and high-precision logic repositories.">
+    <meta name="keywords" content="Solveria, calculation engines, financial modeling, legal calculators, B2B software, frontend engineering">
+    <meta name="author" content="Solveria">
     
     <link rel="canonical" href="https://solveria.org/about/">
 
@@ -19,14 +21,15 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/about/">
+    <meta property="og:site_name" content="Solveria">
     <meta property="og:title" content="About Us | Solveria">
-    <meta property="og:description" content="Democratizing access to sophisticated financial and legal analysis. Privacy-first, client-side tools for real estate, settlements, and asset management.">
+    <meta property="og:description" content="Providing law firms and financial institutions with institutional-grade calculation engines. Privacy-first, client-side tools for B2B partners.">
     <meta property="og:image" content="https://solveria.org/img/privacy%20policy.webp">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/about/">
     <meta property="twitter:title" content="About Us | Solveria">
-    <meta property="twitter:description" content="Democratizing access to sophisticated financial and legal analysis. Privacy-first, client-side tools.">
+    <meta property="twitter:description" content="Providing law firms and financial institutions with institutional-grade calculation engines. Privacy-first, client-side tools for B2B partners.">
     <meta property="twitter:image" content="https://solveria.org/img/privacy%20policy.webp">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -40,7 +43,7 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@graph": [
+      "@graph":[
         {
           "@type": "Organization",
           "@id": "https://solveria.org/#organization",
@@ -57,7 +60,7 @@
             "email": "contact@solveria.org",
             "contactType": "customer support"
           },
-          "sameAs": [
+          "sameAs":[
             "https://solveria.org/"
           ]
         },
@@ -75,17 +78,18 @@
           "@id": "https://solveria.org/about/#webpage",
           "url": "https://solveria.org/about/",
           "name": "About Us | Solveria",
-          "description": "Solveria democratizes access to sophisticated analysis—empowering individuals to make data-driven decisions.",
+          "description": "Solveria is a software engineering agency dedicated to bridging the gap between dense statutory mathematics and seamless frontend user experiences.",
           "isPartOf": { "@id": "https://solveria.org/#website" },
           "breadcrumb": { "@id": "https://solveria.org/about/#breadcrumb" },
-          "inLanguage": "en-US"
+          "inLanguage": "en-US",
+          "mainEntityOfPage": "https://solveria.org/about/"
         },
         {
           "@type": "BreadcrumbList",
           "@id": "https://solveria.org/about/#breadcrumb",
-          "itemListElement": [
+          "itemListElement":[
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-            { "@type": "ListItem", "position": 2, "name": "About Us" }
+            { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://solveria.org/about/" }
           ]
         }
       ]
@@ -93,6 +97,14 @@
     </script>
 
     <style>
+/* Local Font Face Configuration for Brand Name */
+@font-face {
+    font-family: 'Roboto Thin Local';
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype'),
+         url('../fonts/Roboto-Thin.tff') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
         /* Local Font Loading */
         @font-face {
             font-family: 'Roboto';
@@ -266,6 +278,189 @@
                 margin-top: 0;
             }
         }
+/* =========================================
+   NEW FOOTER STYLES 
+   ========================================= */
+.site-footer {
+    position: relative;
+    width: 100%;
+    background-image: url('../img/support.webp'); /* Updated background image */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto; 
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent; /* Removed dark overlay */
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 8vw 30px 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-main-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 100px;
+    align-items: center; 
+}
+
+.footer-left {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-name {
+    font-family: 'Roboto Thin Local', 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+}
+
+.tagline {
+    font-style: italic;
+    color: #f5f5f7;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 350px;
+}
+
+/* Custom Email Link Styling */
+.email-link {
+    color: #D4BCA9;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    display: inline-block;
+    width: fit-content;
+    align-self: center;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.email-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.email-link:hover {
+    color: #ffffff;
+}
+.email-link:hover::after {
+    opacity: 1;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-aligns the flex items horizontally */
+    gap: 10px;
+    min-width: 140px;
+    text-align: center; /* Ensures text inside elements is also centered */
+}
+
+.footer-col h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.footer-col a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover { 
+    color: #ffffff; 
+    text-decoration: underline;
+}
+
+.footer-legal-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #e5e5ea;
+    margin: 0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #999;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.7;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-main-row { gap: 60px; }
+    .footer-links { gap: 40px; }
+}
+
+@media (max-width: 600px) {
+    .footer-main-row { flex-direction: column; gap: 50px; }
+    .footer-links { flex-direction: column; align-items: center; gap: 30px; }
+    .brand-name { font-size: 2.2rem; }
+}
     </style>
 </head>
 <body>
@@ -282,9 +477,8 @@
                 </picture>
             </a>
             <nav>
-                <a href="../#calculators">Calculators</a>
-                <a href="../about/">About</a>
-                <a href="../support/">Support</a>
+                <a href="../calculators/">Calculators</a>
+                <a href="../support/">System Status</a>
             </nav>
         </div>
     </header>
@@ -305,44 +499,79 @@
                 <article class="article-body">
                     <h2>Our Mission</h2>
                     <p>
-                        In an era defined by complex regulatory frameworks and intricate financial products, Solveria exists to provide absolute clarity. We believe that professional-grade decision intelligence should not be gated behind expensive consultations.
+                        In an era defined by complex regulatory frameworks and intricate financial products, Solveria operates as a high-precision logic repository. We are a software engineering agency dedicated to bridging the gap between dense statutory mathematics and seamless frontend user experiences.
                     </p>
                     <p>
-                        Our mission is to democratize access to sophisticated analysis—empowering individuals to make data-driven decisions, whether they are optimizing a real estate portfolio, calculating a fair legal settlement, or assessing liquidity risks. We bridge the gap between consumer confusion and institutional-grade mathematics.
+                        Our mission is to provide law firms, financial institutions, and marketing agencies with institutional-grade calculation engines. From optimizing real estate portfolios to modeling complex Wage & Hour labor disputes, we empower our B2B partners to capture high-intent leads through absolute mathematical authority.
                     </p>
 
-                    <h3>Our Philosophy</h3>
+                    <h3>Our Infrastructure Philosophy</h3>
                     <p>
-                        Our platform is architected around three non-negotiable principles:
+                        Our platform is architected around three non-negotiable engineering principles:
                     </p>
                     <ol>
-                        <li><strong>Precision & Compliance:</strong> Generic averages do not solve specific problems. Our tools are engineered with us-state-data protocols, ensuring that every calculation respects the specific statutes, tax codes, and liability guidelines of your local jurisdiction. We rigorously test against industry standards to ensure reliable estimates you can trust.</li>
-                        <li><strong>Sovereign Privacy:</strong> Your data belongs to you—literally. Unlike traditional platforms that harvest user inputs for lead generation, Solveria operates on a Client-Side Architecture. All calculations are performed directly in your browser's local memory. We do not see, track, transmit, or store a single digit of your personal financial or legal case information.</li>
-                        <li><strong>Actionable Simplicity:</strong> Complexity is inevitable; confusion is optional. We are obsessed with distilling dense legal logic and financial formulas into clean, intuitive interfaces. We don't just provide a number; we provide context—helping you understand not just what the result is, but why it matters to your financial health.</li>
+                        <li><strong>Precision & Statutory Compliance:</strong> Generic averages do not win cases or close loans. Our 12 Logic Cores—spanning our Sovereign Finance and Civil Justice suites—are engineered against strict regulatory protocols. Whether applying federal FLSA and HUD guidelines, or executing Tier-1 state labor codes (CA, NY, TX, FL), every calculation respects the specific liability guidelines of its jurisdiction.</li>
+                        <li><strong>Zero-Trust Lead Routing (Sovereign Privacy):</strong> Your firm's data belongs to your firm. As an infrastructure provider, we build the engine, but you own the pipeline. Our tools operate on a strict Client-Side Architecture. All calculations are performed directly in the user's browser, and lead data is securely routed directly to our licensed partners. Solveria does not intercept, harvest, or store a single digit of your proprietary lead flow.</li>
+                        <li><strong>Frictionless Deployment:</strong> Complexity is inevitable; implementation friction is optional. We are obsessed with distilling dense legal logic—from BRRRR amortization to Diminished Value torts—into clean, intuitive, Lighthouse-optimized frontend assets. We provide the complex mathematical backend wrapped in a simple, copy-paste iframe.</li>
                     </ol>
 
-                    <h2>Get in Touch</h2>
+                    <h2>Direct Engineering Support</h2>
                     <p>
-                        Whether you are a user seeking clarity or a developer identifying a new edge case, your feedback drives our evolution. Solveria is continuously expanding its suite of tools to cover new legal territories and financial strategies.
+                        Solveria is continuously expanding its suite of tools across new legal territories and financial strategies.
                     </p>
                     <p>
-                        To report a technical issue or suggest a new module, reach our development team at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.
+                        Whether your firm is seeking a custom Unpaid Wages iframe deployment, or you are an agency requiring custom color-hex calibration for your landing pages, our engineering team provides direct integration assistance. Reach our technical desk to initialize your deployment at <a href="mailto:contact@solveria.org">contact@solveria.org</a>.
                     </p>
                 </article>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <p>&copy; <span id="copyright-year">2026</span> Solveria. All rights reserved.</p>
-            <div class="footer-nav">
-                <a href="../privacy-policy/">Privacy Policy</a>
-                <a href="../about/">About Us</a>
-                <a href="../support/">Support</a>
+    <footer class="site-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        
+        <div class="footer-main-row">
+            
+            <div class="footer-left">
+                <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                <div class="footer-info">
+                    <span class="brand-name">Solveria.</span>
+                    <p class="tagline">Engineered for Decision Sovereignty.</p>
+                    <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link">contact@solveria.org</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>PLATFORM</h4>
+                    <a href="../contact-us/">Contact Engineering</a>
+                    <a href="../support/">System Status</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>SUITES</h4>
+                    <a href="../finance/">Sovereign Finance</a>
+                    <a href="../claims-and-settlements/">Civil Justice</a>
+                    <a href="../calculators/">Full Tool Library</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>GOVERNANCE</h4>
+                    <a href="../privacy-policy/">Privacy Policy</a>
+                    <a href="../terms-of-use/">Terms of Use</a>
+                    <a href="../editorial-standards/">Editorial Standards</a>
+                </div>
             </div>
         </div>
-    </footer>
+
+        <div class="footer-legal-row">
+            <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
+            <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
+        </div>
+    </div>
+</footer>
 
     <script>
         // Set dynamic copyright year
