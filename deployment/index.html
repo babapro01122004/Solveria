@@ -301,6 +301,16 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); 
         }
 
+        /* Form Subtext Styling */
+        .form-text {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
         /* Submit & Dropbox Buttons sharing identical premium styles */
         .submit-btn {
             display: block;
@@ -686,18 +696,27 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="domain_registrar">Where is your current domain registered? (GoDaddy, Namecheap, etc.)</label>
+                                <label for="domain_registrar">Domain Registrar</label>
                                 <input type="text" id="domain_registrar" name="Domain_Registrar" required>
+                                <span class="form-text">Where is your current domain registered? (e.g., GoDaddy, Namecheap, etc.)</span>
                             </div>
                             
                             <div class="form-group">
-                                <label for="desired_subdomain">What specific subdomain do you want? (e.g., quote.clearenergy.com)</label>
+                                <label for="desired_subdomain">Desired Subdomain</label>
                                 <input type="text" id="desired_subdomain" name="Desired_Subdomain" required>
+                                <span class="form-text">What specific subdomain do you want? (e.g., quote.clearenergy.com)</span>
                             </div>
 
                             <div class="form-group">
-                                <label for="lead_routing_email">What email address should we route your new leads to?</label>
+                                <label for="lead_routing_email">Lead Routing Email</label>
                                 <input type="email" id="lead_routing_email" name="Lead_Routing_Email" required>
+                                <span class="form-text">What email address should we route your new leads to?</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="google_ads_tracking_id">Google Ads Tracking ID</label>
+                                <input type="text" id="google_ads_tracking_id" name="Google_Ads_Tracking_ID">
+                                <span class="form-text">Your Google Ads measurement ID (e.g., AW-123456789). Leave blank if not applicable.</span>
                             </div>
                             
                             <button type="submit" class="submit-btn">Submit Technical Details</button>
