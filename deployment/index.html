@@ -12,9 +12,11 @@
     <!-- PERFORMANCE CRITICAL: Preload the LCP background image so it loads instantly -->
     <link rel="preload" href="../img/H.webp" as="image" fetchpriority="high">
     
-    <!-- Preload critical local fonts to prevent text flashing -->
+    <!-- Preload critical local fonts to prevent text flashing and critical path chains -->
+    <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="../fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../fonts/Roboto-Medium.ttf" as="font" type="font/ttf" crossorigin>
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/thank-you/">
@@ -81,6 +83,7 @@
                  url('../fonts/Roboto-Thin.tff') format('truetype');
             font-weight: 100;
             font-style: normal;
+            font-display: swap;
         }
         @font-face {
             font-family: 'Roboto';
