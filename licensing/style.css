@@ -300,15 +300,21 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* SPLIT BRIEFING SECTION (Text + Video) */
 .briefing-container { max-width: 1550px; width: 100%; margin: 40px auto; padding: 0 3vw; display: flex; align-items: center; gap: 60px; }
 .briefing-content { flex: 1; display: flex; flex-direction: column; }
-.briefing-container .video-wrapper { flex: 1.2; padding: 0; width: 100%; display: flex; justify-content: center; }
 
 /* TRAFFIC LEAK - DESKTOP RIGHT ALIGNMENT */
 .briefing-content .comparison-header, .briefing-content .comparison-text p { text-align: right; }
 
 /* Video Embed Styles */
-.video-wrapper { padding: 80px 20px 40px 20px; display: flex; justify-content: center; width: 100%; }
+/* CRITICAL FIX: Forces wrapper into a strict top-to-bottom column so elements stack. */
+.briefing-container .video-wrapper { flex: 1.2; padding: 0; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
 .video-container { width: 100%; max-width: 900px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0, 0, 0, 0.05); background-color: transparent; }
 .video-container iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* Confidential Note Below Video */
+.confidential-note { margin-top: 16px; font-family: 'Roboto', sans-serif; font-size: 0.85rem; color: #6b7280; text-align: center; max-width: 900px; width: 100%; }
+.confidential-note p { margin: 0; line-height: 1.5; font-weight: 300; }
+.confidential-note strong { color: #374151; font-weight: 600; }
 
 /* Performance Comparison Section - CRISS CROSS ROWS */
 .performance-comparison-section { max-width: 1550px; width: 100%; margin: 60px auto 80px auto; padding: 0 3vw; display: flex; flex-direction: column; gap: 100px; }
@@ -477,6 +483,10 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 .pricing-header { position: relative; z-index: 2; text-align: center; max-width: 900px; margin-bottom: 70px; }
 .pricing-header p:not(.section-faint-subline) { font-size: 1.25rem; color: #4b5563; line-height: 1.8; margin: 0; font-weight: 300; }
+
+/* SLA Void Protocol Legal Text styling */
+.pricing-header p.sla-void-protocol { font-size: 0.95rem; color: #888888; font-style: italic; margin-top: 25px !important; line-height: 1.6; max-width: 850px; margin-left: auto; margin-right: auto; font-weight: 300; }
+.pricing-header p.sla-void-protocol strong { font-weight: 500; color: #6b7280; font-style: normal; }
 
 .pricing-cards { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 40px; max-width: 1000px; width: 100%; flex-wrap: wrap; }
 .card { border-radius: 32px; display: flex; flex-direction: column; position: relative; z-index: 1; box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.06); background: #ffffff; transition: transform 0.3s ease; overflow: hidden; }
@@ -832,7 +842,10 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .briefing-container { flex-direction: column; gap: 25px; margin: 40px auto; }
     .briefing-content { display: contents; }
     .briefing-content .comparison-header { order: 1; margin: 0; text-align: center !important; }
-    .briefing-container .video-wrapper { order: 2; padding: 0; margin: 0; width: 100%; }
+    
+    /* Ensure the video wrapper stays as a column on mobile so the note stays below */
+    .briefing-container .video-wrapper { order: 2; padding: 0; margin: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    
     .briefing-content .comparison-text { order: 3; margin: 0; }
     .briefing-content .comparison-text p { text-align: center !important; }
     
@@ -909,13 +922,17 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .deployment-status { font-size: 0.85rem; }
     
     .pricing-section { padding: 40px 5vw 80px 5vw; }
-    .pricing-header p { font-size: 1.05rem; }
+    .pricing-header p:not(.sla-void-protocol) { font-size: 1.05rem; }
+    .pricing-header p.sla-void-protocol { font-size: 0.85rem; margin-top: 20px !important; }
     
     .onboarding-section { padding: 40px 5vw 80px 5vw; }
     .onboarding-intro { font-size: 1.05rem; }
 
     .video-container { border-radius: 8px; }
     
+    .confidential-note { flex-direction: column; text-align: center; gap: 8px; padding: 12px; }
+    .confidential-note svg { margin-bottom: 2px; }
+
     .footer-content { padding: 40px 5vw 30px 5vw; }
     .footer-map { height: 220px; }
     .footer-links { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px 10px; }

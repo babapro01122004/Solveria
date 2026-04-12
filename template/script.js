@@ -72,6 +72,36 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.stagger-item').forEach(el => el.classList.add('is-visible'));
     }
 
+    // Dynamic Overflow Handler for Installation Text Box
+    const checkInstallationOverflow = () => {
+        const textBlock = document.querySelector('.installation-text');
+        const bodyContainer = document.querySelector('.installation-body');
+        
+        if (!textBlock || !bodyContainer) return;
+
+        // Remove hidden class temporarily to calculate natural size
+        bodyContainer.classList.remove('hide-text-block');
+
+        // Logic 1: Hide if device is NOT desktop (1300px or below)
+        if (window.innerWidth <= 1300) {
+            bodyContainer.classList.add('hide-text-block');
+            return;
+        }
+
+        // Logic 2: Hide if paragraph spills out of the container even slightly
+        if (textBlock.scrollHeight > textBlock.clientHeight) {
+            bodyContainer.classList.add('hide-text-block');
+        }
+    };
+
+    // Trigger overflow checks on load, resize, and when fonts are fully rendered
+    window.addEventListener('resize', checkInstallationOverflow);
+    window.addEventListener('load', checkInstallationOverflow);
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(checkInstallationOverflow);
+    }
+    checkInstallationOverflow(); // Run immediately
+
     const gallery = document.querySelector('.installation-gallery');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
