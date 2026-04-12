@@ -230,6 +230,61 @@
         .article-body a { color: #1e7b4b; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
         .article-body a:hover { text-decoration: none; color: #145232; }
 
+        /* =========================================
+           FAQ DROPDOWN STYLES (UPDATED)
+           ========================================= */
+        .faq-dropdown {
+            margin-bottom: 20px;
+            border: none; /* Made borderless */
+            border-radius: 12px;
+            background-color: #ffffff; /* Pure white */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); /* Faint blurry shadow underneath */
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .faq-dropdown:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09); /* Slightly more pronounced on hover */
+            transform: translateY(-1px); /* Subtle lift */
+        }
+        .faq-dropdown summary {
+            padding: 22px 30px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #222;
+            cursor: pointer;
+            list-style: none; /* Remove default arrow in some browsers */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .faq-dropdown summary::-webkit-details-marker {
+            display: none; /* Remove default arrow in WebKit */
+        }
+        .faq-dropdown summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #777;
+            transition: transform 0.3s ease;
+        }
+        .faq-dropdown[open] summary::after {
+            content: '−'; /* Minus sign */
+            transform: rotate(180deg);
+        }
+        .faq-content {
+            /* Changed to margin so the line segment doesn't stretch edge to edge and stays perfectly centered */
+            margin: 5px 40px 0 40px; 
+            padding: 20px 0 30px 0;
+            border-top: 1px solid #eaeaea; 
+        }
+        .faq-content p:first-child {
+            margin-top: 0;
+        }
+        .faq-content ul:last-child {
+            margin-bottom: 0;
+        }
+
         footer {
             background-color: #f5f5f7;
             padding: 2.5rem 1rem;
@@ -289,6 +344,9 @@
                 font-size: 0.9rem; 
             }
             .header .logo img { height: 30px; }
+            
+            .faq-dropdown summary { padding: 18px 20px; font-size: 1.05rem; }
+            .faq-content { margin: 5px 20px 0 20px; padding: 15px 0 20px 0; }
         }
 /* =========================================
    NEW FOOTER STYLES 
@@ -515,35 +573,65 @@
                 <article class="article-body">
                     <h2>Statutory Compliance & Logic Core Protocols</h2>
                     <p>
-                        Solveria is engineered to be intuitive, but robust legal and financial analysis requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols for both our Civil Justice and Sovereign Finance suites.
+                        Solveria is engineered to be intuitive, but robust legal and financial analysis requires context. Below you will find documentation on our calculation methodologies, data sources, and troubleshooting protocols for our Logic Suites and High-Performance Infrastructure Deployments.
                     </p>
 
-                    <h2>Transparency & Methodology</h2>
-                    <p>
-                        Our decision engines utilize state-specific civil codes, federal regulatory guidelines (such as FLSA and HUD), and current actuarial data. While we strive for absolute accuracy, results should be viewed as high-fidelity statutory estimates rather than binding legal counsel or formal financial appraisals.
-                    </p>
+                    <h2>A. High-Performance Infrastructure</h2>
                     
-                    <h3>Data Source Logic</h3>
-                    <ul>
-                        <li><strong>Civil Justice Cores (Wage & Tort):</strong> Algorithms account for local variances, such as state-specific premium penalties (e.g., California DLSE meal break rules), alongside federal Fair Labor Standards Act (FLSA) and Magnuson-Moss Warranty baselines.</li>
-                        <li><strong>Sovereign Finance Cores (Tax & Real Estate):</strong> National-level financial tools are indexed against current Internal Revenue Service (IRS) brackets, Federal Reserve (FRED) liquidity data, and FHFA conforming loan limits.</li>
-                        <li><strong>Enterprise Deployment (B2B Licensees):</strong> All frontend applications are built on secure, vanilla HTML5/JS for conflict-free integration into your firm's existing CMS or web architecture. Tools are engineered to maintain 90-100 Lighthouse performance scores across mobile and desktop environments, ensuring your deployment never harms your site's SEO.</li>
-                    </ul>
+                    <details class="faq-dropdown">
+                        <summary>How does Escrow and the "Lead Consultant" process work?</summary>
+                        <div class="faq-content">
+                            <p>Solveria utilizes a decentralized enterprise framework. When you initialize a deployment, you are assigned a dedicated Lead Consultant (e.g., Raman Kumar) who manages your encrypted Onboarding Vault and final staging delivery. All B2B payments are processed securely through our authorized escrow partner, Contra, under the direct supervision of your assigned Consultant. This ensures zero financial risk and rapid deployment.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-dropdown">
+                        <summary>How do I connect my new landing page to my domain?</summary>
+                        <div class="faq-content">
+                            <p>Your deployment requires zero technical heavy lifting. Upon staging approval, your Lead Consultant will provide a comprehensive Deployment PDF. This document contains a single CNAME record target. You simply paste this target into your current domain registrar (GoDaddy, Namecheap, etc.). Global propagation initiates immediately, routing traffic to your new edge-network asset without disrupting your primary root domain.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-dropdown">
+                        <summary>Why is the architecture "Locked" and can I add my own plugins?</summary>
+                        <div class="faq-content">
+                            <p>Solveria guarantees minimum 95+ Mobile and 100 Desktop Google Lighthouse scores. To maintain this mathematical certainty, the core structural architecture is strictly locked. <strong>Warning:</strong> Injecting unauthorized third-party scripts, bloated analytics trackers, or live-chat widgets into the codebase post-deployment will artificially inflate load latency and immediately void your 100% SLA Refund Guarantee.</p>
+                        </div>
+                    </details>
 
-                    <h2>Technical Troubleshooting</h2>
-                    <p>
-                        Because Solveria operates on a strict <strong>Client-Side Architecture</strong>, performance relies on your browser's local capabilities. This ensures your data is processed locally on your device and is never transmitted to external servers.
-                    </p>
-                    <ul>
-                        <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (e.g., Chart.js).</li>
-                        <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience during a session. Clearing your browser cache or using Incognito Mode will automatically reset your scenarios and wipe all local data.</li>
-                        <li><strong>Licensee Integration:</strong> Firms who have procured a custom iframe via the Lemon Squeezy portal will receive a dedicated README.md file alongside their deployment link. Please refer to this documentation for CSS customization and embedding guidelines before contacting engineering support.</li>
-                    </ul>
+                    <h2>B. Calculation Logic Suites</h2>
 
-                    <h2>Statutory Updates & Edge Cases</h2>
-                    <p>
-                        Legal and economic variables evolve rapidly. If your firm notices a recent amendment to state labor codes, a municipal wage ordinance, or a shift in federal tax guidelines that conflicts with our logic, please file a report via our <a href="../contact-us/">Contact page</a>. We prioritize statutory updates and hotfixes within 48 hours of a confirmed ruling.
-                    </p>
+                    <details class="faq-dropdown">
+                        <summary>What data sources power the Civil Justice and Sovereign Finance cores?</summary>
+                        <div class="faq-content">
+                            <p>Our decision engines utilize state-specific civil codes, federal regulatory guidelines (such as FLSA and HUD), and current actuarial data. While we strive for absolute accuracy, results should be viewed as high-fidelity statutory estimates rather than binding legal counsel or formal financial appraisals.</p>
+                            <ul>
+                                <li><strong>Civil Justice Cores (Wage & Tort):</strong> Algorithms account for local variances, such as state-specific premium penalties (e.g., California DLSE meal break rules), alongside federal Fair Labor Standards Act (FLSA) and Magnuson-Moss Warranty baselines.</li>
+                                <li><strong>Sovereign Finance Cores (Tax & Real Estate):</strong> National-level financial tools are indexed against current Internal Revenue Service (IRS) brackets, Federal Reserve (FRED) liquidity data, and FHFA conforming loan limits.</li>
+                                <li><strong>Enterprise Deployment (B2B Licensees):</strong> All frontend applications are built on secure, vanilla HTML5/JS for conflict-free integration into your firm's existing CMS or web architecture. Tools are engineered to maintain 90-100 Lighthouse performance scores across mobile and desktop environments, ensuring your deployment never harms your site's SEO.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-dropdown">
+                        <summary>Why are the calculators not loading or saving my data?</summary>
+                        <div class="faq-content">
+                            <p>Because Solveria operates on a strict <strong>Client-Side Architecture</strong>, performance relies on your browser's local capabilities. This ensures your data is processed locally on your device and is never transmitted to external servers.</p>
+                            <ul>
+                                <li><strong>Calculators not loading?</strong> Ensure JavaScript is enabled. We recommend disabling aggressive ad-blockers that may interfere with our visualization scripts (e.g., Chart.js).</li>
+                                <li><strong>Data not saving?</strong> We use LocalStorage to persist your inputs for convenience during a session. Clearing your browser cache or using Incognito Mode will automatically reset your scenarios and wipe all local data.</li>
+                                <li><strong>Licensee Integration:</strong> Firms who have procured a custom iframe via <strong>Contra</strong> will receive a dedicated README.md file alongside their deployment link. Please refer to this documentation for CSS customization and embedding guidelines before contacting engineering support.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-dropdown">
+                        <summary>How do I report a change in state labor codes or statutory updates?</summary>
+                        <div class="faq-content">
+                            <p>Legal and economic variables evolve rapidly. If your firm notices a recent amendment to state labor codes, a municipal wage ordinance, or a shift in federal tax guidelines that conflicts with our logic, please file a report via our <a href="../contact-us/">Contact page</a>. We prioritize statutory updates and hotfixes within 48 hours of a confirmed ruling.</p>
+                        </div>
+                    </details>
+
                 </article>
             </div>
         </section>

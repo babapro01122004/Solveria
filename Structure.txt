@@ -1,12 +1,5 @@
 
 main/
-|-widgets/
-|   |-unpaid-wages-calculator/
-|   |   |-index.html
-|   |   |-style.css
-|   |   |-script.js
-|-docs/
-|   |-PDF.pdf
 |-404.html
 |-android-chrome-192x192
 |-android-chrome-512x512
@@ -19,11 +12,7 @@ main/
 |-robots.txt
 |-site.webmanifest
 |-sitemap.xml
-|-about/
-|     |-index.html
 |-calculators/
-|     |-index.html
-|-coming-soon/
 |     |-index.html
 |-finance/
 |     |-index.html
@@ -92,7 +81,9 @@ main/
 |-img/
 |     |- {all the images}
 |-fonts/
-|     |- {fonts}
+|     |- {all the fonts}
+|-about/
+|     |-index.html
 |-privacy-policy/
 |     |-index.html
 |-support/
@@ -100,4 +91,24 @@ main/
 |-terms-of-use/
 |     |-index.html
 |-contact-us/
+|     |-index.html
+|-editorial-standards/
+|     |-index.html
+|-template/
+|     |-fonts/
+|     |    |-{all the fonts}
+|     |-image/
+|     |    |-{all the images}
+|     |-index.html
+|     |-style.css
+|     |-script.js
+|-licensing/
+|     |-fonts/
+|     |    |-{all the fonts}
+|     |-image/
+|     |    |-{all the images}
+|     |-index.html
+|     |-style.css
+|     |-script.js
+|-deployment/
 |     |-index.html

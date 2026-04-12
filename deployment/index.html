@@ -10,7 +10,7 @@
     <link rel="canonical" href="https://solveria.org/thank-you/">
 
     <!-- PERFORMANCE CRITICAL: Preload the LCP background image so it loads instantly -->
-    <link rel="preload" href="../img/H.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="../img/ABC.webp" as="image" fetchpriority="high">
     
     <!-- Preload critical local fonts to prevent text flashing and critical path chains -->
     <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
@@ -113,6 +113,20 @@
             font-style: normal;
             font-display: swap;
         }
+        @font-face {
+            font-family: 'ProductSans-Bold';
+            src: url('../fonts/ProductSans-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'ProductSans-Light';
+            src: url('../fonts/ProductSans-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
 
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -141,11 +155,39 @@
             justify-content: space-between;
             align-items: center;
         }
-        .header .logo img {
-            height: 35px;
-            width: auto;
-            aspect-ratio: auto; 
+        
+        /* Updated Logo Structure */
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
+        .header .logo img {
+            height: 35px; /* Base height for mobile */
+            width: auto;
+            aspect-ratio: auto;
+            transition: height 0.3s ease;
+            filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.4)); /* Faint blurry shadow */
+        }
+        .header .logo-text {
+            color: #ffffff;
+            font-family: 'Roboto Thin Local', 'Roboto', sans-serif;
+            font-weight: 100;
+            font-size: 1.6rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Faint blurry shadow */
+            transition: font-size 0.3s ease;
+        }
+        @media (min-width: 768px) {
+            .header .logo img {
+                height: 55px; /* Bigger logo on desktop */
+            }
+            .header .logo-text {
+                font-size: 2.2rem;
+            }
+        }
+        
         .header nav a {
             color: #e0e0e0; text-decoration: none; font-size: 0.9rem;
             font-weight: 300; transition: color 0.3s ease;
@@ -153,14 +195,41 @@
         }
         .header nav a:hover { color: #ffffff; }
 
+        /* =========================================
+           POP-UP FADE ANIMATION SYSTEM
+           ========================================= */
+        @keyframes popUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(35px) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-pop {
+            opacity: 0; /* Hidden initially */
+            animation: popUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        /* Staggered Delays for Premium Feel */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .delay-4 { animation-delay: 0.5s; }
+        .delay-5 { animation-delay: 0.6s; }
+        .delay-6 { animation-delay: 0.7s; }
+        .delay-7 { animation-delay: 0.8s; }
+
         .hero-section {
-            height: 50vh;
-            min-height: 300px;
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../img/H.webp'); 
+            height: 70vh;
+            min-height: 450px;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../img/ABC.webp'); 
             background-color: #333; 
             background-size: cover;
             background-position: center;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -169,12 +238,30 @@
             will-change: transform, opacity; 
         }
 
-        .hero-section h1 {
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
-            font-weight: 100;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+        /* UPDATED HERO HEADING STYLES */
+        .hero-text-wrapper {
             padding: 0 15px;
-            max-width: 1000px;
+            max-width: 1400px;
+        }
+
+        .hero-title {
+            font-family: 'ProductSans-Light', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 8.5rem); /* Made even larger !! */
+            font-weight: 300;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.6);
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Roboto Thin Local', 'Roboto', sans-serif; /* Roboto Thin applied !! */
+            font-weight: 100;
+            font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+            margin: 15px 0 0 0;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
         }
 
         .content-section {
@@ -259,7 +346,7 @@
         }
         
         #solveria-contact-form {
-            animation: fadeIn 0.4s ease;
+            /* Handled by global animate-pop classes now */
         }
 
         .form-row {
@@ -303,6 +390,118 @@
             outline: none;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); 
         }
+
+        /* ============================ */
+        /* Custom Dropdown BOXED        */
+        /* ============================ */
+        .custom-dropdown-container {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box; 
+            margin-top: 3px; /* Spacing from label */
+        }
+
+        .hidden-select {
+            /* Using visually hidden technique to allow native HTML5 form validation to focus it */
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+            bottom: 0;
+            left: 50%;
+            z-index: -1;
+            border: none;
+        }
+
+        /* The Trigger Box - Now styled identical to standard input fields !! */
+        .custom-dropdown-trigger {
+            width: 100%;
+            
+            /* Box Styling Matching Inputs */
+            border: none;
+            border-radius: 8px;
+            padding: 14px 16px; /* Matched to input volume */
+            
+            font-size: 1rem; /* Matched to input */
+            
+            color: #333;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Faint blurry shadow */
+            
+            outline: none;
+            font-family: 'Roboto', sans-serif; /* Matched to input */
+            font-weight: 300;
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+            /* Arrow moved inside the box */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 16px center; /* Shifted for padding */
+            
+            transition: all 0.25s ease;
+        }
+
+        /* Hover & Active State matching standard inputs !! */
+        .custom-dropdown-trigger:hover,
+        .custom-dropdown-container:focus-within .custom-dropdown-trigger {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Lift effect */
+        }
+
+        /* Dropdown Menu Position */
+        .custom-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: #fafafa;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            padding: 6px 2px 6px 6px;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            max-height: 250px;
+            overflow: hidden;
+        }
+
+        .custom-dropdown-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dropdown-options-wrapper {
+            overflow-y: auto;
+            max-height: 100%;
+            padding-right: 4px;
+        }
+
+        .dropdown-options-wrapper::-webkit-scrollbar { width: 8px; }
+        .dropdown-options-wrapper::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; border: 1px solid #fafafa; }
+
+        .dropdown-option {
+            padding: 10px 15px; 
+            font-size: 0.95rem;
+            color: #555;
+            cursor: pointer;
+            border-radius: 8px; 
+            margin-bottom: 2px; 
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-option:hover { background: #eae5df; color: #000; }
+        .dropdown-option.selected { font-weight: 500; color: #000; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
         /* Form Subtext Styling */
         .form-text {
@@ -363,7 +562,6 @@
             justify-content: center;
             text-align: center;
             padding: 60px 20px;
-            animation: fadeIn 0.4s ease;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -394,7 +592,7 @@
             margin: 0 auto;
         }
 
-        @keyframes fadeIn {
+        @keyframes fadeInForm {
             from { opacity: 0; transform: translate(-50%, -40%); }
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
@@ -453,7 +651,7 @@
         .site-footer {
             position: relative;
             width: 100%;
-            background-image: url('../img/support.webp'); 
+            background-image: url('../img/XYZ.webp'); 
             background-size: cover;
             background-position: center;
             color: #ffffff;
@@ -464,7 +662,7 @@
         .footer-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent; 
+            background: radial-gradient(circle, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.9) 100%); 
             z-index: 1;
         }
 
@@ -644,11 +842,10 @@
         <div class="header-container">
             <a href="../" class="logo">
                 <picture>
-                    <source media="(max-width: 767px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
-                    <source media="(min-width: 768px)" srcset="../img/Logo_White.webp" type="image/webp">
-                    <source srcset="../img/Logo_White.png" type="image/png">
-                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;">
+                    <source srcset="../img/Logo_Golden.webp" type="image/webp">
+                    <img src="../img/Logo_Golden.png" alt="Solveria Logo Icon">
                 </picture>
+                <span class="logo-text">Solveria.</span>
             </a>
             <nav>
                 <a href="../calculators/">Calculators</a>
@@ -659,12 +856,16 @@
 
     <main>
         <section class="hero-section">
-            <h1>Payment Secured: Welcome to Solveria Infrastructure.</h1>
+            <div class="hero-text-wrapper">
+                <!-- Apply Pop Up Fade Classes !! -->
+                <h1 class="hero-title animate-pop delay-1">PAYMENT SECURED</h1>
+                <p class="hero-subtitle animate-pop delay-2">Welcome to Solveria Infrastructure.</p>
+            </div>
         </section>
 
         <section class="content-section">
             <div class="content-container">
-                <nav class="breadcrumb" aria-label="Breadcrumb">
+                <nav class="breadcrumb animate-pop delay-3" aria-label="Breadcrumb">
                     <a href="../">Home</a>
                     <span>/</span>
                     <span class="current-page" aria-current="page">Payment Secured</span>
@@ -672,15 +873,15 @@
 
                 <article class="article-body">
                     
-                    <div class="intro-text">
+                    <div class="intro-text animate-pop delay-4">
                         <h2>Deployment Initialization</h2>
                         <p>
-                            Your transaction is complete and your digital real estate is secured. Our engineering team has received your deployment request and is standing by to compile your custom mathematical models. Please complete the strict intake protocol below so we can initialize your build accurately and rapidly.
+                            Your transaction is complete and your digital real estate is secured. Our engineering team has received your deployment request and is standing by to compile your custom edge-routed architecture. Please complete the strict intake protocol below so we can initialize your build accurately and rapidly.
                         </p>
                     </div>
 
                     <!-- SECURE REQUEST PORTAL - STEP 1 -->
-                    <div class="secure-request-portal">
+                    <div class="secure-request-portal animate-pop delay-5">
                         <h3 id="portal-title">Step 1: Technical Routing Variables</h3>
                         
                         <form id="solveria-contact-form" action="https://formspree.io/f/xwvrpljb" method="POST">
@@ -700,8 +901,39 @@
                             
                             <div class="form-group">
                                 <label for="domain_registrar">Domain Registrar</label>
-                                <input type="text" id="domain_registrar" name="Domain_Registrar" required>
+                                <div class="custom-dropdown-container">
+                                    <select id="domain_registrar" name="Domain_Registrar" class="hidden-select" required>
+                                        <option value="" disabled selected>Select your registrar...</option>
+                                        <option value="GoDaddy">GoDaddy</option>
+                                        <option value="Namecheap">Namecheap</option>
+                                        <option value="Squarespace">Squarespace</option>
+                                        <option value="Shopify">Shopify</option>
+                                        <option value="Wix">Wix</option>
+                                        <option value="Cloudflare">Cloudflare</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <!-- Using type="button" is crucial so clicking it doesn't submit the form -->
+                                    <button type="button" class="custom-dropdown-trigger">Select your registrar...</button>
+                                    <div class="custom-dropdown-menu">
+                                        <div class="dropdown-options-wrapper">
+                                            <div class="dropdown-option" data-value="GoDaddy">GoDaddy</div>
+                                            <div class="dropdown-option" data-value="Namecheap">Namecheap</div>
+                                            <div class="dropdown-option" data-value="Squarespace">Squarespace</div>
+                                            <div class="dropdown-option" data-value="Shopify">Shopify</div>
+                                            <div class="dropdown-option" data-value="Wix">Wix</div>
+                                            <div class="dropdown-option" data-value="Cloudflare">Cloudflare</div>
+                                            <div class="dropdown-option" data-value="Other">Other</div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <span class="form-text">Where is your current domain registered? (e.g., GoDaddy, Namecheap, etc.)</span>
+                            </div>
+
+                            <!-- Conditional Group that appears if 'Other' is selected -->
+                            <div class="form-group" id="other_registrar_group" style="display: none; animation: popUpFade 0.4s ease forwards;">
+                                <label for="other_registrar">Please Specify Registrar</label>
+                                <input type="text" id="other_registrar" name="Other_Registrar_Name">
+                                <span class="form-text">Type the name of your domain registrar.</span>
                             </div>
                             
                             <div class="form-group">
@@ -737,15 +969,15 @@
                     </div>
 
                     <!-- SECURE DROPBOX PORTAL - STEP 2 -->
-                    <div class="secure-request-portal" style="margin-top: 40px; min-height: auto;">
+                    <div class="secure-request-portal animate-pop delay-6" style="margin-top: 40px; min-height: auto;">
                         <h3>Step 2: Asset Upload</h3>
                         <p>Click the secure portal below to upload your high-resolution logos and team photos. (You will be asked to confirm your Name and Email for our internal security routing).</p>
                         
                         <a href="https://www.dropbox.com/request/pqoyt9qsHOUSDQwNcYLq" target="_blank" rel="noopener noreferrer" class="submit-btn" style="margin-top: 25px;">Open Secure Upload Portal</a>
                     </div>
 
-                    <div class="deflector-shield" style="margin-top: 40px;">
-                        <p><strong>Next Steps:</strong> We compile the code (24 hours), we send the Live Sandbox link for approval, and we provide the final 60-second DNS connection guide.</p>
+                    <div class="deflector-shield animate-pop delay-7" style="margin-top: 40px;">
+                        <p><strong>Next Steps:</strong> We compile the code (24 hours), we send the Live Staging Environment link for approval, and we provide the final 60-second DNS connection guide.</p>
                     </div>
 
                 </article>
@@ -774,13 +1006,7 @@
                     <h4>PLATFORM</h4>
                     <a href="../about/">About Solveria</a>
                     <a href="../support/">System Status</a>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>SUITES</h4>
-                    <a href="../finance/">Sovereign Finance</a>
-                    <a href="../claims-and-settlements/">Civil Justice</a>
-                    <a href="../calculators/">Full Tool Library</a>
+                    <a href="../contact-us/">Contact Engineer</a>
                 </div>
                 
                 <div class="footer-col">
@@ -800,11 +1026,85 @@
 </footer>
 
     <script>
+        /* ============================ */
+        /* Custom Dropdown Logic        */
+        /* ============================ */
+        function initializeCustomDropdowns() {
+            const wrappers = document.querySelectorAll('.custom-dropdown-container');
+            
+            wrappers.forEach(wrapper => {
+                const select = wrapper.querySelector('select');
+                const trigger = wrapper.querySelector('.custom-dropdown-trigger');
+                const menu = wrapper.querySelector('.custom-dropdown-menu');
+                const options = wrapper.querySelectorAll('.dropdown-option');
+
+                // Toggle Menu Visibility
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close other open menus first
+                    document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
+                        if (m !== menu) m.classList.remove('active');
+                    });
+                    menu.classList.toggle('active');
+                });
+
+                // Option Selection Logic
+                options.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const value = option.getAttribute('data-value');
+                        
+                        // Update UI
+                        trigger.textContent = option.textContent;
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        menu.classList.remove('active');
+                        
+                        // Update Hidden Select & Trigger Change Event
+                        if(select) {
+                            select.value = value;
+                            select.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
+                    if (!menu.parentElement.contains(e.target)) {
+                        menu.classList.remove('active');
+                    }
+                });
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             // Copyright Year Logic
             const yearSpan = document.getElementById("copyright-year");
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Initialize the newly added Custom Dropdown
+            initializeCustomDropdowns();
+
+            // Conditional Logic for "Other" Registrar
+            const domainRegistrarSelect = document.getElementById("domain_registrar");
+            const otherRegistrarGroup = document.getElementById("other_registrar_group");
+            const otherRegistrarInput = document.getElementById("other_registrar");
+
+            if(domainRegistrarSelect) {
+                domainRegistrarSelect.addEventListener('change', function() {
+                    if(this.value === 'Other') {
+                        otherRegistrarGroup.style.display = 'block';
+                        otherRegistrarInput.setAttribute('required', 'required');
+                    } else {
+                        otherRegistrarGroup.style.display = 'none';
+                        otherRegistrarInput.removeAttribute('required');
+                        otherRegistrarInput.value = '';
+                    }
+                });
             }
         });
         
@@ -836,17 +1136,32 @@
                     form.style.display = 'none';
                     if (portalTitle) portalTitle.style.display = 'none';
                     successMessage.style.display = 'flex';
+                    successMessage.style.animation = 'fadeInForm 0.4s ease forwards';
                     
                     // Reset Sequence after 6 seconds
                     setTimeout(() => {
                         // 1. Reset standard form fields
                         form.reset();
                         
-                        // 2. Reset Button State
+                        // 2. Reset Custom Dropdown UI to Default
+                        const trigger = form.querySelector('.custom-dropdown-trigger');
+                        const options = form.querySelectorAll('.dropdown-option');
+                        if (trigger && options) {
+                            trigger.textContent = "Select your registrar...";
+                            options.forEach(opt => opt.classList.remove('selected'));
+                        }
+
+                        // Reset conditional "Other" field UI
+                        const otherRegGroup = document.getElementById("other_registrar_group");
+                        const otherRegInput = document.getElementById("other_registrar");
+                        if (otherRegGroup) otherRegGroup.style.display = 'none';
+                        if (otherRegInput) otherRegInput.removeAttribute('required');
+
+                        // 3. Reset Button State
                         submitBtn.textContent = originalBtnText;
                         submitBtn.disabled = false;
                         
-                        // 3. Swap visibility back
+                        // 4. Swap visibility back
                         successMessage.style.display = 'none';
                         if (portalTitle) portalTitle.style.display = 'block';
                         form.style.display = 'block';

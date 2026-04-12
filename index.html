@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0806">
+    <meta name="theme-color" content="#000000">
 
     <!-- SEO & Meta Data -->
     <title>Solveria | Sovereign Financial & Legal Decision Engines</title>
@@ -28,9 +28,9 @@
     <meta name="twitter:image" content="https://solveria.org/img/support.webp">
 
     <!-- Performance: Preload Critical Assets with Responsive Support -->
-    <link rel="preload" as="image" href="img/Her_Dark.jpg" media="(min-width: 901px)" fetchpriority="high">
-    <link rel="preload" as="image" href="img/Her_Dark_Phone.jpg" media="(max-width: 900px)" fetchpriority="high">
-    <link rel="preload" as="image" href="img/L.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Her_Dark.webp" media="(min-width: 901px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Her_Dark_Phone.webp" media="(max-width: 900px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/L.webp" fetchpriority="high">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,7 +96,7 @@
             margin: 0; padding: 0;
             font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 300;
-            background-color: #050404;
+            background-color: #000; /* Pitch Black */
             color: #e0e0e0;
             display: flex;
             flex-direction: column;
@@ -136,10 +136,12 @@
         /* ============================ */
         .header {
             position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
-            padding: 2.5rem 4rem;
+            padding: 2.5rem 4%; /* Wider edge padding */
         }
         .header-container {
-            max-width: 1600px; margin: 0 auto;
+            max-width: none; /* Pushes content to the edges of the 4% padding */
+            width: 100%; 
+            margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
         }
         
@@ -234,23 +236,34 @@
             animation: heroFadeIn 2.5s ease-out forwards;
             pointer-events: none;
         }
+        
+        /* HERO VIGNETTE */
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.95) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
 
         @keyframes heroFadeIn {
             0% { opacity: 0; transform: scale(1.05); }
             100% { opacity: 1; transform: scale(1); } /* Fully opaque */
         }
 
-        /* BOTTOM FADE */
+        /* BOTTOM FADE - Pitch Black */
         .hero-bottom-fade {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
             height: 350px; 
-            background: linear-gradient(to bottom, transparent 0%, rgba(5,4,4,0.6) 50%, #050404 100%);
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 50%, #000 100%);
             z-index: 3;
             pointer-events: none;
         }
         
-        .hero-content { position: relative; z-index: 10; padding: 0 20px; max-width: 1000px; width: 100%; }
+        .hero-content { position: relative; z-index: 10; padding: 0 20px; max-width: 1200px; width: 100%; }
         
         /* H1 Styling */
         .hero-title {
@@ -260,17 +273,20 @@
             letter-spacing: 0.02em;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            text-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            line-height: 1.1;
+            /* Enhanced layered shadow for deep contrast */
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 4px 10px rgba(0,0,0,0.8);
         }
         
         .hero-subtitle {
             font-size: 1.05rem; 
             font-weight: 300; 
-            color: #d0d0d0; 
-            max-width: 600px; 
+            color: #ffffff; /* Changed to White */
+            max-width: 650px; 
             margin: 0 auto 1.5rem auto;
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            /* Enhanced layered shadow for deep contrast */
+            text-shadow: 0 4px 20px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,0.8);
         }
 
         /* Shared Word Animation */
@@ -312,7 +328,7 @@
         /* SCROLL INDICATOR */
         .scroll-indicator {
             position: absolute;
-            bottom: 15px; /* Brought down closer to edge */
+            bottom: 0px; /* Touch bottom edge */
             left: 50%;
             transform: translateX(-50%);
             width: 1px;
@@ -320,7 +336,7 @@
             background: rgba(255, 255, 255, 0.1); 
             z-index: 30; /* Above shadow overlay */
             overflow: hidden;
-            border-radius: 2px;
+            border-radius: 2px 2px 0 0; /* Flush to edge */
         }
         
         .scroll-indicator::after {
@@ -345,7 +361,7 @@
         /* ============================ */
         .corner-text-wrapper {
             position: absolute;
-            bottom: 50px;
+            bottom: 40px; /* Equal spacing to Left/Right */
             z-index: 15; /* MUST be behind the indicator-shadow (25) */
             pointer-events: none; 
             
@@ -360,7 +376,7 @@
             animation-delay: 1.8s;
         }
 
-        .corner-text-wrapper.left { left: 40px; }
+        .corner-text-wrapper.left { left: 40px; } /* Perfect symmetry with bottom: 40px */
         .corner-text-wrapper.right { right: 40px; text-align: right; }
 
         .marquee-track {
@@ -429,7 +445,7 @@
             font-size: 0.90rem;
             text-transform: uppercase;
             letter-spacing: 4px;
-            color: #b0b0b0;
+            color: #ffffff; /* Contrast fix */
             margin-top: 1.5rem;
             margin-bottom: -1rem; 
             opacity: 0;
@@ -439,14 +455,15 @@
             font-weight: 400;
             z-index: 10;
             position: relative;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            /* Enhanced layered shadow */
+            text-shadow: 0 4px 20px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,0.8);
         }
 
         .top-tools-wrapper {
             position: relative;
             width: 100%;
-            max-width: 1000px;
-            height: 480px; 
+            max-width: 900px;
+            height: 380px; /* Reduced Height to prevent hitting bottom indicator */
             margin: 2rem auto 0 auto; 
             display: flex;
             justify-content: center;
@@ -460,9 +477,9 @@
 
         .tool-card-stacked {
             position: absolute;
-            width: 350px; 
-            height: 440px; 
-            border-radius: 16px;
+            width: 280px; /* Reduced Width */
+            height: 360px; /* Reduced Height */
+            border-radius: 20px; /* Rounded corners */
             border: none;
             overflow: hidden;
             text-decoration: none;
@@ -498,7 +515,7 @@
         .tcs-content {
             position: relative;
             z-index: 2;
-            padding: 30px 20px;
+            padding: 25px 15px; /* Scaled down padding */
             text-align: center;
             color: #fff;
             display: flex;
@@ -507,25 +524,25 @@
         }
 
         .tcs-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* Scaled down font */
             font-weight: 300;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 0;
             color: #ffffff;
             text-shadow: 0 2px 10px rgba(0,0,0,1);
         }
 
         .tcs-desc {
-            font-size: 0.95rem; 
+            font-size: 0.85rem; /* Scaled down font */
             color: #dcdcdc;
             font-weight: 300;
             line-height: 1.5;
-            margin-bottom: 25px;
-            padding: 0 10px;
+            margin-bottom: 20px;
+            padding: 0 5px;
         }
 
         .tcs-link {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #e4c59a;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -541,12 +558,12 @@
         /* Stacking Dynamics - Initial State */
         .tcs-left {
             z-index: 1;
-            transform: translateX(-55%) scale(0.85);
+            transform: translateX(-60%) scale(0.85); /* Tightened spread */
             filter: brightness(0.4);
         }
         .tcs-right {
             z-index: 1;
-            transform: translateX(55%) scale(0.85);
+            transform: translateX(60%) scale(0.85); /* Tightened spread */
             filter: brightness(0.4);
         }
         .tcs-center {
@@ -557,11 +574,11 @@
 
         /* Hover Expansion - NO TILT, pure outward slide */
         .top-tools-wrapper:hover .tcs-left {
-            transform: translateX(-80%) scale(0.85);
+            transform: translateX(-85%) scale(0.85);
             filter: brightness(0.6);
         }
         .top-tools-wrapper:hover .tcs-right {
-            transform: translateX(80%) scale(0.85);
+            transform: translateX(85%) scale(0.85);
             filter: brightness(0.6);
         }
         .top-tools-wrapper:hover .tcs-center {
@@ -575,10 +592,10 @@
         .section-mission {
             padding: 160px 20px;
             text-align: center;
-            background: #050404;
+            background: #000;
             position: relative; z-index: 5;
         }
-        .mission-container { max-width: 800px; margin: 0 auto; }
+        .mission-container { max-width: 900px; margin: 0 auto; }
         
         .section-label {
             display: block; font-size: 0.75rem; text-transform: uppercase; 
@@ -607,32 +624,41 @@
         .section-split { 
             position: relative; 
             z-index: 2; 
-            background: #050404; /* Matches body */
-            padding: 20px 50px 100px 50px; 
+            background: #000; /* Pitch Black */
+            padding: 0; /* NO PADDING - ALLOWS EDGE TO EDGE CHECKERBOARD */
+            overflow: hidden;
         }
         
         .split-row {
             display: flex; 
             width: 100%;
-            max-width: 1500px;
-            margin: 0 auto 100px auto; 
+            max-width: 100%; /* Edge to edge spanning */
+            margin: 0; /* ZERO GAP BETWEEN ROWS */
             min-height: 70vh; 
-            align-items: center; 
-            gap: 80px; 
+            align-items: stretch; /* Forces equal height for exact vertical corner touching */
+            gap: 0; 
         }
+
+        /* Mobile specific heading to keep visual order without breaking flex structure */
+        .mobile-only-title { display: none; }
+        .desktop-only-title { display: block; }
         
         .split-content {
-            flex: 1; 
-            padding: 20px 0;
-            display: flex; flex-direction: column; justify-content: center;
+            flex: 0 0 50%; /* Force Exactly 50% split */
+            width: 50%;
+            padding: 40px 6vw; /* Breathing room from screen center/edges */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
         }
         
         .split-image-container {
-            flex: 0 0 55%; 
-            width: 55%;
-            height: 70vh; 
+            flex: 0 0 50%; /* Force Exactly 50% split */
+            width: 50%;
+            height: auto; /* Adapts to row height to ensure corners always touch */
+            min-height: 70vh; 
             position: relative; 
-            border-radius: 30px;
+            border-radius: 0; /* Sharp corners */
             overflow: hidden; 
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
@@ -659,18 +685,39 @@
             filter: brightness(1.05);
         }
 
-        /* Metrics Layout */
+        /* Metrics Layout Update */
         .image-overlay-metrics {
             position: absolute; 
             bottom: 40px; 
-            left: 50px; 
-            right: 50px;
+            left: 0; 
+            right: 0;
             display: flex; 
-            flex-direction: row;
-            justify-content: flex-start;
-            gap: 60px; 
+            flex-direction: column;
+            align-items: center; 
+            gap: 25px; /* Gap between icons row and sentence */
             z-index: 5;
             pointer-events: none;
+        }
+
+        .metrics-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .metrics-sentence {
+            font-size: 0.95rem;
+            color: #dcdcdc;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-align: center;
+            max-width: 85%;
+            /* Faint blurry shadow */
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            opacity: 0.9;
+            line-height: 1.5;
         }
 
         .metric-item {
@@ -688,7 +735,8 @@
         .metric-icon svg {
             width: 100%; height: 100%;
             fill: #ffffff;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+            /* Faint blurry shadow */
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
         }
 
         .metric-text {
@@ -705,7 +753,8 @@
         .metric-value {
             font-size: 1.15rem; color: #ffffff;
             font-weight: 400; letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,1);
+            /* Faint blurry shadow */
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
         
         .split-title { 
@@ -782,8 +831,8 @@
         /* INDEX GRID                   */
         /* ============================ */
         .section-grid { 
-            padding: 140px 40px 0px 40px; 
-            background: #050404;
+            padding: 140px 0px 0px 0px; /* Zero horizontal padding for edge-to-edge desktop */
+            background: #000;
         }
         .grid-header {
             max-width: 1200px; margin: 0 auto 80px auto; text-align: center;
@@ -794,15 +843,15 @@
         }
         
         .tools-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
-            max-width: 1600px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; /* No gap between cards on desktop */
+            max-width: 100%; margin: 0; /* Full width edge-to-edge on desktop */
         }
         
         .tool-card {
             position: relative; height: 500px; overflow: hidden;
             display: flex; flex-direction: column; justify-content: flex-end;
             text-decoration: none; background-color: #000;
-            border-radius: 20px;
+            border-radius: 0; /* Sharp corners */
         }
         .tool-card:hover .card-bg { opacity: 1.0; transform: scale(1.05); }
         .tool-card:hover .tool-title { color: #fff; }
@@ -815,7 +864,7 @@
         
         .card-overlay { 
             position: absolute; inset: 0; 
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(10,8,6,0.5) 40%, rgba(0,0,0,0) 100%); 
+            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(10,8,6,0.6) 45%, rgba(0,0,0,0) 100%); 
             z-index: 1; 
         }
         
@@ -829,8 +878,17 @@
             transition: color 0.3s;
         }
         .tool-sub { 
-            font-size: 0.7rem; color: #cccccc; letter-spacing: 1px; 
+            display: block; font-size: 0.7rem; color: #cccccc; letter-spacing: 1px; 
             text-transform: uppercase; font-weight: 400;
+        }
+        .tool-desc {
+            font-size: 0.85rem; color: #a0a0a0;
+            margin: 15px 0 0 0; padding: 0 10px;
+            font-weight: 300; line-height: 1.5;
+            opacity: 0.8; transition: opacity 0.3s, color 0.3s;
+        }
+        .tool-card:hover .tool-desc {
+            color: #dcdcdc; opacity: 1;
         }
         
         .btn-view-all {
@@ -848,7 +906,7 @@
         /* ============================ */
         .section-transparency {
             padding: 0 20px 140px 20px; 
-            background: #050404;
+            background: #000;
             text-align: center;
         }
         .transparency-content {
@@ -926,7 +984,10 @@
         .footer-links {
             flex: 2; display: flex; justify-content: flex-end; gap: 100px; flex-wrap: wrap;
         }
-        .footer-col { display: flex; flex-direction: column; gap: 20px; }
+        .footer-col { 
+            display: flex; flex-direction: column; gap: 20px; 
+            align-items: center; text-align: center; /* Center align links */
+        }
         .footer-col h4 {
             font-size: 0.75rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 10px 0; font-weight: 500;
         }
@@ -1010,11 +1071,11 @@
         @media (max-width: 1200px) {
             .tools-grid { grid-template-columns: repeat(2, 1fr); }
             .hero-title { font-size: 3.5rem; }
-            .image-overlay-metrics { gap: 30px; left: 30px; right: 30px; }
             
-            /* Adjust padding for split blocks on medium screens */
-            .section-split { padding: 40px; }
-            .split-row { gap: 40px; }
+            /* Keep zero gap on medium screens to preserve checkerboard before mobile stack */
+            .section-split { padding: 0; }
+            .split-row { margin-bottom: 0; gap: 0; }
+            .split-content { padding: 30px 4vw; }
         }
 
         @media (max-width: 900px) {
@@ -1033,7 +1094,7 @@
             .header nav a { margin-left: 0; font-size: 0.75rem; }
             
             /* Hero */
-            .hero-title { font-size: 2.5rem; margin-bottom: 1rem; }
+            .hero-title { font-size: 2.2rem; margin-bottom: 1rem; } /* Adjusted size for longer text wrapping */
             .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; padding: 0 20px; }
 
             .top-tools-indicator { font-size: 0.70rem; margin-top: 1rem; margin-bottom: -1rem; }
@@ -1057,7 +1118,7 @@
                 max-width: none;
                 width: 180px !important;
                 height: 240px !important;
-                border-radius: 12px !important;
+                border-radius: 16px !important; /* Retain rounded corners on mobile */
             }
             .tcs-left { transform: translateX(-50%) scale(0.85) !important; filter: brightness(0.4) !important; z-index: 1 !important; }
             .tcs-right { transform: translateX(50%) scale(0.85) !important; filter: brightness(0.4) !important; z-index: 1 !important; }
@@ -1086,35 +1147,60 @@
             .mission-headline { font-size: 2.2rem; }
             .mission-text { font-size: 1.1rem; }
 
-            /* Split Personas Mobile */
+            /* Split Personas Mobile Re-ordering and Sizing */
             .section-split { padding: 40px 20px; }
-            .split-row { margin-bottom: 40px; gap: 40px; }
+            .split-row { margin-bottom: 40px; gap: 15px; } /* Brought headings and content tighter together */
             
             .split-row, .split-row.reverse { flex-direction: column; min-height: auto; }
             
+            /* Displays mobile-only title above the image in natural DOM flow */
+            .mobile-only-title {
+                display: block;
+                font-size: 2.5rem;
+                font-weight: 100;
+                color: #fff;
+                letter-spacing: -1px;
+                margin-bottom: 0px; /* Reduced gap between heading and card */
+                text-align: left;
+                width: 100%;
+            }
+            .desktop-only-title { display: none; }
+
             .split-image-container { 
-                flex: none; width: 100%; height: 350px; 
+                flex: none; width: 100%; 
+                min-height: 220px; /* OVERRIDE base 70vh */
+                height: 220px; /* Greatly reduced height for sleekness */
                 order: 1; 
-                border-radius: 20px;
+                border-radius: 16px; /* Smooth rounded corners on phone */
             }
+            
+            /* Override metrics alignment to fit inside the shorter card */
             .image-overlay-metrics { 
-                bottom: 20px; left: 20px; right: 20px; 
-                gap: 20px; 
-                justify-content: center; 
+                bottom: 10px; left: 10px; right: 10px; 
+                gap: 8px; /* Tighter gap between icons and sentence */
             }
+            .metrics-row { gap: 10px; justify-content: center; }
+            .metrics-sentence { 
+                font-size: 0.7rem; /* Scaled down slightly to fit */
+                line-height: 1.3; 
+                margin-top: 0px; 
+                padding: 0 10px; 
+                max-width: 95%; 
+            }
+
             .metric-item {
-                flex-direction: column; text-align: center; gap: 5px;
+                flex-direction: column; text-align: center; gap: 3px;
             }
-            .metric-icon { width: 30px; height: 30px; }
-            .metric-label { font-size: 0.6rem; }
-            .metric-value { font-size: 0.9rem; }
+            .metric-icon { width: 26px; height: 26px; } /* Slightly scaled down icons */
+            .metric-label { font-size: 0.55rem; margin-bottom: 2px;}
+            .metric-value { font-size: 0.85rem; }
             
             .split-content { 
                 flex: none; width: 100%; padding: 0; 
                 text-align: left; 
                 order: 2; 
+                margin-top: 15px; /* Restored breathing room below the image */
             }
-            .split-title { font-size: 2.5rem; margin-bottom: 20px; }
             .split-desc { font-size: 1rem; margin-bottom: 30px; }
             
             /* Tech Specs */
@@ -1123,8 +1209,9 @@
             .spec-item::before { display: none; }
 
             /* Index Grid */
-            .section-grid { padding: 100px 20px 0 20px; }
-            .tools-grid { grid-template-columns: 1fr; }
+            .section-grid { padding: 100px 20px 0 20px; } /* Ensures cards DO NOT touch screen edge on mobile */
+            .tools-grid { grid-template-columns: 1fr; gap: 30px; } /* Reintroduces gap for stacked mobile layout */
+            .tool-card { border-radius: 16px; } /* Smooth rounded corners on phone */
             .grid-header h2 { font-size: 1.5rem; }
             
             /* Transparency Section */
@@ -1135,7 +1222,7 @@
             .footer-main-row { flex-direction: column; align-items: center; text-align: center; }
             .footer-left { align-items: center; width: 100%; }
             .footer-links { justify-content: center; gap: 50px; width: 100%; }
-            .footer-col { align-items: center; }
+            /* Alignment managed in base CSS for .footer-col */
             .footer-legal-row { align-items: center; text-align: center; }
         }
 
@@ -1150,7 +1237,7 @@
             .tool-card-stacked {
                 width: 260px !important;
                 height: 340px !important;
-                border-radius: 14px !important;
+                border-radius: 16px !important;
             }
             .tcs-content { padding: 20px 15px !important; }
             .tcs-title { font-size: 1.25rem !important; margin-bottom: 8px !important; }
@@ -1185,31 +1272,33 @@
         
         <!-- Hero Background Image (Responsive) -->
         <picture>
-            <source media="(max-width: 900px)" srcset="img/Her_Dark_Phone.jpg">
-            <img src="img/Her_Dark.jpg" alt="Solveria Architecture" class="hero-bg-img" fetchpriority="high">
+            <source media="(max-width: 900px)" srcset="img/Her_Dark_Phone.webp">
+            <img src="img/Her_Dark.webp" alt="Solveria Architecture" class="hero-bg-img" fetchpriority="high">
         </picture>
+        
+        <!-- Hero Vignette (NEW) -->
+        <div class="hero-vignette"></div>
 
         <div class="hero-bottom-fade"></div>
         <div class="hero-content">
             <!-- H1 SPLIT WORDS -->
             <h1 class="hero-title">
                 <span class="word-h1" style="animation-delay: 0.3s">Decision</span>
-                <span class="word-h1" style="animation-delay: 0.5s">Sovereignty.</span>
+                <span class="word-h1" style="animation-delay: 0.4s">Sovereignty</span>
+                <span class="word-h1" style="animation-delay: 0.5s">&amp;</span>
+                <span class="word-h1" style="animation-delay: 0.6s">Acquisition</span>
+                <span class="word-h1" style="animation-delay: 0.7s">Dominance.</span>
             </h1>
             
             <p class="hero-subtitle">
                 <!-- Staggered Word Animation -->
-                <span class="word" style="animation-delay: 0.8s">The</span>
-                <span class="word" style="animation-delay: 0.85s">power</span>
-                <span class="word" style="animation-delay: 0.9s">of</span>
-                <span class="word" style="animation-delay: 0.95s">a</span>
-                <span class="word" style="animation-delay: 1.0s">financial</span>
-                <span class="word" style="animation-delay: 1.05s">institution,</span>
-                <span class="word" style="animation-delay: 1.1s">executing</span>
-                <span class="word" style="animation-delay: 1.15s">locally</span>
-                <span class="word" style="animation-delay: 1.2s">in</span>
-                <span class="word" style="animation-delay: 1.25s">your</span>
-                <span class="word" style="animation-delay: 1.3s">browser.</span>
+                <span class="word" style="animation-delay: 0.80s">Institutional-grade</span>
+                <span class="word" style="animation-delay: 0.85s">calculation</span>
+                <span class="word" style="animation-delay: 0.90s">engines</span>
+                <span class="word" style="animation-delay: 0.95s">and</span>
+                <span class="word" style="animation-delay: 1.00s">high-velocity</span>
+                <span class="word" style="animation-delay: 1.05s">digital</span>
+                <span class="word" style="animation-delay: 1.10s">infrastructure.</span>
             </p>
 
             <p class="top-tools-indicator">Index Snapshot ✦ Top Decision Engines</p>
@@ -1219,7 +1308,7 @@
                 
                 <!-- Left Card (Behind) -->
                 <a href="finance/mortgage-calculator/" class="tool-card-stacked tcs-left">
-                    <img src="img/A.jpg" alt="Mortgage & Amortization" class="tcs-bg" loading="lazy">
+                    <img src="img/A.webp" alt="Mortgage & Amortization" class="tcs-bg" loading="lazy">
                     <div class="tcs-overlay"></div>
                     <div class="tcs-content">
                         <h3 class="tcs-title">Mortgage & Amortization</h3>
@@ -1230,7 +1319,7 @@
 
                 <!-- Right Card (Behind) -->
                 <a href="finance/home-affordability-calculator/" class="tool-card-stacked tcs-right">
-                    <img src="img/B.jpg" alt="Affordability Stress Test" class="tcs-bg" loading="lazy">
+                    <img src="img/B.webp" alt="Affordability Stress Test" class="tcs-bg" loading="lazy">
                     <div class="tcs-overlay"></div>
                     <div class="tcs-content">
                         <h3 class="tcs-title">Affordability Stress Test</h3>
@@ -1241,7 +1330,7 @@
 
                 <!-- Center Card (Front) / 1st tool -->
                 <a href="claims-and-settlements/unpaid-wages-calculator/" class="tool-card-stacked tcs-center">
-                    <img src="img/L.jpg" alt="Unpaid Wages" class="tcs-bg" fetchpriority="high">
+                    <img src="img/L.webp" alt="Unpaid Wages" class="tcs-bg" fetchpriority="high">
                     <div class="tcs-overlay"></div>
                     <div class="tcs-content">
                         <h3 class="tcs-title">Unpaid Wages</h3>
@@ -1311,7 +1400,7 @@
             <h3 class="mission-kicker">THE MATH IS NOT IN YOUR FAVOR.</h3>
             <h2 class="mission-headline">The Counter-Algorithm.</h2>
             <div class="mission-text">
-                Institutions use complex algorithms to protect their margins. Lenders maximize debt yield; insurers minimize payouts. We give you the same actuarial models to protect your future. All logic executes locally in your browser. No tracking. Just pure leverage.
+                Legacy systems and complex algorithms are optimized to strangle your growth. Whether you require relentless logical weaponry to level the legal playing field, or an edge-routed acquisition pipeline to obliterate competitor market share—you need a mathematical advantage. Welcome to Solveria. Zero-trust calculations. High-velocity infrastructure. Just pure leverage.
             </div>
         </div>
     </section>
@@ -1321,47 +1410,54 @@
     <div class="section-split">
         <!-- Wealth Row -->
         <div class="split-row reveal" id="finance">
+            
+            <!-- Mobile Heading Placed Above Image in Flow -->
+            <h2 class="split-title mobile-only-title">Sovereign Finance.</h2>
+            
             <div class="split-image-container">
-                <img src="img/D.jpg" alt="Sovereign Finance Architecture" class="split-img" loading="lazy" width="800" height="600">
+                <img src="img/ABCD.webp" alt="Sovereign Finance Architecture" class="split-img" loading="lazy" width="800" height="600">
                 <div class="image-overlay-metrics">
-                    
-                    <!-- Item 1: Latency -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+                    <div class="metrics-row">
+                        <!-- Item 1: Latency -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Server Latency</span>
+                                <span class="metric-value">0 ms</span>
+                            </div>
                         </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Server Latency</span>
-                            <span class="metric-value">0 ms</span>
+
+                        <!-- Item 2: Max Loan -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 10V21H20V10H4ZM2 8L12 3L22 8H2ZM7 19H9V12H7V19ZM15 19H17V12H15V19ZM11 19H13V12H11V19Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Max Loan Modeling</span>
+                                <span class="metric-value">$1.5M</span>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Privacy -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 11.99H7V10H12V7.41L15.6 11L12 14.59V11.99Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Data Privacy</span>
+                                <span class="metric-value">100%</span>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Item 2: Max Loan -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 10V21H20V10H4ZM2 8L12 3L22 8H2ZM7 19H9V12H7V19ZM15 19H17V12H15V19ZM11 19H13V12H11V19Z"/></svg>
-                        </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Max Loan Modeling</span>
-                            <span class="metric-value">$1.5M</span>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: Privacy -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 11.99H7V10H12V7.41L15.6 11L12 14.59V11.99Z"/></svg>
-                        </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Data Privacy</span>
-                            <span class="metric-value">100%</span>
-                        </div>
-                    </div>
-
+                    <div class="metrics-sentence">Institutional-grade financial calculations executed locally within your browser, ensuring absolute mathematical privacy and uncompromised zero-trust data security.</div>
                 </div>
             </div>
+            
             <div class="split-content">
-                <h2 class="split-title">Sovereign Finance.</h2>
+                <!-- Desktop Heading -->
+                <h2 class="split-title desktop-only-title">Sovereign Finance.</h2>
                 <p class="split-desc">Don't rely on lender-sponsored calculators that sell your data. Model your mortgage amortization and stress-test your DTI against banking limits in absolute privacy.</p>
                 
                 <ul class="capabilities-list">
@@ -1377,47 +1473,54 @@
 
         <!-- Justice Row -->
         <div class="split-row reverse reveal" id="justice">
+            
+            <!-- Mobile Heading Placed Above Image in Flow -->
+            <h2 class="split-title mobile-only-title">Civil Justice.</h2>
+
             <div class="split-image-container">
-                <img src="img/K.jpg" alt="Civil Justice Interior" class="split-img" loading="lazy" width="800" height="600">
+                <img src="img/WXYZ.webp" alt="Civil Justice Interior" class="split-img" loading="lazy" width="800" height="600">
                 <div class="image-overlay-metrics">
-
-                    <!-- Item 1: Multipliers -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.12 11.53L1.5 24.13L0 22.63L12.62 10.03L14.12 11.53ZM23.5 6.13L20.5 9.13L15.5 4.13L18.5 1.13C19.33 0.29 20.67 0.29 21.5 1.13L23.5 3.13C24.33 3.96 24.33 5.3 23.5 6.13ZM5.5 17.13L8.5 20.13L3.5 25.13L0.5 22.13C-0.33 21.29 -0.33 19.95 0.5 19.13L2.5 17.13C3.33 16.29 4.67 16.29 5.5 17.13ZM8.5 7.13L16.5 15.13L15 16.63L7 8.63L8.5 7.13Z"/></svg>
+                    <div class="metrics-row">
+                        <!-- Item 1: Multipliers -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.12 11.53L1.5 24.13L0 22.63L12.62 10.03L14.12 11.53ZM23.5 6.13L20.5 9.13L15.5 4.13L18.5 1.13C19.33 0.29 20.67 0.29 21.5 1.13L23.5 3.13C24.33 3.96 24.33 5.3 23.5 6.13ZM5.5 17.13L8.5 20.13L3.5 25.13L0.5 22.13C-0.33 21.29 -0.33 19.95 0.5 19.13L2.5 17.13C3.33 16.29 4.67 16.29 5.5 17.13ZM8.5 7.13L16.5 15.13L15 16.63L7 8.63L8.5 7.13Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Damage Multipliers</span>
+                                <span class="metric-value">1.5x - 5x</span>
+                            </div>
                         </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Damage Multipliers</span>
-                            <span class="metric-value">1.5x - 5x</span>
+
+                        <!-- Item 2: Capacity -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19ZM11 10H13V15H11V10Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Settlement Capacity</span>
+                                <span class="metric-value">$50k+</span>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Cookies -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7C14.76 7 17 9.24 17 12C17 12.64 16.88 13.26 16.65 13.82L19.73 16.9C21.08 15.5 22.17 13.84 22.88 12C21.36 8.09 17.58 5 12 5C10.35 5 8.79 5.31 7.37 5.86L9.83 8.32C10.5 7.5 11.21 7 12 7ZM1.73 3L3 4.27L5.59 6.86C3.94 8.27 2.58 10.03 1.88 12C3.4 15.91 7.18 19 12.75 19C14.15 19 15.48 18.77 16.71 18.35L19.73 21.36L21 20.09L3 2.09L1.73 3ZM12 17C9.24 17 7 14.76 7 12C7 11.19 7.21 10.43 7.57 9.77L14.23 16.43C13.57 16.79 12.81 17 12 17Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Cookies Tracked</span>
+                                <span class="metric-value">Zero</span>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Item 2: Capacity -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19ZM11 10H13V15H11V10Z"/></svg>
-                        </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Settlement Capacity</span>
-                            <span class="metric-value">$50k+</span>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: Cookies -->
-                    <div class="metric-item">
-                        <div class="metric-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7C14.76 7 17 9.24 17 12C17 12.64 16.88 13.26 16.65 13.82L19.73 16.9C21.08 15.5 22.17 13.84 22.88 12C21.36 8.09 17.58 5 12 5C10.35 5 8.79 5.31 7.37 5.86L9.83 8.32C10.5 7.5 11.21 7 12 7ZM1.73 3L3 4.27L5.59 6.86C3.94 8.27 2.58 10.03 1.88 12C3.4 15.91 7.18 19 12.75 19C14.15 19 15.48 18.77 16.71 18.35L19.73 21.36L21 20.09L3 2.09L1.73 3ZM12 17C9.24 17 7 14.76 7 12C7 11.19 7.21 10.43 7.57 9.77L14.23 16.43C13.57 16.79 12.81 17 12 17Z"/></svg>
-                        </div>
-                        <div class="metric-text">
-                            <span class="metric-label">Cookies Tracked</span>
-                            <span class="metric-value">Zero</span>
-                        </div>
-                    </div>
-
+                    <div class="metrics-sentence">Deterministic legal multipliers engineered to maximize your settlement capacity while maintaining strict adherence to standard actuarial insurance formulas.</div>
                 </div>
             </div>
+            
             <div class="split-content">
-                <h2 class="split-title">Civil Justice.</h2>
+                <!-- Desktop Heading -->
+                <h2 class="split-title desktop-only-title">Civil Justice.</h2>
                 <p class="split-desc">Precision is your leverage. Calculate fair-market settlement ranges for auto injuries, lemon law buybacks, and wage theft utilizing standard insurance multipliers.</p>
 
                 <ul class="capabilities-list">
@@ -1430,6 +1533,67 @@
                 <a href="claims-and-settlements/" class="link-line">Launch Justice Engine ↗</a>
             </div>
         </div>
+        
+        <!-- Acquisition Architecture Row -->
+        <div class="split-row reveal" id="acquisition">
+            
+            <!-- Mobile Heading Placed Above Image in Flow -->
+            <h2 class="split-title mobile-only-title">Acquisition Architecture.</h2>
+
+            <div class="split-image-container">
+                <img src="img/ABCDE.webp" alt="Edge Routing Architecture" class="split-img" loading="lazy" width="800" height="600">
+                <div class="image-overlay-metrics">
+                    <div class="metrics-row">
+                        <!-- Item 1: Lighthouse Score (Replaced Icon) -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8,10V12L6,14V17L8,16V22H16V16L18,17V14L16,12V10H17V6H15.5L15,4H14V2H10V4H9L8.5,6H7V10H8M10,6H14L14.38,8H9.62L10,6M10,10H14V12H10V10M10,14H14V16H10V14M10,18H14V20H10V18Z" /></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Lighthouse Score</span>
+                                <span class="metric-value">100 / 100</span>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: Latency -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">Edge Latency</span>
+                                <span class="metric-value">&lt; 50ms</span>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: SLA -->
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10.59 17.41L6.17 13L7.58 11.59L10.59 14.58L16.41 8.76L17.82 10.17L10.59 17.41Z"/></svg>
+                            </div>
+                            <div class="metric-text">
+                                <span class="metric-label">SLA Guarantee</span>
+                                <span class="metric-value">99.99%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics-sentence">High-velocity edge architecture optimizing sub-second conversion pipelines and guaranteeing mathematically perfect routing for high-intent B2B traffic flows.</div>
+                </div>
+            </div>
+            
+            <div class="split-content">
+                <!-- Desktop Heading -->
+                <h2 class="split-title desktop-only-title">Acquisition Architecture.</h2>
+                <p class="split-desc">Stop leaking paid search traffic to sluggish legacy environments. We engineer mathematically perfect, edge-routed conversion nodes for high-intent B2B pipelines. We do not provide subjective aesthetic design; we deploy mathematical certainty.</p>
+
+                <ul class="capabilities-list">
+                    <li><span class="bullet">✦</span> <span><strong>Edge-Routed Velocity:</strong> Sub-second load latency on weak cellular networks.</span></li>
+                    <li><span class="bullet">✦</span> <span><strong>Objective SLA Guarantee:</strong> Contractually guaranteed 95+ Mobile & 100 Desktop performance.</span></li>
+                    <li><span class="bullet">✦</span> <span><strong>Zero-Friction Intake:</strong> Psychologically optimized layouts engineered strictly to convert.</span></li>
+                </ul>
+                <!-- No exploration link as requested -->
+            </div>
+        </div>
     </div>
 
     <!-- 4. TECH SPECS -->
@@ -1438,65 +1602,17 @@
             <div class="specs-grid">
                 <div class="spec-item reveal">
                     <h3 class="spec-title">Zero Latency</h3>
-                    <p class="spec-desc">No server round-trips. All mathematical logic compiles locally in your browser for millisecond execution.</p>
+                    <p class="spec-desc">From executing complex statutory mathematics to rendering heavy digital assets, our edge-deployed architecture ensures sub-second execution and zero pipeline friction.</p>
                 </div>
                 <div class="spec-item reveal">
                     <h3 class="spec-title">Zero Trust</h3>
-                    <p class="spec-desc">Your data never leaves your screen. We do not harvest your income or debt history. True privacy by design.</p>
+                    <p class="spec-desc">Your data belongs to your firm. Our calculation suites operate on strict client-side persistence, and our intake vaults are secured via encrypted enterprise escrow.</p>
                 </div>
                 <div class="spec-item reveal">
-                    <h3 class="spec-title">Audit-Ready</h3>
-                    <p class="spec-desc">No hidden variables. Our logic cores are strictly indexed against Federal Reserve data and State Civil Codes.</p>
+                    <h3 class="spec-title">Mathematical Certainty</h3>
+                    <p class="spec-desc">Whether validating FLSA labor torts or guaranteeing 100/100 Google Lighthouse performance scores, our firm deploys objective, mathematically locked solutions.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 5. INDEX GRID -->
-    <section class="section-grid">
-        <div class="grid-header reveal">
-            <h2>The Solveria Index</h2>
-        </div>
-        <div class="tools-grid">
-            <!-- Card 1 -->
-            <a href="finance/mortgage-calculator/" class="tool-card reveal">
-                <img src="img/A.jpg" class="card-bg" alt="Mortgage Analytics" loading="lazy" width="400" height="500">
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="tool-title">Mortgage Analytics</h3>
-                    <span class="tool-sub">FINANCE SUITE</span>
-                </div>
-            </a>
-            <!-- Card 2 -->
-            <a href="finance/home-affordability-calculator/" class="tool-card reveal">
-                <img src="img/B.jpg" class="card-bg" alt="Home Affordability Test" loading="lazy" width="400" height="500">
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="tool-title">Affordability Test</h3>
-                    <span class="tool-sub">FINANCE SUITE</span>
-                </div>
-            </a>
-            <!-- Card 3 -->
-            <a href="claims-and-settlements/car-accident-calculator/" class="tool-card reveal">
-                <img src="img/G.webp" class="card-bg" alt="Auto Injury Claim Calculator" loading="lazy" width="400" height="500">
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="tool-title">Auto Injury Claim</h3>
-                    <span class="tool-sub">JUSTICE SUITE</span>
-                </div>
-            </a>
-            <!-- Card 4 -->
-            <a href="claims-and-settlements/lemon-law-calculator/" class="tool-card reveal">
-                <img src="img/I.jpg" class="card-bg" alt="Lemon Law Refund Calculator" loading="lazy" width="400" height="500">
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="tool-title">Lemon Law Refund</h3>
-                    <span class="tool-sub">JUSTICE SUITE</span>
-                </div>
-            </a>
-        </div>
-        <div style="text-align: center;">
-            <a href="calculators/" class="btn-view-all reveal">View All 12 Engines</a>
         </div>
     </section>
 
