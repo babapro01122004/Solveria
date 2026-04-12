@@ -8,13 +8,9 @@
     <meta name="description" content="Solveria provides elite solar energy solutions, specializing in pre-study, installation, and support of next-generation residential and commercial solar systems.">
     <title>Solveria | Solar Energy Solutions</title>
     
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin>
+    <!-- Optimized Preloads: Only preloading the critical fonts needed for the immediate above-the-fold text to prevent mobile network congestion -->
+    <link rel="preload" href="fonts/ProductSans-Thin.ttf" as="font" type="font/ttf" crossorigin fetchpriority="high">
     <link rel="preload" href="fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preconnect" href="https://www.google.com" crossorigin>
 
     <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.webp">
@@ -241,7 +237,7 @@
                 </div>
                 <!-- Card 2 (Video Background with Dark Fade) -->
                 <div class="excellence-card fade-dark stagger-item">
-                    <video class="excellence-video-bg" src="image/B.webm" autoplay loop muted playsinline></video>
+                    <video class="excellence-video-bg lazy-video" data-src="image/B.webm" autoplay loop muted playsinline></video>
                     <h3 class="card-title">ENERGY SOVEREIGNTY</h3>
                     <p class="card-desc">Achieve total financial independence. Our high-yield systems mathematically eliminate traditional utility bills, replacing grid dependency with localized, unstoppable power.</p>
                 </div>
@@ -258,7 +254,7 @@
                 <h3 class="elite-header">Built Strictly for the Top 1%</h3>
                 <p class="elite-intro">Our solutions are not designed for the mass market. We partner exclusively with forward-thinking, high-performing practices that demand absolute superiority in their acquisition channels. We represent the line between industry standard and industry dominance.</p>
                 <p class="elite-paragraph"><strong>Zero-Noise Filtering:</strong> We eliminate the tire-kickers. Our models rigorously qualify every signal, ensuring your intake team only spends time on viable, high-value targets.</p>
-                <p class="elite-paragraph"><strong>Real-Time Interception:</strong> We identify actionable grievances the second they surface, bypassing traditional, sluggish ad networks and beating your competitors to the punch by days.</p>
+                <p class="elite-paragraph"><strong>Real-Time Interception:</strong> We identify actionable grievances the second environment surface, bypassing traditional, sluggish ad networks and beating your competitors to the punch by days.</p>
                 <p class="elite-paragraph"><strong>100% Exclusive Routing:</strong> We do not syndicate or share data. Every qualified prospect we capture is routed exclusively into your firm's pipeline.</p>
             </div>
             <div class="elite-divider stagger-item"></div>
@@ -293,13 +289,13 @@
                     <h3 class="installation-subheading">Premium Solar Panels</h3>
                     <p>Premium properties demand premium energy engines. Our next-generation solar panels are engineered with ultra-pure monocrystalline cells to capture maximum spectrum light. What you get is an elite power generation system that doesn't just dominate your neighborhood's energy metrics on day one, but continues to deliver uncompromising performance for decades.</p>
                 </div>
-                <video src="image/side.webm" class="premium-side-img" autoplay loop muted playsinline></video>
+                <video data-src="image/side.webm" class="premium-side-img lazy-video" autoplay loop muted playsinline></video>
             </div>
             <div class="installation-gallery">
                 <div class="gallery-card stagger-item">
                     <div class="gallery-image lazy-bg" data-bg="image/1.webp"></div>
                     <div class="card-header-bar">
-                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" decoding="async">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
                         <span class="card-price">$1,299</span>
                     </div>
                     <div class="gallery-content">
@@ -315,7 +311,7 @@
                 <div class="gallery-card stagger-item">
                     <div class="gallery-image lazy-bg" data-bg="image/2.webp"></div>
                     <div class="card-header-bar">
-                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" decoding="async">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
                         <span class="card-price">$1,499</span>
                     </div>
                     <div class="gallery-content">
@@ -331,7 +327,7 @@
                 <div class="gallery-card stagger-item">
                     <div class="gallery-image lazy-bg" data-bg="image/3.webp"></div>
                     <div class="card-header-bar">
-                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" decoding="async">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
                         <span class="card-price">$1,199</span>
                     </div>
                     <div class="gallery-content">
@@ -347,7 +343,7 @@
                 <div class="gallery-card stagger-item">
                     <div class="gallery-image lazy-bg" data-bg="image/4.webp"></div>
                     <div class="card-header-bar">
-                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" decoding="async">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
                         <span class="card-price">$999</span>
                     </div>
                     <div class="gallery-content">

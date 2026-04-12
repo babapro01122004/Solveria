@@ -51,6 +51,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Lazy load videos to prevent massive initial network payload blocking the main text render
+    const lazyVideos = document.querySelectorAll('.lazy-video');
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    const src = video.getAttribute('data-src');
+                    if (src) {
+                        video.src = src;
+                        video.load(); // triggers download and continues autoplay
+                    }
+                    video.classList.remove('lazy-video');
+                    observer.unobserve(video);
+                }
+            });
+        }, { rootMargin: "250px 0px" });
+
+        lazyVideos.forEach((video) => {
+            videoObserver.observe(video);
+        });
+    } else {
+        lazyVideos.forEach((video) => {
+            const src = video.getAttribute('data-src');
+            if (src) {
+                video.src = src;
+            }
+            video.classList.remove('lazy-video');
+        });
+    }
+
     if ('IntersectionObserver' in window) {
         const staggerObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
