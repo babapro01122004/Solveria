@@ -140,7 +140,7 @@ body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-weig
 .impact-number { font-size: 2.8rem; font-weight: 100; letter-spacing: 1px; line-height: 1; }
 .impact-item:nth-child(1) .impact-number { color: #10B981; } /* 100+ GW */
 .impact-item:nth-child(3) .impact-number { color: #3B82F6; } /* Tier 1 */
-.impact-item:nth-child(5) .impact-number { color: #D0BFF7; } /* Top Performer */
+.impact-item:nth-child(5) .impact-number { color: #8B5CF6; } /* Top Performer */
 .impact-item:nth-child(7) .impact-number { color: #F46B84; } /* 15,000+ */
 
 .impact-subtext { font-size: 0.95rem; color: #6b7280; font-weight: 400; }
