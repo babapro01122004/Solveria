@@ -265,7 +265,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 /* --- GLOBAL SECTION HEADING SIZES --- */
 .achievements-header h2,
 .preview-header h2,
+.psychology-header h2,
 .pricing-header h2,
+.warranty-header h2,
 .onboarding-header h2 { 
     font-size: 3.8rem; 
     font-weight: 300; 
@@ -276,7 +278,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 /* Specific heading text colors */
 .preview-header h2 { color: #ffffff; }
-.pricing-header h2, .onboarding-header h2 { color: #111; }
+.psychology-header h2, .pricing-header h2, .warranty-header h2, .onboarding-header h2 { color: #111; }
 
 /* Gradient Highlights */
 .highlight-engineered { background: linear-gradient(90deg, #4F95E7, #917CCB, #BC6D93); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
@@ -284,6 +286,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .highlight-green { background: linear-gradient(90deg, #10B981, #047857); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 .highlight-gold { background: linear-gradient(90deg, #FBBF24, #D97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 .highlight-interactive { background: linear-gradient(90deg, #8B5CF6, #D946EF, #F43F5E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
+
+/* Brand New Psychology Header Highlight */
+.highlight-psychology { background: linear-gradient(90deg, #EA580C, #E11D48, #9F1239); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 
 /* Sleek Dark-Themed Styling for Preview Section */
 .highlight-preview-main { color: #ffffff; }
@@ -477,16 +482,59 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .status-dot { width: 10px; height: 10px; background-color: #10B981; border-radius: 50%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); flex-shrink: 0; }
 
 /* ============================ */
+/* PSYCHOLOGY SECTION */
+/* ============================ */
+.psychology-section {
+    position: relative;
+    padding: 80px 3vw 40px 3vw;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    content-visibility: auto;
+    contain-intrinsic-size: 600px;
+}
+
+.psychology-header {
+    width: 100%;
+}
+
+.psychology-sub-heading {
+    display: block;
+    font-size: 0.7em; /* Automatically scales relative to parent h2 */
+    color: #111;
+    margin-top: 8px;
+    font-weight: 300;
+}
+
+.psychology-header h3 {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #111;
+    margin: 50px 0 20px 0;
+    line-height: 1.2;
+}
+
+.psychology-body p {
+    font-size: 1.15rem;
+    color: #4b5563;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 auto 20px auto;
+    max-width: 850px;
+}
+
+
+/* ============================ */
 /* PRICING / DEPLOYMENT SECTION */
 /* ============================ */
 .pricing-section { position: relative; padding: 100px 20px 120px 20px; display: flex; flex-direction: column; align-items: center; content-visibility: auto; contain-intrinsic-size: 800px; overflow: hidden; }
 
 .pricing-header { position: relative; z-index: 2; text-align: center; max-width: 900px; margin-bottom: 70px; }
-.pricing-header p:not(.section-faint-subline) { font-size: 1.25rem; color: #4b5563; line-height: 1.8; margin: 0; font-weight: 300; }
-
-/* SLA Void Protocol Legal Text styling */
-.pricing-header p.sla-void-protocol { font-size: 0.95rem; color: #888888; font-style: italic; margin-top: 25px !important; line-height: 1.6; max-width: 850px; margin-left: auto; margin-right: auto; font-weight: 300; }
-.pricing-header p.sla-void-protocol strong { font-weight: 500; color: #6b7280; font-style: normal; }
+.pricing-header p { font-size: 1.25rem; color: #4b5563; line-height: 1.8; margin: 0; font-weight: 300; }
 
 .pricing-cards { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 40px; max-width: 1000px; width: 100%; flex-wrap: wrap; }
 .card { border-radius: 32px; display: flex; flex-direction: column; position: relative; z-index: 1; box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.06); background: #ffffff; transition: transform 0.3s ease; overflow: hidden; }
@@ -559,6 +607,102 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .pricing-cards.seq-step-4 .cancel-line-svg path,
 .pricing-cards.seq-step-5 .cancel-line-svg path { stroke-dashoffset: 0; }
 /* ======================================================== */
+
+/* ============================ */
+/* WARRANTY SECTION */
+/* ============================ */
+.warranty-section {
+    position: relative;
+    padding: 80px 3vw 60px 3vw;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.warranty-header { width: 100%; }
+
+.warranty-intro {
+    font-size: 1.15rem;
+    color: #4b5563;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 auto 50px auto;
+    max-width: 850px;
+    text-align: center;
+}
+
+.warranty-content-block {
+    text-align: left;
+    max-width: 850px;
+    width: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 45px 50px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.warranty-content-block h3 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #111;
+    margin: 0 0 20px 0;
+}
+
+.warranty-content-block h3:not(:first-child) {
+    margin-top: 45px;
+}
+
+.sub-faint { color: #888; font-size: 1.1rem; }
+
+.warranty-context {
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.warranty-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    text-align: left;
+}
+
+.warranty-list li {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.warranty-list li strong {
+    font-weight: 500;
+    color: #111;
+}
+
+.warranty-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #10B981;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.warranty-list.void-list li::before {
+    content: '✖';
+    color: #EF4444;
+}
 
 /* ============================ */
 /* ONBOARDING / NEXT STEPS SECTION */
@@ -661,6 +805,16 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     margin: 0;
     position: relative;
     z-index: 1;
+}
+
+/* Time Requirement strict formatting */
+.time-req {
+    display: block;
+    white-space: nowrap;
+    margin-top: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #111;
 }
 
 /* UPDATED SINGLE-STEP LAYOUT (Text Left, Video Right) */
@@ -837,7 +991,13 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .achievements-header h2 { font-size: 3.6rem; }
     .preview-header h2,
     .pricing-header h2,
-    .onboarding-header h2 { font-size: 3.2rem; }
+    .onboarding-header h2,
+    .psychology-header h2,
+    .warranty-header h2 { font-size: 3.2rem; }
+    
+    .psychology-header h3 { font-size: 2rem; }
+    .warranty-section { padding: 60px 3vw; }
+    .warranty-content-block { padding: 35px 30px; }
 
     .briefing-container { flex-direction: column; gap: 25px; margin: 40px auto; }
     .briefing-content { display: contents; }
@@ -893,7 +1053,9 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .achievements-header h2 { font-size: 3.2rem; }
     .preview-header h2,
     .pricing-header h2,
-    .onboarding-header h2 { font-size: 2.8rem; }
+    .onboarding-header h2,
+    .psychology-header h2,
+    .warranty-header h2 { font-size: 2.8rem; }
 
     .hero-content { flex-direction: column; justify-content: center; text-align: center; padding-top: 130px; }
     
@@ -904,7 +1066,16 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .achievements-header h2 { font-size: 2.8rem; line-height: 1.15; margin-bottom: 15px; }
     .preview-header h2,
     .pricing-header h2,
-    .onboarding-header h2 { font-size: 2.2rem; }
+    .onboarding-header h2,
+    .psychology-header h2,
+    .warranty-header h2 { font-size: 2.2rem; }
+    
+    .psychology-header h3 { font-size: 1.8rem; margin: 40px 0 15px 0; }
+    .psychology-section { padding: 40px 5vw 20px 5vw; }
+    .psychology-body p { font-size: 1.05rem; }
+
+    .warranty-content-block { padding: 30px 20px; }
+    .warranty-content-block h3 { font-size: 1.4rem; }
 
     .header-container { justify-content: center; flex-direction: row; gap: 15px; align-items: center; flex-wrap: wrap; }
     .header nav { display: flex; justify-content: center; gap: 20px; width: 100%; padding-top: 10px; flex-wrap: wrap; }
@@ -922,8 +1093,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     .deployment-status { font-size: 0.85rem; }
     
     .pricing-section { padding: 40px 5vw 80px 5vw; }
-    .pricing-header p:not(.sla-void-protocol) { font-size: 1.05rem; }
-    .pricing-header p.sla-void-protocol { font-size: 0.85rem; margin-top: 20px !important; }
+    .pricing-header p { font-size: 1.05rem; }
     
     .onboarding-section { padding: 40px 5vw 80px 5vw; }
     .onboarding-intro { font-size: 1.05rem; }
