@@ -20,6 +20,11 @@
 
     <!-- CRITICAL CSS INLINED: Eliminates Render-Blocking Network Requests Entirely -->
     <style>
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Thin.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Product Sans Light'; src: url('fonts/ProductSans-Light.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
         @font-face { font-family: 'Product Sans Thin'; src: url('fonts/ProductSans-Thin.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -332,4 +337,446 @@
             .phone-review-item .review-item { text-align: center; width: 100%; padding: 0 15px; }
             .phone-review-item .review-text { color: #111; font-size: 1.05rem; }
             .phone-review-item .review-author { color: #6b7280; }
-            .impact-container { f
+            .impact-container { flex-direction: column; gap: 20px; }
+            .achievement-showcase { margin: 0 auto 40px auto; gap: 20px; }
+            .achievement-subheading { font-size: 2rem; margin: 0 0 20px 0; }
+            .achievement-text-content p { font-size: 1rem; }
+            .mobile-trust-logos { gap: 20px; }
+            .mobile-trust-logos img { height: clamp(25px, 5.5vw, 35px); }
+            .excellence-cards-container { grid-template-columns: 1fr; }
+            .achievements-subline { font-size: 1rem; }
+            .impact-number { font-size: 3rem; }
+            .installation-header-subline { font-size: 0.85rem; }
+            .installation-subheading { font-size: 2rem; }
+            .faq-section { padding: 60px 5vw; }
+            .faq-header { margin-bottom: 40px; }
+            .faq-question { font-size: 1.05rem; padding: 20px 0; }
+            .faq-answer-inner p { font-size: 0.95rem; }
+            .footer-content { padding: 40px 5vw 30px 5vw; }
+            .footer-map { height: 220px; }
+            .footer-links { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px 10px; }
+            .footer-col { width: 45%; align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header animate-fade-in">
+        <div class="header-container">
+            <a href="index.html" class="logo" aria-label="Solveria Home">
+                <img src="image/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32" fetchpriority="low" decoding="async">
+                <span class="logo-text">Solveria.</span>
+            </a>
+            <nav>
+                <a href="#booking" class="active-nav">Booking</a>
+                <a href="#products">Products</a>
+                <a href="#residential">Residential</a>
+                <a href="#commercial">Commercial</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-bg-layer"></div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Elevating the standard of solar architecture.</h1>
+                <p class="sub-headline">
+                    Specialists in solar cells who help you with pre-study, installations and support of your solar cell system.
+                </p>
+                <a href="#learn-more" class="hero-btn">More</a>
+            </div>
+
+            <div class="hero-form-container animate-fade-in-up">
+                <div class="form-header">
+                    <h2>Book an Appointment</h2>
+                    <p>Schedule a free consultation with our solar experts to analyze your property.</p>
+                </div>
+
+                <form id="solveria-contact-form" name="submit-to-google-sheet">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="Name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="Email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Property Details / Message</label>
+                        <textarea id="message" name="Message" placeholder="Property Details / Message" required></textarea>
+                    </div>
+
+                    <div class="honeypot-field" aria-hidden="true">
+                        <label for="website-url">Website URL (Leave this blank)</label>
+                        <input type="text" id="website-url" name="website-url" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <p class="form-footer-subline">No commitment required. We strictly protect your privacy and personal data.</p>
+                    
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="submit-btn">Initialize Quote</button>
+                    </div>
+                </form>
+
+                <div id="form-success-message" class="form-success-message">
+                    <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3>Request Received !!</h3>
+                    <p>Data packet secured. Our solar engineers will review your property details and follow up via email shortly.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-bottom-bar animate-fade-in-up">
+            <div class="hero-bottom-wrapper">
+                <div class="hero-bottom-container">
+                    <div class="trust-reviews">
+                        <div class="review-item">
+                            <span class="review-author">Ulrika Axén</span>
+                            <span class="review-text">Good communication</span>
+                            <span class="review-stars">★★★★★</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-author">Pöder Ibram</span>
+                            <span class="review-text">A lovely straight</span>
+                            <span class="review-stars">★★★★★</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-author">Anki Sandström</span>
+                            <span class="review-text">Fast delivery and assembly</span>
+                            <span class="review-stars">★★★★★</span>
+                        </div>
+                    </div>
+                    <div class="trust-logos">
+                        <img src="image/Longi.webp" alt="LONGi Solar" loading="lazy" decoding="async" width="140" height="40">
+                        <img src="image/Huawei.webp" alt="HUAWEI" loading="lazy" decoding="async" width="140" height="40">
+                        <img src="image/Zaptec.webp" alt="Zaptec" loading="lazy" decoding="async" width="140" height="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="achievements-section" id="achievements">
+        <div class="achievements-header">
+            <h2><span class="highlight-engineered">Engineered for the</span> <span class="highlight-extraordinary">Extraordinary.</span></h2>
+            <p class="achievements-subline">Setting the global standard for next-generation solar architecture and energy sovereignty.</p>
+            
+            <div class="tablet-reviews-container stagger-item">
+                <div class="review-item">
+                    <span class="review-author">Ulrika Axén</span>
+                    <span class="review-text">Good communication</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <div class="review-item">
+                    <span class="review-author">Pöder Ibram</span>
+                    <span class="review-text">A lovely straight</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <div class="review-item">
+                    <span class="review-author">Anki Sandström</span>
+                    <span class="review-text">Fast delivery and assembly</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="impact-bar">
+            <div class="impact-container">
+                <div class="impact-item stagger-item">
+                    <span class="impact-number">100+ GW</span>
+                    <span class="impact-subtext">High-Efficiency Panels Shipped Worldwide</span>
+                </div>
+                
+                <div class="phone-review-item stagger-item">
+                    <div class="review-item">
+                        <span class="review-author">Ulrika Axén</span>
+                        <span class="review-text">Good communication</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                </div>
+
+                <div class="impact-item stagger-item">
+                    <span class="impact-number">Tier 1</span>
+                    <span class="impact-subtext">BloombergNEF Bankability Status</span>
+                </div>
+
+                <div class="phone-review-item stagger-item">
+                    <div class="review-item">
+                        <span class="review-author">Pöder Ibram</span>
+                        <span class="review-text">A lovely straight</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                </div>
+
+                <div class="impact-item stagger-item">
+                    <span class="impact-number">Top Performer</span>
+                    <span class="impact-subtext">PVEL Reliability Scorecard</span>
+                </div>
+
+                <div class="phone-review-item stagger-item">
+                    <div class="review-item">
+                        <span class="review-author">Anki Sandström</span>
+                        <span class="review-text">Fast delivery and assembly</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                </div>
+
+                <div class="impact-item stagger-item">
+                    <span class="impact-number">15,000+</span>
+                    <span class="impact-subtext">California Homes Powered</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-showcase stagger-item">
+            <div class="achievement-text-content">
+                <h3 class="achievement-subheading">Unrivaled Track Record</h3>
+                
+                <div class="mobile-trust-logos">
+                    <img src="image/Longi.webp" alt="LONGi Solar" loading="lazy" decoding="async" width="140" height="40">
+                    <img src="image/Huawei.webp" alt="HUAWEI" loading="lazy" decoding="async" width="140" height="40">
+                    <img src="image/Zaptec.webp" alt="Zaptec" loading="lazy" decoding="async" width="140" height="40">
+                </div>
+
+                <div class="desktop-text">
+                    <p>Our success is not merely measured in metrics; it is defined by absolute market supremacy. Having successfully shipped and deployed over <strong>100+ GW</strong> of ultra-high-efficiency panels globally, our infrastructure operates on a scale that dwarfs standard industry benchmarks. This monumental volume is a testament to our uncompromising engineering and global trust. Furthermore, we stand unchallenged with our exclusive <strong>Tier 1 BloombergNEF Bankability Status</strong>, guaranteeing our partners and clients zero financial risk and backing every installation with ironclad institutional stability.</p>
+                    <p>We refuse to settle for "good enough." That is why our modules are consecutively recognized as a <strong>Top Performer</strong> on the rigorous PVEL Reliability Scorecard—having survived extreme thermal cycling, mechanical stress, and aggressive degradation testing. Translating this raw durability into localized dominance, our elite systems currently power over <strong>15,000+ premium California estates</strong>. By thriving in one of the world's most heavily regulated and demanding energy markets, we have proven that our solutions are truly engineered for the extraordinary. We don't just participate in the renewable energy sector; we actively monopolize high-value demand and set an elite standard that competing firms simply do not have the capacity to replicate.</p>
+                </div>
+
+                <div class="tablet-text">
+                    <p>Our success is defined by absolute market supremacy. Having deployed over <strong>100+ GW</strong> of ultra-high-efficiency panels globally, our infrastructure dwarfs standard industry benchmarks. We stand unchallenged with our exclusive <strong>Tier 1 BloombergNEF Bankability Status</strong>, guaranteeing zero financial risk.</p>
+                    <p>Consecutively recognized as a <strong>Top Performer</strong> on the rigorous PVEL Reliability Scorecard, our elite systems currently power over <strong>15,000+ premium California estates</strong>. We don't just participate in the renewable energy sector; we actively monopolize high-value demand with an elite standard competing firms simply cannot replicate.</p>
+                </div>
+            </div>
+            <img src="image/side2.webp" alt="Solveria Success Showcase" class="achievement-side-img" loading="lazy" decoding="async">
+        </div>
+
+        <div class="excellence-section">
+            <div class="excellence-cards-container">
+                <div class="excellence-card fade-blue lazy-bg stagger-item" data-bg="image/A.webp">
+                    <h3 class="card-title">PRECISION ROOFTOP INTEGRATION</h3>
+                    <p class="card-desc">Flawless architectural integration executed by our specialized elite crews, ensuring absolute structural integrity and immediate energy dominance for your property.</p>
+                </div>
+                <div class="excellence-card fade-dark stagger-item">
+                    <video class="excellence-video-bg lazy-video" data-src="image/B.webm" autoplay loop muted playsinline></video>
+                    <h3 class="card-title">ENERGY SOVEREIGNTY</h3>
+                    <p class="card-desc">Achieve total financial independence. Our high-yield systems mathematically eliminate traditional utility bills, replacing grid dependency with localized, unstoppable power.</p>
+                </div>
+                <div class="excellence-card fade-gold lazy-bg stagger-item" data-bg="image/C.webp">
+                    <h3 class="card-title">UTILITY-SCALE INFRASTRUCTURE</h3>
+                    <p class="card-desc">Deploying massive, commercial-grade solar arrays engineered for uncompromising durability, peak efficiency, and grid-dominating power generation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="elite-info-section">
+            <div class="elite-column stagger-item">
+                <h3 class="elite-header">Built Strictly for the Top 1%</h3>
+                <p class="elite-intro">Our solutions are not designed for the mass market. We partner exclusively with forward-thinking, high-performing practices that demand absolute superiority in their acquisition channels. We represent the line between industry standard and industry dominance.</p>
+                <p class="elite-paragraph"><strong>Zero-Noise Filtering:</strong> We eliminate the tire-kickers. Our models rigorously qualify every signal, ensuring your intake team only spends time on viable, high-value targets.</p>
+                <p class="elite-paragraph"><strong>Real-Time Interception:</strong> We identify actionable grievances the second they surface, bypassing traditional, sluggish ad networks and beating your competitors to the punch by days.</p>
+                <p class="elite-paragraph"><strong>100% Exclusive Routing:</strong> We do not syndicate or share data. Every qualified prospect we capture is routed exclusively into your firm's pipeline.</p>
+            </div>
+            <div class="elite-divider stagger-item"></div>
+            <div class="elite-column stagger-item">
+                <h3 class="elite-header">Monopolizing High-Value Demand</h3>
+                <p class="elite-intro">While other firms wait for the phone to ring, our partners dictate the market. We deploy aggressive, data-backed capture strategies that intercept your ideal clients at the exact moment of highest intent, effectively starving your local competition of premier opportunities.</p>
+                <p class="elite-paragraph"><strong>Guaranteed Pipeline Velocity:</strong> Stop guessing where your next retainer is coming from. Scale your monthly caseload with mathematically predictable, high-intent lead flow.</p>
+                <p class="elite-paragraph"><strong>Bypassing Bidding Wars:</strong> Step completely outside the saturated, outrageously expensive pay-per-click battles on traditional search engines and legal directories.</p>
+                <p class="elite-paragraph"><strong>Total Sector Dominance:</strong> Rapidly absorb the most lucrative opportunities in your market, actively starving competing practices of premium inventory.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="installation-section lazy-bg" data-bg="image/G.webp">
+        <div class="installation-header-wrapper stagger-item">
+            <h2 class="installation-heading">Next-Generation Solar <span class="highlight-evening">Panels</span></h2>
+            <p class="installation-header-subline">Engineered for absolute resilience in any environment, ensuring decades of uninterrupted power generation.</p>
+            <div class="gallery-nav">
+                <button class="nav-btn prev-btn" aria-label="Previous image" disabled>
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <a href="#products-full" class="gallery-know-more-btn">More</a>
+                <button class="nav-btn next-btn" aria-label="Next image">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="installation-body">
+            <div class="installation-text stagger-item">
+                <div class="premium-text-content">
+                    <h3 class="installation-subheading">Premium Solar Panels</h3>
+                    <p>Premium properties demand premium energy engines. Our next-generation solar panels are engineered with ultra-pure monocrystalline cells to capture maximum spectrum light. What you get is an elite power generation system that doesn't just dominate your neighborhood's energy metrics on day one, but continues to deliver uncompromising performance for decades.</p>
+                </div>
+                <video data-src="image/side.webm" class="premium-side-img lazy-video" autoplay loop muted playsinline></video>
+            </div>
+            <div class="installation-gallery">
+                <div class="gallery-card stagger-item">
+                    <div class="gallery-image lazy-bg" data-bg="image/1.webp"></div>
+                    <div class="card-header-bar">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
+                        <span class="card-price">$1,299</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h4 class="card-font-thin">Monocrystalline Alpha</h4>
+                        <p class="card-desc-small">High-efficiency single-crystal panels engineered for maximum power density and superior long-term performance.</p>
+                        <div class="card-divider"></div>
+                        <div class="buy-action">
+                            <button class="buy-btn">Buy</button>
+                            <button class="know-more-btn">Know More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card stagger-item">
+                    <div class="gallery-image lazy-bg" data-bg="image/2.webp"></div>
+                    <div class="card-header-bar">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
+                        <span class="card-price">$1,499</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h4 class="card-font-thin">Bifacial Pro Series</h4>
+                        <p class="card-desc-small">Dual-sided energy capture to harness reflected sunlight, ensuring unrivaled yields and grid-dominating power.</p>
+                        <div class="card-divider"></div>
+                        <div class="buy-action">
+                            <button class="buy-btn">Buy</button>
+                            <button class="know-more-btn">Know More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card stagger-item">
+                    <div class="gallery-image lazy-bg" data-bg="image/3.webp"></div>
+                    <div class="card-header-bar">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
+                        <span class="card-price">$1,199</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h4 class="card-font-thin">N-Type Vertex</h4>
+                        <p class="card-desc-small">Advanced N-type cell technology guaranteeing ultra-low degradation rates and uncompromising resilience.</p>
+                        <div class="card-divider"></div>
+                        <div class="buy-action">
+                            <button class="buy-btn">Buy</button>
+                            <button class="know-more-btn">Know More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card stagger-item">
+                    <div class="gallery-image lazy-bg" data-bg="image/4.webp"></div>
+                    <div class="card-header-bar">
+                        <img src="image/Logo_Black.webp" alt="Solveria Logo" class="card-logo" width="48" height="48" loading="lazy" decoding="async">
+                        <span class="card-price">$999</span>
+                    </div>
+                    <div class="gallery-content">
+                        <h4 class="card-font-thin">Compact Residential</h4>
+                        <p class="card-desc-small">Space-saving architectural modules designed for smaller roofs without sacrificing elite output capabilities.</p>
+                        <div class="card-divider"></div>
+                        <div class="buy-action">
+                            <button class="buy-btn">Buy</button>
+                            <button class="know-more-btn">Know More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="faq-header stagger-item">
+            <h2>Frequently Asked Questions</h2>
+            <p>Clarity on our high-performance solar infrastructure and processes.</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item stagger-item">
+                <button class="faq-question">
+                    <span>What separates Solveria from standard solar providers?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"></circle><line class="faq-vline" x1="12" y1="7" x2="12" y2="17"></line><line class="faq-hline" x1="7" y1="12" x2="17" y2="12"></line></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner"><p>We engineer exclusively for high-yield, long-term sovereignty. We utilize tier-one components, commercial-grade racking, and execute with absolute precision—ensuring your system outlasts industry standards and maximizes your property's ROI.</p></div>
+                </div>
+            </div>
+            <div class="faq-item stagger-item">
+                <button class="faq-question">
+                    <span>How long does the entire installation process take?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"></circle><line class="faq-vline" x1="12" y1="7" x2="12" y2="17"></line><line class="faq-hline" x1="7" y1="12" x2="17" y2="12"></line></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner"><p>After final design approval and local permitting, our specialized elite crews typically complete the physical installation in just 1 to 3 days, effectively minimizing any disruption to your property or daily operations.</p></div>
+                </div>
+            </div>
+            <div class="faq-item stagger-item">
+                <button class="faq-question">
+                    <span>What happens during a complete grid power outage?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"></circle><line class="faq-vline" x1="12" y1="7" x2="12" y2="17"></line><line class="faq-hline" x1="7" y1="12" x2="17" y2="12"></line></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner"><p>If paired with our advanced battery storage solutions, your property will seamlessly and instantly transition to stored solar energy, providing continuous, reliable power for critical loads even during devastating local grid failures.</p></div>
+                </div>
+            </div>
+            <div class="faq-item stagger-item">
+                <button class="faq-question">
+                    <span>What type of warranties are included?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"></circle><line class="faq-vline" x1="12" y1="7" x2="12" y2="17"></line><line class="faq-hline" x1="7" y1="12" x2="17" y2="12"></line></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner"><p>All Solveria installations are backed by a comprehensive 25-year linear performance warranty on the solar arrays, a 10-year comprehensive workmanship warranty, and robust manufacturer guarantees on all inverters and backup batteries.</p></div>
+                </div>
+            </div>
+            <div class="faq-item stagger-item">
+                <button class="faq-question">
+                    <span>Do you manage the permitting and utility approvals?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"></circle><line class="faq-vline" x1="12" y1="7" x2="12" y2="17"></line><line class="faq-hline" x1="7" y1="12" x2="17" y2="12"></line></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner"><p>Yes. Our internal engineering and administrative teams handle 100% of the red tape on your behalf, from complex structural engineering stamps to local city permits and final utility interconnection agreements.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer lazy-bg" data-bg="image/footer.webp">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+            <div class="footer-main-row stagger-item">
+                <div class="footer-left">
+                    <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" decoding="async" width="80" height="80">
+                    <div class="footer-info">
+                        <span class="brand-name">Solveria.</span>
+                        <p class="tagline">Engineered for Energy Sovereignty.</p>
+                        <p class="description">Next-generation solar architecture designed for maximum efficiency, durability, and grid independence.</p>
+                        <a href="mailto:contact@solveria.example.com?subject=Solar%20Inquiry" class="email-link">contact@solveria.example.com</a>
+                    </div>
+                </div>
+                <div class="footer-map stagger-item">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423284.5905135281!2d-118.41173249999999!3d34.0204915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1711100000000!5m2!1sen!2sus" title="Google Maps Location" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="footer-links stagger-item">
+                    <div class="footer-col">
+                        <h4>SOLUTIONS</h4><a href="#residential">Residential Solar</a><a href="#commercial">Commercial Systems</a><a href="#battery">Battery Storage</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>COMPANY</h4><a href="#about">About Solveria</a><a href="#sustainability">Sustainability</a><a href="#careers">Careers</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUPPORT</h4><a href="#contact">Contact Engineering</a><a href="#warranty">Warranty Info</a><a href="#privacy">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-legal-row stagger-item">
+                <p class="copyright">© 2026 Solveria Energy. All rights reserved.</p>
+                <p class="disclaimer">Disclaimer: Solveria is a provider of solar hardware and installation services. Estimated savings and power generation calculations are mathematical models based on ideal sun exposure and state data protocols. Actual savings may vary based on weather, local utility rates, and specific property conditions. Please consult a qualified tax professional regarding solar tax credits.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
