@@ -20,12 +20,12 @@
 
     <!-- CRITICAL CSS INLINED: Eliminates Render-Blocking Network Requests Entirely -->
     <style>
-        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Thin.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Product Sans Light'; src: url('fonts/ProductSans-Light.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Product Sans Thin'; src: url('fonts/ProductSans-Thin.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Thin.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: optional; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: optional; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: optional; }
+        @font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: optional; }
+        @font-face { font-family: 'Product Sans Light'; src: url('fonts/ProductSans-Light.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: optional; }
+        @font-face { font-family: 'Product Sans Thin'; src: url('fonts/ProductSans-Thin.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: optional; }
 
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -42,7 +42,11 @@
         .header { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 1.5rem 3vw; }
         .header-container { position: relative; max-width: 1650px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .header .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .header .logo img { height: 40px; width: auto; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)); }
+        
+        /* Smooth Transition for dynamically loaded logo */
+        .header .logo img { height: 40px; width: auto; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.9)); transition: opacity 0.4s ease; }
+        .lazy-logo { opacity: 0 !important; }
+        
         .header .logo-text { font-family: 'Roboto', sans-serif; font-weight: 100; font-size: 1.8rem; color: #ffffff; letter-spacing: 0.05em; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
         .header nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 30px; }
@@ -239,7 +243,10 @@
         .brand-name, .tagline, .description, .email-link, .footer-col h4, .footer-col a, .copyright, .disclaimer { text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
         .footer-main-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; width: 100%; align-items: center; }
         .footer-left { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .footer-logo { height: 80px; width: auto; opacity: 1; }
+        
+        /* Smooth Transition for dynamically loaded footer logo */
+        .footer-logo { height: 80px; width: auto; opacity: 1; transition: opacity 0.4s ease; }
+        
         .footer-info { display: flex; flex-direction: column; gap: 8px; align-items: center; }
         .brand-name { font-family: 'Roboto', sans-serif; font-size: 3rem; font-weight: 100; color: #fff; letter-spacing: 0.05em; margin-top: 8px; }
         .tagline { font-size: 1rem; color: #e0e0e0; font-style: italic; font-weight: 400; margin: 0; }
@@ -364,7 +371,8 @@
     <header class="header animate-fade-in">
         <div class="header-container">
             <a href="index.html" class="logo" aria-label="Solveria Home">
-                <img src="image/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32" fetchpriority="low" decoding="async">
+                <!-- Swapped to a zero-byte SVG placeholder. Will elegantly fade in when the main thread goes fully idle -->
+                <img data-src="image/Logo_Golden.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3C/svg%3E" alt="Solveria Logo" class="lazy-logo" width="32" height="32" fetchpriority="low" decoding="async">
                 <span class="logo-text">Solveria.</span>
             </a>
             <nav>
@@ -747,7 +755,8 @@
         <div class="footer-content">
             <div class="footer-main-row stagger-item">
                 <div class="footer-left">
-                    <img src="image/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" decoding="async" width="80" height="80">
+                    <!-- Swapped to a zero-byte SVG placeholder. Avoids bandwidth contention completely. -->
+                    <img data-src="image/Logo_Golden.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3C/svg%3E" alt="Solveria Logo" class="footer-logo lazy-logo" loading="lazy" decoding="async" width="80" height="80">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
                         <p class="tagline">Engineered for Energy Sovereignty.</p>

@@ -29,6 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // This perfectly clears the "Total Blocking Time" and pushes JS evaluation out of the critical paint path.
     const initHeavyScripts = () => {
 
+        // Dynamically load the heavy 281KB Logo to completely unblock bandwidth during critical paint.
+        // Once downloaded, smoothly fades it into view.
+        document.querySelectorAll('.lazy-logo').forEach(img => {
+            const src = img.getAttribute('data-src');
+            if(src) {
+                img.onload = () => img.classList.remove('lazy-logo');
+                img.src = src;
+                img.removeAttribute('data-src');
+            }
+        });
+
         const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
         if ('IntersectionObserver' in window) {
             const bgObserver = new IntersectionObserver((entries, observer) => {
