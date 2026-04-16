@@ -146,6 +146,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     -webkit-text-fill-color: transparent; 
     background-clip: text; 
     color: transparent; 
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
     flex-shrink: 0; 
 }
 
@@ -174,7 +175,21 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 /* Hero Text Updates */
 .hero-text h1 { margin-bottom: 1.5rem; margin-top: 0; line-height: 1.2; text-align: center; word-wrap: break-word; word-break: normal; max-width: 100%; }
-.audit-title { display: block; font-size: clamp(0.85rem, 3vw, 1.1rem); font-weight: 300; color: #ffffff; margin-bottom: 0.5rem; letter-spacing: clamp(1px, 0.5vw, 4px); text-transform: uppercase; opacity: 0.9; white-space: normal; word-wrap: break-word; }
+
+.audit-title { 
+    display: block; 
+    font-size: clamp(0.85rem, 3vw, 1.1rem); 
+    font-weight: 300; 
+    color: #ffffff; 
+    margin-bottom: 0.5rem; 
+    letter-spacing: clamp(1px, 0.5vw, 4px); 
+    text-transform: uppercase; 
+    opacity: 0.9; 
+    white-space: normal; 
+    word-wrap: break-word; 
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
 .hero-text .sub-headline { font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 300; line-height: 1.6; color: #bbbbbb; margin: 0; white-space: normal; word-wrap: break-word; max-width: 100%; padding: 0 10px; }
 
 /* Hero Buttons */
@@ -277,8 +292,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 }
 
 /* Specific heading text colors */
-.preview-header h2 { color: #ffffff; }
-.psychology-header h2, .pricing-header h2, .warranty-header h2, .onboarding-header h2 { color: #111; }
+.preview-header h2, .warranty-header h2 { color: #ffffff; }
+.psychology-header h2, .pricing-header h2, .onboarding-header h2 { color: #111; }
 
 /* Gradient Highlights */
 .highlight-engineered { background: linear-gradient(90deg, #4F95E7, #917CCB, #BC6D93); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
@@ -286,6 +301,15 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .highlight-green { background: linear-gradient(90deg, #10B981, #047857); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 .highlight-gold { background: linear-gradient(90deg, #FBBF24, #D97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 .highlight-interactive { background: linear-gradient(90deg, #8B5CF6, #D946EF, #F43F5E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
+
+/* Overriding Warranty word specifically so HTML stays untouched */
+.warranty-header h2 .highlight-green {
+    background: linear-gradient(90deg, #FFDF73, #D4AF37, #996515); /* Luxurious Gold/Bronze */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
 
 /* Brand New Psychology Header Highlight */
 .highlight-psychology { background: linear-gradient(90deg, #EA580C, #E11D48, #9F1239); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; white-space: nowrap; }
@@ -616,25 +640,29 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .warranty-section {
     position: relative;
     padding: 80px 3vw 60px 3vw;
-    max-width: 900px;
     width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    overflow: hidden;
 }
 
-.warranty-header { width: 100%; }
+.warranty-bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; opacity: 1; transition: opacity 1.5s ease-in-out; }
+.warranty-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%); z-index: 1; pointer-events: none; }
+
+.warranty-header { width: 100%; max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
 
 .warranty-intro {
     font-size: 1.15rem;
-    color: #4b5563;
+    color: #e0e0e0;
     line-height: 1.8;
     font-weight: 300;
     margin: 0 auto 50px auto;
     max-width: 850px;
     text-align: center;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .warranty-content-block {
@@ -642,17 +670,19 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     max-width: 850px;
     width: 100%;
     margin: 0 auto;
-    background: #ffffff;
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.1); /* Subtle translucent white */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 0; /* Changed to square */
     padding: 45px 50px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Inherited from hero button */
 }
 
 .warranty-content-block h3 {
     font-size: 1.6rem;
     font-weight: 300;
-    color: #111;
+    color: #ffffff;
     margin: 0 0 20px 0;
 }
 
@@ -660,11 +690,11 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
     margin-top: 45px;
 }
 
-.sub-faint { color: #888; font-size: 1.1rem; }
+.sub-faint { color: #aaa; font-size: 1.1rem; }
 
 .warranty-context {
     font-size: 1.05rem;
-    color: #555;
+    color: #d1d5db;
     margin-bottom: 20px;
     line-height: 1.6;
 }
@@ -678,7 +708,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 .warranty-list li {
     font-size: 1.1rem;
-    color: #444;
+    color: #e5e7eb;
     margin-bottom: 15px;
     padding-left: 30px;
     position: relative;
@@ -688,7 +718,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 .warranty-list li strong {
     font-weight: 500;
-    color: #111;
+    color: #ffffff;
 }
 
 .warranty-list li::before {
@@ -918,7 +948,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 
 /* Footer */
 .site-footer { position: relative; width: 100%; background-color: #111; background-size: cover; background-position: center; background-repeat: no-repeat; color: #ffffff; font-family: 'Roboto', sans-serif; margin-top: auto; content-visibility: auto; contain-intrinsic-size: 400px; }
-.footer-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 55%); z-index: 1; }
+.footer-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.25) 65%); z-index: 1; }
 .footer-content { position: relative; z-index: 2; padding: 50px 8vw 30px 8vw; display: flex; flex-direction: column; gap: 40px; }
 .brand-name, .tagline, .description, .email-link, .footer-col h4, .footer-col a, .copyright, .disclaimer { text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
 .footer-main-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; width: 100%; align-items: center; }
@@ -935,8 +965,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Product Sans', sans-serif; }
 .footer-links { flex: 1; display: flex; justify-content: center; gap: 35px; flex-wrap: nowrap; }
 .footer-col { display: flex; flex-direction: column; gap: 10px; min-width: 110px; align-items: center; text-align: center; }
 .footer-col h4 { font-family: 'Roboto', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: #ffffff; margin: 0 0 8px 0; font-weight: 600; }
-.footer-col a { color: #bbbbbb; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
-.footer-col a:hover { color: #ffffff; }
+.footer-col a { color: #ffffff; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.footer-col a:hover { color: #dddddd; }
 .footer-legal-row { width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
 .copyright { font-size: 0.85rem; color: #bbb; margin: 0; }
 .disclaimer { font-size: 0.7rem; color: #999; line-height: 1.5; max-width: 900px; opacity: 0.7; margin: 0; }
