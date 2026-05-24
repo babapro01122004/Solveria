@@ -1660,15 +1660,6 @@ label.custom-checkbox-container {
         font-size: 1.15rem;
     }
 
-    /* SHARE BUTTON MOBILE LOGIC */
-    .share-btn {
-        font-size: 0; 
-    }
-    .share-btn::after {
-        content: "Share";
-        font-size: 1.15rem;
-    }
-
     /* Adjust Tutorial Modal for Mobile */
     .tutorial-card {
         padding: 20px;

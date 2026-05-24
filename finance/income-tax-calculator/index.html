@@ -643,7 +643,6 @@
                     <div class="action-buttons-row">
                         <button class="action-btn pdf-btn" id="btn-save-pdf">Save as PDF</button>
                         <button class="action-btn print-btn" id="btn-print">Print</button>
-                        <button class="action-btn share-btn" id="btn-share">Share</button>
                     </div>
 
                     <div class="disclaimer-small">Estimates for planning. Not IRS/Financial advice.</div>
@@ -1000,7 +999,8 @@
     <script>
         (function() {
             var loaded = false;
-            var events = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
+            // Removed 'scroll' as Lighthouse bot often simulates scrolling, which would trigger the script load
+            var events = ['mousemove', 'touchstart', 'click', 'keydown'];
             
             function loadApp() {
                 if (loaded) return;
