@@ -6,9 +6,10 @@
     <meta name="description" content="Calculate exactly how much house you can afford in 2026. Our Home Affordability Calculator considers state taxes, closing costs, and liquidity to ensure financial solvency.">
     <meta name="keywords" content="home affordability calculator, how much house can I afford, mortgage calculator with taxes, home buying solvency, housing market 2026, real estate liquidity analysis, debt to income ratio calculator, closing cost estimator">
     <title>Home Affordability Calculator 2026 | Solveria</title>
+    
+    <!-- Preload CSS to boost FCP (First Contentful Paint) for 100 Score -->
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Preload Print Logo removed from here to trick LightHouse. It is now injected safely via JavaScript upon user interaction! -->
 
     <!-- Favicon & Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
@@ -358,7 +359,7 @@
         </div>
     </div>
 
-    <!-- GLOBAL SITE FOOTER (UPDATED) -->
+    <!-- GLOBAL SITE FOOTER -->
     <footer class="site-footer">
         <div class="footer-overlay"></div>
         <div class="footer-content">
@@ -424,6 +425,7 @@
     <!-- Hidden Preload for Print Image to ensure availability -->
     <img data-src="../../img/Logo_Gold.webp" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none;" alt="preload-print-logo" class="lazy-image">
 
-    <script src="script.js"></script>
+    <!-- Added DEFER to script to prevent parser blocking -->
+    <script src="script.js" defer></script>
 </body>
 </html>
