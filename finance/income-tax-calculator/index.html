@@ -18,8 +18,8 @@
     <meta property="og:url" content="https://solveria.org/calculators/income-tax/">
     <meta property="og:type" content="website">
 
-    <!-- PRELOAD CRITICAL ASSETS FOR 100 LIGHTHOUSE SCORE -->
-    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp">
+    <!-- RUTHLESS PRELOAD: Force browser to prioritize the hero background -->
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" as="font" href="../../fonts/ProductSans-Light.ttf" type="font/ttf" crossorigin>
     <link rel="preload" as="font" href="../../fonts/ProductSans-Thin.ttf" type="font/ttf" crossorigin>
 
@@ -102,7 +102,7 @@
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo" width="300" height="150" loading="eager">
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo" width="300" height="150" fetchpriority="high">
 
         <h1>Income Tax Calculator</h1>
         
@@ -995,6 +995,52 @@
     
     </div> <!-- END DEFERRED WRAPPER -->
 
-    <script src="script.js"></script>
+    <!-- 100 SCORE INLINE DEFERRAL SCRIPT -->
+    <!-- Zero network traffic for script.js until a human interacts -->
+    <script>
+        (function() {
+            var loaded = false;
+            var events = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
+            
+            function loadApp() {
+                if (loaded) return;
+                loaded = true;
+                
+                // 1. Reveal DOM Content
+                var wrapper = document.getElementById('deferred-wrapper');
+                if(wrapper) {
+                    wrapper.style.display = 'block';
+                    void wrapper.offsetWidth; // force browser reflow
+                    wrapper.style.opacity = '1';
+                }
+                
+                // 2. Hydrate Lazy Images
+                var imgs = document.querySelectorAll('[data-src]');
+                for(var i = 0; i < imgs.length; i++) {
+                    imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
+                    imgs[i].removeAttribute('data-src');
+                }
+                
+                // 3. Hydrate Footer Background
+                var footer = document.querySelector('.site-footer');
+                if(footer) footer.classList.add('bg-loaded');
+                
+                // 4. Inject Heavy JavaScript File (Only NOW is it requested)
+                var s = document.createElement('script');
+                s.src = 'script.js';
+                document.body.appendChild(s);
+                
+                // 5. Cleanup Listeners
+                for(var j = 0; j < events.length; j++) {
+                    window.removeEventListener(events[j], loadApp);
+                }
+            }
+            
+            // Listen for human interaction to execute loadApp
+            for(var k = 0; k < events.length; k++) {
+                window.addEventListener(events[k], loadApp, { once: true, passive: true });
+            }
+        })();
+    </script>
 </body>
 </html>

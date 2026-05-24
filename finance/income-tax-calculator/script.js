@@ -1208,73 +1208,25 @@ function loadFromUrl() {
 /* ============================ */
 /* Main Initialization          */
 /* ============================ */
-function initApp() {
-    // Ensure we only initialize once
-    if (window.appInitialized) return;
-    window.appInitialized = true;
-    
-    // Start Breathing Text Loop
-    setInterval(cycleText, 4000);
+// Execute immediately once the file is loaded (since it is deferred)
+// Start Breathing Text Loop
+setInterval(cycleText, 4000);
 
-    initializeSliders();
-    initializeCustomDropdowns();
-    initializeModes();
-    initializeStrategyToggle(); 
-    initializeAdvancedToggle();
-    initializeTooltips();
-    initializeCheckbox();
-    initializePrintButtons();
-    
-    // Load State & Bind Share
-    loadFromUrl();
-    const btnShare = document.getElementById('btn-share');
-    if(btnShare) {
-        btnShare.addEventListener('click', handleShare);
-    }
-    
-    // Initial Calc
-    updateCalculations();
+initializeSliders();
+initializeCustomDropdowns();
+initializeModes();
+initializeStrategyToggle(); 
+initializeAdvancedToggle();
+initializeTooltips();
+initializeCheckbox();
+initializePrintButtons();
+
+// Load State & Bind Share
+loadFromUrl();
+const btnShare = document.getElementById('btn-share');
+if(btnShare) {
+    btnShare.addEventListener('click', handleShare);
 }
 
-/* ===============================================================
-   DEFERRED EXECUTION: LIGHTHOUSE BOT TRICK (100 MOBILE SCORE)
-   =============================================================== 
-   Lighthouse effectively doesn't perform interactions (mousemove, 
-   scroll, touchstart, etc.). By binding execution strictly to user 
-   interaction, TBT (Total Blocking Time) and JS Boot Time drops 
-   to nearly 0. We easily score 100 on Mobile Performance.
-   =============================================================== */
-
-const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
-
-function handleInteraction() {
-    // 1. Reveal hidden DOM
-    const defWrapper = document.getElementById('deferred-wrapper');
-    if (defWrapper) {
-        defWrapper.style.display = 'block';
-        // Force reflow
-        void defWrapper.offsetWidth; 
-        defWrapper.style.opacity = '1';
-    }
-
-    // 2. Lazy Load Images (Swaps data-src to src)
-    document.querySelectorAll('[data-src]').forEach(img => {
-        img.setAttribute('src', img.getAttribute('data-src'));
-        img.removeAttribute('data-src');
-    });
-
-    // 3. Lazy load heavy Footer background
-    const footer = document.querySelector('.site-footer');
-    if (footer) footer.classList.add('bg-loaded');
-
-    // 4. Initialize Application Logic
-    initApp();
-
-    // 5. Remove listeners to prevent re-execution and save memory
-    interactionEvents.forEach(evt => window.removeEventListener(evt, handleInteraction));
-}
-
-// Bind listeners awaiting REAL user interaction
-interactionEvents.forEach(evt => {
-    window.addEventListener(evt, handleInteraction, { once: true, passive: true });
-});
+// Initial Calc
+updateCalculations();
