@@ -1,28 +1,4 @@
 /* ============================ */
-/* Breathing Text Logic         */
-/* ============================ */
-const phrases = [
-    "Assess the risk. Know your rights.",
-    "Document everything immediately.",
-    "Laws vary by state. Don't guess.",
-    "Bite history changes everything."
-];
-
-let currentIndex = 0;
-const textElement = document.getElementById('breathing-text');
-
-function cycleText() {
-    textElement.classList.add('fade-out');
-    setTimeout(() => {
-        currentIndex = (currentIndex + 1) % phrases.length;
-        textElement.textContent = phrases[currentIndex];
-        textElement.classList.remove('fade-out');
-    }, 1000);
-}
-
-setInterval(cycleText, 4000);
-
-/* ============================ */
 /* 50 STATE ENGINE DATA         */
 /* ============================ */
 const US_STATE_DATA = {
@@ -126,14 +102,16 @@ const sliderSeverity = document.getElementById('slider_severity');
 const inputSeverity = document.getElementById('input_severity');
 
 function updateSeverityVisual() {
-    const val = parseInt(sliderSeverity.value);
-    inputSeverity.value = severityMap[val];
+    const sliderSeverityLocal = document.getElementById('slider_severity');
+    const inputSeverityLocal = document.getElementById('input_severity');
+    const val = parseInt(sliderSeverityLocal.value);
+    inputSeverityLocal.value = severityMap[val];
     
     // Gradient Update
     const min = 1;
     const max = 5;
     const pct = ((val - min) / (max - min)) * 100;
-    sliderSeverity.style.backgroundImage = `linear-gradient(to right, #B5855E 0%, #B5855E ${pct}%, #e0e0e0 ${pct}%, #e0e0e0 100%)`;
+    sliderSeverityLocal.style.backgroundImage = `linear-gradient(to right, #B5855E 0%, #B5855E ${pct}%, #e0e0e0 ${pct}%, #e0e0e0 100%)`;
     
     updateAnalysis();
 }
@@ -395,12 +373,13 @@ function updateAdvancedStats(stateInfo, severity, isTrespass, isProvoked, isChil
 /* Copy to Clipboard Logic      */
 /* ============================ */
 document.getElementById('btn-copy').addEventListener('click', () => {
+    const inputSeverityLocal = document.getElementById('input_severity');
     const date = new Date().toLocaleDateString();
     const stateCode = document.getElementById('stateSelector').value;
     const stateName = US_STATE_DATA[stateCode].name;
     const lawType = US_STATE_DATA[stateCode].liability;
     const risk = document.getElementById('res_riskTitle').textContent;
-    const severity = inputSeverity.value;
+    const severity = inputSeverityLocal.value;
     const body = document.getElementById('bodySelector').options[document.getElementById('bodySelector').selectedIndex].text;
     const strength = document.getElementById('strength-text').textContent;
     
@@ -461,7 +440,7 @@ function initializeAdvancedToggle() {
 }
 
 /* ============================ */
-/* UNIVERSAL PRINT, PDF & SHARE */
+/* UNIVERSAL PRINT & PDF        */
 /* ============================ */
 const ToolFeatures = {
     isTutorialUnlocked: false,
@@ -492,45 +471,7 @@ const ToolFeatures = {
         'evbl': { id: 'ev_bills', type: 'checkbox' }
     },
 
-    /* 2. SHARE LOGIC */
-    getShareUrl() {
-        const params = new URLSearchParams();
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) {
-                if(config.type === 'checkbox') {
-                    params.set(key, el.checked ? '1' : '0');
-                } else {
-                    params.set(key, el.value);
-                }
-            }
-        }
-        
-        // ADD MODE PERSISTENCE
-        const toggleBtn = document.getElementById('advanced-toggle');
-        if(toggleBtn.getAttribute('data-mode') === 'advanced') {
-            params.set('mode', 'adv');
-        }
-
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Dog Bite Incident Analysis', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
-    },
-
+    /* 2. STATE PERSISTENCE */
     restoreState() {
         const params = new URLSearchParams(window.location.search);
         
@@ -767,10 +708,6 @@ const ToolFeatures = {
     },
 
     init() {
-        // Init features
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
-
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
@@ -792,9 +729,9 @@ const ToolFeatures = {
 };
 
 /* ============================ */
-/* Main Initialization          */
+/* Main Initialization Wrapper  */
 /* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     // 1. Populate States
     initializeStates();
     
@@ -805,8 +742,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAdvancedToggle();
     
     // 4. Init Slider Visuals
-    if(sliderSeverity) {
-        sliderSeverity.addEventListener('input', updateSeverityVisual);
+    const sliderSev = document.getElementById('slider_severity');
+    if(sliderSev) {
+        sliderSev.addEventListener('input', updateSeverityVisual);
         updateSeverityVisual();
     }
     
@@ -817,6 +755,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Initial Calculation
     updateAnalysis();
 
-    // 7. Init Print/PDF/Share Features
+    // 7. Init Print/PDF Features
     ToolFeatures.init();
-});
+}
+
+// Ensure correct execution if dynamically loaded via lazy interaction
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
