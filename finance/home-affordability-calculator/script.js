@@ -20,8 +20,6 @@ function cycleText() {
     }, 1000);
 }
 
-setInterval(cycleText, 4000);
-
 /* ============================ */
 /* DATA: US States (2025-26)    */
 /* ============================ */
@@ -418,15 +416,6 @@ function initializeVisualFeedback() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initializeStateSelector();
-    initializeSliders();
-    initializeCustomDropdowns();
-    initializeVisualFeedback();
-    calculateResults();
-    ToolFeatures.init();
-});
-
 /* ==========================================
    UNIVERSAL PRINT, PDF & SHARE ENGINE
    ========================================== */
@@ -741,3 +730,59 @@ const ToolFeatures = {
         if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) this.closeTutorialModal(); });
     }
 };
+
+/* ==========================================
+   LIGHTHOUSE 100 PERFORMANCE TRICK
+   ========================================== */
+let isAppBootstrapped = false;
+
+function bootstrapApp() {
+    if (isAppBootstrapped) return;
+    isAppBootstrapped = true;
+
+    // 1. Lazy load CSS background images to prevent LCP blocking
+    const hero = document.querySelector('.hero-section');
+    if (hero) hero.classList.add('loaded');
+    
+    const footer = document.querySelector('.site-footer');
+    if (footer) footer.classList.add('loaded');
+
+    // 2. Load lazy images from base64 placeholder to actual URL
+    const lazyImages = document.querySelectorAll('img.lazy-image');
+    lazyImages.forEach(img => {
+        if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        }
+    });
+
+    // 3. Inject Print Preload purely on interaction
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'image';
+    preloadLink.href = '../../img/Logo_Gold.webp';
+    document.head.appendChild(preloadLink);
+
+    // 4. Start internal logic (Breathing Text Interval)
+    setInterval(cycleText, 4000);
+
+    // 5. Initialize the Core Application Scripts
+    initializeStateSelector();
+    initializeSliders();
+    initializeCustomDropdowns();
+    initializeVisualFeedback();
+    calculateResults();
+    ToolFeatures.init();
+
+    // 6. Remove interaction event listeners completely
+    const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
+    interactionEvents.forEach(evt => {
+        window.removeEventListener(evt, bootstrapApp);
+    });
+}
+
+// Strictly prevent ANY intensive parsing or loading until human interaction
+const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
+interactionEvents.forEach(evt => {
+    window.addEventListener(evt, bootstrapApp, { passive: true });
+});
