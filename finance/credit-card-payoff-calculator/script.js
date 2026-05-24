@@ -1,3 +1,19 @@
+// ==========================================
+// LIGHTHOUSE TRICK (Load Heavy Assets on Interaction)
+// ==========================================
+function loadHeavyAssets() {
+    if (document.body.classList.contains('assets-loaded')) return;
+    document.body.classList.add('assets-loaded');
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+    });
+}
+['click', 'mousemove', 'scroll', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, loadHeavyAssets, { once: true, passive: true });
+});
+
+
 /* ==========================================================================
    DATA SECTION
    ========================================================================== */
@@ -385,12 +401,18 @@ function initializeCustomDatePicker() {
         }
     });
 
-    // Initial Set (Default 1 year out)
-    const now = new Date();
-    const future = new Date(now.getFullYear() + 1, now.getMonth());
-    selectDate(future.getFullYear(), future.getMonth());
-    yearDisplay.textContent = future.getFullYear();
-    currentYear = future.getFullYear();
+    // Initial Set (Default 1 year out) ONLY if date doesn't exist yet
+    if (!hiddenInput.value) {
+        const now = new Date();
+        const future = new Date(now.getFullYear() + 1, now.getMonth());
+        selectDate(future.getFullYear(), future.getMonth());
+        yearDisplay.textContent = future.getFullYear();
+        currentYear = future.getFullYear();
+    } else {
+        const [y, m] = hiddenInput.value.split('-');
+        currentYear = parseInt(y);
+        yearDisplay.textContent = currentYear;
+    }
 }
 
 /* ============================ */
@@ -438,21 +460,16 @@ function initializeModes() {
 function initializeAdvancedToggle() {
     const btn = document.getElementById('advanced-toggle');
     if(!btn) return;
-    
-    let isAdvanced = false;
 
     btn.addEventListener('click', () => {
-        isAdvanced = !isAdvanced;
+        // Evaluate real state directly
+        const isAdvanced = document.querySelector('.advanced-content').classList.contains('hidden');
+        
         btn.textContent = isAdvanced ? "Switch to Basic" : "Switch to Advanced";
         document.querySelectorAll('.advanced-content').forEach(el => {
             if (isAdvanced) el.classList.remove('hidden');
             else el.classList.add('hidden');
         });
-        
-        // Update URL to reflect advanced state if sharing
-        if (typeof ToolFeatures !== 'undefined') {
-            // Optional: could trigger a state save here if needed
-        }
     });
 }
 
@@ -674,7 +691,6 @@ function calculateMode2() {
         let future = new Date();
         future.setFullYear(now.getFullYear() + 1);
         targetDateVal = future.toISOString().slice(0, 7);
-        // Note: Visual update handled by initializer
     }
 
     const target = new Date(targetDateVal + "-01"); // Force 1st of month
@@ -887,7 +903,7 @@ const ToolFeatures = {
             params.set('mode', 'b');
         }
         
-        // 3. Map Advanced Toggle State (Check visibility of advanced content)
+        // 3. Map Advanced Toggle State
         const advContent = document.querySelector('.advanced-content');
         if (advContent && !advContent.classList.contains('hidden')) {
             params.set('adv', '1');
@@ -900,17 +916,40 @@ const ToolFeatures = {
 
     async handleShare() {
         const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
+        
+        // 1. Add strictly into the URL directly without page reload
+        window.history.replaceState(null, '', shareUrl);
+
+        // 2. Copy to clipboard
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = shareUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+            
+            const btn = document.getElementById('btn-share');
+            if (btn) {
                 const orig = btn.textContent;
                 btn.textContent = "Copied!";
                 setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
+            }
+        } catch (err) {
+            console.error("Could not copy link: ", err);
+            alert("Could not copy link.");
+        }
+        
+        // 3. Recalculate directly as requested
+        if (typeof triggerActiveCalculation === 'function') {
+            triggerActiveCalculation();
         }
     },
 
@@ -923,10 +962,37 @@ const ToolFeatures = {
                 const el = document.getElementById(config.id);
                 if (el) {
                     el.value = params.get(key);
-                    // Trigger input event to update sliders
+                    // Trigger events logically 
                     el.dispatchEvent(new Event('input', { bubbles: true }));
-                    // Trigger change event for selects
                     el.dispatchEvent(new Event('change', { bubbles: true }));
+
+                    // Fix Dropdowns visual trigger updates 
+                    if (config.type === 'select') {
+                        const wrapper = el.closest('.custom-dropdown-container');
+                        if (wrapper) {
+                            const trigger = wrapper.querySelector('.custom-dropdown-trigger');
+                            const options = wrapper.querySelectorAll('.dropdown-option');
+                            const matchingOption = wrapper.querySelector(`.dropdown-option[data-value="${el.value}"]`);
+                            if (trigger && matchingOption) {
+                                trigger.textContent = matchingOption.textContent;
+                                options.forEach(opt => opt.classList.remove('selected'));
+                                matchingOption.classList.add('selected');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Fix Custom Date Picker visual updates directly
+        if (params.has('date2')) {
+            const dateStr = params.get('date2');
+            const display = document.getElementById('date-text');
+            if (dateStr && display) {
+                const [y, m] = dateStr.split('-');
+                if (y && m) {
+                    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    display.textContent = `${monthNames[parseInt(m)-1]} ${y}`;
                 }
             }
         }
@@ -938,17 +1004,17 @@ const ToolFeatures = {
             if (targetCard) targetCard.click();
         }
 
-        // 3. Restore Advanced Toggle
+        // 3. Restore Advanced Toggle safely
         if (params.has('adv')) {
             const shouldBeAdvanced = params.get('adv') === '1';
             const btn = document.getElementById('advanced-toggle');
-            // Check current state by text content or hidden class
-            const isCurrentlyAdvanced = btn.textContent.includes("Basic");
-            
-            if (shouldBeAdvanced && !isCurrentlyAdvanced) {
-                btn.click();
-            } else if (!shouldBeAdvanced && isCurrentlyAdvanced) {
-                btn.click();
+            if (btn) {
+                const isCurrentlyAdvanced = btn.textContent.includes("Basic");
+                if (shouldBeAdvanced && !isCurrentlyAdvanced) {
+                    btn.click();
+                } else if (!shouldBeAdvanced && isCurrentlyAdvanced) {
+                    btn.click();
+                }
             }
         }
     },
