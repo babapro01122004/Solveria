@@ -1,19 +1,3 @@
-// ==========================================
-// LIGHTHOUSE TRICK (Load Heavy Assets on Interaction)
-// ==========================================
-function loadHeavyAssets() {
-    if (document.body.classList.contains('assets-loaded')) return;
-    document.body.classList.add('assets-loaded');
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        img.src = img.getAttribute('data-src');
-        img.removeAttribute('data-src');
-    });
-}
-['click', 'mousemove', 'scroll', 'touchstart', 'keydown'].forEach(evt => {
-    document.addEventListener(evt, loadHeavyAssets, { once: true, passive: true });
-});
-
-
 /* ==========================================================================
    DATA SECTION
    ========================================================================== */
@@ -267,6 +251,7 @@ function initializeCustomDropdowns() {
                 if (m !== menu) m.classList.remove('active');
             });
             menu.classList.toggle('active');
+            trigger.setAttribute('aria-expanded', menu.classList.contains('active'));
         });
 
         options.forEach(option => {
@@ -277,6 +262,7 @@ function initializeCustomDropdowns() {
                 options.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
                 menu.classList.remove('active');
+                trigger.setAttribute('aria-expanded', 'false');
                 
                 if(select) {
                     select.value = value;
@@ -291,6 +277,7 @@ function initializeCustomDropdowns() {
         document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
             if (!menu.parentElement.contains(e.target)) {
                 menu.classList.remove('active');
+                menu.parentElement.querySelector('.custom-dropdown-trigger').setAttribute('aria-expanded', 'false');
             }
         });
     });

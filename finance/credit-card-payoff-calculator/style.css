@@ -1,51 +1,3 @@
-/* ============================ */
-/* New Roboto Fonts for Footer  */
-/* ============================ */
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../fonts/Roboto-Bold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../fonts/Roboto-Thin.ttf') format('truetype');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../fonts/Roboto-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* Existing Fonts */
-@font-face {
-    font-family: 'ProductSans-Light';
-    src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'ProductSans-Thin';
-    src: url('../../fonts/ProductSans-Thin.ttf') format('truetype');
-    font-display: swap;
-}
-
 /* Reset */
 * {
     margin: 0;
@@ -56,8 +8,8 @@
 /* Page Background Color */
 body {
     background-color: #F4F4F4;
-    font-family: 'ProductSans-Light', sans-serif;
-    /* Added for Sticky Footer */
+    /* Added System Fonts for immediate paint before Custom Fonts load */
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -101,7 +53,7 @@ body.assets-loaded .hero-section {
     color: #cacaca; 
     text-decoration: none; 
     font-size: 1.8vh;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-weight: 300; 
     transition: color .3s ease; 
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
@@ -121,7 +73,7 @@ body.assets-loaded .hero-section {
 
 .hero-section h1 {
     color: #ffffff;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-weight: 300;
     font-size: 7vmin;
     /* ENABLE WRAPPING for Hero Title */
@@ -136,7 +88,7 @@ body.assets-loaded .hero-section {
 
 .breathing-text {
     color: #e0e0e0;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 2vmin;
     text-align: center;
     text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
@@ -162,7 +114,7 @@ body.assets-loaded .hero-section {
     gap: 10px;
     margin-top: 2vh; /* Reduced margin */
     padding: 0 8vw; /* Matches calculator container padding */
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-weight: 300;
     font-size: 1.8vh; 
 }
@@ -171,7 +123,7 @@ body.assets-loaded .hero-section {
 .breadcrumb-nav .current-page,
 .breadcrumb-nav .separator {
     text-decoration: none;
-    color: #7a7a7a; 
+    color: #555555; /* Fixed color contrast for accessibility */
     transition: color 0.3s ease;
 }
 
@@ -200,7 +152,7 @@ body.assets-loaded .hero-section {
 }
 
 .tool-intro-container h2 {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-weight: 300;
     font-size: 2rem;
     color: #333;
@@ -208,7 +160,7 @@ body.assets-loaded .hero-section {
 }
 
 .tool-intro-container p {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.1rem;
     color: #555;
     line-height: 1.6;
@@ -230,7 +182,7 @@ body.assets-loaded .hero-section {
 }
 
 .seo-container h3 {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 2.2rem;
     color: #333;
     margin-bottom: 20px;
@@ -238,7 +190,7 @@ body.assets-loaded .hero-section {
 }
 
 .seo-container h4 {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.5rem;
     color: #000;
     margin-top: 40px;
@@ -247,7 +199,7 @@ body.assets-loaded .hero-section {
 }
 
 .seo-container p {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.05rem;
     color: #555;
     line-height: 1.7;
@@ -259,7 +211,7 @@ body.assets-loaded .hero-section {
 }
 
 .faq-item h5 {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.2rem;
     color: #333;
     font-weight: 600;
@@ -346,7 +298,7 @@ body.assets-loaded .hero-section {
    Kept large as main page dividers, but wrapped.
 */
 .calc-section h2 {
-    font-family: 'ProductSans-Thin', sans-serif;
+    font-family: 'ProductSans-Thin', system-ui, -apple-system, sans-serif;
     font-weight: 300;
     /* Scales between 4rem (64px) and 9rem (144px) based on width */
     font-size: clamp(4rem, 6vw, 9rem);
@@ -362,8 +314,8 @@ body.assets-loaded .hero-section {
 .text-link-btn {
     background: none;
     border: none;
-    color: #7a7a7a;
-    font-family: 'ProductSans-Light', sans-serif;
+    color: #555555; /* High contrast accessibility */
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.8vh;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -441,7 +393,7 @@ body.assets-loaded .hero-section {
     width: 95%; 
     white-space: normal; 
     line-height: 1.1;
-    font-family: 'ProductSans-Light', sans-serif; 
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif; 
     font-size: 1.5vh; 
     color: #ffffff; 
     background: none; 
@@ -478,7 +430,7 @@ body.assets-loaded .hero-section {
 .input-sub-heading {
     grid-column: 1 / -1; /* Spans full width */
     
-    font-family: 'ProductSans-Light', sans-serif; 
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif; 
     font-size: 1.2rem; 
     
     color: #000;
@@ -526,7 +478,7 @@ body.assets-loaded .hero-section {
     align-items: flex-end;  /* Bottom align text so single lines sit close to input */
     min-height: 2.5em;      /* Reserve vertical space for 2 lines */
     line-height: 1.2;       /* Tight line height for better spacing */
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.6vh;
     color: #666;
     margin-bottom: 3px;
@@ -543,7 +495,7 @@ body.assets-loaded .hero-section {
     width: 100%;
     border: none; 
     background: transparent;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 2.2vh;
     color: #333;
     padding: 2px 0 0 0;
@@ -650,7 +602,7 @@ body.assets-loaded .hero-section {
     color: #333;
     background-color: transparent;
     outline: none;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-weight: 300;
     cursor: pointer;
     text-align: left;
@@ -752,7 +704,7 @@ body.assets-loaded .hero-section {
     padding: 10px 12px;
     
     background: transparent;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 2.2vh;
     color: #333;
     outline: none;
@@ -907,7 +859,7 @@ body.assets-loaded .hero-section {
 
 .result-label {
     display: block;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.6vh;
     color: #666;
     margin-bottom: 3px;
@@ -925,7 +877,7 @@ body.assets-loaded .hero-section {
 */
 .result-value {
     display: block;
-    font-family: 'ProductSans-Thin', sans-serif;
+    font-family: 'ProductSans-Thin', system-ui, -apple-system, sans-serif;
     
     /* 
        Dynamic Uniform Sizing:
@@ -956,7 +908,7 @@ body.assets-loaded .hero-section {
     grid-column: 1 / -1; /* Full width */
     
     /* UPDATED FONT & SIZE */
-    font-family: 'ProductSans-Light', sans-serif; /* Light is better for small size */
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif; /* Light is better for small size */
     font-size: 1.2rem; /* Clean, small label size (~19px) */
     
     color: #000;
@@ -1098,7 +1050,7 @@ body.assets-loaded .hero-section {
     border: none; /* No border */
     padding: 0; /* Removed padding */
     margin-bottom: 20px; /* UPDATED: Reduced from 30px to save space */
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
     font-size: 1.1rem;
     line-height: 1.5;
     color: #666; /* Slightly softer text color */
@@ -1222,7 +1174,7 @@ body.assets-loaded .hero-section {
     background-position: center; 
     background-repeat: no-repeat;
     color: #ffffff; 
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif; 
     margin-top: auto;
 }
 
@@ -1284,7 +1236,7 @@ body.assets-loaded .site-footer {
 }
 
 .brand-name {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif; 
     font-size: 3rem; 
     font-weight: 100;
     color: #fff; 
@@ -1341,7 +1293,7 @@ body.assets-loaded .site-footer {
 }
 
 .footer-col h4 {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif; 
     font-size: 0.8rem; 
     text-transform: uppercase;
     letter-spacing: 0.15em; 
@@ -1430,8 +1382,9 @@ body.assets-loaded .site-footer {
 
 .action-btn {
     background: none; border: none; padding: 0;
-    font-family: 'ProductSans-Light', sans-serif; font-size: 1.15rem; 
-    color: #7a7a7a; cursor: pointer; transition: color 0.3s ease;
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif; font-size: 1.15rem; 
+    color: #555555; /* Fixed color contrast for accessibility */
+    cursor: pointer; transition: color 0.3s ease;
 }
 .action-btn:hover { color: #000000; }
 @media (max-width: 600px) {
@@ -1496,7 +1449,7 @@ body.assets-loaded .site-footer {
 
 .proceed-btn {
     border: none; background-color: #f4f4f4; border-radius: 50px;
-    font-family: 'ProductSans-Thin', sans-serif; font-size: 1.1rem;
+    font-family: 'ProductSans-Thin', system-ui, -apple-system, sans-serif; font-size: 1.1rem;
     padding: 10px 50px; color: #ccc; transition: all 0.3s ease;
     flex-shrink: 0; /* Prevents button squishing */
 }
@@ -1515,7 +1468,7 @@ body.assets-loaded .site-footer {
     /* Enforce Roboto Font */
     body { 
         background-color: #fff; 
-        font-family: 'Roboto', sans-serif !important; 
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif !important; 
         color: #000;
         -webkit-print-color-adjust: exact; 
         print-color-adjust: exact; 
@@ -1553,7 +1506,7 @@ body.assets-loaded .site-footer {
     }
 
     .header-text h1 {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif;
         font-weight: 700;
         font-size: 18pt;
         text-transform: uppercase;
@@ -1562,7 +1515,7 @@ body.assets-loaded .site-footer {
     }
 
     .header-text h2 {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif;
         font-weight: 400;
         font-size: 11pt;
         text-transform: uppercase;
@@ -1604,7 +1557,7 @@ body.assets-loaded .site-footer {
     }
 
     .section-heading {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif;
         font-weight: 700;
         font-size: 11pt;
         text-transform: uppercase;
