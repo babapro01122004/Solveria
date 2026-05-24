@@ -815,33 +815,6 @@ function simulateFixedTerm(startBal, rate, payment, months, lumpSum, lumpMonth) 
     return { remBalance: bal, totalInterest: totInt };
 }
 
-/* ============================ */
-/* Main Initialization          */
-/* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize UI Elements first
-    initializeSliders();
-    initializeCustomDropdowns();
-    initializeCustomDatePicker(); 
-    initializeModes();
-    initializeAdvancedToggle();
-    
-    // 2. Initialize Tool Features (Restores state from URL)
-    ToolFeatures.init();
-    
-    // 3. FORCE CALCULATION NOW (Fixes Garbage Values)
-    // We call this *after* restoreState so we calculate based on the restored (or default) values
-    // and immediately overwrite the HTML placeholders.
-    triggerActiveCalculation();
-    
-    // Listeners
-    const stateSelector = document.getElementById('stateSelector');
-    if(stateSelector) {
-        stateSelector.addEventListener('change', triggerActiveCalculation);
-    }
-    document.querySelector('.left-section').addEventListener('input', triggerActiveCalculation);
-});
-
 /* ==========================================
    UNIVERSAL PRINT, PDF & SHARE ENGINE
    ========================================== */
@@ -1204,3 +1177,38 @@ const ToolFeatures = {
         if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) this.closeTutorialModal(); });
     }
 };
+
+/* ============================ */
+/* Main Initialization          */
+/* ============================ */
+function bootApplication() {
+    // 1. Initialize UI Elements first
+    initializeSliders();
+    initializeCustomDropdowns();
+    initializeCustomDatePicker(); 
+    initializeModes();
+    initializeAdvancedToggle();
+    
+    // 2. Initialize Tool Features (Restores state from URL)
+    ToolFeatures.init();
+    
+    // 3. FORCE CALCULATION NOW (Fixes Garbage Values)
+    triggerActiveCalculation();
+    
+    // Listeners
+    const stateSelector = document.getElementById('stateSelector');
+    if(stateSelector) {
+        stateSelector.addEventListener('change', triggerActiveCalculation);
+    }
+    const leftSection = document.querySelector('.left-section');
+    if(leftSection) {
+        leftSection.addEventListener('input', triggerActiveCalculation);
+    }
+}
+
+// Since script is injected dynamically via the Lighthouse trick, DOMContentLoaded has already fired!
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootApplication);
+} else {
+    bootApplication();
+}
