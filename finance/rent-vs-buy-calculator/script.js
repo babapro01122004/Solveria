@@ -77,6 +77,7 @@ let currentIndex = 0;
 const textElement = document.getElementById('breathing-text');
 
 function cycleText() {
+    if (!textElement) return; // Null check in case of delayed execution
     textElement.classList.add('fade-out');
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % phrases.length;
@@ -1106,7 +1107,8 @@ const ToolFeatures = {
 /* ============================ */
 /* Main Initialization          */
 /* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
+
+function initApp() {
     initializeSliders();
     initializeCustomDropdowns();
     initializeStateDefaults(); // Engine 1
@@ -1119,4 +1121,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize PDF/Print/Share
     ToolFeatures.init();
-});
+}
+
+// Ensure the App runs correctly regardless of whether it was dynamically injected via interaction or loaded normally
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
