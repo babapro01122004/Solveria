@@ -515,29 +515,6 @@ const US_STATE_DATA = [
 ];
 
 /* ============================ */
-/* Breeding Text Logic          */
-/* ============================ */
-const phrases = [
-    "Assess the real value.",
-    "Understand the settlement.",
-    "Calculate your potential claim."
-];
-
-let currentIndex = 0;
-const textElement = document.getElementById('breathing-text');
-
-function cycleText() {
-    textElement.classList.add('fade-out');
-    setTimeout(() => {
-        currentIndex = (currentIndex + 1) % phrases.length;
-        textElement.textContent = phrases[currentIndex];
-        textElement.classList.remove('fade-out');
-    }, 1000);
-}
-
-setInterval(cycleText, 4000);
-
-/* ============================ */
 /* Slider & Input Config        */
 /* ============================ */
 
@@ -1073,7 +1050,7 @@ function initializeVisualFeedback() {
 }
 
 /* ==========================================
-   UNIVERSAL PRINT, PDF & SHARE ENGINE
+   UNIVERSAL PRINT & PDF ENGINE
    ========================================== */
 const ToolFeatures = {
     isTutorialUnlocked: false,
@@ -1089,46 +1066,6 @@ const ToolFeatures = {
         'fault': { id: 'input_faultShare', type: 'number' },
         'insPaid': { id: 'insurancePaidToggle', type: 'checkbox' },
         'attorney': { id: 'attorneyToggle', type: 'checkbox' }
-    },
-
-    getShareUrl() {
-        const params = new URLSearchParams();
-        
-        // 1. Simple Inputs
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) {
-                if(config.type === 'checkbox') params.set(key, el.checked);
-                else params.set(key, el.value);
-            }
-        }
-        
-        // 2. Radio (Severity)
-        const sev = document.querySelector('input[name="severity"]:checked');
-        if(sev) params.set('sev', sev.value);
-
-        // 3. Checkboxes (Impacts) - Comma Separated
-        const impacts = Array.from(document.querySelectorAll('input[name="impact"]:checked'))
-                             .map(c => c.value).join(',');
-        if(impacts) params.set('imp', impacts);
-
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Car Accident Claim Estimation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
     },
 
     restoreState() {
@@ -1486,9 +1423,6 @@ const ToolFeatures = {
         this.setDefaultDate(); // Set default date on load
         this.restoreState();   // Restore inputs from URL if present
         
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
-        
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
@@ -1509,15 +1443,22 @@ const ToolFeatures = {
 /* ============================ */
 /* Main Initialization          */
 /* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     populateStateDropdowns();   
     initializeSliders();
     initializeCustomDropdowns(); 
     initializeCustomDatePicker();
     initializeVisualFeedback();
-    ToolFeatures.init(); // Initialize New Tools
+    ToolFeatures.init(); 
     
     // Initial Calc & Visual Update (Fix for "Garbage" Inputs)
     updateSeverity();
     calculateResults();
-});
+}
+
+// Ensures init runs properly whether natively loaded or injected via JS
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
