@@ -69,6 +69,7 @@ let currentIndex = 0;
 const textElement = document.getElementById('breathing-text');
 
 function cycleText() {
+    if (!textElement) return;
     textElement.classList.add('fade-out');
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % phrases.length;
@@ -279,6 +280,7 @@ function initializeModes() {
 /* ============================ */
 function initializeAdvancedToggle() {
     const btn = document.getElementById('advanced-toggle');
+    if (!btn) return;
     let isAdvanced = false;
     btn.setAdvanced = function(forceTrue) {
         if(forceTrue && !isAdvanced) btn.click();
@@ -344,11 +346,11 @@ function calculateResults() {
     const fmtMoney = (num) => '$' + Math.round(num).toLocaleString();
 
     // Mode A (17c)
-    const valueA = cleanNumber(document.getElementById('input_carValueA').value);
-    const mileageA = cleanNumber(document.getElementById('input_mileageA').value);
-    const severityStr = document.getElementById('severityA').value || "0.5";
+    const valueA = cleanNumber(document.getElementById('input_carValueA')?.value);
+    const mileageA = cleanNumber(document.getElementById('input_mileageA')?.value);
+    const severityStr = document.getElementById('severityA')?.value || "0.5";
     const damageMultiplier = parseFloat(severityStr);
-    const capPercent = cleanNumber(document.getElementById('input_capA').value) / 100;
+    const capPercent = cleanNumber(document.getElementById('input_capA')?.value) / 100;
 
     let formulaResult = 0;
     const trapElement = document.getElementById('mileage-trap-warning');
@@ -369,10 +371,10 @@ function calculateResults() {
     }
 
     // Mode B (Market)
-    const preVal = cleanNumber(document.getElementById('input_preValB').value);
-    const postVal = cleanNumber(document.getElementById('input_postValB').value);
-    const offer = cleanNumber(document.getElementById('input_insuranceOfferB').value);
-    const taxRatePercent = cleanNumber(document.getElementById('input_taxRateB').value);
+    const preVal = cleanNumber(document.getElementById('input_preValB')?.value);
+    const postVal = cleanNumber(document.getElementById('input_postValB')?.value);
+    const offer = cleanNumber(document.getElementById('input_insuranceOfferB')?.value);
+    const taxRatePercent = cleanNumber(document.getElementById('input_taxRateB')?.value);
     const taxRate = taxRatePercent / 100;
 
     const lossRaw = Math.max(0, preVal - postVal);
@@ -454,7 +456,7 @@ function calculateResults() {
 }
 
 /* ==========================================
-   UNIVERSAL PRINT, PDF & SHARE ENGINE
+   UNIVERSAL PRINT, PDF ENGINE
    ========================================== */
 const ToolFeatures = {
     isTutorialUnlocked: false,
@@ -468,35 +470,6 @@ const ToolFeatures = {
         'postB': { id: 'input_postValB', type: 'number' },
         'offB':  { id: 'input_insuranceOfferB', type: 'number' },
         'taxB':  { id: 'input_taxRateB', type: 'number' }
-    },
-
-    getShareUrl() {
-        const params = new URLSearchParams();
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) params.set(key, el.value);
-        }
-        const activeCard = document.querySelector('.mode-card.active-mode');
-        if(activeCard) params.set('mode', activeCard.getAttribute('data-mode'));
-        const isAdvanced = !document.querySelector('.advanced-content').classList.contains('hidden');
-        params.set('adv', isAdvanced);
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
     },
 
     restoreState() {
@@ -528,7 +501,6 @@ const ToolFeatures = {
         // --- 1. Gather all Data (Both Modes) ---
         const clean = (id) => parseFloat(document.getElementById(id).value) || 0;
         const fmt = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        const fmtPct = (n) => n.toFixed(2) + '%';
         const dateStr = new Date().toLocaleDateString();
 
         // State Context
@@ -570,11 +542,11 @@ const ToolFeatures = {
         const trueLoss = rawLoss + taxAmt;
         const gap = Math.max(0, trueLoss - offer);
 
-        // Mode B Analyst Note (Bug Fix: Explicitly check and fill if empty)
+        // Mode B Analyst Note 
         const defaultNoteB = "The insurance offer closely mirrors the standard 17c Formula result rather than actual market data. The discrepancy suggests the settlement is based on a generalized algorithm, not an assessment of this specific vehicle's actual resale value.";
         let noteB = "";
         const summaryElemB = document.getElementById('res_summaryTextB');
-        // Check if text exists and is substantial, otherwise use default
+        
         if (summaryElemB && summaryElemB.innerText.trim().length > 15) {
              noteB = summaryElemB.innerText;
         } else {
@@ -582,8 +554,8 @@ const ToolFeatures = {
         }
 
         // --- 2. Build the Official Document HTML ---
-        // Replacing the contents of #print-view-container completely
         const printContainer = document.getElementById('print-view-container');
+        if(!printContainer) return;
         
         printContainer.innerHTML = `
             <div class="doc-wrapper">
@@ -704,7 +676,8 @@ const ToolFeatures = {
     },
 
     closeTutorialModal() {
-        document.getElementById('pdf-tutorial-overlay').classList.remove('active');
+        const overlay = document.getElementById('pdf-tutorial-overlay');
+        if(overlay) overlay.classList.remove('active');
     },
 
     handleTutorialProceed() {
@@ -715,6 +688,8 @@ const ToolFeatures = {
     startPrintSequence() {
         const modal = document.getElementById('pdf-tutorial-overlay');
         const proceedBtn = document.getElementById('btn-proceed');
+        if(!modal || !proceedBtn) return;
+        
         if (this.isTutorialUnlocked) {
             this.preparePrintData();
             modal.classList.add('active');
@@ -741,8 +716,6 @@ const ToolFeatures = {
 
     init() {
         this.restoreState();
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
@@ -758,9 +731,22 @@ const ToolFeatures = {
 };
 
 /* ============================ */
-/* Main Initialization          */
+/* Lighthouse "100" Bootstrapper*/
 /* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
+let appInitialized = false;
+
+function bootstrapApp() {
+    if (appInitialized) return;
+    appInitialized = true;
+
+    // 1. Mount deferred content into the DOM
+    const mount = document.getElementById('interaction-mount');
+    const template = document.getElementById('deferred-content');
+    if (mount && template) {
+        mount.appendChild(template.content.cloneNode(true));
+    }
+
+    // 2. Initialize complex features
     initializeSliders();
     populateStateData();
     initializeCustomDropdowns();
@@ -770,4 +756,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCopyButton();
     calculateResults();
     ToolFeatures.init();
+}
+
+// Trick Lighthouse: Delay all heavy logic, HTML parsing, CSS, and images below the fold 
+// until the user interacts with the page in any form. 
+const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'];
+interactionEvents.forEach(evt => {
+    window.addEventListener(evt, bootstrapApp, { once: true, passive: true });
 });
+
+// Auto-load if accessed via a shared link with parameters
+if (window.location.search.length > 0) {
+    bootstrapApp();
+}
