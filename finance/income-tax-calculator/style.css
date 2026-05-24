@@ -459,42 +459,6 @@ body {
     grid-column: 1 / -1;
 }
 
-/* Global Header Wrapper for Badge Alignment */
-.global-header-wrapper {
-    display: flex;
-    flex-direction: column; /* Stacked layout */
-    align-items: flex-start;
-    margin-bottom: 0px; 
-    padding-bottom: 10px; 
-    gap: 10px;
-}
-
-.global-header-wrapper .input-sub-heading {
-    margin: 0; /* Reset margins for flex context */
-    grid-column: auto;
-}
-
-/* Privacy Badge - UPDATED STYLE */
-.privacy-badge {
-    background-color: #ffffff;
-    color: #555;
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 0.8rem;
-    padding: 6px 14px;
-    border-radius: 20px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-.privacy-icon {
-    width: 16px;
-    height: 16px;
-    color: #B5855E;
-}
-
 /* Advanced Content Wrapper */
 .advanced-content {
     grid-column: 1 / -1; 
@@ -1748,14 +1712,20 @@ label.custom-checkbox-container {
 .site-footer {
     position: relative;
     width: 100%;
-    /* Vignette overlay using multiple backgrounds */
+    /* Solid fallback color until JS lazy loads background */
+    background-color: #1e1914; 
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto;
+}
+
+/* Lazy loaded background via JS */
+.site-footer.bg-loaded {
+    /* Vignette overlay combined directly with image */
     background-image: radial-gradient(circle, rgba(30, 25, 20, 0.4) 0%, rgba(30, 25, 20, 0.95) 100%), url('../../img/footer.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
-    margin-top: auto;
 }
 
 .footer-content {
@@ -1851,8 +1821,8 @@ label.custom-checkbox-container {
     flex-direction: column;
     gap: 10px;
     min-width: 140px;
-    align-items: center;
-    text-align: center;
+    align-items: center; /* Center aligns the links under heading */
+    text-align: center;  /* Ensures text within links is centered */
 }
 
 .footer-col h4 {

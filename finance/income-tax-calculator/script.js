@@ -879,7 +879,6 @@ function preparePrintView() {
     const rateCur = parseFloat(document.getElementById('input_rateB').value) || 0;
     const termCur = parseFloat(document.getElementById('input_remainingTermB').value) || 0;
     // Get Global Prop Tax / Ins logic from inputs or state defaults
-    // Since inputs might be hidden if not advanced, we grab values
     const propTaxRate = parseFloat(document.getElementById('input_propTaxGlobal').value) || 1.2;
     const insAnnual = parseFloat(document.getElementById('input_insuranceGlobal').value) || 1200;
     
@@ -936,7 +935,6 @@ function preparePrintView() {
     
     // Time Reclaimed Logic (Handle Refi negative time)
     const elTime = document.getElementById('res_timeReclaimedB'); 
-    // We grab text content from the live calculator result because it handles formatting nicely
     if(elTime) document.getElementById('print-time-saved').textContent = elTime.textContent;
 
     // F. Total Savings
@@ -1107,7 +1105,6 @@ function getShareUrl() {
     }
 
     // 3. Strategies
-    // Find active strategy for container A
     const stratA = document.querySelector('#mode-a-inputs .strategy-btn.active');
     if(stratA) params.set('sa', stratA.getAttribute('data-target'));
 
@@ -1129,11 +1126,9 @@ async function handleShare() {
         try {
             await navigator.share(shareData);
         } catch (err) {
-            // User cancelled or error
             console.log('Share cancelled');
         }
     } else {
-        // Fallback: Copy to Clipboard
         try {
             await navigator.clipboard.writeText(shareUrl);
             const btn = document.getElementById('btn-share');
@@ -1163,9 +1158,7 @@ function loadFromUrl() {
         if (config.type === 'checkbox') {
             el.checked = (val === '1');
         } else if (config.type === 'select') {
-            // Update Select
             el.value = val;
-            // Update Custom Dropdown UI
             const wrapper = el.closest('.custom-dropdown-container');
             if(wrapper) {
                 const trigger = wrapper.querySelector('.custom-dropdown-trigger');
@@ -1177,14 +1170,10 @@ function loadFromUrl() {
                 }
             }
         } else {
-            // Number Inputs
             el.value = val;
-            // Update Sliders logic
-            // Check if there is a slider associated
             const sliderId = config.id.replace('input_', 'slider_');
             const slider = document.getElementById(sliderId);
             if(slider) {
-                // Find slider key from input ID (e.g., input_grossSalaryA -> grossSalaryA)
                 const sliderKey = config.id.replace('input_', '');
                 slider.value = valToSlider(parseFloat(val), sliderKey);
                 updateSliderVisual(slider);
@@ -1211,7 +1200,6 @@ function loadFromUrl() {
         if(btn) btn.click();
     }
     
-    // Trigger Global Update
     if(params.get('st')) {
         updateGlobalStateData(params.get('st'));
     }
@@ -1237,7 +1225,7 @@ function initApp() {
     initializeCheckbox();
     initializePrintButtons();
     
-    // NEW: Load State & Bind Share
+    // Load State & Bind Share
     loadFromUrl();
     const btnShare = document.getElementById('btn-share');
     if(btnShare) {
@@ -1260,8 +1248,29 @@ function initApp() {
 const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'];
 
 function handleInteraction() {
+    // 1. Reveal hidden DOM
+    const defWrapper = document.getElementById('deferred-wrapper');
+    if (defWrapper) {
+        defWrapper.style.display = 'block';
+        // Force reflow
+        void defWrapper.offsetWidth; 
+        defWrapper.style.opacity = '1';
+    }
+
+    // 2. Lazy Load Images (Swaps data-src to src)
+    document.querySelectorAll('[data-src]').forEach(img => {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.removeAttribute('data-src');
+    });
+
+    // 3. Lazy load heavy Footer background
+    const footer = document.querySelector('.site-footer');
+    if (footer) footer.classList.add('bg-loaded');
+
+    // 4. Initialize Application Logic
     initApp();
-    // Remove listeners once executed to keep memory clean
+
+    // 5. Remove listeners to prevent re-execution and save memory
     interactionEvents.forEach(evt => window.removeEventListener(evt, handleInteraction));
 }
 
