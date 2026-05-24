@@ -410,7 +410,8 @@ body { background-color: #F4F4F4; font-family: 'ProductSans-Light', sans-serif; 
 }
 .footer-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(30, 25, 20, 0.85); z-index: 1;
+    background: radial-gradient(circle at center, rgba(15, 12, 10, 0.4) 0%, rgba(15, 12, 10, 0.95) 100%);
+    z-index: 1;
 }
 .footer-content {
     position: relative; z-index: 2; padding: 50px 8vw 30px 8vw;
@@ -432,7 +433,10 @@ body { background-color: #F4F4F4; font-family: 'ProductSans-Light', sans-serif; 
 }
 .email-link:hover { color: #fff; border-bottom-color: #fff; }
 .footer-links { flex: 0 1 auto; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
-.footer-col { display: flex; flex-direction: column; gap: 10px; min-width: 140px; }
+.footer-col { 
+    display: flex; flex-direction: column; gap: 10px; min-width: 140px; 
+    align-items: center; text-align: center; 
+}
 .footer-col h4 {
     font-family: 'Roboto', sans-serif; font-size: 0.8rem; text-transform: uppercase;
     letter-spacing: 0.15em; color: #ffffff; margin: 0 0 8px 0; font-weight: 600;
@@ -458,7 +462,7 @@ body { background-color: #F4F4F4; font-family: 'ProductSans-Light', sans-serif; 
 }
 
 /* ========================================== */
-/* NEW: ACTION BUTTONS, MODAL & PRINT MAGIC   */
+/* ACTION BUTTONS, MODAL & PRINT MAGIC   */
 /* ========================================== */
 
 /* --- BUTTONS --- */
@@ -543,7 +547,6 @@ body { background-color: #F4F4F4; font-family: 'ProductSans-Light', sans-serif; 
     .print-header-block {
         width: 100%; display: flex; flex-direction: row; justify-content: flex-start;
         align-items: center; text-align: left; margin-bottom: 20px; 
-        /* REMOVED THICK LINE AS REQUESTED */
         padding-bottom: 10px;
     }
     .print-logo { height: 60px; width: auto; margin-right: 20px; }

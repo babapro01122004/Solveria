@@ -435,11 +435,10 @@ function updateTrafficLight(elementId, status) {
     const text = container.querySelector('.score-text');
     lights.forEach(l => l.classList.remove('active'));
     if (status === 'strong') { lights[2].classList.add('active'); text.textContent = "Strong"; text.style.color = "#2ecc71"; }
-    else if (status === 'contested' || status === 'weak') { // Catch weak as middle or red? Usually weak is red.
+    else if (status === 'contested' || status === 'weak') { 
          if (status === 'weak') { lights[0].classList.add('active'); text.textContent = "Weak"; text.style.color = "#e74c3c"; }
          else { lights[1].classList.add('active'); text.textContent = "Contested"; text.style.color = "#f1c40f"; }
     } else {
-        // Fallback
         lights[1].classList.add('active'); text.textContent = "Contested"; text.style.color = "#f1c40f";
     }
 }
@@ -455,7 +454,7 @@ function updateSeverityLight(status) {
 }
 
 /* ==========================================
-   UNIVERSAL PRINT, PDF & SHARE ENGINE
+   UNIVERSAL PRINT & PDF ENGINE
    ========================================== */
 const ToolFeatures = {
     isTutorialUnlocked: false,
@@ -474,28 +473,6 @@ const ToolFeatures = {
         'alc': { id: 'input_alcohol', type: 'text' },
         'driver': { id: 'input_driver', type: 'select' },
         'um': { id: 'input_um', type: 'text' }
-    },
-    getShareUrl() {
-        const params = new URLSearchParams();
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) params.set(key, el.value);
-        }
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) { try { await navigator.share(shareData); } catch (err) {} }
-        else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
     },
     restoreState() {
         const params = new URLSearchParams(window.location.search);
@@ -533,23 +510,10 @@ const ToolFeatures = {
         }
     },
     preparePrintData() {
-        // --- HELPER FUNCTIONS ---
         const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : '--'; };
-        const getTxt = (id) => {
-             const el = document.getElementById(id);
-             if(!el) return '--';
-             // For state, map code to name
-             if(id === 'input_state') return STATE_DATA[el.value] ? STATE_DATA[el.value].name : el.value;
-             // For custom dropdowns
-             const wrapper = el.parentElement;
-             const trigger = wrapper.querySelector('.custom-dropdown-trigger');
-             if(trigger) return trigger.textContent;
-             return el.value;
-        };
         const capitalize = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, ' ') : '--';
         const getMapVal = (val, map) => map[val] || capitalize(val);
 
-        // --- GATHER DATA ---
         const stateCode = getVal('input_state');
         const stateName = STATE_DATA[stateCode] ? STATE_DATA[stateCode].name : stateCode;
         const stateRule = STATE_DATA[stateCode] || STATE_DATA['CA'];
@@ -558,7 +522,6 @@ const ToolFeatures = {
         const printDate = `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
         const caseId = `MC-${Math.floor(1000 + Math.random() * 9000)}-${stateCode}`;
 
-        // Dynamic Calculations
         const solYears = stateRule.sol;
         let timeRemainingTxt = "";
         if (dateRaw) {
@@ -572,19 +535,16 @@ const ToolFeatures = {
              }
         } else { timeRemainingTxt = "--"; }
 
-        // Fields
         const accTypeRaw = getVal('input_type');
         const accTypeMap = { 'rear_end': 'Rear-ended', 'left_turn': 'Left Turn', 'lane_change': 'Lane Change', 'door': 'Door Prize', 'solo': 'Solo', 'other': 'Other' };
         const accType = getMapVal(accTypeRaw, accTypeMap);
-        
-        const policeRaw = getVal('input_police');
-        const police = capitalize(policeRaw);
+        const police = capitalize(getVal('input_police'));
         
         const actionRaw = getVal('input_action');
         const actionMap = { 'straight': 'Riding Straight', 'splitting': 'Lane Splitting', 'turning': 'Turning/Merging' };
         const action = getMapVal(actionRaw, actionMap);
 
-        const ticketRaw = getVal('input_ticket'); // yes, no, unsure
+        const ticketRaw = getVal('input_ticket');
         const ticket = ticketRaw === 'unsure' ? 'Unknown' : capitalize(ticketRaw);
 
         const medRaw = getVal('input_medical');
@@ -601,37 +561,29 @@ const ToolFeatures = {
         const bikeRaw = getVal('input_bike');
         const bike = bikeRaw === 'totaled' ? 'Totaled' : 'Repairable';
 
-        const helmetRaw = getVal('input_helmet'); // yes, no
-        const helmet = capitalize(helmetRaw);
-
-        const alcoholRaw = getVal('input_alcohol'); // yes, no, prefer_not
+        const helmet = capitalize(getVal('input_helmet'));
+        const alcoholRaw = getVal('input_alcohol'); 
         const alcohol = alcoholRaw === 'yes' ? 'Yes' : 'No';
 
         const driverRaw = getVal('input_driver');
         const driverMap = { 'insured': 'Insured (Personal)', 'commercial': 'Commercial', 'uninsured': 'Uninsured', 'unknown': 'Unknown' };
         const driver = getMapVal(driverRaw, driverMap);
 
-        const umRaw = getVal('input_um'); // yes, no, check
+        const umRaw = getVal('input_um'); 
         const um = umRaw === 'check' ? 'Need to Check' : capitalize(umRaw);
 
-        // Scorecards
         const liabilityTxt = document.querySelector('#res_liability .score-text').textContent.toUpperCase();
         const severityTxt = document.querySelector('#res_severity .score-text').textContent.toUpperCase();
         const docTxt = document.getElementById('res_docs').textContent.toUpperCase();
 
-        // --- ANALYST NOTES LOGIC ---
-        // 1. Jurisdiction
         const noteJurisdiction = `Time is actively ticking. ${stateName} enforces a strict statute of limitations of ${solYears} years for personal injury claims. Evidence preservation is critical during this window.`;
 
-        // 2. Collision
         let noteCollision = `The core liability baseline is established by the '${accType}' nature of the crash. `;
         if (accTypeRaw === 'rear_end') noteCollision += "Rear-end collisions traditionally place the burden of fault on the trailing vehicle. ";
         else if (accTypeRaw === 'left_turn') noteCollision += "Left-turn accidents often presume fault on the turning vehicle unless speed or signal violations are proven. ";
-        
         if (ticketRaw === 'yes') noteCollision += "The citation issued to the adverse driver significantly strengthens the liability argument.";
         else if (ticketRaw === 'no' || ticketRaw === 'unsure') noteCollision += "However, because it is currently unknown if the adverse driver was officially cited, independent liability verification (via the police report) is required to strengthen the claim.";
 
-        // 3. Severity
         let noteSeverity = `This case registers as ${severityTxt}. `;
         if (medRaw === 'hospital' || bikeRaw === 'totaled' || workRaw === 'lost_job') {
             noteSeverity += "The combination of significant medical intervention, catastrophic property damage (totaled vehicle), and documented loss of earning capacity significantly elevates the baseline calculation for both economic and non-economic damages.";
@@ -639,18 +591,15 @@ const ToolFeatures = {
              noteSeverity += "While damages are present, the absence of immediate hospitalization or major vehicle loss suggests a focus on soft-tissue injury valuation.";
         }
 
-        // 4. Compliance
         let noteCompliance = "";
         const limit = stateRule.insurance[0];
-        if (helmetRaw === 'no' && stateRule.helmet === 'universal') {
+        if (helmet.toLowerCase() === 'no' && stateRule.helmet === 'universal') {
             noteCompliance += `CRITICAL: Failure to wear a helmet in ${stateName} (a Universal Law state) can significantly reduce compensation specifically for reported head/neck injuries under comparative negligence rules. `;
         }
         noteCompliance += `${stateName} has minimum insurance limits of $${limit}k. If the at-fault driver carries minimum coverage, it may be insufficient for medical bills, making First-Party Uninsured/Underinsured Motorist (UM) coverage crucial to verify.`;
 
-        // --- BUILD HTML (VERTICAL STACK LAYOUT) ---
-        // Updated: Removed border-bottom from header block
         const html = `
-            <div class="print-header-block" style="display:flex; align-items:center; justify-content:flex-start; text-align:left; margin-bottom:20px;">
+            <div class="print-header-block" style="display:flex; align-items:center; justify-content:flex-start; text-align:left; margin-bottom:20px; padding-bottom:10px;">
                 <img src="../../img/Logo_Golden.webp" class="print-logo" alt="Logo" style="height:60px; margin-right:20px;">
                 <div class="print-header-text">
                     <h1 class="print-main-title">Motorcycle Collision Preliminary Assessment Report</h1>
@@ -658,7 +607,7 @@ const ToolFeatures = {
                 </div>
             </div>
 
-            <div class="print-meta-row" style="display:flex; justify-content:space-between; border-bottom:1px solid #000; padding-bottom:5px; margin-bottom:25px; font-size:0.9rem;">
+            <div class="print-meta-row" style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding-bottom:8px; margin-bottom:20px; font-size:0.85rem;">
                 <div><span class="meta-label">Claimant:</span> Rider/Plaintiff</div>
                 <div><span class="meta-label">Date:</span> ${printDate}</div>
                 <div><span class="meta-label">Case ID:</span> ${caseId}</div>
@@ -666,7 +615,6 @@ const ToolFeatures = {
             </div>
 
             <div class="print-stack-container">
-                <!-- SECTION I -->
                 <div class="print-section-wrapper">
                     <div class="print-section-header">I. COLLISION DYNAMICS & LIABILITY</div>
                     <div class="print-data-compact">
@@ -678,7 +626,6 @@ const ToolFeatures = {
                     <div class="analyst-note"><span class="note-prefix">NOTE:</span> ${noteCollision}</div>
                 </div>
 
-                <!-- SECTION II -->
                 <div class="print-section-wrapper">
                     <div class="print-section-header">II. DAMAGE & SEVERITY ASSESSMENT</div>
                     <div class="print-data-compact">
@@ -690,14 +637,12 @@ const ToolFeatures = {
                     <div class="analyst-note"><span class="note-prefix">NOTE:</span> ${noteSeverity}</div>
                 </div>
 
-                <!-- SECTION III -->
                 <div class="print-section-wrapper">
                     <div class="print-section-header">III. JURISDICTIONAL CONTEXT</div>
                     <div class="data-item"><span class="data-label">Statute Limit:</span><span class="data-val">${timeRemainingTxt}</span></div>
                     <div class="analyst-note"><span class="note-prefix">NOTE:</span> ${noteJurisdiction}</div>
                 </div>
 
-                <!-- SECTION IV -->
                 <div class="print-section-wrapper">
                     <div class="print-section-header">IV. COMPLIANCE PROFILE</div>
                     <div class="print-data-compact">
@@ -709,7 +654,6 @@ const ToolFeatures = {
                     <div class="analyst-note"><span class="note-prefix">CRITICAL:</span> ${noteCompliance}</div>
                 </div>
 
-                <!-- SCORECARD -->
                 <div class="print-section-wrapper">
                     <div class="print-section-header">V. SCORECARD</div>
                     <div class="scorecard-box">
@@ -755,8 +699,6 @@ const ToolFeatures = {
     },
     init() {
         this.restoreState();
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => { this.preparePrintData(); window.print(); });
         const btnPDF = document.getElementById('btn-save-pdf');
@@ -768,9 +710,16 @@ const ToolFeatures = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function initMotorcycleCalculator() {
     initializeCustomDropdowns();
     initializeSelectionButtons();
     initializeCustomDatePicker();
     ToolFeatures.init();
-});
+}
+
+// Support robust initialization since script gets injected lazily
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMotorcycleCalculator);
+} else {
+    initMotorcycleCalculator();
+}
