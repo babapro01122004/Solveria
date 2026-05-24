@@ -770,7 +770,7 @@ function initializeGlobalListeners() {
 
 
 /* ==========================================
-   UNIVERSAL PRINT, PDF & SHARE ENGINE
+   UNIVERSAL PRINT & PDF ENGINE
    ========================================== */
 const ToolFeatures = {
     isTutorialUnlocked: false,
@@ -810,36 +810,6 @@ const ToolFeatures = {
         'dpD': { id: 'input_downPaymentD', type: 'number' },
         'buf': { id: 'input_bufferD', type: 'number' },
         'rep': { id: 'input_repairD', type: 'number' }
-    },
-
-    /* 2. SHARE LOGIC (Universal) */
-    getShareUrl() {
-        const params = new URLSearchParams();
-        // Also capture active mode
-        const activeBtn = document.querySelector('.mode-card.active-mode');
-        if (activeBtn) params.set('mode', activeBtn.getAttribute('data-mode'));
-
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) params.set(key, el.value);
-        }
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
     },
 
     restoreState() {
@@ -930,7 +900,6 @@ const ToolFeatures = {
 
         // Grab source from the hidden preload image to ensure cache hit
         const preloadImg = document.getElementById('preload-print-logo');
-        // FIX: Updated fallback to match the working footer logo (Golden vs Gold)
         const logoSrc = preloadImg ? preloadImg.src : '../../img/Logo_Golden.webp';
 
         const html = `
@@ -1084,8 +1053,6 @@ const ToolFeatures = {
 
     init() {
         this.restoreState();
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
 
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
@@ -1119,7 +1086,7 @@ function initApp() {
     // Initial Calc
     calculateAll();
     
-    // Initialize PDF/Print/Share
+    // Initialize PDF/Print
     ToolFeatures.init();
 }
 
