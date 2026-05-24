@@ -21,6 +21,12 @@
     <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
 
     <title>Diminished Value Calculator | 17c Formula & Market Realities</title>
+
+    <!-- CRITICAL LCP PRELOADS FOR 100 PERFORMANCE SCORE -->
+    <link rel="preload" as="image" href="../../img/Refinance_Hero.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="../../img/Logo_Golden.webp" fetchpriority="high">
+    <link rel="preload" as="font" href="../../fonts/ProductSans-Light.ttf" type="font/ttf" crossorigin>
+
     <link rel="stylesheet" href="style.css">
 
     <!-- Favicon -->
@@ -96,15 +102,15 @@
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <header class="hero-section">
+    <!-- Hero Section (Background image explicitly defined here to bypass CSS processing delay) -->
+    <header class="hero-section" style="background-image: url('../../img/Refinance_Hero.webp');">
         <nav class="hero-nav">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <img src="../../img/Logo_Golden.webp" alt="Solveria Financial Logo" class="hero-logo" width="150" height="150">
+        <img src="../../img/Logo_Golden.webp" alt="Solveria Financial Logo" class="hero-logo" width="150" height="150" fetchpriority="high">
 
         <h1>Diminished Value Calculator</h1>
         
@@ -355,6 +361,7 @@
                         <div class="action-buttons-row">
                             <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
                             <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
+                            <!-- SHARE BUTTON HAS BEEN COMPLETELY REMOVED AS REQUESTED -->
                         </div>
                     </div>
 
@@ -628,6 +635,6 @@
 
     </template>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

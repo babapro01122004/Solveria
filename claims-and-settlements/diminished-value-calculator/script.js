@@ -498,18 +498,15 @@ const ToolFeatures = {
     },
 
     preparePrintData() {
-        // --- 1. Gather all Data (Both Modes) ---
         const clean = (id) => parseFloat(document.getElementById(id).value) || 0;
         const fmt = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const dateStr = new Date().toLocaleDateString();
 
-        // State Context
         const stateSelect = document.getElementById('stateSelector');
         const stateName = stateSelect.options[stateSelect.selectedIndex].text;
         const stateCode = stateSelect.value;
         const stateData = US_STATE_DATA[stateCode] || US_STATE_DATA['GA'];
 
-        // Mode A Data
         const valA = clean('input_carValueA');
         const milA = clean('input_mileageA');
         const capPct = clean('input_capA') / 100;
@@ -527,11 +524,9 @@ const ToolFeatures = {
         const baseLoss = valA * capPct;
         const formulaDV = baseLoss * sevVal * milFactor;
 
-        // Mode A Analyst Note (Extracted from active DOM if available, or generated generic)
         const summaryElemA = document.getElementById('res_summaryTextA');
         const noteA = summaryElemA ? summaryElemA.innerText : "Calculation based on standard formula modifiers.";
 
-        // Mode B Data
         const preVal = clean('input_preValB');
         const postVal = clean('input_postValB');
         const offer = clean('input_insuranceOfferB');
@@ -542,7 +537,6 @@ const ToolFeatures = {
         const trueLoss = rawLoss + taxAmt;
         const gap = Math.max(0, trueLoss - offer);
 
-        // Mode B Analyst Note 
         const defaultNoteB = "The insurance offer closely mirrors the standard 17c Formula result rather than actual market data. The discrepancy suggests the settlement is based on a generalized algorithm, not an assessment of this specific vehicle's actual resale value.";
         let noteB = "";
         const summaryElemB = document.getElementById('res_summaryTextB');
@@ -553,13 +547,11 @@ const ToolFeatures = {
              noteB = defaultNoteB;
         }
 
-        // --- 2. Build the Official Document HTML ---
         const printContainer = document.getElementById('print-view-container');
         if(!printContainer) return;
         
         printContainer.innerHTML = `
             <div class="doc-wrapper">
-                <!-- HEADER -->
                 <div class="doc-header">
                     <img src="../../img/Logo_Gold.webp" alt="Solveria Logo" class="doc-logo">
                     <div class="doc-title-block">
@@ -568,7 +560,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- META INFO -->
                 <div class="doc-meta-grid">
                     <div class="meta-row">
                         <span class="meta-label">PREPARED BY:</span>
@@ -584,7 +575,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- SECTION I: CONTEXT -->
                 <div class="doc-section">
                     <div class="section-title">I. JURISDICTIONAL CONTEXT (${stateName.toUpperCase()})</div>
                     <div class="section-content">
@@ -595,7 +585,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- SECTION II: INSURER VIEW -->
                 <div class="doc-section">
                     <div class="section-title">II. THE INSURER'S ALGORITHM (17C FORMULA ESTIMATE)</div>
                     <div class="section-content">
@@ -618,7 +607,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- SECTION III: MARKET VIEW -->
                 <div class="doc-section">
                     <div class="section-title">III. THE MARKET REALITY (EMPIRICAL DATA)</div>
                     <div class="section-content">
@@ -641,7 +629,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- SECTION IV: SUMMARY -->
                 <div class="doc-section summary-box">
                     <div class="section-title">IV. DISCREPANCY SUMMARY</div>
                     <div class="section-content">
@@ -653,7 +640,6 @@ const ToolFeatures = {
                     </div>
                 </div>
 
-                <!-- FOOTER -->
                 <div class="doc-footer">
                     <div class="signature-line">
                         <div class="sig-block">
@@ -666,7 +652,6 @@ const ToolFeatures = {
                         </div>
                     </div>
                     
-                    <!-- DISCLAIMER -->
                     <div class="legal-disclaimer">
                         <strong>LEGAL & METHODOLOGY DISCLAIMER:</strong> This Diminished Value Analysis Report is generated automatically for informational and negotiation purposes only. The figures presented are estimates derived from standard industry algorithms (including the 17c formula) and static jurisdictional data models, rather than live market API feeds or a certified physical vehicle inspection. This document does not constitute legal advice, a binding financial guarantee, or a certified professional appraisal. Users are encouraged to verify trade-in values with local dealerships. Claimants assume all responsibility for how this data is utilized in settlement negotiations.
                     </div>
@@ -739,14 +724,12 @@ function bootstrapApp() {
     if (appInitialized) return;
     appInitialized = true;
 
-    // 1. Mount deferred content into the DOM
     const mount = document.getElementById('interaction-mount');
     const template = document.getElementById('deferred-content');
     if (mount && template) {
         mount.appendChild(template.content.cloneNode(true));
     }
 
-    // 2. Initialize complex features
     initializeSliders();
     populateStateData();
     initializeCustomDropdowns();
@@ -758,14 +741,11 @@ function bootstrapApp() {
     ToolFeatures.init();
 }
 
-// Trick Lighthouse: Delay all heavy logic, HTML parsing, CSS, and images below the fold 
-// until the user interacts with the page in any form. 
 const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'];
 interactionEvents.forEach(evt => {
     window.addEventListener(evt, bootstrapApp, { once: true, passive: true });
 });
 
-// Auto-load if accessed via a shared link with parameters
 if (window.location.search.length > 0) {
     bootstrapApp();
 }

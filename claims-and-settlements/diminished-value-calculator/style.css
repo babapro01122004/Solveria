@@ -26,7 +26,7 @@ body {
 .hero-section {
     width: 100%;
     height: 40vh;
-    background-image: url('../../img/Refinance_Hero.webp');
+    /* Removed background-image here since it is now strictly inline in HTML for max LCP speed */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
