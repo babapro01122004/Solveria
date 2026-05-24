@@ -57,10 +57,8 @@ const US_STATE_DATA = {
 };
 
 const getStateData = (stateCode) => {
-  // Safe accessor to prevent crashes if code is invalid
   const data = US_STATE_DATA[stateCode] || US_STATE_DATA["TX"];
   
-  // Logic from the data file, integrated here
   const riskFlags = {
     insuranceVolatility: data.insuranceRate > 0.9,
     evictionDrag: data.evictionDays >= 60,
@@ -89,7 +87,7 @@ const phrases = [
     "Understand today. Regret less tomorrow."
 ];
 let currentIndex = 0;
-const textElement = document.getElementById('breathing-text');
+let textElement = null;
 function cycleText() {
     if (!textElement) return;
     textElement.classList.add('fade-out');
@@ -99,7 +97,6 @@ function cycleText() {
         textElement.classList.remove('fade-out');
     }, 1000);
 }
-setInterval(cycleText, 4000);
 
 /* Slider Configuration */
 const SLIDER_CONFIG = {
@@ -217,7 +214,6 @@ function initializeCustomDropdowns() {
         const trigger = wrapper.querySelector('.custom-dropdown-trigger');
         const menu = wrapper.querySelector('.custom-dropdown-menu');
 
-        // Toggle menu visibility
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
@@ -226,22 +222,18 @@ function initializeCustomDropdowns() {
             menu.classList.toggle('active');
         });
 
-        // Use Event Delegation for options (handles dynamic elements)
         menu.addEventListener('click', (e) => {
-            // Find the clicked option div, even if user clicks text inside it
             const option = e.target.closest('.dropdown-option');
             if (option) {
                 e.stopPropagation();
                 const value = option.getAttribute('data-value');
                 trigger.textContent = option.textContent;
                 
-                // Remove selected class from siblings
                 menu.querySelectorAll('.dropdown-option').forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
                 
                 menu.classList.remove('active');
                 
-                // Sync with hidden select
                 if(select) {
                     select.value = value;
                     select.dispatchEvent(new Event('change', { bubbles: true }));
@@ -250,7 +242,6 @@ function initializeCustomDropdowns() {
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
             if (!menu.parentElement.contains(e.target)) {
@@ -259,16 +250,11 @@ function initializeCustomDropdowns() {
         });
     });
 
-    // Attach change listeners to hidden selects
     document.querySelectorAll('select').forEach(sel => {
         sel.addEventListener('change', (e) => calculateAll(e.target.id));
     });
 }
 
-/* 
- * NEW FUNCTION: Populates the state dropdown from US_STATE_DATA 
- * Ensures all 50 states are visible in the menu
- */
 function populateStateDropdowns() {
     const selector = document.getElementById('stateSelector');
     const customWrapper = document.querySelector('.dropdown-options-wrapper');
@@ -276,11 +262,9 @@ function populateStateDropdowns() {
 
     if (!selector || !customWrapper) return;
 
-    // Clear existing content to prevent duplicates
     selector.innerHTML = '';
     customWrapper.innerHTML = '';
 
-    // Sort states alphabetically by name
     const sortedKeys = Object.keys(US_STATE_DATA).sort((a, b) => 
         US_STATE_DATA[a].name.localeCompare(US_STATE_DATA[b].name)
     );
@@ -288,14 +272,12 @@ function populateStateDropdowns() {
     sortedKeys.forEach(key => {
         const state = US_STATE_DATA[key];
         
-        // 1. Create Native Select Option (Hidden but accessible)
         const option = document.createElement('option');
         option.value = key;
         option.textContent = state.name;
-        if (key === 'CA') option.selected = true; // Default
+        if (key === 'CA') option.selected = true;
         selector.appendChild(option);
 
-        // 2. Create Custom Div Option (Visible UI)
         const div = document.createElement('div');
         div.className = 'dropdown-option';
         if (key === 'CA') div.classList.add('selected');
@@ -304,7 +286,6 @@ function populateStateDropdowns() {
         customWrapper.appendChild(div);
     });
 
-    // Reset trigger text to default
     if(trigger) trigger.textContent = US_STATE_DATA['CA'].name;
 }
 
@@ -350,7 +331,6 @@ function initializeStateSelector() {
         const stateCode = stateSelect.value;
         const stateData = getStateData(stateCode);
         
-        // Mode A Updates
         const priceA = cleanNumber(document.getElementById('input_purchasePriceA').value);
         if (priceA > 0) {
             const estTax = Math.round(priceA * (stateData.propertyTaxRate / 100));
@@ -359,7 +339,6 @@ function initializeStateSelector() {
             updateInputAndSlider('insuranceA', estIns);
         }
         
-        // Triggers calculation for current mode
         calculateAll('stateSelector');
     });
 }
@@ -387,9 +366,6 @@ function calculateAll(triggerKey) {
     if (currentMode === 'mode-c') calculateModeC(triggerKey);
 }
 
-// -----------------------------------------------------------
-// MENTOR LOGIC HELPER FUNCTION
-// -----------------------------------------------------------
 function updateMentorSummary(mode, metrics) {
     const el = document.getElementById(`mentor-summary-${mode}`);
     if (!el) return;
@@ -400,26 +376,26 @@ function updateMentorSummary(mode, metrics) {
         const cf = metrics.cashFlow;
         const coc = metrics.coc;
         if (cf < 0) {
-            title = "🛑 Asset or Liability?";
+            title = "Asset or Liability?";
             body = "You are effectively subsidizing your tenant's lifestyle. Even if the property appreciates, the monthly negative cash flow will drain your reserves and hurt your Debt-to-Income ratio for future loans. <strong>Unless you can drop the purchase price by at least 15%, walk away.</strong>";
         } else if (cf < 200) {
-            title = "⚠️ Walking on Thin Ice.";
+            title = "Walking on Thin Ice.";
             body = "You are technically profitable, but one broken water heater or a two-month vacancy will wipe out your entire year's profit. You are betting 100% on appreciation, not cash flow. <strong>This deal requires a heavy cash reserve fund to be safe.</strong>";
         } else {
-            title = "🚀 The Cash Flow Machine.";
+            title = "The Cash Flow Machine.";
             body = "This asset pays for itself and puts money in your pocket every month. The rent covers the mortgage, expenses, and vacancy buffers with room to spare. <strong>Verify your expense assumptions (especially taxes), then get this under contract.</strong>";
         }
     } else if (mode === 'B') {
         const profit = metrics.netProfit;
         const margin = metrics.margin;
         if (profit < 0) {
-            title = "☠️ Financial Suicide Warning.";
+            title = "Financial Suicide Warning.";
             body = "After closing costs, holding fees, and realtor commissions, you are paying for the privilege of working. You will lose money on this deal. <strong>The only way to save this is to slash the acquisition price or cut the rehab scope dramatically.</strong>";
         } else if (profit < 20000 || margin < 10) {
-            title = "😓 Working for Minimum Wage.";
+            title = "Working for Minimum Wage.";
             body = "You might make a small profit, but is it worth the stress and risk? If the market dips 5% or the timeline slips by two months, you break even. <strong>Experienced flippers usually demand a 15%+ margin to cover the 'unknowns' found behind the walls.</strong>";
         } else {
-            title = "💰 Green Light Special.";
+            title = "Green Light Special.";
             body = "This deal has a wide margin of safety. Even if the renovation goes over budget or the house sits on the market for an extra month, you still walk away with a profit. <strong>Double-check your ARV comps, secure your hard money, and start swinging hammers.</strong>";
         }
     } else if (mode === 'C') {
@@ -427,28 +403,25 @@ function updateMentorSummary(mode, metrics) {
         const minAppr = metrics.minAppraisal;
         const arv = metrics.arv;
         if (left > 25000) {
-            title = "🪤 Velocity Killer.";
+            title = "Velocity Killer.";
             body = "The bank won't give you enough cash back to pay off your initial investment. You are leaving significant capital trapped in the deal, which prevents you from buying the next property. <strong>This isn't a BRRRR; it's just a rental with a renovation project attached.</strong>";
         } else if (left <= 0) {
-            title = "🦄 The Holy Grail (Infinite Return).";
+            title = "The Holy Grail (Infinite Return).";
             body = "You are pulling out 100% (or more) of your initial investment. You effectively own this cash-flowing asset for $0. Since you have no money left in the deal, your ROI is mathematically infinite. <strong>Rinse and repeat this exact model immediately.</strong>";
         } else {
-            // Check for Appraisal Gap (if refi loan isn't enough to cover hard money, usually implies cash left > 0 but we want to warn about appraisal specifically if it's tight)
-            // But here "Appraisal Danger Zone" logic:
             if (minAppr > arv) {
-                 title = "📉 Appraisal Danger Zone.";
+                 title = "Appraisal Danger Zone.";
                  body = "The math works on paper, but the Appraisal is the boss. If the appraiser doesn't agree with your ARV, you will have to bring cash to the closing table to pay off your hard money lender. <strong>Do you have the liquidity to cover a short appraisal?</strong>";
             } else {
-                 title = "✅ Respectable BRRRR.";
+                 title = "Respectable BRRRR.";
                  body = "You are leaving a little skin in the game, but the remaining ROI is likely high. It's a solid base hit that builds your portfolio without over-leveraging. <strong>Proceed with confidence.</strong>";
             }
         }
     }
 
-    el.innerHTML = `<strong>${title}</strong>${body}`;
+    el.innerHTML = `<strong>${title}</strong> ${body}`;
 }
 
-/* --- MODE A: Rental Analysis --- */
 function calculateModeA(triggerKey) {
     const price = cleanNumber(document.getElementById('input_purchasePriceA').value);
     const downPayment = cleanNumber(document.getElementById('input_downPaymentA').value);
@@ -529,9 +502,7 @@ function calculateModeA(triggerKey) {
         vEl.className = `result-value ${verdictClass}`;
     }
 
-    // UPDATE MENTOR SUMMARY
     updateMentorSummary('A', { cashFlow, coc });
-
     runStressTestModeA(cashFlow, rent, totalMonthlyExpenses, monthlyPI);
 }
 
@@ -568,7 +539,6 @@ function runStressTestModeA(baseCF, baseRent, baseExp, debt) {
     }
 }
 
-/* --- MODE B: Fix & Flip --- */
 function calculateModeB(triggerKey) {
     const price = cleanNumber(document.getElementById('input_purchasePriceB').value);
     const rehab = cleanNumber(document.getElementById('input_rehabB').value);
@@ -617,15 +587,12 @@ function calculateModeB(triggerKey) {
     setText('res_maoB', formatMoney.format(mao));
     setText('res_annRoiB', formatPct(annualizedRoi));
     setText('res_costDelayB', `-$${Math.round(dailyBurn)}/day`);
-    // NEW: Set Break Even Price
     setText('res_breakEvenB', formatMoney.format(totalCostBasis));
 
     setClass('res_netProfitB', netProfit > 0 ? 'good' : 'bad');
     setClass('res_costDelayB', 'bad'); 
 
-    // UPDATE MENTOR SUMMARY
     updateMentorSummary('B', { netProfit, margin: profitMargin });
-
     runStressTestModeB(netProfit, arv, totalRehab, price, buyCosts, points, drawFees, sellingCosts, holdCostsMo, monthlyInterest, timeline, overrunRisk, marketSlide, sData.closingCostSell);
 }
 
@@ -670,9 +637,7 @@ function runStressTestModeB(baseProfit, arv, rehab, price, buyCosts, points, dra
     }
 }
 
-/* --- MODE C: BRRRR Strategy --- */
 function calculateModeC(triggerKey) {
-    // 1. Gather Inputs
     const price = cleanNumber(document.getElementById('input_purchasePriceC').value);
     const rehab = cleanNumber(document.getElementById('input_rehabC').value);
     const arv = cleanNumber(document.getElementById('input_arvC').value);
@@ -680,11 +645,10 @@ function calculateModeC(triggerKey) {
     const refiLtv = cleanNumber(document.getElementById('input_refiLtvC').value);
     const refiRate = cleanNumber(document.getElementById('input_refiRateC').value);
     
-    // Advanced
     const initPoints = cleanNumber(document.getElementById('input_initialPointsC').value);
-    const initInterestCarry = cleanNumber(document.getElementById('input_initialInterestC').value); // $ Amount
-    const seasoning = cleanNumber(document.getElementById('input_seasoningC').value); // Months
-    const appraisalHaircut = cleanNumber(document.getElementById('input_appraisalHaircutC').value); // %
+    const initInterestCarry = cleanNumber(document.getElementById('input_initialInterestC').value);
+    const seasoning = cleanNumber(document.getElementById('input_seasoningC').value);
+    const appraisalHaircut = cleanNumber(document.getElementById('input_appraisalHaircutC').value);
     const refiCosts = cleanNumber(document.getElementById('input_refiCostsC').value);
     
     const vacancyRate = cleanNumber(document.getElementById('input_vacancyC').value);
@@ -692,71 +656,50 @@ function calculateModeC(triggerKey) {
     const capexRate = cleanNumber(document.getElementById('input_capexC').value);
     const mgmtRate = cleanNumber(document.getElementById('input_managementC').value);
 
-    // State Data for Estimating Hold Costs (Tax/Ins)
     const stateCode = document.getElementById('stateSelector').value;
     const sData = getStateData(stateCode);
     const buyClosingPct = sData.closingCostBuy || 3.0;
     
-    // 2. Phase 1: Total Cost to Own (All-In)
     const buyClosingCosts = price * (buyClosingPct/100);
-    const loanPointsCost = (price + rehab) * (initPoints/100); // Assuming loan on Price+Rehab
+    const loanPointsCost = (price + rehab) * (initPoints/100); 
     
-    // Holding Costs during Seasoning (Taxes + Insurance + Hard Money Interest)
-    // Estimate Annual Tax/Ins based on Price
     const annualTax = price * (sData.propertyTaxRate / 100);
     const annualIns = price * (sData.insuranceRate / 100);
     const holdTaxIns = ((annualTax + annualIns) / 12) * seasoning;
     
-    // Total Project Cost
     const totalAllIn = price + rehab + buyClosingCosts + loanPointsCost + initInterestCarry + holdTaxIns;
 
-    // 3. Phase 2: Refinance
     const refiLoanAmount = arv * (refiLtv/100);
-    // Cash Returned = Refi Loan - Refi Costs - Payoff (We assume Payoff = Total All In for simplicity of "Cash Left" calc)
-    // Actually, "Cash Left in Deal" = Total All In - (Refi Loan - Refi Costs)
     const netRefiProceeds = refiLoanAmount - refiCosts;
     const cashLeftInDeal = totalAllIn - netRefiProceeds;
-    const cashPulledOut = netRefiProceeds - totalAllIn; // Inverse of cash left, but usually means surplus
+    const cashPulledOut = netRefiProceeds - totalAllIn;
 
-    // 4. Phase 3: Long Term Cash Flow
     const vacancyCost = rent * (vacancyRate/100);
     const maintCost = rent * (maintRate/100);
     const capexCost = rent * (capexRate/100);
     const mgmtCost = rent * (mgmtRate/100);
     
-    // New Mortgage P&I
     const r = refiRate / 100 / 12;
-    const n = 360; // 30 Years
+    const n = 360; 
     let newMortgagePI = 0;
     if (r > 0) newMortgagePI = refiLoanAmount * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     else newMortgagePI = refiLoanAmount / n;
 
-    // Recalculate Tax/Ins based on NEW Value (ARV) for long term? 
-    // Usually taxes reassess. Let's use ARV for long term tax/ins estimates.
     const longTermTax = (arv * (sData.propertyTaxRate / 100)) / 12;
     const longTermIns = (arv * (sData.insuranceRate / 100)) / 12;
 
     const totalExpenses = vacancyCost + maintCost + capexCost + mgmtCost + longTermTax + longTermIns + newMortgagePI;
     const monthlyCashFlow = rent - totalExpenses;
 
-    // 5. Metrics
     const isInfinite = cashLeftInDeal <= 0;
-    const trappedEquityPct = (1 - (refiLtv/100)) * 100; // Roughly 25% if 75% LTV
-    // Capital Velocity: (Net Refi Proceeds / Total All In) * 100
+    const trappedEquityPct = (1 - (refiLtv/100)) * 100;
     const capVelocity = (netRefiProceeds / totalAllIn) * 100; 
-
-    // Break Even Appraisal: What ARV makes Cash Left = 0?
-    // 0 = TotalAllIn - ((ARV * LTV) - RefiCosts)
-    // TotalAllIn + RefiCosts = ARV * LTV
-    // ARV = (TotalAllIn + RefiCosts) / LTV
     const minAppraisal = (totalAllIn + refiCosts) / (refiLtv/100);
 
-    // Scaling Power Text
     let scalingText = "Low (Trapped Capital)";
     if (capVelocity >= 100) scalingText = "High (Redeploy in 6mo)";
     else if (capVelocity >= 80) scalingText = "Moderate (Some trap)";
 
-    // 6. Update UI
     setText('res_cashPulledC', cashPulledOut > 0 ? formatMoney.format(cashPulledOut) : "$0");
     setText('res_cashLeftC', cashLeftInDeal > 0 ? formatMoney.format(cashLeftInDeal) : "$0");
     setText('res_infiniteC', isInfinite ? "YES" : "NO");
@@ -768,42 +711,30 @@ function calculateModeC(triggerKey) {
     setText('res_minAppraisalC', formatMoney.format(minAppraisal));
     setText('res_scalingC', scalingText);
 
-    // Coloring
     setClass('res_cashPulledC', cashPulledOut > 0 ? 'good' : 'warn');
     setClass('res_infiniteC', isInfinite ? 'good' : 'bad');
     setClass('res_cashFlowC', monthlyCashFlow > 100 ? 'good' : 'bad');
 
-    // UPDATE MENTOR SUMMARY
     updateMentorSummary('C', { cashLeft: cashLeftInDeal, minAppraisal, arv });
-
-    // 7. Stress Test Mode C
     runStressTestModeC(monthlyCashFlow, cashLeftInDeal, appraisalHaircut, totalAllIn, arv, refiLtv, refiCosts, rent, totalExpenses, newMortgagePI);
 }
 
 function runStressTestModeC(baseCF, baseCashLeft, haircutPct, totalAllIn, arv, ltv, refiCosts, rent, totalExp, debt) {
-    // Scenario 1: Optimistic (Appraisal comes in 5% higher, Rent +5%)
     const optArv = arv * 1.05;
     const optLoan = optArv * (ltv/100);
     const optProceeds = optLoan - refiCosts;
-    const optCashLeft = totalAllIn - optProceeds; // Should be lower/negative
+    const optCashLeft = totalAllIn - optProceeds; 
     
-    // Scenario 2: Base (Current Inputs)
-    
-    // Scenario 3: Bear (Appraisal Haircut & Rent Drop)
     const bearArv = arv * (1 - (haircutPct/100));
     const bearLoan = bearArv * (ltv/100);
     const bearProceeds = bearLoan - refiCosts;
-    const bearCashLeft = totalAllIn - bearProceeds; // How much cash trapped?
+    const bearCashLeft = totalAllIn - bearProceeds;
     
-    // Bear Cash Flow? (Assume rent drops 5% too)
     const bearRent = rent * 0.95;
-    // Note: Debt service might change if loan amount drops, but usually you qualify for less loan. 
-    // Let's assume loan drops with ARV.
     const bearDebt = debt * (1 - (haircutPct/100)); 
     const bearExp = (totalExp - debt) + bearDebt;
     const bearCF = bearRent - bearExp;
 
-    // FIX: Added newlines (\n) to force "Left:" onto its own line
     setText('st_opt_val', `Left:\n${formatMoney.format(optCashLeft)}`);
     setText('st_base_val', `Left:\n${formatMoney.format(baseCashLeft)}`);
     setText('st_bear_val', `Left:\n${formatMoney.format(bearCashLeft)}`);
@@ -842,25 +773,15 @@ function setClass(id, cls) {
     }
 }
 
-// ----------------------------------------
-// NEW: FAQ ACCORDION LOGIC
-// ----------------------------------------
 function initializeFAQ() {
     const faqButtons = document.querySelectorAll('.faq-question');
-    
     faqButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Toggle 'active' class on button for rotation/color
             btn.classList.toggle('active');
-            
-            // Toggle the panel
             const panel = btn.nextElementSibling;
-            
             if (panel.style.maxHeight) {
-                // Collapse
                 panel.style.maxHeight = null;
             } else {
-                // Expand
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
         });
@@ -868,61 +789,22 @@ function initializeFAQ() {
 }
 
 // ==========================================
-// UNIVERSAL PRINT, PDF & SHARE ENGINE
+// UNIVERSAL PRINT & PDF ENGINE
 // ==========================================
 const ToolFeatures = {
     isTutorialUnlocked: false,
 
-    getShareUrl() {
-        const params = new URLSearchParams();
-        // Grab values from Slider Config as a source of truth for inputs
-        for (const key of Object.keys(SLIDER_CONFIG)) {
-            const el = document.getElementById('input_' + key);
-            if (el) params.set(key, el.value);
-        }
-        // Grab state
-        const stateSel = document.getElementById('stateSelector');
-        if (stateSel) params.set('state', stateSel.value);
-        
-        // Grab active mode
-        const activeCard = document.querySelector('.mode-card.active-mode');
-        if(activeCard) params.set('mode', activeCard.getAttribute('data-mode'));
-        
-        const isAdvanced = !document.querySelector('.advanced-content').classList.contains('hidden');
-        params.set('adv', isAdvanced);
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
-    },
-
     restoreState() {
-        // Basic URL Param restore logic (Simplified)
         const params = new URLSearchParams(window.location.search);
         if (params.has('mode')) {
             const mode = params.get('mode');
             const card = document.querySelector(`.mode-card[data-mode="${mode}"]`);
             if (card) card.click();
         }
-        // State
         if (params.has('state')) {
             const sel = document.getElementById('stateSelector');
             if (sel) { sel.value = params.get('state'); sel.dispatchEvent(new Event('change')); }
         }
-        // Inputs
         for (const key of Object.keys(SLIDER_CONFIG)) {
             if (params.has(key)) {
                 const el = document.getElementById('input_' + key);
@@ -941,13 +823,11 @@ const ToolFeatures = {
     },
 
     preparePrintData() {
-        // --- 1. Gather Context ---
         const clean = (id) => parseFloat(document.getElementById(id)?.value) || 0;
         const txt = (id) => document.getElementById(id)?.textContent || "";
         const fmt = (n) => '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const dateStr = new Date().toLocaleDateString();
 
-        // State Context
         const stateSelect = document.getElementById('stateSelector');
         const stateName = stateSelect.options[stateSelect.selectedIndex].text;
         
@@ -969,7 +849,6 @@ const ToolFeatures = {
             const price = clean('input_purchasePriceA');
             const down = clean('input_downPaymentA');
             const rate = clean('input_rateA');
-            
             const rent = clean('input_rentA');
             const exp = clean('input_opexRatioA');
             
@@ -1061,7 +940,6 @@ const ToolFeatures = {
             const rCost = clean('input_refiCostsC');
             const rent = clean('input_rentC');
             const haircut = clean('input_appraisalHaircutC');
-            // Estimate Exp Ratio
             const vac = clean('input_vacancyC');
             const maint = clean('input_maintenanceC');
             const cap = clean('input_capexC');
@@ -1094,7 +972,6 @@ const ToolFeatures = {
             note = document.getElementById('mentor-summary-C').innerText;
         }
 
-        // --- 2. Build the Official Document HTML ---
         const printContainer = document.getElementById('print-view-container');
         
         printContainer.innerHTML = `
@@ -1228,14 +1105,9 @@ const ToolFeatures = {
     init() {
         this.restoreState();
         
-        // Event Listeners for the actions
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
-        
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
-            // Wait 500ms for the logo to paint before opening dialog
             setTimeout(() => window.print(), 500);
         });
         
@@ -1249,30 +1121,6 @@ const ToolFeatures = {
         if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) this.closeTutorialModal(); });
     }
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. POPULATE DATA
-    populateStateDropdowns();
-    
-    // 2. INITIALIZE LISTENERS
-    initializeSliders();
-    initializeCustomDropdowns();
-    initializeModes();
-    initializeAdvancedToggle();
-    initializeStateSelector();
-    
-    // 3. INITIALIZE FAQ (NEW)
-    initializeFAQ();
-    
-    // 4. FIRST RUN
-    setTimeout(() => calculateAll(null), 500);
-
-    // --- TOOLTIP LOGIC ---
-    initializeTooltips();
-
-    // --- NEW: INIT TOOL FEATURES (PDF, PRINT, SHARE) ---
-    ToolFeatures.init();
-});
 
 function initializeTooltips() {
     const tooltip = document.getElementById('global-tooltip');
@@ -1317,4 +1165,25 @@ function initializeTooltips() {
             tooltip.style.top = `${finalTop}px`;
         });
     });
+}
+
+function initSolveriaApp() {
+    textElement = document.getElementById('breathing-text');
+    setInterval(cycleText, 4000);
+    populateStateDropdowns();
+    initializeSliders();
+    initializeCustomDropdowns();
+    initializeModes();
+    initializeAdvancedToggle();
+    initializeStateSelector();
+    initializeFAQ();
+    setTimeout(() => calculateAll(null), 500);
+    initializeTooltips();
+    ToolFeatures.init();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSolveriaApp);
+} else {
+    initSolveriaApp();
 }
