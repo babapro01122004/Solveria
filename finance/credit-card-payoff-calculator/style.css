@@ -206,6 +206,18 @@ body.assets-loaded .hero-section {
     margin-bottom: 15px;
 }
 
+/* Typography styles for SEO elements */
+.seo-container p strong {
+    font-family: 'ProductSans-Light', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    color: #222;
+}
+
+.seo-container p em {
+    font-style: italic;
+    color: #444;
+}
+
 .faq-item {
     margin-bottom: 25px;
 }
