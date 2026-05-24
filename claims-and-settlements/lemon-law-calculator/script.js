@@ -196,6 +196,7 @@ let currentIndex = 0;
 const textElement = document.getElementById('breathing-text');
 
 function cycleText() {
+    if(!textElement) return;
     textElement.classList.add('fade-out');
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % phrases.length;
@@ -295,7 +296,6 @@ function initializeSliders() {
 /* UI: Dynamic Dropdown Logic   */
 /* ============================ */
 
-// Populate the State Dropdown from the US_STATES Engine Data
 function populateStateDropdown() {
     const select = document.getElementById('stateSelector');
     const menuWrapper = document.getElementById('stateOptionsWrapper');
@@ -364,11 +364,9 @@ function initializeCustomDropdowns() {
             
             if(select) {
                 select.value = value;
-                // Dispatch change to trigger calculations
                 select.dispatchEvent(new Event('change', { bubbles: true }));
             }
             
-            // Check warnings and calc
             checkStateWarning();
             calculateAll();
         });
@@ -421,7 +419,6 @@ function checkStateWarning() {
 
     if (!warningEl) return;
 
-    // Use Engine Logic to get the warning text
     const warningText = getUsedCarWarning(state);
 
     if (warningText && vehicleStatus === 'Used') {
@@ -436,7 +433,6 @@ function checkStateWarning() {
 /* Logic: Main Calculator       */
 /* ============================ */
 function calculateAll() {
-    // Determine State
     const stateSelect = document.getElementById('stateSelector');
     const stateCode = stateSelect ? stateSelect.value : 'CA';
 
@@ -455,8 +451,6 @@ function calculateLemonSignal(stateCode) {
     else attempts = parseInt(repairAttemptsVal) || 0;
 
     const isSafety = (defectType === 'Safety');
-
-    // ENGINE CALL: Get Signal Strength based on State Rules
     const signal = getSignalStrength(stateCode, days, attempts, isSafety);
 
     updateSignalUI(signal);
@@ -492,23 +486,19 @@ function updateSignalUI(signal) {
 
 /* MODE B: Refund Logic */
 function calculateRefundEstimator(stateCode) {
-    // Inputs
     const price = cleanNumber(document.getElementById('input_priceB').value);
     const miles = cleanNumber(document.getElementById('input_milesB').value);
     const loan = cleanNumber(document.getElementById('input_loanB').value);
     const incidentals = cleanNumber(document.getElementById('input_incidentalsB').value);
 
-    // ENGINE CALL: Calculate Deduction based on State Formula
     const deduction = calculateDeduction(stateCode, price, miles);
     
     const baseRefund = price + incidentals;
     const totalRecovery = baseRefund - deduction;
 
-    // Display updates
     const elRecovery = document.getElementById('res_totalRecoveryB');
     const elDedText = document.getElementById('res_deductionTextB');
     
-    // Format for Display (Round whole numbers for UI)
     const displayRecovery = Math.round(totalRecovery).toLocaleString('en-US');
     const displayDeduction = Math.round(deduction).toLocaleString('en-US');
 
@@ -548,7 +538,6 @@ function calculateRefundEstimator(stateCode) {
                 toUser = 0;
             }
             
-            // Rounding for UI
             document.getElementById('res_bankPayB').textContent = '$' + Math.round(toBank).toLocaleString('en-US');
             document.getElementById('res_userCashB').textContent = '$' + Math.round(toUser).toLocaleString('en-US');
         } else {
@@ -612,7 +601,6 @@ function initializeAdvancedToggle() {
     const btn = document.getElementById('advanced-toggle');
     if (!btn) return;
 
-    // Use a custom attribute to track state easily
     btn.setAttribute('data-active', 'false');
 
     btn.addEventListener('click', () => {
@@ -660,12 +648,11 @@ function initializeTooltips() {
 }
 
 /* ==========================================
-   UNIVERSAL PRINT, PDF & SHARE ENGINE
+   UNIVERSAL PRINT & PDF ENGINE
    ========================================== */
 const ToolFeatures = {
     isTutorialUnlocked: false,
 
-    /* 1. CONFIGURATION */
     PERSIST_MAP: {
         'state': { id: 'stateSelector', type: 'select' },
         'status': { id: 'bg_vehicleStatus', type: 'group' },
@@ -679,47 +666,6 @@ const ToolFeatures = {
         'inc': { id: 'input_incidentalsB', type: 'number' }
     },
 
-    /* 2. SHARE LOGIC */
-    getShareUrl() {
-        const params = new URLSearchParams();
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            let val = '';
-            if (config.type === 'group') {
-                val = getGroupValue(config.id);
-            } else {
-                const el = document.getElementById(config.id);
-                if (el) val = el.value;
-            }
-            if (val) params.set(key, val);
-        }
-        
-        // Persist Active Mode
-        const activeCard = document.querySelector('.mode-card.active-mode');
-        if (activeCard) params.set('mode', activeCard.getAttribute('data-mode'));
-
-        // Persist Advanced Toggle
-        const advBtn = document.getElementById('advanced-toggle');
-        if(advBtn) params.set('adv', advBtn.getAttribute('data-active'));
-
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Lemon Law Assessment', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
-    },
-
     restoreState() {
         const params = new URLSearchParams(window.location.search);
         
@@ -728,7 +674,6 @@ const ToolFeatures = {
             if (params.has(key)) {
                 const val = params.get(key);
                 if (config.type === 'group') {
-                    // Manually click the button in group
                     const group = document.getElementById(config.id);
                     if (group) {
                         const btn = group.querySelector(`.select-btn[data-value="${val}"]`);
@@ -738,7 +683,6 @@ const ToolFeatures = {
                     const el = document.getElementById(config.id);
                     if (el) {
                         el.value = val;
-                        // Fire event so listeners pick it up (including visual sliders)
                         el.dispatchEvent(new Event('input', { bubbles: true }));
                         el.dispatchEvent(new Event('change', { bubbles: true }));
                     }
@@ -758,7 +702,6 @@ const ToolFeatures = {
             const isAdv = params.get('adv') === 'true';
             const btn = document.getElementById('advanced-toggle');
             if (btn && isAdv) {
-                // Force click to trigger UI changes if it was off
                 if (btn.getAttribute('data-active') !== 'true') btn.click();
             }
         }
@@ -775,35 +718,30 @@ const ToolFeatures = {
             }
         }
 
-        // Force Final Calculation immediately to prevent garbage display
+        // Force Final Calculation
         calculateAll();
     },
 
-    /* 3. PRINT GENERATION - REPORT STYLE */
+    /* PRINT GENERATION - REPORT STYLE */
     preparePrintData() {
         const printContainer = document.getElementById('print-content-injection');
+        if (!printContainer) return;
         const currentDate = new Date().toLocaleDateString();
 
-        // --- GATHER ALL INPUTS ---
         const stateName = document.getElementById('stateTrigger').textContent;
         const stateCode = document.getElementById('stateSelector').value;
         
-        // Mode A Data
         const status = getGroupValue('bg_vehicleStatus') || "N/A";
         const time = getGroupValue('bg_timePurchase') || "N/A";
         const attempts = getGroupValue('bg_repairAttempts') || "0";
         const days = document.getElementById('input_daysService').value || "0";
         const defect = getGroupValue('bg_defectType') || "General";
         
-        // Mode B Data
         const price = cleanNumber(document.getElementById('input_priceB').value);
         const miles = cleanNumber(document.getElementById('input_milesB').value);
         const loan = cleanNumber(document.getElementById('input_loanB').value);
         const inc = cleanNumber(document.getElementById('input_incidentalsB').value);
         
-        // --- CALCULATIONS FOR PRINT ---
-        
-        // 1. Signal Logic
         const attemptsNum = (attempts === '4+') ? 4 : parseInt(attempts);
         const isSafety = (defect === 'Safety');
         const signal = getSignalStrength(stateCode, parseFloat(days), attemptsNum, isSafety);
@@ -819,7 +757,6 @@ const ToolFeatures = {
             signalNote = "The vehicle is currently in a 'Watch Zone.' Older vehicles face higher scrutiny. In this jurisdiction, one more repair attempt or a few more cumulative days out of service often strengthens the case significantly. THE NEXT REPAIR VISIT IS CRITICAL.";
         }
 
-        // 2. Math Logic
         const rules = getStateRules(stateCode);
         const deduction = calculateDeduction(stateCode, price, miles);
         const subtotal = price + inc;
@@ -835,10 +772,7 @@ const ToolFeatures = {
             userCash = 0;
         }
 
-        // --- GENERATE HTML ---
-        // UPDATE: Changed img src to Logo_Golden.webp to use cached version from main page
         const html = `
-            <!-- HEADER -->
             <div class="report-header-wrapper">
                 <img src="../../img/Logo_Golden.webp" class="print-logo" alt="Logo">
                 <div class="print-report-title-block">
@@ -848,7 +782,6 @@ const ToolFeatures = {
                 </div>
             </div>
 
-            <!-- SECTION I -->
             <div class="report-section">
                 <div class="report-section-title">I. JURISDICTIONAL CONTEXT (${stateName.toUpperCase()})</div>
                 <div class="report-row">
@@ -860,7 +793,6 @@ const ToolFeatures = {
                 </div>
             </div>
 
-            <!-- SECTION II -->
             <div class="report-section">
                 <div class="report-section-title">II. STATUTORY THRESHOLD ANALYSIS (CASE STRENGTH)</div>
                 <div class="report-grid">
@@ -881,7 +813,6 @@ const ToolFeatures = {
                 </div>
             </div>
 
-            <!-- SECTION III -->
             <div class="report-section">
                 <div class="report-section-title">III. FINANCIAL RECOVERY ESTIMATION (REFUND ESTIMATOR)</div>
                 <div class="report-grid">
@@ -908,7 +839,6 @@ const ToolFeatures = {
                 </div>
             </div>
 
-            <!-- SECTION IV -->
             <div class="report-section">
                 <div class="report-section-title">IV. DISBURSEMENT SUMMARY (WHO GETS WHAT)</div>
                 <div class="report-row" style="border-bottom: 1px dotted #ccc; padding-bottom:5px; margin-bottom:5px;">
@@ -934,17 +864,12 @@ const ToolFeatures = {
         printContainer.innerHTML = html;
     },
 
-    /* 4. TUTORIAL & MODAL LOGIC */
-    
-    // NEW: Robust Print Trigger to Handle Image Loading
     executePrintWhenReady() {
         const logo = document.querySelector('.print-logo');
         if (logo && !logo.complete) {
-            // Image found but not loaded? Wait for it.
             logo.onload = () => { window.print(); };
-            logo.onerror = () => { window.print(); }; // Fallback
+            logo.onerror = () => { window.print(); };
         } else {
-            // Image already loaded (cached) or not found, print immediately
             window.print();
         }
     },
@@ -955,7 +880,7 @@ const ToolFeatures = {
 
     handleTutorialProceed() {
         this.closeTutorialModal();
-        this.executePrintWhenReady(); // Updated to use safe printer
+        this.executePrintWhenReady();
     },
 
     startPrintSequence() {
@@ -990,13 +915,11 @@ const ToolFeatures = {
 
     init() {
         this.restoreState();
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
 
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
-            this.executePrintWhenReady(); // Updated to use safe printer
+            this.executePrintWhenReady(); 
         });
 
         const btnPDF = document.getElementById('btn-save-pdf');
@@ -1013,16 +936,21 @@ const ToolFeatures = {
 /* ============================ */
 /* Main Initialization          */
 /* ============================ */
-document.addEventListener('DOMContentLoaded', () => {
-    populateStateDropdown(); // Must be first
+
+function initLemonLawApp() {
+    populateStateDropdown();
     initializeSliders();
     initializeCustomDropdowns();
     initializeButtonGroups();
     initializeModes();
     initializeAdvancedToggle();
     initializeTooltips();
-    
-    // Defer initial Calculation to ToolFeatures.init() to ensure it happens AFTER state restoration
-    // ToolFeatures.init() calls restoreState(), which ends with calculateAll()
     ToolFeatures.init();
-});
+}
+
+// Safely loads regardless of whether it was dynamically appended after DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLemonLawApp);
+} else {
+    initLemonLawApp();
+}
