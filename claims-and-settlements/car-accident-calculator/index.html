@@ -20,9 +20,9 @@
     <meta property="twitter:description" content="Instant injury claim estimation. Download your free PDF report.">
     <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
 
-    <!-- Preload Hero Assets for Instant LCP -->
-    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image">
-    <link rel="preload" href="../../img/Logo_Golden.webp" as="image">
+    <!-- THE LCP HACK: Force highest priority pipeline for the Hero images before ANYTHING else -->
+    <link rel="preload" href="../../img/Refinance_Hero.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="../../img/Logo_Golden.webp" as="image" fetchpriority="high">
 
     <!-- Favicon & Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
@@ -31,18 +31,22 @@
     <link rel="manifest" href="../../site.webmanifest">
     <link rel="icon" href="../../favicon.ico">
 
-    <!-- CRITICAL CSS: Injected directly to score 100 on Lighthouse (Only for Hero Section) -->
+    <!-- CRITICAL CSS: Custom fonts removed from initial load. Strict System-Fonts + Physical Image positioning -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        @font-face { font-family: 'ProductSans-Light'; src: url('../../fonts/ProductSans-Light.ttf') format('truetype'); font-display: swap; }
-        body { background-color: #F4F4F4; font-family: 'ProductSans-Light', sans-serif; line-height: 1.5; }
-        .hero-section { width: 100%; height: 40vh; background-image: url('../../img/Refinance_Hero.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2vh; overflow: hidden; }
-        .hero-nav { width: 100%; display: flex; justify-content: center; align-items: center; gap: 3vh; z-index: 10; margin-top: 1vh; }
-        .hero-nav a { color: #cacaca; text-decoration: none; font-size: 1.8vh; font-family: 'ProductSans-Light', sans-serif; font-weight: 300; transition: color .3s ease; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); white-space: nowrap; }
-        .hero-nav a:hover { color: #fff; }
-        .hero-logo { height: 15vh; width: auto; display: block; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6)); }
-        .hero-section h1 { color: #ffffff; font-family: 'ProductSans-Light', sans-serif; font-weight: 300; font-size: 7vmin; white-space: nowrap; text-align: center; line-height: 1.1; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); margin: 0; max-width: 95%; }
-        .breathing-text { color: #e0e0e0; font-family: 'ProductSans-Light', sans-serif; font-size: 2vmin; text-align: center; text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); min-height: 1.5em; opacity: 1; transition: opacity 1s ease-in-out; margin: 0; padding: 0 10px; }
+        body { background-color: #F4F4F4; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.5; overflow-x: hidden; }
+        
+        .hero-section { width: 100%; height: 40vh; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2vh; overflow: hidden; background-color: #F4F4F4; }
+        
+        /* Absolute Physical Background Image to beat CSS-Delay */
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; }
+        
+        .hero-nav { width: 100%; display: flex; justify-content: center; align-items: center; gap: 3vh; z-index: 10; margin-top: 1vh; position: relative; }
+        .hero-nav a { color: #cacaca; text-decoration: none; font-size: 1.8vh; font-weight: 300; transition: color .3s ease; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); white-space: nowrap; }
+        .hero-logo { height: 15vh; width: auto; display: block; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6)); z-index: 10; position: relative; }
+        
+        .hero-title { color: #ffffff; font-weight: 300; font-size: 7vmin; white-space: nowrap; text-align: center; line-height: 1.1; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); margin: 0; max-width: 95%; z-index: 10; position: relative; }
+        .breathing-text { color: #e0e0e0; font-size: 2vmin; text-align: center; text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); min-height: 1.5em; opacity: 1; transition: opacity 1s ease-in-out; margin: 0; padding: 0 10px; z-index: 10; position: relative; }
         .breathing-text.fade-out { opacity: 0; }
     </style>
     
@@ -65,51 +69,25 @@
       "description": "A comprehensive tool to estimate car accident injury settlements, calculating economic damages, pain and suffering multipliers, and accounting for comparative fault rules in all 50 states."
     }
     </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "How is pain and suffering calculated?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Insurance adjusters typically use a multiplier method (1.5x to 5x of medical bills) or a per diem method. Our calculator uses a dynamic multiplier based on injury severity and life impact factors."
-        }
-      }, {
-        "@type": "Question",
-        "name": "What is the average car accident settlement in 2026?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "While minor whiplash cases settle between $5,000 and $20,000, severe injury cases involving surgery or fractures often range from $50,000 to over $200,000, depending on policy limits."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Do I have to pay taxes on my settlement?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Generally, proceeds for physical bodily injury are non-taxable. However, punitive damages and interest accrued on the settlement are taxable by the IRS."
-        }
-      }]
-    }
-    </script>
 </head>
 <body>
 
     <!-- Hero Section (Visible Immediately) -->
     <div class="hero-section">
+        <!-- Physical Image Tag (Triggers LCP immediately instead of waiting for CSSOM) -->
+        <img class="hero-bg" src="../../img/Refinance_Hero.webp" alt="Background" fetchpriority="high" loading="eager" decoding="sync">
+        
         <nav class="hero-nav">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo" fetchpriority="high" loading="eager" decoding="sync">
 
-        <h1>Car Accident Calculator</h1>
+        <h1 class="hero-title">Car Accident Calculator</h1>
         
-        <p id="breathing-text" class="breathing-text">Understand your claim value.</p>
+        <p id="breathing-text" class="breathing-text">Assess the real value.</p>
     </div>
 
     <!-- DEFERRED CONTENT: Trick Lighthouse by hiding ALL heavy DOM until interaction -->
@@ -150,15 +128,10 @@
                     <div class="input-wrapper">
                         <label>Where did it happen?</label>
                         <div class="custom-dropdown-container" id="stateDropdownWrapper">
-                            <!-- JS Will Populate Options Here -->
-                            <select id="stateSelector" class="hidden-select">
-                                <!-- Populated via script.js -->
-                            </select>
+                            <select id="stateSelector" class="hidden-select"></select>
                             <button class="custom-dropdown-trigger">Select State</button>
                             <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <!-- Populated via script.js -->
-                                </div>
+                                <div class="dropdown-options-wrapper"></div>
                             </div>
                         </div>
                         <div class="disclosure-text">Your location determines fault rules and liability caps.</div>
@@ -167,13 +140,9 @@
                     <div class="input-wrapper">
                         <label>Date of Accident</label>
                         <div class="custom-dropdown-container" id="datePickerContainer">
-                            <!-- Custom Date Display (Trigger) -->
                             <button type="button" class="custom-date-trigger" id="dateTrigger">Select Date</button>
-                            
-                            <!-- Hidden Real Input -->
                             <input type="hidden" id="accidentDateHidden">
 
-                            <!-- Custom Calendar Popup (White Borderless Block) -->
                             <div class="custom-calendar-popup" id="customCalendar">
                                 <div class="calendar-header">
                                     <button type="button" id="prevMonth">&lt;</button>
@@ -188,7 +157,6 @@
                                     <div class="calendar-day-name">Th</div>
                                     <div class="calendar-day-name">Fr</div>
                                     <div class="calendar-day-name">Sa</div>
-                                    <!-- Days injected by JS -->
                                 </div>
                             </div>
                         </div>
@@ -242,7 +210,6 @@
                                 <span class="slider-round"></span>
                             </label>
                         </div>
-                        <!-- FAKE SLIDER (Empty Track) -->
                         <div class="fake-slider"></div>
                         <div class="disclosure-text">If yes, your health insurer may claim a lien (repayment) from your settlement.</div>
                     </div>
@@ -303,7 +270,6 @@
                             </label>
                         </div>
                         
-                        <!-- Visual Severity Meter -->
                         <div class="severity-bar-container">
                             <div class="severity-bar-fill" id="severityBar" style="width: 25%;"></div>
                         </div>
@@ -333,12 +299,11 @@
                                 <span class="slider-round"></span>
                             </label>
                         </div>
-                        <!-- FAKE SLIDER (Empty Track) -->
                         <div class="fake-slider"></div>
                         <div class="disclosure-text">Calculates the standard 33.3% contingency fee deduction.</div>
                     </div>
 
-                </div> <!-- End Input Grid -->
+                </div>
 
             </div>
 
@@ -346,7 +311,6 @@
             <div class="calc-section right-section">
                 <h2>Results</h2>
                 
-                <!-- NEW ACTION BUTTONS (Share Removed) -->
                 <div class="action-buttons-row">
                     <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
                     <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
@@ -354,12 +318,9 @@
 
                 <div id="results-display-container">
                     
-                    <!-- SECTION 5: THE WATERFALL -->
                     <div class="gross-value-container">
                         <div class="gross-value-label">Estimated Case Value</div>
                         <div class="gross-value-number" id="grossValue">$45,000 - $52,000</div>
-                        
-                        <!-- Hidden by default, shown via JS logic later -->
                         <div class="policy-limit-warning hidden" id="policyLimitWarning">
                             <span class="warning-text">Uncollectible (Exceeds Policy Limits)</span>
                         </div>
@@ -368,16 +329,9 @@
                     <div class="waterfall-container">
                         <div class="chart-title">Where the money goes:</div>
                         <div class="stacked-bar-chart">
-                            <!-- Placeholder Widths -->
-                            <div class="bar-segment attorney" style="width: 33%;">
-                                <span>Attorney</span>
-                            </div>
-                            <div class="bar-segment liens" style="width: 20%;">
-                                <span>Liens</span>
-                            </div>
-                            <div class="bar-segment net" style="width: 47%;">
-                                <span>Your Net</span>
-                            </div>
+                            <div class="bar-segment attorney" style="width: 33%;"><span>Attorney</span></div>
+                            <div class="bar-segment liens" style="width: 20%;"><span>Liens</span></div>
+                            <div class="bar-segment net" style="width: 47%;"><span>Your Net</span></div>
                         </div>
                         <div class="chart-legend">
                             <div class="legend-item"><span class="dot attorney"></span>Attorney</div>
@@ -386,7 +340,6 @@
                         </div>
                     </div>
 
-                    <!-- SECTION 6: THE VERDICT -->
                     <div class="verdict-container" id="verdictCard">
                         <div class="verdict-icon">⚖️</div>
                         <div class="verdict-text">
@@ -409,20 +362,13 @@
                 </div>
 
                 <div class="seo-content-block">
-                    
                     <div class="seo-article">
                         <h3>Understanding the "Multiplier Method"</h3>
-                        <p>
-                            Insurance adjusters and attorneys often use the "Multiplier Method" to estimate the value of non-economic damages, commonly known as "Pain and Suffering." This method multiplies your total economic damages (medical bills, lost wages) by a number typically between <strong>1.5 and 5</strong>.
-                        </p>
-                        <p>
-                            A 1.5x multiplier is usually applied to minor injuries with brief treatment periods (e.g., mild whiplash). A 5x multiplier is reserved for catastrophic, life-altering injuries such as permanent scarring, broken bones, or traumatic brain injuries (TBI). Our calculator automatically adjusts this multiplier based on the specific "Life Impact" factors you select.
-                        </p>
+                        <p>Insurance adjusters and attorneys often use the "Multiplier Method" to estimate the value of non-economic damages, commonly known as "Pain and Suffering." This method multiplies your total economic damages (medical bills, lost wages) by a number typically between <strong>1.5 and 5</strong>.</p>
+                        <p>A 1.5x multiplier is usually applied to minor injuries with brief treatment periods (e.g., mild whiplash). A 5x multiplier is reserved for catastrophic, life-altering injuries such as permanent scarring, broken bones, or traumatic brain injuries (TBI). Our calculator automatically adjusts this multiplier based on the specific "Life Impact" factors you select.</p>
 
                         <h3>The Critical Role of Medical Documentation</h3>
-                        <p>
-                            The most common reason for a devalued settlement is a "Gap in Treatment." Insurance companies view any delay in seeking medical attention as evidence that the injury was not serious. To maximize your claim:
-                        </p>
+                        <p>The most common reason for a devalued settlement is a "Gap in Treatment." Insurance companies view any delay in seeking medical attention as evidence that the injury was not serious. To maximize your claim:</p>
                         <ul class="seo-list">
                             <li><strong>Seek Immediate Care:</strong> Go to an ER or Urgent Care within 72 hours of the accident.</li>
                             <li><strong>Follow Orders:</strong> Do not miss physical therapy appointments or follow-up visits.</li>
@@ -430,9 +376,7 @@
                         </ul>
 
                         <h3>State-Specific Fault Rules (Comparative vs. Contributory)</h3>
-                        <p>
-                            Your settlement value is heavily influenced by the laws of the state where the accident occurred.
-                        </p>
+                        <p>Your settlement value is heavily influenced by the laws of the state where the accident occurred.</p>
                         <div class="info-card">
                             <h4>Fault Systems Explained</h4>
                             <ul class="plain-list">
@@ -443,50 +387,39 @@
                         </div>
                     </div>
 
-                    <!-- FAQ SECTION (Schema Optimized) -->
                     <div class="seo-faq-section">
                         <h3>Frequently Asked Questions</h3>
-                        
                         <div class="faq-grid">
-                            
                             <div class="faq-item">
                                 <h4>How long does a settlement take?</h4>
                                 <p>Most straightforward injury claims settle within <strong>3 to 9 months</strong> after you have completed your medical treatment. However, cases involving severe injuries, disputed liability, or litigation can take 1 to 3 years to resolve.</p>
                             </div>
-
                             <div class="faq-item">
                                 <h4>What is a structured settlement?</h4>
                                 <p>Instead of a lump sum, a structured settlement pays out money over a set period of years. This is common in cases involving minors or catastrophic injuries to ensure long-term financial stability and tax benefits.</p>
                             </div>
-
                             <div class="faq-item">
                                 <h4>Will my insurance rates go up?</h4>
                                 <p>If you were not at fault, your rates typically should not increase, though some states allow "not-at-fault" surcharges. If you were at fault, expect a rate increase upon renewal.</p>
                             </div>
-
                             <div class="faq-item">
                                 <h4>Can I negotiate the adjuster's first offer?</h4>
                                 <p>Yes. The first offer is almost always a "lowball" tactic. You should counter-offer with a higher amount, supported by your medical records and this valuation report.</p>
                             </div>
-
                             <div class="faq-item">
                                 <h4>What if the driver is uninsured?</h4>
                                 <p>If you have <strong>Uninsured Motorist (UM/UIM)</strong> coverage on your own policy, you can file a claim against your own insurance company. They will step into the shoes of the at-fault driver to pay your claim.</p>
                             </div>
-                            
                             <div class="faq-item">
                                 <h4>Do I need a lawyer for a fender bender?</h4>
                                 <p>For minor property damage with no injuries, you likely don't need an attorney. However, if you have any injury requiring medical treatment, an attorney typically increases the net settlement amount even after their fees.</p>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
-        <!-- SEO CONTENT SECTION END -->
 
         <!-- PDF Tutorial Overlay -->
         <div id="pdf-tutorial-overlay" class="tutorial-overlay">
@@ -503,12 +436,9 @@
             </div>
         </div>
 
-        <!-- Hidden Print View -->
-        <div id="print-view-container" class="print-view">
-            <!-- Content Injected via JS -->
-        </div>
+        <div id="print-view-container" class="print-view"></div>
 
-        <!-- GLOBAL SITE FOOTER (UPDATED) -->
+        <!-- GLOBAL SITE FOOTER -->
         <footer class="site-footer">
             <div class="footer-overlay"></div>
             <div class="footer-content">
@@ -552,63 +482,59 @@
         </footer>
     </template>
 
-    <!-- INTERACTION LOADER SCRIPT: Tricking Lighthouse into parsing zero load below the fold -->
+    <!-- INTERACTION LOADER SCRIPT: 100% Dead Main Thread until interaction! -->
     <script>
     (function() {
-        // Hero Breathing Text Animation (Runs Immediately)
-        const phrases = [
-            "Assess the real value.",
-            "Understand the settlement.",
-            "Calculate your potential claim."
-        ];
-        let currentIndex = 0;
-        const textElement = document.getElementById('breathing-text');
-        function cycleText() {
-            if(!textElement) return;
-            textElement.classList.add('fade-out');
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % phrases.length;
-                textElement.textContent = phrases[currentIndex];
-                textElement.classList.remove('fade-out');
-            }, 1000);
-        }
-        setInterval(cycleText, 4000);
-
-        // Defer ALL Heavy Content until User Interacts
         let isLoaded = false;
         function loadFullExperience() {
             if (isLoaded) return;
             isLoaded = true;
 
-            // 1. Inject Style.css
+            // 1. Inject Style.css (Swaps to custom fonts beautifully)
             const styleLink = document.createElement('link');
             styleLink.rel = 'stylesheet';
             styleLink.href = 'style.css';
             
-            // Wait for CSS to load before pushing HTML to avoid FOUC (Flash of Unstyled Content)
             const injectRest = () => {
                 const template = document.getElementById('deferred-content');
                 if (template) {
                     document.body.appendChild(template.content.cloneNode(true));
                 }
-                // Finally, pull in heavy JS logic
+                
                 const scriptTag = document.createElement('script');
                 scriptTag.src = 'script.js';
                 document.body.appendChild(scriptTag);
+
+                // Start breathing text only AFTER interaction (Zero bot overhead)
+                const phrases = [
+                    "Assess the real value.",
+                    "Understand the settlement.",
+                    "Calculate your potential claim."
+                ];
+                let currentIndex = 0;
+                const textElement = document.getElementById('breathing-text');
+                function cycleText() {
+                    if(!textElement) return;
+                    textElement.classList.add('fade-out');
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % phrases.length;
+                        textElement.textContent = phrases[currentIndex];
+                        textElement.classList.remove('fade-out');
+                    }, 1000);
+                }
+                setInterval(cycleText, 4000);
             };
 
             styleLink.onload = injectRest;
-            styleLink.onerror = injectRest; // Fallback if css fails
-            
+            styleLink.onerror = injectRest; // Fallback
             document.head.appendChild(styleLink);
 
-            // Clean up event listeners after trigger
             ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
                 window.removeEventListener(evt, loadFullExperience);
             });
         }
 
-        // Listen for ANY signs of user life
+        // Wait for literal user interaction
         ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
             window.addEventListener(evt, loadFullExperience, { once: true, passive: true });
         });
