@@ -53,7 +53,6 @@
     font-display: swap;
 }
 
-/* (The light weight below uses the same family name 'Roboto' to work with the footer) */
 @font-face {
     font-family: 'Roboto';
     src: url('../../fonts/Roboto-Light.ttf') format('truetype');
@@ -68,16 +67,16 @@ body {
     font-family: 'ProductSans-Light', sans-serif;
     overflow-x: hidden; 
     width: 100%;
-    color: #333; /* Default darker text color */
+    color: #333; 
 }
 
 /* ============================ */
-/* Hero Section (UPDATED FOR LCP) */
+/* Hero Section                 */
 /* ============================ */
 .hero-section {
     width: 100%;
     height: 40vh;
-    background-color: #333; /* Fallback */
+    background-color: #333; 
     position: relative;
     display: flex;
     flex-direction: column;
@@ -87,7 +86,6 @@ body {
     overflow: hidden; 
 }
 
-/* New Class for the LCP Image */
 .hero-bg-img {
     position: absolute;
     top: 0;
@@ -95,12 +93,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0; /* Behind content */
+    z-index: 0; 
     pointer-events: none;
-    will-change: opacity; /* Optimizes for paint */
+    will-change: opacity; 
 }
 
-/* Ensure content sits on top of the image */
 .hero-nav, .hero-logo, .hero-section h1, .breathing-text {
     position: relative;
     z-index: 10;
@@ -116,7 +113,7 @@ body {
 }
 
 .hero-nav a { 
-    color: #e0e0e0; /* Lighter for better contrast against dark hero */
+    color: #e0e0e0; 
     text-decoration: none; 
     font-size: 1.8vh;
     font-family: 'ProductSans-Light', sans-serif;
@@ -135,7 +132,7 @@ body {
     width: auto;
     display: block;
     filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
-    will-change: transform; /* Performance */
+    will-change: transform; 
 }
 
 .hero-section h1 {
@@ -188,7 +185,7 @@ body {
 .breadcrumb-nav .current-page,
 .breadcrumb-nav .separator {
     text-decoration: none;
-    color: #555555; /* Darkened for accessibility */
+    color: #555555; 
     transition: color 0.3s ease;
 }
 
@@ -217,7 +214,7 @@ body {
     align-items: flex-start;
     flex-wrap: wrap; 
     gap: 60px; 
-    contain: content; /* PERFORMANCE: Isolates layout recalculations */
+    contain: content; 
 }
 
 .calc-section {
@@ -235,53 +232,43 @@ body {
     flex: 1;
     min-width: 320px; 
     
-    /* Sticky Logic: Pinned to top with fixed viewport height */
     position: -webkit-sticky; 
     position: sticky;
     top: 20px; 
-    height: 90vh; /* Fixed height relative to viewport */
+    height: 90vh; 
     
     background-color: transparent; 
     border-radius: 0; 
     padding: 0; 
     box-shadow: none; 
-    overflow: hidden; /* Container hides overflow, child scrolls */
+    overflow: hidden; 
     
-    /* NEW: Flex column to manage the header vs scroll area */
     display: flex;
     flex-direction: column;
 }
 
-/* Adjusted header styling for inside the scroll wrapper context */
 .right-section h2 {
     text-align: left; 
-    margin-bottom: 5px; /* Reduced to make room for buttons */
+    margin-bottom: 5px; 
     margin-top: 0;
-    /* No flex-shrink so it doesn't get squashed */
     flex-shrink: 0;
 }
 
-/* Inner Wrapper: Handles Scroll + Fade Mask */
 .results-scroll-wrapper {
-    flex: 1; /* Takes up remaining height in the flex container */
+    flex: 1; 
     overflow-y: auto;
     
-    /* Hide Default Scrollbar */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
     
-    /* Prevent Scroll Chaining to Body */
     overscroll-behavior: contain;
     
-    /* Fade Effect: 25px fade at top and bottom */
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25px, black calc(100% - 25px), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 25px, black calc(100% - 25px), transparent 100%);
     
-    /* Widened Padding: 25px Horizontal to fit shadows, 25px Vertical for fade */
     padding: 25px 25px;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .results-scroll-wrapper::-webkit-scrollbar {
     display: none;
 }
@@ -309,7 +296,7 @@ body {
 .text-link-btn {
     background: none;
     border: none;
-    color: #555555; /* Darkened for accessibility */
+    color: #555555; 
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.8vh;
     cursor: pointer;
@@ -441,7 +428,7 @@ body {
     display: block;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.6vh;
-    color: #555555; /* Darkened for accessibility */
+    color: #555555; 
     margin-bottom: 3px;
 }
 
@@ -704,7 +691,7 @@ body {
     display: block;
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 1.6vh;
-    color: #555555; /* Darkened */
+    color: #555555; 
     margin-bottom: 5px;
     white-space: normal; 
     line-height: 1.2; 
@@ -732,7 +719,7 @@ body {
 
 .disclosure-text {
     font-size: 1.5vh; 
-    color: #888; /* Darkened */
+    color: #888; 
     margin-top: 5px;
 }
 
@@ -758,7 +745,7 @@ body {
     width: 100%;
     margin-top: 10px; 
     padding-top: 10px;
-    border-top: none; /* REMOVED SEPARATION */
+    border-top: none; 
 }
 
 .visual-card {
@@ -769,7 +756,7 @@ body {
     flex-direction: column;
     align-items: center; 
     box-sizing: border-box; 
-    margin: 0 auto; /* Ensure centering if flex doesn't stretch */
+    margin: 0 auto; 
 }
 
 .chart-card-header {
@@ -875,7 +862,7 @@ body {
     text-align: center; 
     font-weight: 500;
     margin-bottom: 4px;
-    color: #000000 !important; /* UPDATED: Forces black color override */
+    color: #000000 !important; 
 }
 
 /* ============================ */
@@ -883,7 +870,7 @@ body {
 /* ============================ */
 .summary-container {
     margin-top: 0; 
-    border-top: none; /* UPDATED: Removed top border */
+    border-top: none; 
     padding-top: 20px;
 }
 
@@ -930,7 +917,7 @@ body {
 .seo-intro {
     font-family: 'ProductSans-Light', sans-serif;
     font-size: 2.2vh;
-    color: #555555; /* Darkened */
+    color: #555555; 
     max-width: 800px;
     line-height: 1.6;
     text-align: left;
@@ -1083,7 +1070,6 @@ body {
 .site-footer {
     position: relative;
     width: 100%;
-    /* Ensure this path points to your image correctly */
     background-image: url('../../img/footer.webp');
     background-size: cover;
     background-position: center;
@@ -1093,14 +1079,16 @@ body {
     margin-top: auto;
 }
 
+/* FOOTER VIGNETTE FIX */
 .footer-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(30, 25, 20, 0.85);
+    background: radial-gradient(circle at center, rgba(30, 25, 20, 0.2) 0%, rgba(30, 25, 20, 0.95) 100%);
     z-index: 1;
+    pointer-events: none;
 }
 
 .footer-content {
@@ -1182,7 +1170,7 @@ body {
     border-bottom-color: #fff;
 }
 
-/* Links */
+/* Links (CENTER ALIGNMENT FIX) */
 .footer-links {
     flex: 0 1 auto;
     display: flex;
@@ -1196,6 +1184,8 @@ body {
     flex-direction: column;
     gap: 10px;
     min-width: 140px;
+    align-items: center; 
+    text-align: center; 
 }
 
 .footer-col h4 {
@@ -1206,6 +1196,7 @@ body {
     color: #ffffff;
     margin: 0 0 8px 0;
     font-weight: 600;
+    text-align: center; 
 }
 
 .footer-col a {
@@ -1213,6 +1204,7 @@ body {
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
+    text-align: center; 
 }
 
 .footer-col a:hover {
@@ -1291,22 +1283,19 @@ body {
         gap: 30px; 
     }
 
-    /* Reset the Sticky/Scroll logic for Mobile */
     .right-section {
         position: static;
         max-height: none;
-        height: auto; /* Reset fixed height */
-        overflow-y: visible; /* Show overflow */
+        height: auto; 
+        overflow-y: visible; 
         background-color: transparent; 
         box-shadow: none;
         border-radius: 0;
         padding: 0;
         margin-top: 40px; 
-        /* Undo flex column on mobile to let it flow naturally */
         display: block; 
     }
     
-    /* Remove wrapper effects on mobile */
     .results-scroll-wrapper {
         height: auto;
         overflow-y: visible;
@@ -1314,7 +1303,6 @@ body {
         padding-bottom: 0;
         mask-image: none;
         -webkit-mask-image: none;
-        /* Undo flex grow */
         flex: none;
     }
 

@@ -213,7 +213,6 @@ let globalMouseY = 0;
 let tooltipVisible = false;
 const tooltipEl = document.getElementById('custom-tooltip');
 
-// Track Mouse Globally for Instant Response
 window.addEventListener('mousemove', (e) => {
     globalMouseX = e.clientX;
     globalMouseY = e.clientY;
@@ -226,7 +225,6 @@ window.addEventListener('mousemove', (e) => {
 function updateTooltipPosition(el) {
     if (!el) return;
     
-    // Default: Cursor at Top-Left of Tooltip (Tooltip is bottom-right)
     const offset = 15;
     let left = globalMouseX + offset;
     let top = globalMouseY + offset;
@@ -237,19 +235,14 @@ function updateTooltipPosition(el) {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    // Flip to Left if off-screen right
     if (left + tooltipWidth > viewportWidth - 10) {
-        // Cursor at Top-Right (Tooltip is bottom-left)
         left = globalMouseX - tooltipWidth - offset;
     }
 
-    // Flip to Center-Top if off-screen left (after flip)
     if (left < 10) {
-        // Cursor at Top-Middle
         left = globalMouseX - (tooltipWidth / 2);
     }
     
-    // Flip Up if off-screen bottom
     if (top + tooltipHeight > viewportHeight - 10) {
         top = globalMouseY - tooltipHeight - offset;
     }
@@ -262,25 +255,21 @@ const externalTooltipHandler = (context) => {
     const {chart, tooltip} = context;
     if (!tooltipEl) return;
 
-    // Hide if no tooltip
     if (tooltip.opacity === 0) {
         tooltipVisible = false;
         tooltipEl.style.opacity = 0;
         return;
     }
 
-    // Set Text & Color
     if (tooltip.body) {
         const titleLines = tooltip.title || [];
         const bodyLines = tooltip.body.map(b => b.lines);
         
-        // Extract color from Chart.js context for the specific hovered item
         const labelColors = tooltip.labelColors[0];
         const headerColor = labelColors ? labelColors.backgroundColor : '#C59F80';
         
         let innerHtml = '';
         titleLines.forEach(title => {
-            // Apply Dynamic Color and Center Alignment
             innerHtml += `<strong style="color: ${headerColor};">${title}</strong>`;
         });
         bodyLines.forEach((body, i) => {
@@ -292,11 +281,9 @@ const externalTooltipHandler = (context) => {
         tooltipEl.innerHTML = innerHtml;
     }
 
-    // Show Tooltip
     tooltipVisible = true;
     tooltipEl.style.opacity = 1;
     
-    // Initial Position Update
     updateTooltipPosition(tooltipEl);
 };
 
@@ -304,7 +291,7 @@ const externalTooltipHandler = (context) => {
 /* CHART JS HANDLERS (DYNAMIC)  */
 /* ============================ */
 let chartA, chartB; 
-let ChartConstructor = null; // Store the class here when loaded
+let ChartConstructor = null;
 
 const CHART_COLORS = {
     primary: '#C59F80',    
@@ -314,17 +301,13 @@ const CHART_COLORS = {
     dark: '#8D7B6F'        
 };
 
-// DYNAMIC CHART LOADER
-// This function downloads Chart.js ONLY when needed.
 function loadChartJsIfNeeded(callback) {
     if (ChartConstructor) {
         callback();
         return;
     }
     
-    // Check if script already exists to avoid dupes
     if (document.getElementById('chartjs-script')) {
-        // If it exists but isn't ready, wait
         const interval = setInterval(() => {
             if (typeof Chart !== 'undefined') {
                 clearInterval(interval);
@@ -350,7 +333,6 @@ function updateChartA(principal, tax, insurance) {
     const ctx = document.getElementById('chartA');
     if(!ctx) return;
     
-    // If Charts aren't loaded, load them, then run this function again
     if (!ChartConstructor) {
         loadChartJsIfNeeded(() => updateChartA(principal, tax, insurance));
         return;
@@ -371,7 +353,7 @@ function updateChartA(principal, tax, insurance) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: false, // PERFORMANCE: Disable animation on mobile
+            animation: false, 
             plugins: {
                 legend: { 
                     position: 'bottom',
@@ -442,7 +424,7 @@ function updateChartB(savingsPerMonth, refiCost) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: false, // PERFORMANCE
+            animation: false,
             scales: { y: { beginAtZero: false } },
             interaction: {
                 mode: 'nearest',
@@ -1276,35 +1258,6 @@ const ToolFeatures = {
         'rateD': { id: 'input_rateD', type: 'value' }
     },
 
-    getShareUrl() {
-        const params = new URLSearchParams();
-        for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
-            const el = document.getElementById(config.id);
-            if (el) params.set(key, el.value);
-        }
-        const activeCard = document.querySelector('.mode-card.active-mode');
-        if(activeCard) params.set('mode', activeCard.getAttribute('data-mode'));
-        const isAdvanced = !document.querySelector('.advanced-content').classList.contains('hidden');
-        params.set('adv', isAdvanced);
-        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    },
-
-    async handleShare() {
-        const shareUrl = this.getShareUrl();
-        const shareData = { title: document.title, text: 'Solveria Calculation', url: shareUrl };
-        if (navigator.share) {
-            try { await navigator.share(shareData); } catch (err) {}
-        } else {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const btn = document.getElementById('btn-share');
-                const orig = btn.textContent;
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = orig, 2000);
-            } catch (err) { alert("Could not copy link."); }
-        }
-    },
-
     restoreState() {
         const params = new URLSearchParams(window.location.search);
         if ([...params].length === 0) return;
@@ -1445,7 +1398,6 @@ const ToolFeatures = {
                 <div class="data-row"><span class="lbl">DSCR (Debt Coverage)</span><span class="val">${document.getElementById('res_dscrC').textContent}</span></div>
                 <div class="data-row"><span class="lbl">Future Payment Shock</span><span class="val">${document.getElementById('res_shockC').textContent}</span></div>
             `;
-            // For Mode C, IO payment usually excludes tax/ins unless escrowed, but we need standard breakdown
             finalMonthly = fmt((displayLoan * (displayRate/100/12)) + (displayPrice * (taxRate/100/12)) + (annualIns/12)); 
             summaryText = document.getElementById('summaryC').innerText;
 
@@ -1474,14 +1426,8 @@ const ToolFeatures = {
             summaryText = document.getElementById('summaryD').innerText;
         }
 
-        // --- CALCULATION FOR BREAKDOWN ---
-        // We calculate basic P&I, Tax, Insurance to populate Section IV
         const monthlyTax = (displayPrice * (taxRate / 100)) / 12;
         const monthlyIns = annualIns / 12;
-        
-        // P&I is roughly Total - (Tax + Ins). 
-        // Note: This is an approximation for Mode D/A where PMI/HOA exists, but satisfies the visual requirement.
-        // For a precise accounting, we'd need to expose the sub-variables globally, but math derivation is robust enough for print.
         const totalNum = parseFloat(finalMonthly.replace(/[^0-9.]/g, '')) || 0;
         const pAndI = Math.max(0, totalNum - monthlyTax - monthlyIns);
 
@@ -1636,9 +1582,6 @@ const ToolFeatures = {
     init() {
         this.restoreState();
         
-        const btnShare = document.getElementById('btn-share');
-        if (btnShare) btnShare.addEventListener('click', () => this.handleShare());
-        
         const btnPrint = document.getElementById('btn-print');
         if (btnPrint) btnPrint.addEventListener('click', () => {
             this.preparePrintData();
@@ -1656,7 +1599,10 @@ const ToolFeatures = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+/* =========================================================================
+   APPLICATION INITIALIZER - Accommodates the dynamic injection loading
+   ========================================================================= */
+function initApp() {
     populateStateDropdown();
     initializeCustomDropdowns();
     initializeSliders();
@@ -1677,7 +1623,13 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = `See Today's Rates (${dateStr})`;
         }
         
-        // Initialize New Tool Features
         ToolFeatures.init();
     }, 50);
-});
+}
+
+// Executes immediately if DOM is ready (which is true when injected by interaction)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
