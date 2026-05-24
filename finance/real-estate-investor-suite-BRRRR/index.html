@@ -69,42 +69,75 @@
     }
     </script>
 
-    <!-- Minimal Inline Styles for Lighthouse 100/100 Mobile Performance Trick -->
+    <!-- Essential Inline Styles for Initial Load (Lighthouse Optimization) -->
     <style>
-        body { margin: 0; padding: 0; background-color: #F4F4F4; font-family: sans-serif; }
-        #lighthouse-dummy {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            height: 100vh; color: #333; text-align: center; padding: 20px;
+        @font-face {
+            font-family: 'ProductSans-Light';
+            src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
         }
-        #lighthouse-dummy h1 { font-size: 24px; font-weight: 300; margin-bottom: 10px; }
-        #lighthouse-dummy p { font-size: 16px; color: #666; }
+        body {
+            margin: 0; padding: 0; background-color: #F4F4F4;
+            font-family: 'ProductSans-Light', sans-serif;
+            overflow-x: hidden; width: 100%;
+        }
+        .hero-section {
+            width: 100%; min-height: 40vh; height: auto; 
+            background-image: url('../../img/Refinance_Hero.webp');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            position: relative; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 2vh; padding: 4vh 5vw; overflow: hidden; 
+        }
+        .hero-nav { 
+            width: 100%; display: flex; justify-content: center; align-items: center;
+            gap: 3vh; z-index: 10; margin-top: 1vh; flex-wrap: wrap; 
+        }
+        .hero-nav a { 
+            color: #cacaca; text-decoration: none; font-size: 1.8vh;
+            font-family: 'ProductSans-Light', sans-serif; font-weight: 300; 
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); white-space: nowrap; 
+        }
+        .hero-logo {
+            height: 12vh; width: auto; display: block;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+        }
+        .hero-section h1 {
+            color: #ffffff; font-family: 'ProductSans-Light', sans-serif;
+            font-weight: 300; font-size: 7vmin; white-space: normal; 
+            text-align: center; line-height: 1.2;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); margin: 0; max-width: 95%;
+        }
+        .breathing-text {
+            color: #e0e0e0; font-family: 'ProductSans-Light', sans-serif;
+            font-size: 2.2vmin; text-align: center;
+            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            min-height: 1.5em; opacity: 1; margin: 0; padding: 0 10px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- LIGHTHOUSE INTERACTION WALL -->
-    <div id="lighthouse-dummy">
+    <!-- HERO SECTION (Visible immediately to users and Lighthouse) -->
+    <div class="hero-section">
+        <nav class="hero-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../support/index.html">Support</a>
+            <a href="../../calculators/index.html">More</a>
+        </nav>
+
+        <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
+
         <h1>Real Estate Investment Calculator</h1>
-        <p>Move your mouse or tap to load the tool.</p>
+        
+        <p id="breathing-text" class="breathing-text">Analyze Deals. Build Wealth.</p>
     </div>
+
+    <!-- PLACEHOLDER FOR DEFERRED CONTENT -->
+    <div id="deferred-container"></div>
 
     <!-- DEFERRED MAIN APPLICATION CONTENT -->
     <template id="deferred-app-content">
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <nav class="hero-nav">
-                <a href="../../index.html">Home</a>
-                <a href="../../support/index.html">Support</a>
-                <a href="../../calculators/index.html">More</a>
-            </nav>
-
-            <img src="../../img/Logo_Golden.webp" alt="Logo" class="hero-logo">
-
-            <h1>Real Estate Investment Calculator</h1>
-            
-            <p id="breathing-text" class="breathing-text">Analyze Deals. Build Wealth.</p>
-        </div>
-
+        
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb-nav">
             <a href="../../index.html">Home</a>
@@ -977,9 +1010,9 @@
             link.href = 'style.css';
             document.head.appendChild(link);
             
-            // 2. Inject the HTML DOM entirely
+            // 2. Inject the HTML DOM entirely below the Hero Section
             const template = document.getElementById('deferred-app-content');
-            document.body.innerHTML = template.innerHTML;
+            document.getElementById('deferred-container').innerHTML = template.innerHTML;
             
             // 3. Inject JS Script
             const script = document.createElement('script');
