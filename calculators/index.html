@@ -35,53 +35,163 @@
     <link rel="manifest" href="../site.webmanifest">
     <link rel="shortcut icon" href="../favicon.ico">
 
-    <!-- SEO: JSON-LD Structured Data -->
+    <!-- SEO & AIO: Complete Graph Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "The Solveria Index",
-      "description": "The complete directory of our zero-trust financial and legal decision engines.",
-      "url": "https://solveria.org/index/",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Solveria",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://solveria.org/img/Logo_Golden.webp",
-          "width": 600,
-          "height": 600
-        }
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement":[
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Mortgage & Amortization",
-            "url": "https://solveria.org/finance/mortgage-calculator/"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://solveria.org/#organization",
+          "name": "Solveria",
+          "url": "https://solveria.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://solveria.org/img/Logo_Golden.webp",
+            "width": 600,
+            "height": 600
           },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Affordability Stress Test",
-            "url": "https://solveria.org/finance/home-affordability-calculator/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Rent vs. Buy Projection",
-            "url": "https://solveria.org/finance/rent-vs-buy-calculator/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Auto Injury Settlement",
-            "url": "https://solveria.org/claims-and-settlements/car-accident-calculator/"
+          "description": "Engineered for Decision Sovereignty. A client-side financial & legal modeling engine designed for privacy, speed, and accuracy."
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://solveria.org/#website",
+          "url": "https://solveria.org/",
+          "name": "Solveria",
+          "publisher": {
+            "@id": "https://solveria.org/#organization"
           }
-        ]
-      }
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://solveria.org/index/#webpage",
+          "url": "https://solveria.org/index/",
+          "name": "The Solveria Index | All Tools",
+          "description": "The complete directory of our zero-trust financial and legal decision engines.",
+          "isPartOf": {
+            "@id": "https://solveria.org/#website"
+          },
+          "about": {
+            "@id": "https://solveria.org/#organization"
+          },
+          "breadcrumb": {
+            "@id": "https://solveria.org/index/#breadcrumb"
+          },
+          "mainEntity": {
+            "@id": "https://solveria.org/index/#itemlist"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://solveria.org/index/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://solveria.org/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculators Index",
+              "item": "https://solveria.org/index/"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://solveria.org/index/#itemlist",
+          "name": "Solveria Decision Engines",
+          "description": "Directory of sovereign financial and civil justice settlement calculators.",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Mortgage & Amortization",
+              "description": "Analyze the true cost of borrowing. Model principal pay-down speeds and liquidity scenarios.",
+              "url": "https://solveria.org/finance/mortgage-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Affordability Stress Test",
+              "description": "Determine your maximum safe purchase price based on banking-grade DTI constraints.",
+              "url": "https://solveria.org/finance/home-affordability-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Rent vs. Buy Projection",
+              "description": "A 30-year equity simulation comparing unrecoverable costs of ownership.",
+              "url": "https://solveria.org/finance/rent-vs-buy-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "BRRRR Strategy",
+              "description": "Calculate Cash-on-Cash Return and velocity of money for investment properties.",
+              "url": "https://solveria.org/finance/real-estate-investor-suite-BRRRR/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Federal & State Tax",
+              "description": "Estimate net take-home pay after FICA, brackets, and state-specific levies.",
+              "url": "https://solveria.org/finance/income-tax-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Debt Avalanche Solver",
+              "description": "Optimize repayment strategies. Visualize interest savings via Avalanche vs. Snowball.",
+              "url": "https://solveria.org/finance/credit-card-payoff-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "Auto Injury",
+              "description": "Estimate settlement values for car accidents based on medical multiplier models.",
+              "url": "https://solveria.org/claims-and-settlements/car-accident-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Diminished Value",
+              "description": "Calculate the lost resale value of your vehicle after an accident history report.",
+              "url": "https://solveria.org/claims-and-settlements/diminished-value-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Lemon Law Refund",
+              "description": "Determine your potential refund or replacement value for defective vehicles.",
+              "url": "https://solveria.org/claims-and-settlements/lemon-law-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "name": "Dog Bite Liability",
+              "description": "Assess strict liability damages and pain and suffering multipliers for animal attacks.",
+              "url": "https://solveria.org/claims-and-settlements/dog-bite-impact-checker/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 11,
+              "name": "Motorcycle Injury",
+              "description": "Specialized calculation for high-impact injuries and long-term care needs.",
+              "url": "https://solveria.org/claims-and-settlements/motorcycle-accident-calculator/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 12,
+              "name": "Unpaid Wages",
+              "description": "Recover stolen earnings from overtime violations and off-the-clock work.",
+              "url": "https://solveria.org/claims-and-settlements/unpaid-wages-calculator/"
+            }
+          ]
+        }
+      ]
     }
     </script>
 
