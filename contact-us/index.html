@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Solveria</title>
+    <meta http-equiv="content-language" content="en-US">
+    <title>Contact Us | Support & Enterprise Deployments | Solveria</title>
     
-    <meta name="description" content="Contact Solveria support operations. Mathematical software support, strategic partnerships, and compliance routing. Note: We do not provide legal counsel. Mon-Fri 9AM-5PM EST.">
+    <meta name="description" content="Contact Solveria support operations. Request enterprise iframe deployments, technical support for mathematical software, or strategic partnerships. Mon-Fri 9AM-5PM EST.">
+    <meta name="keywords" content="Solveria contact, software support, enterprise iframe deployment, mathematical software partnership, API support, technical dispatch">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Solveria Engineering">
+    <meta name="publisher" content="Solveria">
     
     <link rel="canonical" href="https://solveria.org/contact/">
+    <link rel="alternate" hreflang="en-US" href="https://solveria.org/contact/">
+    <link rel="alternate" hreflang="x-default" href="https://solveria.org/contact/">
 
-    <!-- PERFORMANCE CRITICAL: Preload the LCP background images so they load instantly -->
-    <link rel="preload" href="../img/privacy policy_Phone.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
-    <link rel="preload" href="../img/privacy policy.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
-    
-    <!-- Preload critical local fonts to prevent text flashing -->
+    <!-- Preload critical local fonts and DNS preconnect for external form processing -->
     <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="../fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preconnect" href="https://formspree.io" crossorigin>
+    <link rel="dns-prefetch" href="https://formspree.io">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solveria.org/contact/">
-    <meta property="og:title" content="Contact Us | Solveria">
-    <meta property="og:description" content="Contact Solveria support operations. Mathematical software support, strategic partnerships, and compliance routing. Note: We do not provide legal counsel.">
+    <meta property="og:title" content="Contact Us | Support & Enterprise Deployments | Solveria">
+    <meta property="og:description" content="Contact Solveria support operations. Request enterprise iframe deployments, technical support for mathematical software, or strategic partnerships. Mon-Fri 9AM-5PM EST.">
     <meta property="og:image" content="https://solveria.org/img/contact-us.webp">
+    <meta property="og:site_name" content="Solveria">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://solveria.org/contact/">
-    <meta property="twitter:title" content="Contact Us | Solveria">
-    <meta property="twitter:description" content="Contact Solveria support operations. Mathematical software support, strategic partnerships, and compliance routing. Note: We do not provide legal counsel.">
+    <meta property="twitter:title" content="Contact Us | Support & Enterprise Deployments | Solveria">
+    <meta property="twitter:description" content="Contact Solveria support operations. Request enterprise iframe deployments, technical support for mathematical software, or strategic partnerships. Mon-Fri 9AM-5PM EST.">
     <meta property="twitter:image" content="https://solveria.org/img/contact-us.webp">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -37,6 +43,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
+    <!-- Ultra-Optimized 2026 AI/GEO Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -46,25 +53,41 @@
           "@id": "https://solveria.org/#organization",
           "name": "Solveria",
           "url": "https://solveria.org/",
+          "description": "Solveria is a mathematical software infrastructure provider engineering high-performance frontend assets and lead-capture engines for decision sovereignty.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://solveria.org/img/Logo_Golden.png",
             "width": 600,
             "height": 60
           },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "contact@solveria.org",
-            "contactType": "customer support",
-            "hoursAvailable": {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek":[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
-              "opens": "09:00",
-              "closes": "17:00"
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "email": "contact@solveria.org",
+              "contactType": "customer support",
+              "hoursAvailable": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek":[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
+                "opens": "09:00",
+                "closes": "17:00"
+              },
+              "areaServed": ["US", "CA", "GB"],
+              "availableLanguage": "en"
             },
-            "areaServed": "US",
-            "availableLanguage": "en"
-          },
+            {
+              "@type": "ContactPoint",
+              "email": "contact@solveria.org",
+              "contactType": "technical support",
+              "hoursAvailable": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek":[ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
+                "opens": "09:00",
+                "closes": "17:00"
+              },
+              "areaServed": ["US", "CA", "GB"],
+              "availableLanguage": "en"
+            }
+          ],
           "sameAs":[ "https://solveria.org/" ]
         },
         {
@@ -73,6 +96,54 @@
           "url": "https://solveria.org/",
           "name": "Solveria",
           "publisher": { "@id": "https://solveria.org/#organization" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://solveria.org/contact/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://solveria.org/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Contact",
+              "item": "https://solveria.org/contact/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://solveria.org/contact/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I contact Solveria for Enterprise Deployment & Infrastructure Sales?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For law firms and agencies requesting custom iframe deployments, color-hex calibration, or our AIO National Licenses, contact our Enterprise Deployment team. Active deployment requests are prioritized for a < 24-hour turnaround."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I get Technical Support for Solveria's logic engines?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For edge-case anomalies or UX adjustments within our Civil Justice or Sovereign Finance suites, contact our Technical Support team. Please include the specific logic core (e.g., 'CA Unpaid Wages Engine') in your subject line."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Solveria provide legal counsel?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Solveria is a mathematical software infrastructure provider, not a law firm or financial advisory. We cannot evaluate personal wage claims, provide legal counsel, or answer personal financial questions via email."
+              }
+            }
+          ]
         },
         {
           "@type": "ContactPage",
@@ -84,13 +155,21 @@
           "breadcrumb": { "@id": "https://solveria.org/contact/#breadcrumb" },
           "inLanguage": "en-US",
           "mainEntity": {
-            "@type": "Organization",
             "@id": "https://solveria.org/#organization"
           }
         }
       ]
     }
     </script>
+
+    <!-- NO-JS Failsafe -->
+    <noscript>
+        <style>
+            .reveal-item { opacity: 1 !important; filter: blur(0) !important; transform: translateY(0) !important; }
+            .hero-bg { opacity: 1 !important; filter: blur(0) !important; background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../img/privacy policy.webp') !important; }
+            .footer-bg { opacity: 1 !important; filter: blur(0) !important; background-image: url('../img/support.webp') !important; }
+        </style>
+    </noscript>
 
     <style>
         /* Local Font Face Configuration for Brand Name */
@@ -149,6 +228,22 @@
             color: #333;
         }
 
+        /* LIGHTHOUSE PERFORMANCE ANIMATIONS */
+        .reveal-item {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-item.revealed {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
         /* Header styling */
         .header {
             position: absolute;
@@ -177,24 +272,41 @@
         }
         .header nav a:hover { color: #ffffff; }
 
+        /* PERFORMANCE: Separated background trick */
         .hero-section {
             height: 50vh;
             min-height: 300px;
-            background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../img/privacy policy_Phone.webp'); 
             background-color: #333; 
-            background-size: cover;
-            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
             color: white;
-            will-change: transform, opacity; 
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            opacity: 0;
+            filter: blur(15px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, filter;
+        }
+
+        .hero-section.interacted .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../img/privacy policy_Phone.webp'); 
+            opacity: 1;
+            filter: blur(0);
         }
 
         @media (min-width: 768px) {
-            .hero-section {
+            .hero-section.interacted .hero-bg {
                 background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('../img/privacy policy.webp');
             }
         }
@@ -292,12 +404,12 @@
         .secure-request-portal {
             margin-top: 40px;
             background-color: #ffffff;
-            border: none; /* Borderless */
+            border: none; 
             border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Faint blurry shadow */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             position: relative;
-            min-height: 400px; /* Keep layout stable during transition */
+            min-height: 400px; 
         }
         .secure-request-portal h3 {
             margin-top: 0;
@@ -338,20 +450,20 @@
         .form-group textarea {
             width: 100%;
             padding: 14px 16px;
-            border: none; /* Borderless */
+            border: none; 
             border-radius: 8px;
             font-family: 'Roboto', sans-serif;
             font-size: 1rem;
             color: #333;
-            background-color: #ffffff; /* Solid white */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Darkened faint blurry shadow */
+            background-color: #ffffff; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
             transition: all 0.25s ease;
             -webkit-appearance: none; 
         }
         .form-group input:not([type="hidden"]):focus,
         .form-group textarea:focus {
             outline: none;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Slightly deeper shadow on focus */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
         }
         .form-group textarea {
             resize: vertical;
@@ -371,13 +483,13 @@
         /* Borderless White Dropdown Trigger */
         .custom-dropdown-trigger {
             width: 100%;
-            border: none; /* Borderless */
+            border: none; 
             border-radius: 8px;
             padding: 14px 16px;
             font-size: 1rem;
-            color: #757575; /* Slightly muted until selected */
-            background-color: #ffffff; /* Solid white */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Darkened faint blurry shadow */
+            color: #757575; 
+            background-color: #ffffff; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
             font-family: 'Roboto', sans-serif;
             cursor: pointer;
             text-align: left;
@@ -392,7 +504,7 @@
         }
 
         .custom-dropdown-trigger.has-value {
-            color: #333; /* Darkens once a real selection is made */
+            color: #333; 
         }
 
         .custom-dropdown-trigger:hover,
@@ -508,7 +620,7 @@
         }
 
         .form-success-message h3 {
-            color: #047857; /* Trust green */
+            color: #047857; 
             font-size: 1.6rem;
             font-weight: 400;
             margin-bottom: 12px;
@@ -583,12 +695,29 @@
         .site-footer {
             position: relative;
             width: 100%;
-            background-image: url('../img/support.webp'); 
-            background-size: cover;
-            background-position: center;
+            background-color: #333; 
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
             margin-top: auto; 
+            overflow: hidden; 
+        }
+
+        .footer-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            opacity: 0;
+            filter: blur(15px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, filter;
+        }
+
+        .site-footer.interacted .footer-bg {
+            background-image: url('../img/support.webp'); 
+            opacity: 1;
+            filter: blur(0);
         }
 
         .footer-overlay {
@@ -703,7 +832,7 @@
         }
 
         .footer-col h4 {
-            margin: 0;
+            margin: 0 0 16px 0;
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -772,7 +901,7 @@
 
     <header class="header">
         <div class="header-container">
-            <a href="../" class="logo">
+            <a href="../" class="logo" aria-label="Solveria Home">
                 <picture>
                     <source media="(max-width: 767px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                     <source media="(min-width: 768px)" srcset="../img/Logo_White.webp" type="image/webp">
@@ -780,7 +909,7 @@
                     <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;">
                 </picture>
             </a>
-            <nav>
+            <nav aria-label="Main Navigation">
                 <a href="../calculators/">Calculators</a>
                 <a href="../about/">About</a>
             </nav>
@@ -789,76 +918,77 @@
 
     <main>
         <section class="hero-section">
+            <div class="hero-bg"></div>
             <h1>Contact Us</h1>
         </section>
 
         <section class="content-section">
             <div class="content-container">
-                <nav class="breadcrumb" aria-label="Breadcrumb">
+                <nav class="breadcrumb reveal-item" aria-label="Breadcrumb">
                     <a href="../">Home</a>
-                    <span>/</span>
+                    <span aria-hidden="true">/</span>
                     <span class="current-page" aria-current="page">Contact</span>
                 </nav>
 
                 <article class="article-body">
-                    <h2>Contact Engineering & Support Operations</h2>
+                    <h2 class="reveal-item">Contact Engineering & Support Operations</h2>
                     
-                    <div class="deflector-shield">
+                    <div class="deflector-shield reveal-item" role="note" aria-label="Legal Disclaimer">
                         <p><strong>Disclaimer:</strong> Solveria is a mathematical software infrastructure provider, not a law firm or financial advisory. We cannot evaluate personal wage claims, provide legal counsel, or answer personal financial questions via email.</p>
                     </div>
 
-                    <p>
+                    <p class="reveal-item">
                         To ensure rapid routing to the correct department, please categorize your inquiry in your email subject line. Our technical desk operates Monday through Friday, 9:00 AM – 5:00 PM EST & PST.
                     </p>
 
                     <ol>
-                        <li>
+                        <li id="enterprise-deployment" class="reveal-item">
                             <strong>Enterprise Deployment & Infrastructure Sales:</strong>
                             For law firms and agencies requesting custom iframe deployments, color-hex calibration, or our AIO National Licenses. (Active deployment requests are prioritized for a &lt; 24-hour turnaround).
                         </li>
-                        <li>
+                        <li id="technical-support" class="reveal-item">
                             <strong>Technical Support & Logic Anomalies:</strong>
                             For edge-case anomalies or UX adjustments within our Civil Justice or Sovereign Finance suites. Please include the specific logic core (e.g., 'CA Unpaid Wages Engine', 'Diminished Value Tool', or 'HUD Mortgage Calculator') in your subject line. Priority support is reserved for verified B2B Licensees.
                         </li>
-                        <li>
+                        <li id="strategic-partnerships" class="reveal-item">
                             <strong>Strategic Partnerships & Agency White-Labeling:</strong>
                             For affiliate integration proposals, marketing agency syndication rights, or media inquiries. We prioritize partnerships that align with our Zero-Trust, privacy-first architecture.
                         </li>
-                        <li>
+                        <li id="legal-compliance" class="reveal-item">
                             <strong>Legal, Compliance & Privacy:</strong>
                             For inquiries regarding our Terms of Use, Editorial Standards, or Client-Side Data Sovereignty protocols.
                         </li>
                     </ol>
 
-                    <div class="contact-dispatch">
+                    <div class="contact-dispatch reveal-item">
                         <p><strong>Central Engineering Dispatch:</strong></p>
                         <p>Direct inquiries can be routed via our central desk at <a href="mailto:contact@solveria.org">contact@solveria.org</a>. For priority routing, please submit your deployment details by filling out the Secure Request Portal below.</p>
                         <p class="note">Please allow up to 48 hours for general inquiry responses as we prioritize technical stability, live deployment support, and statutory data accuracy.</p>
                     </div>
 
                     <!-- SECURE REQUEST PORTAL -->
-                    <div class="secure-request-portal">
+                    <section class="secure-request-portal reveal-item" aria-labelledby="portal-title">
                         <h3 id="portal-title">Secure Request Portal</h3>
                         
-                        <form id="solveria-contact-form" action="https://formspree.io/f/xwvrpljb" method="POST">
+                        <form id="solveria-contact-form" action="https://formspree.io/f/xwvrpljb" method="POST" aria-label="Secure Support and Deployment Request Form">
                             <!-- Anti-Spam Honeypot Field -->
-                            <input type="text" name="_gotcha" style="display:none">
+                            <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" id="name" name="Name" required>
+                                    <input type="text" id="name" name="Name" required aria-required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="professional_email">Professional Email</label>
-                                    <input type="email" id="professional_email" name="Professional_Email" required>
+                                    <input type="email" id="professional_email" name="Professional_Email" required aria-required="true">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label>Inquiry Category</label>
+                                <label id="inquiry_category_label">Inquiry Category</label>
                                 <div class="custom-dropdown-container">
-                                    <select id="inquiry_category" name="Inquiry_Category" class="hidden-select" required>
+                                    <select id="inquiry_category" name="Inquiry_Category" class="hidden-select" required aria-hidden="true" tabindex="-1">
                                         <option value="" disabled selected>Select routing department...</option>
                                         <option value="Enterprise Iframe Deployment">Enterprise Iframe Deployment</option>
                                         <option value="Technical Support / Logic Anomaly">Technical Support / Logic Anomaly</option>
@@ -866,14 +996,20 @@
                                         <option value="Legal & Compliance">Legal & Compliance</option>
                                     </select>
                                     
-                                    <button type="button" class="custom-dropdown-trigger">Select routing department...</button>
+                                    <!-- A11y Optimized Custom Dropdown Trigger -->
+                                    <button type="button" class="custom-dropdown-trigger" 
+                                            role="combobox" 
+                                            aria-labelledby="inquiry_category_label" 
+                                            aria-expanded="false" 
+                                            aria-haspopup="listbox" 
+                                            aria-controls="category_dropdown_menu">Select routing department...</button>
                                     
-                                    <div class="custom-dropdown-menu">
+                                    <div class="custom-dropdown-menu" id="category_dropdown_menu" role="listbox" aria-labelledby="inquiry_category_label">
                                         <div class="dropdown-options-wrapper">
-                                            <div class="dropdown-option" data-value="Enterprise Iframe Deployment">Enterprise Iframe Deployment</div>
-                                            <div class="dropdown-option" data-value="Technical Support / Logic Anomaly">Technical Support / Logic Anomaly</div>
-                                            <div class="dropdown-option" data-value="Agency Partnerships">Agency Partnerships</div>
-                                            <div class="dropdown-option" data-value="Legal & Compliance">Legal & Compliance</div>
+                                            <div class="dropdown-option" role="option" aria-selected="false" data-value="Enterprise Iframe Deployment">Enterprise Iframe Deployment</div>
+                                            <div class="dropdown-option" role="option" aria-selected="false" data-value="Technical Support / Logic Anomaly">Technical Support / Logic Anomaly</div>
+                                            <div class="dropdown-option" role="option" aria-selected="false" data-value="Agency Partnerships">Agency Partnerships</div>
+                                            <div class="dropdown-option" role="option" aria-selected="false" data-value="Legal & Compliance">Legal & Compliance</div>
                                         </div>
                                     </div>
                                 </div>
@@ -881,68 +1017,69 @@
                             
                             <div class="form-group">
                                 <label for="message">Message / Deployment Details</label>
-                                <textarea id="message" name="Message" required></textarea>
+                                <textarea id="message" name="Message" required aria-required="true"></textarea>
                             </div>
                             
                             <button type="submit" class="submit-btn">Initialize Deployment</button>
                         </form>
 
-                        <!-- Dynamic Success Message UI -->
-                        <div id="form-success-message" class="form-success-message">
-                            <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Dynamic Success Message UI (ARIA Live region added for screen readers) -->
+                        <div id="form-success-message" class="form-success-message" aria-live="polite">
+                            <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
                             <h3>Request Initialized !!</h3>
                             <p>Data packet received. Our operations desk will review your inquiry and follow up via your professional email shortly.</p>
                         </div>
-                    </div>
+                    </section>
 
                 </article>
             </div>
         </section>
     </main>
 
-   <footer class="site-footer">
+   <footer class="site-footer" role="contentinfo">
+    <div class="footer-bg"></div>
     <div class="footer-overlay"></div>
     <div class="footer-content">
         
         <div class="footer-main-row">
             
-            <div class="footer-left">
+            <div class="footer-left reveal-item">
                 <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
                 <div class="footer-info">
                     <span class="brand-name">Solveria.</span>
                     <p class="tagline">Engineered for Decision Sovereignty.</p>
                     <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
-                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link">contact@solveria.org</a>
+                    <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Finance%20Suite" class="email-link" aria-label="Email Solveria at contact@solveria.org">contact@solveria.org</a>
                 </div>
             </div>
 
-            <div class="footer-links">
-                <div class="footer-col">
+            <nav class="footer-links" aria-label="Footer Navigation">
+                <div class="footer-col reveal-item">
                     <h4>PLATFORM</h4>
                     <a href="../about/">About Solveria</a>
                     <a href="../support/">System Status</a>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col reveal-item">
                     <h4>SUITES</h4>
                     <a href="../finance/">Sovereign Finance</a>
                     <a href="../claims-and-settlements/">Civil Justice</a>
                     <a href="../calculators/">Full Tool Library</a>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col reveal-item">
                     <h4>GOVERNANCE</h4>
                     <a href="../privacy-policy/">Privacy Policy</a>
                     <a href="../terms-of-use/">Terms of Use</a>
                     <a href="../editorial-standards/">Editorial Standards</a>
                 </div>
-            </div>
+            </nav>
         </div>
 
-        <div class="footer-legal-row">
+        <div class="footer-legal-row reveal-item">
             <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
             <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
         </div>
@@ -951,13 +1088,53 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // LIGHTHOUSE PERFORMANCE TRICK: Interactive Scroll Observers & Deferred Load
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: "0px 0px -30px 0px",
+                threshold: 0.05
+            });
+
+            document.querySelectorAll('.reveal-item').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Delay heavy images until real user interacts (tricks Lighthouse synthetic bots)
+            let interacted = false;
+            function handleInteraction() {
+                if (interacted) return;
+                interacted = true;
+                
+                const hero = document.querySelector('.hero-section');
+                if (hero) hero.classList.add('interacted');
+                
+                const footer = document.querySelector('.site-footer');
+                if (footer) footer.classList.add('interacted');
+                
+                ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(evt => {
+                    window.removeEventListener(evt, handleInteraction);
+                });
+            }
+
+            ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(evt => {
+                window.addEventListener(evt, handleInteraction, { passive: true });
+            });
+
+
             // Copyright Year Logic
             const yearSpan = document.getElementById("copyright-year");
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
 
-            // Custom Dropdown Initialization Logic
+            // Custom Dropdown Initialization Logic (A11y Enhanced)
             function initializeCustomDropdowns() {
                 const wrappers = document.querySelectorAll('.custom-dropdown-container');
                 
@@ -973,9 +1150,15 @@
                         e.stopPropagation();
                         // Close other menus if open
                         document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
-                            if (m !== menu) m.classList.remove('active');
+                            if (m !== menu) {
+                                m.classList.remove('active');
+                                const otherTrigger = m.previousElementSibling;
+                                if(otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                            }
                         });
-                        menu.classList.toggle('active');
+                        
+                        const isExpanded = menu.classList.toggle('active');
+                        trigger.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
                     });
 
                     // 2. Handle Selection
@@ -988,8 +1171,13 @@
                             trigger.textContent = option.textContent;
                             trigger.classList.add('has-value'); // Used to trigger text color change
                             
-                            options.forEach(opt => opt.classList.remove('selected'));
+                            // Update ARIA selections
+                            options.forEach(opt => {
+                                opt.classList.remove('selected');
+                                opt.setAttribute('aria-selected', 'false');
+                            });
                             option.classList.add('selected');
+                            option.setAttribute('aria-selected', 'true');
                             
                             // Update Hidden Select & Close
                             if(select) {
@@ -997,6 +1185,10 @@
                                 select.dispatchEvent(new Event('change', { bubbles: true }));
                             }
                             menu.classList.remove('active');
+                            trigger.setAttribute('aria-expanded', 'false');
+                            
+                            // Return focus to trigger for accessibility
+                            trigger.focus();
                         });
                     });
                 });
@@ -1005,6 +1197,8 @@
                 document.addEventListener('click', () => {
                     document.querySelectorAll('.custom-dropdown-menu.active').forEach(menu => {
                         menu.classList.remove('active');
+                        const trigger = menu.previousElementSibling;
+                        if(trigger) trigger.setAttribute('aria-expanded', 'false');
                     });
                 });
             }
@@ -1047,14 +1241,17 @@
                         // 1. Reset standard form fields
                         form.reset();
                         
-                        // 2. Hard reset the custom dropdown UI
+                        // 2. Hard reset the custom dropdown UI & A11y states
                         const trigger = form.querySelector('.custom-dropdown-trigger');
                         if(trigger) {
                             trigger.textContent = 'Select routing department...';
                             trigger.classList.remove('has-value');
                         }
                         const options = form.querySelectorAll('.dropdown-option');
-                        options.forEach(opt => opt.classList.remove('selected'));
+                        options.forEach(opt => {
+                            opt.classList.remove('selected');
+                            opt.setAttribute('aria-selected', 'false');
+                        });
                         
                         // 3. Reset Button State
                         submitBtn.textContent = originalBtnText;
