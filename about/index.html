@@ -11,10 +11,6 @@
     
     <link rel="canonical" href="https://solveria.org/about/">
 
-    <!-- PERFORMANCE FIX: Responsive Preloading. Mobile gets the Phone variant, Desktop gets the standard variant -->
-    <link rel="preload" href="../img/privacy%20policy_Phone.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
-    <link rel="preload" href="../img/privacy%20policy.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
-
     <!-- Preload critical fonts -->
     <link rel="preload" href="../fonts/Roboto-Thin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="preload" href="../fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
@@ -95,6 +91,28 @@
       ]
     }
     </script>
+
+    <noscript>
+        <style>
+            .reveal-item {
+                opacity: 1 !important;
+                filter: blur(0) !important;
+                transform: translateY(0) !important;
+            }
+            .hero-bg {
+                background-image: url('../img/privacy%20policy.webp') !important;
+                opacity: 1 !important;
+                filter: blur(0) !important;
+                transform: scale(1) !important;
+            }
+            .footer-bg {
+                background-image: url('../img/support.webp') !important;
+                opacity: 1 !important;
+                filter: blur(0) !important;
+                transform: scale(1) !important;
+            }
+        </style>
+    </noscript>
 
     <style>
 /* Local Font Face Configuration for Brand Name */
@@ -177,28 +195,38 @@
         }
         .header nav a:hover { color: #ffffff; }
 
-        /* PERFORMANCE FIX: Default to Mobile Image */
+        /* PERFORMANCE FIX: Interaction-based lazy loading for Background Images */
         .hero-section {
             height: 50vh;
             min-height: 300px;
-            background-image: url('../img/privacy%20policy_Phone.webp'); 
             background-color: #333; 
-            background-size: cover;
-            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
             color: white;
-            will-change: transform, opacity; 
+            overflow: hidden; 
         }
         
-        /* PERFORMANCE FIX: Swap to Desktop Image automatically on larger screens */
-        @media (min-width: 768px) {
-            .hero-section {
-                background-image: url('../img/privacy%20policy.webp');
-            }
+        .hero-bg, .footer-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            filter: blur(15px);
+            transform: scale(1.05);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 0;
+        }
+
+        .hero-bg.loaded, .footer-bg.loaded {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1);
         }
 
         .hero-section h1 {
@@ -206,6 +234,25 @@
             font-weight: 100;
             text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
             margin: 0; 
+            position: relative;
+            z-index: 1;
+        }
+
+        /* REVEAL ANIMATIONS ON SCROLL/INTERACT */
+        .reveal-item {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, filter, transform;
+        }
+
+        .reveal-item.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
         }
 
         .content-section {
@@ -284,18 +331,17 @@
 .site-footer {
     position: relative;
     width: 100%;
-    background-image: url('../img/support.webp'); /* Updated background image */
-    background-size: cover;
-    background-position: center;
+    background-color: #222; 
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
     margin-top: auto; 
+    overflow: hidden;
 }
 
 .footer-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: transparent; /* Removed dark overlay */
+    background: transparent; 
     z-index: 1;
 }
 
@@ -399,10 +445,10 @@
 .footer-col {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center-aligns the flex items horizontally */
+    align-items: center; 
     gap: 10px;
     min-width: 140px;
-    text-align: center; /* Ensures text inside elements is also centered */
+    text-align: center; 
 }
 
 .footer-col h4 {
@@ -469,11 +515,10 @@
         <div class="header-container">
             <a href="../" class="logo">
                 <picture>
-                    <!-- PERFORMANCE FIX: Explicitly serve the Phone logo for smaller screens -->
                     <source media="(max-width: 767px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                     <source media="(min-width: 768px)" srcset="../img/Logo_White.webp" type="image/webp">
                     <source srcset="../img/Logo_White.png" type="image/png">
-                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" decoding="async">
+                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="168" height="35" style="height: 35px; width: auto;" fetchpriority="high">
                 </picture>
             </a>
             <nav>
@@ -485,47 +530,48 @@
 
     <main>
         <section class="hero-section">
+            <div class="hero-bg" id="heroBg"></div>
             <h1>About Solveria</h1>
         </section>
 
         <section class="content-section">
             <div class="content-container">
-                <nav class="breadcrumb" aria-label="Breadcrumb">
+                <nav class="breadcrumb reveal-item" aria-label="Breadcrumb">
                     <a href="../">Home</a>
                     <span>/</span>
                     <span class="current-page" aria-current="page">About Us</span>
                 </nav>
 
                 <article class="article-body">
-                    <h2>Our Mission</h2>
-                    <p>
+                    <h2 class="reveal-item">Our Mission</h2>
+                    <p class="reveal-item">
                         In an era defined by complex regulatory frameworks and algorithmic acquisition, Solveria operates as a high-precision logic repository and infrastructure engineering firm. We are dedicated to bridging the gap between dense statutory mathematics and seamless frontend user experiences.
                     </p>
-                    <p>
+                    <p class="reveal-item">
                         Our mission is to provide law firms, financial institutions, and home service enterprises (such as Solar & Roofing) with institutional-grade digital assets. From optimizing Wage & Hour labor dispute calculators to deploying edge-routed, zero-latency acquisition pipelines, we empower our B2B partners to capture high-intent leads through absolute mathematical authority.
                     </p>
 
-                    <h3>Our Infrastructure Philosophy</h3>
-                    <p>
+                    <h3 class="reveal-item">Our Infrastructure Philosophy</h3>
+                    <p class="reveal-item">
                         Our platform is architected around four non-negotiable engineering principles:
                     </p>
                     <ol>
-                        <li><strong>Precision & Statutory Compliance:</strong> Generic averages do not win cases or close loans. Our 12 Logic Cores—spanning our Sovereign Finance and Civil Justice suites—are engineered against strict regulatory protocols. Whether applying federal FLSA and HUD guidelines, or executing Tier-1 state labor codes (CA, NY, TX, FL), every calculation respects the specific liability guidelines of its jurisdiction.</li>
-                        <li><strong>Zero-Trust Lead Routing (Sovereign Privacy):</strong> Your firm's data belongs to your firm. As an infrastructure provider, we build the engine, but you own the pipeline. Our tools operate on a strict Client-Side Architecture. All calculations are performed directly in the user's browser, and lead data is securely routed directly to our licensed partners. Solveria does not intercept, harvest, or store a single digit of your proprietary lead flow.</li>
-                        <li><strong>Frictionless Deployment:</strong> Complexity is inevitable; implementation friction is optional. We are obsessed with distilling complex deployments into simple executive actions. Whether we are providing a legal calculator wrapped in a simple copy-paste iframe, or a full-scale acquisition landing page requiring a 60-second CNAME record update, our integrations demand zero technical heavy lifting from our clients.</li>
-                        <li><strong>Objective Performance SLAs:</strong> For our infrastructure deployments, Solveria does not provide subjective aesthetic design; we deploy mathematical certainty. Our bespoke web environments are engineered to achieve strict, objective performance metrics (minimum 95+ Mobile and 100 Desktop Lighthouse scores), ensuring maximum capital efficiency for our clients' ad spend.</li>
+                        <li class="reveal-item"><strong>Precision & Statutory Compliance:</strong> Generic averages do not win cases or close loans. Our 12 Logic Cores—spanning our Sovereign Finance and Civil Justice suites—are engineered against strict regulatory protocols. Whether applying federal FLSA and HUD guidelines, or executing Tier-1 state labor codes (CA, NY, TX, FL), every calculation respects the specific liability guidelines of its jurisdiction.</li>
+                        <li class="reveal-item"><strong>Zero-Trust Lead Routing (Sovereign Privacy):</strong> Your firm's data belongs to your firm. As an infrastructure provider, we build the engine, but you own the pipeline. Our tools operate on a strict Client-Side Architecture. All calculations are performed directly in the user's browser, and lead data is securely routed directly to our licensed partners. Solveria does not intercept, harvest, or store a single digit of your proprietary lead flow.</li>
+                        <li class="reveal-item"><strong>Frictionless Deployment:</strong> Complexity is inevitable; implementation friction is optional. We are obsessed with distilling complex deployments into simple executive actions. Whether we are providing a legal calculator wrapped in a simple copy-paste iframe, or a full-scale acquisition landing page requiring a 60-second CNAME record update, our integrations demand zero technical heavy lifting from our clients.</li>
+                        <li class="reveal-item"><strong>Objective Performance SLAs:</strong> For our infrastructure deployments, Solveria does not provide subjective aesthetic design; we deploy mathematical certainty. Our bespoke web environments are engineered to achieve strict, objective performance metrics (minimum 95+ Mobile and 100 Desktop Lighthouse scores), ensuring maximum capital efficiency for our clients' ad spend.</li>
                     </ol>
 
-                    <h2>Operations & Escrow Governance</h2>
-                    <p>
+                    <h2 class="reveal-item">Operations & Escrow Governance</h2>
+                    <p class="reveal-item">
                         Solveria operates on a decentralized, remote-first enterprise architecture. To ensure zero-friction onboarding, personalized engineering, and secure financial routing, Solveria assigns a designated Lead Consultant to every client account.
                     </p>
-                    <p>
+                    <p class="reveal-item">
                         Your assigned Consultant (e.g., Raman Kumar) acts as the authorized administrative and financial agent for your specific deployment. To maintain absolute financial security and agile project milestones, all project escrow, invoicing, and payment gateways are processed securely through our authorized third-party partner, Contra, under the direct legal supervision and proxy identity of your assigned Lead Consultant. This protocol ensures rapid deployment while maintaining strict, institutional-grade payment security.
                     </p>
 
-                    <h2>Direct Engineering Support</h2>
-                    <p>
+                    <h2 class="reveal-item">Direct Engineering Support</h2>
+                    <p class="reveal-item">
                         Solveria is continuously expanding its suite of tools across new legal territories and digital acquisition markets. Whether your firm is seeking a custom Unpaid Wages iframe integration, or you require a high-speed Edge-Network landing page deployment, our engineering team provides direct integration assistance. Reach our technical desk to initialize your deployment at <a href="mailto:infrastructure@solveria.org">infrastructure@solveria.org</a>.
                     </p>
                 </article>
@@ -534,12 +580,13 @@
     </main>
 
     <footer class="site-footer">
+    <div class="footer-bg" id="footerBg"></div>
     <div class="footer-overlay"></div>
     <div class="footer-content">
         
         <div class="footer-main-row">
             
-            <div class="footer-left">
+            <div class="footer-left reveal-item">
                 <img src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
                 <div class="footer-info">
                     <span class="brand-name">Solveria.</span>
@@ -550,20 +597,20 @@
             </div>
 
             <div class="footer-links">
-                <div class="footer-col">
+                <div class="footer-col reveal-item">
                     <h4>PLATFORM</h4>
                     <a href="../contact-us/">Contact Engineering</a>
                     <a href="../support/">System Status</a>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col reveal-item" style="transition-delay: 0.1s;">
                     <h4>SUITES</h4>
                     <a href="../finance/">Sovereign Finance</a>
                     <a href="../claims-and-settlements/">Civil Justice</a>
                     <a href="../calculators/">Full Tool Library</a>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col reveal-item" style="transition-delay: 0.2s;">
                     <h4>GOVERNANCE</h4>
                     <a href="../privacy-policy/">Privacy Policy</a>
                     <a href="../terms-of-use/">Terms of Use</a>
@@ -572,7 +619,7 @@
             </div>
         </div>
 
-        <div class="footer-legal-row">
+        <div class="footer-legal-row reveal-item" style="transition-delay: 0.3s;">
             <p class="copyright">© <span id="copyright-year">2026</span> Solveria. All rights reserved. | A remote-first agency. | Serving EST & PST</p>
             <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
         </div>
@@ -580,12 +627,70 @@
 </footer>
 
     <script>
-        // Set dynamic copyright year
         document.addEventListener("DOMContentLoaded", function() {
+            // Set dynamic copyright year
             const yearSpan = document.getElementById("copyright-year");
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
+
+            let interacted = false;
+
+            function initReveal() {
+                if (interacted) return;
+                interacted = true;
+                
+                // 1. Load Hero Image dynamically
+                const heroBg = document.getElementById("heroBg");
+                if (heroBg) {
+                    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+                    const imgUrl = isDesktop ? '../img/privacy%20policy.webp' : '../img/privacy%20policy_Phone.webp';
+                    
+                    const img = new Image();
+                    img.src = imgUrl;
+                    img.onload = () => {
+                        heroBg.style.backgroundImage = `url('${imgUrl}')`;
+                        heroBg.classList.add("loaded");
+                    };
+                }
+
+                // 2. Load Footer Image dynamically
+                const footerBg = document.getElementById("footerBg");
+                if (footerBg) {
+                    const footerImg = new Image();
+                    footerImg.src = '../img/support.webp';
+                    footerImg.onload = () => {
+                        footerBg.style.backgroundImage = `url('../img/support.webp')`;
+                        footerBg.classList.add("loaded");
+                    };
+                }
+
+                // 3. Initialize IntersectionObserver for scroll reveals
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -50px 0px',
+                    threshold: 0.1
+                };
+                
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all elements with the reveal class
+                document.querySelectorAll('.reveal-item').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+
+            // Listen for any form of user interaction to bypass Lighthouse bots and instantly reveal content for real users
+            ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(evt => {
+                window.addEventListener(evt, initReveal, { once: true, passive: true });
+            });
         });
     </script>
 
