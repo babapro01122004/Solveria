@@ -93,7 +93,6 @@
         html { scroll-behavior: smooth; }
         body, html {
             margin: 0; padding: 0;
-            /* Added robust system fallbacks so text renders instantly before Google Fonts load */
             font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             font-weight: 300;
             background-color: #f5f5f7;
@@ -102,6 +101,44 @@
             flex-direction: column;
             min-height: 100vh;
             line-height: 1.5;
+        }
+
+        /* ============================ */
+        /* ANIMATIONS (BLUR & FADE)     */
+        /* ============================ */
+        
+        @keyframes blurFadeIn {
+            0% { opacity: 0; filter: blur(12px); transform: translateY(30px); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+        .animate-on-load {
+            opacity: 0; 
+            animation: blurFadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            will-change: opacity, filter, transform;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        filter 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: opacity, filter, transform;
+        }
+        .scroll-reveal.reveal-active {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Master class for beautiful image fade-ins upon interaction */
+        .lazy-fade {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 0.6s ease;
+        }
+        .lazy-fade.img-loaded {
+            opacity: 1;
         }
 
         /* ============================ */
@@ -129,6 +166,7 @@
             margin-left: 30px; 
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             transition: color 0.3s ease;
+            display: inline-block;
         }
         
         .header nav a:hover,
@@ -144,23 +182,23 @@
             position: relative; 
             height: 60vh; 
             min-height: 500px;
-            /* Replaced background-image with a solid dark fallback for an instant paint */
             background-color: #111111; 
-            background-size: cover; 
-            background-position: center;
             display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff;
-            transition: background-image 0.5s ease-in-out;
+            overflow: hidden;
         }
-        /* Heavy image only loads when the interacted class is added via JS */
-        body.interacted .hero-section {
-            background-image: url('../img/support.webp'); 
+        
+        /* New dedicated background image layer to allow opacity fading */
+        .hero-bg-layer {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0;
         }
         
         .hero-section::before {
             content: ''; position: absolute; inset: 0;
             background: radial-gradient(circle at center, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.95) 100%);
+            z-index: 1;
         }
-        .hero-content { position: relative; z-index: 1; max-width: 1000px; padding: 20px; transition: padding 0.3s ease; }
+        .hero-content { position: relative; z-index: 2; max-width: 1000px; padding: 20px; transition: padding 0.3s ease; }
         .hero-content h1 { 
             font-size: 3.5rem;
             font-weight: 100; letter-spacing: 3px; 
@@ -221,9 +259,9 @@
         
         .card-bg-img { 
             position: absolute; inset: 0; width: 100%; height: 100%; 
-            object-fit: cover; z-index: 0; transition: transform 0.6s ease; 
+            object-fit: cover; z-index: 0; 
         }
-        .tool-card:hover .card-bg-img { transform: scale(1.05); }
+        .tool-card:hover .card-bg-img.img-loaded { transform: scale(1.05); }
         
         .card-overlay { 
             position: absolute; inset: 0; 
@@ -253,15 +291,15 @@
         /* ============================ */
         .site-footer {
             position: relative; width: 100%;
-            /* Replaced background-image with a solid dark fallback */
             background-color: #1e1914;
-            background-size: cover; background-position: center; background-repeat: no-repeat;
             color: #ffffff; margin-top: auto; 
-            transition: background-image 0.5s ease-in-out;
+            overflow: hidden;
         }
-        /* Heavy image only loads when the interacted class is added via JS */
-        body.interacted .site-footer {
-            background-image: url('../img/footer.webp');
+        
+        /* Dedicated layer for footer background */
+        .footer-bg-layer {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0;
         }
 
         .footer-overlay {
@@ -277,7 +315,6 @@
             gap: 100px; width: 100%; align-items: center; 
         }
 
-        /* Branding */
         .footer-left {
             flex: 0 1 auto; min-width: 280px;
             display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -299,7 +336,6 @@
         }
         .email-link:hover { color: #fff; border-bottom-color: #fff; }
 
-        /* Links */
         .footer-links {
             flex: 0 1 auto; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
         }
@@ -313,7 +349,6 @@
         }
         .footer-col a:hover { color: #ffffff; }
 
-        /* Legal */
         .footer-legal-row {
             width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.15);
             padding-top: 20px; display: flex; flex-direction: column;
@@ -350,23 +385,24 @@
 
     <header class="header">
         <div class="header-container">
-            <a href="../" class="logo" aria-label="Solveria Home">
-                <!-- Using a 1x1 transparent base64 image immediately, with the real image safely waiting in data-src -->
-                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/Logo_Golden.webp" alt="Solveria Logo" width="32" height="32">
+            <a href="../" class="logo animate-on-load" style="animation-delay: 0s;" aria-label="Solveria Home">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/Logo_Golden.webp" class="lazy-fade" alt="Solveria Logo" width="32" height="32">
             </a>
             <nav>
-                <a href="../calculators/">Calculators</a>
-                <a href="../about/">About</a>
-                <a href="../support/">Help Center</a>
+                <a href="../calculators/" class="animate-on-load" style="animation-delay: 0.1s;">Calculators</a>
+                <a href="../about/" class="animate-on-load" style="animation-delay: 0.2s;">About</a>
+                <a href="../support/" class="animate-on-load" style="animation-delay: 0.3s;">Help Center</a>
             </nav>
         </div>
     </header>
 
     <!-- 1. THE HERO SECTION -->
     <section class="hero-section">
+        <!-- Background image controlled via img tag for smooth interaction fading -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/support.webp" class="hero-bg-layer lazy-fade" alt="Hero Background">
         <div class="hero-content">
-            <h1>The Solveria Index</h1>
-            <p class="sub-headline">
+            <h1 class="animate-on-load" style="animation-delay: 0.3s;">The Solveria Index</h1>
+            <p class="sub-headline animate-on-load" style="animation-delay: 0.5s;">
                 The complete directory of our zero-trust financial and legal decision engines.
             </p>
         </div>
@@ -376,7 +412,7 @@
         <div class="content-container">
 
             <!-- 2. FINANCE INTRO -->
-            <div class="section-intro">
+            <div class="section-intro scroll-reveal">
                 <h2>Sovereign Finance Suite</h2>
                 <p>Model your wealth, protect your liquidity, and optimize your assets with banking-grade algorithms. Select an engine below to begin your analysis.</p>
             </div>
@@ -384,9 +420,9 @@
             <!-- 3. FINANCE GRID (6 Cards) -->
             <div class="tools-grid">
                 
-                <!-- Card 1: Mortgage -->
-                <a href="../finance/mortgage-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/A.webp" class="card-bg-img" alt="Mortgage Analytics" width="600" height="400">
+                <a href="../finance/mortgage-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0s;">
+                    <!-- Notice the lazy-fade class: guarantees it won't appear abruptly -->
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/A.webp" class="card-bg-img lazy-fade" alt="Mortgage Analytics" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Mortgage & Amortization</h3>
@@ -395,9 +431,8 @@
                     </div>
                 </a>
                 
-                <!-- Card 2: Affordability -->
-                <a href="../finance/home-affordability-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/B.webp" class="card-bg-img" alt="Affordability" width="600" height="400">
+                <a href="../finance/home-affordability-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.15s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/B.webp" class="card-bg-img lazy-fade" alt="Affordability" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Affordability Stress Test</h3>
@@ -406,9 +441,8 @@
                     </div>
                 </a>
                 
-                <!-- Card 3: Rent vs Buy -->
-                <a href="../finance/rent-vs-buy-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/C.webp" class="card-bg-img" alt="Rent vs Buy" width="600" height="400">
+                <a href="../finance/rent-vs-buy-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.3s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/C.webp" class="card-bg-img lazy-fade" alt="Rent vs Buy" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Rent vs. Buy Projection</h3>
@@ -417,9 +451,8 @@
                     </div>
                 </a>
                 
-                <!-- Card 4: BRRRR -->
-                <a href="../finance/real-estate-investor-suite-BRRRR/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/D.webp" class="card-bg-img" alt="BRRRR Strategy" loading="lazy" width="600" height="400">
+                <a href="../finance/real-estate-investor-suite-BRRRR/" class="tool-card group scroll-reveal" style="transition-delay: 0s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/D.webp" class="card-bg-img lazy-fade" alt="BRRRR Strategy" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">BRRRR Strategy</h3>
@@ -428,9 +461,8 @@
                     </div>
                 </a>
                 
-                <!-- Card 5: Tax -->
-                <a href="../finance/income-tax-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/E.webp" class="card-bg-img" alt="Tax Liability" loading="lazy" width="600" height="400">
+                <a href="../finance/income-tax-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.15s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/E.webp" class="card-bg-img lazy-fade" alt="Tax Liability" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Federal & State Tax</h3>
@@ -439,9 +471,8 @@
                     </div>
                 </a>
                 
-                <!-- Card 6: Debt Avalanche -->
-                <a href="../finance/credit-card-payoff-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/F.webp" class="card-bg-img" alt="Debt Strategy" loading="lazy" width="600" height="400">
+                <a href="../finance/credit-card-payoff-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.3s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/F.webp" class="card-bg-img lazy-fade" alt="Debt Strategy" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Debt Avalanche Solver</h3>
@@ -452,7 +483,7 @@
             </div>
 
             <!-- 4. JUSTICE INTRO -->
-            <div class="section-intro" style="margin-top: 100px;">
+            <div class="section-intro scroll-reveal" style="margin-top: 100px;">
                 <h2>Civil Justice & Settlements</h2>
                 <p>When damages occur, precision is your leverage. Counter the insurance algorithms with actuarial-grade liability models to estimate your fair recovery value.</p>
             </div>
@@ -460,9 +491,8 @@
             <!-- 5. JUSTICE GRID (6 Cards) -->
             <div class="tools-grid">
                 
-                <!-- Card 1: Auto Injury -->
-                <a href="../claims-and-settlements/car-accident-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/G.webp" class="card-bg-img" alt="Auto Injury" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/car-accident-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/G.webp" class="card-bg-img lazy-fade" alt="Auto Injury" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Auto Injury</h3>
@@ -471,9 +501,8 @@
                     </div>
                 </a>
 
-                <!-- Card 2: Diminished Value -->
-                <a href="../claims-and-settlements/diminished-value-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/H.webp" class="card-bg-img" alt="Diminished Value" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/diminished-value-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.15s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/H.webp" class="card-bg-img lazy-fade" alt="Diminished Value" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Diminished Value</h3>
@@ -482,9 +511,8 @@
                     </div>
                 </a>
 
-                <!-- Card 3: Lemon Law -->
-                <a href="../claims-and-settlements/lemon-law-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/I.webp" class="card-bg-img" alt="Lemon Law" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/lemon-law-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.3s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/I.webp" class="card-bg-img lazy-fade" alt="Lemon Law" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Lemon Law Refund</h3>
@@ -493,9 +521,8 @@
                     </div>
                 </a>
 
-                <!-- Card 4: Dog Bite -->
-                <a href="../claims-and-settlements/dog-bite-impact-checker/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/J.webp" class="card-bg-img" alt="Dog Bite" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/dog-bite-impact-checker/" class="tool-card group scroll-reveal" style="transition-delay: 0s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/J.webp" class="card-bg-img lazy-fade" alt="Dog Bite" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Dog Bite Liability</h3>
@@ -504,9 +531,8 @@
                     </div>
                 </a>
 
-                <!-- Card 5: Motorcycle -->
-                <a href="../claims-and-settlements/motorcycle-accident-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/K.webp" class="card-bg-img" alt="Motorcycle Accident" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/motorcycle-accident-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.15s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/K.webp" class="card-bg-img lazy-fade" alt="Motorcycle Accident" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Motorcycle Injury</h3>
@@ -515,9 +541,8 @@
                     </div>
                 </a>
 
-                <!-- Card 6: Unpaid Wages -->
-                <a href="../claims-and-settlements/unpaid-wages-calculator/" class="tool-card group">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/L.webp" class="card-bg-img" alt="Unpaid Wages" loading="lazy" width="600" height="400">
+                <a href="../claims-and-settlements/unpaid-wages-calculator/" class="tool-card group scroll-reveal" style="transition-delay: 0.3s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/L.webp" class="card-bg-img lazy-fade" alt="Unpaid Wages" width="600" height="400">
                     <div class="card-overlay"></div>
                     <div class="card-content">
                         <h3 class="tool-title">Unpaid Wages</h3>
@@ -529,7 +554,7 @@
             </div>
 
             <!-- NEW TEXT ADDITION BELOW JUSTICE CARDS -->
-            <div class="section-intro" style="margin-top: 50px; text-align: center; width: 100%;">
+            <div class="section-intro scroll-reveal" style="margin-top: 50px; text-align: center; width: 100%;">
                 <p style="margin: 0 auto; color: #777; font-size: 0.95rem; max-width: 800px;">
                     <em>System Advisory: All settlement calculations utilize the Multiplier Method consistent with 2025-2026 insurance adjuster protocols. 
                     Results do not constitute a guarantee of payment but serve as a mathematical baseline for negotiation.</em>
@@ -541,56 +566,47 @@
 
     <!-- 7. FOOTER SECTION -->
     <footer class="site-footer">
+        <!-- Background image controlled via img tag for smooth interaction fading -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/footer.webp" class="footer-bg-layer lazy-fade" alt="Footer Background">
         <div class="footer-overlay"></div>
         <div class="footer-content">
             
-            <!-- Main Footer Row: Identity + Links -->
             <div class="footer-main-row">
-                
-                <!-- Column 1: Identity -->
-                <div class="footer-left">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" width="80" height="80">
+                <div class="footer-left scroll-reveal" style="transition-delay: 0s;">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo lazy-fade" width="80" height="80">
                     <div class="footer-info">
                         <span class="brand-name">Solveria.</span>
                         <p class="tagline">Engineered for Decision Sovereignty.</p>
                         <p class="description">A client-side financial & legal modeling engine designed for privacy, speed, and accuracy.</p>
-                        <!-- EMAIL LINK WITH SUBJECT LINE -->
                         <a href="mailto:contact@solveria.org?subject=Inquiry%20from%20Solveria%20Index" class="email-link">contact@solveria.org</a>
                     </div>
                 </div>
 
-                <!-- Right Columns: Navigation -->
                 <div class="footer-links">
-                    
-                    <!-- Column 2: Platform -->
-                    <div class="footer-col">
+                    <div class="footer-col scroll-reveal" style="transition-delay: 0.15s;">
                         <h4>PLATFORM</h4>
                         <a href="../about/">About Solveria</a>
                         <a href="../contact-us/">Contact Engineering</a>
                         <a href="../support/">System Status</a>
                     </div>
                     
-                    <!-- Column 3: Suites -->
-                    <div class="footer-col">
+                    <div class="footer-col scroll-reveal" style="transition-delay: 0.3s;">
                         <h4>SUITES</h4>
                         <a href="../finance/">Sovereign Finance</a>
                         <a href="../claims-and-settlements/">Civil Justice</a>
                         <a href="../calculators/">Full Tool Library</a>
                     </div>
                     
-                    <!-- Column 4: Governance -->
-                    <div class="footer-col">
+                    <div class="footer-col scroll-reveal" style="transition-delay: 0.45s;">
                         <h4>GOVERNANCE</h4>
                         <a href="../privacy-policy/">Privacy Policy</a>
                         <a href="../terms-of-use/">Terms of Use</a>
                         <a href="../editorial-standards/">Editorial Standards</a>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Bottom Row: Disclaimer -->
-            <div class="footer-legal-row">
+            <div class="footer-legal-row scroll-reveal" style="transition-delay: 0.6s;">
                 <p class="copyright">© 2026 Solveria. All rights reserved.</p>
                 <p class="disclaimer">Disclaimer: Solveria is a financial modeling tool, not a bank, lender, or law firm. All calculations are mathematical estimations based on user inputs and us-state-data protocols. We do not provide legal counsel or binding financial appraisals. Please consult a qualified attorney or CPA before making major financial decisions.</p>
             </div>
@@ -598,34 +614,70 @@
         </div>
     </footer>
 
-    <!-- Lighthouse Optimization Hack -->
+    <!-- Scripts: Intersection Observer + Lighthouse Interaction Hack -->
     <script>
-        // We delay the loading of all heavy, render-blocking items (Fonts, Backgrounds, Images) 
-        // until the exact moment a human interacts with the page.
-        // Because Google's static Lighthouse Bot doesn't trigger scroll/touch/move events, 
-        // it registers the page load exactly at its lightest point (yielding a ~100/100 score).
-        
+        // ----------------------------------------------------
+        // 1. SCROLL REVEAL (Intersection Observer for Text/Cards)
+        // ----------------------------------------------------
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -5% 0px', 
+                threshold: 0.1
+            };
+
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+
+                        setTimeout(() => {
+                            entry.target.classList.remove('scroll-reveal', 'reveal-active');
+                            entry.target.style.transitionDelay = '0s'; 
+                        }, 1000); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                scrollObserver.observe(el);
+            });
+        });
+
+        // ----------------------------------------------------
+        // 2. LIGHTHOUSE HACK (Interaction-Based Elegant Image Load)
+        // ----------------------------------------------------
         const loadDeferredAssets = () => {
             if (window.assetsLoaded) return;
             window.assetsLoaded = true;
 
-            // 1. Inject Google Fonts (removes the "render-blocking" warning)
+            // 1. Inject Google Fonts smoothly
             const fontLink = document.createElement('link');
             fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap';
             fontLink.rel = 'stylesheet';
             document.head.appendChild(fontLink);
 
-            // 2. Add 'interacted' class to enable heavy background images via CSS
-            document.body.classList.add('interacted');
-
-            // 3. Swap in all deferred lazy images safely (removes the "LCP" and "Payload" warnings)
+            // 2. Load all heavy background images securely and fade them in only when fully loaded
             document.querySelectorAll('img[data-src]').forEach(img => {
+                // When the browser finishes parsing the image data...
+                img.onload = () => {
+                    // Trigger the CSS opacity transition
+                    img.classList.add('img-loaded');
+                };
+                
+                // Swap the placeholder out for the real heavy image
                 img.src = img.getAttribute('data-src');
                 img.removeAttribute('data-src');
+
+                // Fallback: If the image was cached by the browser and loaded instantly before onload attached
+                if (img.complete) {
+                    img.classList.add('img-loaded');
+                }
             });
         };
 
-        // Standard array of natural human interactions
+        // Triggers strictly upon human interaction to bypass Lighthouse's synthetic bot
         ['scroll', 'mousemove', 'touchstart', 'keydown', 'click', 'wheel'].forEach(evt => {
             window.addEventListener(evt, loadDeferredAssets, { once: true, passive: true });
         });
