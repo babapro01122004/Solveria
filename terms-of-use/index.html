@@ -48,10 +48,10 @@
 /* Local Font Face Configuration for Brand Name */
 @font-face {
     font-family: 'Roboto Thin Local';
-    src: url('../fonts/Roboto-Thin.ttf') format('truetype'),
-         url('../fonts/Roboto-Thin.tff') format('truetype');
+    src: url('../fonts/Roboto-Thin.ttf') format('truetype'); /* Fixed .tff typo */
     font-weight: 100;
     font-style: normal;
+    font-display: swap;
 }
         @font-face {
             font-family: 'Roboto';
@@ -93,9 +93,7 @@
    LIGHTHOUSE 100/100 LAZY REVEAL ANIMATIONS
    ========================================= */
 
-/* Hide specific elements dynamically to secure static Lighthouse load */
-.js-enabled .nav-container,
-.js-enabled .hero-content,
+/* Removed above-the-fold elements to prevent LCP penalties */
 .js-enabled .breadcrumb,
 .js-enabled .article-body > *,
 .js-enabled .footer-left,
@@ -109,8 +107,6 @@
 }
 
 /* Visibility Class Toggled by IntersectionObserver */
-.js-enabled .nav-container.reveal-visible,
-.js-enabled .hero-content.reveal-visible,
 .js-enabled .breadcrumb.reveal-visible,
 .js-enabled .article-body > *.reveal-visible,
 .js-enabled .footer-left.reveal-visible,
@@ -252,6 +248,7 @@ body.interacted .site-footer::before {
     width: fit-content;
     align-self: center;
     position: relative;
+    padding: 8px 0; /* Accessibility mobile tap target */
     transition: color 0.3s ease;
 }
 .email-link::after {
@@ -259,7 +256,7 @@ body.interacted .site-footer::before {
     position: absolute;
     width: 100%;
     height: 1px;
-    bottom: -2px;
+    bottom: 6px;
     left: 0;
     background-color: #ffffff;
     opacity: 0;
@@ -289,7 +286,7 @@ body.interacted .site-footer::before {
 }
 
 .footer-col h4 {
-    margin: 0 0 15px 0; /* Added space below the heading */
+    margin: 0 0 15px 0; /* Kept space below the heading */
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -302,6 +299,8 @@ body.interacted .site-footer::before {
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
+    padding: 8px 0; /* Added for 48px Mobile Tap Targets */
+    display: inline-block;
 }
 
 .footer-col a:hover { 
@@ -341,7 +340,7 @@ body.interacted .site-footer::before {
 
 @media (max-width: 600px) {
     .footer-main-row { flex-direction: column; gap: 50px; }
-    .footer-links { flex-direction: column; align-items: center; gap: 30px; }
+    .footer-links { flex-direction: column; align-items: center; gap: 15px; } /* Tightened for mobile tap padding */
     .footer-col { text-align: center; }
     .brand-name { font-size: 2.2rem; }
 }
@@ -457,7 +456,8 @@ body.interacted .site-footer::before {
             text-decoration: none; 
             font-size: 0.95rem; 
             font-weight: 300; 
-            margin-left: 30px;
+            margin-left: 10px; /* Reduced from 30px to compensate for added padding */
+            padding: 10px; /* Added for mobile tap targets */
             letter-spacing: 0.5px; 
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
             transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -499,7 +499,13 @@ body.interacted .site-footer::before {
 
         /* Breadcrumb */
         .breadcrumb { margin-bottom: 40px; font-size: 0.9rem; }
-        .breadcrumb a { color: #777; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a { 
+            color: #777; 
+            text-decoration: none; 
+            transition: color 0.3s ease; 
+            padding: 8px 4px; /* Tap targets */
+            display: inline-block;
+        }
         .breadcrumb a:hover { color: #000; }
         .breadcrumb span { margin: 0 8px; color: #ccc; }
         .breadcrumb .current-page { color: #333; font-weight: 400; }
@@ -523,7 +529,7 @@ body.interacted .site-footer::before {
         
         .article-body p, .article-body li { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 1em; }
         .article-body ul { padding-left: 20px; list-style-type: disc; }
-        .article-body a { color: #047857; text-decoration: none; font-weight: 400; }
+        .article-body a { color: #047857; text-decoration: none; font-weight: 400; padding: 2px 0; }
         .article-body a:hover { text-decoration: underline; }
         
         .article-body .last-updated { 
@@ -577,7 +583,7 @@ body.interacted .site-footer::before {
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 3rem; }
             .nav-container { padding: 1rem; }
-            .hero-header nav a { margin-left: 15px; font-size: 0.75rem; }
+            .hero-header nav a { margin-left: 0; font-size: 0.75rem; padding: 12px 10px; } /* Improved tap target padding */
         }
     </style>
 </head>
@@ -589,7 +595,8 @@ body.interacted .site-footer::before {
                 <picture>
                     <source media="(max-width: 768px)" srcset="../img/Logo_White_Phone.webp" type="image/webp">
                     <source media="(min-width: 769px)" srcset="../img/Logo_White.webp" type="image/webp">
-                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="160" height="38" loading="lazy" decoding="async">
+                    <!-- Removed loading lazy and added fetchpriority high to instantly load LCP element -->
+                    <img src="../img/Logo_White.png" alt="Solveria Logo" width="160" height="38" fetchpriority="high">
                 </picture>
             </a>
             <nav>
@@ -730,8 +737,9 @@ body.interacted .site-footer::before {
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Collect elements mapped to transition animations
+    // Note: nav-container and hero-content were removed here to secure instant FCP/LCP metrics
     const revealElements = document.querySelectorAll(
-        '.nav-container, .hero-content, .breadcrumb, .article-body > *, .footer-left, .footer-col, .footer-legal-row'
+        '.breadcrumb, .article-body > *, .footer-left, .footer-col, .footer-legal-row'
     );
 
     let interacted = false;
