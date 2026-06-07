@@ -1020,7 +1020,7 @@ input:checked + .slider-round:before {
     border-radius: 12px;
     padding: 20px;
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* FIXED: Centered for perfect SVG alignment */
     gap: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
@@ -1044,7 +1044,7 @@ input:checked + .slider-round:before {
     font-size: 1.7vh;
     color: #333;
     line-height: 1.4;
-    padding-top: 5px;
+    /* REMOVED padding-top to fix alignment completely */
 }
 
 /* Disclaimer Text - UPDATED FOR ALIGNMENT */
