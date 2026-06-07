@@ -1,526 +1,324 @@
 // us-state-data.js
-// Dog-bite state baseline data for frontend use
-// Fields per state:
-//  - code: USPS state code
-//  - name: state name
-//  - liability: "strict" | "one-bite" | "negligence" | "mixed"
-//  - statuteLimitYears: numeric (years for personal injury / dog-bite claims)
-//  - statuteNotes: short human-friendly note about nuance
-//  - collectionRisk: "low" | "medium" | "high" (heuristic: strict states = lower risk of dismissal)
-//  - lastChecked: ISO date
-//  - sources: array of short domain strings
 
-const US_STATE_DATA = {
-  "AL": {
-    code: "AL",
+/**
+ * THE HYBRID STATE DATA REPOSITORY
+ *
+ * STRUCTURE EXPLANATION:
+ * bucket: Triggers the Calculator Logic (17c vs Standard vs Restricted)
+ * status: The legal reality (displayed in the Header/Results)
+ * tip:    The tactical advice (displayed in "What to do next" context)
+ *
+ * BUCKET KEYS:
+ * 'formula'    -> Triggers 17c Math (Georgia & NC)
+ * 'restricted' -> Triggers "Hard to Recover" Warnings (Michigan)
+ * 'standard'   -> Triggers Standard Common Law Logic (Everyone else)
+ */
+
+export const US_STATE_DATA = {
+  AL: {
     name: "Alabama",
-    liability: "mixed", // "Emily's Law" creates strict liability if dangerous, but often negligence/one-bite otherwise
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability often requires the dog to be known as dangerous/vicious; otherwise, negligence applies.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["animallaw.info", "findlaw.com"]
+    bucket: "standard",
+    status: "Common Law State. You are entitled to the difference in market value.",
+    tip: "Policy language often excludes first-party claims; focus on third-party liability."
   },
-  "AK": {
-    code: "AK",
+  AK: {
     name: "Alaska",
-    liability: "one-bite",
-    statuteLimitYears: 2,
-    statuteNotes: "Generally follows the 'one-bite rule' requiring proof of owner negligence or prior knowledge.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["nolo.com", "animallaw.info"]
+    bucket: "standard",
+    status: "Common Law State. Entitled to be made whole.",
+    tip: "Courts generally uphold third-party DV claims with valid evidence."
   },
-  "AZ": {
-    code: "AZ",
+  AZ: {
     name: "Arizona",
-    liability: "strict",
-    statuteLimitYears: 1, // Statutory strict liability is 1 year; negligence is 2. Safe to warn 1.
-    statuteNotes: "Strict liability claims must be filed within 1 year; general negligence claims have 2 years.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["azleg.gov", "findlaw.com"]
+    bucket: "standard",
+    status: "Common Law State (Ref: Oliver v. Henry).",
+    tip: "Arizona case law supports recovery of value loss in third-party claims."
   },
-  "AR": {
-    code: "AR",
+  AR: {
     name: "Arkansas",
-    liability: "one-bite",
-    statuteLimitYears: 3,
-    statuteNotes: "Follows the one-bite rule; liability typically requires proof the owner knew of aggression.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["justia.com", "animallaw.info"]
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Insurers often demand a trade-in quote as proof. Get one from a major dealer."
   },
-  "CA": {
-    code: "CA",
+  CA: {
     name: "California",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies in public or lawfully in private; no prior bite knowledge needed.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["leginfo.legislature.ca.gov", "findlaw.com"]
+    bucket: "standard",
+    status: "Consumer Protection State (Jury Instruction 3903J).",
+    tip: "California Jury Instructions explicitly recognize the difference in market value as valid damages."
   },
-  "CO": {
-    code: "CO",
+  CO: {
     name: "Colorado",
-    liability: "mixed", // Strict for serious bodily injury, one-bite for others
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies primarily to 'serious bodily injury.' Minor injuries may require proving negligence.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["courts.state.co.us", "animallaw.info"]
+    bucket: "standard",
+    status: "Statutory Protection State.",
+    tip: "Recent legislation requires insurers to disclose that DV coverage is available in third-party claims."
   },
-  "CT": {
-    code: "CT",
+  CT: {
     name: "Connecticut",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability unless the victim was teasing, tormenting, or trespassing.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["cga.ct.gov", "justia.com"]
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Dealer quotes are persuasive here. Case law supports recovery from at-fault drivers."
   },
-  "DE": {
-    code: "DE",
+  DE: {
     name: "Delaware",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Owner is strictly liable unless the victim was trespassing, teasing, or tormenting the dog.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["delcode.delaware.gov", "findlaw.com"]
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "First-party claims often barred by 'repair or replace' clauses; pursue the at-fault driver."
   },
-  "FL": {
-    code: "FL",
-    name: "Florida",
-    liability: "strict",
-    statuteLimitYears: 4,
-    statuteNotes: "Strict liability generally applies, but damages can be reduced by victim's percentage of fault.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["leg.state.fl.us", "findlaw.com"]
-  },
-  "GA": {
-    code: "GA",
-    name: "Georgia",
-    liability: "mixed",
-    statuteLimitYears: 2,
-    statuteNotes: "Modified one-bite: Liability if owner knew of danger OR dog was off-leash in violation of local law.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["justia.com", "animallaw.info"]
-  },
-  "HI": {
-    code: "HI",
-    name: "Hawaii",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies. The owner is presumed liable for injuries caused by the dog.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["capitol.hawaii.gov", "nolo.com"]
-  },
-  "ID": {
-    code: "ID",
-    name: "Idaho",
-    liability: "one-bite",
-    statuteLimitYears: 2,
-    statuteNotes: "Generally requires proof of negligence or prior knowledge (one-bite), unless statutes specify otherwise.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["legislature.idaho.gov", "findlaw.com"]
-  },
-  "IL": {
-    code: "IL",
-    name: "Illinois",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies if the dog attacks without provocation and the victim is lawfully present.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["ilga.gov", "animallaw.info"]
-  },
-  "IN": {
-    code: "IN",
-    name: "Indiana",
-    liability: "mixed",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability for victims carrying out legal duties (e.g., mail carriers); one-bite rule often applies otherwise.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["iga.in.gov", "justia.com"]
-  },
-  "IA": {
-    code: "IA",
-    name: "Iowa",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies. Owner is liable for all damages unless the victim was committing an unlawful act.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["legis.iowa.gov", "findlaw.com"]
-  },
-  "KS": {
-    code: "KS",
-    name: "Kansas",
-    liability: "one-bite",
-    statuteLimitYears: 2,
-    statuteNotes: "Follows the one-bite rule; usually requires proving the owner knew the dog was dangerous.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["kslegislature.org", "animallaw.info"]
-  },
-  "KY": {
-    code: "KY",
-    name: "Kentucky",
-    liability: "strict",
-    statuteLimitYears: 1, // Crucially short
-    statuteNotes: "Strict liability applies, but the filing window is short (1 year). Immediate action recommended.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["lrc.ky.gov", "findlaw.com"]
-  },
-  "LA": {
-    code: "LA",
-    name: "Louisiana",
-    liability: "strict",
-    statuteLimitYears: 1, // Crucially short
-    statuteNotes: "Owner is strictly liable if they could have prevented the injury. 1-year deadline is strict.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["legis.la.gov", "justia.com"]
-  },
-  "ME": {
-    code: "ME",
-    name: "Maine",
-    liability: "strict",
-    statuteLimitYears: 6,
-    statuteNotes: "Strict liability for damages. Fault by the victim (provocation) can reduce compensation.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["mainelegislature.org", "animallaw.info"]
-  },
-  "MD": {
-    code: "MD",
-    name: "Maryland",
-    liability: "mixed",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability if the dog was 'at large' (off-leash). Contributory negligence is a strong defense.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["mgaleg.maryland.gov", "findlaw.com"]
-  },
-  "MA": {
-    code: "MA",
-    name: "Massachusetts",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies unless the victim was trespassing, teasing, or tormenting the dog.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["malegislature.gov", "justia.com"]
-  },
-  "MI": {
-    code: "MI",
-    name: "Michigan",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies if the bite occurred publicly or while lawfully on private property.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["legislature.mi.gov", "animallaw.info"]
-  },
-  "MN": {
-    code: "MN",
-    name: "Minnesota",
-    liability: "strict",
-    statuteLimitYears: 6,
-    statuteNotes: "Strict liability applies if the victim was acting peaceably and lawfully. Long filing window.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["revisor.mn.gov", "findlaw.com"]
-  },
-  "MS": {
-    code: "MS",
-    name: "Mississippi",
-    liability: "one-bite",
-    statuteLimitYears: 3,
-    statuteNotes: "Generally follows the one-bite rule unless the dog was already deemed dangerous.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["justia.com", "animallaw.info"]
-  },
-  "MO": {
-    code: "MO",
-    name: "Missouri",
-    liability: "strict",
-    statuteLimitYears: 5,
-    statuteNotes: "Strict liability for bites on public property or lawfully on private property.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["revisor.mo.gov", "findlaw.com"]
-  },
-  "MT": {
-    code: "MT",
-    name: "Montana",
-    liability: "mixed",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability often applies in incorporated cities/towns; negligence rules may apply elsewhere.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["leg.mt.gov", "animallaw.info"]
-  },
-  "NE": {
-    code: "NE",
-    name: "Nebraska",
-    liability: "strict",
-    statuteLimitYears: 4,
-    statuteNotes: "Strict liability applies unless the victim was trespassing or committing a mischievous act.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["nebraskalegislature.gov", "findlaw.com"]
-  },
-  "NV": {
-    code: "NV",
-    name: "Nevada",
-    liability: "one-bite",
-    statuteLimitYears: 2,
-    statuteNotes: "One-bite rule typically applies; must prove owner negligence or prior knowledge of danger.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["leg.state.nv.us", "animallaw.info"]
-  },
-  "NH": {
-    code: "NH",
-    name: "New Hampshire",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability for all damage done by a dog to a person or property.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["gencourt.state.nh.us", "findlaw.com"]
-  },
-  "NJ": {
-    code: "NJ",
-    name: "New Jersey",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies regardless of the dog's history. Trespassing is a key defense.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["njleg.state.nj.us", "justia.com"]
-  },
-  "NM": {
-    code: "NM",
-    name: "New Mexico",
-    liability: "one-bite",
-    statuteLimitYears: 3,
-    statuteNotes: "One-bite rule or negligence generally applies; lack of prior aggression is a strong defense.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["nmcourts.gov", "animallaw.info"]
-  },
-  "NY": {
-    code: "NY",
-    name: "New York",
-    liability: "mixed",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability for medical bills; negligence must be proven for other damages (pain & suffering).",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["nysenate.gov", "animallaw.info"]
-  },
-  "NC": {
-    code: "NC",
-    name: "North Carolina",
-    liability: "mixed",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability if dog is 'dangerous' or at large at night; otherwise negligence applies.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["ncleg.gov", "findlaw.com"]
-  },
-  "ND": {
-    code: "ND",
-    name: "North Dakota",
-    liability: "one-bite",
-    statuteLimitYears: 6,
-    statuteNotes: "One-bite rule applies; liability usually depends on owner's knowledge of aggression.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["legis.nd.gov", "animallaw.info"]
-  },
-  "OH": {
-    code: "OH",
-    name: "Ohio",
-    liability: "strict",
-    statuteLimitYears: 2, // 2 years for PI, 6 for some statutory contexts, safer to assume 2.
-    statuteNotes: "Strict liability applies unless victim was trespassing, teasing, or committing a crime.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["codes.ohio.gov", "findlaw.com"]
-  },
-  "OK": {
-    code: "OK",
-    name: "Oklahoma",
-    liability: "strict",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability applies to bites occurring when the victim is lawfully present/not trespassing.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["oksenate.gov", "justia.com"]
-  },
-  "OR": {
-    code: "OR",
-    name: "Oregon",
-    liability: "mixed",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability for economic damages (bills); negligence proof needed for non-economic damages.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["oregonlegislature.gov", "animallaw.info"]
-  },
-  "PA": {
-    code: "PA",
-    name: "Pennsylvania",
-    liability: "mixed", // Strict for medical, negligence for full tort
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability covers medical costs; proving negligence is required for full compensation.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["legis.state.pa.us", "findlaw.com"]
-  },
-  "RI": {
-    code: "RI",
-    name: "Rhode Island",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies. Double damages may be available if the dog has bitten before.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["webserver.rilin.state.ri.us", "animallaw.info"]
-  },
-  "SC": {
-    code: "SC",
-    name: "South Carolina",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies unless the victim provoked or harassed the dog.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["scstatehouse.gov", "findlaw.com"]
-  },
-  "SD": {
-    code: "SD",
-    name: "South Dakota",
-    liability: "one-bite",
-    statuteLimitYears: 3,
-    statuteNotes: "Generally follows the one-bite rule/negligence; lack of prior history is a defense.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["sdlegislature.gov", "animallaw.info"]
-  },
-  "TN": {
-    code: "TN",
-    name: "Tennessee",
-    liability: "mixed",
-    statuteLimitYears: 1, // Crucially short
-    statuteNotes: "Strict liability if 'at large' or in public; one-bite rule often applies on owner's property. 1 year SOL.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["tn.gov", "findlaw.com"]
-  },
-  "TX": {
-    code: "TX",
-    name: "Texas",
-    liability: "negligence", // "One Bite" with negligence focus
-    statuteLimitYears: 2,
-    statuteNotes: "Follows the 'One Bite Rule' / Negligence. Must prove owner knew of danger or failed to be careful.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["statutes.capitol.texas.gov", "justia.com"]
-  },
-  "UT": {
-    code: "UT",
-    name: "Utah",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies. Owner is liable for damages regardless of the dog's history.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["le.utah.gov", "findlaw.com"]
-  },
-  "VT": {
-    code: "VT",
-    name: "Vermont",
-    liability: "one-bite",
-    statuteLimitYears: 3,
-    statuteNotes: "Generally follows one-bite rule; usually requires proving owner negligence or knowledge.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["legislature.vermont.gov", "animallaw.info"]
-  },
-  "VA": {
-    code: "VA",
-    name: "Virginia",
-    liability: "mixed", // One Bite / Negligence Per Se
-    statuteLimitYears: 2,
-    statuteNotes: "One-bite rule generally, but 'Negligence Per Se' applies if leash laws were violated.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["law.lis.virginia.gov", "findlaw.com"]
-  },
-  "WA": {
-    code: "WA",
-    name: "Washington",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies to bites occurring in public or lawfully on private property.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["leg.wa.gov", "animallaw.info"]
-  },
-  "WV": {
-    code: "WV",
-    name: "West Virginia",
-    liability: "mixed",
-    statuteLimitYears: 2,
-    statuteNotes: "Strict liability if dog is 'at large'; negligence/one-bite applies if confined/on property.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["wvlegislature.gov", "findlaw.com"]
-  },
-  "WI": {
-    code: "WI",
-    name: "Wisconsin",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability applies. Double damages possible if owner knew of prior bites.",
-    collectionRisk: "low",
-    lastChecked: "2025-02-08",
-    sources: ["docs.legis.wisconsin.gov", "findlaw.com"]
-  },
-  "WY": {
-    code: "WY",
-    name: "Wyoming",
-    liability: "one-bite",
-    statuteLimitYears: 4,
-    statuteNotes: "Follows the one-bite rule. Must prove owner knew the dog was dangerous.",
-    collectionRisk: "high",
-    lastChecked: "2025-02-08",
-    sources: ["wyoleg.gov", "animallaw.info"]
-  },
-  "DC": {
-    code: "DC",
+  DC: {
     name: "District of Columbia",
-    liability: "strict",
-    statuteLimitYears: 3,
-    statuteNotes: "Strict liability if the dog is at large; negligence applies if the dog is leashed/on property.",
-    collectionRisk: "medium",
-    lastChecked: "2025-02-08",
-    sources: ["code.dccouncil.gov", "findlaw.com"]
+    bucket: "standard",
+    status: "Common Law Jurisdiction.",
+    tip: "Documentation is key. D.C. courts generally recognize DV in tort claims."
+  },
+  FL: {
+    name: "Florida",
+    bucket: "standard",
+    status: "Common Law State (Ref: Siegle v. Progressive).",
+    tip: "Third-party claims are valid. First-party claims are generally excluded unless stated in policy."
+  },
+  GA: {
+    name: "Georgia",
+    bucket: "formula",
+    status: "The '17c' Formula State (Ref: State Farm v. Mabry).",
+    tip: "Insurers use a specific cap here. However, the formula is a floor, not a ceiling. You can still negotiate."
+  },
+  HI: {
+    name: "Hawaii",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Shipping costs complicate value; get local island dealer quotes to prove loss."
+  },
+  ID: {
+    name: "Idaho",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Insurers will aggressively request proof of loss. Provide concrete market examples."
+  },
+  IL: {
+    name: "Illinois",
+    bucket: "standard",
+    status: "Common Law State (Pattern Jury Instructions).",
+    tip: "Jury instructions allow for the difference in value before and after the accident."
+  },
+  IN: {
+    name: "Indiana",
+    bucket: "standard",
+    status: "Common Law State (Ref: Wiese v. QA3 Financial).",
+    tip: "Burden of proof is on you. Compare pre-crash value vs. post-repair trade-in offer."
+  },
+  IA: {
+    name: "Iowa",
+    bucket: "standard",
+    status: "Common Law / Halvan Standard.",
+    tip: "Recovery allowed, provided total damages don't exceed pre-accident vehicle value."
+  },
+  KS: {
+    name: "Kansas",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "First-party claims usually excluded by contract; third-party claims are the standard path."
+  },
+  KY: {
+    name: "Kentucky",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Courts generally uphold the right to recover market value loss from at-fault drivers."
+  },
+  LA: {
+    name: "Louisiana",
+    bucket: "standard",
+    status: "Common Law State (Orleans Parish Precedent).",
+    tip: "Use NADA/KBB data + a trade-in quote to substantiate your claim."
+  },
+  ME: {
+    name: "Maine",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Third-party claims are valid. Document your loss with written dealer offers."
+  },
+  MD: {
+    name: "Maryland",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Insurers here often demand an independent appraisal report to validate the number."
+  },
+  MA: {
+    name: "Massachusetts",
+    bucket: "standard",
+    status: "Complex Common Law (Ref: McGilloway).",
+    tip: "Case law opened the door for DV, but standard policies try to exclude it. Pursue the at-fault driver."
+  },
+  MI: {
+    name: "Michigan",
+    bucket: "restricted",
+    status: "Restricted No-Fault State.",
+    tip: "Recovery is difficult. You are generally limited to the 'Mini-Tort' provision (capped amount) for vehicle damage."
+  },
+  MN: {
+    name: "Minnesota",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "First-party recovery often blocked by 'repair or replace' language. Focus on third-party."
+  },
+  MS: {
+    name: "Mississippi",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "You must prove the loss of value with specific market data (ads/quotes)."
+  },
+  MO: {
+    name: "Missouri",
+    bucket: "standard",
+    status: "Common Law State (Ref: Williams v. Farm Bureau).",
+    tip: "Measure of damages is explicitly the difference in fair market value before and after."
+  },
+  MT: {
+    name: "Montana",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Burden of proof lies with the owner. Get a written statement from a dealer."
+  },
+  NE: {
+    name: "Nebraska",
+    bucket: "standard",
+    status: "Common Law State (Ref: Chlopek v. Schmall).",
+    tip: "You are entitled to the difference in value immediately before and after the accident."
+  },
+  NV: {
+    name: "Nevada",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Law requires you to be made whole. Do not accept 'we don't pay DV' as an answer."
+  },
+  NH: {
+    name: "New Hampshire",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Third-party DV claims are allowed. Liable parties owe the damages regardless of insurance status."
+  },
+  NJ: {
+    name: "New Jersey",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Insurers may ask for a 'sold vehicle report,' but a solid trade-in offer is often sufficient evidence."
+  },
+  NM: {
+    name: "New Mexico",
+    bucket: "standard",
+    status: "Common Law State (Ref: Hale v. Basin Motor).",
+    tip: "Damages are calculated as the difference in value before and after the accident."
+  },
+  NY: {
+    name: "New York",
+    bucket: "standard",
+    status: "Common Law State (Ref: Franklin Corp v. Prahler).",
+    tip: "Precedents are older here; a professional appraisal is highly recommended to prove the loss."
+  },
+  NC: {
+    name: "North Carolina",
+    bucket: "formula",
+    status: "Statutory Formula State.",
+    tip: "NC allows First-Party claims but often uses a state-specific calculation. Check if the offer matches the statute."
+  },
+  ND: {
+    name: "North Dakota",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Entitled to be made whole. Third-party claims are valid."
+  },
+  OH: {
+    name: "Ohio",
+    bucket: "standard",
+    status: "Common Law State (Ref: Rakich v. Anthem).",
+    tip: "Generally recognizes DV in third-party tort cases. Proof of loss via appraisal is key."
+  },
+  OK: {
+    name: "Oklahoma",
+    bucket: "standard",
+    status: "Common Law State (Ref: Brennan v. Aston Martin).",
+    tip: "You are entitled to the reduction in market value. Document it clearly."
+  },
+  OR: {
+    name: "Oregon",
+    bucket: "standard",
+    status: "Common Law State (Ref: Gonzales v. Farmers).",
+    tip: "Strong case law supports DV. Entitled to market value difference, even in some first-party cases."
+  },
+  PA: {
+    name: "Pennsylvania",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "First-party claims generally excluded (Lobozzo precedent). You must sue the at-fault driver's carrier."
+  },
+  RI: {
+    name: "Rhode Island",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Insurers are tough here, but the law supports third-party recovery with good evidence."
+  },
+  SC: {
+    name: "South Carolina",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "SC is NOT a 17c state, though insurers often try to use the Georgia formula. Reject it."
+  },
+  SD: {
+    name: "South Dakota",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Third-party recovery is standard. You must prove the market value drop."
+  },
+  TN: {
+    name: "Tennessee",
+    bucket: "standard",
+    status: "Common Law State (Ref: Black v. State Farm).",
+    tip: "Third-party claims allowed. First-party claims are usually barred by policy definitions."
+  },
+  TX: {
+    name: "Texas",
+    bucket: "standard",
+    status: "Common Law State (Ref: Senters v. State Farm).",
+    tip: "First-party claims generally not allowed. Strong support for third-party liability claims."
+  },
+  UT: {
+    name: "Utah",
+    bucket: "standard",
+    status: "Common Law State (Ref: Mets v. Amco).",
+    tip: "Damages = difference in market value before and after. Get dealer verification."
+  },
+  VT: {
+    name: "Vermont",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Entitled to be made whole. Third-party claims are the primary path."
+  },
+  VA: {
+    name: "Virginia",
+    bucket: "standard",
+    status: "Common Law State (Ref: Average v. VA Farm Bureau).",
+    tip: "You must clearly demonstrate the loss in value with data."
+  },
+  WA: {
+    name: "Washington",
+    bucket: "standard",
+    status: "Pro-Consumer State (Ref: Moeller v. Farmers).",
+    tip: "Case law famously allowed First-Party DV claims. You have strong leverage here."
+  },
+  WV: {
+    name: "West Virginia",
+    bucket: "standard",
+    status: "Common Law State (Ref: Ellis v. King).",
+    tip: "Entitled to difference in market value. Gather trade-in offers."
+  },
+  WI: {
+    name: "Wisconsin",
+    bucket: "standard",
+    status: "Common Law State (Ref: Hellenbrand v. Hilliard).",
+    tip: "Entitled to value difference, even if repairs were done perfectly."
+  },
+  WY: {
+    name: "Wyoming",
+    bucket: "standard",
+    status: "Common Law State.",
+    tip: "Third-party recovery is standard. Prove loss with market data."
   }
 };
-
-export default US_STATE_DATA;

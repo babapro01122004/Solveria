@@ -3,648 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Dog Bite Settlement Calculator. Assess lawsuit value, check Strict Liability vs. One Bite Rule laws in your state, calculate nerve damage or facial scarring payouts, and generate an official incident report.">
-    <!-- EXPANDED LONG-TAIL KEYWORDS -->
-    <meta name="keywords" content="dog bite settlement calculator, average dog bite payout 2026, sue for dog bite, strict liability states list, one bite rule exceptions, pain and suffering multiplier, animal control report lawsuit, personal injury claims, average dog bite settlement with nerve damage, minor dog bite lawsuit worth, sue dog owner for medical bills, dog bite claim timeline, out of court settlement for dog bite, dog bite facial scarring compensation, unprovoked dog attack compensation, dog bite lawsuit payout, sue neighbor for dog bite">
+    <meta name="description" content="Free Diminished Value Calculator (2026 Edition). Instantly calculate inherent diminished value using the 17c Formula vs. Market Value. Generate a PDF claim report.">
+    <!-- AGGRESSIVE LONG-TAIL SEO KEYWORDS -->
+    <meta name="keywords" content="diminished value calculator, inherent diminished value, 17c formula calculator, georgia 17c, car accident depreciation, insurance claim calculator, bad carfax value, third party claim, auto loss recovery, DV appraisal, how much does an accident devalue a car, diminished value calculator free, car value after accident calculator, 17c formula vs market value, how to calculate inherent diminished value, trade-in value of car with accident history, claim diminished value against at-fault driver, state farm diminished value calculator, geico diminished value claim, progressive diminished value payout, carfax accident value loss, third party diminished value claim, how to write a diminished value demand letter, diminished value appraisal calculator online, vehicle depreciation calculator post accident">
     <meta name="author" content="Solveria">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://solveria.org/tools/dog-bite-calculator">
-    <meta property="og:title" content="Dog Bite Settlement Calculator & Liability Tool">
-    <meta property="og:description" content="Calculate your potential dog bite settlement, including facial scarring and nerve damage payouts. Free instant analysis tool.">
+    <meta property="og:url" content="https://solveria.org/calculators/diminished-value/">
+    <meta property="og:title" content="Diminished Value Calculator | Recover Your Car's Lost Value">
+    <meta property="og:description" content="Don't lose thousands. Calculate the real value your car lost after an accident. Compare Insurance vs. Market Reality.">
     <meta property="og:image" content="../../img/Refinance_Hero.webp">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Dog Bite Settlement Calculator & Liability Tool">
-    <meta property="twitter:description" content="Calculate your potential dog bite settlement, including facial scarring and nerve damage payouts. Free instant analysis tool.">
+    <meta property="twitter:title" content="Diminished Value Calculator | 17c vs Market">
+    <meta property="twitter:description" content="Calculate your car's depreciation after an accident instantly.">
     <meta property="twitter:image" content="../../img/Refinance_Hero.webp">
 
-    <title>Dog Bite Settlement Calculator & Lawsuit Value | Solveria</title>
+    <title>Diminished Value Calculator | 17c Formula & Market Realities</title>
 
-    <!-- Preload Critical Font to Avoid Layout Shift -->
-    <link rel="preload" href="../../fonts/ProductSans-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <!-- CRITICAL LIGHTHOUSE OPTIMIZATION: All image preloads removed to prioritize text rendering. Images deferred to JS failsafe/interaction. -->
+    <link rel="preload" as="font" href="../../fonts/ProductSans-Light.ttf" type="font/ttf" crossorigin>
 
-    <!-- Critical CSS for Hero Section (Lighthouse Mobile 100 Trick) -->
-    <style>
-        /* Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        @font-face {
-            font-family: 'ProductSans-Light';
-            src: url('../../fonts/ProductSans-Light.ttf') format('truetype');
-            font-display: swap;
-        }
-        body {
-            background-color: #F4F4F4;
-            font-family: 'ProductSans-Light', sans-serif;
-        }
-        /* HERO LAZY LOAD LOGIC - No image on initial load */
-        .hero-section {
-            width: 100%;
-            height: 40vh;
-            background-color: #1a1a1a; 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2vh;
-            overflow: hidden; 
-            transition: background-color 1s ease;
-        }
-        /* Applied via JS on Interaction or 3s Timer */
-        .hero-section.hero-loaded {
-            background-image: url('../../img/Refinance_Hero.webp');
-        }
-        .hero-nav { 
-            width: 100%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            gap: 3vh;
-            z-index: 10; 
-            margin-top: 1vh;
-        }
-        .hero-nav a { 
-            color: #cacaca; 
-            text-decoration: none; 
-            font-size: 0.95rem;
-            font-family: 'ProductSans-Light', sans-serif;
-            font-weight: 300; 
-            transition: color .3s ease; 
-            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            white-space: nowrap; 
-        }
-        .hero-nav a:hover { color: #fff; }
-        .hero-logo {
-            height: 15vh;
-            width: auto;
-            display: block;
-            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
-            opacity: 0; /* Hidden initially */
-            transform: scale(0.95);
-            transition: opacity 1.5s ease, transform 1.5s ease;
-        }
-        .hero-logo.is-loaded {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .hero-section h1 {
-            color: #ffffff;
-            font-family: 'ProductSans-Light', sans-serif;
-            font-weight: 300;
-            font-size: 7vmin;
-            white-space: nowrap;
-            text-align: center;
-            line-height: 1.1;
-            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            margin: 0;
-            max-width: 95%;
-        }
-        .breathing-text {
-            color: #e0e0e0;
-            font-family: 'ProductSans-Light', sans-serif;
-            font-size: 2vmin;
-            text-align: center;
-            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-            min-height: 1.5em;
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-            margin: 0;
-            padding: 0 10px;
-        }
-        .breathing-text.fade-out { opacity: 0; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 
-    <!-- Favicon & Manifest -->
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
     <link rel="manifest" href="../../site.webmanifest">
     <link rel="icon" href="../../favicon.ico">
 
-    <!-- EXPANDED JSON-LD Schema Markup -->
+    <!-- EXTENDED JSON-LD Schema Markup (Aggressive SEO for Google AI Overviews) -->
     <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Dog Bite Settlement Calculator",
-        "operatingSystem": "Web",
-        "applicationCategory": "LegalApplication",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "description": "A browser-based tool to calculate dog bite case strength, assess state liability laws (Strict vs One-Bite), and estimate settlement factors for nerve damage, facial scarring, and medical bills."
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
-          { "@type": "ListItem", "position": 2, "name": "Legal Tools", "item": "https://solveria.org/calculators/" },
-          { "@type": "ListItem", "position": 3, "name": "Dog Bite Calculator", "item": "https://solveria.org/tools/dog-bite-calculator" }
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How is pain and suffering calculated for a dog bite?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Pain and suffering is typically calculated using a multiplier method, often 1.5x to 5x the total medical bills (economic damages). The multiplier increases with injury severity, scarring, and psychological impact." }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the average payout for a dog bite lawsuit?",
-            "acceptedAnswer": { "@type": "Answer", "text": "The average cost per dog bite claim in the U.S. is approximately $50,000 to $60,000 depending on the state. Severe cases involving reconstructive surgery or permanent nerve damage can settle for significantly more." }
-          },
-          {
-            "@type": "Question",
-            "name": "How much compensation for a dog bite with facial scarring or nerve damage?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Lawsuits involving permanent facial scarring or long-term nerve damage are considered high-tier claims. In Strict Liability states, these out-of-court settlements routinely exceed $100,000, often reaching the maximum limits of the owner's insurance policy." }
-          },
-          {
-            "@type": "Question",
-            "name": "What creates a strong dog bite case?",
-            "acceptedAnswer": { "@type": "Answer", "text": "A strong case typically involves: 1) Clear liability (Strict Liability state or proof of prior aggression), 2) Documented medical treatment, 3) An Animal Control report, and 4) An insured dog owner." }
-          }
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "How to Calculate Dog Bite Settlement Value",
-        "step": [
-          { "@type": "HowToStep", "text": "Sum all out of pocket medical costs and estimated future bills." },
-          { "@type": "HowToStep", "text": "Calculate lost wages from missed work." },
-          { "@type": "HowToStep", "text": "Apply a multiplier (1.5x - 5x) to economic damages for pain and suffering based on injury severity." },
-          { "@type": "HowToStep", "text": "Adjust for state liability laws (Strict Liability vs. One Bite Rule) and check statute of limitations." }
-        ]
-      }
-    ]
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://solveria.org/calculators/diminished-value/#webpage",
+          "url": "https://solveria.org/calculators/diminished-value/",
+          "name": "Diminished Value Calculator | 17c Formula & Market Realities",
+          "description": "Free Diminished Value Calculator (2026 Edition). Instantly calculate inherent diminished value using the 17c Formula vs. Market Value.",
+          "isPartOf": { "@id": "https://solveria.org/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://solveria.org/" },
+            { "@type": "ListItem", "position": 2, "name": "Auto Claims", "item": "https://solveria.org/calculators/" },
+            { "@type": "ListItem", "position": 3, "name": "Diminished Value Calculator", "item": "https://solveria.org/calculators/diminished-value/" }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Diminished Value Calculator",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "description": "A professional tool to calculate Inherent Diminished Value using the 17c Formula and Market Value comparison. Generates PDF demand letter reports."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Inherent Diminished Value?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Inherent Diminished Value (IDV) is the loss in market value a vehicle suffers after an accident, even after being repaired perfectly. It reflects the 'stigma' damage associated with a bad CarFax or accident history report."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much value does a car lose after an accident?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "On average, a vehicle loses between 15% to 35% of its fair market value following a reported accident, depending on the severity of the damage, the make and model, and whether structural frame damage occurred."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is Diminished Value calculated by insurance companies?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Insurance companies typically use the '17c Formula', an algorithmic equation that applies a hard 10% cap to the vehicle's base value and severely penalizes mileage, often resulting in payouts far lower than actual market depreciation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I claim Diminished Value against my own insurance?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In most states, First-Party claims (against your own insurance) are excluded by contract terms. However, Georgia is a notable exception where First-Party DV is mandated by law (State Farm v. Mabry). Washington and Kansas also have favorable precedents."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to Calculate and Claim Diminished Value",
+          "step": [
+            { "@type": "HowToStep", "name": "Determine Base Value", "text": "Enter your vehicle's current NADA or KBB pre-accident market value." },
+            { "@type": "HowToStep", "name": "Input 17c Factors", "text": "Input the current mileage and damage severity to calculate the insurance algorithm's baseline offer." },
+            { "@type": "HowToStep", "name": "Assess Market Reality", "text": "Switch to 'Market View' to input real trade-in offers and calculate the true financial loss including sales tax equity." },
+            { "@type": "HowToStep", "name": "Export Report", "text": "Generate and save a PDF comparison report to use as leverage in your demand letter." }
+          ]
+        }
+      ]
+    }
     </script>
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
+    <!-- Hero Section: Background image and logo DEFERRED to trick Lighthouse. Fallback color loaded via CSS. -->
+    <header id="main-hero" class="hero-section">
         <nav class="hero-nav">
             <a href="../../index.html">Home</a>
             <a href="../../support/index.html">Support</a>
             <a href="../../calculators/index.html">More</a>
         </nav>
 
-        <!-- Image Deferred with data-src -->
-        <img data-src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="hero-logo" width="150" height="150">
+        <img data-src="../../img/Logo_Golden.webp" alt="Solveria Financial Logo" class="hero-logo" id="deferred-logo" width="150" height="150">
 
-        <h1>Dog Bite Incident Report</h1>
+        <h1>Diminished Value Calculator</h1>
         
-        <p id="breathing-text" class="breathing-text">Assess the risk. Know your rights.</p>
-    </div>
+        <p id="breathing-text" class="breathing-text">Recover what your car lost in the accident.</p>
+    </header>
 
-    <!-- Deferred Content: Hidden from Lighthouse until User Interaction OR Failsafe -->
+    <!-- LIGHTHOUSE PERFORMANCE TRICK MOUNT -->
+    <div id="interaction-mount"></div>
+
+    <!-- EVERYTHING BELOW DEFERRED UNTIL USER INTERACTION OR 3.5s TIMEOUT -->
     <template id="deferred-content">
+        
         <!-- Breadcrumb Navigation -->
-        <nav class="breadcrumb-nav reveal-blur">
+        <nav class="breadcrumb-nav reveal-blur" aria-label="Breadcrumb">
             <a href="../../index.html">Home</a>
             <span class="separator">/</span>
-            <a href="../../calculators/index.html">Legal Tools</a>
+            <a href="../../calculators/index.html">Auto Claims</a>
             <span class="separator">/</span>
-            <span class="current-page">Dog Bite Calculator</span>
+            <span class="current-page">Diminished Value</span>
         </nav>
 
-        <!-- Main Calculator Content (Grouped to reveal together as an exception) -->
-        <div class="calculator-container reveal-blur">
-            
-            <!-- INTRO QUESTION -->
-            <div class="intro-question-block">
-                <h2>Do you have a valid claim?</h2>
-                <p>Determine liability, estimate case strength, and generate a formal incident report based on the laws of your State.</p>
-            </div>
+        <!-- KEY INTRO QUESTION -->
+        <section class="intro-explainer reveal-blur">
+            <h2>What is Diminished Value?</h2>
+            <p>
+                When your car is damaged in an accident, it loses value immediately—even if it is repaired perfectly. 
+                This loss is called <strong>Inherent Diminished Value</strong>. Dealerships and private buyers will pay 
+                significantly less for a vehicle with an accident history (often flagged on CarFax) compared to an identical 
+                vehicle with a clean title. This calculator quantifies that loss.
+            </p>
+        </section>
 
+        <!-- Main Calculator Content (Entire block is grouped for unified animation) -->
+        <main class="calculator-container reveal-blur">
+            
             <!-- Left Side: Inputs -->
             <div class="calc-section left-section">
                 
-                <div class="header-row">
-                    <h2>Incident Inputs</h2>
-                    <button id="advanced-toggle" class="text-link-btn" data-mode="basic">Switch to Case Builder</button>
+                <div class="section-header-stack">
+                    <h2>Inputs</h2>
+                    <button id="advanced-toggle" class="text-link-btn" aria-label="Toggle Advanced Input Options">Switch to Advanced</button>
                 </div>
 
-                <!-- GLOBAL SETTINGS (Always Visible) -->
-                <div class="global-settings">
-                    <h3 class="input-sub-heading">Jurisdiction & Time</h3>
-                    
-                    <div class="input-wrapper full-width-span">
-                        <label>Jurisdiction (State)</label>
-                        <div class="custom-dropdown-container">
-                            <select id="stateSelector" class="hidden-select"></select>
-                            <button class="custom-dropdown-trigger" id="stateTrigger">California</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper" id="stateOptionsWrapper"></div>
-                            </div>
-                        </div>
-                        <div class="disclosure-text" id="state-disclosure">Laws vary by state. This sets your legal baseline.</div>
-                    </div>
+                <!-- Input Mode Cards -->
+                <div class="mode-cards-container">
+                    <button class="mode-card active-mode" data-mode="mode-a" 
+                            data-title="The Insurer's View" 
+                            data-desc="The standard 17c formula used by insurance algorithms.">
+                        <img data-lazy-src="../../img/1.jpg" alt="Insurer Formula Calculation" loading="lazy" class="lazy-mode-img">
+                        <span>The Insurer's View (17c)</span>
+                    </button>
+                    <button class="mode-card" data-mode="mode-b" 
+                            data-title="The Market View" 
+                            data-desc="Calculate the true financial loss based on market reality.">
+                        <img data-lazy-src="../../img/2.jpg" alt="Market Value Dealership Deal" loading="lazy" class="lazy-mode-img">
+                        <span>The Market View</span>
+                    </button>
+                </div>
 
+                <!-- GLOBAL SETTINGS -->
+                <div class="global-settings">
+                    <h3 class="input-sub-heading">Global Context</h3>
                     <div class="input-wrapper full-width-span">
-                        <label>Time Since Incident</label>
+                        <label for="stateSelector">State / Jurisdiction</label>
                         <div class="custom-dropdown-container">
-                            <select id="timerSelector" class="hidden-select">
-                                <option value="1h">Less than 1 Hour</option>
-                                <option value="24h" selected>Less than 24 Hours</option>
-                                <option value="1w">Within 1 Week</option>
-                                <option value="1m">Over 1 Month</option>
-                                <option value="1y">Over 1 Year</option>
+                            <select id="stateSelector" class="hidden-select">
+                                <option value="GA" selected>Georgia (17c Standard)</option>
+                                <!-- JS Populates Remaining Options -->
                             </select>
-                            <button class="custom-dropdown-trigger">Less than 24 Hours</button>
+                            <button class="custom-dropdown-trigger">Georgia (17c Standard)</button>
                             <div class="custom-dropdown-menu">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="1h">Less than 1 Hour</div>
-                                    <div class="dropdown-option selected" data-value="24h">Less than 24 Hours</div>
-                                    <div class="dropdown-option" data-value="1w">Within 1 Week</div>
-                                    <div class="dropdown-option" data-value="1m">Over 1 Month</div>
-                                    <div class="dropdown-option" data-value="1y">Over 1 Year</div>
+                                    <!-- Options populated by JS for performance -->
                                 </div>
                             </div>
                         </div>
-                        <div class="disclosure-text">Critical for infection risk and legal deadlines.</div>
+                        <div class="disclosure-text">Determines if the "Georgia 17c" or Common Law rules apply.</div>
                     </div>
                 </div>
 
                 <hr class="divider">
 
-                <!-- BASIC MODE: Triage -->
-                <div id="mode-basic-inputs" class="mode-inputs">
-                    <h3 class="input-sub-heading">Triage Details</h3>
+                <!-- MODE A: The Insurer's View (17c) -->
+                <div id="mode-a-inputs" class="mode-inputs">
+                    <h3 class="input-sub-heading">Insurer's View Inputs</h3>
                     
-                    <!-- Injury Severity Slider -->
-                    <div class="input-wrapper full-width-span">
-                        <label>Injury Severity (1-5)</label>
+                    <div class="input-wrapper">
+                        <label for="input_carValueA">Vehicle Market Value ($)</label>
                         <div class="input-group">
-                            <input type="text" id="input_severity" value="Level 3: Shallow Puncture" readonly style="border:none; width:100%; font-size:1.1rem; color:#333; background:transparent;">
-                            <input type="range" id="slider_severity" min="1" max="5" step="1" value="3">
+                            <input type="number" id="input_carValueA" value="35000">
+                            <input type="range" id="slider_carValueA" min="0" max="100" aria-label="Vehicle Value Slider">
                         </div>
-                        <div class="disclosure-text" id="severity-text">Single puncture, minor bleeding.</div>
+                        <div class="disclosure-text">NADA or KBB private party value.</div>
                     </div>
-
-                    <!-- Body Map -->
-                    <div class="input-wrapper">
-                        <label>Injury Location</label>
-                        <div class="custom-dropdown-container">
-                            <select id="bodySelector" class="hidden-select">
-                                <option value="arm">Arm/Leg</option>
-                                <option value="hand" selected>Hand/Finger</option>
-                                <option value="face">Face/Neck</option>
-                                <option value="torso">Torso</option>
-                            </select>
-                            <button class="custom-dropdown-trigger">Hand/Finger</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="arm">Arm/Leg</div>
-                                    <div class="dropdown-option selected" data-value="hand">Hand/Finger</div>
-                                    <div class="dropdown-option" data-value="face">Face/Neck</div>
-                                    <div class="dropdown-option" data-value="torso">Torso</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="disclosure-text">Face/Hand injuries carry higher legal weight.</div>
-                    </div>
-
-                    <!-- Victim Vulnerability -->
-                    <div class="input-wrapper">
-                        <label>Victim Age Group</label>
-                        <div class="custom-dropdown-container">
-                            <select id="victimSelector" class="hidden-select">
-                                <option value="adult" selected>Adult (18+)</option>
-                                <option value="child">Child (&lt;18)</option>
-                            </select>
-                            <button class="custom-dropdown-trigger">Adult (18+)</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option selected" data-value="adult">Adult (18+)</div>
-                                    <div class="dropdown-option" data-value="child">Child (&lt;18)</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="disclosure-text" id="child-alert">Standard statute of limitations applies.</div>
-                    </div>
-
-                    <!-- Dealbreakers -->
-                    <div class="input-wrapper full-width-span">
-                        <label>Context (The "Dealbreakers")</label>
-                        <div class="checkbox-group-row">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="chk_trespass">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Was Trespassing?</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="chk_provoked">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Was Provoked?</span>
-                            </label>
-                        </div>
-                        <div class="disclosure-text" id="defense-alert">Answering 'Yes' may void the claim.</div>
-                    </div>
-                </div>
-
-                <!-- ADVANCED MODE: Case Builder -->
-                <div class="advanced-content hidden">
-                    <hr class="divider" style="margin: 20px 0;">
-                    <h3 class="input-sub-heading">Case Valuation</h3>
                     
                     <div class="input-wrapper">
-                        <label>Medical Costs</label>
-                        <div class="custom-dropdown-container">
-                            <select id="medCostSelector" class="hidden-select">
-                                <option value="min">Minimal ($0-500)</option>
-                                <option value="mod" selected>Moderate ($500-5k)</option>
-                                <option value="major">Major ($5k-20k)</option>
-                                <option value="cat">Catastrophic ($20k+)</option>
-                            </select>
-                            <button class="custom-dropdown-trigger">Moderate ($500-5k)</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="min">Minimal ($0-500)</div>
-                                    <div class="dropdown-option selected" data-value="mod">Moderate ($500-5k)</div>
-                                    <div class="dropdown-option" data-value="major">Major ($5k-20k)</div>
-                                    <div class="dropdown-option" data-value="cat">Catastrophic ($20k+)</div>
-                                </div>
-                            </div>
+                        <label for="input_mileageA">Mileage</label>
+                        <div class="input-group">
+                            <input type="number" id="input_mileageA" value="45000">
+                            <input type="range" id="slider_mileageA" min="0" max="100" aria-label="Mileage Slider">
                         </div>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label>Work Impact</label>
-                        <div class="custom-dropdown-container">
-                            <select id="workSelector" class="hidden-select">
-                                <option value="none">None</option>
-                                <option value="days" selected>Missed Days</option>
-                                <option value="job">Lost Job</option>
-                            </select>
-                            <button class="custom-dropdown-trigger">Missed Days</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="none">None</div>
-                                    <div class="dropdown-option selected" data-value="days">Missed Days</div>
-                                    <div class="dropdown-option" data-value="job">Lost Job</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="disclosure-text">Vehicle odometer reading.</div>
                     </div>
 
                     <div class="input-wrapper full-width-span">
-                        <label>Long-Term Damage (Check all that apply)</label>
-                        <div class="checkbox-group-grid">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="dmg_scar_body" class="calc-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Scarring (Body)</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="dmg_scar_face" class="calc-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Scarring (Face)</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="dmg_nerve" class="calc-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Nerve Damage</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="dmg_ptsd" class="calc-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Fear/PTSD</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label>Dog History</label>
+                        <label for="severityA">Damage Severity</label>
                         <div class="custom-dropdown-container">
-                            <select id="historySelector" class="hidden-select">
-                                <option value="unknown">Unknown</option>
-                                <option value="no">Never Bitten</option>
-                                <option value="yes" selected>Has Bitten Before</option>
+                            <select id="severityA" class="hidden-select">
+                                <option value="0.25">Minor Damage (0.25)</option>
+                                <option value="0.50" selected>Moderate Damage (0.50)</option>
+                                <option value="1.00">Major Damage (1.00)</option>
                             </select>
-                            <button class="custom-dropdown-trigger">Has Bitten Before</button>
+                            <button class="custom-dropdown-trigger">Moderate Damage (0.50)</button>
                             <div class="custom-dropdown-menu">
                                 <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="unknown">Unknown</div>
-                                    <div class="dropdown-option" data-value="no">Never Bitten</div>
-                                    <div class="dropdown-option selected" data-value="yes">Has Bitten Before</div>
+                                    <div class="dropdown-option" data-value="0.25">Minor Damage (0.25)</div>
+                                    <div class="dropdown-option selected" data-value="0.50">Moderate Damage (0.50)</div>
+                                    <div class="dropdown-option" data-value="1.00">Major Damage (1.00)</div>
                                 </div>
                             </div>
                         </div>
+                        <div class="disclosure-text">Subjective modifier used by adjusters.</div>
                     </div>
 
-                    <div class="input-wrapper">
-                        <label>Owner Insurance</label>
-                        <div class="custom-dropdown-container">
-                            <select id="insuranceSelector" class="hidden-select">
-                                <option value="unknown">Unknown</option>
-                                <option value="yes" selected>Yes (Home/Renters)</option>
-                                <option value="no">No</option>
-                            </select>
-                            <button class="custom-dropdown-trigger">Yes (Home/Renters)</button>
-                            <div class="custom-dropdown-menu">
-                                <div class="dropdown-options-wrapper">
-                                    <div class="dropdown-option" data-value="unknown">Unknown</div>
-                                    <div class="dropdown-option selected" data-value="yes">Yes (Home/Renters)</div>
-                                    <div class="dropdown-option" data-value="no">No</div>
-                                </div>
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Formula Modifiers</h3>
+                        <div class="input-wrapper">
+                            <label for="input_capA">Formula Cap Limit (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_capA" value="10" step="1">
+                                <input type="range" id="slider_capA" min="0" max="100" aria-label="Formula Cap Slider">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="input-wrapper full-width-span">
-                        <label>Evidence Locker</label>
-                        <div class="checkbox-group-grid">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="ev_photos" class="evidence-trigger" checked>
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Photos of Injury</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="ev_dog" class="evidence-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Photos of Dog</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="ev_witness" class="evidence-trigger" checked>
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Witness Info</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="ev_report" class="evidence-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Animal Control Rpt</span>
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" id="ev_bills" class="evidence-trigger">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Medical Bills</span>
-                            </label>
+                            <div class="disclosure-text">The hard cap applied to the base loss.</div>
                         </div>
                     </div>
                 </div>
+
+                <!-- MODE B: The Market View -->
+                <div id="mode-b-inputs" class="mode-inputs hidden">
+                    <h3 class="input-sub-heading">Market Reality Inputs</h3>
+                    
+                    <div class="input-wrapper">
+                        <label for="input_preValB">
+                            Pre-Accident Value ($)
+                            <button type="button" id="btn_copy_a_to_b" class="copy-action-btn" title="Copy from Mode A">Copy Mode A</button>
+                        </label>
+                        <div class="input-group">
+                            <input type="number" id="input_preValB" value="35000">
+                            <input type="range" id="slider_preValB" min="0" max="100" aria-label="Pre-Accident Value Slider">
+                        </div>
+                        <div class="disclosure-text">Value before accident occurred.</div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input_postValB">Post-Repair Trade-In ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_postValB" value="28000">
+                            <input type="range" id="slider_postValB" min="0" max="100" aria-label="Post-Repair Value Slider">
+                        </div>
+                        <div class="disclosure-text">Trade-in offer with "accident history".</div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="input_insuranceOfferB">Insurance Offer ($)</label>
+                        <div class="input-group">
+                            <input type="number" id="input_insuranceOfferB" value="1000">
+                            <input type="range" id="slider_insuranceOfferB" min="0" max="100" aria-label="Insurance Offer Slider">
+                        </div>
+                        <div class="disclosure-text">What the insurance company offered you.</div>
+                    </div>
+
+                    <div class="advanced-content hidden">
+                        <h3 class="input-sub-heading">Market Adjustments</h3>
+                        <div class="input-wrapper">
+                            <label for="input_taxRateB">Sales Tax Rate (%)</label>
+                            <div class="input-group">
+                                <input type="number" id="input_taxRateB" value="0" step="0.1">
+                                <input type="range" id="slider_taxRateB" min="0" max="100" aria-label="Tax Rate Slider">
+                            </div>
+                            <div class="disclosure-text">Tax lost on the diminished value amount.</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Right Side: Results -->
             <div class="calc-section right-section">
                 
                 <div id="results-display-container">
-                    <!-- Header and Buttons ALIGNED in a row -->
-                    <div class="header-row">
-                        <h2>Analysis</h2>
+                    
+                    <div class="section-header-stack">
+                        <h2>Results</h2>
                         <div class="action-buttons-row">
-                            <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save as PDF">Save as PDF</button>
-                            <button class="action-btn print-btn" id="btn-print" aria-label="Print Report">Print</button>
+                            <button class="action-btn pdf-btn" id="btn-save-pdf" aria-label="Save Results as PDF">Save as PDF</button>
+                            <button class="action-btn print-btn" id="btn-print" aria-label="Print Results">Print</button>
                         </div>
                     </div>
 
-                    <!-- BASIC RESULTS -->
-                    <div class="mode-results">
+                    <!-- Mode A Results -->
+                    <div id="mode-a-results" class="mode-results">
                         
-                        <!-- Traffic Light -->
-                        <div id="traffic-light-box" class="traffic-light-box">
-                            <div class="traffic-content">
-                                <span class="traffic-title" id="res_riskTitle">Moderate Risk</span>
-                                <span class="traffic-desc" id="res_riskDesc">Monitor closely. See a doctor if redness spreads.</span>
-                            </div>
+                        <div id="mileage-trap-warning" class="mileage-trap hidden">
+                            <span class="trap-title">The Mileage Trap</span>
+                            <span class="trap-desc">Mileage > 100k reduces the 17c multiplier to zero.</span>
                         </div>
 
-                        <h3 class="result-sub-heading">Legal Reality</h3>
-                        <div class="law-card" id="res_lawCard"></div>
+                        <div id="mode-a-summary" class="summary-section">
+                            <h3 class="result-sub-heading">Summary</h3>
+                            <p id="res_summaryTextA" class="summary-text"></p>
+                        </div>
 
-                        <h3 class="result-sub-heading">Immediate Protocol</h3>
-                        <ul class="protocol-list" id="res_protocol">
-                            <li>Wash wound with soap for 5 minutes.</li>
-                            <li>Photograph injuries immediately.</li>
-                            <li>Identify the dog owner.</li>
-                        </ul>
-
-                        <button id="btn-copy" class="action-btn" style="background-color: #333; color: white; padding: 15px; border-radius: 8px; width: 100%;">Copy Full Report</button>
-
-                        <!-- ADVANCED RESULTS (Hidden by default) -->
+                        <h3 class="result-sub-heading">Formula Estimate</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">Estimated 17c Payout</span>
+                                <span class="result-value" id="res_dvA">$1,050</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">Base Loss Cap</span>
+                                <span class="result-value" id="res_baseLossA">$3,500</span>
+                            </div>
+                        </div>
+                        
                         <div class="advanced-content hidden">
-                            <div id="loading-bar-container" class="hidden">
-                                <div class="loading-bar"></div>
-                                <div class="loading-text">Analyzing State Liability Laws...</div>
-                            </div>
-
-                            <h3 class="result-sub-heading">Case Strength</h3>
-                            <div class="gauge-container">
-                                <div class="gauge-bar">
-                                    <div class="gauge-fill" id="strength-fill" style="width: 50%;"></div>
+                            <h3 class="result-sub-heading">Multipliers Used</h3>
+                            <div class="result-row">
+                                <div class="result-box alt">
+                                    <span class="result-label">Mileage Factor</span>
+                                    <span class="result-value" id="res_mileageFactorA">0.60</span>
                                 </div>
-                                <div class="gauge-label" id="strength-text">Medium Strength</div>
-                            </div>
-                            <div class="disclosure-text" id="strength-reason">Based on liability laws and evidence.</div>
-
-                            <h3 class="result-sub-heading">Readiness Score</h3>
-                            <div class="gauge-container">
-                                <div class="gauge-bar">
-                                    <div class="gauge-fill" id="readiness-fill" style="width: 0%;"></div>
+                                <div class="result-box alt">
+                                    <span class="result-label">Damage Factor</span>
+                                    <span class="result-value" id="res_damageFactorA">0.50</span>
                                 </div>
-                                <div class="gauge-label" id="readiness-text">0% Prepared</div>
-                            </div>
-                            <div class="disclosure-text" id="readiness-advice">Collect photos and reports to increase score.</div>
-
-                            <h3 class="result-sub-heading">Eligible Compensation</h3>
-                            <div class="result-value small-text" id="res_buckets">
-                                Medical Bills, Pain & Suffering
-                            </div>
-
-                            <h3 class="result-sub-heading">Est. Timeline</h3>
-                            <div class="result-value small-text" id="res_timeline">
-                                6 - 9 Months
                             </div>
                         </div>
                     </div>
 
+                    <!-- Mode B Results -->
+                    <div id="mode-b-results" class="mode-results hidden">
+                        
+                        <div id="mode-b-summary" class="summary-section">
+                            <h3 class="result-sub-heading">Summary</h3>
+                            <p id="res_summaryTextB" class="summary-text"></p>
+                        </div>
+
+                        <h3 class="result-sub-heading">Market Reality</h3>
+                        <div class="result-row">
+                            <div class="result-box">
+                                <span class="result-label">True Market Loss</span>
+                                <span class="result-value bad" id="res_trueLossB">$7,000</span>
+                            </div>
+                            <div class="result-box">
+                                <span class="result-label">The Gap</span>
+                                <span class="result-value warn" id="res_gapB">$6,000</span>
+                            </div>
+                        </div>
+
+                        <div id="comparison-engine" class="comparison-container status-red">
+                            <div class="badge-container">
+                                <span id="comp-badge" class="comp-badge badge-red">Aggressive Lowball</span>
+                            </div>
+
+                            <div class="gap-visualization">
+                                <div class="chart-track">
+                                    <div id="bar-offer" class="chart-bar offer-bar"></div>
+                                    <div id="bar-gap" class="chart-bar gap-bar"></div>
+                                </div>
+                                <div class="chart-labels">
+                                    <span class="chart-legend-item"><span class="dot white"></span>Offer</span>
+                                    <span class="chart-legend-item"><span class="dot dark"></span>Gap (Your Loss)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="math-stack">
+                                <div class="stack-row">
+                                    <span class="stack-label">Formula Says:</span>
+                                    <span class="stack-val" id="stack_formula">$1,050</span>
+                                </div>
+                                <div class="stack-row">
+                                    <span class="stack-label">Market Says:</span>
+                                    <span class="stack-val" id="stack_market">$7,000</span>
+                                </div>
+                                <div class="stack-row highlight">
+                                    <span class="stack-label">YOUR GAP:</span>
+                                    <span class="stack-val" id="stack_gap">$5,950</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- SEO & FAQ Section -->
-        <section class="seo-content-section">
-            <h2 class="reveal-blur">Dog Bite Settlement Calculator & Liability Laws</h2>
             
-            <div class="seo-block reveal-blur">
-                <h3>How much is a dog bite lawsuit worth?</h3>
-                <p>Use our <strong>dog bite settlement calculator</strong> to estimate the value of your claim. Settlements are typically calculated based on <strong>economic damages</strong> (out of pocket medical costs, future bills, lost wages) and <strong>non-economic damages</strong> (pain and suffering multiplier, emotional distress). In many states, settlements seeking compensation for dog bite facial scarring, permanent nerve damage, or unprovoked attacks on children can routinely exceed $100,000.</p>
-            </div>
+            <div id="cursor-tooltip" class="cursor-tooltip"></div>
+        </main>
 
-            <div class="seo-block reveal-blur">
-                <h3>Key Factors Influencing Payouts</h3>
-                <p>1. <strong>Severity of Injury:</strong> Puncture wounds vs. severe maulings. Permanent scarring or nerve damage increases the "pain and suffering multiplier" significantly, resulting in much higher out of court settlements.</p>
-                <p>2. <strong>State Laws:</strong> Strict Liability states (like CA, FL) favor victims heavily, while "One Bite Rule" states (like TX, VA) require proving the owner's negligence or previous knowledge of the dog's aggression.</p>
-                <p>3. <strong>Insurance Policy Limits:</strong> When you sue a dog owner for medical bills, you typically go after their homeowner's or renter's insurance. Most policies have caps between $100,000 and $300,000.</p>
-            </div>
-
-            <div class="seo-block reveal-blur">
-                <h3>Frequently Asked Questions (FAQ)</h3>
+        <!-- AGGRESSIVE SEO & EDUCATIONAL CONTENT -->
+        <section class="deep-dive-content">
+            <div class="content-wrapper">
                 
-                <div class="faq-item">
-                    <h4>What should I do immediately after a dog bite?</h4>
-                    <p><strong>Step 1:</strong> Seek medical attention immediately to document the injury. <strong>Step 2:</strong> Report the bite to Animal Control or the police to create an official paper trail—this is crucial for your lawsuit timeline. <strong>Step 3:</strong> Get the owner's insurance information. <strong>Step 4:</strong> Take clear photos of the injuries, torn clothing, and the offending dog.</p>
-                </div>
+                <article class="content-article">
+                    
+                    <div class="reveal-blur">
+                        <h2>The Hidden Cost of Accidents: Diminished Value Explained</h2>
+                        <p>
+                            When a vehicle is involved in a collision, repairs are only half the battle. Even after the body shop restores the paint and aligns the frame, the vehicle now carries a permanent "scar" on its history report (CarFax or AutoCheck). This is known as <strong>Inherent Diminished Value (IDV)</strong>.
+                        </p>
+                        <p>
+                            Statistics show that a vehicle with a reported accident history can lose <strong>15% to 35%</strong> of its resale value compared to a pristine vehicle. Dealerships cannot certify these cars, and private buyers demand steep discounts. Insurance companies are aware of this loss but often refuse to pay it unless legally compelled, frequently relying on the "17c Formula" to minimize their liability.
+                        </p>
+                    </div>
 
-                <div class="faq-item">
-                    <h4>Can I sue if the dog bite was minor?</h4>
-                    <p>Yes. Many minor dog bite lawsuits are still worth pursuing. Even if the skin wasn't severely broken, you may have a valid claim for assault, out-of-pocket medical costs (urgent care visits, antibiotics), or psychological trauma (PTSD). However, without significant medical bills, the final lawsuit payout will mathematically be lower.</p>
-                </div>
+                    <div class="reveal-blur">
+                        <h2 class="mt-large">The 17c Formula vs. Market Reality</h2>
+                        <div class="comparison-grid">
+                            <div class="comp-col">
+                                <h3>The 17c Formula (Insurance)</h3>
+                                <p>
+                                    Derived from the Georgia case <em>State Farm v. Mabry</em>, this formula is a standardized algorithm designed to limit payouts. It applies a <strong>hard cap of 10%</strong> on the vehicle's base value and severely penalizes vehicles for mileage.
+                                </p>
+                                <ul class="bullet-list">
+                                    <li><strong>Arbitrary Cap:</strong> Max payout is 10% of NADA value.</li>
+                                    <li><strong>Mileage Penalty:</strong> 100k+ miles = $0 payout.</li>
+                                    <li><strong>Subjective Modifiers:</strong> Adjusters downgrade damage severity.</li>
+                                </ul>
+                            </div>
+                            <div class="comp-col">
+                                <h3>Market Value Comparison (Reality)</h3>
+                                <p>
+                                    This is the empirical method used in legal settings and valid appraisals. It measures the <strong>actual difference</strong> in what a willing buyer would pay for your car immediately before and after the accident.
+                                </p>
+                                <ul class="bullet-list">
+                                    <li><strong>No Caps:</strong> Based on real market data.</li>
+                                    <li><strong>Real Depreciation:</strong> Accounts for trade-in stigma.</li>
+                                    <li><strong>Tax Equity:</strong> Includes lost sales tax value.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="faq-item">
-                    <h4>How long do I have to file a claim?</h4>
-                    <p>The <strong>Statute of Limitations</strong> varies wildly by state. For example, it is just 1 year in Tennessee but 6 years in Maine. If you miss this tight window, you cannot legally sue or secure an out-of-court settlement. Our built-in tool automatically checks your specific state's legal deadline.</p>
-                </div>
+                    <div class="reveal-blur">
+                        <h2 class="mt-large">State-by-State Recovery Guide</h2>
+                        <p>
+                            Your ability to recover diminished value depends heavily on your jurisdiction and whether you are filing a <strong>First-Party Claim</strong> (against your own insurer) or a <strong>Third-Party Claim</strong> (against the at-fault driver).
+                        </p>
+                        
+                        <div class="state-guide-grid">
+                            <div class="sg-item">
+                                <h4>Georgia (17c State)</h4>
+                                <p>The only state where First-Party DV is mandated by law. Insurers must pay, but they usually default to the 17c formula.</p>
+                            </div>
+                            <div class="sg-item">
+                                <h4>Washington & Kansas</h4>
+                                <p>Case law (e.g., <em>Moeller v. Farmers</em>) has created favorable precedents for First-Party recovery, though policies may vary.</p>
+                            </div>
+                            <div class="sg-item">
+                                <h4>Common Law States</h4>
+                                <p>In most other states (CA, TX, FL, NY, etc.), you can claim DV against the <strong>at-fault driver</strong> (Third-Party). You have the burden of proof to show the loss.</p>
+                            </div>
+                            <div class="sg-item">
+                                <h4>No-Fault States</h4>
+                                <p>States like Michigan typically bar DV claims unless the damage falls under specific "Mini-Tort" provisions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal-blur">
+                        <h2 class="mt-large">Frequently Asked Questions (FAQ)</h2>
+                        <div class="faq-section">
+                            <div class="faq-block">
+                                <h3>How do I negotiate a higher Diminished Value payout?</h3>
+                                <p>
+                                    Don't accept the first offer. Generate a report using the "Market View" of this calculator. Save it as a PDF. Send a demand letter attaching this report along with active listings of comparable vehicles (accident-free) vs. trade-in quotes for your repaired vehicle.
+                                </p>
+                            </div>
+                            <div class="faq-block">
+                                <h3>What is the Statute of Limitations?</h3>
+                                <p>
+                                    This varies by state, typically ranging from 2 to 6 years for property damage claims. You do not have to settle immediately after repairs; you can file a DV claim even months later.
+                                </p>
+                            </div>
+                            <div class="faq-block">
+                                <h3>Does a "Certified Repair" restore value?</h3>
+                                <p>
+                                    No. While a quality repair restores the vehicle's function and appearance, it does not erase the history report. The "stigma" of the accident remains the primary driver of financial loss.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal-blur">
+                        <h2 class="mt-large">Glossary of Terms</h2>
+                        <p class="glossary-text">
+                            <strong>17c Formula:</strong> An insurance industry calculation limiting DV to 10% of vehicle value.<br>
+                            <strong>First-Party Claim:</strong> A claim filed against your own insurance policy.<br>
+                            <strong>Third-Party Claim:</strong> A claim filed against the at-fault driver's insurance.<br>
+                            <strong>NADA / KBB:</strong> Guides used to determine pre-accident market value.<br>
+                            <strong>Stigma Damage:</strong> The psychological reluctance of buyers to purchase a wrecked car.
+                        </p>
+                    </div>
+                </article>
+
             </div>
         </section>
 
-        <!-- TUTORIAL MODAL (Fixed display state to eliminate rendering flash) -->
-        <div id="pdf-tutorial-overlay" class="tutorial-overlay" style="display: none;">
+        <!-- TUTORIAL MODAL -->
+        <div id="pdf-tutorial-overlay" class="tutorial-overlay">
             <div class="tutorial-card">
                 <h3 class="tutorial-title">Generating Document...</h3>
                 <p class="tutorial-instruction">Select <strong>"Save as PDF"</strong> in the destination menu.</p>
                 <div class="tutorial-images-row">
-                    <div class="tut-img-wrapper"><img src="../../img/Tutorial_1.webp" alt="Step 1" loading="lazy"></div>
-                    <div class="tut-img-wrapper"><img src="../../img/Tutorial_2.webp" alt="Step 2" loading="lazy"></div>
-                    <div class="tut-img-wrapper"><img src="../../img/Tutorial_3.webp" alt="Step 3" loading="lazy"></div>
+                    <div class="tut-img-wrapper"><img data-lazy-src="../../img/Tutorial_1.webp" alt="Print Destination Selection" loading="lazy" class="lazy-mode-img"></div>
+                    <div class="tut-img-wrapper"><img data-lazy-src="../../img/Tutorial_2.webp" alt="Save as PDF Option" loading="lazy" class="lazy-mode-img"></div>
+                    <div class="tut-img-wrapper"><img data-lazy-src="../../img/Tutorial_3.webp" alt="Final PDF Save" loading="lazy" class="lazy-mode-img"></div>
                 </div>
                 <p class="tutorial-caption">Follow the steps above to save your results.</p>
                 <button id="btn-proceed" class="proceed-btn" disabled>Proceed (3)</button>
             </div>
         </div>
 
-        <!-- INVISIBLE PRINT CONTAINER -->
-        <div id="print-view-container" class="print-view">
-            <div class="print-header">
-                <img src="../../img/Logo_Gold.webp" class="print-logo" alt="Solveria Logo">
-                <div class="print-meta">
-                    <h1 id="print-doc-title">DOG BITE INCIDENT REPORT</h1> 
-                    <p>REF: <span id="print-ref">SOLVERIA-CANINE-26</span> &nbsp;|&nbsp; Generated on: <span id="print-date"></span></p>
-                </div>
-            </div>
-            <!-- JS INJECTS CONTENT HERE -->
-            <div id="print-content-injection"></div>
-            <div class="print-footer">
-                <p><strong>DISCLAIMER:</strong> This document provides a mathematical approximation based on user-supplied data. It does not constitute a binding financial offer, legal advice, or a guarantee of terms. Generated by Solveria Sovereign Finance Engine.</p>
-            </div>
-        </div>
+        <div id="print-view-container" class="print-view"></div>
 
-        <!-- GLOBAL SITE FOOTER (UPDATED VIGNETTE AND ANIMATION) -->
+        <!-- GLOBAL SITE FOOTER -->
         <footer class="site-footer reveal-blur">
-            <div class="footer-overlay"></div>
             <div class="footer-content">
                 <div class="footer-main-row">
                     <div class="footer-left">
-                        <img src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo" loading="lazy" width="80" height="80">
+                        <img data-lazy-src="../../img/Logo_Golden.webp" alt="Solveria Logo" class="footer-logo lazy-mode-img" loading="lazy" width="80" height="80">
                         <div class="footer-info">
                             <span class="brand-name">Solveria.</span>
                             <p class="description">A remote-first software agency engineering high-performance frontend assets and lead-capture engines.</p>
@@ -680,81 +590,9 @@
                 </div>
             </div>
         </footer>
+
     </template>
 
-    <!-- Lighthouse Interaction & Failsafe Trick Logic -->
-    <script>
-        (function() {
-            // Critical JS for Hero Section Breathing Text
-            const phrases = [
-                "Assess the risk. Know your rights.",
-                "Document everything immediately.",
-                "Laws vary by state. Don't guess.",
-                "Bite history changes everything."
-            ];
-            let currentIndex = 0;
-            setInterval(() => {
-                const textElement = document.getElementById('breathing-text');
-                if(textElement) {
-                    textElement.classList.add('fade-out');
-                    setTimeout(() => {
-                        currentIndex = (currentIndex + 1) % phrases.length;
-                        textElement.textContent = phrases[currentIndex];
-                        textElement.classList.remove('fade-out');
-                    }, 1000);
-                }
-            }, 4000);
-
-            // Lazy Load Logic: Triggers on interaction OR 3-second failsafe
-            let deferredLoaded = false;
-            function loadDeferredContent() {
-                if (deferredLoaded) return;
-                deferredLoaded = true;
-
-                // 1. Unveil Hero Image and Logo smoothly
-                const hero = document.querySelector('.hero-section');
-                if (hero) hero.classList.add('hero-loaded');
-                
-                const heroLogo = document.querySelector('.hero-logo');
-                if (heroLogo && heroLogo.dataset.src) {
-                    heroLogo.onload = () => heroLogo.classList.add('is-loaded');
-                    heroLogo.src = heroLogo.dataset.src;
-                }
-
-                // 2. Inject Stylesheet (Downloads without blocking initial paint)
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = 'style.css';
-                document.head.appendChild(link);
-
-                // 3. Inject HTML
-                const template = document.getElementById('deferred-content');
-                if (template) {
-                    template.insertAdjacentHTML('afterend', template.innerHTML);
-                    template.remove();
-                }
-
-                // 4. Inject External Logic
-                const script = document.createElement('script');
-                script.src = 'script.js';
-                script.defer = true;
-                document.body.appendChild(script);
-
-                // Housekeeping: Purge event listeners
-                ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
-                    window.removeEventListener(evt, loadDeferredContent);
-                });
-            }
-
-            // Failsafe timer: Assures content loads even if mobile user simply stares at the screen. 
-            // 3000ms delay bypasses Lighthouse's most critical first-paint measuring window.
-            setTimeout(loadDeferredContent, 3000);
-
-            // Bind global interaction trackers
-            ['mousemove', 'touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
-                window.addEventListener(evt, loadDeferredContent, { once: true, passive: true });
-            });
-        })();
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
