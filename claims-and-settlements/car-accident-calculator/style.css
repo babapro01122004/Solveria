@@ -194,7 +194,8 @@ body {
 }
 
 .core-question-wrapper h2 {
-    font-family: 'ProductSans-Thin', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
     font-size: 3.5rem;
     color: #333;
     margin-bottom: 10px;
@@ -534,7 +535,7 @@ body {
     top: calc(100% + 5px);
     left: 0;
     width: 100%;
-    background: #ffffff;
+    background: #FAFAFA;
     border: none; 
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.12);
@@ -637,7 +638,7 @@ body {
     cursor: pointer;
     border-radius: 8px; 
     margin-bottom: 2px; 
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .dropdown-option:hover { 
@@ -648,8 +649,8 @@ body {
 .dropdown-option.selected { 
     font-weight: 500; 
     color: #000; 
-    background: #ffffff; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    background: #FFFFFF; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
 }
 
 /* ============================ */
@@ -803,22 +804,46 @@ input:checked + .slider-round:before {
     font-size: 12px;
 }
 
-/* Severity Meter */
+/* ============================ */
+/* NEW SEVERITY METER (DUAL LAYER) */
+/* ============================ */
+.severity-wrapper {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px; /* space for the shadow bleed */
+    width: 100%;
+}
+
 .severity-bar-container {
     width: 100%;
     height: 14px;
     background-color: #e0e0e0;
     border-radius: 7px;
-    margin-top: 15px;
     overflow: hidden;
     position: relative;
+}
+
+/* Visual Layer */
+.severity-bar-container.visual-layer {
+    z-index: 2;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Faint Shadow Layer */
+.severity-bar-container.shadow-layer {
+    position: absolute;
+    top: 8px; /* Push down to create shadow effect */
+    left: 0;
+    z-index: 1;
+    filter: blur(10px);
+    opacity: 0.7;
+    background-color: transparent; /* No gray track on shadow layer */
 }
 
 .severity-bar-fill {
     height: 100%;
     width: 0%; 
-    background-color: #66bb6a;
+    background-color: #2DCC70; /* Default Green */
     transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.5s ease;
 }
 
@@ -882,13 +907,15 @@ input:checked + .slider-round:before {
 /* Uncollectible Warning */
 .policy-limit-warning {
     display: inline-block;
-    background-color: #f0f0f0;
-    color: #777;
+    background-color: #ffffff;
+    color: #555;
     font-size: 1.4vh;
-    padding: 4px 10px;
-    border-radius: 4px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-top: 8px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    font-family: 'ProductSans-Light', sans-serif;
 }
 
 .policy-limit-warning .warning-text {
@@ -908,6 +935,11 @@ input:checked + .slider-round:before {
     margin-bottom: 10px;
 }
 
+.chart-wrapper {
+    position: relative;
+    margin-bottom: 25px; /* space for the shadow to bleed out */
+}
+
 .stacked-bar-chart {
     width: 100%;
     height: 35px;
@@ -915,7 +947,22 @@ input:checked + .slider-round:before {
     border-radius: 8px;
     display: flex;
     overflow: hidden;
-    margin-bottom: 15px;
+}
+
+.stacked-bar-chart.visual-layer {
+    position: relative;
+    z-index: 2;
+}
+
+/* PERFECTLY MATCHING FAINT COLORED SHADOW LAYER */
+.stacked-bar-chart.shadow-layer {
+    position: absolute;
+    top: 12px; /* Pull it slightly down */
+    left: 0;
+    z-index: 1;
+    filter: blur(14px); /* creates the beautiful glow */
+    opacity: 0.65;
+    background-color: transparent; /* No gray background needed here */
 }
 
 .bar-segment {
@@ -936,9 +983,10 @@ input:checked + .slider-round:before {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
-.bar-segment.attorney { background-color: #ef5350; } 
-.bar-segment.liens { background-color: #ffa726; }    
-.bar-segment.net { background-color: #66bb6a; }      
+/* NEW PROGRESS BAR COLORS */
+.bar-segment.attorney { background-color: #E84C3D; } 
+.bar-segment.liens { background-color: #EFC50E; }    
+.bar-segment.net { background-color: #2DCC70; }      
 
 .chart-legend {
     display: flex;
@@ -960,9 +1008,10 @@ input:checked + .slider-round:before {
     display: inline-block;
 }
 
-.dot.attorney { background-color: #ef5350; }
-.dot.liens { background-color: #ffa726; }
-.dot.net { background-color: #66bb6a; }
+/* NEW LEGEND DOT COLORS */
+.dot.attorney { background-color: #E84C3D; }
+.dot.liens { background-color: #EFC50E; }
+.dot.net { background-color: #2DCC70; }
 
 /* Verdict Section */
 .verdict-container {
@@ -977,8 +1026,17 @@ input:checked + .slider-round:before {
 }
 
 .verdict-icon {
-    font-size: 3vh;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.verdict-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .verdict-text {
@@ -986,6 +1044,7 @@ input:checked + .slider-round:before {
     font-size: 1.7vh;
     color: #333;
     line-height: 1.4;
+    padding-top: 5px;
 }
 
 /* Disclaimer Text - UPDATED FOR ALIGNMENT */
@@ -1031,7 +1090,8 @@ input:checked + .slider-round:before {
 }
 
 .seo-header h2 {
-    font-family: 'ProductSans-Thin', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
     font-size: 4rem; /* Massive, clean header */
     color: #333;
     margin-bottom: 15px;
@@ -1058,16 +1118,25 @@ input:checked + .slider-round:before {
 }
 
 .seo-article h3 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 2.2rem;
     color: #222;
     margin-top: 50px;
     margin-bottom: 20px;
-    font-weight: 600;
 }
 
 .seo-article h3:first-child {
     margin-top: 0;
+}
+
+.seo-article h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 1.8rem;
+    color: #222;
+    margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 .seo-article p {
@@ -1109,22 +1178,6 @@ input:checked + .slider-round:before {
     top: -5px;
 }
 
-/* Info Card (Grey Box) within Article */
-.info-card {
-    background-color: #eae5df; /* Very Light Brown/Grey */
-    padding: 30px;
-    border-radius: 12px;
-    margin: 40px 0;
-}
-
-.info-card h4 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
 .plain-list {
     list-style: none;
 }
@@ -1147,11 +1200,11 @@ input:checked + .slider-round:before {
 }
 
 .seo-faq-section h3 {
-    font-family: 'ProductSans-Thin', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
     font-size: 3rem;
     color: #333;
     margin-bottom: 50px;
-    font-weight: 300;
 }
 
 /* Grid for FAQ Items */
@@ -1163,10 +1216,10 @@ input:checked + .slider-round:before {
 }
 
 .faq-item h4 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.25rem;
-    color: #B5855E; /* Question in Brown */
-    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #000;
     margin-bottom: 10px;
     line-height: 1.3;
 }
@@ -1230,9 +1283,9 @@ input:checked + .slider-round:before {
 }
 
 .tutorial-title {
-    font-family: 'ProductSans-Light', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
     font-size: 2rem;
-    font-weight: 300;
     color: #333;
 }
 

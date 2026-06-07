@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Accident Calculator 2026: Estimate Injury Settlement Payouts</title>
-    <meta name="description" content="Free Car Accident Settlement Calculator. Estimate pain and suffering, medical liens, and lost wages. 2026 Edition updated for all 50 US States. Instant PDF Report. Find out how much your personal injury claim is really worth.">
-    <meta name="keywords" content="car accident calculator, injury settlement calculator, pain and suffering multiplier, car crash claim value, settlement payout guide 2026, how much is my car accident claim worth, personal injury settlement estimate, auto accident compensation calculator by state, car crash settlement amounts, bodily injury claim calculator">
+    <!-- AGGRESSIVE SEO EXPANSION -->
+    <meta name="description" content="Free 2026 Car Accident Settlement Calculator. Estimate pain and suffering, medical liens, lost wages, and attorney fees. Find out exactly how much your personal injury, whiplash, or rear-end collision claim is worth based on comparative fault rules in your state.">
+    <meta name="keywords" content="car accident calculator, injury settlement calculator, pain and suffering multiplier, car crash claim value, settlement payout guide 2026, how much is my car accident claim worth, personal injury settlement estimate, auto accident compensation calculator by state, car crash settlement amounts, bodily injury claim calculator, whiplash settlement calculator, rear end collision payout, semi truck accident settlement, motorcycle accident claim value, average car accident settlement 2026, uninsured motorist claim calculator, loss of earning capacity calculator, diminished value claim calculator, car accident lawyer fee calculator, accident settlement timeline, pure comparative negligence calculator, modified comparative fault calculator, property damage car insurance claim, soft tissue injury payout, broken bone accident settlement, how to calculate pain and suffering">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -68,7 +69,15 @@
             "price": "0",
             "priceCurrency": "USD"
           },
-          "description": "Calculate the true value of your car accident injury claim, including pain and suffering multipliers, medical liens, and lost wages based on 2026 state-specific fault rules."
+          "description": "Calculate the true value of your car accident injury claim, including pain and suffering multipliers, medical liens, and lost wages based on 2026 state-specific fault rules.",
+          "featureList": [
+            "Pain and suffering multiplier calculation",
+            "Medical lien and subrogation deductions",
+            "Lost wages and future earning capacity estimation",
+            "Comparative and contributory negligence state-by-state rules",
+            "Attorney contingency fee calculator",
+            "Uninsured motorist coverage checks"
+          ]
         },
         {
           "@type": "BreadcrumbList",
@@ -105,10 +114,26 @@
             },
             {
               "@type": "Question",
-              "name": "What is a structured settlement?",
+              "name": "What is the average settlement for whiplash or soft tissue injuries?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Instead of a lump sum, a structured settlement pays out money over a set period of years. This is common in cases involving minors or catastrophic injuries to ensure long-term financial stability and tax benefits."
+                "text": "Whiplash and soft tissue injuries typically settle between $2,500 and $10,000 depending on the length of physical therapy and objective medical evidence. Cases with documented life impacts or lost wages can settle higher."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do adjusters calculate pain and suffering?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Adjusters commonly use a 'Multiplier Method', multiplying your total economic damages (medical bills + lost wages) by a number between 1.5 (minor injuries) and 5 (catastrophic injuries)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if I was partially at fault for the crash?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It depends on your state. In 'Pure Comparative' states (like CA), you recover your damages minus your fault percentage. In 'Modified Comparative' states (like TX), you get nothing if you are 51% or more at fault. In 'Contributory' states (like VA), even 1% fault bars any recovery."
               }
             },
             {
@@ -129,18 +154,10 @@
             },
             {
               "@type": "Question",
-              "name": "What if the driver is uninsured?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "If you have Uninsured Motorist (UM/UIM) coverage on your own policy, you can file a claim against your own insurance company. They will step into the shoes of the at-fault driver to pay your claim."
-              }
-            },
-            {
-              "@type": "Question",
               "name": "Do I need a lawyer for a fender bender?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "For minor property damage with no injuries, you likely don't need an attorney. However, if you have any injury requiring medical treatment, an attorney typically increases the net settlement amount even after their fees."
+                "text": "For minor property damage with no injuries, you likely don't need an attorney. However, if you have any injury requiring medical treatment, an attorney typically increases the net settlement amount even after their 33% fee."
               }
             }
           ]
@@ -284,9 +301,10 @@
                     <div class="input-wrapper">
                         <label>Did Insurance Pay?</label>
                         <div class="toggle-wrapper">
-                            <span class="toggle-label" id="insurancePaidLabel">No</span>
+                            <!-- Toggle Checked by default to ensure Yellow bar shows up instantly -->
+                            <span class="toggle-label" id="insurancePaidLabel">Yes</span>
                             <label class="toggle-switch">
-                                <input type="checkbox" id="insurancePaidToggle">
+                                <input type="checkbox" id="insurancePaidToggle" checked>
                                 <span class="slider-round"></span>
                             </label>
                         </div>
@@ -350,8 +368,14 @@
                             </label>
                         </div>
                         
-                        <div class="severity-bar-container">
-                            <div class="severity-bar-fill" id="severityBar" style="width: 25%;"></div>
+                        <!-- NEW Dual-Layer Architecture for Faint Colored Shadows -->
+                        <div class="severity-wrapper">
+                            <div class="severity-bar-container shadow-layer">
+                                <div class="severity-bar-fill" id="severityBarShadow" style="width: 25%;"></div>
+                            </div>
+                            <div class="severity-bar-container visual-layer">
+                                <div class="severity-bar-fill" id="severityBar" style="width: 25%;"></div>
+                            </div>
                         </div>
                         <div class="disclosure-text">This intensity score adjusts the multiplier for your Pain & Suffering damages.</div>
                     </div>
@@ -408,11 +432,22 @@
 
                     <div class="waterfall-container">
                         <div class="chart-title">Where the money goes:</div>
-                        <div class="stacked-bar-chart">
-                            <div class="bar-segment attorney" style="width: 33%;"><span>Attorney</span></div>
-                            <div class="bar-segment liens" style="width: 20%;"><span>Liens</span></div>
-                            <div class="bar-segment net" style="width: 47%;"><span>Your Net</span></div>
+                        <!-- Dual-Layer Architecture for Perfectly Blended Faint Colored Shadows -->
+                        <div class="chart-wrapper">
+                            <!-- Layer 1: The Faint Shadow Projection -->
+                            <div class="stacked-bar-chart shadow-layer">
+                                <div class="bar-segment attorney" style="width: 33%;"></div>
+                                <div class="bar-segment liens" style="width: 20%;"></div>
+                                <div class="bar-segment net" style="width: 47%;"></div>
+                            </div>
+                            <!-- Layer 2: The Visible Chart -->
+                            <div class="stacked-bar-chart visual-layer">
+                                <div class="bar-segment attorney" style="width: 33%;"><span>Attorney</span></div>
+                                <div class="bar-segment liens" style="width: 20%;"><span>Liens</span></div>
+                                <div class="bar-segment net" style="width: 47%;"><span>Your Net</span></div>
+                            </div>
                         </div>
+
                         <div class="chart-legend">
                             <div class="legend-item"><span class="dot attorney"></span>Attorney</div>
                             <div class="legend-item"><span class="dot liens"></span>Liens</div>
@@ -421,7 +456,9 @@
                     </div>
 
                     <div class="verdict-container" id="verdictCard">
-                        <div class="verdict-icon">⚖️</div>
+                        <div class="verdict-icon">
+                            <!-- SVG Will Inject Here -->
+                        </div>
                         <div class="verdict-text">
                             Serious Injury detected. Insurance adjusters will try to minimize this. Professional representation is recommended.
                         </div>
@@ -457,14 +494,13 @@
 
                         <h3>State-Specific Fault Rules (Comparative vs. Contributory)</h3>
                         <p>Your settlement value is heavily influenced by the laws of the state where the accident occurred.</p>
-                        <div class="info-card">
-                            <h4>Fault Systems Explained</h4>
-                            <ul class="plain-list">
-                                <li><strong>Pure Comparative Fault (e.g., CA, NY, FL):</strong> You can recover damages even if you are 99% at fault, but your payout is reduced by your percentage of fault.</li>
-                                <li><strong>Modified Comparative Fault (e.g., TX, GA):</strong> You can only recover if you are less than 50% or 51% at fault. If you cross this threshold, you get $0.</li>
-                                <li><strong>Contributory Negligence (e.g., AL, VA, NC):</strong> A strict rule where being even 1% at fault can completely bar you from receiving any compensation.</li>
-                            </ul>
-                        </div>
+                        
+                        <h4>Fault Systems Explained</h4>
+                        <ul class="plain-list">
+                            <li><strong>Pure Comparative Fault (e.g., CA, NY, FL):</strong> You can recover damages even if you are 99% at fault, but your payout is reduced by your percentage of fault.</li>
+                            <li><strong>Modified Comparative Fault (e.g., TX, GA):</strong> You can only recover if you are less than 50% or 51% at fault. If you cross this threshold, you get $0.</li>
+                            <li><strong>Contributory Negligence (e.g., AL, VA, NC):</strong> A strict rule where being even 1% at fault can completely bar you from receiving any compensation.</li>
+                        </ul>
                     </div>
 
                     <div class="seo-faq-section">
@@ -475,16 +511,16 @@
                                 <p>Most straightforward injury claims settle within <strong>3 to 9 months</strong> after you have completed your medical treatment. However, cases involving severe injuries, disputed liability, or litigation can take 1 to 3 years to resolve.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>What is a structured settlement?</h4>
-                                <p>Instead of a lump sum, a structured settlement pays out money over a set period of years. This is common in cases involving minors or catastrophic injuries to ensure long-term financial stability and tax benefits.</p>
+                                <h4>What is the average settlement for whiplash or soft tissue injuries?</h4>
+                                <p>Whiplash and soft tissue injuries typically settle between <strong>$2,500 and $10,000</strong> depending on the length of physical therapy and objective medical evidence. Cases with documented life impacts or lost wages can settle higher.</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Will my insurance rates go up?</h4>
-                                <p>If you were not at fault, your rates typically should not increase, though some states allow "not-at-fault" surcharges. If you were at fault, expect a rate increase upon renewal.</p>
+                                <h4>How do adjusters calculate pain and suffering?</h4>
+                                <p>Adjusters commonly use a "Multiplier Method", multiplying your total economic damages (medical bills + lost wages) by a number between <strong>1.5</strong> (minor injuries) and <strong>5</strong> (catastrophic injuries).</p>
                             </div>
                             <div class="faq-item">
-                                <h4>Can I negotiate the adjuster's first offer?</h4>
-                                <p>Yes. The first offer is almost always a "lowball" tactic. You should counter-offer with a higher amount, supported by your medical records and this valuation report.</p>
+                                <h4>What if I was partially at fault for the crash?</h4>
+                                <p>It depends on your state. In "Pure Comparative" states (like CA), you recover your damages minus your fault percentage. In "Modified Comparative" states (like TX), you get nothing if you are 51% or more at fault. In "Contributory" states (like VA), even 1% fault bars any recovery.</p>
                             </div>
                             <div class="faq-item">
                                 <h4>What if the driver is uninsured?</h4>

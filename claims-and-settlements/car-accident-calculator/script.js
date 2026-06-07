@@ -699,50 +699,55 @@ function calculateResults() {
         }
     }
 
-    const barAttorney = document.querySelector('.bar-segment.attorney');
-    const barLiens = document.querySelector('.bar-segment.liens');
-    const barNet = document.querySelector('.bar-segment.net');
+    // UPDATE BARS (Both shadow and visual layers simultaneously)
+    const barsAttorney = document.querySelectorAll('.bar-segment.attorney');
+    const barsLiens = document.querySelectorAll('.bar-segment.liens');
+    const barsNet = document.querySelectorAll('.bar-segment.net');
 
     if (actualGross > 0) {
         const pctAttorney = (attorneyFee / actualGross) * 100;
         const pctLiens = (medicalLien / actualGross) * 100;
         const pctNet = 100 - pctAttorney - pctLiens;
 
-        barAttorney.style.width = pctAttorney + '%';
-        barLiens.style.width = pctLiens + '%';
-        barNet.style.width = pctNet + '%';
+        barsAttorney.forEach(b => b.style.width = pctAttorney + '%');
+        barsLiens.forEach(b => b.style.width = pctLiens + '%');
+        barsNet.forEach(b => b.style.width = pctNet + '%');
         
-        barAttorney.innerHTML = pctAttorney > 5 ? `<span>$${Math.round(attorneyFee/1000)}k</span>` : '';
-        barLiens.innerHTML = pctLiens > 5 ? `<span>$${Math.round(medicalLien/1000)}k</span>` : '';
-        barNet.innerHTML = pctNet > 5 ? `<span>$${Math.round((netRecovery + propDamage)/1000)}k</span>` : '';
+        document.querySelector('.visual-layer .bar-segment.attorney').innerHTML = pctAttorney > 5 ? `<span>$${Math.round(attorneyFee/1000)}k</span>` : '';
+        document.querySelector('.visual-layer .bar-segment.liens').innerHTML = pctLiens > 5 ? `<span>$${Math.round(medicalLien/1000)}k</span>` : '';
+        document.querySelector('.visual-layer .bar-segment.net').innerHTML = pctNet > 5 ? `<span>$${Math.round((netRecovery + propDamage)/1000)}k</span>` : '';
         
     } else {
-        barAttorney.style.width = '0%';
-        barLiens.style.width = '0%';
-        barNet.style.width = '0%';
-        barAttorney.innerHTML = ''; barLiens.innerHTML = ''; barNet.innerHTML = '';
+        barsAttorney.forEach(b => b.style.width = '0%');
+        barsLiens.forEach(b => b.style.width = '0%');
+        barsNet.forEach(b => b.style.width = '0%');
+        
+        document.querySelector('.visual-layer .bar-segment.attorney').innerHTML = ''; 
+        document.querySelector('.visual-layer .bar-segment.liens').innerHTML = ''; 
+        document.querySelector('.visual-layer .bar-segment.net').innerHTML = '';
     }
 
+    // UPDATE VERDICT
     const verdictIcon = document.querySelector('.verdict-icon');
     const verdictText = document.querySelector('.verdict-text');
 
     if (!recoveryAllowed) {
-        verdictIcon.textContent = "🛑";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#E84C3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
         verdictText.innerHTML = `<strong>Recovery Barred:</strong> Under ${stateData.state} law, your level of fault (${userFault}%) prevents you from recovering damages.`;
     } else if (isExpired) {
-        verdictIcon.textContent = "⌛";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#E84C3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14M5 2h14M7 2v3.8c0 .9.4 1.8 1 2.5l3.2 3.7M7 22v-3.8c0-.9.4-1.8 1-2.5l3.2-3.7M17 2v3.8c0 .9-.4 1.8-1 2.5l-3.2 3.7M17 22v-3.8c0-.9-.4-1.8-1-2.5l-3.2-3.7"/></svg>`;
         verdictText.innerHTML = `<strong>Case Expired:</strong> The ${stateData.sol}-year Statute of Limitations for ${stateData.state} has passed.`;
     } else if (monthsRemaining < 6 && monthsRemaining > 0) {
-        verdictIcon.textContent = "⏰";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#EFC50E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3L2 6M19 3l3 3"/></svg>`;
         verdictText.innerHTML = `<strong>URGENT:</strong> You have less than ${monthsRemaining} months to file before the Statute of Limitations expires in ${stateData.state}. Do not delay.`;
     } else if (netRecovery < 5000) {
-        verdictIcon.textContent = "🤝";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#2DCC70" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg>`;
         verdictText.innerHTML = "<strong>Small Claim:</strong> This case may be suitable for direct negotiation. Hiring a lawyer might cost more than the value they add for this amount.";
     } else if (netRecovery > 25000) {
-        verdictIcon.textContent = "⚖️";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#B5855E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 7h18"/><path d="M6 7l-3 7c0 1.5 1.5 2.5 3 2.5s3-1 3-2.5L6 7z"/><path d="M18 7l-3 7c0 1.5 1.5 2.5 3 2.5s3-1 3-2.5L18 7z"/><path d="M9 21h6"/></svg>`;
         verdictText.innerHTML = "<strong>Significant Injury:</strong> Insurance adjusters will try to minimize this claim. Professional legal representation is highly recommended to protect this value.";
     } else {
-        verdictIcon.textContent = "📝";
+        verdictIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#7a7a7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
         verdictText.innerHTML = "<strong>Moderate Claim:</strong> Ensure you have all medical records organized. Evaluate if an attorney's fee (33%) leaves you with enough net recovery.";
     }
 }
@@ -997,11 +1002,14 @@ function initializeCustomDatePicker() {
 /* Visual Feedback & Listeners  */
 /* ============================ */
 
-// Global Function for UpdateSeverity to be callable on Load
+// Global Function for UpdateSeverity with Dual-Layer Shadow Support
 function updateSeverity() {
     const radios = document.querySelectorAll('input[name="severity"]');
     const checkboxes = document.querySelectorAll('input[name="impact"]');
+    
+    // Both visible bar and shadow bar
     const bar = document.getElementById('severityBar');
+    const shadowBar = document.getElementById('severityBarShadow');
 
     let score = 0;
     radios.forEach(r => {
@@ -1017,13 +1025,23 @@ function updateSeverity() {
 
     if(score > 100) score = 100;
     
-    if(bar) {
+    if(bar && shadowBar) {
+        // Vibrant new colors
+        let color = '#2DCC70'; // Green
+        
+        if (score <= 35) color = '#2DCC70';
+        else if (score <= 70) color = '#EFC50E'; // Yellow
+        else color = '#E84C3D'; // Red
+
+        // Update Visual Layer
         bar.style.width = score + '%';
-        if (score <= 35) bar.style.backgroundColor = '#66bb6a';
-        else if (score <= 70) bar.style.backgroundColor = '#ffa726';
-        else bar.style.backgroundColor = '#ef5350';
+        bar.style.backgroundColor = color;
+        
+        // Update Shadow Layer
+        shadowBar.style.width = score + '%';
+        shadowBar.style.backgroundColor = color;
     }
-    // Also trigger calculation whenever severity changes
+    
     calculateResults();
 }
 
