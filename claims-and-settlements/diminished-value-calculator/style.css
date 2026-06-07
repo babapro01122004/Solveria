@@ -157,9 +157,10 @@ body {
 
 .intro-explainer h2 {
     font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300;
     font-size: clamp(2rem, 4vw, 3rem);
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     line-height: 1.1;
 }
 
@@ -458,31 +459,33 @@ body {
 .deep-dive-content {
     width: 100%;
     padding: 0 8vw; 
-    margin-bottom: 60px;
+    margin-top: 12vh; /* Significantly push down from calculator inputs */
+    margin-bottom: 100px; /* Enhanced breathing room */
 }
 
 .content-wrapper {
-    max-width: 900px; 
+    max-width: 1200px; /* Widened to take up more horizontal space */
     margin: 0; 
 }
 
+/* Force un-bold on headers that default to bold */
 .content-article h2, .mt-large {
     font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300; 
     font-size: clamp(2rem, 3.5vw, 3rem); 
     color: #222;
-    margin-bottom: 25px;
-    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-top: 70px;
     line-height: 1.1;
     text-transform: none; 
 }
 
-.content-article h2:first-child { margin-top: 0; }
-
+.content-article > div:first-child h2 { margin-top: 0; }
 .content-article p, .faq-block p, .sg-item p {
     font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
     color: #555;
 }
 
@@ -492,47 +495,75 @@ body {
 .comparison-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 60px; /* Widened gap */
+    margin-bottom: 60px; /* Deeper separation */
 }
 
+/* Un-bold the subheadings and use thin styling */
 .comp-col h3 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-weight: 600;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-weight: 300;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
     color: #000;
 }
 
-.bullet-list { padding-left: 20px; list-style-type: disc; margin-bottom: 20px; }
-.bullet-list li { margin-bottom: 8px; color: #555; }
+.bullet-list { 
+    padding-left: 20px; 
+    list-style-type: disc; 
+    margin-bottom: 30px; 
+}
+
+.bullet-list li { 
+    margin-bottom: 12px; 
+    color: #555; 
+    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
 
 /* State Guide Grid */
 .state-guide-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 40px; /* Widened gap */
+    margin-bottom: 60px;
 }
-.sg-item h4 { font-family: 'ProductSans-Light', sans-serif; font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px; }
+
+/* Un-bold the subheadings and use thin styling */
+.sg-item h4 { 
+    font-family: 'ProductSans-Thin', sans-serif; 
+    font-weight: 300; 
+    font-size: 1.5rem; 
+    color: #333; 
+    margin-bottom: 12px; 
+}
 
 /* FAQ Section */
-.faq-block { margin-bottom: 30px; }
-.faq-block h3 { font-family: 'ProductSans-Light', sans-serif; font-weight: 600; font-size: 1.2rem; color: #333; margin-bottom: 10px; }
+.faq-block { margin-bottom: 40px; }
+
+/* Un-bold the subheadings and use thin styling */
+.faq-block h3 { 
+    font-family: 'ProductSans-Thin', sans-serif; 
+    font-weight: 300; 
+    font-size: 1.6rem; 
+    color: #333; 
+    margin-bottom: 15px; 
+}
 
 .glossary-text { line-height: 2 !important; }
 
 @media (max-width: 990px) {
-    .deep-dive-content { padding: 0 5vw; }
-    .comparison-grid { grid-template-columns: 1fr; gap: 30px; }
+    .deep-dive-content { padding: 0 5vw; margin-top: 8vh; }
+    .comparison-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
 /* Footer: Lowered Brightness & Vignette for Premium Contrast */
 .site-footer {
     position: relative; width: 100%; 
     background-image: 
-        radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.85) 100%), 
-        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+        radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.95) 100%), 
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
         url('../../img/footer.webp');
     background-size: cover; background-position: center; background-repeat: no-repeat;
     color: #ffffff; font-family: 'Roboto', sans-serif; margin-top: auto;
