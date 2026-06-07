@@ -64,22 +64,18 @@ function initializeStates() {
     const wrapper = document.getElementById('stateOptionsWrapper');
     const trigger = document.getElementById('stateTrigger');
 
-    // Clear existing
     selector.innerHTML = '';
     wrapper.innerHTML = '';
 
-    // Sort states alphabetically
     const sortedStates = Object.values(US_STATE_DATA).sort((a, b) => a.name.localeCompare(b.name));
 
     sortedStates.forEach(state => {
-        // 1. Add to hidden select
         const option = document.createElement('option');
         option.value = state.code;
         option.textContent = state.name;
-        if(state.code === "CA") option.selected = true; // Default
+        if(state.code === "CA") option.selected = true; 
         selector.appendChild(option);
 
-        // 2. Add to custom dropdown div
         const divOpt = document.createElement('div');
         divOpt.className = 'dropdown-option';
         if(state.code === "CA") divOpt.classList.add('selected');
@@ -89,7 +85,6 @@ function initializeStates() {
     });
 }
 
-// Severity Slider Visuals
 const severityMap = {
     1: "Level 1: Snap/Air Bite",
     2: "Level 2: Contact (No Puncture)",
@@ -98,16 +93,12 @@ const severityMap = {
     5: "Level 5: Severe/Mauling"
 };
 
-const sliderSeverity = document.getElementById('slider_severity');
-const inputSeverity = document.getElementById('input_severity');
-
 function updateSeverityVisual() {
     const sliderSeverityLocal = document.getElementById('slider_severity');
     const inputSeverityLocal = document.getElementById('input_severity');
     const val = parseInt(sliderSeverityLocal.value);
     inputSeverityLocal.value = severityMap[val];
     
-    // Gradient Update
     const min = 1;
     const max = 5;
     const pct = ((val - min) / (max - min)) * 100;
@@ -120,7 +111,6 @@ function updateSeverityVisual() {
 /* Custom Dropdown Logic        */
 /* ============================ */
 function initializeCustomDropdowns() {
-    // Re-select wrappers now that DOM might have changed
     const wrappers = document.querySelectorAll('.custom-dropdown-container');
     
     wrappers.forEach(wrapper => {
@@ -128,13 +118,11 @@ function initializeCustomDropdowns() {
         const trigger = wrapper.querySelector('.custom-dropdown-trigger');
         const menu = wrapper.querySelector('.custom-dropdown-menu');
         
-        // Initial Sync (Fixes "Garbage Inputs" on Load)
         if(select && trigger) {
              const selectedOption = select.options[select.selectedIndex];
              if(selectedOption) trigger.textContent = selectedOption.text;
         }
         
-        // Event delegation for options (since states are added dynamic)
         menu.addEventListener('click', (e) => {
             const option = e.target.closest('.dropdown-option');
             if(!option) return;
@@ -145,7 +133,6 @@ function initializeCustomDropdowns() {
             
             trigger.textContent = text;
             
-            // Visual selection
             const allOpts = menu.querySelectorAll('.dropdown-option');
             allOpts.forEach(opt => opt.classList.remove('selected'));
             option.classList.add('selected');
@@ -157,7 +144,6 @@ function initializeCustomDropdowns() {
             }
         });
 
-        // Toggle
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             document.querySelectorAll('.custom-dropdown-menu.active').forEach(m => {
@@ -181,7 +167,6 @@ function initializeCustomDropdowns() {
 /* ============================ */
 
 function updateAnalysis() {
-    // 1. Gather Inputs
     const stateCode = document.getElementById('stateSelector').value || "CA";
     const stateInfo = US_STATE_DATA[stateCode];
 
@@ -192,34 +177,26 @@ function updateAnalysis() {
     const isProvoked = document.getElementById('chk_provoked').checked;
     const timeFrame = document.getElementById('timerSelector').value;
 
-    // 2. Risk Calculation (Traffic Light)
     let riskLevel = "green";
     let riskTitle = "Low Risk";
     let riskDesc = "Monitor at home. Wash well.";
 
-    // High Risk Triggers
     if (severity >= 4 || bodyPart === 'face' || severity === 5) {
         riskLevel = "red";
         riskTitle = "High Risk";
         riskDesc = "Urgent medical care recommended. Infection/Scarring risk high.";
-    } 
-    // Medium Risk Triggers
-    else if (severity === 3 || bodyPart === 'hand' || timeFrame === '1w' || timeFrame === '24h') {
+    } else if (severity === 3 || bodyPart === 'hand' || timeFrame === '1w' || timeFrame === '24h') {
         riskLevel = "yellow";
         riskTitle = "Moderate Risk";
         riskDesc = "Infection risk present. Consult a doctor if redness spreads.";
     }
 
-    // Update UI Traffic Light - BORDERLESS GLOW STYLE
     const lightBox = document.getElementById('traffic-light-box');
     lightBox.className = `traffic-light-box ${riskLevel}`;
     document.getElementById('res_riskTitle').textContent = riskTitle;
     document.getElementById('res_riskDesc').textContent = riskDesc;
 
-    // 3. Legal Reality (Law Card) - Using STATE_DATA
     const lawCard = document.getElementById('res_lawCard');
-    
-    // Calculate Statute
     let statuteText = `Statute of Limitations: ${stateInfo.statuteLimitYears} Years.`;
     if (isChild) {
         statuteText = `Statute of Limitations: <strong>Tolled (Paused)</strong> until victim turns 18.`;
@@ -233,13 +210,12 @@ function updateAnalysis() {
         <p style="margin-top:8px; font-size:0.9rem; color:#555;">${statuteText}</p>
     `;
 
-    // 4. Protocol Checklist Logic
     const protocolList = document.getElementById('res_protocol');
-    protocolList.innerHTML = ""; // Clear
+    protocolList.innerHTML = ""; 
     
     const addStep = (text, isAlert = false) => {
         const li = document.createElement('li');
-        li.innerHTML = text; // Allow bold tags
+        li.innerHTML = text; 
         if(isAlert) li.style.color = "#d35400";
         protocolList.appendChild(li);
     };
@@ -254,7 +230,6 @@ function updateAnalysis() {
         addStep("Do NOT stitch wound closed without doctor advice (traps bacteria).");
     }
 
-    // Defense Alert
     const defenseAlert = document.getElementById('defense-alert');
     if (isTrespassing || isProvoked) {
         defenseAlert.textContent = "⚠️ DEFENSE DETECTED: Owner likely not liable due to provocation/trespass.";
@@ -266,7 +241,6 @@ function updateAnalysis() {
         defenseAlert.style.fontWeight = "normal";
     }
 
-    // Child Alert Visuals
     const childAlert = document.getElementById('child-alert');
     if (isChild) {
         childAlert.textContent = `Deadline extended (Age 18 + ${stateInfo.statuteLimitYears} yrs).`;
@@ -276,40 +250,32 @@ function updateAnalysis() {
         childAlert.style.color = "#999";
     }
 
-    // 5. Advanced Calculations (Case Builder)
     updateAdvancedStats(stateInfo, severity, isTrespassing, isProvoked, isChild, bodyPart);
 }
 
 function updateAdvancedStats(stateInfo, severity, isTrespass, isProvoked, isChild, bodyPart) {
-    // Case Strength
     let strength = 50;
     
-    // Legal Boosts (Engine Logic)
     if (stateInfo.liability.includes("strict")) strength += 25;
     if (stateInfo.liability.includes("negligence")) strength -= 10;
     if (stateInfo.collectionRisk === "high") strength -= 10;
     
-    // Evidence/Insurance Boosts
     const ins = document.getElementById('insuranceSelector').value;
     if (ins === 'yes') strength += 20;
     else if (ins === 'no') strength -= 10;
 
     const dogHist = document.getElementById('historySelector').value;
     if (dogHist === 'yes') strength += 15;
-    else if (dogHist === 'no' && stateInfo.liability === 'one-bite') strength -= 30; // Critical hit for one-bite states
+    else if (dogHist === 'no' && stateInfo.liability === 'one-bite') strength -= 30; 
 
-    // Detractors
     if (isTrespass || isProvoked) strength -= 50;
     
-    // Cap
     if (strength > 100) strength = 100;
     if (strength < 0) strength = 0;
 
-    // Visuals with COLORFUL SHADOWS
     const strengthFill = document.getElementById('strength-fill');
     strengthFill.style.width = `${strength}%`;
     
-    // Color & Shadow Logic
     let strengthLabel = "Medium Strength";
     if (strength < 40) { 
         strengthFill.style.backgroundColor = "#e74c3c"; 
@@ -326,14 +292,12 @@ function updateAdvancedStats(stateInfo, severity, isTrespass, isProvoked, isChil
     }
     document.getElementById('strength-text').textContent = strengthLabel;
     
-    // Dynamic Strength Reason
     let reason = "Based on liability laws.";
     if(stateInfo.liability === 'strict') reason = `${stateInfo.name} is a Strict Liability state (easier to prove).`;
     if(stateInfo.liability === 'one-bite' && dogHist !== 'yes') reason = `Hard to prove in ${stateInfo.name} without prior bite history.`;
     if(isTrespass) reason = "Trespassing significantly weakens the claim.";
     document.getElementById('strength-reason').textContent = reason;
 
-    // Readiness Score
     const evidenceChecks = document.querySelectorAll('.evidence-trigger:checked');
     const totalEvidence = document.querySelectorAll('.evidence-trigger').length;
     const readinessPct = Math.round((evidenceChecks.length / totalEvidence) * 100);
@@ -345,7 +309,6 @@ function updateAdvancedStats(stateInfo, severity, isTrespass, isProvoked, isChil
 
     document.getElementById('readiness-text').textContent = `${readinessPct}% Prepared`;
 
-    // Timeline
     const scarFace = document.getElementById('dmg_scar_face').checked;
     const timeline = document.getElementById('res_timeline');
     
@@ -360,7 +323,6 @@ function updateAdvancedStats(stateInfo, severity, isTrespass, isProvoked, isChil
         timeline.style.color = "#333";
     }
 
-    // Buckets
     const buckets = ["Medical Bills"];
     const work = document.getElementById('workSelector').value;
     if (work !== 'none') buckets.push("Lost Wages");
@@ -418,7 +380,6 @@ function initializeAdvancedToggle() {
 
     btn.addEventListener('click', () => {
         isAdvanced = !isAdvanced;
-        // Store state in attribute for easy retrieval
         btn.setAttribute('data-mode', isAdvanced ? "advanced" : "basic");
         btn.textContent = isAdvanced ? "Switch to Basic" : "Switch to Case Builder";
 
@@ -426,11 +387,10 @@ function initializeAdvancedToggle() {
         const loader = document.getElementById('loading-bar-container');
 
         if (isAdvanced) {
-            // Show Loader momentarily
             loader.classList.remove('hidden');
             setTimeout(() => {
                 loader.classList.add('hidden');
-            }, 800); // Faster loader
+            }, 800); 
 
             advancedElements.forEach(el => el.classList.remove('hidden'));
         } else {
@@ -440,12 +400,28 @@ function initializeAdvancedToggle() {
 }
 
 /* ============================ */
+/* Scroll Animation Logic       */
+/* ============================ */
+function initScrollAnimations() {
+    const elements = document.querySelectorAll('.reveal-blur');
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+    
+    elements.forEach(el => observer.observe(el));
+}
+
+/* ============================ */
 /* UNIVERSAL PRINT & PDF        */
 /* ============================ */
 const ToolFeatures = {
     isTutorialUnlocked: false,
 
-    /* 1. CONFIGURATION */
     PERSIST_MAP: {
         'state': { id: 'stateSelector', type: 'select' },
         'time': { id: 'timerSelector', type: 'select' },
@@ -458,12 +434,10 @@ const ToolFeatures = {
         'work': { id: 'workSelector', type: 'select' },
         'hist': { id: 'historySelector', type: 'select' },
         'ins': { id: 'insuranceSelector', type: 'select' },
-        // Advanced checkboxes
         'scarb': { id: 'dmg_scar_body', type: 'checkbox' },
         'scarf': { id: 'dmg_scar_face', type: 'checkbox' },
         'nerve': { id: 'dmg_nerve', type: 'checkbox' },
         'ptsd': { id: 'dmg_ptsd', type: 'checkbox' },
-        // Evidence checkboxes
         'evph': { id: 'ev_photos', type: 'checkbox' },
         'evdg': { id: 'ev_dog', type: 'checkbox' },
         'evwt': { id: 'ev_witness', type: 'checkbox' },
@@ -471,11 +445,9 @@ const ToolFeatures = {
         'evbl': { id: 'ev_bills', type: 'checkbox' }
     },
 
-    /* 2. STATE PERSISTENCE */
     restoreState() {
         const params = new URLSearchParams(window.location.search);
         
-        // 1. Restore Values
         for (const [key, config] of Object.entries(this.PERSIST_MAP)) {
             if (params.has(key)) {
                 const el = document.getElementById(config.id);
@@ -491,7 +463,6 @@ const ToolFeatures = {
             }
         }
 
-        // 2. Restore Visuals
         if(params.has('sev')) {
              updateSeverityVisual();
         }
@@ -504,26 +475,21 @@ const ToolFeatures = {
             }
         });
 
-        // 3. Restore Mode
         if(params.get('mode') === 'adv') {
             document.getElementById('advanced-toggle').click();
         }
     },
 
-    /* 3. PRINT GENERATION */
     preparePrintData() {
         const printContainer = document.getElementById('print-content-injection');
         const printTitle = document.getElementById('print-doc-title');
         
-        // --- 1. SET HEADER & METADATA ---
         printTitle.textContent = "DOG BITE INCIDENT ANALYSIS REPORT";
         const todayDate = new Date().toLocaleDateString();
         
-        // --- 2. DATA EXTRACTION ---
         const stateCode = document.getElementById('stateSelector').value;
         const stateInfo = US_STATE_DATA[stateCode];
         
-        // Inputs
         const timeLapseText = document.querySelector('#timerSelector option:checked').text;
         const severityText = document.getElementById('input_severity').value;
         const victimText = document.querySelector('#victimSelector option:checked').text;
@@ -531,18 +497,15 @@ const ToolFeatures = {
         const isTrespass = document.getElementById('chk_trespass').checked ? "Yes" : "No";
         const isProvoked = document.getElementById('chk_provoked').checked ? "Yes" : "No";
         
-        // Metrics
         const dogHist = document.querySelector('#historySelector option:checked').text;
         const insStatus = document.querySelector('#insuranceSelector option:checked').text;
         const medCost = document.querySelector('#medCostSelector option:checked').text;
         const workImpact = document.querySelector('#workSelector option:checked').text;
         
-        // Calculations
         const timeline = document.getElementById('res_timeline').textContent;
         const buckets = document.getElementById('res_buckets').textContent;
         const readiness = document.getElementById('readiness-text').textContent;
 
-        // Evidence Logic
         const evMap = {
             'ev_photos': 'Photos of Injury',
             'ev_dog': 'Photos of Offending Dog',
@@ -562,15 +525,11 @@ const ToolFeatures = {
             }
         }
 
-        // Triage Note Logic
         let triageNote = "Face and hand injuries generally carry higher legal weight.";
         const timeVal = document.getElementById('timerSelector').value;
         if(timeVal === '24h' || timeVal === '1h' || timeVal === '1w') {
             triageNote += " Because the injury occurred recently, there is an infection risk. Do NOT stitch the wound closed without direct doctor advice, as this can trap bacteria.";
         }
-
-        // --- 3. BUILD HTML (DOUBLE LINE / MINIMALIST / ROBOTO) ---
-        // Header Wrapper is moved to CSS.
         
         let html = `
             <div class="print-meta-grid">
@@ -667,9 +626,13 @@ const ToolFeatures = {
         printContainer.innerHTML = html;
     },
 
-    /* 4. TUTORIAL & MODAL LOGIC */
     closeTutorialModal() {
-        document.getElementById('pdf-tutorial-overlay').classList.remove('active');
+        const modal = document.getElementById('pdf-tutorial-overlay');
+        modal.classList.remove('active');
+        // Hide from layout strictly after animation completes
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
     },
 
     handleTutorialProceed() {
@@ -681,6 +644,10 @@ const ToolFeatures = {
         const modal = document.getElementById('pdf-tutorial-overlay');
         const proceedBtn = document.getElementById('btn-proceed');
         
+        // Remove strict hide & force layout calculation before triggering transition
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+
         if (this.isTutorialUnlocked) {
             this.preparePrintData();
             modal.classList.add('active');
@@ -723,7 +690,6 @@ const ToolFeatures = {
         const modal = document.getElementById('pdf-tutorial-overlay');
         if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) this.closeTutorialModal(); });
         
-        // Restore
         this.restoreState();
     }
 };
@@ -732,34 +698,26 @@ const ToolFeatures = {
 /* Main Initialization Wrapper  */
 /* ============================ */
 function initApp() {
-    // 1. Populate States
     initializeStates();
-    
-    // 2. Init Dropdown Logic
     initializeCustomDropdowns();
-    
-    // 3. Init Toggles
     initializeAdvancedToggle();
     
-    // 4. Init Slider Visuals
     const sliderSev = document.getElementById('slider_severity');
     if(sliderSev) {
         sliderSev.addEventListener('input', updateSeverityVisual);
         updateSeverityVisual();
     }
     
-    // 5. Attach listeners to all inputs to trigger updates
     const triggers = document.querySelectorAll('select, input, .calc-trigger, .evidence-trigger');
     triggers.forEach(el => el.addEventListener('change', updateAnalysis));
     
-    // 6. Initial Calculation
     updateAnalysis();
-
-    // 7. Init Print/PDF Features
     ToolFeatures.init();
+
+    // Init scroll observer after all elements are loaded
+    initScrollAnimations();
 }
 
-// Ensure correct execution if dynamically loaded via lazy interaction
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
 } else {

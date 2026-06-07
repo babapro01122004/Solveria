@@ -31,84 +31,22 @@ body {
 }
 
 /* ============================ */
-/* Hero Section                 */
+/* FADE & BLUR SCROLL ANIMATION */
 /* ============================ */
-.hero-section {
-    width: 100%;
-    height: 40vh;
-    background-image: url('../../img/Refinance_Hero.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2vh;
-    overflow: hidden; 
-}
-
-.hero-nav { 
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    gap: 3vh;
-    z-index: 10; 
-    margin-top: 1vh;
-}
-
-.hero-nav a { 
-    color: #cacaca; 
-    text-decoration: none; 
-    font-size: 0.95rem;
-    font-family: 'ProductSans-Light', sans-serif;
-    font-weight: 300; 
-    transition: color .3s ease; 
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    white-space: nowrap; 
-}
-
-.hero-nav a:hover { 
-    color: #fff; 
-}
-
-.hero-logo {
-    height: 15vh;
-    width: auto;
-    display: block;
-    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
-}
-
-.hero-section h1 {
-    color: #ffffff;
-    font-family: 'ProductSans-Light', sans-serif;
-    font-weight: 300;
-    font-size: 7vmin;
-    white-space: nowrap;
-    text-align: center;
-    line-height: 1.1;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    margin: 0;
-    max-width: 95%;
-}
-
-.breathing-text {
-    color: #e0e0e0;
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 2vmin;
-    text-align: center;
-    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-    min-height: 1.5em;
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
-    margin: 0;
-    padding: 0 10px;
-}
-
-.breathing-text.fade-out {
+.reveal-blur {
     opacity: 0;
+    filter: blur(12px);
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, filter, transform;
+}
+
+.reveal-blur.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
 }
 
 /* ============================ */
@@ -120,7 +58,8 @@ body {
     justify-content: flex-start; 
     align-items: center;
     gap: 10px;
-    margin-top: 2vh;
+    margin-top: 3vh;
+    margin-bottom: 5vh; 
     padding: 0 8vw;
     font-family: 'ProductSans-Light', sans-serif;
     font-weight: 300;
@@ -153,7 +92,7 @@ body {
 .calculator-container {
     width: 100%;
     padding: 0 8vw;
-    margin-top: 2vh;
+    margin-top: 0; 
     margin-bottom: 8vh;
     display: flex;
     justify-content: space-between;
@@ -166,17 +105,19 @@ body {
 /* INTRO QUESTION: Seamless Integration */
 .intro-question-block {
     width: 100%;
-    margin-bottom: 0px; 
-    margin-top: 5px;    
+    margin-bottom: 40px; /* Brought closer to Inputs */
+    margin-top: 20px;    /* Balanced space below breadcrumb */
     border-left: none;  
     padding-left: 0;
 }
 .intro-question-block h2 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 2.2rem;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem); 
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 .intro-question-block p {
     font-family: 'ProductSans-Light', sans-serif;
@@ -198,7 +139,7 @@ body {
 /* Right Section (Results) - Sticky Sidebar */
 .right-section {
     flex: 1;
-    position: -webkit-sticky; /* For Safari */
+    position: -webkit-sticky; 
     position: sticky;
     top: 30px;
     height: fit-content;
@@ -249,11 +190,11 @@ body {
 /* ============================ */
 .seo-content-section {
     width: 100%;
-    padding: 0 8vw 50px 8vw; 
+    padding: 40px 8vw 80px 8vw; 
     background-color: transparent; 
     border-top: none; 
     font-family: 'ProductSans-Light', sans-serif;
-    margin-top: -30px; 
+    margin-top: 40px; 
 }
 
 .seo-content-section h2 {
@@ -265,24 +206,25 @@ body {
 }
 
 .seo-block {
-    margin-bottom: 40px;
-    max-width: 900px;
+    margin-bottom: 60px;
+    max-width: 1200px;
 }
 
 .seo-block h3 {
-    font-family: 'ProductSans-Light', sans-serif;
-    font-size: 1.5rem;
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 2.5rem;
     color: #333;
-    margin-bottom: 10px;
-    font-weight: 500;
+    margin-bottom: 15px;
+    font-weight: 300;
 }
 
 .seo-block p {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: #555;
-    line-height: 1.7;
-    margin-bottom: 15px;
+    line-height: 1.8;
+    margin-bottom: 20px;
 }
+
 .seo-block a {
     color: #B5855E;
     text-decoration: none;
@@ -293,18 +235,26 @@ body {
     border-bottom: 1px solid #B5855E;
 }
 
-.faq-item {
+.faq-section-title {
+    margin-top: 80px; 
+    font-family: 'ProductSans-Thin', sans-serif;
+    font-size: 2.5rem;
+    color: #333;
     margin-bottom: 25px;
-    border-bottom: 1px solid rgba(0,0,0,0.05); 
-    padding-bottom: 20px;
+    font-weight: 300;
+}
+
+.faq-item {
+    margin-bottom: 40px;
+    padding-bottom: 10px; 
 }
 
 .faq-item h4 {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin-bottom: 8px;
-    font-weight: 600;
-    font-family: 'ProductSans-Light', sans-serif;
+    font-size: 1.8rem;
+    color: #333; /* Changed from blueish to plain black */
+    margin-bottom: 12px;
+    font-weight: 300;
+    font-family: 'ProductSans-Thin', sans-serif;
 }
 
 /* ============================ */
@@ -837,6 +787,7 @@ body {
     .result-sub-heading { font-size: 1.6rem; }
     .advanced-content { grid-column: span 1; }
 }
+
 /* ============================ */
 /* NEW ROBOTO FONTS FOR FOOTER  */
 /* ============================ */
@@ -893,8 +844,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Vignette overlay: Fully transparent at center, dark solid edges */
-    background: radial-gradient(ellipse at center, rgba(30, 25, 20, 0.4) 0%, rgba(30, 25, 20, 0.95) 100%);
+    /* Pure black vignette & brightness reduction */
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background-color: rgba(0, 0, 0, 0.45); 
     z-index: 1;
 }
 
@@ -1089,9 +1041,10 @@ body {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: radial-gradient(circle, rgba(255,255,255,0.7) 10%, rgba(0,0,0,0.15) 100%);
     backdrop-filter: blur(8px); z-index: 9999; 
-    display: flex; justify-content: center; align-items: center;
+    align-items: center; justify-content: center;
     opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
 }
+
 .tutorial-overlay.active { opacity: 1; visibility: visible; }
 
 .tutorial-card {
