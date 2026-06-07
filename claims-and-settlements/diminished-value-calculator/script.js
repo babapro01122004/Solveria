@@ -339,6 +339,29 @@ function initializeTooltips() {
 }
 
 /* ============================ */
+/* Scroll Observer (Blur Reveal)*/
+/* ============================ */
+function initScrollObserver() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-blur');
+    revealElements.forEach(el => observer.observe(el));
+}
+
+/* ============================ */
 /* Calculation Engine           */
 /* ============================ */
 function calculateResults() {
@@ -720,14 +743,44 @@ const ToolFeatures = {
 /* ============================ */
 let appInitialized = false;
 
+function loadDeferredImages() {
+    // 1. Hero Background
+    const hero = document.getElementById('main-hero');
+    if (hero) hero.style.backgroundImage = "url('../../img/Refinance_Hero.webp')";
+    
+    // 2. Hero Logo
+    const heroLogo = document.getElementById('deferred-logo');
+    if (heroLogo && heroLogo.dataset.src) {
+        heroLogo.src = heroLogo.dataset.src;
+        heroLogo.onload = () => heroLogo.classList.add('loaded');
+        heroLogo.removeAttribute('data-src');
+    }
+
+    // 3. Lazy Images inside template
+    document.querySelectorAll('.lazy-mode-img').forEach(img => {
+        if (img.dataset.lazySrc) {
+            img.src = img.dataset.lazySrc;
+            img.onload = () => img.classList.add('loaded');
+            img.removeAttribute('data-lazy-src');
+        }
+    });
+}
+
 function bootstrapApp() {
     if (appInitialized) return;
     appInitialized = true;
 
+    // Load Heavy Assets
+    loadDeferredImages();
+
+    // Mount DOM
     const mount = document.getElementById('interaction-mount');
     const template = document.getElementById('deferred-content');
     if (mount && template) {
         mount.appendChild(template.content.cloneNode(true));
+        
+        // We run a secondary pass for any images inside the template that didn't get caught
+        setTimeout(loadDeferredImages, 50);
     }
 
     initializeSliders();
@@ -739,12 +792,18 @@ function bootstrapApp() {
     initializeCopyButton();
     calculateResults();
     ToolFeatures.init();
+
+    // Initialize Scroll Animations
+    initScrollObserver();
 }
 
 const interactionEvents = ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'];
 interactionEvents.forEach(evt => {
     window.addEventListener(evt, bootstrapApp, { once: true, passive: true });
 });
+
+// CRITICAL 3.5s FAILSAFE for automated testers & inactive users
+setTimeout(bootstrapApp, 3500);
 
 if (window.location.search.length > 0) {
     bootstrapApp();
