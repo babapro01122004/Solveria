@@ -1454,6 +1454,23 @@ function initApp() {
     // Initial Calc & Visual Update (Fix for "Garbage" Inputs)
     updateSeverity();
     calculateResults();
+    initScrollReveal();
+}
+
+/* ============================ */
+/* Scroll Reveal Initialization */
+/* ============================ */
+function initScrollReveal() {
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 }
 
 // Ensures init runs properly whether natively loaded or injected via JS

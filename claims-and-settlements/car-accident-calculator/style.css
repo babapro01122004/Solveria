@@ -56,10 +56,7 @@ body {
 .hero-section {
     width: 100%;
     height: 40vh; 
-    background-image: url('../../img/Refinance_Hero.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #222; /* Base color prevents invisible white text before image loading */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -129,6 +126,25 @@ body {
 
 .breathing-text.fade-out {
     opacity: 0;
+}
+
+/* ============================ */
+/* Scroll Reveal Animations     */
+/* ============================ */
+.reveal-on-scroll {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, filter, transform;
+}
+
+.reveal-on-scroll.reveal-active {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
 }
 
 /* ============================ */
@@ -1640,14 +1656,23 @@ input:checked + .slider-round:before {
 .site-footer {
     position: relative;
     width: 100%;
+    background-color: #000;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin-top: auto;
+}
+
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
     /* Ensure this path points to your image correctly */
     background-image: url('../../img/footer.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
-    margin-top: auto;
+    filter: brightness(0.65); /* Lower brightness to make it look premium */
+    z-index: 0;
 }
 
 .footer-overlay {
@@ -1656,8 +1681,8 @@ input:checked + .slider-round:before {
     left: 0;
     width: 100%;
     height: 100%;
-    /* BEAUTIFUL VIGNETTE EFFECT OVERLAY */
-    background: radial-gradient(circle at center, rgba(30, 25, 20, 0.3) 0%, rgba(30, 25, 20, 0.85) 60%, rgba(30, 25, 20, 1) 100%);
+    /* Pure Black Vignette */
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.95) 100%);
     z-index: 1;
 }
 
