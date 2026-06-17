@@ -1,134 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+  
+  <!-- Core Root & Hubs (Highest Priority) -->
   <url>
     <loc>https://solveria.org/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>1.00</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://solveria.org/about/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.60</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/support/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.50</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/contact-us/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.50</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/privacy-policy/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.30</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/terms-of-use/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.30</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-
   <url>
     <loc>https://solveria.org/calculators/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.90</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.90</priority>
-    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/unpaid-wages-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.90</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/car-accident-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/diminished-value-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/dog-bite-impact-checker/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/lemon-law-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://solveria.org/claims-and-settlements/motorcycle-accident-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
+  <!-- Financial Engine Ecosystem (High Priority) -->
   <url>
     <loc>https://solveria.org/finance/credit-card-payoff-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/real-estate-investor-suite-BRRRR/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/home-affordability-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/mortgage-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/rent-vs-buy-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://solveria.org/finance/income-tax-calculator/</loc>
-    <lastmod>2026-03-05</lastmod>
-    <priority>0.80</priority>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
+  <!-- Legal & Settlement Ecosystem (High Priority) -->
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/car-accident-calculator/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/diminished-value-calculator/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/dog-bite-impact-checker/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/lemon-law-calculator/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/motorcycle-accident-calculator/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/claims-and-settlements/unpaid-wages-calculator/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Authority & Trust Pages (Standard Priority) -->
+  <url>
+    <loc>https://solveria.org/about/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/contact-us/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/editorial-standards/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/support/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/privacy-policy/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://solveria.org/terms-of-use/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

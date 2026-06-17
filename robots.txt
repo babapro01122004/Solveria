@@ -1,15 +1,27 @@
 User-agent: *
-Allow: /
 
-# Block dead ends and error pages
+# Block internal templates, licensing, and deployment environments
+Disallow: /deployment/
+Disallow: /licensing/
+Disallow: /template/
+Disallow: /template v1 [WITH Liquid Glass]/
+Disallow: /template v2 [WITHOUT Liquid Glass]/
+Disallow: /template v3/
+Disallow: /template%20v1%20%5BWITH%20Liquid%20Glass%5D/
+Disallow: /template%20v2%20%5BWITHOUT%20Liquid%20Glass%5D/
+Disallow: /template%20v3/
+
+# Block error pages from being indexed
 Disallow: /404.html
-Disallow: /coming-soon/
 
-# Block backend configurations and raw utility files
-Disallow: /CNAME
-Disallow: /site.webmanifest
-Disallow: /robots.txt
-Disallow: /*.md$
+# Explicitly allow core assets so search engines can properly run and render your calculators
+Allow: /img/
+Allow: /fonts/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.ico
+Allow: /*.webmanifest
 
-# Direct link to the new prioritized sitemap
+# Link to the exact sitemap location
 Sitemap: https://solveria.org/sitemap.xml
