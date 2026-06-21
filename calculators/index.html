@@ -888,6 +888,10 @@
         ['scroll', 'mousemove', 'touchstart', 'keydown', 'click', 'wheel'].forEach(evt => {
             window.addEventListener(evt, loadDeferredAssets, { once: true, passive: true });
         });
+
+        // Fallback: Ensure assets load for passive mobile users who do not interact immediately (0.7s delay).
+        // This allows initial page rendering to settle for top-tier Lighthouse scores while rescuing the UX.
+        setTimeout(loadDeferredAssets, 700);
     </script>
 
 </body>
